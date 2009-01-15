@@ -1,7 +1,8 @@
 "=============================================================================
-" FILE: syntax/vimshell.vim
-" AUTHOR: Shougo Matsushita <Shougo.Matsu@gmail.com>(Modified)
-" Last Modified: 27 Dec 2008
+" FILE: vimshell.vim
+" AUTHOR: Janakiraman .S <prince@india.ti.com>(Original)
+"         Shougo Matsushita <Shougo.Matsu@gmail.com>(Modified)
+" Last Modified: 15 Jan 2009
 " Usage: Just source this file.
 "        source vimshell.vim
 " License: MIT license  {{{
@@ -24,7 +25,6 @@
 "     TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 "     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 " }}}
-<<<<<<< .merge_file_a01688
 " Version: 3.1, for Vim 7.0
 "-----------------------------------------------------------------------------
 " ChangeLog: "{{{
@@ -66,9 +66,6 @@
 "   1.0:
 "     - Initial version.
 ""}}}
-=======
-" Version: 2.4, for Vim 7.0
->>>>>>> .merge_file_a02760
 "-----------------------------------------------------------------------------
 " TODO: "{{{
 "     - Nothing.
@@ -78,13 +75,10 @@
 ""}}}
 "=============================================================================
 
-if version < 700
-  syntax clear
-elseif exists("b:current_syntax")
+if exists('g:loaded_vimshell') || v:version < 700
   finish
 endif
 
-<<<<<<< .merge_file_a01688
 " Plugin keymapping
 nnoremap <silent> <Plug>(vimshell_init)  :<C-u>call <SID>VimShell_InitShell()<CR>
 nnoremap <silent> <Plug>(vimshell_enter)  :<C-u>call <SID>VimShell_ProcessEnter()<CR>
@@ -375,48 +369,23 @@ if !exists('g:VimShell_Prompt')
 endif
 if !exists('g:VimShell_HistoryPath')
     let g:VimShell_HistoryPath = $HOME.'/.vimshell_hist'
-=======
-execute 'syn match VimShellPrompt ' . "'".g:VimShell_Prompt."'"
-syn region   VimShellString   start=+'+ end=+'+ contained
-syn region   VimShellString   start=+"+ end=+"+ contains=VimShellQuoted
-syn region   VimShellString   start=+`+ end=+`+ contained
-syn match   VimShellConstants         '\(^\|\s\)[[:digit:]]\+\(\s\|$\)\(\s*[[:digit:]]\+\)*'
-syn match   VimShellExe               '\(^\|\s\)[._[:alnum:]][-._[:alnum:]]\+\*'
-syn match   VimShellSocket            '\(^\|\s\)[._[:alnum:]][-._[:alnum:]]\+='
-syn match   VimShellArguments         '-\=-[-[:alnum:]]\+=\=' contained
-syn match   VimShellQuoted            '\\.' contained
-syn match   VimShellSpecial           '[|<>&]' contained
-syn match   VimShellVariable          '$[$[:alnum:]]\+' contained
-if has('win32') || ('win64')
-    syn match   VimShellDirectory         '\(\.\|\w\)*\f[/\\]\f*'
-    syn match   VimShellArguments         '/[?[:alnum:]]\+' contained
-    syn match   VimShellLink              '\([-._[:alnum:]]\+\.lnk\)'
-else
-    syn match   VimShellDirectory         '/\=\(\.\|\w\)*\f/\f*'
-    syn match   VimShellLink              '\(^\|\s\)[._[:alnum:]][-._[:alnum:]]\+@'
->>>>>>> .merge_file_a02760
 endif
-execute "syn region   VimShellExe start='" . g:VimShell_Prompt . "\\s*\\(\\h\\w*\\)\\=' end='\\s\\|\\n' contained contains=VimShellPrompt"
-syn match VimShellExe '|\s*\w\+' contained contains=VimShellSpecial
-execute "syn region   VimShellLine start='" . g:VimShell_Prompt ."' end='$' keepend contains=VimShellExe,VimShellDirectory,VimShellConstants,VimShellArguments, VimShellQuoted,VimShellString,VimShellVariable,VimShellSpecial"
-
-if has('gui')
-    hi ShellPrompt  gui=UNDERLINE guifg=#80ffff guibg=NONE
-else
-    hi def link ShellPrompt Comment
+if !exists('g:VimShell_HistoryMaxSize')
+    let g:VimShell_HistoryMaxSize = 1000
 endif
+if !exists('g:VimShell_IgnoreCase')
+    let g:VimShell_IgnoreCase = 1
+endif
+if !exists('g:VimShell_MaxHistoryWidth')
+    let g:VimShell_MaxHistoryWidth = 40
+endif
+if !exists('g:VimShell_QuickMatchEnable')
+    let g:VimShell_QuickMatchEnable = 1
+endif
+if !exists('g:VimShell_QuickMatchMaxLists')
+    let g:VimShell_QuickMatchMaxLists = 40
+endif
+"}}}
 
-hi def link VimShellPrompt ShellPrompt
-hi def link VimShellQuoted Special
-hi def link VimShellString Constant
-hi def link VimShellArguments Type
-hi def link VimShellConstants Constant
-hi def link VimShellSpecial PreProc
-hi def link VimShellVariable Comment
-hi def link VimShellNormal Normal
-hi def link VimShellExe Statement
-hi def link VimShellDirectory Preproc
-hi def link VimShellSocket Constant
-hi def link VimShellLink Comment
 
-let b:current_syntax = "vimshell"
+let g:loaded_vimshell = 1
