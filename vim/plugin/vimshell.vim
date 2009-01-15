@@ -25,9 +25,12 @@
 "     TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 "     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 " }}}
-" Version: 3.0, for Vim 7.0
+" Version: 3.1, for Vim 7.0
 "-----------------------------------------------------------------------------
 " ChangeLog: "{{{
+"   3.1:
+"     - Fixed ATOK X3 is ON  when startinsert.
+"     - Silent message if exit code isn't 0.
 "   3.0:
 "     - Do startinsert! after command executed.
 "     - Added g:VimShell_QuickMatchMaxLists option.
@@ -119,6 +122,7 @@ function! s:VimShell_InitShell()"{{{
 
             " Enter insert mode.
             startinsert!
+            set iminsert=0 imsearch=0
         endif
     endif
 
@@ -201,15 +205,15 @@ function! s:VimShell_ProcessEnter()"{{{
         let l:words = split(l:line)
         if len(l:words) == 1
             if has('win32')
-                execute 'read! ls .'
+                execute 'silent read! ls .'
             else
-                execute 'read! ls -FC'
+                execute 'silent read! ls -FC'
             endif
         else
-            execute 'read! ' . l:line
+            execute 'silent read! ' . l:line
         endif
     elseif l:line =~ '\w'
-        execute 'read! ' . l:line
+        execute 'silent read! ' . l:line
     endif
 
     if line('.') == line('$')
@@ -224,6 +228,7 @@ function! s:VimShell_ProcessEnter()"{{{
 
     " Enter insert mode.
     startinsert!
+    set iminsert=0 imsearch=0
 endfunction"}}}
 
 function! g:VimShell_HistoryComplete(findstart, base)"{{{
