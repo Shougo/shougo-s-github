@@ -2,7 +2,7 @@
 " FILE: vimshell.vim
 " AUTHOR: Janakiraman .S <prince@india.ti.com>(Original)
 "         Shougo Matsushita <Shougo.Matsu@gmail.com>(Modified)
-" Last Modified: 14 Jan 2009
+" Last Modified: 15 Jan 2009
 " Usage: Just source this file.
 "        source vimshell.vim
 " License: MIT license  {{{
@@ -25,9 +25,14 @@
 "     TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 "     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 " }}}
-" Version: 2.9, for Vim 7.0
+" Version: 3.0, for Vim 7.0
 "-----------------------------------------------------------------------------
 " ChangeLog: "{{{
+"   3.0:
+"     - Do startinsert! after command executed.
+"     - Added g:VimShell_QuickMatchMaxLists option.
+"     - Added g:VimShell_QuickMatchEnable option.
+"     - Implemented two digits quick match.
 "   2.9:
 "     - Trial implemented highlight escape sequence.
 "     - Fixed history bug.
@@ -110,6 +115,10 @@ function! s:VimShell_InitShell()"{{{
             let s:hist_size = getfsize(g:VimShell_HistoryPath)
 
             let s:prev_numbered_list = []
+            let s:prepre_numbered_list = []
+
+            " Enter insert mode.
+            startinsert!
         endif
     endif
 
@@ -212,6 +221,9 @@ function! s:VimShell_ProcessEnter()"{{{
     call s:VimShell_HighlightEscapeSequence()
 
     call s:VimShell_PrintPrompt()
+
+    " Enter insert mode.
+    startinsert!
 endfunction"}}}
 
 function! g:VimShell_HistoryComplete(findstart, base)"{{{
@@ -243,55 +255,58 @@ function! g:VimShell_HistoryComplete(findstart, base)"{{{
     " Restore options.
     let &l:ignorecase = l:ignorecase_save
 
-    " Append numbered list.
-    let l:match_str = matchstr(l:cur_keyword_str, '\d$')
-    if !empty(l:match_str)
-        " Get numbered list.
-        let l:numbered = get(s:prev_numbered_list, str2nr(l:match_str)-1)
-        if type(l:numbered) == type({})
-            call insert(l:complete_words, l:numbered)
+    if g:VimShell_QuickMatchEnable
+        " Append numbered list.
+        if match(l:cur_keyword_str, '\d$') >= 0
+            " Get numbered list.
+            let l:numbered = get(s:prev_numbered_list, str2nr(matchstr(l:cur_keyword_str, '\d$')))
+            if type(l:numbered) == type({})
+                call insert(l:complete_words, l:numbered)
+            endif
+
+            " Get next numbered list.
+            if match(l:cur_keyword_str, '\d\d$') >= 0
+                unlet l:numbered
+                let l:numbered = get(s:prepre_numbered_list, str2nr(matchstr(l:cur_keyword_str, '\d\d$'))-10)
+                if type(l:numbered) == type({})
+                    call insert(l:complete_words, l:numbered)
+                endif
+            endif
         endif
-    endif
 
-    " Check dup.
-    let l:dup_check = {}
-    let l:num = 0
-    let l:numbered_words = []
-    for history in l:complete_words[0:14]
-        if !empty(history.word) && !has_key(l:dup_check, history.word)
-            let l:dup_check[history.word] = 1
+        " Check dup.
+        let l:dup_check = {}
+        let l:num = 0
+        let l:numbered_words = []
+        for history in l:complete_words[:g:VimShell_QuickMatchMaxLists]
+            if !empty(history.word) && !has_key(l:dup_check, history.word)
+                let l:dup_check[history.word] = 1
 
-            call add(l:numbered_words, history)
-        endif
-        let l:num += 1
-    endfor
+                call add(l:numbered_words, history)
+            endif
+            let l:num += 1
+        endfor
 
-    " Add number.
-    let l:num = 0
-    let l:abbr_pattern_d = '%d: %.' . g:VimShell_MaxHistoryWidth . 's'
-    let l:abbr_pattern_n = '   %.' . g:VimShell_MaxHistoryWidth . 's'
-    for history in l:numbered_words
-        if l:num == 0
-            let history.abbr = printf('*: %.' . g:VimShell_MaxHistoryWidth . 's', history.word)
-        elseif l:num == 10
-            let history.abbr = printf('0: %.' . g:VimShell_MaxHistoryWidth . 's', history.word)
-        elseif l:num < 10
+        " Add number.
+        let l:num = 0
+        let l:abbr_pattern_d = '%2d: %.' . g:VimShell_MaxHistoryWidth . 's'
+        for history in l:numbered_words
             let history.abbr = printf(l:abbr_pattern_d, l:num, history.word)
-        else
+
+            let l:num += 1
+        endfor
+        let l:abbr_pattern_n = '    %.' . g:VimShell_MaxHistoryWidth . 's'
+        for history in l:complete_words[g:VimShell_QuickMatchMaxLists :]
             let history.abbr = printf(l:abbr_pattern_n, history.word)
-        endif
+        endfor
 
-        let l:num += 1
-    endfor
-    for history in l:complete_words[15:]
-        let history.abbr = printf(l:abbr_pattern_n, history.word)
-    endfor
+        " Append list.
+        let l:complete_words = extend(l:numbered_words, l:complete_words)
 
-    " Append list.
-    let l:complete_words = extend(l:numbered_words, l:complete_words)
-
-    " Save numbered lists.
-    let s:prev_numbered_list = l:complete_words[1:10]
+        " Save numbered lists.
+        let s:prepre_numbered_list = s:prev_numbered_list[10:g:VimShell_QuickMatchMaxLists-1]
+        let s:prev_numbered_list = l:complete_words[:g:VimShell_QuickMatchMaxLists-1]
+    endif
 
     return l:complete_words
 endfunction"}}}
@@ -358,6 +373,12 @@ if !exists('g:VimShell_IgnoreCase')
 endif
 if !exists('g:VimShell_MaxHistoryWidth')
     let g:VimShell_MaxHistoryWidth = 40
+endif
+if !exists('g:VimShell_QuickMatchEnable')
+    let g:VimShell_QuickMatchEnable = 1
+endif
+if !exists('g:VimShell_QuickMatchMaxLists')
+    let g:VimShell_QuickMatchMaxLists = 40
 endif
 "}}}
 

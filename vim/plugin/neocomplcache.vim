@@ -1,7 +1,7 @@
 "=============================================================================
 " FILE: neocomplcache.vim
 " AUTHOR:  Shougo Matsushita <Shougo.Matsu@gmail.com>
-" Last Modified: 13 Jan 2009
+" Last Modified: 15 Jan 2009
 " Usage: Just source this file.
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
@@ -23,9 +23,13 @@
 "     TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 "     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 " }}}
-" Version: 1.31, for Vim 7.0
+" Version: 1.33, for Vim 7.0
 "-----------------------------------------------------------------------------
 " ChangeLog: "{{{
+"   1.33:
+"     - Added g:NeoComplCache_QuickMatchMaxLists option.
+"     - Changed g:NeoComplCache_QuickMatch into g:NeoComplCache_QuickMatchEnable.
+"     - Implemented two digits quick match.
 "   1.32:
 "     - Improved completion cancel.
 "     - Improved syntax keyword vim, sh, zsh, vimshell.
@@ -455,13 +459,22 @@ function! g:NeoComplCache_NormalComplete(cur_keyword_str)"{{{
         let l:ret = sort(l:cache_keyword_buffer_filtered, l:order_func)
     endif
 
-    if g:NeoComplCache_QuickMatch
+    if g:NeoComplCache_QuickMatchEnable
         " Append numbered list.
         if match(l:keyword_escape, '\d$') >= 0
             " Get numbered list.
-            let l:numbered = get(s:prev_numbered_list, str2nr(matchstr(l:keyword_escape, '\d$'))-1)
+            let l:numbered = get(s:prev_numbered_list, str2nr(matchstr(l:keyword_escape, '\d$')))
             if type(l:numbered) == type({})
                 call insert(l:ret, l:numbered)
+            endif
+
+            " Get next numbered list.
+            if match(l:keyword_escape, '\d\d$') >= 0
+                unlet l:numbered
+                let l:numbered = get(s:prepre_numbered_list, str2nr(matchstr(l:keyword_escape, '\d\d$'))-10)
+                if type(l:numbered) == type({})
+                    call insert(l:ret, l:numbered)
+                endif
             endif
         endif
     endif
@@ -469,12 +482,12 @@ function! g:NeoComplCache_NormalComplete(cur_keyword_str)"{{{
     " Trunk too many item.
     let l:ret = l:ret[:g:NeoComplCache_MaxList-1]
 
-    if g:NeoComplCache_QuickMatch
+    if g:NeoComplCache_QuickMatchEnable
         " Check dup.
         let l:dup_check = {}
         let l:num = 0
         let l:numbered_ret = []
-        for keyword in l:ret[0:14]
+        for keyword in l:ret[:g:NeoComplCache_QuickMatchMaxLists]
             if !has_key(l:dup_check, keyword.word)
                 let l:dup_check[keyword.word] = 1
 
@@ -484,23 +497,15 @@ function! g:NeoComplCache_NormalComplete(cur_keyword_str)"{{{
         endfor
 
         " Add number.
-        let l:abbr_pattern_d = '%d: %.' . g:NeoComplCache_MaxKeywordWidth . 's'
-        let l:abbr_pattern_n = '   %.' . g:NeoComplCache_MaxKeywordWidth . 's'
+        let l:abbr_pattern_d = '%2d: %.' . g:NeoComplCache_MaxKeywordWidth . 's'
         let l:num = 0
         for keyword in l:numbered_ret
-            if l:num == 0
-                let keyword.abbr = printf('*: %.' . g:NeoComplCache_MaxKeywordWidth . 's', keyword.word)
-            elseif l:num == 10
-                let keyword.abbr = printf('0: %.' . g:NeoComplCache_MaxKeywordWidth . 's', keyword.word)
-            elseif l:num < 10
-                let keyword.abbr = printf(l:abbr_pattern_d, l:num, keyword.word)
-            else
-                let keyword.abbr = printf(l:abbr_pattern_n, keyword.word)
-            endif
+            let keyword.abbr = printf(l:abbr_pattern_d, l:num, keyword.word)
 
             let l:num += 1
         endfor
-        for keyword in l:ret[15:]
+        let l:abbr_pattern_n = '    %.' . g:NeoComplCache_MaxKeywordWidth . 's'
+        for keyword in l:ret[g:NeoComplCache_QuickMatchMaxLists :]
             let keyword.abbr = printf(l:abbr_pattern_n, keyword.word)
         endfor
 
@@ -508,7 +513,8 @@ function! g:NeoComplCache_NormalComplete(cur_keyword_str)"{{{
         let l:ret = extend(l:numbered_ret, l:ret)
 
         " Save numbered lists.
-        let s:prev_numbered_list = l:ret[1:10]
+        let s:prepre_numbered_list = s:prev_numbered_list[10:g:NeoComplCache_QuickMatchMaxLists-1]
+        let s:prev_numbered_list = l:numbered_ret[:g:NeoComplCache_QuickMatchMaxLists-1]
     endif
 
     return l:ret
@@ -1057,14 +1063,17 @@ endif
 if !exists('g:NeoComplCache_EnableAsterisk')
     let g:NeoComplCache_EnableAsterisk = 1
 endif
-if !exists('g:NeoComplCache_QuickMatch')
-    let g:NeoComplCache_QuickMatch = 1
+if !exists('g:NeoComplCache_QuickMatchEnable')
+    let g:NeoComplCache_QuickMatchEnable = 1
 endif
 if !exists('g:NeoComplCache_CalcRankCount')
     let g:NeoComplCache_CalcRankCount = 5
 endif
 if !exists('g:NeoComplCache_CalcRankMaxLists')
     let g:NeoComplCache_CalcRankMaxLists = 40
+endif
+if !exists('g:NeoComplCache_QuickMatchMaxLists')
+    let g:NeoComplCache_QuickMatchMaxLists = 40
 endif
 if !exists('g:NeoComplCache_SlowCompleteSkip')
     if has('reltime')
