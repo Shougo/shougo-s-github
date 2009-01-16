@@ -1,7 +1,7 @@
 "=============================================================================
 " FILE: syntax/vimshell.vim
 " AUTHOR: Shougo Matsushita <Shougo.Matsu@gmail.com>(Modified)
-" Last Modified: 27 Dec 2008
+" Last Modified: 16 Jan 2009
 " Usage: Just source this file.
 "        source vimshell.vim
 " License: MIT license  {{{
@@ -24,7 +24,12 @@
 "     TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 "     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 " }}}
-" Version: 2.4, for Vim 7.0
+" Version: 2.5, for Vim 7.0
+"-----------------------------------------------------------------------------
+" ChangeLog: "{{{
+"   2.5:
+"     - Improved prompt color when non gui.
+""}}}
 "-----------------------------------------------------------------------------
 " TODO: "{{{
 "     - Nothing.
@@ -63,13 +68,12 @@ execute "syn region   VimShellExe start='" . g:VimShell_Prompt . "\\s*\\(\\h\\w*
 syn match VimShellExe '|\s*\w\+' contained contains=VimShellSpecial
 execute "syn region   VimShellLine start='" . g:VimShell_Prompt ."' end='$' keepend contains=VimShellExe,VimShellDirectory,VimShellConstants,VimShellArguments, VimShellQuoted,VimShellString,VimShellVariable,VimShellSpecial"
 
-if has('gui')
-    hi ShellPrompt  gui=UNDERLINE guifg=#80ffff guibg=NONE
+if has('gui_running')
+    hi VimShellPrompt  gui=UNDERLINE guifg=#80ffff guibg=NONE
 else
-    hi def link ShellPrompt Comment
+    hi def link VimShellPrompt Comment
 endif
 
-hi def link VimShellPrompt ShellPrompt
 hi def link VimShellQuoted Special
 hi def link VimShellString Constant
 hi def link VimShellArguments Type

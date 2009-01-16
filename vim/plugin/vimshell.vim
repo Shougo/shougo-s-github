@@ -2,7 +2,7 @@
 " FILE: vimshell.vim
 " AUTHOR: Janakiraman .S <prince@india.ti.com>(Original)
 "         Shougo Matsushita <Shougo.Matsu@gmail.com>(Modified)
-" Last Modified: 15 Jan 2009
+" Last Modified: 16 Jan 2009
 " Usage: Just source this file.
 "        source vimshell.vim
 " License: MIT license  {{{
@@ -25,9 +25,19 @@
 "     TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 "     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 " }}}
-" Version: 3.1, for Vim 7.0
+" Version: 3.3, for Vim 7.0
 "-----------------------------------------------------------------------------
 " ChangeLog: "{{{
+"   3.3:
+"     - Changed escape sequence into "\<ESC>".
+"     - Changed autocmd timing.
+"     - Added filename escape.
+"     - Added vimshell_split_switch, vimshell_switch, vimshell_split_create, vimshell_create.
+"     - Can have multiple Vimshell instance.
+"   3.2:
+"     - Fixed space name command bug.
+"     - Fixed quick match bug.
+"     - Implemented vim and view command.
 "   3.1:
 "     - Fixed ATOK X3 is ON  when startinsert.
 "     - Silent message if exit code isn't 0.
@@ -80,51 +90,83 @@ if exists('g:loaded_vimshell') || v:version < 700
 endif
 
 " Plugin keymapping
-nnoremap <silent> <Plug>(vimshell_init)  :<C-u>call <SID>VimShell_InitShell()<CR>
+nnoremap <silent> <Plug>(vimshell_split_switch)  :<C-u>call <SID>VimShell_SwitchShell(1)<CR>
+nnoremap <silent> <Plug>(vimshell_split_create)  :<C-u>call <SID>VimShell_CreateShell(1)<CR>
+nnoremap <silent> <Plug>(vimshell_switch)  :<C-u>call <SID>VimShell_SwitchShell(0)<CR>
+nnoremap <silent> <Plug>(vimshell_create)  :<C-u>call <SID>VimShell_CreateShell(0)<CR>
 nnoremap <silent> <Plug>(vimshell_enter)  :<C-u>call <SID>VimShell_ProcessEnter()<CR>
-nmap <silent> <Leader>sh     <Plug>(vimshell_init)
+nmap <silent> <Leader>sp     <Plug>(vimshell_split_switch)
+nmap <silent> <Leader>sn     <Plug>(vimshell_split_create)
+nmap <silent> <Leader>sh     <Plug>(vimshell_switch)
+nmap <silent> <Leader>sc     <Plug>(vimshell_create)
 
-command! -nargs=0 VimShell call s:VimShell_InitShell()
+command! -nargs=0 VimShell call s:VimShell_SwitchShell(0)
 
-function! s:VimShell_InitShell()"{{{
+function! s:VimShell_SwitchShell(split_flag)"{{{
     if expand('%:p:t') == 'VimShell'
-        echo 'Already there'
+        echo 'Already there.'
     else
         if bufexists('VimShell')
-            let l:num = bufwinnr('VimShell')
-            if l:num < 0
-                sbuffer VimShell
-                setfiletype vimshell
+            if a:split_flag
+                let l:num = bufwinnr('VimShell')
+                if l:num < 0
+                    sbuffer VimShell
+                    setfiletype vimshell
+                else
+                    " Switch window.
+                    execute l:num 'wincmd w'
+                endif
             else
-                " Switch window.
-                execute l:num 'wincmd w'
+                buffer VimShell
             endif
+
+            call s:VimShell_PrintPrompt()
         else
             " Create window.
-            split VimShell
-            setlocal lazyredraw
-            setlocal bufhidden=unload
-            setlocal buftype=nofile
-            setlocal noswapfile
-            let &l:omnifunc = 'g:VimShell_HistoryComplete'
-            setfiletype vimshell
-
-            " Load history.
-            if !filereadable(g:VimShell_HistoryPath)
-                " Create file.
-                call writefile([], g:VimShell_HistoryPath)
-            endif
-            let s:hist_buffer = readfile(g:VimShell_HistoryPath)
-            let s:hist_size = getfsize(g:VimShell_HistoryPath)
-
-            let s:prev_numbered_list = []
-            let s:prepre_numbered_list = []
-
-            " Enter insert mode.
-            startinsert!
-            set iminsert=0 imsearch=0
+            call s:VimShell_CreateShell(a:split_flag)
         endif
     endif
+endfunction"}}}
+
+function! s:VimShell_CreateShell(split_flag)"{{{
+    let l:bufname = 'VimShell'
+    let l:cnt = 2
+    while bufexists(l:bufname)
+        let l:bufname = printf('[%d]VimShell', l:cnt)
+        let l:cnt += 1
+    endwhile
+
+    if a:split_flag
+        execute 'split ' . l:bufname
+    else
+        execute 'edit ' . l:bufname
+    endif
+
+    setlocal lazyredraw
+    setlocal bufhidden=unload
+    setlocal buftype=nofile
+    setlocal noswapfile
+    let &l:omnifunc = 'g:VimShell_HistoryComplete'
+    setfiletype vimshell
+
+    " Load history.
+    if !filereadable(g:VimShell_HistoryPath)
+        " Create file.
+        call writefile([], g:VimShell_HistoryPath)
+    endif
+    let s:hist_buffer = readfile(g:VimShell_HistoryPath)
+    let s:hist_size = getfsize(g:VimShell_HistoryPath)
+
+    if !exists('s:prev_numbered_list')
+        let s:prev_numbered_list = []
+    endif
+    if !exists('s:prepre_numbered_list')
+        let s:prepre_numbered_list = []
+    endif
+
+    " Enter insert mode.
+    startinsert!
+    set iminsert=0 imsearch=0
 
     call s:VimShell_PrintPrompt()
 endfunction"}}}
@@ -157,7 +199,7 @@ function! s:VimShell_ProcessEnter()"{{{
     let l:prompt_pos = match(substitute(l:escaped, "'", "''", 'g'), g:VimShell_Prompt)
     if l:prompt_pos < 0
         " Prompt not found
-        echo "Not on the command line"
+        echo "Not on the command line."
         normal! j
         return
     endif
@@ -170,6 +212,9 @@ function! s:VimShell_ProcessEnter()"{{{
             call append(line('.'), getline('.'))
         endif
     endif
+
+    " Filename escape.
+    let l:line = escape(l:line, " \t\n*?[{`$\\%#'\"|!<")
 
     " Not append history if starts spaces or dups.
     if l:line !~ '^\s' && (empty(s:hist_buffer) || l:line != s:hist_buffer[0])
@@ -190,18 +235,22 @@ function! s:VimShell_ProcessEnter()"{{{
         let s:hist_size = getfsize(g:VimShell_HistoryPath)
     endif
 
-    if l:line =~ '^clear'
+    if l:line =~ '^\s*clear'
         " If it says clean, Clean up the screen.
-        normal! ggdG
+        % delete _
         call s:VimShell_PrintPrompt()
+
+        " Enter insert mode.
+        startinsert!
+        set iminsert=0 imsearch=0
         return
     endif
 
-    if l:line =~ '^cd ' || l:line =~ '^lcd '
+    if l:line =~ '^\s*cd ' || l:line =~ '^\s*lcd '
         " If the command is a cd, Change the working directory.
-        let l:line = substitute(l:line, '^cd', 'lcd', '')
+        let l:line = substitute(l:line, '^\s*cd', 'lcd', '')
         execute l:line
-    elseif l:line =~ '^ls'
+    elseif l:line =~ '^\s*ls'
         let l:words = split(l:line)
         if len(l:words) == 1
             if has('win32')
@@ -212,6 +261,33 @@ function! s:VimShell_ProcessEnter()"{{{
         else
             execute 'silent read! ' . l:line
         endif
+    elseif l:line =~ '^\s*vim\s*'
+        call s:VimShell_PrintPrompt()
+
+        " Edit file.
+        let l:filename = strpart(l:line, matchend(l:line, '^\s*vim\s*'))
+        split
+        if empty(l:filename)
+            enew
+        else
+            execute 'edit ' . l:filename
+        endif
+
+        return
+    elseif l:line =~ '^\s*view\s*'
+        call s:VimShell_PrintPrompt()
+
+        " Edit file with readonly.
+        let l:filename = strpart(l:line, matchend(l:line, '^\s*view\s*'))
+        if empty(l:filename)
+            echo 'Filename required.'
+        else
+            split
+            execute 'edit ' . l:filename
+            setlocal nomodifiable
+        endif
+
+        return
     elseif l:line =~ '\w'
         execute 'silent read! ' . l:line
     endif
@@ -271,10 +347,13 @@ function! g:VimShell_HistoryComplete(findstart, base)"{{{
 
             " Get next numbered list.
             if match(l:cur_keyword_str, '\d\d$') >= 0
-                unlet l:numbered
-                let l:numbered = get(s:prepre_numbered_list, str2nr(matchstr(l:cur_keyword_str, '\d\d$'))-10)
-                if type(l:numbered) == type({})
-                    call insert(l:complete_words, l:numbered)
+                let l:num = str2nr(matchstr(l:cur_keyword_str, '\d\d$'))-10
+                if l:num >= 0
+                    unlet l:numbered
+                    let l:numbered = get(s:prepre_numbered_list, l:num)
+                    if type(l:numbered) == type({})
+                        call insert(l:complete_words, l:numbered)
+                    endif
                 endif
             endif
         endif
@@ -318,7 +397,8 @@ endfunction"}}}
 
 function! s:VimShell_HighlightEscapeSequence()"{{{
     let register_save = @"
-    while search('\[[0-9;]*m', 'c')
+    "while search('\[[0-9;]*m', 'c')
+    while search("\<ESC>\\[[0-9;]*m", 'c')
         normal! dfm
 
         let [lnum, col] = getpos('.')[1:2]
@@ -357,10 +437,10 @@ endfunction"}}}
 
 augroup VimShell"{{{
     au!
-    au BufEnter VimShell nmap <buffer><silent> <CR> <Plug>(vimshell_enter)
-    au BufEnter VimShell imap <buffer><silent> <CR> <ESC><CR>
-    au BufEnter VimShell nnoremap <buffer><silent> q :<C-u>hide<CR>
-    au BufEnter VimShell inoremap <buffer> <C-j> <C-x><C-o><C-p>
+    au Filetype VimShell nmap <buffer><silent> <CR> <Plug>(vimshell_enter)
+    au Filetype VimShell imap <buffer><silent> <CR> <ESC><CR>
+    au Filetype VimShell nnoremap <buffer><silent> q :<C-u>hide<CR>
+    au Filetype VimShell inoremap <buffer> <C-j> <C-x><C-o><C-p>
 augroup end"}}}
 
 " Global options definition."{{{
