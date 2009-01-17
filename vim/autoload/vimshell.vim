@@ -25,7 +25,7 @@
 "     TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 "     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 " }}}
-" Version: 3.5, for Vim 7.0
+" Version: 3.6, for Vim 7.0
 "=============================================================================
 
 function! vimshell#switch_shell(split_flag)"{{{
@@ -157,7 +157,7 @@ function! vimshell#process_enter()"{{{
     " Delete head spaces.
     let l:line = substitute(l:line, '^\s\+', '', '')
     let l:program = (empty(l:line))? '' : split(l:line)[0]
-    let l:argments = substitute(l:line, '^' . l:program, '', '')
+    let l:argments = substitute(l:line, '^' . l:program . '\s*', '', '')
 
     " Special commands.
     if l:program == 'clear'
@@ -187,6 +187,9 @@ function! vimshell#process_enter()"{{{
             normal! j
         endif
         call s:print_prompt()
+
+        " Filename escape
+        let l:argments = escape(l:argments, " \t\n*?[]{}`$\\%#'\"|!<")
 
         if l:program == 'vim'
             if empty(l:argments)
@@ -224,11 +227,11 @@ function! vimshell#process_enter()"{{{
                     execute 'silent read! ls -FC'
                 endif
             else
-                execute 'silent read! ' . l:line
+                execute printf('silent read! %s %s', l:program, l:argments)
             endif
-        elseif l:program =~ '^\w'
+        else
             " External commands.
-            execute 'silent read! ' . l:line
+            execute printf('silent read! %s %s', l:program, l:argments)
         endif
     endif
 

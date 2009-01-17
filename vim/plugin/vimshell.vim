@@ -25,9 +25,12 @@
 "     TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 "     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 " }}}
-" Version: 3.5, for Vim 7.0
+" Version: 3.6, for Vim 7.0
 "-----------------------------------------------------------------------------
 " ChangeLog: "{{{
+"   3.6:
+"     - Improved command execute.
+"     - Fixed execute program bug.
 "   3.5:
 "     - Implemented by autoload.
 "     - Fixed non-Windows platform error.
