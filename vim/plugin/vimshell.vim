@@ -25,9 +25,15 @@
 "     TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 "     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 " }}}
-" Version: 3.3, for Vim 7.0
+" Version: 3.4, for Vim 7.0
 "-----------------------------------------------------------------------------
 " ChangeLog: "{{{
+"   3.4:
+"     - Fixed filename escape bug.
+"     - Fixed vimshell buffer clear when hide.
+"     - No setlocal lazyredraw.
+"     - Filename escape when cd.
+"     - Implemented pseudo shell variable.
 "   3.3:
 "     - Changed escape sequence into "\<ESC>".
 "     - Changed autocmd timing.
@@ -120,6 +126,10 @@ function! s:VimShell_SwitchShell(split_flag)"{{{
                 buffer VimShell
             endif
 
+            " Enter insert mode.
+            startinsert!
+            set iminsert=0 imsearch=0
+
             call s:VimShell_PrintPrompt()
         else
             " Create window.
@@ -142,8 +152,6 @@ function! s:VimShell_CreateShell(split_flag)"{{{
         execute 'edit ' . l:bufname
     endif
 
-    setlocal lazyredraw
-    setlocal bufhidden=unload
     setlocal buftype=nofile
     setlocal noswapfile
     let &l:omnifunc = 'g:VimShell_HistoryComplete'
@@ -213,9 +221,6 @@ function! s:VimShell_ProcessEnter()"{{{
         endif
     endif
 
-    " Filename escape.
-    let l:line = escape(l:line, " \t\n*?[{`$\\%#'\"|!<")
-
     " Not append history if starts spaces or dups.
     if l:line !~ '^\s' && (empty(s:hist_buffer) || l:line != s:hist_buffer[0])
         let l:now_hist_size = getfsize(g:VimShell_HistoryPath)
@@ -235,7 +240,13 @@ function! s:VimShell_ProcessEnter()"{{{
         let s:hist_size = getfsize(g:VimShell_HistoryPath)
     endif
 
-    if l:line =~ '^\s*clear'
+    " Delete head spaces.
+    let l:line = substitute(l:line, '^\s\+', '', '')
+    let l:program = split(l:line)[0]
+    let l:argments = substitute(l:line, '^' . l:program, '', '')
+
+    " Special commands.
+    if l:program == 'clear'
         " If it says clean, Clean up the screen.
         % delete _
         call s:VimShell_PrintPrompt()
@@ -244,53 +255,64 @@ function! s:VimShell_ProcessEnter()"{{{
         startinsert!
         set iminsert=0 imsearch=0
         return
-    endif
+    elseif l:program == 'command'
+        execute 'silent read! ' . l:argments
+    elseif l:program =~ '^\h\w*='
+        execute 'let $' . l:program
+    else
+        " Internal commands.
+        if l:program == 'cd' || l:line == 'lcd'
+            " If the command is a cd, Change the working directory.
+            let l:line = substitute(l:line, '^\s*cd', 'lcd', '')
 
-    if l:line =~ '^\s*cd ' || l:line =~ '^\s*lcd '
-        " If the command is a cd, Change the working directory.
-        let l:line = substitute(l:line, '^\s*cd', 'lcd', '')
-        execute l:line
-    elseif l:line =~ '^\s*ls'
-        let l:words = split(l:line)
-        if len(l:words) == 1
-            if has('win32')
-                execute 'silent read! ls .'
+            " Filename escape.
+            let l:line = escape(l:line, " \t\n*?[]{}`$\\%#'\"|!<")
+
+            execute l:line
+        elseif l:line == 'ls'
+            let l:words = split(l:line)
+            if len(l:words) == 1
+                if has('win32')
+                    execute 'silent read! ls .'
+                else
+                    execute 'silent read! ls -FC'
+                endif
             else
-                execute 'silent read! ls -FC'
+                execute 'silent read! ' . l:line
             endif
-        else
+        elseif l:program == 'vim'
+            call s:VimShell_PrintPrompt()
+
+            " Edit file.
+            let l:filename = strpart(l:line, matchend(l:line, '^\s*vim\s*'))
+            "split
+            if empty(l:filename)
+                enew
+            else
+                execute 'edit ' . l:filename
+            endif
+
+            return
+        elseif l:program == 'view'
+            call s:VimShell_PrintPrompt()
+
+            " Edit file with readonly.
+            let l:filename = strpart(l:line, matchend(l:line, '^\s*view\s*'))
+            if empty(l:filename)
+                echo 'Filename required.'
+            else
+                split
+                execute 'edit ' . l:filename
+                setlocal nomodifiable
+            endif
+
+            return
+            " External commands.
+        elseif l:program =~ '^\w'
             execute 'silent read! ' . l:line
         endif
-    elseif l:line =~ '^\s*vim\s*'
-        call s:VimShell_PrintPrompt()
-
-        " Edit file.
-        let l:filename = strpart(l:line, matchend(l:line, '^\s*vim\s*'))
-        split
-        if empty(l:filename)
-            enew
-        else
-            execute 'edit ' . l:filename
-        endif
-
-        return
-    elseif l:line =~ '^\s*view\s*'
-        call s:VimShell_PrintPrompt()
-
-        " Edit file with readonly.
-        let l:filename = strpart(l:line, matchend(l:line, '^\s*view\s*'))
-        if empty(l:filename)
-            echo 'Filename required.'
-        else
-            split
-            execute 'edit ' . l:filename
-            setlocal nomodifiable
-        endif
-
-        return
-    elseif l:line =~ '\w'
-        execute 'silent read! ' . l:line
     endif
+
 
     if line('.') == line('$')
         " Insert blank line.

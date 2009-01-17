@@ -1,7 +1,7 @@
 "=============================================================================
 " FILE: neocomplcache.vim
 " AUTHOR:  Shougo Matsushita <Shougo.Matsu@gmail.com>
-" Last Modified: 15 Jan 2009
+" Last Modified: 16 Jan 2009
 " Usage: Just source this file.
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
@@ -28,6 +28,8 @@
 " ChangeLog: "{{{
 "   1.34:
 "     - Fixed g:NeoComplCache_FirstCurrentBufferWords bug.
+"     - Fixed quick match bug.
+"     - Not change lazyredraw.
 "   1.33:
 "     - Added g:NeoComplCache_QuickMatchMaxLists option.
 "     - Changed g:NeoComplCache_QuickMatch into g:NeoComplCache_QuickMatchEnable.
@@ -221,15 +223,12 @@ function! s:NeoComplCache.Complete()"{{{
 
     " Save options.
     let s:ignorecase_save = &l:ignorecase
-    let s:lazyredraw_save = &l:lazyredraw
 
     " Set function.
     let &l:completefunc = 'g:NeoComplCache_AutoCompleteFunc'
 
     " Extract complete words.
     let &l:ignorecase = g:NeoComplCache_IgnoreCase
-    "setlocal lazyredraw
-    let &l:lazyredraw = 1
     let s:complete_words = []
     for complefunc in s:GetCompleFuncPattern()
         let Fn = function(complefunc)
@@ -241,7 +240,6 @@ function! s:NeoComplCache.Complete()"{{{
         " Restore options
         let &l:completefunc = 'g:NeoComplCache_ManualCompleteFunc'
         let &l:ignorecase = s:ignorecase_save
-        let &l:lazyredraw = s:lazyredraw_save
 
         return
     endif
@@ -283,7 +281,6 @@ function! g:NeoComplCache_AutoCompleteFunc(findstart, base)"{{{
     " Restore options.
     let &l:completefunc = 'g:NeoComplCache_ManualCompleteFunc'
     let &l:ignorecase = s:ignorecase_save
-    let &l:lazyredraw = s:lazyredraw_save
     " Unlock auto complete.
     let s:complete_lock = 0
 
@@ -472,10 +469,13 @@ function! g:NeoComplCache_NormalComplete(cur_keyword_str)"{{{
 
             " Get next numbered list.
             if match(l:keyword_escape, '\d\d$') >= 0
-                unlet l:numbered
-                let l:numbered = get(s:prepre_numbered_list, str2nr(matchstr(l:keyword_escape, '\d\d$'))-10)
-                if type(l:numbered) == type({})
-                    call insert(l:ret, l:numbered)
+                let l:num = str2nr(matchstr(l:keyword_escape, '\d\d$'))-10
+                if l:num >= 0
+                    unlet l:numbered
+                    let l:numbered = get(s:prepre_numbered_list, l:num)
+                    if type(l:numbered) == type({})
+                        call insert(l:ret, l:numbered)
+                    endif
                 endif
             endif
         endif
