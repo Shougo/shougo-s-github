@@ -30,6 +30,9 @@
 " ChangeLog: "{{{
 "   3.5:
 "     - Implemented by autoload.
+"     - Fixed non-Windows platform error.
+"     - Improved history executed.
+"     - Fixed many bugs.
 "   3.4:
 "     - Fixed filename escape bug.
 "     - Fixed vimshell buffer clear when hide.

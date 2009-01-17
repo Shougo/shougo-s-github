@@ -134,12 +134,6 @@ function! vimshell#process_enter()"{{{
 
     " Delete prompt string.
     let l:line = substitute(l:escaped, g:VimShell_Prompt, '', '')
-    if line('.') != line('$')
-        if l:line =~ '\w' && &modified == 0
-            " Insert prompt line.
-            call append(line('.'), getline('.'))
-        endif
-    endif
 
     " Not append history if starts spaces or dups.
     if l:line !~ '^\s' && (empty(s:hist_buffer) || l:line != s:hist_buffer[0])
@@ -162,7 +156,7 @@ function! vimshell#process_enter()"{{{
 
     " Delete head spaces.
     let l:line = substitute(l:line, '^\s\+', '', '')
-    let l:program = split(l:line)[0]
+    let l:program = (empty(l:line))? '' : split(l:line)[0]
     let l:argments = substitute(l:line, '^' . l:program, '', '')
 
     " Special commands.
@@ -178,18 +172,50 @@ function! vimshell#process_enter()"{{{
     elseif l:program == 'command'
         execute 'silent read! ' . l:argments
     elseif l:program =~ '^\h\w*='
+        " Variables substitution.
         execute 'let $' . l:program
+    elseif l:program == 'vim' || l:program == 'view'
+        " Edit file.
+        "
+        if line('.') == line('$')
+            " Insert blank line.
+            call append(line('$'), '')
+            normal! j
+        else
+            " Insert prompt line.
+            call append(line('.'), g:VimShell_Prompt)
+            normal! j
+        endif
+        call s:print_prompt()
+
+        if l:program == 'vim'
+            if empty(l:argments)
+                new
+            else
+                split
+                execute 'edit ' . l:argments
+            endif
+        else
+            if empty(l:argments)
+                echo 'Filename required.'
+            else
+                split
+                execute 'edit ' . l:argments
+                setlocal nomodifiable
+            endif
+        endif
+
+        return
     else
         " Internal commands.
-        if l:program == 'cd' || l:line == 'lcd'
+        if l:program == 'cd'
             " If the command is a cd, Change the working directory.
-            let l:line = substitute(l:line, '^\s*cd', 'lcd', '')
 
             " Filename escape.
-            let l:line = escape(l:line, " \t\n*?[]{}`$\\%#'\"|!<")
+            let l:argments = escape(l:argments, " \t\n*?[]{}`$\\%#'\"|!<")
 
-            execute l:line
-        elseif l:line == 'ls'
+            execute 'lcd ' . l:argments
+        elseif l:program == 'ls'
             let l:words = split(l:line)
             if len(l:words) == 1
                 if has('win32')
@@ -200,49 +226,25 @@ function! vimshell#process_enter()"{{{
             else
                 execute 'silent read! ' . l:line
             endif
-        elseif l:program == 'vim'
-            call s:print_prompt()
-
-            " Edit file.
-            let l:filename = strpart(l:line, matchend(l:line, '^\s*vim\s*'))
-            "split
-            if empty(l:filename)
-                enew
-            else
-                execute 'edit ' . l:filename
-            endif
-
-            return
-        elseif l:program == 'view'
-            call s:print_prompt()
-
-            " Edit file with readonly.
-            let l:filename = strpart(l:line, matchend(l:line, '^\s*view\s*'))
-            if empty(l:filename)
-                echo 'Filename required.'
-            else
-                split
-                execute 'edit ' . l:filename
-                setlocal nomodifiable
-            endif
-
-            return
-            " External commands.
         elseif l:program =~ '^\w'
+            " External commands.
             execute 'silent read! ' . l:line
         endif
     endif
 
-
     if line('.') == line('$')
         " Insert blank line.
         call append(line('$'), '')
-        normal! j
+    else
+        " Insert prompt line.
+        call append(line('.'), g:VimShell_Prompt)
     endif
 
-    call s:highlight_escape_sequence()
+    " Next line.
+    normal! j
 
     call s:print_prompt()
+    call s:highlight_escape_sequence()
 
     " Enter insert mode.
     startinsert!
@@ -379,10 +381,10 @@ endfunction"}}}
 
 augroup VimShell"{{{
     au!
-    au Filetype VimShell nmap <buffer><silent> <CR> <Plug>(vimshell_enter)
-    au Filetype VimShell imap <buffer><silent> <CR> <ESC><CR>
-    au Filetype VimShell nnoremap <buffer><silent> q :<C-u>hide<CR>
-    au Filetype VimShell inoremap <buffer> <C-j> <C-x><C-o><C-p>
+    au Filetype vimshell nmap <buffer><silent> <CR> <Plug>(vimshell_enter)
+    au Filetype vimshell imap <buffer><silent> <CR> <ESC><CR>
+    au Filetype vimshell nnoremap <buffer><silent> q :<C-u>hide<CR>
+    au Filetype vimshell inoremap <buffer> <C-j> <C-x><C-o><C-p>
 augroup end"}}}
 
 " Global options definition."{{{
