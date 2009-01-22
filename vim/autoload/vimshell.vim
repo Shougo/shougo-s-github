@@ -2,7 +2,7 @@
 " FILE: vimshell.vim
 " AUTHOR: Janakiraman .S <prince@india.ti.com>(Original)
 "         Shougo Matsushita <Shougo.Matsu@gmail.com>(Modified)
-" Last Modified: 17 Jan 2009
+" Last Modified: 20 Jan 2009
 " Usage: Just source this file.
 "        source vimshell.vim
 " License: MIT license  {{{
@@ -176,6 +176,14 @@ function! vimshell#process_enter()"{{{
     elseif l:program =~ '^\h\w*='
         " Variables substitution.
         execute 'let $' . l:program
+    elseif l:argments =~ '&\s*$'
+        " Background execution.
+        if has('win32') || has('win64')
+            execute printf('!start %s %s', l:program, substitute(l:argments, '&\s*$', '', ''))
+        endif
+    elseif l:program =~ '^!'
+        " Shell execution.
+        execute printf('%s %s', l:program, l:argments)
     elseif l:program == 'vim' || l:program == 'view'
         " Edit file.
         "
@@ -231,6 +239,9 @@ function! vimshell#process_enter()"{{{
             else
                 execute printf('silent read! %s %s', l:program, l:argments)
             endif
+        elseif l:program == 'shell'
+            " Starts shell.
+            shell
         else
             " External commands.
             execute printf('silent read! %s %s', l:program, l:argments)
@@ -384,14 +395,23 @@ function! s:highlight_escape_sequence()"{{{
     let @" = register_save
 endfunction"}}}
 
+function! vimshell#insert_command()"{{{
+    let l:in = input('Command name completion: ', expand('<cword>'), 'shellcmd')
+    " For ATOK X3.
+    set iminsert=0 imsearch=0
+
+    if !empty(l:in)
+        execute 'normal! ciw' . l:in
+    endif
+endfunction"}}}
+
 augroup VimShell"{{{
     au!
     au Filetype vimshell nmap <buffer><silent> <CR> <Plug>(vimshell_enter)
     au Filetype vimshell imap <buffer><silent> <CR> <ESC><CR>
     au Filetype vimshell nnoremap <buffer><silent> q :<C-u>hide<CR>
     au Filetype vimshell inoremap <buffer> <C-j> <C-x><C-o><C-p>
-    au Filetype vimshell inoremap <buffer> <C-p> <C-o>:<C-u>VimShellInsertCommand <C-r><C-w><C-d>
-    au Filetype vimshell command! -nargs=? -buffer -complete=shellcmd VimShellInsertCommand  normal! ciw<args>
+    au Filetype vimshell inoremap <buffer> <C-p> <C-o>:<C-u>call vimshell#insert_command()<CR>
 augroup end"}}}
 
 " Global options definition."{{{

@@ -1,7 +1,7 @@
 "=============================================================================
 " FILE: neocomplcache.vim
 " AUTHOR:  Shougo Matsushita <Shougo.Matsu@gmail.com>
-" Last Modified: 16 Jan 2009
+" Last Modified: 20 Jan 2009
 " Usage: Just source this file.
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
@@ -23,9 +23,12 @@
 "     TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 "     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 " }}}
-" Version: 1.34, for Vim 7.0
+" Version: 1.35, for Vim 7.0
 "-----------------------------------------------------------------------------
 " ChangeLog: "{{{
+"   1.35:
+"     - Improved syntax complete.
+"     - Improved NeoCompleCacheToggle.
 "   1.34:
 "     - Fixed g:NeoComplCache_FirstCurrentBufferWords bug.
 "     - Fixed quick match bug.
@@ -847,9 +850,9 @@ function! s:NeoComplCache.Enable()"{{{
     call s:SetKeywordPattern('default', '[[:alpha:]_.]\w*')
     call s:SetKeywordPattern('lisp', '\h[[:alnum:]_-]*[*!?]\=')
     call s:SetKeywordPattern('scheme', '\h[[:alnum:]_-]*[*!?]\=')
-    call s:SetKeywordPattern('ruby', '\([[:alpha:]_$.]\|@@\=\)\([[:alnum:]_]\|::\)*[!?]\=')
-    call s:SetKeywordPattern('php', '[[:alpha:]_$]\w*')
-    call s:SetKeywordPattern('perl', '\(->\|[[:alpha:]_$@%]\)\([[:alnum:]_]\|::\)*')
+    call s:SetKeywordPattern('ruby', '\([[:alpha:]_$.]\|@@\=\)\(\w\|::\)*[!?]\=')
+    call s:SetKeywordPattern('php', '[[:alpha:]_$]\(\w\|::\)*')
+    call s:SetKeywordPattern('perl', '\(->\|[[:alpha:]_$@%]\)\(\w\|::\)*')
     call s:SetKeywordPattern('vim', '$\w\+\|&\=[[:alpha:]_.][[:alnum:]#_:]*')
     call s:SetKeywordPattern('tex', '\\\=[[:alpha:]_]\w*[*]\=')
     call s:SetKeywordPattern('sh', '$\w\+\|[[:alpha:]_.-][[:alnum:]_.-]*')
@@ -940,12 +943,10 @@ function! s:NeoComplCache.Disable()"{{{
 endfunction"}}}
 
 function! s:NeoComplCache.Toggle()"{{{
-    if s:disable_neocomplcache
-        let s:disable_neocomplcache = 0
-        call s:NeoComplCache.Enable()
-    else
-        let s:disable_neocomplcache = 1
+    if &completefunc == 'g:NeoComplCache_ManualCompleteFunc'
         call s:NeoComplCache.Disable()
+    else
+        call s:NeoComplCache.Enable()
     endif
 endfunction"}}}
 

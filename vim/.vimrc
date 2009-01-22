@@ -3,21 +3,21 @@
 "---------------------------------------------------------------------------
 " Encoding:"{{{
 "
-" 文字コードの自動認識
+" The automatic recognition of the character code.
 
-" 保存や読み込みに使用するエンコーディングの設定
-" Unixで標準なのでUTF-8にする。
+" Setting of the encoding to use for a save and reading.
+" Make it normal in UTF-8 in Unix. 
 set encoding=utf-8
 
-" 端末エンコードの設定"{{{
+" Setting of terminal encoding."{{{
 if !has('gui_running')
     if &term == 'win32' || &term == 'win64'
-        " 非GUI日本語コンソールを使っている場合の設定
+        " Setting when use the non-GUI Japanese console.
 
-        " これを設定しないと文字化けする
+        " Garbled unless set this.
         set termencoding=cp932
-        " これを設定しないと日本語入力が化ける
-        " ただし、文字コードの自動認識ができなくなるので注意！
+        " Japanese input changes itself unless set this.
+        " Be careful because the automatic recognition of the character code is not possible!
         set encoding=japan
     else
         if $ENV_ACCESS ==# 'cygwin'
@@ -33,18 +33,18 @@ if !has('gui_running')
 endif
 "}}}
 
-" 文字コードの自動認識"{{{
+" The automatic recognition of the character code."{{{
 if !exists('did_encoding_settings') && has('iconv')
     let s:enc_euc = 'euc-jp'
     let s:enc_jis = 'iso-2022-jp'
 
-    " iconvはJIS X 0213をサポートするか？
+    " Does iconv support JIS X 0213?
     if iconv("\x87\x64\x87\x6a", 'cp932', 'euc-jisx0213') ==# "\xad\xc5\xad\xcb"
         let s:enc_euc = 'euc-jisx0213,euc-jp'
         let s:enc_jis = 'iso-2022-jp-3'
     endif
  
-    " fileencodingsを構築
+    " Build encodings.
     let &fileencodings = 'ucs-bom'
     if &encoding !=# 'utf-8'
         let &fileencodings = &fileencodings . ',' . 'ucs-2le'
@@ -72,7 +72,7 @@ if !exists('did_encoding_settings') && has('iconv')
 endif
 "}}}
 
-" 日本語を含まない場合は fileencoding に encoding を使うようにする
+" When do not include Japanese, use encoding for fileencoding.
 function! AU_ReCheck_FENC()
     if &fileencoding =~# 'iso-2022-jp' && search("[^\x01-\x7e]", 'n') == 0
         let &fileencoding=&encoding
@@ -84,9 +84,9 @@ augroup MyJapanese
     autocmd BufReadPost * call AU_ReCheck_FENC()
 augroup END
 
-" 改行コードの自動認識
+" Automatic recognition of a new line cord.
 set fileformats=unix,dos,mac
-" vimで全角文字がきちんと表示されるようにする。
+" A fullwidth character is displayed in vim properly.
 set ambiwidth=double
 
 " 特定の文字コードで開き直すコマンド群"{{{
@@ -124,7 +124,7 @@ command! WSjis  WCp932
 command! WUnicode WUtf16
 "}}}
 
-" nkfで処理して開く
+" Handle it in nkf and open.
 command! Nkf !nkf -g %
 
 " 改行文字を指定する"{{{
@@ -229,7 +229,7 @@ endif
 "---------------------------------------------------------------------------
 " Edit:"{{{
 "
-" V非互換の機能を有効にする
+" Enable no Vi compatible commands.
 set nocompatible
 
 " 賢いタブ挿入
@@ -248,7 +248,7 @@ set shiftround
 " Enable modeline.
 set modeline
 
-" クリップボードレジスタを使う
+" Use clipboard register.
 set clipboard& clipboard+=unnamed
 
 " Disable auto wrap.
@@ -1206,42 +1206,51 @@ nnoremap q  <Nop>
 nnoremap Q  q
  
 " For quickfix list  "{{{3
-noremap <silent> qn  :<C-u>cnext<CR>
-noremap <silent> qp  :<C-u>cprevious<CR>
-noremap <silent> qr  :<C-u>crewind<CR>
-noremap <silent> qN  :<C-u>cfirst<CR>
-noremap <silent> qP  :<C-u>clast<CR>
-noremap <silent> qfn :<C-u>cnfile<CR>
-noremap <silent> qfp :<C-u>cpfile<CR>
-noremap <silent> ql  :<C-u>clist<CR>
-noremap <silent> qq  :<C-u>cc<CR>
-noremap <silent> qo  :<C-u>copen<CR>
-noremap <silent> qc  :<C-u>cclose<CR>
-noremap <silent> qen :<C-u>cnewer<CR>
-noremap <silent> qep :<C-u>colder<CR>
-noremap <silent> qm  :<C-u>make<CR>
-noremap qM  :<C-u>make<Space>
-noremap q<Space>  :<C-u>make<Space>
-noremap qg  :<C-u>grep<Space>
- 
+nnoremap <silent> qn  :<C-u>cnext<CR>
+nnoremap <silent> qp  :<C-u>cprevious<CR>
+nnoremap <silent> qr  :<C-u>crewind<CR>
+nnoremap <silent> qN  :<C-u>cfirst<CR>
+nnoremap <silent> qP  :<C-u>clast<CR>
+nnoremap <silent> qfn :<C-u>cnfile<CR>
+nnoremap <silent> qfp :<C-u>cpfile<CR>
+nnoremap <silent> ql  :<C-u>clist<CR>
+nnoremap <silent> qq  :<C-u>cc<CR>
+nnoremap <silent> qo  :<C-u>copen<CR>
+nnoremap <silent> qc  :<C-u>cclose<CR>
+nnoremap <silent> qen :<C-u>cnewer<CR>
+nnoremap <silent> qep :<C-u>colder<CR>
+nnoremap <silent> qm  :<C-u>make<CR>
+nnoremap qM  :<C-u>make<Space>
+nnoremap q<Space>  :<C-u>make<Space>
+nnoremap qg  :<C-u>grep<Space>
+" Toggle quickfix window.
+function! s:toggle_quickfix_window()
+  let _ = winnr('$')
+  cclose
+  if _ == winnr('$')
+    cwindow
+  endif
+endfunction
+nnoremap <silent> q<Space> :<C-u>call <SID>toggle_quickfix_window()<CR>
+
 " For location list (mnemonic: Quickfix list for the current Window)  "{{{3
-noremap <silent> qwn  :<C-u>lnext<CR>
-noremap <silent> qwp  :<C-u>lprevious<CR>
-noremap <silent> qwr  :<C-u>lrewind<CR>
-noremap <silent> qwP  :<C-u>lfirst<CR>
-noremap <silent> qwN  :<C-u>llast<CR>
-noremap <silent> qwfn :<C-u>lnfile<CR>
-noremap <silent> qwfp :<C-u>lpfile<CR>
-noremap <silent> qwl  :<C-u>llist<CR>
-noremap <silent> qwq  :<C-u>ll<CR>
-noremap <silent> qwo  :<C-u>lopen<CR>
-noremap <silent> qwc  :<C-u>lclose<CR>
-noremap <silent> qwep :<C-u>lolder<CR>
-noremap <silent> qwen :<C-u>lnewer<CR>
-noremap <silent> qwm  :<C-u>lmake<CR>
-noremap qwM  :<C-u>lmake<Space>
-noremap qw<Space>  :<C-u>lmake<Space>
-noremap qwg  :<C-u>lgrep<Space>
+nnoremap <silent> qwn  :<C-u>lnext<CR>
+nnoremap <silent> qwp  :<C-u>lprevious<CR>
+nnoremap <silent> qwr  :<C-u>lrewind<CR>
+nnoremap <silent> qwP  :<C-u>lfirst<CR>
+nnoremap <silent> qwN  :<C-u>llast<CR>
+nnoremap <silent> qwfn :<C-u>lnfile<CR>
+nnoremap <silent> qwfp :<C-u>lpfile<CR>
+nnoremap <silent> qwl  :<C-u>llist<CR>
+nnoremap <silent> qwq  :<C-u>ll<CR>
+nnoremap <silent> qwo  :<C-u>lopen<CR>
+nnoremap <silent> qwc  :<C-u>lclose<CR>
+nnoremap <silent> qwep :<C-u>lolder<CR>
+nnoremap <silent> qwen :<C-u>lnewer<CR>
+nnoremap <silent> qwm  :<C-u>lmake<CR>
+nnoremap qwM  :<C-u>lmake<Space>
+nnoremap qw<Space>  :<C-u>lmake<Space>
+nnoremap qwg  :<C-u>lgrep<Space>
 "}}}
 
 "}}}
@@ -1759,6 +1768,8 @@ command! -range=% Source split `=tempname()` | call append(0, getbufline('#', <l
 
 " Substitute indent.
 command! -range=% LeadUnderscores <line1>,<line2>s/^\s*/\=repeat('_', strlen(submatch(0)))/g
+noremap <silent> [Space]u        :LeadUnderscores<CR>
+
 "}}}
   
 "---------------------------------------------------------------------------

@@ -380,3 +380,4 @@ endif
 
 let loaded_bufstatus = 1
 
+" vim: foldmethod=marker
