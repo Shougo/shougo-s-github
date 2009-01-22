@@ -32,6 +32,7 @@
 "     - Implemented background execution on Windows.
 "     - Implemented shell execution.
 "     - Implemented shell command.
+"     - Implemented exit command.
 "   3.7:
 "     - Not escape quotation.
 "     - Implemented command completion.

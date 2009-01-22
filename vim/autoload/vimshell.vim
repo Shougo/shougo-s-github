@@ -165,21 +165,28 @@ function! vimshell#process_enter()"{{{
     if l:program == 'clear'
         " If it says clean, Clean up the screen.
         % delete _
-        call print_prompt()
+        call s:print_prompt()
 
         " Enter insert mode.
         startinsert!
         set iminsert=0 imsearch=0
         return
+    elseif l:program == 'exit'
+        " Exit vimshell.
+        " Insert prompt line.
+        call append(line('.'), g:VimShell_Prompt)
+        normal! j$
+        buffer #
+        return
     elseif l:program == 'command'
         execute 'silent read! ' . l:argments
     elseif l:program =~ '^\h\w*='
         " Variables substitution.
-        execute 'let $' . l:program
+        execute 'silent let $' . l:program
     elseif l:argments =~ '&\s*$'
         " Background execution.
         if has('win32') || has('win64')
-            execute printf('!start %s %s', l:program, substitute(l:argments, '&\s*$', '', ''))
+            silent execute printf('!start %s %s', l:program, substitute(l:argments, '&\s*$', '', ''))
         endif
     elseif l:program =~ '^!'
         " Shell execution.
