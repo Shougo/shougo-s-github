@@ -100,20 +100,22 @@ function! vimshell#create_shell(split_flag)"{{{
 endfunction"}}}
 
 function! s:print_prompt()"{{{
-    let l:escaped = escape (getline('$'), "\'")
+    let l:escaped = escape(getline('.'), "\'")
     " Search prompt
     if match(l:escaped, g:VimShell_Prompt) < 0
         " Prompt not found
-        if !empty(getline('.'))
+        if !empty(l:escaped)
+            " Insert prompt line.
             call append(line('.'), g:VimShell_Prompt)
             normal! j
         else
+            " Set prompt line.
             call setline(line('.'), g:VimShell_Prompt)
         endif
         normal! $
     else
         " If the line we are on has only the prompt , place the cursor at the end.
-        let l:escaped = escape (getline('.'), "\'")
+        let l:escaped = escape(getline('.'), "\'")
         let l:pattern = printf('%s\s*$', g:VimShell_Prompt)
         if match(l:escaped, l:pattern) > 0
             normal! $
@@ -123,15 +125,26 @@ function! s:print_prompt()"{{{
 endfunction"}}}
 
 function! vimshell#process_enter()"{{{
-    "let l:escaped = escape(getline('.'), '"')
+    "let l:escaped = escape(getline('.'), "\"\'")
     let l:escaped = getline('.')
-    "let l:prompt_pos = match(substitute(l:escaped, "'", "''", 'g'), g:VimShell_Prompt)
     let l:prompt_pos = match(l:escaped, g:VimShell_Prompt)
     if l:prompt_pos < 0
         " Prompt not found
         echo "Not on the command line."
         normal! j
         return
+    endif
+
+    if line('.') != line('$')
+        " History execution.
+        if match(getline('$'), g:VimShell_Prompt) < 0
+            " Insert prompt line.
+            call append(line('$'), getline('.'))
+        else
+            " Set prompt line.
+            call setline(line('$'), getline('.'))
+        endif
+        normal! G$
     endif
 
     " Delete prompt string.
@@ -162,20 +175,10 @@ function! vimshell#process_enter()"{{{
     let l:argments = substitute(l:line, '^' . l:program . '\s*', '', '')
 
     " Special commands.
-    if l:program == 'clear'
-        " If it says clean, Clean up the screen.
-        % delete _
-        call s:print_prompt()
-
-        " Enter insert mode.
-        startinsert!
-        set iminsert=0 imsearch=0
-        return
-    elseif l:program == 'exit'
+    if l:program == 'exit'
         " Exit vimshell.
         " Insert prompt line.
-        call append(line('.'), g:VimShell_Prompt)
-        normal! j$
+        call s:print_prompt()
         buffer #
         return
     elseif l:program == 'command'
@@ -197,16 +200,7 @@ function! vimshell#process_enter()"{{{
         execute printf('%s %s', l:program, l:argments)
     elseif l:program == 'vim' || l:program == 'view'
         " Edit file.
-        "
-        if line('.') == line('$')
-            " Insert blank line.
-            call append(line('$'), '')
-            normal! j
-        else
-            " Insert prompt line.
-            call append(line('.'), g:VimShell_Prompt)
-            normal! j
-        endif
+        
         call s:print_prompt()
 
         " Filename escape
@@ -232,7 +226,10 @@ function! vimshell#process_enter()"{{{
         return
     else
         " Internal commands.
-        if l:program == 'cd'
+        if l:program == 'clear'
+            " If it says clean, Clean up the screen.
+            % delete _
+        elseif l:program == 'cd'
             " If the command is a cd, Change the working directory.
 
             " Filename escape.
@@ -258,17 +255,6 @@ function! vimshell#process_enter()"{{{
             execute printf('silent read! %s %s', l:program, l:argments)
         endif
     endif
-
-    if line('.') == line('$')
-        " Insert blank line.
-        call append(line('$'), '')
-    else
-        " Insert prompt line.
-        call append(line('.'), g:VimShell_Prompt)
-    endif
-
-    " Next line.
-    normal! j
 
     call s:print_prompt()
     call s:highlight_escape_sequence()

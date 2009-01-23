@@ -30,6 +30,7 @@
 " ChangeLog: "{{{
 "   3.9:
 "     - Implemented background execution on Linux.
+"     - Improved print prompt.
 "   3.8:
 "     - Implemented background execution on Windows.
 "     - Implemented shell execution.
