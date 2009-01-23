@@ -114,12 +114,9 @@ function! s:print_prompt()"{{{
         endif
         normal! $
     else
-        " If the line we are on has only the prompt , place the cursor at the end.
-        let l:escaped = escape(getline('.'), "\'")
-        let l:pattern = printf('%s\s*$', g:VimShell_Prompt)
-        if match(l:escaped, l:pattern) > 0
-            normal! $
-        endif
+        " Insert prompt line.
+        call append(line('.'), g:VimShell_Prompt)
+        normal! j$
     endif
     let &modified = 0
 endfunction"}}}

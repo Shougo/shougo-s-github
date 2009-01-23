@@ -31,6 +31,7 @@
 "   3.9:
 "     - Implemented background execution on Linux.
 "     - Improved print prompt.
+"     - Fixed cd bug.
 "   3.8:
 "     - Implemented background execution on Windows.
 "     - Implemented shell execution.
@@ -126,7 +127,7 @@ nmap <silent> <Leader>sh     <Plug>(vimshell_switch)
 nmap <silent> <Leader>sc     <Plug>(vimshell_create)
 "}}}
 
-command! -nargs=0 VimShell call s:vimshell#switch_shell(0)
+command! -nargs=0 VimShell call vimshell#switch_shell(0)
 
 let g:loaded_vimshell = 1
 
