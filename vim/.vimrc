@@ -1549,6 +1549,12 @@ vnoremap <expr> l foldclosed(line('.')) != -1 ? 'zogv0' : 'l'
 " Fast search pair.
 map [Space]p    %
 
+" Search a parenthesis.
+onoremap <silent> q /["',.{}()[\]<>]<CR>
+
+" Fast substitute.
+vnoremap s y:%s/\<<C-R>"\>//g<Left><Left>
+
 "}}}
 
 "---------------------------------------------------------------------------

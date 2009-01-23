@@ -49,6 +49,8 @@
 "-----------------------------------------------------------------------------
 " Changelog"{{{
 " ---------
+"   3.3:
+"     - Displayed alternate buffer name.
 "   3.2:
 "     - Added g:BufStatus_ShortStatus and g:BufStatus_RightStatus option.
 "     - Improved restore statusline.
@@ -141,7 +143,13 @@ function! s:BufStatus.GetBuf()"{{{
         let l:filepath = expand(printf('#%d:p', l:i))
 
         if buflisted(l:i)
-            let l:fname = printf("%s:%s", l:num, fnamemodify(bufname(l:i), ':t'))
+            if l:i == bufnr('#')
+                " Alternate buffer name.
+                let l:fname = printf("%s#%s", l:num, fnamemodify(bufname(l:i), ':t'))
+            else
+                " Normal buffer name.
+                let l:fname = printf("%s:%s", l:num, fnamemodify(bufname(l:i), ':t'))
+            endif
 
             if len(l:fname) > l:item_length
                 let l:pos = 0

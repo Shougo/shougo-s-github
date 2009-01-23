@@ -2,7 +2,7 @@
 " FILE: vimshell.vim
 " AUTHOR: Janakiraman .S <prince@india.ti.com>(Original)
 "         Shougo Matsushita <Shougo.Matsu@gmail.com>(Modified)
-" Last Modified: 20 Jan 2009
+" Last Modified: 22 Jan 2009
 " Usage: Just source this file.
 "        source vimshell.vim
 " License: MIT license  {{{
@@ -25,7 +25,7 @@
 "     TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 "     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 " }}}
-" Version: 3.7, for Vim 7.0
+" Version: 3.8, for Vim 7.0
 "=============================================================================
 
 function! vimshell#switch_shell(split_flag)"{{{
@@ -187,6 +187,10 @@ function! vimshell#process_enter()"{{{
         " Background execution.
         if has('win32') || has('win64')
             silent execute printf('!start %s %s', l:program, substitute(l:argments, '&\s*$', '', ''))
+        elseif &term =~ "^screen"
+            silent execute printf('!screen %s %s', l:program, substitute(l:argments, '&\s*$', '', ''))
+        else
+            execute printf('!%s %s', l:program, substitute(l:argments, '&\s*$', '', ''))
         endif
     elseif l:program =~ '^!'
         " Shell execution.

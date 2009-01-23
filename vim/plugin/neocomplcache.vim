@@ -1,7 +1,7 @@
 "=============================================================================
 " FILE: neocomplcache.vim
 " AUTHOR:  Shougo Matsushita <Shougo.Matsu@gmail.com>
-" Last Modified: 20 Jan 2009
+" Last Modified: 23 Jan 2009
 " Usage: Just source this file.
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
@@ -23,9 +23,11 @@
 "     TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 "     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 " }}}
-" Version: 1.35, for Vim 7.0
+" Version: 1.36, for Vim 7.0
 "-----------------------------------------------------------------------------
 " ChangeLog: "{{{
+"   1.36:
+"     - Added g:NeoComplCache_FirstHeadMatching option.
 "   1.35:
 "     - Improved syntax complete.
 "     - Improved NeoCompleCacheToggle.
@@ -449,16 +451,56 @@ function! g:NeoComplCache_NormalComplete(cur_keyword_str)"{{{
     if g:NeoComplCache_FirstCurrentBufferWords
         let l:cache_keyword_filtered = 
                     \ filter(copy(l:cache_keyword_buffer_filtered), 'v:val.srcname == ' . bufnr('%'))
+
+        " Head match filtering.
+        if g:NeoComplCache_FirstHeadMatching
+            let l:partial = filter(copy(l:cache_keyword_filtered), "v:val.word !~ '^".l:keyword_escape."'")
+            call sort(l:partial, l:order_func)
+
+            call filter(l:cache_keyword_filtered, "v:val.word =~ '^".l:keyword_escape."'")
+            call sort(l:cache_keyword_buffer_filtered, l:order_func)
+
+            call extend(l:cache_keyword_filtered, l:partial)
+        endif
+        
         " Sort and append list.
         if len(l:cache_keyword_filtered) < g:NeoComplCache_MaxList
             call filter(l:cache_keyword_buffer_filtered, 'v:val.srcname != ' . bufnr('%'))
-            let l:ret = extend(sort(l:cache_keyword_filtered, l:order_func), sort(l:cache_keyword_buffer_filtered, l:order_func))
+
+            " Head match filtering.
+            if g:NeoComplCache_FirstHeadMatching
+                let l:partial = filter(copy(l:cache_keyword_buffer_filtered), "v:val.word !~ '^".l:keyword_escape."'")
+                call sort(l:partial, l:order_func)
+
+                call filter(l:cache_keyword_buffer_filtered, "v:val.word =~ '^".l:keyword_escape."'")
+                call sort(l:cache_keyword_buffer_filtered, l:order_func)
+
+                let l:ret = extend(l:cache_keyword_filtered, extend(l:cache_keyword_buffer_filtered, l:partial))
+            else
+                let l:ret = extend(sort(l:cache_keyword_filtered, l:order_func), sort(l:cache_keyword_buffer_filtered, l:order_func))
+            endif
         else
-            let l:ret = sort(l:cache_keyword_buffer_filtered, l:order_func)
+            if g:NeoComplCache_FirstHeadMatching
+                let l:ret = l:cache_keyword_filtered
+            else
+                let l:ret = sort(l:cache_keyword_filtered, l:order_func)
+            endif
         endif
     else
         " Sort.
-        let l:ret = sort(l:cache_keyword_buffer_filtered, l:order_func)
+        
+        " Head match filtering.
+        if g:NeoComplCache_FirstHeadMatching
+            let l:partial = filter(copy(l:cache_keyword_buffer_filtered), "v:val.word !~ '^".l:keyword_escape."'")
+            call sort(l:partial, l:order_func)
+
+            call filter(l:cache_keyword_buffer_filtered, "v:val.word =~ '^".l:keyword_escape."'")
+            call sort(l:cache_keyword_buffer_filtered, l:order_func)
+
+            let l:ret = extend(l:cache_keyword_buffer_filtered, l:partial)
+        else
+            let l:ret = sort(l:cache_keyword_buffer_filtered, l:order_func)
+        endif
     endif
 
     if g:NeoComplCache_QuickMatchEnable
@@ -1054,6 +1096,10 @@ endif
 if !exists('g:NeoComplCache_FirstCurrentBufferWords')
     let g:NeoComplCache_FirstCurrentBufferWords = 1
 endif
+if !exists('g:NeoComplCache_FirstHeadMatching')
+    let g:NeoComplCache_FirstHeadMatching = 1
+endif
+
 if !exists('g:NeoComplCache_CacheLineCount')
     let g:NeoComplCache_CacheLineCount = 30
 endif
