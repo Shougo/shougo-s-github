@@ -32,6 +32,7 @@
 "     - Implemented background execution on Linux.
 "     - Improved print prompt.
 "     - Fixed cd bug.
+"     - Fixed background execution bug.
 "   3.8:
 "     - Implemented background execution on Windows.
 "     - Implemented shell execution.

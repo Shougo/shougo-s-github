@@ -183,14 +183,14 @@ function! vimshell#process_enter()"{{{
     elseif l:program =~ '^\h\w*='
         " Variables substitution.
         execute 'silent let $' . l:program
-    elseif l:argments =~ '&\s*$'
+    elseif l:line =~ '&\s*$'
         " Background execution.
         if has('win32') || has('win64')
-            silent execute printf('!start %s %s', l:program, substitute(l:argments, '&\s*$', '', ''))
+            silent execute printf('!start %s', substitute(l:line, '&\s*$', '', ''))
         elseif &term =~ "^screen"
-            silent execute printf('!screen %s %s', l:program, substitute(l:argments, '&\s*$', '', ''))
+            silent execute printf('!screen %s', substitute(l:line, '&\s*$', '', ''))
         else
-            execute printf('!%s %s', l:program, substitute(l:argments, '&\s*$', '', ''))
+            execute printf('!%s', substitute(l:line, '&\s*$', '', ''))
         endif
     elseif l:program =~ '^!'
         " Shell execution.
