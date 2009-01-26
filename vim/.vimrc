@@ -188,17 +188,17 @@ filetype indent on
 "---------------------------------------------------------------------------
 " Search:"{{{
 "
-" 検索時に大文字小文字を無視
+" Ignore the case of normal letters. 
 set ignorecase
-" 大文字小文字の両方が含まれている場合は大文字小文字を区別
+" If the search pattern contains upper case characters, override ignorecase option.
 set smartcase
 
-" インクリメンタルサーチを有効にする
+" Enable incremental search.
 set incsearch
-" 検索結果をハイライトしない
+" Don't highlight search result.
 set nohlsearch
 
-" 検索時にファイルの最後まで行ったら最初に戻る
+" Searches wrap around the end of the file.
 set wrapscan
 "}}}
 
@@ -206,21 +206,20 @@ set wrapscan
 " Input Japanese:"{{{
 "
 if has('multi_byte_ime')
-    " 挿入モード・検索モードでのデフォルトのIME状態設定
+    " Settings of default ime condition.
     set iminsert=0 imsearch=0
-    " 挿入モードでのIME状態を記憶させない
+    " Don't save ime condition.
     inoremap <silent> <ESC> <ESC>:<C-u>set iminsert=0 imsearch=0<CR>
-    " これをやると、検索が遅くなる
-    "nnoremap <silent> / :<C-u>set imsearch=0<CR>/
-    "nnoremap <silent> ? :<C-u>set imsearch=0<CR>?
+    noremap / :<C-u>set imsearch=0<CR>/
+    noremap ? :<C-u>set imsearch=0<CR>?
 endif
 
 if has('xim')
-    " ATOKを使用するため
+    " To use ATOK X3.
     let $GTK_IM_MODULE='xim'
     set imactivatekey=S-space
 
-    " uim-anthy用
+    " To use uim-anthy.
     "let $GTK_IM_MODULE='uim-anthy'
     "set imactivatekey=C-space
 endif
@@ -232,9 +231,9 @@ endif
 " Enable no Vi compatible commands.
 set nocompatible
 
-" 賢いタブ挿入
+" Smart insert tab setting.
 set smarttab
-" タブをスペースに変換
+" Exchange tab to spaces.
 set expandtab
 " ファイルの<Tab>が対応する空白の数
 set tabstop=8
@@ -254,7 +253,7 @@ set clipboard& clipboard+=unnamed
 " Disable auto wrap.
 autocmd FileType * set textwidth=0
 
-" バックスペースでインデントや改行を削除できるようにする
+" Enable backspace delete indent and newline.
 set backspace=indent,eol,start
 
 " 括弧入力時に対応する括弧を表示
@@ -268,34 +267,32 @@ set matchpairs+=<:>
 " 保存していなくても別のファイルを表示できるようにする
 set hidden
 
-" 外部のエディタで編集中のファイルが変更されたら、自動的に読み直す
+" Auto reload if file is changed.
 set autoread
 
-" 挿入モードの単語の補完(C-p, C-n)で、
-" 小文字で打った単語でも大文字で補完できるようにする
+" Ignore case on insert completion.
 set infercase
 
-" ホームディレクトリもパスとして検索する
-" ただし補完は効かないので注意。
+" Search home directory path on cd.
+" But can't complete.
 set cdpath+=~
 
-" 折りたたみの設定を保存する
+" Save fold settings.
 " 無名バッファを開くときにエラーになる問題に対応。
 " *.*と違って、拡張子がないファイルにも対応した。
 augroup MyView
     autocmd!
-    autocmd BufWinLeave * if expand('%') != '' && &ft != 'vimshell' | mkview | endif
-    autocmd BufWinEnter * if expand('%') != '' && &ft != 'vimshell' | silent loadview | endif
+    autocmd BufWinLeave * if expand('%') != '' && &buftype !~ 'nofile' | mkview | endif
+    autocmd BufWinEnter * if expand('%') != '' && &buftype !~ 'nofile' | silent loadview | endif
 augroup END
-" オプションは保存しない
+" Don't save options.
 set viewoptions-=options
 
-" 折りたたみを有効に
+" Enable folding.
 set foldenable
 " 折りたたみ方法は分かりやすいマーカーにする。
-" syntaxにしても、C/C++以外では効果がない上に、使いづらい。
 set foldmethod=marker
-" 折りたたみのレベルを表示
+" Show folding level.
 set foldcolumn=4
 
 " GrepをVim標準のGrepにする
@@ -332,29 +329,29 @@ set updatetime=3000
 "---------------------------------------------------------------------------
 " View:"{{{
 "
-" 行番号を表示
+" Show line number.
 set number
-" ルーラーを表示
+" Show cursor position.
 set ruler
 " タブや改行を表示
 set list
 " どの文字でタブや改行を表示するかを設定
 set listchars=tab:>-,extends:>,precedes:<
-" 長い行を折り返して表示
+" Wrap long line.
 set wrap
-" カーソルを折り返させる条件
+" Wrap conditions.
 set whichwrap+=h,l,<,>,[,],b,s,~
-" 常にステータス行を表示
+" Always display statusline.
 set laststatus=2
-" コマンドラインの高さ
+" Height of command line.
 set cmdheight=2
-" コマンドをステータス行に表示
+" Show command on statusline.
 set showcmd
-" タイトルを表示
+" Show title.
 set title
-" タイトルの長さ
+" Title length.
 set titlelen=95
-" タイトルに表示する文字列
+" Title string.
 set titlestring=%f%(\ %M%)%(\ (%{getcwd()})%)%(\ %a%)
 
 " Set tabline.
@@ -399,32 +396,32 @@ set breakat=" 	;:,!?"
 " Vim起動時に挨拶メッセージを表示しない
 set shortmess& shortmess+=Ia
 
-" バックアップは必要ない
+" Don't create backup.
 set nowritebackup
 set nobackup
 
-" ベルを無効にする
+" Disable bell.
 set visualbell
 set vb t_vb=
 
 " 補完候補を表示する
 set nowildmenu
 set wildmode=list:longest,full
-" 履歴を増やす
+" Increase history.
 set history=200
 " Insertモードの補完でタグの情報をすべて表示する
 set showfulltag
 " コマンドラインでタグを補完できるように
 set wildoptions=tagfile
 
-" 補完の設定
+" Completion setting.
 set completeopt=menuone,preview
-" 辞書補完もする
+" Enable dictionary completion.
 set complete+=k
-" ポップアップメニューの最大値を設定
+" Set popup menu max height.
 set pumheight=20
 
-" 変更をレポートする
+" Report changes.
 set report=0
 
 " 移動時にできるだけ現在の列を保持する
@@ -439,7 +436,7 @@ set winwidth=40
 " Set minimal height for current window.
 set winheight=20
 
-" プレビューとヘルプのウインドウサイズを調整する
+" Adjust window size of preview and help.
 set previewheight=5
 set helpheight=14
 
@@ -453,7 +450,7 @@ endif
 " セッションとしてウインドウサイズを保存する
 set sessionoptions+=resize
 
-" Console画面でもメニューを有効にする
+" Enable menu in console.
 if !has('gui_running')
     source $VIMRUNTIME/menu.vim
     set cpo-=<
@@ -539,8 +536,6 @@ augroup END
 "---------------------------------------------------------------------------
 " Plugin:"{{{
 "
-" :Exploreで最初に開かれるディレクトリを変更
-set browsedir=current " カレントディレクトリ
 
 " yanktmp.vim"{{{
 " それほど使わないのでSyに格下げ
@@ -573,10 +568,11 @@ let g:NeoComplCache_EnableAtStartup = 1
 nnoremap <silent> <C-e> :<C-u>NeoComplCacheToggle<CR>
 
 " Define dictionary.
-let g:NeoComplCache_DictionaryFileTypeLists = {}
-let g:NeoComplCache_DictionaryFileTypeLists['default'] = ''
-let g:NeoComplCache_DictionaryFileTypeLists['vimshell'] = $HOME.'/.vimshell_hist'
-let g:NeoComplCache_DictionaryFileTypeLists['scheme'] = $HOME.'/.gosh_completions'
+let g:NeoComplCache_DictionaryFileTypeLists = {
+            \ 'default' : '',
+            \ 'vimshell' : $HOME.'/.vimshell_hist',
+            \ 'scheme' : $HOME.'/.gosh_completions'
+            \ }
 "}}}
 
 " NERD_comments.vim"{{{
@@ -588,23 +584,31 @@ nnoremap <C-c> <C-c>
 nunmap <C-c>
 "}}}
 
-" Shell.vim"{{{
-" ユーザ名をプロンプトに表示する
+" vimshell.vim"{{{
+" 
 if has('win32') || has('win64') 
-    " Windows用
+    " Display user name on Windows
     let g:VimShell_Prompt = $USERNAME."% "
-else
-    " Linux用
-    let g:VimShell_Prompt = $USER."% "
-endif"}}}
 
-" scratch.vim
+    " Use ckw
+    let g:VimShell_UseCkw = 1
+else
+    " Display user name on Linux
+    let g:VimShell_Prompt = $USER."% "
+endif
+"}}}
+
+" scratch.vim"{{{
 " scratchバッファのバックアップファイルを設定
 let g:scratchBackupFile=$HOME . "/scratch.txt"
+"}}}
 
-" netrw.vim
+" netrw.vim"{{{
 let g:netrw_list_hide= '*.swp'
 nnoremap <silent> <BS> :<C-u>Explore<CR>
+" Change default directory.
+set browsedir=current
+"}}}
 
 " markbrowser.vim
 nnoremap <silent> <Leader>mb :<C-u>MarksBrowser<CR>
@@ -618,22 +622,11 @@ nnoremap <silent> sz :<C-u>ZoomWin<CR>
 let eregex_replacement = 2
 "}}}
 
-" NERD_tree"{{{
-" ,ntでツリーを開く。
-noremap <silent> <Leader>nt  :<C-u>NERDTreeToggle<CR>
-" -で分割して表示
-let g:NERDTreeMapOpenSplit = "-" 
-augroup NERDTree
-    au!
-    " <CR>でもファイルをオープンする
-    au BufWinEnter *_NERD_tree_ | nmap <buffer> <CR> o
-augroup END
-"}}}
-
-" VTreeExplorer
+" VTreeExplorer.vim"{{{
 let g:treeExplVertical=1
 nnoremap <silent> <Leader>vt :<C-u>VTreeExplore<CR>
 nnoremap <silent> <Leader>vs :<C-u>VSTreeExplore<CR>
+"}}}
 
 " hexedit.vim"{{{
 nnoremap <Leader>he  :<C-u>Hedit<CR>
@@ -742,6 +735,23 @@ call metarw#define_wrapper_commands(1)
 
 "}}}
 
+" smartword.vim"{{{
+" Replace w and others with smartword-mappings
+nmap w  <Plug>(smartword-w)
+nmap b  <Plug>(smartword-b)
+nmap E  <Plug>(smartword-e)
+nmap ge  <Plug>(smartword-ge)
+vmap w  <Plug>(smartword-w)
+vmap b  <Plug>(smartword-b)
+vmap E  <Plug>(smartword-e)
+vmap ge  <Plug>(smartword-ge)
+" Operator pending mode.
+omap <Leader>w  <Plug>(smartword-w)
+omap <Leader>b  <Plug>(smartword-b)
+omap <Leader>e  <Plug>(smartword-e)
+omap <Leader>ge  <Plug>(smartword-ge)
+"}}}
+
 "}}}
 
 "---------------------------------------------------------------------------
@@ -770,8 +780,6 @@ inoremap <C-Space>  <ESC>
 " ポップアップメニューが開いているかによって動作を変える"{{{
 " <TAB> completion.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" C-cでポップアップメニューを閉じる
-inoremap <expr><C-c>  pumvisible() ? "\<C-e>" : "\<C-c>"
 " C-eで行末に
 inoremap <expr><silent><C-e>  pumvisible() ? "\<C-e>" : "\<C-o>$"
 " C-yを押すとヤンクレジスタの内容を貼り付け
@@ -1119,6 +1127,8 @@ nmap ey y$
 " Delete first character.
 nnoremap ex ^x
 nnoremap X ^x
+" Line selection <C-v>.
+nnoremap eV 0<C-v>$h
 
 " eregex.vim commands."{{{
 " Don't allow M/ region.
@@ -1221,14 +1231,15 @@ nnoremap <silent> qen :<C-u>cnewer<CR>
 nnoremap <silent> qep :<C-u>colder<CR>
 nnoremap <silent> qm  :<C-u>make<CR>
 nnoremap qM  :<C-u>make<Space>
-nnoremap q<Space>  :<C-u>make<Space>
 nnoremap qg  :<C-u>grep<Space>
 " Toggle quickfix window.
 function! s:toggle_quickfix_window()
   let _ = winnr('$')
   cclose
   if _ == winnr('$')
-    cwindow
+    copen
+    setlocal nowrap
+    setlocal whichwrap=b,s
   endif
 endfunction
 nnoremap <silent> q<Space> :<C-u>call <SID>toggle_quickfix_window()<CR>
@@ -1280,24 +1291,17 @@ nnoremap <silent> fm :<C-u>FuzzyFinderMruFile<CR>
 "nnoremap <silent> fmc :<C-u>FuzzyFinderMruCmd<CR>
 "}}}
 
-" マーク位置へのジャンプを行だけでなく桁位置も復元できるようにする"{{{
+" Jump mark can restore column."{{{
 " あまり使わないので\に降格
 nnoremap \  `
 " mもMに降格
 nnoremap M  m
 "}}}
 
-" C-a で8進数の計算をさせない
+" Don't calc octal.
 set nrformats-=octal
 
-" 見た目の行数で移動させる"{{{
-"nnoremap <silent> j  gj
-"nnoremap <silent> k  gk
-"vnoremap <silent> j  gj
-"vnoremap <silent> k  gk
-"}}}
-
-" ジャンプ履歴
+" Jump history.
 noremap <silent> <C-k> <C-o>
 noremap <silent> <C-j> <C-i>
 
@@ -1306,61 +1310,46 @@ nnoremap <silent> gZZ :<C-u>set t_te= t_ti= \| quit \| set t_te& t_ti&<CR>
 " vimの画面を残したままシェルを起動
 nnoremap <silent> gsh :<C-u>set t_te= t_ti= \| sh \| set t_te& t_ti&<CR>
 
-" 検索語が画面の真ん中に来るようにする"{{{
-nnoremap n  nzz 
-nnoremap N  Nzz 
-nnoremap *  *zz 
-nnoremap #  #zz 
-nnoremap g*  g*zz 
-nnoremap g#  g#zz
+" Move search word to middle screen."{{{
+noremap n  nzz 
+noremap N  Nzz 
+noremap *  *zz 
+noremap #  #zz 
+noremap g*  g*zz 
+noremap g#  g#zz
 "}}}
 
-" C-f, C-bを見やすくする
+" Smart C-f, C-b.
 noremap <silent> <C-f> z<CR><C-f>z.
 noremap <silent> <C-b> z-<C-b>z.
 
-" C-hでヘルプを引く"{{{
-" VimがEmacsに勝てる設定の一つ。
+" Execute help."{{{
 nnoremap <C-h>  :<C-u>help<Space>
-" g<C-h>でカーソルの単語でヘルプを引く。
+" Execute help by cursor keyword.
 nnoremap <silent> g<C-h>  :<C-u>help<Space><C-r><C-w><CR>
-" grhでヘルプをgrepする。
+" Grep in help.
 nnoremap grh  :<C-u>Hg<Space>
-" grwでカーソル下の単語をgrepする。
+" Grep cursor word.
 nnoremap grw  :<C-u>Egrep <C-r><C-w><CR>
-" grpでgrepする。
+" Execute grep.
 nnoremap grp  :<C-u>Egrep<Space>
 "}}}
 
-" ZZの挙動が邪魔なので無効化する
+" Ignore ZZ.
 nnoremap ZZ  <Nop>
 
-" 押しにくいので、;と:を入れ替える。
-" 便利だが、副作用も大きいので注意！
+" Exchange ';' to ':'.
 noremap ;  :
-" これをするとShell.vimやquickrun.vimで問題が発生する。
-"noremap :  ;
 
 " Like gv, but select the last changed text.
 nnoremap gc  `[v`]
 " Specify the last changed text as {motion}.
 onoremap <silent> gc  :<C-u>normal! gc<CR>
 
-" 勝手にエスケープすることで、/と?の検索を楽にする
+" Auto escape / and ? in search command.
 cnoremap <expr> / getcmdtype() == '/' ? '\/' : '/'
 
-" w, bを英字のみヒットするようにして使いやすくする "{{{
-nnoremap <silent> w :<C-u>call ForwardWord()<CR>
-nnoremap <silent> b :<C-u>call BackwardWord()<CR>
-function! ForwardWord()
-    call search('\(\W\|^\)\w', 'e')
-endfunction
-function! BackwardWord()
-    call search('\(\W\|^\)\w', 'be')
-endfunction
-" }}}
-
-" }を使いやすくする"{{{
+" Smart }."{{{
 nnoremap <silent> } :<C-u>call ForwardParagraph()<CR>
 onoremap <silent> } :<C-u>call ForwardParagraph()<CR>
 vnoremap <silent> } <Esc>:<C-u>call ForwardParagraph()<CR>mzgv`z
@@ -1377,7 +1366,7 @@ function! ForwardParagraph()
 endfunction
 "}}}
 
-" カーソル位置に応じた(context sensitiveな）H,L"{{{
+" Context sensitive H,L."{{{
 nnoremap <silent> H :<C-u>call HContext()<CR>
 nnoremap <silent> L :<C-u>call LContext()<CR>
 vnoremap <silent> H <ESC>:<C-u>call HContext()<CR>mzgv`z
@@ -1385,14 +1374,14 @@ vnoremap <silent> L <ESC>:<C-u>call LContext()<CR>mzgv`z
 function! HContext() 
     let l:moved = MoveCursor("H") 
     if !l:moved && line('.') != 1 
-        exe "normal! " . "\<pageup>H" 
+        execute "normal! " . "\<pageup>H" 
     endif 
 endfunction
 function! LContext() 
     let l:moved = MoveCursor("L") 
 
     if !l:moved && line('.') != line('$') 
-        exe "normal! " . "\<pagedown>L" 
+        execute "normal! " . "\<pagedown>L" 
     endif 
 endfunction
 function! MoveCursor(key) 
@@ -1400,28 +1389,25 @@ function! MoveCursor(key)
     let l:lnum = line('.') 
     let l:wline = winline() 
 
-    exe "normal! " . v:count . a:key 
+    execute "normal! " . v:count . a:key 
     let l:moved =  l:cnum != col('.') || l:lnum != line('.') || l:wline != winline() 
 
     return l:moved 
 endfunction
 "}}}
 
-" 先頭と末尾に簡単に移動する"{{{
+" Smart home and smart end."{{{
 nnoremap <silent> gh  :<C-u>call SmartHome("n")<CR>
 nnoremap <silent> gl  :<C-u>call SmartEnd("n")<CR>
 vnoremap <silent> gh  <ESC>:<C-u>call SmartHome("v")<CR>
 vnoremap <silent> gl  <ESC>:<C-u>call SmartEnd("v")<CR>
-" 通常のコマンドにもマッピングする
+" Mappings normal commands.
 nnoremap <silent> ^  :<C-u>call SmartHome("n")<CR>
 nnoremap <silent> _  :<C-u>call SmartHome("n")<CR>
-nnoremap <silent> $  :<C-u>call SmartEnd("n")<CR>
 vnoremap <silent> ^  <ESC>:<C-u>call SmartHome("v")<CR>
 vnoremap <silent> _  <ESC>:<C-u>call SmartHome("v")<CR>
-vnoremap <silent> $  <ESC>:<C-u>call SmartEnd("v")<CR>
-" 0はg0にマッピングする
-nnoremap 0  g0
-vnoremap 0  g0
+" Mapping 0 to g0.
+noremap 0  g0
 " Smart home function"{{{
 function! SmartHome(mode)
     let l:curcol = col(".")
@@ -1488,12 +1474,12 @@ nnoremap <silent> g} :<C-u>call search("^" . matchstr(getline(line(".")), '\(\s*
 " Select block for example 'for, while, ...'
 nnoremap vb /{<CR>%v%0
 
-" 選択した文字列を検索
+" Search for selecting text.
 " ^@ などキー入力が困難なコントロール文字を検索（もしくは置換）対象にするときに重宝する。
 vnoremap g* y/\V<C-R>=substitute(escape(@",'/'),"\n","\\\\n","g")<CR>/<CR>
 
-" バッファのディレクトリをコマンドラインに挿入する"{{{
-cnoremap <C-X> <C-R>=<SID>GetBufferDirectory()<CR>/
+" Insert buffer directory in command line."{{{
+cnoremap <C-x> <C-r>=<SID>GetBufferDirectory()<CR>/
 function! s:GetBufferDirectory()
   let l:path = expand('%:p:h')
   let l:cwd = getcwd()
@@ -1537,13 +1523,16 @@ noremap <C-Space>   <ESC>
 
 " Folding."{{{
 " If press h on head, fold close.
-nnoremap <expr> h col('.') == 1 && foldlevel(line('.')) > 0 ? 'zc' : 'h'
+"nnoremap <expr> h col('.') == 1 && foldlevel(line('.')) > 0 ? 'zc' : 'h'
 " If press l on fold, fold open.
 nnoremap <expr> l foldclosed(line('.')) != -1 ? 'zo0' : 'l'
 " If press h on head, range fold close.
-vnoremap <expr> h col('.') == 1 && foldlevel(line('.')) > 0 ? 'zcgv' : 'h'
+"vnoremap <expr> h col('.') == 1 && foldlevel(line('.')) > 0 ? 'zcgv' : 'h'
 " If press l on fold, range fold open.
 vnoremap <expr> l foldclosed(line('.')) != -1 ? 'zogv0' : 'l'
+" Useful command.
+noremap z<Space>   za
+noremap eh  zc
 "}}}
 
 " Fast search pair.
@@ -1561,12 +1550,13 @@ vnoremap s y:%s/\<<C-R>"\>//g<Left><Left>
 " Commands:"{{{
 "
 
-" 選択範囲内から検索"{{{
+" Search in selecting text."{{{
 " ちゃんと n や N もその範囲内だけになる
 function! RangeSearch(direction)
 endfunction
 command! -nargs=0 -range RangeSearch call RangeSearch('/')|if strlen(g:srchstr) > 0|exe '/'.g:srchstr|endif
-command! -nargs=0 -range RangeSearchBackward call RangeSearch('?')|if strlen(g:srchstr) > 0|exe '?'.g:srchstr|endif"}}}
+command! -nargs=0 -range RangeSearchBackward call RangeSearch('?')|if strlen(g:srchstr) > 0|exe '?'.g:srchstr|endif
+"}}}
 
 " 指定した名前を持つバッファが既に存在するならそこにカーソルを移動。 "{{{
 " 存在しないなら作成。
@@ -1658,19 +1648,20 @@ command! Run2 call EmacsRun("", 0)
 " Run3は現在のバッファ名を引数に渡す。
 command! Run3 call EmacsRun("", 1)"}}}
 
-" 任意のオプションの有効・無効を切り替える "{{{
+" Toggle options. "{{{
 function! ToggleOption(option_name)
   execute 'setlocal' a:option_name.'!'
   execute 'setlocal' a:option_name.'?'
 endfunction  "}}}
 
-" :Hg コマンド(:helpg[rep]の代用)"{{{
-" 標準の:helpgrepだと、日本語が化けるので。
+" :Hg (alternative of ':helpg[rep]')"{{{
+" Because if use default ':helpgrep', Japanese texts are garbled.
 command! -nargs=1 Hg call NewHelpgrep("<args>") 
 function! NewHelpgrep( arg ) 
-    " helpgrep の引数に cp932(S-JIS)をutf-8に変換して渡す 
-    exec ":helpgrep " . iconv(a:arg,"cp932","utf-8") 
-endfunction"}}}
+    " Convert helpgrep argments.
+    exec ":helpgrep " . iconv(a:arg, "cp932", "utf-8") 
+endfunction
+"}}}
 
 " 指定したファイルとの差分を表示
 command! -nargs=1 -complete=file VDsplit vertical diffsplit <args>
@@ -1679,8 +1670,8 @@ command! DiffOrig vert new | setlocal bt=nofile | r # | 0d_ | diffthis | wincmd 
 " diffモードを解除する
 command! -nargs=0 Undiff setlocal nodiff noscrollbind wrap
 
-" 自動的にmakeする"{{{
-" 普通のmakeと違ってちらつかない。
+" Smart make."{{{
+" Unlike normal ':make', don't flick.
 function! s:UpdateQuickFix(command, jump)
     " Rubyではruby -wcで文法チェックを行う
     if &ft == 'ruby'
@@ -1702,7 +1693,7 @@ function! s:UpdateQuickFix(command, jump)
         call delete(expand('%:r') . '.aux')
         call delete(expand('%:r') . '.log')
     else
-        " Vimのmakeを行う
+        " Do ':make'
         if empty(a:command)
             silent make
         else
@@ -1782,32 +1773,30 @@ noremap <silent> [Space]u        :LeadUnderscores<CR>
 " Platform depends:"{{{
 "
 if has('win32') || has('win64') 
-    " Windows用"{{{
+    " For Windows"{{{
 
     " WinではPATHに$VIMが含まれていないときにexeを見つけ出せないので修正
     if $PATH !~? '\(^\|;\)' . escape($VIM, '\\') . '\(;\|$\)'
         let $PATH = $VIM . ';' . $PATH
     endif
 
-    " シェルを登録
-    " NYACUSでないとShell.vimで使えない
+    " Shell settings.
+    " Use NYACUS.
     set shell=nyacus.exe
-    "set shell=ckw.exe\ -e\ nyacus.exe
-    " NYACUS用にパラメータを設定
+    " Set parameters.
     set shellcmdflag=-e
     set shellpipe=\|&\ tee
     set shellredir=>%s\ 2>&1
-    " これを指定しないと!やquickrun.vimが動かない。
     set shellxquote=\"
-    " パスのセパレータを変更 (\ -> /)
+    " Exchange path separator.
     set shellslash
 
-    " 画面の色変更
-    " colorschemeは上書きしない
+    " Change colorscheme.
+    " Don't override colorscheme.
     if !exists('g:colors_name')
         colorscheme darkblue 
     endif
-    " エラーメッセージがうざったいので無効に
+    " Disable error messages.
     let g:CSApprox_verbose_level = 0
 
     " そこそこ見れる補完リストにする
@@ -1816,18 +1805,17 @@ if has('win32') || has('win64')
     hi PmenuSbar ctermbg=0
     "}}}
 else
-    " Linux用"{{{
+    " For Linux"{{{
 
-    " シェルはzsh
+    " Use zsh.
     set shell=zsh
 
-    " 非GUI時の設定
+    " For non GVim.
     if !has('gui_running')
-        " 256色ターミナルを有効に
+        " Enable 256 color terminal.
         set t_Co=256
 
-        " vimの256色表示に対応していないcolorschemeを変換する
-        " Konsole上でCSApproxを使用してみる
+        " Convert colorscheme in Konsole.
         let g:CSApprox_konsole = 1
         if !exists('g:colors_name')
             colorscheme candy
@@ -1835,16 +1823,16 @@ else
 
         augroup MyLinuxConsole
             autocmd!
-            " バグに対処するため、terminalをscreenに設定
+            " For prevent bug.
             autocmd VimLeave * :set term=screen
         augroup END
 
-        " screenでしか使わない設定"{{{
+        " For screen."{{{
         if &term =~ "^screen"
             augroup MyLinuxScreen
                 autocmd!
-                " screen Buffer 切り替えで screen にファイル名を表示
-                " ただし、anotherのBufferには無効。
+                " Show filename on screen statusline.
+                " But invalid 'another' screen buffer.
                 autocmd BufEnter * if $WINDOW != 0 &&  bufname("") !~ "[A-Za-z0-9\]*://" 
                             \ | silent! exe '!echo -n "kv:%:t\\"' | endif
                 " なぜかは知らないがmouseを空にしないと終了時にフリーズする
@@ -1854,7 +1842,7 @@ else
             " screenでマウスを使用するとフリーズするのでその対策
             set ttymouse=xterm2
 
-            " Vim+Screenでプログラミング
+            " Split Vim and screen.
             function! ScreenSpiritOpen(cmd)
                 call system("screen -X eval split  focus 'screen " . a:cmd ."' focus")
             endfunction
@@ -1912,17 +1900,17 @@ endif
 "---------------------------------------------------------------------------
 " Others:"{{{
 "
-" マウスを使用可能にする
+" Enable mouse support.
 set mouse=a
 
 " If true Vim master, use English help file.
 "set helplang=ja
 set helplang=en
 
-" 起動時のホームディレクトリ
+" Default home directory.
 let g:home = getcwd()
 
-" タブごとにカレントディレクトリを設定する  
+" Each tab has current directory."{{{
 command! -nargs=? TabCD
       \   execute 'cd' fnameescape(<q-args>)
       \ | let t:cwd = getcwd()
@@ -1934,9 +1922,10 @@ augroup MyTab
                 \ | endif
             \ | execute 'cd' fnameescape(t:cwd)
 augroup END
-
-" :cdの代わりに:TabCDを打つのは面倒なので:cdを打つと:TabCDになるように 
+" Exchange ':cd' to ':TabCD'.
 cnoreabbrev <expr> lhs (getcmdtype() == ':' && getcmdline() ==# 'cd') ? 'TabCD' : 'cd'
+"}}}
+
 "}}}
 "
 " vim: foldmethod=marker

@@ -1,89 +1,74 @@
 "---------------------------------------------------------------------------
 " Shougo's .gvimrc
 "---------------------------------------------------------------------------
-" フォント設定:"{{{
+" Fonts:"{{{
 "
 if has('win32') || has('win64')
-    " Windows用
+    " For Windows.
+    
     "set guifont=Terminal:h10:cSHIFTJIS
-    " フォントファイル名に空白を使うためには\でエスケープする必要がある
     set guifont=UmePlus\ Gothic:h12
     "set guifont=NFモトヤシータ゛1等幅:h11
-    " 行間隔の設定
+    " Number of pixel lines inserted between characters.
     set linespace=1
-    " 一部のUCS文字の幅を自動計測して決める
-    if has('kaoriya')
-        set ambiwidth=auto
-    endif
 elseif has('mac')
+    " For Mac.
     set guifont=Osaka－等幅:h14
 else
-    " GTK2用
-    " Linuxでは太字にしないと見にくかったが、最近のLinuxでは問題ない。
+    " For Linux.
+    
     "set guifont=UmePlus\ Gothic\ bold\ 12
-    set guifont=UmePlus\ Gothic\ 13
+    " Don't use bold fonts.
+    set guifont=UmePlus\ Gothic\ 14
 endif
 "}}}
 
 "---------------------------------------------------------------------------
-" ウインドウに関する設定:"{{{
+" Window:"{{{
 "
 if has('win32') || has('win64')
-    " ウインドウの幅
-    set columns=150
-    " ウインドウの高さ
-    set lines=45
+    " Width of window.
+    set columns=160
+    " Height of window.
+    set lines=50
 else
-    " ウインドウの幅
-    set columns=140
-    " ウインドウの高さ
-    set lines=45
+    " Width of window.
+    set columns=150
+    " Height of window.
+    set lines=50
 endif
-" コマンドラインの高さ(GUI使用時)
-set cmdheight=2
-" 画面を黒地に白にする
-colorscheme candy " (GUI使用時)
+" Setting of colorscheme.
+colorscheme candy
 "}}}
 
 "---------------------------------------------------------------------------
-" 日本語入力に関する設定:"{{{
-" Linux用の独自設定
+" Input Japanese:"{{{
+" For Linux
 if (has('multi_byte_ime') || has('xim')) && has('GUI_GTK')
-    " ATOKが誤動作するので、autocomplpopを無効にする。
-    let g:AutoComplPop_NotEnableAtStartup = 1
-
-    " 代わりに、自作したAutoComplPopの代替品を使う
-    let g:AltAutoComplPop_EnableAtStartup = 1
 endif
 "}}}
 
 "---------------------------------------------------------------------------
-" マウスに関する設定:"{{{
+" Mouse:"{{{
 "
-" マウス右クリックでポップアップメニューを表示する
-" Win32ではデフォルトで有効
+" Show popup menu if right click.
 set mousemodel=popup
 
-" マウスの移動でフォーカスを自動的に切り替えない
+" Don't focus the window when the mouse pointer is moved.
 set nomousefocus
-" 入力時にマウスポインタを隠す
+" Hide mouse pointer on insert mode.
 set mousehide
 
 "}}}
 
 "---------------------------------------------------------------------------
-" メニューに関する設定:"{{{
+" Menu:"{{{
 "
-" "M"オプションが指定されたときはメニュー("m")・ツールバー("T")供に登録され
-" ないので、自動的にそれらの領域を削除する
-if &guioptions =~# 'M'
-    let &guioptions = substitute(&guioptions, '[mT]', '', 'g')
-endif
 
-" あまり使わないので、ツールバーとメニューの非表示
+" Hide toolbar and menus.
 set guioptions-=T
 set guioptions-=m
-" F2キーでメニューの表示・非表示を切り替える
+" Toggle menu open if press <F2>.
 noremap <silent> <F2> :<C-u>if &guioptions =~# 'm' <Bar>
             \set guioptions-=m <Bar>
             \else <Bar>
@@ -96,41 +81,34 @@ set guioptions-=e
 "}}}
 
 "---------------------------------------------------------------------------
-" その他、見栄えに関する設定:"{{{
+" Views:"{{{
 "
-" 検索文字列をハイライトしない(vimrcではなくgvimrcで設定する必要がある)
+" Don't highlight search result.
 set nohlsearch
 
-" ベルを無効にする
-" .gvimrcにも書かないと、GUI起動時にリセットされる
+" Disable bell.
 set vb t_vb=
 
-" カーソルを点滅させない
+" Don't flick cursor.
 set guicursor=a:blinkon0
 
 "}}}
 
 "---------------------------------------------------------------------------
-" プラットホーム依存の特別な設定"{{{
+" Platform depends:"{{{
 "
 if has('win32') || has('win64') 
-    " Windows用
-
-    " シェルはckwを使う
-    " コマンド引数がうまく渡せないのが難点。
-    " Shell.vimもうまく使えない。
-    "set shell=ckw.exe\ -e\ nyacus.exe
-    "set shellcmdflag=
+    " For Windows
 else
-    " Linux用
+    " For Linux
 
-    "set shell=/bin/sh
-    " zshでも大丈夫なように.zshrcを書き換えた
+    "set shell=/bin/bash
+    " Use zsh.
     set shell=zsh
 endif
 "}}}
 
 "---------------------------------------------------------------------------
-" その他に関する設定:
+" Others::
 "
 
