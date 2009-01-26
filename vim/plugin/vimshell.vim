@@ -2,7 +2,7 @@
 " FILE: vimshell.vim
 " AUTHOR: Janakiraman .S <prince@india.ti.com>(Original)
 "         Shougo Matsushita <Shougo.Matsu@gmail.com>(Modified)
-" Last Modified: 23 Jan 2009
+" Last Modified: 26 Jan 2009
 " Usage: Just source this file.
 "        source vimshell.vim
 " License: MIT license  {{{
@@ -25,9 +25,29 @@
 "     TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 "     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 " }}}
-" Version: 3.9, for Vim 7.0
+" Version: 4.4, for Vim 7.0
 "-----------------------------------------------------------------------------
 " ChangeLog: "{{{
+"   4.4:
+"     - Changed s:alias_table into b:vimshell_alias_table.
+"     - Interpret cd of no argument as cd $HOME
+"   4.3:
+"     - Implemented zsh like cd.
+"     - Make built-in command autoload.
+"     - Optimized special commands.
+"     - Implemented popd, dirs command.
+"   4.2:
+"     - Implemented alias command.
+"     - Implemented VimShell script.
+"     - Optimized vimshell#process_enter.
+"   4.1:
+"     - Implemented history command.
+"     - Implemented histdel command.
+"     - Implemented nop command.
+"     - Ignore empty command line.
+"   4.0:
+"     - Implemented shell background execution.
+"     - Added g:VimShell_UseCkw option.
 "   3.9:
 "     - Implemented background execution on Linux.
 "     - Improved print prompt.
@@ -105,7 +125,7 @@
 ""}}}
 "-----------------------------------------------------------------------------
 " TODO: "{{{
-"     - Make built-in command autoload.
+"     -
 ""}}}
 " Bugs"{{{
 "     -

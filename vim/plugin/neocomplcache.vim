@@ -1,7 +1,7 @@
 "=============================================================================
 " FILE: neocomplcache.vim
 " AUTHOR:  Shougo Matsushita <Shougo.Matsu@gmail.com>
-" Last Modified: 23 Jan 2009
+" Last Modified: 24 Jan 2009
 " Usage: Just source this file.
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
@@ -28,6 +28,9 @@
 " ChangeLog: "{{{
 "   1.36:
 "     - Added g:NeoComplCache_FirstHeadMatching option.
+"     - Fixed list order bug.
+"     - Changed g:NeoComplCache_QuickMatchMaxLists default value.
+"     - Optimized when buffer renamed.
 "   1.35:
 "     - Improved syntax complete.
 "     - Improved NeoCompleCacheToggle.
@@ -458,7 +461,7 @@ function! g:NeoComplCache_NormalComplete(cur_keyword_str)"{{{
             call sort(l:partial, l:order_func)
 
             call filter(l:cache_keyword_filtered, "v:val.word =~ '^".l:keyword_escape."'")
-            call sort(l:cache_keyword_buffer_filtered, l:order_func)
+            call sort(l:cache_keyword_filtered, l:order_func)
 
             call extend(l:cache_keyword_filtered, l:partial)
         endif
@@ -712,11 +715,7 @@ function! s:NeoComplCache.CachingSource(srcname, start_line, end_line)"{{{
             " Cache clear when Buffer Renamed.
             if l:filename != l:source.name
                 " Buffer name caching.
-                let l:source.cached_last_line = 1
-                let l:source.name = l:filename
-                let l:source.end_line = len(getbufline(a:srcname, 1, '$'))
-                call remove(l:source, 'keyword_pattern')
-                call s:GetKeywordPattern(a:srcname)
+                call s:InitializeSource(a:srcname)
             endif
         endif
         
@@ -1122,7 +1121,7 @@ if !exists('g:NeoComplCache_CalcRankMaxLists')
     let g:NeoComplCache_CalcRankMaxLists = 40
 endif
 if !exists('g:NeoComplCache_QuickMatchMaxLists')
-    let g:NeoComplCache_QuickMatchMaxLists = 40
+    let g:NeoComplCache_QuickMatchMaxLists = 60
 endif
 if !exists('g:NeoComplCache_SlowCompleteSkip')
     if has('reltime')
