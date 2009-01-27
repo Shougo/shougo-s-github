@@ -351,7 +351,7 @@ function s:process_execute(line, program, arguments, is_interactive, has_head_sp
         " Change the working directory like zsh.
 
         " Filename escape.
-        let l:arguments = escape(l:program, " \t\n*?[]{}`$\\%#'\"|!<")
+        let l:arguments = escape(a:program, "\\*?[]{}`$%#&'\"|!<>+")
 
         execute 'lcd ' . l:arguments
         "}}}
@@ -386,7 +386,7 @@ function! s:special_vim(line, program, arguments, is_interactive, has_head_space
     call s:print_prompt()
 
     " Filename escape
-    let l:arguments = escape(a:arguments, " \t\n*?[]{}`$\\%#'\"|!<")
+    let l:arguments = escape(a:arguments, "\\*?[]{}`$%#&'\"|!<>+")
 
     if empty(l:arguments)
         new
@@ -403,7 +403,7 @@ function! s:special_view(line, program, arguments, is_interactive, has_head_spac
     call s:print_prompt()
 
     " Filename escape
-    let l:arguments = escape(a:arguments, " \t\n*?[]{}`$\\%#'\"|!<")
+    let l:arguments = escape(a:arguments, "\\*?[]{}`$%#&'\"|!<>+")
 
     if empty(l:arguments)
         call append(line('.'), 'Filename required.')
