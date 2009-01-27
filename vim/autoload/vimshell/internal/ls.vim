@@ -24,9 +24,11 @@
 "     TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 "     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 " }}}
-" Version: 1.1, for Vim 7.0
+" Version: 1.2, for Vim 7.0
 "-----------------------------------------------------------------------------
 " ChangeLog: "{{{
+"   1.2:
+"     - Improved on Windows.
 "   1.1:
 "     - Added -FC option.
 "   1.0:
@@ -42,24 +44,23 @@
 "=============================================================================
 
 function! vimshell#internal#ls#execute(line, program, arguments, is_interactive, has_head_spaces, other_info)
-    let l:words = split(a:line)
     if has('win32') || has('win64')
         " For Windows.
-        if len(l:words) == 1
-            silent execute 'read! ls .'
+        if empty(a:arguments)
+            silent execute 'read! ls.exe -FC'
+        elseif a:arguments =~ '|'
+            silent execute printf('read! ls.exe %s', a:arguments)
         else
-            silent execute printf('read! ls %s', a:arguments)
+            silent execute printf('read! ls.exe -FC %s', a:arguments)
         endif
     else
         " For Linux.
-        if len(l:words) == 1
+        if empty(a:arguments)
             silent execute 'read! ls -FC'
+        elseif a:arguments =~ '|'
+            silent execute printf('read! ls %s', a:arguments)
         else
-            if a:arguments =~ '|'
-                silent execute printf('read! ls %s', a:arguments)
-            else
-                silent execute printf('read! ls -FC %s', a:arguments)
-            endif
+            silent execute printf('read! ls -FC %s', a:arguments)
         endif
     endif
 endfunction

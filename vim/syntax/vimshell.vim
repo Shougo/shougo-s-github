@@ -1,7 +1,7 @@
 "=============================================================================
 " FILE: syntax/vimshell.vim
 " AUTHOR: Shougo Matsushita <Shougo.Matsu@gmail.com>(Modified)
-" Last Modified: 26 Jan 2009
+" Last Modified: 27 Jan 2009
 " Usage: Just source this file.
 "        source vimshell.vim
 " License: MIT license  {{{
@@ -29,6 +29,7 @@
 " ChangeLog: "{{{
 "   2.7:
 "     - Improved VimShellVariable color.
+"     - Improved VimShellArguments color.
 "   2.6:
 "     - Improved VimShellSpecial color.
 "     - Improved VimShellExe color.
@@ -58,7 +59,7 @@ syn region   VimShellString   start=+`+ end=+`+ contained
 syn match   VimShellConstants         '\(^\|\s\)[[:digit:]]\+\(\s\|$\)\(\s*[[:digit:]]\+\)*'
 syn match   VimShellExe               '\(^\|\s\)[[:alnum:]_.][[:alnum:]_.-]\+\*\(\s\|\n\)'
 syn match   VimShellSocket            '\(^\|\s\)[[:alnum:]_.][[:alnum:]_.-]\+=\(\s\|\n\)'
-syn match   VimShellArguments         '-\=-[[:alnum:]-]\+=\=' contained
+syn match   VimShellArguments         '\s-\=-[[:alnum:]-]\+=\=' contained
 syn match   VimShellQuoted            '\\.' contained
 syn match   VimShellSpecial           '[|<>;&]' contained
 syn match   VimShellSpecial           '!!\|!\d*' contained
@@ -67,16 +68,16 @@ syn match   VimShellVariable          '$[[:digit:]*@#?$!-]\+' contained
 syn region   VimShellVariable  start=+${+ end=+}+ contained
 syn region   VimShellVariable  start=+$((\s+ end=+\s))+ contained
 if has('win32') || ('win64')
-    syn match   VimShellArguments         '/[?[:alnum:]]\+' contained
+    syn match   VimShellArguments         '\s/[?[:alnum:]]\+' contained
     syn match   VimShellDirectory         '\(\.\|\w\)*\f[/\\]\f*'
     syn match   VimShellLink              '\([[:alnum:]_.-]\+\.lnk\)'
 else
     syn match   VimShellDirectory         '/\=\(\.\|\w\)*\f/\f*'
     syn match   VimShellLink              '\(^\|\s\)[[:alnum:]_.][[:alnum:]_.-]\+@'
 endif
-execute "syn region   VimShellExe start='" . g:VimShell_Prompt . "' end='\\h[[:alpha:]_.-]*\\(\\s\\|\\n\\)' contained contains=VimShellPrompt,VimShellSpecial,VimShellConstants"
-syn match VimShellExe '|\s*[[:alpha:]_.-]\+' contained contains=VimShellSpecial
-syn match VimShellExe ';\s*[[:alpha:]_.-]\+' contained contains=VimShellSpecial
+execute "syn region   VimShellExe start='" . g:VimShell_Prompt . "' end='\\h[[:alpha:]_.-]*\\(\\s\\|\\n\\)' contained contains=VimShellPrompt,VimShellSpecial,VimShellConstants,VimShellArguments"
+syn match VimShellExe '|\s*[[:alpha:]_.-]\+' contained contains=VimShellSpecial,VimShellArguments
+syn match VimShellExe ';\s*[[:alpha:]_.-]\+' contained contains=VimShellSpecial,VimShellArguments
 execute "syn region   VimShellLine start='" . g:VimShell_Prompt ."' end='$' keepend contains=VimShellExe,VimShellDirectory,VimShellConstants,VimShellArguments, VimShellQuoted,VimShellString,VimShellVariable,VimShellSpecial"
 
 if has('gui_running')

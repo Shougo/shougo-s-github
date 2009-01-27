@@ -2,7 +2,7 @@
 " FILE: vimshell.vim
 " AUTHOR: Janakiraman .S <prince@india.ti.com>(Original)
 "         Shougo Matsushita <Shougo.Matsu@gmail.com>(Modified)
-" Last Modified: 26 Jan 2009
+" Last Modified: 27 Jan 2009
 " Usage: Just source this file.
 "        source vimshell.vim
 " License: MIT license  {{{
@@ -116,6 +116,11 @@ function! vimshell#create_shell(split_flag)"{{{
     if !exists('w:vimshell_directory_stack')
         let w:vimshell_directory_stack = []
         let w:vimshell_directory_stack[0] = getcwd()
+    endif
+    " Load rc file.
+    if filereadable(g:VimShell_VimshrcPath) && !exists('b:vimshell_loaded_vimshrc')
+        call s:special_vimsh('vimsh ' . g:VimShell_VimshrcPath, 'vimsh', g:VimShell_VimshrcPath, 0, 0)
+        let b:vimshell_loaded_vimshrc = 1
     endif
 
     call s:print_prompt()
@@ -416,7 +421,7 @@ function! s:special_vimsh(line, program, arguments, is_interactive, has_head_spa
         return 1
     else
         " Filename escape.
-        let l:filename = escape(a:arguments, " \t\n*?[]{}`$\\%#'\"|!<")
+        let l:filename = escape(a:arguments, "\\*?[]{}`$%#&'\"|!<>+")
 
         if filereadable(l:filename)
             let l:scripts = readfile(l:filename)
@@ -431,7 +436,8 @@ function! s:special_vimsh(line, program, arguments, is_interactive, has_head_spa
                 normal! j
             endfor
         else
-            call append(line('.'), 'Not found the script.')
+            " Error.
+            call append(line('.'), printf('Not found the script %s.', l:filename))
             normal! j
         endif
     endif
@@ -620,6 +626,9 @@ if !exists('g:VimShell_HistoryPath')
 endif
 if !exists('g:VimShell_HistoryMaxSize')
     let g:VimShell_HistoryMaxSize = 1000
+endif
+if !exists('g:VimShell_VimshrcPath')
+    let g:VimShell_VimshrcPath = $HOME.'/.vimshrc'
 endif
 if !exists('g:VimShell_IgnoreCase')
     let g:VimShell_IgnoreCase = 1

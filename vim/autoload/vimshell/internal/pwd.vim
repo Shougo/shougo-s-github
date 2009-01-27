@@ -1,7 +1,7 @@
 "=============================================================================
-" FILE: cd.vim
+" FILE: pwd.vim
 " AUTHOR: Shougo Matsushita <Shougo.Matsu@gmail.com>(Modified)
-" Last Modified: 26 Jan 2009
+" Last Modified: 27 Jan 2009
 " Usage: Just source this file.
 "        source vimshell.vim
 " License: MIT license  {{{
@@ -24,13 +24,9 @@
 "     TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 "     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 " }}}
-" Version: 1.1, for Vim 7.0
+" Version: 1.0, for Vim 7.0
 "-----------------------------------------------------------------------------
 " ChangeLog: "{{{
-"   1.2:
-"     - Improved escape sequence.
-"   1.1:
-"     - Interpret cd of no argument as cd $HOME
 "   1.0:
 "     - Initial version.
 ""}}}
@@ -43,15 +39,9 @@
 ""}}}
 "=============================================================================
 
-function! vimshell#internal#cd#execute(line, program, arguments, is_interactive, has_head_spaces, other_info)
-    " Change the working directory.
+function! vimshell#internal#pwd#execute(line, program, arguments, is_interactive, has_head_spaces, other_info)
+    " Print the working directory.
 
-    if empty(a:arguments)
-        " Move to HOME directory.
-        let l:arguments = $HOME
-    else
-        " Filename escape.
-        let l:arguments = escape(a:arguments, "*?[]{}`$\\%#&'\"|!<>+")
-    endif
-    execute 'lcd ' . l:arguments
+    call append(line('.'), getcwd())
+    normal! j
 endfunction

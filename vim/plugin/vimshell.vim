@@ -2,7 +2,7 @@
 " FILE: vimshell.vim
 " AUTHOR: Janakiraman .S <prince@india.ti.com>(Original)
 "         Shougo Matsushita <Shougo.Matsu@gmail.com>(Modified)
-" Last Modified: 26 Jan 2009
+" Last Modified: 27 Jan 2009
 " Usage: Just source this file.
 "        source vimshell.vim
 " License: MIT license  {{{
@@ -31,6 +31,9 @@
 "   4.4:
 "     - Changed s:alias_table into b:vimshell_alias_table.
 "     - Interpret cd of no argument as cd $HOME
+"     - Added pwd command.
+"     - Improved ls on Windows.
+"     - Load ~/.vimshrc on init.
 "   4.3:
 "     - Implemented zsh like cd.
 "     - Make built-in command autoload.
