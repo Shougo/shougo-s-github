@@ -61,7 +61,7 @@ function! vimshell#internal#popd#execute(line, program, arguments, is_interactiv
         normal! j
         return
     endif
-    if l:pop > len(w:vimshell_directory_stack)
+    if l:pop >= len(w:vimshell_directory_stack)
         " Overflow.
         call append(line('.'), 'Not found in directory stack.')
         normal! j
