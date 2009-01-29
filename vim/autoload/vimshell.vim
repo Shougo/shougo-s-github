@@ -25,7 +25,7 @@
 "     TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 "     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 " }}}
-" Version: 4.3, for Vim 7.0
+" Version: 4.5, for Vim 7.0
 "=============================================================================
 
 function! vimshell#switch_shell(split_flag)"{{{
@@ -107,6 +107,7 @@ function! vimshell#create_shell(split_flag)"{{{
         let s:special_func_table = {
                     \ 'exit' : 's:special_exit',
                     \ 'command' : 's:special_command',
+                    \ 'internal' : 's:special_internal',
                     \ 'vim' : 's:special_vim',
                     \ 'view' : 's:special_view',
                     \ 'vimsh' : 's:special_vimsh',
@@ -189,7 +190,7 @@ function! vimshell#process_enter()"{{{
     let l:line = substitute(l:escaped, g:VimShell_Prompt, '', '')
 
     " Not append history if starts spaces or dups.
-    if l:line !~ '^\s' && l:line != get(s:hist_buffer, 0)
+    if l:line !~ '^\s' && (empty(s:hist_buffer) || l:line != s:hist_buffer[0])
         let l:now_hist_size = getfsize(g:VimShell_HistoryPath)
         if l:now_hist_size != s:hist_size
             " Reload.
@@ -288,35 +289,60 @@ function s:process_execute(line, program, arguments, is_interactive, has_head_sp
             execute printf('!%s', substitute(a:line, '&\s*$', '', ''))
         endif"}}}
     elseif l:program =~ '^!'"{{{
-        if l:program == '!!' && len(s:hist_buffer) > 2 && a:is_interactive
-            if get(s:hist_buffer, 0) == '!!'
-                " Delete from history.
-                call remove(s:hist_buffer, 0)
-            endif
+        if l:program == '!!' && a:is_interactive
+            if len(s:hist_buffer) >= 2
+                if get(s:hist_buffer, 0) =~ '^!!'
+                    " Delete from history.
+                    call remove(s:hist_buffer, 0)
+                endif
 
-            " Previous command execution.
-            if a:has_head_spaces
-                " Don't append history.
-                call setline(line('.'), printf('%s %s', g:VimShell_Prompt, s:hist_buffer[0]))
+                " Previous command execution.
+                if !empty(l:arguments)
+                    " Join arguments.
+                    let l:line = s:hist_buffer[0] . ' ' . l:arguments
+                else
+                    let l:line = s:hist_buffer[0]
+                endif
+                if a:has_head_spaces
+                    " Don't append history.
+                    call setline(line('.'), printf('%s %s', g:VimShell_Prompt, l:line))
+                else
+                    call setline(line('.'), g:VimShell_Prompt . l:line)
+                endif
+                call vimshell#process_enter()
+                return 1
+
             else
-                call setline(line('.'), g:VimShell_Prompt . s:hist_buffer[0])
+                " Delete command.
+                call setline(line('.'), g:VimShell_Prompt)
+                echo 'Not found in history.'
+
+                " Enter insert mode.
+                startinsert!
+                set iminsert=0 imsearch=0
+                return 1
             endif
-            call vimshell#process_enter()
-            return 1
         elseif l:program =~ '!\d\+$' && a:is_interactive
             " History command execution.
-            if get(s:hist_buffer, 0) =~ '^!\d\+$'
+            if get(s:hist_buffer, 0) =~ '^!\d\+'
                 " Delete from history.
                 call remove(s:hist_buffer, 0)
             endif
 
             let l:num = str2nr(l:program[1:])
             if len(s:hist_buffer) > l:num
+                if !empty(l:arguments)
+                    " Join arguments.
+                    let l:line = s:hist_buffer[l:num] . ' ' . l:arguments
+                else
+                    let l:line = s:hist_buffer[l:num]
+                endif
+
                 if a:has_head_spaces
                     " Don't append history.
-                    call setline(line('.'), printf('%s %s', g:VimShell_Prompt, s:hist_buffer[l:num]))
+                    call setline(line('.'), printf('%s %s', g:VimShell_Prompt, l:line))
                 else
-                    call setline(line('.'), g:VimShell_Prompt . s:hist_buffer[l:num])
+                    call setline(line('.'), g:VimShell_Prompt . l:line)
                 endif
 
                 call vimshell#process_enter()
@@ -380,6 +406,24 @@ function! s:special_command(line, program, arguments, is_interactive, has_head_s
     execute 'silent read! ' . a:arguments
     return 0
 endfunction"}}}
+function! s:special_internal(line, program, arguments, is_interactive, has_head_spaces)"{{{
+    if !empty(a:arguments)
+        let l:program = split(a:arguments)[0]
+        let l:arguments = substitute(a:arguments, '^' . l:program . '\s*', '', '')
+        if has_key(s:internal_func_table, l:program)
+            " Internal commands.
+            let l:other_info = { 'hist_buffer': s:hist_buffer }
+            execute printf('call %s(a:arguments, l:program, l:arguments, a:is_interactive, a:has_head_spaces, l:other_info)', 
+                        \ s:internal_func_table[l:program])
+            execute 'silent read! ' . l:arguments
+        else
+            " Error.
+            call append(line('.'), printf('Not found internal command "%s".', l:program))
+            normal! j
+        endif
+    endif
+    return 0
+endfunction"}}}
 function! s:special_vim(line, program, arguments, is_interactive, has_head_spaces)"{{{
     " Edit file.
 
@@ -437,7 +481,7 @@ function! s:special_vimsh(line, program, arguments, is_interactive, has_head_spa
             endfor
         else
             " Error.
-            call append(line('.'), printf('Not found the script %s.', l:filename))
+            call append(line('.'), printf('Not found the script "%s".', l:filename))
             normal! j
         endif
     endif

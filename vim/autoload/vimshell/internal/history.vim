@@ -54,7 +54,7 @@ function! vimshell#internal#history#execute(line, program, arguments, is_interac
     else
         let l:max = len(a:other_info.hist_buffer)
     endif
-    if l:max > len(a:other_info.hist_buffer)
+    if l:max >= len(a:other_info.hist_buffer)
         " Overflow.
         let l:max = len(a:other_info.hist_buffer)
     endif

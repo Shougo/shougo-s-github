@@ -739,11 +739,11 @@ call metarw#define_wrapper_commands(1)
 " Replace w and others with smartword-mappings
 nmap w  <Plug>(smartword-w)
 nmap b  <Plug>(smartword-b)
-nmap E  <Plug>(smartword-e)
+nmap ee  <Plug>(smartword-e)
 nmap ge  <Plug>(smartword-ge)
 vmap w  <Plug>(smartword-w)
 vmap b  <Plug>(smartword-b)
-vmap E  <Plug>(smartword-e)
+vmap ee  <Plug>(smartword-e)
 vmap ge  <Plug>(smartword-ge)
 " Operator pending mode.
 omap <Leader>w  <Plug>(smartword-w)
@@ -1110,9 +1110,7 @@ endfunction
 "}}}
 
 " e: Change basic commands "{{{
-" Exchange e to E.
 nnoremap e <NOP>
-nnoremap E e
 
 " Emacs run.
 nnoremap <silent> e!  :<C-u>Run2<CR>
@@ -1199,6 +1197,10 @@ nmap <C-t><C-h>  <C-t>h
 nmap <silent> <C-n>   <C-t>j
 " C-pで前のタブを表示
 nmap <silent> <C-p>   <C-t>k
+
+" Move to previous tab.
+nnoremap <silent><C-t><Space> :<C-u>TabRecent<CR>
+nnoremap <C-t>p :<C-u>TabRecent<Space>
 
 " Change current tab like GNU screen.
 " Note that the numbers in {lhs}s are 0-origin.  See also 'tabline'.
@@ -1515,7 +1517,7 @@ nnoremap y+  "+gp
 nnoremap y*  "*gp
 "}}}
 
-" Redraw
+"Return Redraw
 nnoremap <silent> <C-l>    :<C-u>redraw!<CR>
 
 " Elegant <ESC>
@@ -1677,6 +1679,13 @@ function! s:UpdateQuickFix(command, jump)
     if &ft == 'ruby'
         let lines = filter(split(system('ruby -wc '. shellescape(expand('%'))), "\n"), 'v:val != "Syntax OK"')
         cgetexpr lines
+    elseif &ft == 'php'
+        let lines = filter(split(system('ruby -wc '. shellescape(expand('%'))), "\n"), 'v:val != "Syntax OK"')
+        cgetexpr lines
+    elseif &ft == 'perl'
+        "let lines = filter(split(system('perl -wc '. shellescape(expand('%'))), "\n"), 'v:val != "Syntax OK"')
+        let lines = filter(split(system('perl -wc '. expand('%')), "\n"), 'v:val =~ "syntax OK"')
+        cgetexpr lines
     elseif filereadable("Makefile")
         let lines = split(system('make -s'), "\n")
         cgetexpr lines
@@ -1824,7 +1833,7 @@ else
         augroup MyLinuxConsole
             autocmd!
             " For prevent bug.
-            autocmd VimLeave * :set term=screen
+            autocmd VimLeave * set term=screen
         augroup END
 
         " For screen."{{{

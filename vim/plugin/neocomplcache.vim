@@ -1,7 +1,7 @@
 "=============================================================================
 " FILE: neocomplcache.vim
 " AUTHOR:  Shougo Matsushita <Shougo.Matsu@gmail.com>
-" Last Modified: 24 Jan 2009
+" Last Modified: 27 Jan 2009
 " Usage: Just source this file.
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
@@ -23,9 +23,11 @@
 "     TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 "     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 " }}}
-" Version: 1.36, for Vim 7.0
+" Version: 1.37, for Vim 7.0
 "-----------------------------------------------------------------------------
 " ChangeLog: "{{{
+"   1.37:
+"     - Improved file complete.
 "   1.36:
 "     - Added g:NeoComplCache_FirstHeadMatching option.
 "     - Fixed list order bug.
@@ -215,9 +217,14 @@ function! s:NeoComplCache.Complete()"{{{
     if l:cur_keyword_pos < 0 || len(cur_keyword_str) < g:NeoComplCache_KeywordCompletionStartLength
         " Try filename completion.
         "
-        let l:PATH_SEPARATOR = (has('win32') || has('win64')) ? '/\\' : '/'
+        "let l:PATH_SEPARATOR = (has('win32') || has('win64')) ? '/\\' : '/'
         " Filename pattern.
-        let l:pattern = printf('\f[%s]\f\{%d,}$', l:PATH_SEPARATOR, g:NeoComplCache_FilenameCompletionStartLength)
+        "let l:pattern = printf('\f[%s]\f\{%d,}$', l:PATH_SEPARATOR, g:NeoComplCache_FilenameCompletionStartLength)
+        if has('win32') || has('win64')
+            let l:pattern = '\([./~-]\|\f\)*[/\\]\([.-]\|\f\)*'
+        else
+            let l:pattern = '\([./~-]\|\f\)*/\([.-]\|\f\)*'
+        endif
         " Not Filename pattern.
         let l:exclude_pattern = '[*/\\][/\\]\f*$\|[^[:print:]]\f*'
 

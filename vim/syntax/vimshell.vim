@@ -28,6 +28,9 @@
 "-----------------------------------------------------------------------------
 " ChangeLog: "{{{
 "   2.7:
+"     - Improved VimShellPrompt color on console.
+"     - Improved VimShellDirectory color.
+"     - Added VimShellDotFiles color.
 "     - Improved VimShellVariable color.
 "     - Improved VimShellArguments color.
 "   2.6:
@@ -56,34 +59,36 @@ execute 'syn match VimShellPrompt ' . "'".g:VimShell_Prompt."'"
 syn region   VimShellString   start=+'+ end=+'+ contained
 syn region   VimShellString   start=+"+ end=+"+ contains=VimShellQuoted
 syn region   VimShellString   start=+`+ end=+`+ contained
-syn match   VimShellConstants         '\(^\|\s\)[[:digit:]]\+\(\s\|$\)\(\s*[[:digit:]]\+\)*'
-syn match   VimShellExe               '\(^\|\s\)[[:alnum:]_.][[:alnum:]_.-]\+\*\(\s\|\n\)'
-syn match   VimShellSocket            '\(^\|\s\)[[:alnum:]_.][[:alnum:]_.-]\+=\(\s\|\n\)'
-syn match   VimShellArguments         '\s-\=-[[:alnum:]-]\+=\=' contained
+syn match   VimShellConstants         '\(^\|[[:blank:]]\)[[:digit:]]\+\([[:blank:]]\|$\)\([[:blank:]]*[[:digit:]]\+\)*'
+syn match   VimShellExe               '\(^\|[[:blank:]]\)[[:alnum:]_.][[:alnum:]_.-]\+\*\([[:blank:]]\|\n\)'
+syn match   VimShellSocket            '\(^\|[[:blank:]]\)[[:alnum:]_.][[:alnum:]_.-]\+=\([[:blank:]]\|\n\)'
+syn match   VimShellDotFiles          '\(^\|[[:blank:]]\)\.[[:alnum:]_.-]\+\([[:blank:]]\|\n\)'
+syn match   VimShellArguments         '[[:blank:]]-\=-[[:alnum:]-]\+=\=' contained
 syn match   VimShellQuoted            '\\.' contained
 syn match   VimShellSpecial           '[|<>;&]' contained
 syn match   VimShellSpecial           '!!\|!\d*' contained
 syn match   VimShellVariable          '$[$[:alnum:]]\+' contained
 syn match   VimShellVariable          '$[[:digit:]*@#?$!-]\+' contained
 syn region   VimShellVariable  start=+${+ end=+}+ contained
-syn region   VimShellVariable  start=+$((\s+ end=+\s))+ contained
+syn region   VimShellVariable  start=+$(([[:blank:]]+ end=+[[:blank:]]))+ contained
 if has('win32') || ('win64')
-    syn match   VimShellArguments         '\s/[?[:alnum:]]\+' contained
-    syn match   VimShellDirectory         '\(\.\|\w\)*\f[/\\]\f*'
+    syn match   VimShellArguments         '[[:blank:]]/[?[:alnum:]]\+' contained
+    "syn match   VimShellDirectory         '[[:alnum:]./~_]\(-\|\f\)*[/\\]\(-\|\f\)*'
+    syn match   VimShellDirectory         '\([./~_-]\|\f\)\+[/\\]\([.-]\|\f\)*'
     syn match   VimShellLink              '\([[:alnum:]_.-]\+\.lnk\)'
 else
-    syn match   VimShellDirectory         '/\=\(\.\|\w\)*\f/\f*'
-    syn match   VimShellLink              '\(^\|\s\)[[:alnum:]_.][[:alnum:]_.-]\+@'
+    syn match   VimShellDirectory         '\([./~_-]\|\f\)\+/\([.-]\|\f\)*'
+    syn match   VimShellLink              '\(^\|[[:blank:]]\)[[:alnum:]_.][[:alnum:]_.-]\+@'
 endif
-execute "syn region   VimShellExe start='" . g:VimShell_Prompt . "' end='\\h[[:alpha:]_.-]*\\(\\s\\|\\n\\)' contained contains=VimShellPrompt,VimShellSpecial,VimShellConstants,VimShellArguments"
-syn match VimShellExe '|\s*[[:alpha:]_.-]\+' contained contains=VimShellSpecial,VimShellArguments
-syn match VimShellExe ';\s*[[:alpha:]_.-]\+' contained contains=VimShellSpecial,VimShellArguments
+execute "syn region   VimShellExe start='" . g:VimShell_Prompt . "' end='\\h[[:alpha:]_.-]*\\(\[[:blank:]]\\|\\n\\)' contained contains=VimShellPrompt,VimShellSpecial,VimShellConstants,VimShellArguments"
+syn match VimShellExe '|[[:blank:]]*[[:alpha:]_.-]\+' contained contains=VimShellSpecial,VimShellArguments
+syn match VimShellExe ';[[:blank:]]*[[:alpha:]_.-]\+' contained contains=VimShellSpecial,VimShellArguments
 execute "syn region   VimShellLine start='" . g:VimShell_Prompt ."' end='$' keepend contains=VimShellExe,VimShellDirectory,VimShellConstants,VimShellArguments, VimShellQuoted,VimShellString,VimShellVariable,VimShellSpecial"
 
 if has('gui_running')
     hi VimShellPrompt  gui=UNDERLINE guifg=#80ffff guibg=NONE
 else
-    hi def link VimShellPrompt Comment
+    hi def link VimShellPrompt Identifier
 endif
 
 hi def link VimShellQuoted Special
@@ -93,9 +98,11 @@ hi def link VimShellConstants Constant
 hi def link VimShellSpecial PreProc
 hi def link VimShellVariable Comment
 hi def link VimShellNormal Normal
+
 hi def link VimShellExe Statement
 hi def link VimShellDirectory Preproc
 hi def link VimShellSocket Constant
 hi def link VimShellLink Comment
+hi def link VimShellDotFiles Identifier
 
 let b:current_syntax = "vimshell"

@@ -25,15 +25,21 @@
 "     TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 "     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 " }}}
-" Version: 4.4, for Vim 7.0
+" Version: 4.5, for Vim 7.0
 "-----------------------------------------------------------------------------
 " ChangeLog: "{{{
+"   4.5:
+"     - Fixed popd and history bugs.
+"     - Implemented history arguments.
+"     - Implemented internal command.
+"     - Improved syntax color.
 "   4.4:
 "     - Changed s:alias_table into b:vimshell_alias_table.
 "     - Interpret cd of no argument as cd $HOME
 "     - Added pwd command.
 "     - Improved ls on Windows.
 "     - Load ~/.vimshrc on init.
+"     - Improved escape.
 "   4.3:
 "     - Implemented zsh like cd.
 "     - Make built-in command autoload.

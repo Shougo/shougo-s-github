@@ -19,7 +19,7 @@ else
     
     "set guifont=UmePlus\ Gothic\ bold\ 12
     " Don't use bold fonts.
-    set guifont=UmePlus\ Gothic\ 14
+    set guifont=UmePlus\ Gothic\ 13
 endif
 "}}}
 
@@ -33,9 +33,9 @@ if has('win32') || has('win64')
     set lines=50
 else
     " Width of window.
-    set columns=150
+    set columns=140
     " Height of window.
-    set lines=50
+    set lines=45
 endif
 " Setting of colorscheme.
 colorscheme candy
