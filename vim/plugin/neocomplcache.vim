@@ -28,6 +28,7 @@
 " ChangeLog: "{{{
 "   1.37:
 "     - Improved file complete.
+"     - Fixed file complete bug.
 "   1.36:
 "     - Added g:NeoComplCache_FirstHeadMatching option.
 "     - Fixed list order bug.
@@ -217,19 +218,16 @@ function! s:NeoComplCache.Complete()"{{{
     if l:cur_keyword_pos < 0 || len(cur_keyword_str) < g:NeoComplCache_KeywordCompletionStartLength
         " Try filename completion.
         "
-        "let l:PATH_SEPARATOR = (has('win32') || has('win64')) ? '/\\' : '/'
+        let l:PATH_SEPARATOR = (has('win32') || has('win64')) ? '/\\' : '/'
         " Filename pattern.
         "let l:pattern = printf('\f[%s]\f\{%d,}$', l:PATH_SEPARATOR, g:NeoComplCache_FilenameCompletionStartLength)
-        if has('win32') || has('win64')
-            let l:pattern = '\([./~-]\|\f\)*[/\\]\([.-]\|\f\)*'
-        else
-            let l:pattern = '\([./~-]\|\f\)*/\([.-]\|\f\)*'
-        endif
+        let l:pattern = printf('[/~]\=\([.-]\|\f\)*%s\([.-]\|\f\)*', l:PATH_SEPARATOR)
         " Not Filename pattern.
-        let l:exclude_pattern = '[*/\\][/\\]\f*$\|[^[:print:]]\f*'
+        let l:exclude_pattern = '[*/\\][/\\]\f*$\|[^[:print:]]\f*\|//'
 
         " Check filename completion.
         if match(l:cur_text, l:pattern) >= 0 && match(l:cur_text, l:exclude_pattern) < 0
+                    \ && len(matchstr(l:cur_text, l:pattern)) >= g:NeoComplCache_KeywordCompletionStartLength
             call feedkeys("\<C-x>\<C-f>\<C-p>", 'n')
         endif
 
