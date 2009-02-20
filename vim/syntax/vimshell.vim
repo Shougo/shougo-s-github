@@ -1,7 +1,7 @@
 "=============================================================================
 " FILE: syntax/vimshell.vim
 " AUTHOR: Shougo Matsushita <Shougo.Matsu@gmail.com>(Modified)
-" Last Modified: 27 Jan 2009
+" Last Modified: 14 Feb 2009
 " Usage: Just source this file.
 "        source vimshell.vim
 " License: MIT license  {{{
@@ -24,9 +24,20 @@
 "     TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 "     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 " }}}
-" Version: 2.7, for Vim 7.0
+" Version: 2.9, for Vim 7.0
 "-----------------------------------------------------------------------------
 " ChangeLog: "{{{
+"   3.0:
+"     - Added VimShellErrorHidden.
+"     - Added VimShellError.
+"   2.9:
+"     - Implemented VimShellComment.
+"     - Improved VimShellDirectory.
+"     - Added VimShellSpecial.
+"     - Improved VimShellConstants.
+"   2.8:
+"     - Improved VimShellArguments color on Windows.
+"     - Improved VimShellString.
 "   2.7:
 "     - Improved VimShellPrompt color on console.
 "     - Improved VimShellDirectory color.
@@ -59,30 +70,37 @@ execute 'syn match VimShellPrompt ' . "'".g:VimShell_Prompt."'"
 syn region   VimShellString   start=+'+ end=+'+ contained
 syn region   VimShellString   start=+"+ end=+"+ contains=VimShellQuoted
 syn region   VimShellString   start=+`+ end=+`+ contained
-syn match   VimShellConstants         '\(^\|[[:blank:]]\)[[:digit:]]\+\([[:blank:]]\|$\)\([[:blank:]]*[[:digit:]]\+\)*'
+syn region   VimShellError   start=+!!!+ end=+\n+ contains=VimShellErrorHidden
+syn match   VimShellErrorHidden            '!!!' contained
+syn match   VimShellComment   '#.*$' contained
+syn match   VimShellConstants         '[+-]\=\<\d\+\>'
+syn match   VimShellConstants         '[+-]\=\<0x\x\+\>'
+syn match   VimShellConstants         '[+-]\=\<0\o\+\>'
+syn match   VimShellConstants         '[+-]\=\d\+#[-+]\=\w\+\>'
+syn match   VimShellConstants         '[+-]\=\d\+\.\d\+\>'
 syn match   VimShellExe               '\(^\|[[:blank:]]\)[[:alnum:]_.][[:alnum:]_.-]\+\*\([[:blank:]]\|\n\)'
 syn match   VimShellSocket            '\(^\|[[:blank:]]\)[[:alnum:]_.][[:alnum:]_.-]\+=\([[:blank:]]\|\n\)'
 syn match   VimShellDotFiles          '\(^\|[[:blank:]]\)\.[[:alnum:]_.-]\+\([[:blank:]]\|\n\)'
 syn match   VimShellArguments         '[[:blank:]]-\=-[[:alnum:]-]\+=\=' contained
 syn match   VimShellQuoted            '\\.' contained
-syn match   VimShellSpecial           '[|<>;&]' contained
+syn match   VimShellSpecial           '[|<>;&;]' contained
 syn match   VimShellSpecial           '!!\|!\d*' contained
 syn match   VimShellVariable          '$[$[:alnum:]]\+' contained
 syn match   VimShellVariable          '$[[:digit:]*@#?$!-]\+' contained
 syn region   VimShellVariable  start=+${+ end=+}+ contained
 syn region   VimShellVariable  start=+$(([[:blank:]]+ end=+[[:blank:]]))+ contained
 if has('win32') || ('win64')
-    syn match   VimShellArguments         '[[:blank:]]/[?[:alnum:]]\+' contained
-    syn match   VimShellDirectory         '[/~]\=\([.-]\|\f\)\+[/\\]\([.-]\|\f\)*'
+    syn match   VimShellArguments         '[[:blank:]]/[?:,_[:alnum:]]\+' contained
+    syn match   VimShellDirectory         '[/~]\=\f\+[/\\]\f*'
     syn match   VimShellLink              '\([[:alnum:]_.-]\+\.lnk\)'
 else
-    syn match   VimShellDirectory         '[/~]\=\([.-]\|\f\)\+/\([.-]\|\f\)*'
+    syn match   VimShellDirectory         '[/~]\=\f\+/\f*'
     syn match   VimShellLink              '\(^\|[[:blank:]]\)[[:alnum:]_.][[:alnum:]_.-]\+@'
 endif
-execute "syn region   VimShellExe start='" . g:VimShell_Prompt . "' end='\\h[[:alpha:]_.-]*\\(\[[:blank:]]\\|\\n\\)' contained contains=VimShellPrompt,VimShellSpecial,VimShellConstants,VimShellArguments"
+execute "syn region   VimShellExe start='" . g:VimShell_Prompt . "' end='\\h[[:alpha:]_.-]*\\(\[[:blank:]]\\|\\n\\)' contained contains=VimShellPrompt,VimShellSpecial,VimShellConstants,VimShellArguments,VimShellString,VimShellComment"
 syn match VimShellExe '|[[:blank:]]*[[:alpha:]_.-]\+' contained contains=VimShellSpecial,VimShellArguments
 syn match VimShellExe ';[[:blank:]]*[[:alpha:]_.-]\+' contained contains=VimShellSpecial,VimShellArguments
-execute "syn region   VimShellLine start='" . g:VimShell_Prompt ."' end='$' keepend contains=VimShellExe,VimShellDirectory,VimShellConstants,VimShellArguments, VimShellQuoted,VimShellString,VimShellVariable,VimShellSpecial"
+execute "syn region   VimShellLine start='" . g:VimShell_Prompt ."' end='$' keepend contains=VimShellExe,VimShellDirectory,VimShellConstants,VimShellArguments, VimShellQuoted,VimShellString,VimShellVariable,VimShellSpecial,VimShellComment"
 
 if has('gui_running')
     hi VimShellPrompt  gui=UNDERLINE guifg=#80ffff guibg=NONE
@@ -96,6 +114,7 @@ hi def link VimShellArguments Type
 hi def link VimShellConstants Constant
 hi def link VimShellSpecial PreProc
 hi def link VimShellVariable Comment
+hi def link VimShellComment Identifier
 hi def link VimShellNormal Normal
 
 hi def link VimShellExe Statement
@@ -103,5 +122,7 @@ hi def link VimShellDirectory Preproc
 hi def link VimShellSocket Constant
 hi def link VimShellLink Comment
 hi def link VimShellDotFiles Identifier
+hi def link VimShellError Error
+hi def link VimShellErrorHidden Ignore
 
 let b:current_syntax = "vimshell"

@@ -141,7 +141,11 @@ command! -bang -complete=file -nargs=? WDos write<bang> ++fileformat=dos <args> 
 "
 " 文字化けするので、インターフェースに英語を使用する
 if has('win32') || has('win64')
+    " For Windows.
     language en
+else
+    " For Linux.
+    language mes C
 endif
 
 " \の代わりに'm'を使えるようにする
@@ -212,6 +216,10 @@ if has('multi_byte_ime')
     inoremap <silent> <ESC> <ESC>:<C-u>set iminsert=0 imsearch=0<CR>
     noremap / :<C-u>set imsearch=0<CR>/
     noremap ? :<C-u>set imsearch=0<CR>?
+
+    " Searches when input Japanese.
+    noremap       ・     /
+    noremap       ？     ?
 endif
 
 if has('xim')
@@ -282,8 +290,8 @@ set cdpath+=~
 " *.*と違って、拡張子がないファイルにも対応した。
 augroup MyView
     autocmd!
-    autocmd BufWinLeave * if expand('%') != '' && &buftype !~ 'nofile' | mkview | endif
-    autocmd BufWinEnter * if expand('%') != '' && &buftype !~ 'nofile' | silent loadview | endif
+    autocmd BufLeave * if expand('%') != '' && &buftype !~ 'nofile' | mkview | endif
+    autocmd BufEnter * if expand('%') != '' && &buftype !~ 'nofile' | silent loadview | endif
 augroup END
 " Don't save options.
 set viewoptions-=options
@@ -394,7 +402,7 @@ set breakat=" 	;:,!?"
 
 " 省略表示を行う
 " Vim起動時に挨拶メッセージを表示しない
-set shortmess& shortmess+=Ia
+set shortmess=aTI
 
 " Don't create backup.
 set nowritebackup
@@ -490,9 +498,6 @@ augroup MySyntax"{{{
     autocmd FileType scheme nested let b:is_gauche=1 | setlocal lispwords=define | 
                 \let b:current_syntax='' | syntax enable
 
-    " Rubyの時だけインデントを２文字にする
-    autocmd FileType ruby setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
-
     " Easily load VimScript.
     autocmd FileType vim nnoremap <silent> <LocalLeader>r :write \| source %<CR>
     autocmd FileType vim noremap <silent> <LocalLeader>R :Source<CR>
@@ -560,11 +565,13 @@ nmap <silent> <C-l> <Plug>(bufstatus_redraw)
 "}}}
 
 " neocomplcache.vim"{{{
-" autocomplpopを起動時に無効に
+" Don't use autocomplpop.
 let g:AutoComplPop_NotEnableAtStartup = 1
-" せっかく作ったので常用してみる
+" Use neocomplcache.
 let g:NeoComplCache_EnableAtStartup = 1
-" <C-e>でトグル
+" Use smartcase.
+let g:NeoComplCache_SmartCase = 1
+" Toggle when press <C-e>.
 nnoremap <silent> <C-e> :<C-u>NeoComplCacheToggle<CR>
 
 " Define dictionary.
@@ -587,15 +594,17 @@ nunmap <C-c>
 " vimshell.vim"{{{
 " 
 if has('win32') || has('win64') 
-    " Display user name on Windows
+    " Display user name on Windows.
     let g:VimShell_Prompt = $USERNAME."% "
 
-    " Use ckw
+    " Use ckw.
     let g:VimShell_UseCkw = 1
 else
-    " Display user name on Linux
+    " Display user name on Linux.
     let g:VimShell_Prompt = $USER."% "
 endif
+" Use smartcase.
+let g:VimShell_SmartCase = 1
 "}}}
 
 " scratch.vim"{{{
@@ -998,7 +1007,6 @@ nnoremap <silent> so  :<C-u>only<CR>
 nnoremap <silent> sj  <C-w>j
 nnoremap <silent> sk  <C-w>k
 nnoremap <silent> sh  <C-w>h
-nnoremap <silent> sl  <C-w>l
 nnoremap <silent> st  <C-w>t
 nnoremap <silent> sb  <C-w>b
 nnoremap <silent> sw  <C-w>w
@@ -1014,18 +1022,24 @@ function! s:split_nicely()
 endfunction
 "}}}
 " sdで現在のバッファを閉じる
-nnoremap <silent> sd  :<C-u>bdelete<CR>
+function! s:CustomBufferDelete()
+    buffer #
+    bdelete #
+endfunction
+nnoremap <silent> sd  :<C-u>call <SID>CustomBufferDelete()<CR>
 "sDで指定したバッファを閉じる"{{{
 function! s:InputBufferDelete()
     ls
     let l:in = input('Select delete buffer: ', '', 'buffer')
+    buffer #
     execute 'bdelete' . l:in
 endfunction
 nnoremap <silent> sD  :<C-u>call <SID>InputBufferDelete()<CR>
 "}}}
 " sfdで現在のバッファを強制的に閉じる"{{{
 function! s:CustomBufferForceDelete()
-    bdelete!
+    buffer #
+    bdelete! #
 endfunction
 nnoremap <silent> sfd  :<C-u>call <SID>CustomBufferForceDelete()<CR>
 "}}}
@@ -1033,51 +1047,109 @@ nnoremap <silent> sfd  :<C-u>call <SID>CustomBufferForceDelete()<CR>
 function! s:InputBufferForceDelete()
     ls
     let l:in = input('Select force delete buffer: ', '', 'buffer')
+    buffer #
     execute 'bdelete!' . l:in
 endfunction
 nnoremap <silent> sfD  :<C-u>call <SID>InputBufferForceDelete()<CR>
 "}}}
 " Buffer move.
-nnoremap <silent> sP  :<C-u>bfirst<CR>
-nnoremap <silent> sN  :<C-u>blast<CR>
+nnoremap <silent> s[  :<C-u>bfirst<CR>
+nnoremap <silent> s]  :<C-u>blast<CR>
 nnoremap <silent> sp  :<C-u>bprevious<CR>
 nnoremap <silent> sn  :<C-u>bnext<CR>
 nnoremap <silent> s;  :<C-u>bnext<CR>
 nnoremap <silent> s,  :<C-u>bprevious<CR>
+nnoremap <silent> <C-s>  :<C-u>bnext<CR>
+nnoremap <silent> <C-d>  :<C-u>bprevious<CR>
 " Fast buffer switch.
 nnoremap <silent> s<Space>  <C-^>
 " Move to other buffer numbering from left.
 for i in range(0, 9)
   execute 'nnoremap <silent>' ('s'.i)  (':<C-u>call '.s:SID_PREFIX().'MoveBufferFromLeft('.i.')<CR>')
 endfor
+" Move with count.
+for i in range(1, 9)
+    execute 'nnoremap <silent>' (i.'sn')  (':'. i . 'bnext<CR>')
+    execute 'nnoremap <silent>' (i.'s;')  (':'. i . 'bnext<CR>')
+    execute 'nnoremap <silent>' (i.'s,')  (':'. i . 'bprevious<CR>')
+    execute 'nnoremap <silent>' (i.'sp')  (':'. i . 'bprevious<CR>')
+endfor
 unlet i
 function! s:MoveBufferFromLeft(num)
-    let l:cnt = -1
-    let l:pos = 0
-    while l:cnt < a:num
-        let l:pos += 1
-
-        if l:pos > bufnr('$')
-            echo 'Not found buffer.'
-            return
-        endif
-
+    let l:cnt = 0
+    let l:pos = 1
+    while l:pos <= bufnr('$')
         if buflisted(l:pos)
+            if l:cnt >= a:num
+                execute 'buffer' . l:pos
+                return
+            endif
+
             let l:cnt += 1
         endif
-    endwhile
 
-    execute 'buffer' . l:pos
+        let l:pos += 1
+    endwhile
 endfunction
 " Move to input buffer numbering from left.
 nnoremap <silent> s.  :<C-u>call <SID>MoveInputBufferFromLeft()<CR>
 function! s:MoveInputBufferFromLeft()
-    let l:in = input('Select the buffer from left position: ')
-    if l:in =~ '^\d\+$'
-        call s:MoveBufferFromLeft(l:in)
+    call s:ViewBufferList()
+    let l:in = input('Select the buffer from left position: ', '', 'buffer')
+    if l:in !~ '^\d\+$'
+        " Search buffer.
+        execute 'buffer ' . l:in
+        return
     else
-        echo 'Not a number.'
+        call s:MoveBufferFromLeft(l:in)
     endif
+endfunction
+" Move to medium buffer numbering from left.
+nnoremap <silent> s/  :<C-u>call <SID>MoveBufferMedium()<CR>
+function! s:MoveBufferMedium()
+    let l:pos = 1
+    let l:buf = []
+    while l:pos <= bufnr('$')
+        if buflisted(l:pos)
+            call add(l:buf, l:pos)
+        endif
+        let l:pos += 1
+    endwhile
+
+    execute 'buffer' . l:buf[len(l:buf)/2]
+endfunction
+" Edit
+nnoremap sb  :<C-u>edit<Space>
+nnoremap <silent> sen  :<C-u>new<CR>
+nnoremap <silent> see  :<C-u>enew<CR>
+nnoremap <silent> sej  :<C-u>JunkFile<CR>
+nmap <silent> ses <Plug>ShowScratchBuffer
+imap <silent> <C-z> <Plug>InsShowScratchBuffer
+" View buffer list.
+nnoremap <silent> sl  :<C-u>call <SID>ViewBufferList()<CR>
+function! s:ViewBufferList()
+    let [l:pos, l:cnt] = [1, 0]
+    while l:pos <= bufnr('$')
+        if buflisted(l:pos)
+            if l:pos == bufnr('%')
+                let l:flags = '%'
+            elseif l:pos == bufnr('#')
+                let l:flags = '#'
+            else
+                let l:flags = ' '
+            endif
+
+            if getbufvar(l:pos, '&modified')
+                let l:flags .= '!'
+            elseif getbufvar(l:pos, '&modifiable') == 0
+                let l:flags .= '-'
+            endif
+
+            echo printf('%3d %3s   %s', l:cnt, l:flags, fnamemodify(bufname(l:pos), ':.'))
+            let l:cnt += 1
+        endif
+        let l:pos += 1
+    endwhile
 endfunction
 
 " ss: Windows and buffers(Low priority) "{{{
@@ -1085,8 +1157,6 @@ endfunction
 nnoremap ss  <NOP>
 nnoremap <silent> ssp  :<C-u>split<CR>
 nnoremap <silent> ssv  :<C-u>vsplit<CR>
-nnoremap <silent> ses  :<C-u>new<CR>
-nnoremap <silent> sen  :<C-u>enew<CR>
 nmap <silent> sst  <F8>
 nnoremap <silent> ssa  :<C-u>args<CR>
 nnoremap <silent> ssv  :<C-u>vnew<CR>
@@ -1115,8 +1185,8 @@ nnoremap e <NOP>
 " Emacs run.
 nnoremap <silent> e!  :<C-u>Run2<CR>
 " Indent paste.
-nnoremap ep p=`]
-nnoremap eP P=`]
+nnoremap ep pm``[=`]``
+nnoremap eP Pm``[=`]``
 " Insert blank line.
 nnoremap eo o<ESC>
 nnoremap eO O<ESC>
@@ -1167,16 +1237,16 @@ nmap <C-g><C-w><C-n>  <C-g>wn
 " <C-t>: Tab pages"{{{
 " 元のC-tはtpで代用できるので潰す。
 nnoremap <C-t>  <Nop>
-" タブの生成
-noremap <silent> <C-t>n  :<C-u>tabnew<CR>
-noremap <silent> <C-t>c  :<C-u>tabclose<CR>
+" Create tab page.
+noremap <silent> <C-t>c  :<C-u>tabnew<CR>
+noremap <silent> <C-t>d  :<C-u>tabclose<CR>
 noremap <silent> <C-t>o  :<C-u>tabonly<CR>
 noremap <silent> <C-t>i  :<C-u>tabs<CR>
 nmap <C-t><C-n>  <C-t>n
 nmap <C-t><C-c>  <C-t>c
 nmap <C-t><C-o>  <C-t>o
 nmap <C-t><C-i>  <C-t>i
-" タブの移動
+" Move to other tab page.
 noremap <silent> <C-t>j
             \ :execute 'tabnext' 1 + (tabpagenr() + v:count1 - 1) % tabpagenr('$')<CR>
 noremap <silent> <C-t>k  :<C-u>tabprevious<CR>
@@ -1188,19 +1258,15 @@ noremap <silent> <C-t>h
             \ :<C-u>execute 'tabmove' max([tabpagenr() - v:count1 - 1, 0])<CR>
 noremap <silent> <C-t>L  :<C-u>tabmove<CR>
 noremap <silent> <C-t>H  :<C-u>tabmove 0<CR>
-nmap <C-t><C-j>  <C-t>j
-nmap <C-t><C-k>  <C-t>k
+nmap <C-t>n  <C-t>j
+nmap <C-t>p  <C-t>k
 nmap <C-t><C-t>  <C-t>j
 nmap <C-t><C-l>  <C-t>l
 nmap <C-t><C-h>  <C-t>h
-" C-nで次のタブを表示
-nmap <silent> <C-n>   <C-t>j
-" C-pで前のタブを表示
-nmap <silent> <C-p>   <C-t>k
 
 " Move to previous tab.
 nnoremap <silent><C-t><Space> :<C-u>TabRecent<CR>
-nnoremap <C-t>p :<C-u>TabRecent<Space>
+nnoremap <C-t>r :<C-u>TabRecent<Space>
 
 " Change current tab like GNU screen.
 " Note that the numbers in {lhs}s are 0-origin.  See also 'tabline'.
@@ -1546,12 +1612,52 @@ onoremap <silent> q /["',.{}()[\]<>]<CR>
 " Fast substitute.
 vnoremap s y:%s/\<<C-R>"\>//g<Left><Left>
 
+" Delete until underbar."{{{
+if has('gui_running') && has('xim')
+    " Linux ATOK X3.
+    "inoremap <silent><C-a>    <C-o>d?[^[:alpha:]]<CR>
+    inoremap <silent><C-a>    <C-r>=<SID>delete_underbar()<CR><C-o>:set iminsert=0<CR>
+    inoremap <silent><C-q>    <C-r>=<SID>delete_underbar()<CR><C-o>:set iminsert=0<CR>
+else
+    inoremap <silent><C-a>    <C-r>=<SID>delete_underbar()<CR>
+    inoremap <silent><C-q>    <C-r>=<SID>delete_underbar()<CR>
+endif
+function! s:delete_underbar()
+    " Get cursor word.
+    let l:len = len(matchstr(strpart(getline('.'), 0, col('.') - 1), '\a\+$'))
+    if l:len > 0
+        for a in range(l:len-1)
+            if pumvisible()
+                call feedkeys("\<C-y>\<C-h>", 'n')
+            else
+                call feedkeys("\<C-h>", 'n')
+            endif
+        endfor
+    endif
+
+    if pumvisible()
+        return "\<C-y>\<C-h>"
+    else
+        return "\<C-h>"
+    endif
+endfunction"}}}
+
+" Paste yanked text."{{{
+vnoremap <silent> p :<C-u>call <SID>YankPaste()<CR>
+vnoremap <silent> P :<C-u>call <SID>YankPaste()<CR>
+function! s:YankPaste()
+    let a = @*
+    normal! gvp
+    let @* = a
+endfunction
+
 "}}}
+
+" }}}
 
 "---------------------------------------------------------------------------
 " Commands:"{{{
 "
-
 " Search in selecting text."{{{
 " ちゃんと n や N もその範囲内だけになる
 function! RangeSearch(direction)
@@ -1564,7 +1670,7 @@ command! -nargs=0 -range RangeSearchBackward call RangeSearch('?')|if strlen(g:s
 " 存在しないなら作成。
 function! SingletonBuffer(name, split)
     " 文字をエスケープ :h file-pattern
-    let name=escape(a:name, '[]*?,\')
+    let name=escape(a:name, '*?,\')
     if bufexists(a:name) " bufexists にはエスケープ必要ない
         let bufnr = bufnr(name)
         let winlist = WindowContains(bufnr)
@@ -1572,7 +1678,7 @@ function! SingletonBuffer(name, split)
             if a:split 
                 split 
             endif
-            exe "b " . bufnr
+            exe "buffer " . bufnr
         else
             exe winlist[0] . "wincmd w"
         endif
@@ -1599,19 +1705,19 @@ function! GUExecCmdWin(cmd, bufname)"{{{
     call SingletonBuffer(a:bufname, 1)
     lcd #:p:h
     setlocal buftype=nofile noswf 
-    nnoremap <buffer><silent> q :close<CR>
+    nnoremap <buffer><silent> qq :close<CR>
     normal! gg"_dG
     echo a:cmd
     exe a:cmd
 endfunction"}}}
 
 function! GUExec(cmd, bufname, getError, isExpand)"{{{
-    if a:isExpand != 0
+    if a:isExpand
         let cmd = exists("g:GUExec_cmd") ? g:GUExec_cmd : a:cmd." ".expand("%")
     else
         let cmd = exists("g:GUExec_cmd") ? g:GUExec_cmd : a:cmd
     endif
-    call GUExecCmdWin('silent .!'.cmd, a:bufname)
+    call GUExecCmdWin('silent read!' . cmd, a:bufname)
     if line("$") < 4
         4wincmd _
         normal! gg
@@ -1635,7 +1741,7 @@ function! EmacsRun(defaultcmd, isExpand)"{{{
     if cmd == ""
         return -1
     endif
-    call GUExec(cmd, '[Shell output]', 0, a:isExpand)
+    call GUExec(cmd, '[Shell Output]', 0, a:isExpand)
     setlocal buftype=nofile buflisted
     normal! z-
     let g:run2_default_cmd = cmd
@@ -1676,17 +1782,7 @@ command! -nargs=0 Undiff setlocal nodiff noscrollbind wrap
 " Unlike normal ':make', don't flick.
 function! s:UpdateQuickFix(command, jump)
     " Rubyではruby -wcで文法チェックを行う
-    if &ft == 'ruby'
-        let lines = filter(split(system('ruby -wc '. shellescape(expand('%'))), "\n"), 'v:val != "Syntax OK"')
-        cgetexpr lines
-    elseif &ft == 'php'
-        let lines = filter(split(system('ruby -wc '. shellescape(expand('%'))), "\n"), 'v:val != "Syntax OK"')
-        cgetexpr lines
-    elseif &ft == 'perl'
-        "let lines = filter(split(system('perl -wc '. shellescape(expand('%'))), "\n"), 'v:val != "Syntax OK"')
-        let lines = filter(split(system('perl -wc '. expand('%')), "\n"), 'v:val =~ "syntax OK"')
-        cgetexpr lines
-    elseif filereadable("Makefile")
+    if filereadable("Makefile")
         let lines = split(system('make -s'), "\n")
         cgetexpr lines
     elseif &ft == 'tex'
@@ -1769,12 +1865,68 @@ function! s:ChangeCurrentDir(directory, bang)
     endif
 endfunction"}}}
 
+function! s:Batch() range
+    " read vimscript from selected area.
+    let l:selected = getline(a:firstline, a:lastline)
+    " get temp file.
+    let l:tempfile = tempname()
+    " try-finally
+    try
+    " write vimscript to temp file.
+        call writefile(l:selected, l:tempfile)
+        try
+            " execute temp file.
+            execute "source " . l:tempfile
+        catch
+            " catch exception
+            echohl WarningMsg |
+                        \ echo "EXCEPTION :" v:exception |
+                        \ echo "THROWPOINT:" v:throwpoint |
+                        \ echohl None
+        endtry
+        finally
+        " delete temp file.
+        if filewritable(l:tempfile)
+            call delete(l:tempfile)
+        endif
+    endtry
+endfunction
 " Range source.
-command! -range=% Source split `=tempname()` | call append(0, getbufline('#', <line1>, <line2>)) | write | source % | bdelete
+command! -range -narg=0 Batch :<line1>,<line2>call s:Batch()
 
 " Substitute indent.
 command! -range=% LeadUnderscores <line1>,<line2>s/^\s*/\=repeat('_', strlen(submatch(0)))/g
 noremap <silent> [Space]u        :LeadUnderscores<CR>
+
+" Interactive run.
+command! -nargs=1 Async call interactive#run(<q-args>)
+
+" Open junk file.
+command! -nargs=0 JunkFile call s:open_junk_file()
+function! s:open_junk_file()
+    let l:junk_dir = $HOME . '/.vim_junk'. strftime('/%Y/%m')
+    call s:mkdir_rec(l:junk_dir)
+
+    let l:filename = input('Junk Code: ', l:junk_dir.strftime('/%Y-%m-%d-%H%M%S.'))
+    execute 'edit ' . l:filename
+endfunction
+
+" Create directory recursive.
+function! s:mkdir_rec(dir_name)
+    let l:dir_list = split(a:dir_name, '[/\\]')
+    if has('win32') || has('win64')
+        let l:dir = l:dir_list[0]
+    else
+        let l:dir = '/' . l:dir_list[0]
+    endif
+    for d in l:dir_list[1:]
+        let l:dir .= '/' . d
+
+        if !isdirectory(l:dir)
+            call mkdir(l:dir)
+        endif
+    endfor
+endfunction
 
 "}}}
   
@@ -1792,11 +1944,18 @@ if has('win32') || has('win64')
     " Shell settings.
     " Use NYACUS.
     set shell=nyacus.exe
-    " Set parameters.
     set shellcmdflag=-e
     set shellpipe=\|&\ tee
     set shellredir=>%s\ 2>&1
     set shellxquote=\"
+
+    " Use bash.
+    "set shell=bash.exe
+    "set shellcmdflag=-c
+    "set shellpipe=2>&1\|\ tee
+    "set shellredir=>%s\ 2>&1
+    "set shellxquote=\"
+
     " Exchange path separator.
     set shellslash
 
