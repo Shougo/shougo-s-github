@@ -3,7 +3,7 @@
 " AUTHOR: Ico Doornekamp<http://www.vim.org/scripts/script.php?script_id=1664>(Original)
 "         Gonbei <gonbei0671@hotmail.com>(Modified)
 "         Shougo Matsushita <Shougo.Matsu@gmail.com>(Modified)
-" Last Modified: 19 Jan 2009
+" Last Modified: 21 Mar 2009
 " Usage: Just source this file.
 "        source bufstatus.vim
 " LICENSE: GPL version2"{{{
@@ -17,7 +17,7 @@
 " MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 " GNU General Public License for more details.
 ""}}}
-" Version: 3.2, for Vim 7.0
+" Version: 3.5, for Vim 7.0
 " Introduction"{{{
 " ------------
 " This is a simple script that shows a tabs-like list of buffers in the bottom
@@ -49,6 +49,11 @@
 "-----------------------------------------------------------------------------
 " Changelog"{{{
 " ---------
+"   3.5:
+"     - Improved alternate buffer.
+"   3.4:
+"     - Improved autocmd.
+"     - Fixed preview window error.
 "   3.3:
 "     - Displayed alternate buffer name.
 "   3.2:
@@ -108,20 +113,48 @@ let s:BufStatus = {}
 
 " Return buffer list.
 function! s:BufStatus.GetBuf()"{{{
-    let l:i = 1
-    let l:bufs = []
-
     " Count buffer list
     let l:maxbuf = 0
-    let l:cnt = 1
-    while l:cnt <= bufnr('$')
-        if buflisted(l:cnt)
+    let l:i = 1
+    while l:i <= bufnr('$')
+        if buflisted(l:i)
             let l:maxbuf += 1
         endif
-        let l:cnt += 1
+        let l:i += 1
     endwhile
 
-    " Make adjustments to item length
+    if bufnr('%') != bufnr('#') && buflisted(bufnr('#'))
+        let l:alter = bufnr('#')
+    else
+        " Search next buffer.
+        let l:i = 1
+        let [l:first, l:last] = [-1, -1]
+        let [l:previous, l:current, l:next] = [bufnr('%'), bufnr('%'), bufnr('%')]
+        while l:i <= bufnr('$')
+            if buflisted(l:i)
+                if l:i < l:current
+                    let l:previous = l:i
+                elseif l:i > l:current && l:next == l:current
+                    let l:next = l:i
+                endif
+
+                let l:last = l:i
+
+                if l:first < 0 
+                    let l:first = l:i
+                endif
+            endif
+            let l:i += 1
+        endwhile
+
+        if l:current > l:i / 2
+            let l:alter = l:previous
+        else
+            let l:alter = l:next
+        endif
+    endif
+
+    " Make adjustments to item length"{{{
     if l:maxbuf <= 3
         let l:item_length = g:BufStatus_MaxItemLength
     elseif l:maxbuf <= 6
@@ -134,16 +167,18 @@ function! s:BufStatus.GetBuf()"{{{
         let l:item_length = (g:BufStatus_MaxItemLength*40 + 50) / 100
     else
         let l:item_length = (g:BufStatus_MaxItemLength*30 + 50) / 100
-    endif
+    endif"}}}
 
     let s:display_width = winwidth(0) - g:BufStatus_SideMargin
 
     let l:num = 0
+    let l:i = 1
+    let l:bufs = []
     while l:i <= bufnr('$')
         let l:filepath = expand(printf('#%d:p', l:i))
 
         if buflisted(l:i)
-            if l:i == bufnr('#')
+            if l:i == l:alter
                 " Alternate buffer name.
                 let l:fname = printf("%s#%s", l:num, fnamemodify(bufname(l:i), ':t'))
             else
@@ -155,7 +190,7 @@ function! s:BufStatus.GetBuf()"{{{
                 let l:pos = 0
                 let l:mlength = len(l:fname)
 
-                " Accept multibyte file name
+                " Accept multibyte file name"{{{
                 let l:fchar = char2nr(l:fname[l:pos])
                 let l:display_diff = 0
                 while l:pos-l:display_diff < l:item_length
@@ -192,7 +227,7 @@ function! s:BufStatus.GetBuf()"{{{
 
                     let l:pos += 1
                     let l:fchar = char2nr(l:fname[l:pos])
-                endwhile
+                endwhile"}}}
 
                 let l:oldlen = len(l:fname)
                 let l:fname = printf('%.' . l:pos . 's', l:fname)
@@ -233,7 +268,7 @@ function! s:BufStatus.GetBuf()"{{{
 endfunction"}}}
 
 " Redraw statusline.
-function! g:Bufstatus_Show()"{{{
+function! g:Bufstatus_Show(global)"{{{
     " Get all buffers
     let l:bufs = s:BufStatus.GetBuf()
 
@@ -331,8 +366,12 @@ function! g:Bufstatus_Show()"{{{
     let w:sbl_active_item = l:_sbl_active_item
     let w:sbl_right_item = join(l:_sbl_right_item)
 
-    "return '%#BUFNHL#%{w:sbl_left_item}%#BUFHL#%{w:sbl_active_item}%#BUFNHL# %{w:sbl_right_item}%=%m%y%{"[".(&fenc!=""?&fenc:&enc).",".&ff."]"} %3l,%3c %3p%%'
-    return '%#BUFNHL#%{w:sbl_left_item}%#BUFHL#%{w:sbl_active_item}%#BUFNHL# %{w:sbl_right_item}' . g:BufStatus_RightStatus
+    if a:global
+        return printf('%%#BUFNHL#%s%%#BUFHL#%s%%#BUFNHL# %s%s', 
+                    \w:sbl_left_item, w:sbl_active_item, w:sbl_right_item, g:BufStatus_RightStatus)
+    else
+        return '%#BUFNHL#%{w:sbl_left_item}%#BUFHL#%{w:sbl_active_item}%#BUFNHL# %{w:sbl_right_item}' . g:BufStatus_RightStatus
+    endif
 endfunction"}}}
 
 " Calc capacity.
@@ -353,13 +392,14 @@ function! s:BufStatus.CalcCapacity(width, bufs)"{{{
 endfunction"}}}
 
 " Status line set.
-set statusline=%!g:Bufstatus_Show()
+set statusline=%!g:Bufstatus_Show(1)
 
 " Hook to events to show buftabs at startup, when creating and when switching
 " buffers
 augroup BufStatus
     autocmd!
-    autocmd VimEnter,BufNew,BufDelete,BufWinEnter,BufWritePost,VimResized * if empty(&l:statusline) | setlocal statusline=%!g:Bufstatus_Show() | endif
+    autocmd BufNew,WinEnter,VimResized * setlocal statusline=%!g:Bufstatus_Show(1)
+    autocmd WinLeave,BufLeave * if &filetype != 'qf' && &previewwindow == 0 | setlocal statusline=%!g:Bufstatus_Show(0) | endif
 augroup END
 
 " Global variables difinition"{{{

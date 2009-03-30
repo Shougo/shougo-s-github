@@ -7,8 +7,8 @@ if has('win32') || has('win64')
     " For Windows.
     
     "set guifont=Terminal:h10:cSHIFTJIS
-    set guifont=UmePlus\ Gothic:h12
-    "set guifont=NFモトヤシータ゛1等幅:h11
+    "set guifont=UmePlus\ Gothic:h12
+    set guifont=VL\ Gothic:h12
     " Number of pixel lines inserted between characters.
     set linespace=1
 elseif has('mac')

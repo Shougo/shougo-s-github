@@ -89,36 +89,36 @@ set fileformats=unix,dos,mac
 " A fullwidth character is displayed in vim properly.
 set ambiwidth=double
 
-" 特定の文字コードで開き直すコマンド群"{{{
-" 特に、ターミナルで文字化けする時に有効。
-" UTF-8で開き直す
+" Command group opening with a specific character code again."{{{
+" In particular effective when I am garbled in a terminal.
+" Open in UTF-8 again.
 command! -bang -bar -complete=file -nargs=? Utf8 edit<bang> ++enc=utf-8 <args>
-" iso-2022-jpで開き直す
+" Open in iso-2022-jp again.
 command! -bang -bar -complete=file -nargs=? Iso2022jp edit<bang> ++enc=iso-2022-jp <args>
-" Shift_JISで開き直す
+" Open in Shift_JIS again.
 command! -bang -bar -complete=file -nargs=? Cp932 edit<bang> ++enc=cp932 <args>
-" EUC-jpで開き直す
+" Open in EUC-jp again.
 command! -bang -bar -complete=file -nargs=? Euc edit<bang> ++enc=euc-jp <args>
-" UTF-16で開き直す
+" Open in UTF-16 again.
 command! -bang -bar -complete=file -nargs=? Utf16 edit<bang> ++enc=ucs-2le <args>
-" UTF-16BEで開き直す
+" Open in UTF-16BE again.
 command! -bang -bar -complete=file -nargs=? Utf16be edit<bang> ++enc=ucs-2 <args>
 
-" aliases
+" Aliases.
 command! -bang -bar -complete=file -nargs=? Jis  Iso2022jp<bang> <args>
 command! -bang -bar -complete=file -nargs=? Sjis  Cp932<bang> <args>
 command! -bang -bar -complete=file -nargs=? Unicode Utf16<bang> <args>
 "}}}
 
-" ファイル書き込み版も作ってみた"{{{
-" 失敗すると危険なので、保存はしない。
+" Tried to make a file note version."{{{
+" Don't save it because dangerous.
 command! Wutf8 setlocal fenc=utf-8
 command! WIso2022jp setlocal fenc=iso-2022-jp
 command! WCp932 setlocal fenc=cp932
 command! WEuc setlocal fenc=euc-jp
 command! WUtf16 setlocal fenc=ucs-2le
 command! WUtf16be setlocal fenc=ucs-2
-" aliases
+" Aliases.
 command! WJis  WIso2022jp
 command! WSjis  WCp932
 command! WUnicode WUtf16
@@ -127,7 +127,7 @@ command! WUnicode WUtf16
 " Handle it in nkf and open.
 command! Nkf !nkf -g %
 
-" 改行文字を指定する"{{{
+" Appoint a line feed."{{{
 command! -bang -bar -complete=file -nargs=? Unix edit<bang> ++fileformat=unix <args>
 command! -bang -bar -complete=file -nargs=? Mac edit<bang> ++fileformat=mac <args>
 command! -bang -bar -complete=file -nargs=? Dos edit<bang> ++fileformat=dos <args>
@@ -276,7 +276,7 @@ set matchpairs+=<:>
 set hidden
 
 " Auto reload if file is changed.
-set autoread
+"set autoread
 
 " Ignore case on insert completion.
 set infercase
@@ -290,8 +290,8 @@ set cdpath+=~
 " *.*と違って、拡張子がないファイルにも対応した。
 augroup MyView
     autocmd!
-    autocmd BufLeave * if expand('%') != '' && &buftype !~ 'nofile' | mkview | endif
-    autocmd BufEnter * if expand('%') != '' && &buftype !~ 'nofile' | silent loadview | endif
+    autocmd BufWritePost * if expand('%') != '' && &buftype !~ 'nofile' | mkview | endif
+    autocmd BufRead * if expand('%') != '' && &buftype !~ 'nofile' | silent loadview | endif
 augroup END
 " Don't save options.
 set viewoptions-=options
@@ -400,8 +400,7 @@ set linebreak
 set showbreak="> "
 set breakat=" 	;:,!?"
 
-" 省略表示を行う
-" Vim起動時に挨拶メッセージを表示しない
+" Do not display greetings message at the time of Vim start.
 set shortmess=aTI
 
 " Don't create backup.
@@ -412,27 +411,28 @@ set nobackup
 set visualbell
 set vb t_vb=
 
-" 補完候補を表示する
+" Display candidate supplement.
 set nowildmenu
 set wildmode=list:longest,full
-" Increase history.
+" Increase history amount.
 set history=200
-" Insertモードの補完でタグの情報をすべて表示する
+" Display all the information of the tag by the supplement of the Insert mode.
 set showfulltag
-" コマンドラインでタグを補完できるように
+" Can supplement a tag in a command-line.
 set wildoptions=tagfile
 
 " Completion setting.
 set completeopt=menuone,preview
-" Enable dictionary completion.
-set complete+=k
+" Don't complete from unload buffer.
+set complete=.,w,b
+"set complete=.,w,b,i,t
 " Set popup menu max height.
 set pumheight=20
 
 " Report changes.
 set report=0
 
-" 移動時にできるだけ現在の列を保持する
+" Maintain a current line at the time of movement as much as possible.
 set nostartofline
 
 " Splitting a window will put the new window below the current one.
@@ -445,7 +445,7 @@ set winwidth=40
 set winheight=20
 
 " Adjust window size of preview and help.
-set previewheight=5
+set previewheight=3
 set helpheight=14
 
 if has('win32') || has('win64')
@@ -455,7 +455,7 @@ else
     set nolazyredraw
 endif
 
-" セッションとしてウインドウサイズを保存する
+" Store window size as a session.
 set sessionoptions+=resize
 
 " Enable menu in console.
@@ -466,8 +466,10 @@ if !has('gui_running')
     noremap <F2> :emenu <C-z>
 endif
 
-" 一行が長いときに@で省略しない
+" When a line is long, do not omit it in @.
 set display=lastline
+" Display an invisible letter with hex format.
+"set display+=uhex
 
 "}}}
 
@@ -494,15 +496,16 @@ augroup MySyntax"{{{
     autocmd BufRead,BufNewFile *.tex.erb setfiletype tex.eruby
     "}}}
 
-    " gauche用シンタックスを有効にする。
+    " Enable gauche syntax.
     autocmd FileType scheme nested let b:is_gauche=1 | setlocal lispwords=define | 
                 \let b:current_syntax='' | syntax enable
 
     " Easily load VimScript.
     autocmd FileType vim nnoremap <silent> <LocalLeader>r :write \| source %<CR>
     autocmd FileType vim noremap <silent> <LocalLeader>R :Source<CR>
-    " Emacsのように改行して結果も挿入する
-    "autocmd FileType vim inoremap <buffer><silent> <C-j>    <C-o>"ayy<CR>" => <C-o>:let @a=eval("<C-r>a<C-h>")<CR><C-o>"ap
+
+    " Auto reload VimScript.
+    autocmd BufWritePost,FileWritePost *.vim if &autoread | source <afile> | endif
 
     " Dのコメントとオーバーロードの色分けを有効にする
     autocmd FileType d let d_comment_strings = 1 | let d_hl_operator_overload = 1
@@ -513,9 +516,9 @@ augroup MySyntax"{{{
     " Manage long Rakefile easily
     autocmd BufNewfile,BufRead Rakefile foldmethod=syntax foldnestmax=1
 
-    " Omni補完を有効にする"{{{
+    " Enable omni completion."{{{
     autocmd FileType ada setlocal omnifunc=adacomplete#Complete
-    autocmd FileType c setlocal omnifunc=ccomplete#Complete
+    "autocmd FileType c setlocal omnifunc=ccomplete#Complete
     autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
     autocmd FileType html setlocal omnifunc=htmlcomplete#CompleteTags
     autocmd FileType java setlocal omnifunc=javacomplete#Complete
@@ -525,14 +528,10 @@ augroup MySyntax"{{{
     autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
     autocmd FileType sql setlocal omnifunc=sqlcomplete#Complete
     autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+    " default omnifunc.
+    autocmd Filetype * if &l:omnifunc == "" | setlocal omnifunc=syntaxcomplete#Complete | endif
     "}}}
 
-    " 何もない場合はsyntaxの補完"{{{
-    autocmd Filetype *
-                \	if &omnifunc == "" |
-                \		setlocal omnifunc=syntaxcomplete#Complete |
-                \	endif
-    "}}}
 augroup END
 "}}}
 
@@ -543,24 +542,40 @@ augroup END
 "
 
 " yanktmp.vim"{{{
-" それほど使わないのでSyに格下げ
+" Because I don't use it that much, I demote it to Sy.
+noremap S    <Nop>
 map <silent> Sy    <Plug>(yanktmp_yank)
 map <silent> Sp    <Plug>(yanktmp_paste_p)
 map <silent> SP    <Plug>(yanktmp_paste_P)
 "}}}
 
 " FuzzyFinder.vim"{{{
+" Key-mappings.
+nnoremap <silent> <Leader>fa  :<C-u>FuzzyFinderAddBookmark<CR>
+nnoremap <silent> <Leader>fb  :<C-u>FuzzyFinderBuffer<CR>
+nnoremap <silent> <Leader>fd  :<C-u>FuzzyFinderDir<CR>
+nnoremap <silent> <Leader>fe  :<C-u>FuzzyFinderEditInfo<CR>
+nnoremap <silent> <Leader>ff  :<C-u>FuzzyFinderFile<CR>
+nnoremap <silent> <Leader>fg  :<C-u>FuzzyFinderTaggedFile<CR>
+nnoremap <silent> <Leader>fk  :<C-u>FuzzyFinderBookmark<CR>
+nnoremap <silent> <Leader>fm :<C-u>FuzzyFinderMruFile<CR>
+nnoremap <silent> <Leader>fr  :<C-u>FuzzyFinderRemoveCache<CR>
+nnoremap <silent> <Leader>ft  :<C-u>FuzzyFinderTag! <C-r>=expand('<cword>')<CR><CR>
+nnoremap <silent> <Leader>f]  :<C-u>FuzzyFinderTag!<CR>
+" Disable MRU command mode.
+"nnoremap <silent> fmc :<C-u>FuzzyFinderMruCmd<CR>
+
 " Setting options.
 let g:FuzzyFinderOptions = { 'Base':{}, 'Buffer':{}, 'File':{}, 'Dir':{}, 'MruFile':{}, 'MruCmd':{}, 'Bookmark':{}, 'Tag':{}, 'TaggedFile':{}}
-" 補完候補の表示をここで打ち切る
+" Break off the indication of the candidate supplement here.
 let g:FuzzyFinderOptions.Base.enumerating_limit = 100
-" バッファの補完で大文字小文字を区別しない
+" Ignore case by the supplement of the buffer.
 let g:FuzzyFinderOptions.Base.ignore_case = 1
 let g:FuzzyFinderOptions.MruFile.max_item = 150
 "}}}
 
 " bufstatus.vim"{{{
-" C-lではステータスラインも再描画する
+" <C-l>: redraw statusline.
 nmap <silent> <C-l> <Plug>(bufstatus_redraw)
 "}}}
 
@@ -571,8 +586,20 @@ let g:AutoComplPop_NotEnableAtStartup = 1
 let g:NeoComplCache_EnableAtStartup = 1
 " Use smartcase.
 let g:NeoComplCache_SmartCase = 1
-" Toggle when press <C-e>.
-nnoremap <silent> <C-e> :<C-u>NeoComplCacheToggle<CR>
+" Use mfu.
+let g:NeoComplCache_EnableMFU = 1
+" Use previous keyword completion.
+let g:NeoComplCache_PreviousKeywordCompletion = 1
+" Use similar match.
+let g:NeoComplCache_SimilarMatch = 1
+" Use tags auto update.
+let g:NeoComplCache_TagsAutoUpdate = 1
+" Try keyword completion.
+let g:NeoComplCache_TryKeywordCompletion = 1
+" Use preview window.
+let g:NeoComplCache_EnableInfo = 1
+" Delete keyword when rank is 0.
+let g:NeoComplCache_DeleteRank0 = 0
 
 " Define dictionary.
 let g:NeoComplCache_DictionaryFileTypeLists = {
@@ -580,13 +607,16 @@ let g:NeoComplCache_DictionaryFileTypeLists = {
             \ 'vimshell' : $HOME.'/.vimshell_hist',
             \ 'scheme' : $HOME.'/.gosh_completions'
             \ }
+
+" Define keyword.
+let g:NeoComplCache_KeywordPatterns = {}
+let g:NeoComplCache_KeywordPatterns['default'] = '\h\w*'
 "}}}
 
 " NERD_comments.vim"{{{
 let NERDSpaceDelims = 0
 let NERDShutUp = 1
-" NERD_commentsを入れると、C-cが変なコマンドにマッピングされるので、
-" それを元に戻す。
+" Disable <C-c>.
 nnoremap <C-c> <C-c>
 nunmap <C-c>
 "}}}
@@ -607,9 +637,7 @@ endif
 let g:VimShell_SmartCase = 1
 "}}}
 
-" scratch.vim"{{{
-" scratchバッファのバックアップファイルを設定
-let g:scratchBackupFile=$HOME . "/scratch.txt"
+" scratch_buffer.vim"{{{
 "}}}
 
 " netrw.vim"{{{
@@ -619,11 +647,8 @@ nnoremap <silent> <BS> :<C-u>Explore<CR>
 set browsedir=current
 "}}}
 
-" markbrowser.vim
-nnoremap <silent> <Leader>mb :<C-u>MarksBrowser<CR>
-
 " ZoomWin.vim
-nnoremap <silent> sz :<C-u>ZoomWin<CR>
+nnoremap <silent> [Window]z :<C-u>ZoomWin<CR>
 
 " eregex.vim"{{{
 " &と~を文字そのものとして置換する
@@ -653,25 +678,43 @@ let g:errormarker_errorgroup   = "Error"
 let g:errormarker_warninggroup = "Todo"
 "}}}
 
-" grep.vim"{{{
+" QFixGrep"{{{
+" Set external grep.
 if has('win32') || has('win64')
-    let Grep_Path = 'grep.exe'
-    let Fgrep_Path = 'grep.exe -F'
-    let Egrep_Path = 'grep.exe -E'
-    let Grep_Find_Path = 'find.exe'
-    let Grep_Xargs_Path = 'xargs.exe'
-    let Grep_Shell_Quote_Char = '"'
+    let mygrepprg = 'yagrep'
+    let MyGrep_ShellEncoding = 'cp932'
 else
-    let Grep_Path = 'grep'
-    let Fgrep_Path = 'fgrep'
-    let Egrep_Path = 'egrep'
-    let Grep_Find_Path = 'find'
-    let Grep_Xargs_Path = 'xargs'
-    "let Grep_Shell_Quote_Char = '"'
+    let mygrepprg = 'grep'
+    let MyGrep_ShellEncoding = 'utf-8'
 endif
-" 検索対象から除外するディレクトリ、ファイルなどの指定
-let Grep_Skip_Dirs = '.svn .git .cvs'
-let Grep_Skip_Files = '*.bak *~ *.swp'
+" Exclude pattern.
+let MyGrep_ExcludeReg =
+            \'[~#]$\|\.bak$\|\.swp$\.o$\|\.obj$\|\.exe$\|\.dll$\|\.pdf$\|\.doc$\|\.xls$\|[/\\]tags$\|.cvs[/\\]\|.git[/\\]\|.svn[/\\]'
+
+" Key-mappings.
+" Grep cursor word.
+nnoremap grw  :<C-u>EGrep! <C-r><C-w><CR>
+" Execute fast grep.
+nnoremap grf  :<C-u>FGrep!<Space>
+" Execute vim grep.
+nnoremap grv  :<C-u>VGrep!<Space>
+" Execute grep from buffer.
+nnoremap grv  :<C-u>VGrep!<Space>
+" Normal grep.
+nnoremap g/  :<C-u>Grep!<CR>
+nnoremap [Space]/  :<C-u>Bgrep<Space>
+
+" Execute grep from yanked string.
+nnoremap gyf :<C-u>execute 'FGrep! '. expand(@0)<CR>
+nnoremap gyv :<C-u>execute 'VGrep! '. expand(@0)<CR>
+" Execute grep from selected string.
+vmap grf  vgvygyf
+vmap grv  vgvygyv
+
+" Quickfix window.
+nnoremap [Quickfix]f<Space>       :<C-u>ToggleQFixWin<CR>
+nnoremap [Quickfix]ff             :<C-u>MoveToQFixWin<CR>
+
 "}}}
 
 " project.vim ------------------------------------------------ {{{
@@ -682,10 +725,15 @@ let g:proj_window_width = 30
 "}}}
 
 " taglist.vim ------------------------------------------------- {{{
-let g:Tlist_Show_One_File = 1                         " 現在編集中のソースのタグしか表示しない
-let g:Tlist_Exit_OnlyWindow = 1                      " taglistのウィンドーが最後のウィンドーならばVimを閉じる
-let g:Tlist_Use_Right_Window = 1                  " 右側でtaglistのウィンドーを表示
-"taglistを開くショットカットキー
+" Show only current file.
+let g:Tlist_Show_One_File = 1
+" Exit Vim when taglist's window is last window.
+let g:Tlist_Exit_OnlyWindow = 1
+" Show taglist window in right.
+let g:Tlist_Use_Right_Window = 1
+" Display method and class in JavaScript.
+let g:tlist_javascript_settings = 'javascript;c:class;m:method;f:function'
+" Shortcut key.
 nnoremap <silent> <leader>tl :<C-u>TlistToggle<CR>
 "}}}
 
@@ -707,7 +755,7 @@ nnoremap <silent> <Leader>kb  :<C-u>Ku buffer<CR>
 nnoremap <silent> <Leader>kf  :<C-u>Ku file<CR>
 nnoremap <silent> <Leader>kg  :<C-u>Ku metarw-git<CR>
 nnoremap <silent> <Leader>kh  :<C-u>Ku history<CR>
-nnoremap <silent> <Leader>kk  :<C-u>call ku#restart()
+nnoremap <silent> <Leader>kk  :<C-u>call ku#restart()<CR>
 nnoremap <silent> <Leader>km  :<C-u>Ku file_mru<CR>
 " p is for packages.
 nnoremap <silent> <Leader>kp  :<C-u>Ku bundle<CR>
@@ -748,7 +796,7 @@ call metarw#define_wrapper_commands(1)
 " Replace w and others with smartword-mappings
 nmap w  <Plug>(smartword-w)
 nmap b  <Plug>(smartword-b)
-nmap ee  <Plug>(smartword-e)
+nmap [Alt]e  <Plug>(smartword-e)
 nmap ge  <Plug>(smartword-ge)
 vmap w  <Plug>(smartword-w)
 vmap b  <Plug>(smartword-b)
@@ -761,91 +809,115 @@ omap <Leader>e  <Plug>(smartword-e)
 omap <Leader>ge  <Plug>(smartword-ge)
 "}}}
 
+" vicle.vim"{{{
+let g:vicle_session_name    = 'normal_session_name' 
+let g:vicle_session_window  = 'normal_session_window' 
+
+"let g:vicle_hcs             = '~~~your_command_separator~~~'
+""}}}
+
+" camlcasemotion.vim"{{{
+map <silent> > <Plug>CamelCaseMotion_w
+map <silent> < <Plug>CamelCaseMotion_b
+""}}}
+
+" AutoProtectFile.vim
+let g:autoprotectfile_readonly_paths = "$VIMRUNTIME/*,~/important"
+let g:autoprotectfile_nomodifiable_paths = "$VIMRUNTIME/*,~/important"
+
 "}}}
 
 "---------------------------------------------------------------------------
 " Key-mappings: "{{{
 "
+
+" Use <C-Space>.
+map <C-Space>  <C-@>
+
+"
 " Insert mode keymappings: "{{{
-" C-tを押すと強制的にタブを挿入
+" <C-t>: inset tab.
 inoremap <C-t>  <C-v><TAB>
-" C-dを押すと削除
+" <C-d>: delete char.
 inoremap <C-d>  <Del>
-" C-aで行頭に
+" <C-a>: move to head.
 inoremap <silent><C-a>  <C-o>^
-" C-f, C-bで補完候補をページ移動
+" <C-f>, <C-b>: page move.
 inoremap <C-f>  <PageDown>
 inoremap <C-b>  <PageUp>
-" A-bで1単語戻る
+" <A-b>: previous word.
 inoremap <A-b>  <S-Left>
-" A-fで1単語進む
+" <A-f>: next word.
 inoremap <A-f>  <S-Right>
 " Enable undo <C-w> and <C-u>.
 inoremap <C-w>  <C-g>u<C-w>
 inoremap <C-u>  <C-g>u<C-u>
 " <C-Space>: Elegant <ESC>
-inoremap <C-Space>  <ESC>
+inoremap <C-@>  <ESC>
 
-" ポップアップメニューが開いているかによって動作を変える"{{{
-" <TAB> completion.
+" Change movement whether a pop-up menu opens."{{{
+" <TAB>: completion.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" C-eで行末に
+" <C-e>: move to end.
 inoremap <expr><silent><C-e>  pumvisible() ? "\<C-e>" : "\<C-o>$"
-" C-yを押すとヤンクレジスタの内容を貼り付け
+" <C-y>: paste.
 inoremap <expr><C-y>  pumvisible() ? "\<C-y>" : "\<C-r>*"
-" C-jでオムニ補完
-inoremap <expr><C-j>  pumvisible() ? "\<Down>" : "\<C-x>\<C-o>\<C-p>"
-" C-kを押すと行末まで削除
-inoremap <expr><C-k>  pumvisible() ? "\<Up>" : "\<C-o>D"
-" C-hで補完を続行しない
+" <C-v>: toggle preview window.
+inoremap <silent><C-v>  <C-o>:<C-u>call<SID>preview_window_toggle()<CR>
+" <C-j>: omni completion.
+inoremap <expr> <C-j>  &filetype == 'vim' ? "\<C-x>\<C-v>\<C-p>" : "\<C-x>\<C-o>\<C-p>"
+" <C-k>: delete to end.
+inoremap <C-k>  <C-o>D
+" <C-h>: close popup and delete backword char.
 inoremap <expr><C-h> pumvisible() ? "\<C-y>\<C-h>" : "\<C-h>"
-" C-nでaltautocomplpop補完
+" <C-n>: neocomplcache.
 inoremap <expr><C-n>  pumvisible() ? "\<C-n>" : "\<C-x>\<C-u>\<C-p>"
-" C-pでkeyword補完
+" <C-p>: keyword completion.
 inoremap <expr><C-p>  pumvisible() ? "\<C-p>" : "\<C-p>\<C-n>"
-" 途中でEnterしたとき、ポップアップを消して改行し、
-" 改行を連続して入力してもインデント部を保持する
+" <C-x>: neocomplcache.
+inoremap <expr><C-x>  pumvisible() ? "\<C-x>\<C-u>\<C-p>" : "\<C-x>"
+" <Enter>: close popup and save indent.
 inoremap <expr><CR> pumvisible() ? "\<C-y>\<CR>X\<BS>" : "\<CR>X\<BS>"
 "}}}
 "}}}
 
 " Command-line mode keymappings:"{{{
-" C-aで行頭へ移動
+" <C-a>: move to head.
 cnoremap <C-a>          <Home>
-" C-bで一文字戻る
+" <C-b>: previous char.
 cnoremap <C-b>          <Left>
-" C-dでカーソルの下の文字を削除
+" <C-d>: delete char.
 cnoremap <C-d>          <Del>
-" C-eで行末へ移動
+" <C-e>: move to end.
 cnoremap <C-e>          <End>
-" C-fで一文字進む
+" <C-f>: next char.
 cnoremap <C-f>          <Right>
-" C-nでコマンドライン履歴を一つ進む
+" <C-n>: next history.
 cnoremap <C-n>          <Down>
-" C-pでコマンドライン履歴を一つ戻る
+" <C-p>: previous history.
 cnoremap <C-p>          <Up>
-" C-kで行末まで削除
+" <C-k>: delete to end.
 cnoremap <C-k>          <C-f>d$<C-c><End>
-" C-yでペースト
+" <C-y>: paste.
 cnoremap <C-y>          <C-r>"
-" C-sでヒストリを出す
+" <C-s>: view history.
 cnoremap <C-s>          <C-f>
-" C-lで補完リストを出す
+" <C-l>: view completion list.
 cnoremap <C-l>          <C-d>
-" A-bで1単語戻る
+" <A-b>: move to previous word.
 cnoremap <A-b>          <S-Left>
-" A-fで1単語進む
+" <A-f>: move to next word.
 cnoremap <A-f>          <S-Right>
-" C-j, C-oで補完候補を移動する
-" TABを連打するより高速。
+" <C-j>, <C-o>: move to next/previous candidate.
+" High-speed than ring TAB repeatedly.
 cnoremap <C-j>          <C-n>
 cnoremap <C-o>          <C-p>
-" C-gで補完を決定
+" <C-g>: decide candidate.
 cnoremap <C-g>          <Space><C-h>
-" C-tでスペース挿入
+" <C-t>: insert space.
 cnoremap <C-t>          <Space>
 " <C-space>: Elegant <ESC>
-cnoremap <C-Space>  <C-c>
+cnoremap <C-@>  <C-c>
 "}}}
 
 " [Space]: Other useful commands "{{{
@@ -862,10 +934,6 @@ nnoremap <silent> [Space]cl  :<C-u>call ToggleOption('cursorline')<CR>
 nnoremap <silent> [Space]en  :<C-u>setlocal encoding? termencoding? fenc? fencs?<CR>
 " Set fileencoding.
 nnoremap [Space]fe  :<C-u>set fileencoding=
-
-" Useless commands
-noremap e;  ;
-noremap e,  ,
 
 " Easily edit .vimrc and .gvimrc "{{{
 nnoremap <silent> [Space]ev  :<C-u>edit $MYVIMRC<CR>
@@ -886,7 +954,7 @@ nnoremap [Space]mpc  :<C-u>cnoremap<Space>
 
 " Saves "{{{
 " :wはよく使うので<Space>wにマッピングする
-noremap <silent> [Space]w  :<C-u>write<CR>
+noremap <silent> [Space]w  :<C-u>update<CR>
 " :w!はよく使うので<Space>fwにマッピングする
 noremap <silent> [Space]fw  :<C-u>write!<CR>
 " :qはよく使うので<Space>qにマッピングする
@@ -919,6 +987,8 @@ nnoremap [Space]ft  :<C-u>setfiletype<Space>
 
 " Save and make. "{{{
 noremap <silent> [Space]ma    :wall \| Make!<CR>
+" Save and make current file only.
+noremap <silent> [Space]mo    :wall \| call <SID>UpdateQuickFix("", 1, 1)<CR>
 " Save and make test.
 noremap <silent> [Space]mt    :wall \| echo system('make -s test')<CR>
 " Toggle automatically make.
@@ -957,60 +1027,77 @@ nnoremap <silent> [Space]t4 :<C-u>setl shiftwidth=4 softtabstop=4<CR>
 nnoremap <silent> [Space]t8 :<C-u>setl shiftwidth=8 softtabstop=8<CR>
 "}}}
 
+" Easily ctags command."{{{
+noremap <silent> [Space]tt :<C-u>NeoCompleCacheCreateTags<CR>
+noremap <silent> [Space]tr :<C-u>silent !ctags -R<CR>
+" Easily helptags command.
+noremap <silent> [Space]td :<C-u>helptags $DOTVIM/doc<CR>
+"}}}
+
 "}}}
 
 " t: tags-and-searches "{{{
-" 副作用により、:helpが快適に。
-" 誤作動の原因となるので、tは潰す。
-" 混乱するのでTも潰す。
-noremap t  <Nop>
-noremap T  <Nop>
+" The prefix key.
+noremap    [Tag]   <Nop>
+nmap    t [Tag]
+nmap    T [Tag]
 " 飛ぶ
-noremap tt  <C-]>
+noremap [Tag]t  <C-]>
 " 進む
-nnoremap <silent> tn  :<C-u>tag<CR>
+nnoremap <silent> [Tag]n  :<C-u>tag<CR>
 " 戻る
-nnoremap <silent> tp  :<C-u>pop<CR>
+nnoremap <silent> [Tag]p  :<C-u>pop<CR>
 " 履歴一覧
-nnoremap <silent> tl  :<C-u>tags<CR>
+nnoremap <silent> [Tag]l  :<C-u>tags<CR>
 " タグのリストを表示し、選択する
-nnoremap <silent> ts  :<C-u>tselect<CR>
+nnoremap <silent> [Tag]s  :<C-u>tselect<CR>
 " 現在の候補を表示
-nnoremap <silent> ti  :<C-u>0tnext<CR>
+nnoremap <silent> [Tag]i  :<C-u>0tnext<CR>
 " 次の候補へ
-nnoremap <silent> tN  :<C-u>tnext<CR>
+nnoremap <silent> [Tag]N  :<C-u>tnext<CR>
 " 前の候補へ
-nnoremap <silent> tP  :<C-u>tprevious<CR>
+nnoremap <silent> [Tag]P  :<C-u>tprevious<CR>
 " 最初の候補へ
-nnoremap <silent> tF  :<C-u>tfirst<CR>
+nnoremap <silent> [Tag]F  :<C-u>tfirst<CR>
 " 前の候補へ
-nnoremap <silent> tL  :<C-u>tlast<CR>
+nnoremap <silent> [Tag]L  :<C-u>tlast<CR>
 " タグを指定してジャンプする
-nnoremap tf  :<C-u>tag<Space>
-" プレビューウインドウで飛ぶ
-nnoremap t't  <C-w>}
-vnoremap t't  <C-w>}
-nnoremap <silent> t'n  :<C-u>ptnext<CR>
-nnoremap <silent> t'p  :<C-u>ptprevious<CR>
-nnoremap <silent> t'P  :<C-u>ptfirst<CR>
-nnoremap <silent> t'N  :<C-u>ptlast<CR>
+nnoremap [Tag]f  :<C-u>tag<Space>
+" Display in preview window.
+nnoremap [Tag]'t  <C-w>}
+vnoremap [Tag]'t  <C-w>}
+nnoremap <silent> [Tag]'n  :<C-u>ptnext<CR>
+nnoremap <silent> [Tag]'p  :<C-u>ptprevious<CR>
+nnoremap <silent> [Tag]'P  :<C-u>ptfirst<CR>
+nnoremap <silent> [Tag]'N  :<C-u>ptlast<CR>
 " プレビューウインドウを閉じる
-nnoremap <silent> t'c  :<C-u>pclose<CR>
+nnoremap <silent> [Tag]'c  :<C-u>pclose<CR>
 " 分割して飛ぶ
-nnoremap t]  <C-w>]
+nnoremap [Tag]]  <C-w>]
 "}}}
 
 " s: Windows and buffers(High priority) "{{{
-nnoremap s  <NOP>
-nnoremap <silent> sc  :<C-u>close<CR>
-nnoremap <silent> so  :<C-u>only<CR>
-nnoremap <silent> sj  <C-w>j
-nnoremap <silent> sk  <C-w>k
-nnoremap <silent> sh  <C-w>h
-nnoremap <silent> st  <C-w>t
-nnoremap <silent> sb  <C-w>b
-nnoremap <silent> sw  <C-w>w
-nnoremap <silent> <Tab> <C-w>w
+" The prefix key.
+nnoremap    [Window]   <Nop>
+nmap    s [Window]
+noremap C         s
+nnoremap <silent> [Window]c  :<C-u>close<CR>
+nnoremap <silent> [Window]o  :<C-u>only<CR>
+nnoremap <silent> [Window]j  <C-w>j
+nnoremap <silent> [Window]k  <C-w>k
+nnoremap <silent> [Window]h  <C-w>h
+nnoremap <silent> [Window]t  <C-w>t
+nnoremap <silent> [Window]b  <C-w>b
+nnoremap <silent> [Window]w  <C-w>w
+nnoremap <silent> <Tab> :<C-u>call <SID>CustomWincmdW()<CR>
+" If window isn't splited, switch alternate buffer.
+function! s:CustomWincmdW()
+    let l:prev_name = winnr()
+    silent! wincmd w
+    if l:prev_name == winnr()
+        call s:CustomAlternateBuffer()
+    endif
+endfunction
 " ウインドウサイズに応じてsplit"{{{
 command! SplitNicely call s:split_nicely()
 function! s:split_nicely()
@@ -1021,58 +1108,98 @@ function! s:split_nicely()
     endif
 endfunction
 "}}}
-" sdで現在のバッファを閉じる
-function! s:CustomBufferDelete()
-    buffer #
-    bdelete #
+" sdで現在のバッファを閉じる"{{{
+nnoremap <silent> [Window]d  :<C-u>call <SID>CustomBufferDelete(0)<CR>
+function! s:CustomBufferDelete(is_force)
+    let current = bufnr('%')
+
+    call s:CustomAlternateBuffer()
+
+    if a:is_force
+        execute 'bdelete! ' . current
+    else
+        execute 'bdelete ' . current
+    endif
 endfunction
-nnoremap <silent> sd  :<C-u>call <SID>CustomBufferDelete()<CR>
+"}}}
 "sDで指定したバッファを閉じる"{{{
-function! s:InputBufferDelete()
+nnoremap <silent> [Window]D  :<C-u>call <SID>InputBufferDelete(0)<CR>
+function! s:InputBufferDelete(is_force)
     ls
     let l:in = input('Select delete buffer: ', '', 'buffer')
-    buffer #
-    execute 'bdelete' . l:in
+    if empty(l:in)
+        " Cancel.
+        return
+    endif
+    if !bufexists(l:in)
+        echo "\nDon't exists buffer number " . l:in
+        return
+    endif
+
+    call s:CustomAlternateBuffer()
+
+    if a:is_force
+        execute 'bdelete!' . l:in
+    else
+        execute 'bdelete' . l:in
+    endif
 endfunction
-nnoremap <silent> sD  :<C-u>call <SID>InputBufferDelete()<CR>
 "}}}
-" sfdで現在のバッファを強制的に閉じる"{{{
-function! s:CustomBufferForceDelete()
-    buffer #
-    bdelete! #
-endfunction
-nnoremap <silent> sfd  :<C-u>call <SID>CustomBufferForceDelete()<CR>
-"}}}
-"sfDで指定したバッファを強制的に閉じる"{{{
-function! s:InputBufferForceDelete()
-    ls
-    let l:in = input('Select force delete buffer: ', '', 'buffer')
-    buffer #
-    execute 'bdelete!' . l:in
-endfunction
-nnoremap <silent> sfD  :<C-u>call <SID>InputBufferForceDelete()<CR>
-"}}}
+" sfdで現在のバッファを強制的に閉じる
+nnoremap <silent> [Window]fd  :<C-u>call <SID>CustomBufferDelete(1)<CR>
+" sfDで指定したバッファを強制的に閉じる
+nnoremap <silent> [Window]fD  :<C-u>call <SID>InputBufferDelete(1)<CR>
 " Buffer move.
-nnoremap <silent> s[  :<C-u>bfirst<CR>
-nnoremap <silent> s]  :<C-u>blast<CR>
-nnoremap <silent> sp  :<C-u>bprevious<CR>
-nnoremap <silent> sn  :<C-u>bnext<CR>
-nnoremap <silent> s;  :<C-u>bnext<CR>
-nnoremap <silent> s,  :<C-u>bprevious<CR>
+nnoremap <silent> [Window][  :<C-u>bfirst<CR>
+nnoremap <silent> [Window]<C-a>  :<C-u>bfirst<CR>
+nnoremap <silent> [Window]]  :<C-u>blast<CR>
+nnoremap <silent> [Window]<C-e>  :<C-u>blast<CR>
+nnoremap <silent> [Window]p  :<C-u>bprevious<CR>
+nnoremap <silent> [Window]n  :<C-u>bnext<CR>
+nnoremap <silent> [Window];  :<C-u>bnext<CR>
+nnoremap <silent> [Window],  :<C-u>bprevious<CR>
 nnoremap <silent> <C-s>  :<C-u>bnext<CR>
 nnoremap <silent> <C-d>  :<C-u>bprevious<CR>
-" Fast buffer switch.
-nnoremap <silent> s<Space>  <C-^>
-" Move to other buffer numbering from left.
+" Fast buffer switch."{{{
+nnoremap <silent> [Window]<Space>  :<C-u>call <SID>CustomAlternateBuffer()<CR>
+nnoremap <silent> [Space]<Space>  :<C-u>call <SID>CustomAlternateBuffer()<CR>
+function! s:CustomAlternateBuffer()
+    if bufnr('%') != bufnr('#') && buflisted(bufnr('#'))
+        buffer # 
+    else
+        let l:cnt = 0
+        let l:pos = 1
+        while l:pos <= bufnr('$')
+            if buflisted(l:pos)
+                if l:pos == bufnr('%')
+                    let l:current = l:cnt
+                endif
+
+                let l:cnt += 1
+            endif
+
+            let l:pos += 1
+        endwhile
+
+        if l:current > l:cnt / 2
+            bprevious
+        else
+            bnext
+        endif
+    endif
+endfunction
+"}}}
+nnoremap <silent> [Window]d  :<C-u>call <SID>CustomBufferDelete(0)<CR>
+" Move to other buffer numbering from left."{{{
 for i in range(0, 9)
-  execute 'nnoremap <silent>' ('s'.i)  (':<C-u>call '.s:SID_PREFIX().'MoveBufferFromLeft('.i.')<CR>')
-endfor
-" Move with count.
+  execute 'nnoremap <silent>' ('[Window]'.i)  (':<C-u>call '.s:SID_PREFIX().'MoveBufferFromLeft('.i.')<CR>')
+endfor"}}}
+" Move with count."{{{
 for i in range(1, 9)
-    execute 'nnoremap <silent>' (i.'sn')  (':'. i . 'bnext<CR>')
-    execute 'nnoremap <silent>' (i.'s;')  (':'. i . 'bnext<CR>')
-    execute 'nnoremap <silent>' (i.'s,')  (':'. i . 'bprevious<CR>')
-    execute 'nnoremap <silent>' (i.'sp')  (':'. i . 'bprevious<CR>')
+    execute 'nnoremap <silent>' (i.'[Window]n')  (':'. i . 'bnext<CR>')
+    execute 'nnoremap <silent>' (i.'[Window];')  (':'. i . 'bnext<CR>')
+    execute 'nnoremap <silent>' (i.'[Window],')  (':'. i . 'bprevious<CR>')
+    execute 'nnoremap <silent>' (i.'[Window]p')  (':'. i . 'bprevious<CR>')
 endfor
 unlet i
 function! s:MoveBufferFromLeft(num)
@@ -1090,9 +1217,9 @@ function! s:MoveBufferFromLeft(num)
 
         let l:pos += 1
     endwhile
-endfunction
-" Move to input buffer numbering from left.
-nnoremap <silent> s.  :<C-u>call <SID>MoveInputBufferFromLeft()<CR>
+endfunction"}}}
+" Move to input buffer numbering from left."{{{
+nnoremap <silent> [Window].  :<C-u>call <SID>MoveInputBufferFromLeft()<CR>
 function! s:MoveInputBufferFromLeft()
     call s:ViewBufferList()
     let l:in = input('Select the buffer from left position: ', '', 'buffer')
@@ -1103,9 +1230,9 @@ function! s:MoveInputBufferFromLeft()
     else
         call s:MoveBufferFromLeft(l:in)
     endif
-endfunction
-" Move to medium buffer numbering from left.
-nnoremap <silent> s/  :<C-u>call <SID>MoveBufferMedium()<CR>
+endfunction"}}}
+" Move to medium buffer numbering from left."{{{
+nnoremap <silent> [Window]/  :<C-u>call <SID>MoveBufferMedium()<CR>
 function! s:MoveBufferMedium()
     let l:pos = 1
     let l:buf = []
@@ -1117,16 +1244,17 @@ function! s:MoveBufferMedium()
     endwhile
 
     execute 'buffer' . l:buf[len(l:buf)/2]
-endfunction
-" Edit
-nnoremap sb  :<C-u>edit<Space>
-nnoremap <silent> sen  :<C-u>new<CR>
-nnoremap <silent> see  :<C-u>enew<CR>
-nnoremap <silent> sej  :<C-u>JunkFile<CR>
-nmap <silent> ses <Plug>ShowScratchBuffer
-imap <silent> <C-z> <Plug>InsShowScratchBuffer
-" View buffer list.
-nnoremap <silent> sl  :<C-u>call <SID>ViewBufferList()<CR>
+endfunction"}}}
+" Edit"{{{
+nnoremap [Window]b  :<C-u>edit<Space>
+nnoremap <silent> [Window]en  :<C-u>new<CR>
+nnoremap <silent> [Window]ee  :<C-u>enew<CR>
+nnoremap <silent> [Window]ej  :<C-u>JunkFile<CR>
+noremap <silent> [Window]es  :<C-u>call scratch_buffer#open(bufnr('%'), '')<CR>
+inoremap <silent> <C-z> <C-o>:<C-u>call scratch_buffer#open(bufnr('%'), '')<CR>
+"}}}
+" View buffer list."{{{
+nnoremap <silent> [Window]l  :<C-u>call <SID>ViewBufferList()<CR>
 function! s:ViewBufferList()
     let [l:pos, l:cnt] = [1, 0]
     while l:pos <= bufnr('$')
@@ -1150,157 +1278,152 @@ function! s:ViewBufferList()
         endif
         let l:pos += 1
     endwhile
-endfunction
+endfunction"}}}
 
 " ss: Windows and buffers(Low priority) "{{{
 " bを潰すのはあんまりなので、ssに間借りする。
-nnoremap ss  <NOP>
-nnoremap <silent> ssp  :<C-u>split<CR>
-nnoremap <silent> ssv  :<C-u>vsplit<CR>
-nmap <silent> sst  <F8>
-nnoremap <silent> ssa  :<C-u>args<CR>
-nnoremap <silent> ssv  :<C-u>vnew<CR>
-nnoremap <silent> ssn  :<C-u>new<CR>
-nnoremap <silent> ssl  :<C-u>ls<CR>
-nnoremap <silent> ssm  :<C-u>bmodified<CR>
-" Move to other buffer like screen.
-for i in range(1, 9)
-  execute 'nnoremap <silent>' ('ss'.i)  (':<C-u>buffer '.i.'<CR>')
-endfor
-unlet i
-" Move to input buffer number.
-nnoremap <silent> ss0  :<C-u>call <SID>InputBuffer()<CR>
-nnoremap <silent> ss.  :<C-u>call <SID>InputBuffer()<CR>
-function! s:InputBuffer()
-    ls
-    let l:in = input('Select the buffer: ', '', 'buffer')
-    execute 'buffer' . l:in
-endfunction
+nnoremap [Window]s  <NOP>
+nnoremap <silent> [Window]sp  :<C-u>split<CR>
+nnoremap <silent> [Window]sv  :<C-u>vsplit<CR>
+nmap <silent> [Window]st  <F8>
+nnoremap <silent> [Window]sa  :<C-u>args<CR>
+nnoremap <silent> [Window]sv  :<C-u>vnew<CR>
+nnoremap <silent> [Window]sn  :<C-u>new<CR>
+nnoremap <silent> [Window]sl  :<C-u>ls<CR>
+nnoremap <silent> [Window]sm  :<C-u>bmodified<CR>
 "}}}
 "}}}
 
 " e: Change basic commands "{{{
-nnoremap e <NOP>
+" The prefix key.
+noremap [Alt]   <Nop>
+nmap    e  [Alt]
 
 " Emacs run.
-nnoremap <silent> e!  :<C-u>Run2<CR>
+nnoremap <silent> [Alt]!  :<C-u>Run2<CR>
 " Indent paste.
-nnoremap ep pm``[=`]``
-nnoremap eP Pm``[=`]``
+"nnoremap [Alt]p pm``[=`]``
+"nnoremap [Alt]P Pm``[=`]``
+nnoremap <silent> [Alt]p o<ESC>:call <SID>chomp_register()<CR>pm``[=`]``^
+nnoremap <silent> [Alt]P O<ESC>:call <SID>chomp_register()<CR>Pm``[=`]``^
 " Insert blank line.
-nnoremap eo o<ESC>
-nnoremap eO O<ESC>
+nnoremap [Alt]o o<ESC>
+nnoremap [Alt]O O<ESC>
 " Yank to end line.
-nmap ey y$
+nmap [Alt]y y$
 " Delete first character.
-nnoremap ex ^x
+nnoremap [Alt]x ^x
 nnoremap X ^x
 " Line selection <C-v>.
-nnoremap eV 0<C-v>$h
+nnoremap [Alt]V 0<C-v>$h
+" Folding close.
+noremap [Alt]h  zc
+
+" Useless commands
+noremap [Alt];  ;
+noremap [Alt],  ,
 
 " eregex.vim commands."{{{
 " Don't allow M/ region.
-noremap e/ :<C-u>M/
+noremap [Alt]/ :<C-u>M/
 " S, G, V target whole current buffer.
-nnoremap es :%S/
-vnoremap es :S/
-nnoremap eg :%G/
-vnoremap eg :G/
-nnoremap ev :%V/
-vnoremap ev :V/
+nnoremap [Alt]s :%S/
+vnoremap [Alt]s :S/
+nnoremap [Alt]g :%G/
+vnoremap [Alt]g :G/
+nnoremap [Alt]v :%V/
+vnoremap [Alt]v :V/
 "}}}
 
 "}}}
 
 " <C-g>: Argument list  "{{{
-
-" the prefix key.
-" <C-g>はg<C-g>で代用できるので、間違いなく使わない。
-nnoremap <C-g>  <Nop>
+"
+" The prefix key.
+noremap [Argument]   <Nop>
+nmap    <C-g>  [Argument]
  
-noremap <C-g><Space>  :<C-u>args<Space>
-noremap <silent> <C-g>l  :<C-u>args<CR>
-noremap <silent> <C-g>n  :<C-u>next<CR>
-noremap <silent> <C-g>p  :<C-u>previous<CR>
-noremap <silent> <C-g>P  :<C-u>first<CR>
-noremap <silent> <C-g>N  :<C-u>last<CR>
-noremap <silent> <C-g>wp :<C-u>wnext<CR>
-noremap <silent> <C-g>wn :<C-u>wprevious<CR>
- 
-nmap <C-g><C-l>  <C-g>l
-nmap <C-g><C-p>  <C-g>p
-nmap <C-g><C-n>  <C-g>n
-nmap <C-g><C-w><C-p>  <C-g>wp
-nmap <C-g><C-w><C-n>  <C-g>wn
+noremap [Argument]<Space>  :<C-u>args<Space>
+noremap <silent> [Argument]l  :<C-u>args<CR>
+noremap <silent> [Argument]n  :<C-u>next<CR>
+noremap <silent> [Argument]p  :<C-u>previous<CR>
+noremap <silent> [Argument]P  :<C-u>first<CR>
+noremap <silent> [Argument]N  :<C-u>last<CR>
+noremap <silent> [Argument]wp :<C-u>wnext<CR>
+noremap <silent> [Argument]wn :<C-u>wprevious<CR>
 "}}}
 
 " <C-t>: Tab pages"{{{
-" 元のC-tはtpで代用できるので潰す。
-nnoremap <C-t>  <Nop>
+"
+" The prefix key.
+noremap [Tabbed]   <Nop>
+nmap    <C-t>  [Tabbed]
 " Create tab page.
-noremap <silent> <C-t>c  :<C-u>tabnew<CR>
-noremap <silent> <C-t>d  :<C-u>tabclose<CR>
-noremap <silent> <C-t>o  :<C-u>tabonly<CR>
-noremap <silent> <C-t>i  :<C-u>tabs<CR>
-nmap <C-t><C-n>  <C-t>n
-nmap <C-t><C-c>  <C-t>c
-nmap <C-t><C-o>  <C-t>o
-nmap <C-t><C-i>  <C-t>i
+noremap <silent> [Tabbed]c  :<C-u>tabnew<CR>
+noremap <silent> [Tabbed]d  :<C-u>tabclose<CR>
+noremap <silent> [Tabbed]o  :<C-u>tabonly<CR>
+noremap <silent> [Tabbed]i  :<C-u>tabs<CR>
+nmap [Tabbed]<C-n>  [Tabbed]n
+nmap [Tabbed]<C-c>  [Tabbed]c
+nmap [Tabbed]<C-o>  [Tabbed]o
+nmap [Tabbed]<C-i>  [Tabbed]i
 " Move to other tab page.
-noremap <silent> <C-t>j
+noremap <silent> [Tabbed]j
             \ :execute 'tabnext' 1 + (tabpagenr() + v:count1 - 1) % tabpagenr('$')<CR>
-noremap <silent> <C-t>k  :<C-u>tabprevious<CR>
-noremap <silent> <C-t>K  :<C-u>tabfirst<CR>
-noremap <silent> <C-t>J  :<C-u>tablast<CR>
-noremap <silent> <C-t>l
+noremap <silent> [Tabbed]k  :<C-u>tabprevious<CR>
+noremap <silent> [Tabbed]K  :<C-u>tabfirst<CR>
+noremap <silent> [Tabbed]J  :<C-u>tablast<CR>
+noremap <silent> [Tabbed]l
             \ :<C-u>execute 'tabmove' min([tabpagenr() + v:count1 - 1, tabpagenr('$')])<CR>
-noremap <silent> <C-t>h
+noremap <silent> [Tabbed]h
             \ :<C-u>execute 'tabmove' max([tabpagenr() - v:count1 - 1, 0])<CR>
-noremap <silent> <C-t>L  :<C-u>tabmove<CR>
-noremap <silent> <C-t>H  :<C-u>tabmove 0<CR>
-nmap <C-t>n  <C-t>j
-nmap <C-t>p  <C-t>k
-nmap <C-t><C-t>  <C-t>j
-nmap <C-t><C-l>  <C-t>l
-nmap <C-t><C-h>  <C-t>h
+noremap <silent> [Tabbed]L  :<C-u>tabmove<CR>
+noremap <silent> [Tabbed]H  :<C-u>tabmove 0<CR>
+nmap [Tabbed]n  [Tabbed]j
+nmap [Tabbed]p  [Tabbed]k
+nmap [Tabbed]<C-t>  [Tabbed]j
+nmap [Tabbed]<C-l>  [Tabbed]l
+nmap [Tabbed]<C-h>  [Tabbed]h
 
 " Move to previous tab.
-nnoremap <silent><C-t><Space> :<C-u>TabRecent<CR>
-nnoremap <C-t>r :<C-u>TabRecent<Space>
+nnoremap <silent>[Tabbed]<Space> :<C-u>TabRecent<CR>
+nnoremap [Tabbed]r :<C-u>TabRecent<Space>
 
 " Change current tab like GNU screen.
 " Note that the numbers in {lhs}s are 0-origin.  See also 'tabline'.
 for i in range(10)
-  execute 'nnoremap <silent>' ('<C-t>'.(i))  ((i+1).'gt')
+  execute 'nnoremap <silent>' ('[Tabbed]'.(i))  ((i+1).'gt')
 endfor
 unlet i
 "}}}
 
 " q: Quickfix  "{{{
  
-" the prefix key.
-nnoremap q  <Nop>
-" Ex-modeを潰して、マクロ記録と置き換え
+" The prefix key.
+noremap [Quickfix]   <Nop>
+nmap    q  [Quickfix]
+" Disable Ex-mode.
 nnoremap Q  q
  
 " For quickfix list  "{{{3
-nnoremap <silent> qn  :<C-u>cnext<CR>
-nnoremap <silent> qp  :<C-u>cprevious<CR>
-nnoremap <silent> qr  :<C-u>crewind<CR>
-nnoremap <silent> qN  :<C-u>cfirst<CR>
-nnoremap <silent> qP  :<C-u>clast<CR>
-nnoremap <silent> qfn :<C-u>cnfile<CR>
-nnoremap <silent> qfp :<C-u>cpfile<CR>
-nnoremap <silent> ql  :<C-u>clist<CR>
-nnoremap <silent> qq  :<C-u>cc<CR>
-nnoremap <silent> qo  :<C-u>copen<CR>
-nnoremap <silent> qc  :<C-u>cclose<CR>
-nnoremap <silent> qen :<C-u>cnewer<CR>
-nnoremap <silent> qep :<C-u>colder<CR>
-nnoremap <silent> qm  :<C-u>make<CR>
-nnoremap qM  :<C-u>make<Space>
-nnoremap qg  :<C-u>grep<Space>
+nnoremap <silent> [Quickfix]n  :<C-u>cnext<CR>
+nnoremap <silent> [Quickfix]p  :<C-u>cprevious<CR>
+nnoremap <silent> [Quickfix]r  :<C-u>crewind<CR>
+nnoremap <silent> [Quickfix]N  :<C-u>cfirst<CR>
+nnoremap <silent> [Quickfix]P  :<C-u>clast<CR>
+nnoremap <silent> [Quickfix]fn :<C-u>cnfile<CR>
+nnoremap <silent> [Quickfix]fp :<C-u>cpfile<CR>
+nnoremap <silent> [Quickfix]l  :<C-u>clist<CR>
+nnoremap <silent> [Quickfix]q  :<C-u>cc<CR>
+nnoremap <silent> [Quickfix]o  :<C-u>copen<CR>
+nnoremap <silent> [Quickfix]c  :<C-u>cclose<CR>
+nnoremap <silent> [Quickfix]en :<C-u>cnewer<CR>
+nnoremap <silent> [Quickfix]ep :<C-u>colder<CR>
+nnoremap <silent> [Quickfix]m  :<C-u>make<CR>
+nnoremap [Quickfix]M  :<C-u>make<Space>
+nnoremap [Quickfix]g  :<C-u>grep<Space>
 " Toggle quickfix window.
+nnoremap <silent> [Quickfix]<Space> :<C-u>call <SID>toggle_quickfix_window()<CR>
 function! s:toggle_quickfix_window()
   let _ = winnr('$')
   cclose
@@ -1310,57 +1433,95 @@ function! s:toggle_quickfix_window()
     setlocal whichwrap=b,s
   endif
 endfunction
-nnoremap <silent> q<Space> :<C-u>call <SID>toggle_quickfix_window()<CR>
 
 " For location list (mnemonic: Quickfix list for the current Window)  "{{{3
-nnoremap <silent> qwn  :<C-u>lnext<CR>
-nnoremap <silent> qwp  :<C-u>lprevious<CR>
-nnoremap <silent> qwr  :<C-u>lrewind<CR>
-nnoremap <silent> qwP  :<C-u>lfirst<CR>
-nnoremap <silent> qwN  :<C-u>llast<CR>
-nnoremap <silent> qwfn :<C-u>lnfile<CR>
-nnoremap <silent> qwfp :<C-u>lpfile<CR>
-nnoremap <silent> qwl  :<C-u>llist<CR>
-nnoremap <silent> qwq  :<C-u>ll<CR>
-nnoremap <silent> qwo  :<C-u>lopen<CR>
-nnoremap <silent> qwc  :<C-u>lclose<CR>
-nnoremap <silent> qwep :<C-u>lolder<CR>
-nnoremap <silent> qwen :<C-u>lnewer<CR>
-nnoremap <silent> qwm  :<C-u>lmake<CR>
-nnoremap qwM  :<C-u>lmake<Space>
-nnoremap qw<Space>  :<C-u>lmake<Space>
-nnoremap qwg  :<C-u>lgrep<Space>
+nnoremap <silent> [Quickfix]wn  :<C-u>lnext<CR>
+nnoremap <silent> [Quickfix]wp  :<C-u>lprevious<CR>
+nnoremap <silent> [Quickfix]wr  :<C-u>lrewind<CR>
+nnoremap <silent> [Quickfix]wP  :<C-u>lfirst<CR>
+nnoremap <silent> [Quickfix]wN  :<C-u>llast<CR>
+nnoremap <silent> [Quickfix]wfn :<C-u>lnfile<CR>
+nnoremap <silent> [Quickfix]wfp :<C-u>lpfile<CR>
+nnoremap <silent> [Quickfix]wl  :<C-u>llist<CR>
+nnoremap <silent> [Quickfix]wq  :<C-u>ll<CR>
+nnoremap <silent> [Quickfix]wo  :<C-u>lopen<CR>
+nnoremap <silent> [Quickfix]wc  :<C-u>lclose<CR>
+nnoremap <silent> [Quickfix]wep :<C-u>lolder<CR>
+nnoremap <silent> [Quickfix]wen :<C-u>lnewer<CR>
+nnoremap <silent> [Quickfix]wm  :<C-u>lmake<CR>
+nnoremap [Quickfix]wM  :<C-u>lmake<Space>
+nnoremap [Quickfix]w<Space>  :<C-u>lmake<Space>
+nnoremap [Quickfix]wg  :<C-u>lgrep<Space>
 "}}}
 
 "}}}
 
 " f: FuzzyFinder, FuzzyJump "{{{
 " The prefix key.
-nnoremap f  <NOP>
-nnoremap F  f
+noremap [Fuzzy]   <Nop>
+nmap    f  [Fuzzy]
 
 " FuzzyJump
-map '  <Plug>(fuzzyjump-prefix)
-map fj  <Plug>(fuzzyjump-prefix)
+map [Fuzzy]j  <Plug>(fuzzyjump-prefix)
 
 " FuzzyFinder
-nnoremap <silent> fb  :<C-u>FuzzyFinderBuffer<CR>
-nnoremap <silent> ff  :<C-u>FuzzyFinderFile<CR>
-nnoremap <silent> fd  :<C-u>FuzzyFinderDir<CR>
-noremap <silent> ft  :<C-u>FuzzyFinderTag! <C-r>=expand('<cword>')<CR><CR>
-nnoremap <silent> f]  :<C-u>FuzzyFinderTag!<CR>
-nnoremap <silent> fk  :<C-u>FuzzyFinderBookmark<CR>
-nnoremap <silent> fa  :<C-u>FuzzyFinderAddBookmark<CR>
-nnoremap <silent> fr  :<C-u>FuzzyFinderRemoveCache<CR>
-nnoremap <silent> fe  :<C-u>FuzzyFinderEditInfo<CR>
-nnoremap <silent> fg  :<C-u>FuzzyFinderTaggedFile<CR>
-nnoremap <silent> fm :<C-u>FuzzyFinderMruFile<CR>
-" Disable MRU command mode.
-"nnoremap <silent> fmc :<C-u>FuzzyFinderMruCmd<CR>
+nmap [Fuzzy]a <Leader>fa
+nmap [Fuzzy]b <Leader>fb
+nmap [Fuzzy]d <Leader>fd
+nmap [Fuzzy]e <Leader>fe
+nmap [Fuzzy]f <Leader>ff
+nmap [Fuzzy]g <Leader>fg
+nmap [Fuzzy]k <Leader>fk
+nmap [Fuzzy]m <Leader>fm
+nmap [Fuzzy]t <Leader>ft
+nmap [Fuzzy]] <Leader>f]
+"}}}
+
+" 0: Preview window "{{{
+" The prefix key.
+noremap [Preview]   <Nop>
+nmap    0  [Preview]
+
+" Toggle preview window."{{{
+nnoremap <silent> [Preview]0  :<C-u>call<SID>preview_window_toggle()<CR>
+function! s:preview_window_toggle()
+    silent! wincmd P
+    if &previewwindow
+        pclose
+    elseif !empty(expand('%'))
+        mkview
+        silent! pedit
+        silent loadview
+        if foldclosed(line('.')) != -1 
+            " Open folding.
+            normal! zogv0
+        endif
+    else
+        normal! ma
+        silent! pedit
+        normal! `a
+        if foldclosed(line('.')) != -1 
+            " Open folding.
+            normal! zogv0
+        endif
+    endif
+endfunction"}}}
+" Open preview window.
+nnoremap [Preview]o  :<C-u>pedit<CR>
+" Close preview window.
+nnoremap [Preview]c  :<C-u>pclose<CR>
+" Move to preview window."{{{
+nnoremap <silent> [Preview]p :<C-u>call<SID>move_to_preview_window()<CR>
+function! s:move_to_preview_window()
+    if &previewwindow
+        wincmd p
+    else
+        silent! wincmd P
+    endif
+endfunction"}}}
 "}}}
 
 " Jump mark can restore column."{{{
-" あまり使わないので\に降格
 nnoremap \  `
 " mもMに降格
 nnoremap M  m
@@ -1373,9 +1534,9 @@ set nrformats-=octal
 noremap <silent> <C-k> <C-o>
 noremap <silent> <C-j> <C-i>
 
-" vimの画面を残したまま終了
+" Finish with having left a screen of vim.
 nnoremap <silent> gZZ :<C-u>set t_te= t_ti= \| quit \| set t_te& t_ti&<CR>
-" vimの画面を残したままシェルを起動
+" Start a shell with having left a screen of vim.
 nnoremap <silent> gsh :<C-u>set t_te= t_ti= \| sh \| set t_te& t_ti&<CR>
 
 " Move search word to middle screen."{{{
@@ -1387,7 +1548,7 @@ noremap g*  g*zz
 noremap g#  g#zz
 "}}}
 
-" Smart C-f, C-b.
+" Smart <C-f>, <C-b>.
 noremap <silent> <C-f> z<CR><C-f>z.
 noremap <silent> <C-b> z-<C-b>z.
 
@@ -1397,13 +1558,9 @@ nnoremap <C-h>  :<C-u>help<Space>
 nnoremap <silent> g<C-h>  :<C-u>help<Space><C-r><C-w><CR>
 " Grep in help.
 nnoremap grh  :<C-u>Hg<Space>
-" Grep cursor word.
-nnoremap grw  :<C-u>Egrep <C-r><C-w><CR>
-" Execute grep.
-nnoremap grp  :<C-u>Egrep<Space>
 "}}}
 
-" Ignore ZZ.
+" Disable ZZ.
 nnoremap ZZ  <Nop>
 
 " Exchange ';' to ':'.
@@ -1474,8 +1631,6 @@ nnoremap <silent> ^  :<C-u>call SmartHome("n")<CR>
 nnoremap <silent> _  :<C-u>call SmartHome("n")<CR>
 vnoremap <silent> ^  <ESC>:<C-u>call SmartHome("v")<CR>
 vnoremap <silent> _  <ESC>:<C-u>call SmartHome("v")<CR>
-" Mapping 0 to g0.
-noremap 0  g0
 " Smart home function"{{{
 function! SmartHome(mode)
     let l:curcol = col(".")
@@ -1533,8 +1688,8 @@ function! SmartEnd(mode)
 endfunction "}}}
 "}}}
 
-" 現在行と同じインデントの前後の行へジャンプ"{{{
-" Python なんかで便利。
+" Jump to a line and the line of before and after of the same indent."{{{
+" Useful for Python.
 nnoremap <silent> g{ :<C-u>call search("^" . matchstr(getline(line(".") + 1), '\(\s*\)') ."\\S", 'b')<CR>^
 nnoremap <silent> g} :<C-u>call search("^" . matchstr(getline(line(".")), '\(\s*\)') ."\\S")<CR>^
 "}}}
@@ -1566,13 +1721,18 @@ vnoremap v $h
 
 " Paste current line.
 nnoremap cp Pjdd
+" Paste next line.
+nnoremap <silent> gp o<ESC>:call <SID>chomp_register()<CR>p^
+nnoremap <silent> gP O<ESC>:call <SID>chomp_register()<CR>p^
+function! s:chomp_register()
+    if @* =~ '\n$'
+        let @* = @*[:-2]
+    endif
+endfunction
 
 " Paste and indent line.
-nnoremap ]p p`[=`]
-nnoremap ]P P`[=`]
-
-" Yank until end line.
-nnoremap Y y$
+nnoremap ]p p`[=`]^
+nnoremap ]P P`[=`]^
 
 " Like YankRing paste."{{{
 for i in range(0, 9)
@@ -1581,13 +1741,18 @@ endfor
 unlet i
 nnoremap y+  "+gp
 nnoremap y*  "*gp
+noremap <silent> Y   y$:CpR0toR1<CR>
+vnoremap <silent> Y   y$:CpR0toR1<CR>
+vnoremap <silent> y   y:CpR0toR1<CR>
+onoremap <silent> y   y:CpR0toR1<CR>
+command! CpR0toR1 if @0 =~ "\<NL>"|let @9=@8|let @8=@7|let @7=@6|let @6=@5|let @5=@4|let @4=@3|let @3=@2|let @2=@1|let @1=@0|endif
 "}}}
 
 "Return Redraw
 nnoremap <silent> <C-l>    :<C-u>redraw!<CR>
 
 " Elegant <ESC>
-noremap <C-Space>   <ESC>
+noremap <C-@>   <ESC>
 
 " Folding."{{{
 " If press h on head, fold close.
@@ -1600,7 +1765,6 @@ nnoremap <expr> l foldclosed(line('.')) != -1 ? 'zo0' : 'l'
 vnoremap <expr> l foldclosed(line('.')) != -1 ? 'zogv0' : 'l'
 " Useful command.
 noremap z<Space>   za
-noremap eh  zc
 "}}}
 
 " Fast search pair.
@@ -1651,7 +1815,52 @@ function! s:YankPaste()
     let @* = a
 endfunction
 
+" Exchange cursor word to yanked word.
+nnoremap <silent> ciy ciw<C-r>0<ESC>:let@/=@1<CR>:noh<CR>
+nnoremap <silent> cy   ce<C-r>0<ESC>:let@/=@1<CR>:noh<CR>
+" Paste yanked character.
+nnoremap gy "0P
+
 "}}}
+
+" Move last modified text.
+noremap gb `.zz
+noremap g, g;
+noremap g; g,
+
+" Repeat previous command.
+noremap #   @:
+
+" Recording commands."{{{
+noremap <silent> <CR>       :<C-u>call <SID>recording_commands()<CR>
+function! s:recording_commands()
+    let l:prev_command = substitute(@z, "\<CR>", '', 'g')
+    let l:input = input('Input command: ', l:prev_command, 'mapping')
+    if !empty(l:input)
+        let @z = substitute(l:input, '<CR>', "\<CR>", 'g')
+    endif
+endfunction
+" Execute macro.
+noremap <silent> '   @z
+noremap <silent> -          :<C-u>call <SID>recording_macro()<CR>
+let s:recording = 0
+function! s:recording_macro()
+    if s:recording
+        let s:recording = 0
+        normal! q
+        " Delete last '-'.
+        let @z = substitute(@z, '-$', '', '')
+    else
+        let s:recording = 1
+        normal! qz
+    endif
+endfunction
+"}}}
+
+" Change the height of the current window to match the visual selection and scroll 
+" the text so that all of the selection is visible.
+vmap <C-w><C-_>  <C-w>_ 
+vnoremap <silent> <C-w>_  :<C-u><C-r>=line("'>") - line("'<") + 1<CR>wincmd _<CR>`<zt
 
 " }}}
 
@@ -1659,7 +1868,7 @@ endfunction
 " Commands:"{{{
 "
 " Search in selecting text."{{{
-" ちゃんと n や N もその範囲内だけになる
+" 'n' and 'N' become only the range properly, too.
 function! RangeSearch(direction)
 endfunction
 command! -nargs=0 -range RangeSearch call RangeSearch('/')|if strlen(g:srchstr) > 0|exe '/'.g:srchstr|endif
@@ -1758,8 +1967,17 @@ command! Run3 call EmacsRun("", 1)"}}}
 
 " Toggle options. "{{{
 function! ToggleOption(option_name)
-  execute 'setlocal' a:option_name.'!'
-  execute 'setlocal' a:option_name.'?'
+    execute 'setlocal' a:option_name.'!'
+    execute 'setlocal' a:option_name.'?'
+endfunction  "}}}
+" Toggle variables. "{{{
+function! ToggleVariable(variable_name)
+    if eval(a:variable_name)
+        execute 'let' a:variable_name.' = 0'
+    else
+        execute 'let' a:variable_name.' = 1'
+    endif
+    echo printf('%s = %s', a:variable_name, eval(a:variable_name))
 endfunction  "}}}
 
 " :Hg (alternative of ':helpg[rep]')"{{{
@@ -1780,7 +1998,7 @@ command! -nargs=0 Undiff setlocal nodiff noscrollbind wrap
 
 " Smart make."{{{
 " Unlike normal ':make', don't flick.
-function! s:UpdateQuickFix(command, jump)
+function! s:UpdateQuickFix(command, jump, only)
     " Rubyではruby -wcで文法チェックを行う
     if filereadable("Makefile")
         let lines = split(system('make -s'), "\n")
@@ -1800,7 +2018,12 @@ function! s:UpdateQuickFix(command, jump)
     else
         " Do ':make'
         if empty(a:command)
-            silent make
+            if a:only
+                " Current file only.
+                execute 'make '.expand("%:r").'.o'
+            else
+                silent make
+            endif
         else
             execute "silent make " . a:command
         endif
@@ -1830,7 +2053,7 @@ function! s:UpdateQuickFix(command, jump)
     silent doautocmd QuickFixCmdPost make
 endfunction"}}}
 
-command! -nargs=? -bar -bang Make call s:UpdateQuickFix("<args>", len('<bang>'))
+command! -nargs=? -bar -bang Make call s:UpdateQuickFix("<args>", len('<bang>'), 0)
 
 " arg: 1->enable / 0->disable / omitted->toggle"{{{
 function! s:EnableFlyMake(...)
@@ -1865,7 +2088,7 @@ function! s:ChangeCurrentDir(directory, bang)
     endif
 endfunction"}}}
 
-function! s:Batch() range
+function! s:Batch() range"{{{
     " read vimscript from selected area.
     let l:selected = getline(a:firstline, a:lastline)
     " get temp file.
@@ -1890,7 +2113,7 @@ function! s:Batch() range
             call delete(l:tempfile)
         endif
     endtry
-endfunction
+endfunction"}}}
 " Range source.
 command! -range -narg=0 Batch :<line1>,<line2>call s:Batch()
 
@@ -1901,32 +2124,42 @@ noremap <silent> [Space]u        :LeadUnderscores<CR>
 " Interactive run.
 command! -nargs=1 Async call interactive#run(<q-args>)
 
-" Open junk file.
+" Open junk file."{{{
 command! -nargs=0 JunkFile call s:open_junk_file()
 function! s:open_junk_file()
     let l:junk_dir = $HOME . '/.vim_junk'. strftime('/%Y/%m')
-    call s:mkdir_rec(l:junk_dir)
+    if !isdirectory(l:junk_dir)
+        call mkdir(l:junk_dir, 'p')
+    endif
 
     let l:filename = input('Junk Code: ', l:junk_dir.strftime('/%Y-%m-%d-%H%M%S.'))
-    execute 'edit ' . l:filename
-endfunction
-
-" Create directory recursive.
-function! s:mkdir_rec(dir_name)
-    let l:dir_list = split(a:dir_name, '[/\\]')
-    if has('win32') || has('win64')
-        let l:dir = l:dir_list[0]
-    else
-        let l:dir = '/' . l:dir_list[0]
+    if !empty(l:filename)
+        execute 'edit ' . l:filename
     endif
-    for d in l:dir_list[1:]
-        let l:dir .= '/' . d
+endfunction"}}}
 
-        if !isdirectory(l:dir)
-            call mkdir(l:dir)
-        endif
+" LevenShtein argorithm."{{{
+function! CalcLeven(str1, str2)
+    let [l:p1, l:p2, l:l1, l:l2] = [[], [], len(a:str1), len(a:str2)]
+
+    for l:i in range(l:l2+1) 
+        call add(l:p1, l:i)
+    endfor 
+    for l:i in range(l:l2+1) 
+        call add(l:p2, 0)
+    endfor 
+
+    for l:i in range(l:l1)
+        let l:p2[0] = l:p1[0] + 1
+        for l:j in range(l:l2)
+            let l:p2[l:j+1] = min([l:p1[l:j] + ((a:str1[l:i] == a:str2[l:j]) ? 0 : 1), 
+                        \l:p1[l:j+1] + 1, l:p2[l:j]+1])
+        endfor
+        let [l:p1, l:p2] = [l:p2, l:p1]
     endfor
-endfunction
+
+    return l:p1[l:l2]
+endfunction"}}}
 
 "}}}
   
@@ -1968,9 +2201,12 @@ if has('win32') || has('win64')
     let g:CSApprox_verbose_level = 0
 
     " そこそこ見れる補完リストにする
-    hi Pmenu ctermbg=1
-    hi PmenuSel ctermbg=8
+    hi Pmenu ctermbg=8
+    hi PmenuSel ctermbg=1
     hi PmenuSbar ctermbg=0
+
+    " Display the directory of the baing current buffer in afx.
+    noremap <silent> <F1> :execute '!start runafx.bat' '-s "-p%:p"'<cr>
     "}}}
 else
     " For Linux"{{{
@@ -1985,6 +2221,7 @@ else
 
         " Convert colorscheme in Konsole.
         let g:CSApprox_konsole = 1
+        let g:CSApprox_attr_map = { 'bold' : 'bold', 'italic' : '', 'sp' : '' }
         if !exists('g:colors_name')
             colorscheme candy
         endif
