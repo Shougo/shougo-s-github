@@ -28,17 +28,21 @@ endif
 "
 if has('win32') || has('win64')
     " Width of window.
-    set columns=160
+    set columns=170
     " Height of window.
     set lines=50
 else
     " Width of window.
-    set columns=140
+    set columns=160
     " Height of window.
-    set lines=45
+    set lines=50
 endif
+
 " Setting of colorscheme.
-colorscheme candy
+" Don't override colorscheme.
+if !exists('g:colors_name')
+    colorscheme candy
+endif
 "}}}
 
 "---------------------------------------------------------------------------
@@ -69,7 +73,7 @@ set mousehide
 set guioptions-=T
 set guioptions-=m
 " Toggle menu open if press <F2>.
-noremap <silent> <F2> :<C-u>if &guioptions =~# 'm' <Bar>
+nnoremap <silent> <F2> :<C-u>if &guioptions =~# 'm' <Bar>
             \set guioptions-=m <Bar>
             \else <Bar>
             \set guioptions+=m <Bar>

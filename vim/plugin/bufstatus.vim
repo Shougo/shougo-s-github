@@ -3,7 +3,7 @@
 " AUTHOR: Ico Doornekamp<http://www.vim.org/scripts/script.php?script_id=1664>(Original)
 "         Gonbei <gonbei0671@hotmail.com>(Modified)
 "         Shougo Matsushita <Shougo.Matsu@gmail.com>(Modified)
-" Last Modified: 21 Mar 2009
+" Last Modified: 15 Apr 2009
 " Usage: Just source this file.
 "        source bufstatus.vim
 " LICENSE: GPL version2"{{{
@@ -17,7 +17,7 @@
 " MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 " GNU General Public License for more details.
 ""}}}
-" Version: 3.5, for Vim 7.0
+" Version: 3.7, for Vim 7.0
 " Introduction"{{{
 " ------------
 " This is a simple script that shows a tabs-like list of buffers in the bottom
@@ -49,6 +49,10 @@
 "-----------------------------------------------------------------------------
 " Changelog"{{{
 " ---------
+"   3.7:
+"     - Supported neocomplcache caching percent.
+"   3.6:
+"     - Improved l:item_length.
 "   3.5:
 "     - Improved alternate buffer.
 "   3.4:
@@ -165,8 +169,10 @@ function! s:BufStatus.GetBuf()"{{{
         let l:item_length = (g:BufStatus_MaxItemLength*60 + 50) / 100
     elseif l:maxbuf <= 12
         let l:item_length = (g:BufStatus_MaxItemLength*40 + 50) / 100
-    else
+    elseif l:maxbuf <= 15
         let l:item_length = (g:BufStatus_MaxItemLength*30 + 50) / 100
+    else
+        let l:item_length = 3
     endif"}}}
 
     let s:display_width = winwidth(0) - g:BufStatus_SideMargin
@@ -414,11 +420,11 @@ if !exists("g:BufStatus_MinItemLength")
 endif
 if !exists("g:BufStatus_SideMargin")
     " Right side information margin.
-    let g:BufStatus_SideMargin = 37
+    let g:BufStatus_SideMargin = 43
 endif
 if !exists("g:BufStatus_RightStatus")
     " Right statusline information.
-    let g:BufStatus_RightStatus = '%=%m%y%{"[".(&fenc!=""?&fenc:&enc).",".&ff."]"} %3l,%3c %3p%%'
+    let g:BufStatus_RightStatus = '%=%m%y%{"[".(&fenc!=""?&fenc:&enc).",".&ff."]"}%{"[".neocomplcache#keyword_complete#caching_percent("")."%]"} %3l,%3c %3p%%'
 endif
 if !exists("g:BufStatus_ShortStatus")
     " Short statusline information.
