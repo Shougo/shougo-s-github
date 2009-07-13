@@ -3,7 +3,7 @@
 " AUTHOR: Ico Doornekamp<http://www.vim.org/scripts/script.php?script_id=1664>(Original)
 "         Gonbei <gonbei0671@hotmail.com>(Modified)
 "         Shougo Matsushita <Shougo.Matsu@gmail.com>(Modified)
-" Last Modified: 15 Apr 2009
+" Last Modified: 10 Jul 2009
 " Usage: Just source this file.
 "        source bufstatus.vim
 " LICENSE: GPL version2"{{{
@@ -17,10 +17,10 @@
 " MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 " GNU General Public License for more details.
 ""}}}
-" Version: 3.7, for Vim 7.0
+" Version: 4.1, for Vim 7.0
 " Introduction"{{{
 " ------------
-" This is a simple script that shows a tabs-like list of buffers in the bottom
+" This is a simple script that shows a tabs-like list of buffers in the top
 " of the window. The biggest advantage of this script over various others is
 " that it does not take any lines away from your terminal, leaving more space
 " for the document you're editing. The tabs are only visible when you need
@@ -49,41 +49,70 @@
 "-----------------------------------------------------------------------------
 " Changelog"{{{
 " ---------
+"   4.1:
+"     - Don't use window variables.
+"     - Displayed nomodifiable.
+"     - Fixed mergin.
+"
+"   4.0:
+"     - Show in tabline.
+"
+"   3.9:
+"     - Optimized statusline.
+"
+"   3.8:
+"     - Displayed nomodifiable.
+"     - Optimized statusline.
+"     - Improved adjustments.
+"
 "   3.7:
 "     - Supported neocomplcache caching percent.
+"
 "   3.6:
 "     - Improved l:item_length.
+"
 "   3.5:
 "     - Improved alternate buffer.
+"
 "   3.4:
 "     - Improved autocmd.
 "     - Fixed preview window error.
+"
 "   3.3:
 "     - Displayed alternate buffer name.
+"
 "   3.2:
 "     - Added g:BufStatus_ShortStatus and g:BufStatus_RightStatus option.
 "     - Improved restore statusline.
 "     - Fixed small bug.
 "     - Truncate filename when simple statusline.
+"
 "   3.1:
 "     - Restore statusline when error occured. 
 "     - Changed simple statusline width.
 "     - Improved simple statusline.
+"
 "   3.0:
 "     - Improved redraw timing.
 "     - Refactoring.
+"
 "   2.6:
 "     - Numbering from left side.
+"
 "   2.5:
 "     - Improved show number.
+"
 "   2.4:
 "     - Redraw statusline at <C-l>.
+"
 "   2.0:
 "     - Fix many bugs.
+"
 "   1.0:
 "     - Accept multibyte files.
 "     - Calc overflow.
 "     - Make adjustments to items length.
+"
 "   0.1:
 "     - Initial version.
 ""}}}
@@ -112,11 +141,8 @@ if !exists('s:highlight_set')
     delcommand StatusBufferHighlight
 endif"}}}
 
-
-let s:BufStatus = {}
-
 " Return buffer list.
-function! s:BufStatus.GetBuf()"{{{
+function! s:getbuf()"{{{
     " Count buffer list
     let l:maxbuf = 0
     let l:i = 1
@@ -158,24 +184,16 @@ function! s:BufStatus.GetBuf()"{{{
         endif
     endif
 
-    " Make adjustments to item length"{{{
-    if l:maxbuf <= 3
-        let l:item_length = g:BufStatus_MaxItemLength
-    elseif l:maxbuf <= 6
-        let l:item_length = (g:BufStatus_MaxItemLength*80 + 50) / 100
-    elseif l:maxbuf <= 8
-        let l:item_length = (g:BufStatus_MaxItemLength*70 + 50) / 100
-    elseif l:maxbuf <= 10
-        let l:item_length = (g:BufStatus_MaxItemLength*60 + 50) / 100
-    elseif l:maxbuf <= 12
-        let l:item_length = (g:BufStatus_MaxItemLength*40 + 50) / 100
-    elseif l:maxbuf <= 15
-        let l:item_length = (g:BufStatus_MaxItemLength*30 + 50) / 100
-    else
-        let l:item_length = 3
-    endif"}}}
-
     let s:display_width = winwidth(0) - g:BufStatus_SideMargin
+
+    " Make adjustments to item length"{{{
+    let l:item_length = s:display_width / l:maxbuf - 2
+    if l:item_length <= g:BufStatus_MinItemLength
+        let l:item_length = 3
+    elseif l:item_length > g:BufStatus_MaxItemLength
+        let l:item_length = g:BufStatus_MaxItemLength
+    endif
+    "}}}
 
     let l:num = 0
     let l:i = 1
@@ -253,8 +271,10 @@ function! s:BufStatus.GetBuf()"{{{
             endif
 
             " Check modified
-            if getbufvar(l:i, "&modified") == 1
+            if getbufvar(l:i, "&modified")
                 let l:fname .= "!"
+            elseif !getbufvar(l:i, "&modifiable")
+                let l:fname .= "-"
             else
                 let l:fname .= " "
             endif
@@ -273,10 +293,10 @@ function! s:BufStatus.GetBuf()"{{{
     return l:bufs
 endfunction"}}}
 
-" Redraw statusline.
-function! g:Bufstatus_Show(global)"{{{
+" Redraw status.
+function! s:redraw()"{{{
     " Get all buffers
-    let l:bufs = s:BufStatus.GetBuf()
+    let l:bufs = s:getbuf()
 
     " return list
     let l:ret = []
@@ -302,21 +322,7 @@ function! g:Bufstatus_Show(global)"{{{
         let l:i += 1
     endfor
 
-    if s:display_width < g:BufStatus_MaxItemLength
-        let w:sbl_left_item = ''
-        let w:sbl_active_item = l:ret[l:active]
-        let w:sbl_right_item = ''
-
-        " Truncate item.
-        let l:fname = fnamemodify(bufname('%'), ':t')
-        let l:max_fname = winwidth(0) / 2
-        if len(l:fname) > l:max_fname
-            let l:fname = printf('%.' . l:max_fname . 's~', l:fname)
-        endif
-        return l:fname . g:BufStatus_ShortStatus
-    endif
-
-    let l:capacity = s:BufStatus.CalcCapacity(s:display_width, l:bufs)
+    let l:capacity = s:calc_capacity(s:display_width, l:bufs)
 
     let l:l = len(l:ret)
     if l:l <= 0
@@ -364,26 +370,22 @@ function! g:Bufstatus_Show(global)"{{{
     endif
 
     " Join list
-    let w:sbl_left_item = join(l:_sbl_left_item)
-    if w:sbl_left_item != ''
+    let l:sbl_left_item = join(l:_sbl_left_item)
+    if l:sbl_left_item != ''
         " Spacing
-        let w:sbl_left_item .= ' '
+        let l:sbl_left_item .= ' '
     endif
-    let w:sbl_active_item = l:_sbl_active_item
-    let w:sbl_right_item = join(l:_sbl_right_item)
+    let l:sbl_active_item = l:_sbl_active_item
+    let l:sbl_right_item = join(l:_sbl_right_item)
 
-    if a:global
-        return printf('%%#BUFNHL#%s%%#BUFHL#%s%%#BUFNHL# %s%s', 
-                    \w:sbl_left_item, w:sbl_active_item, w:sbl_right_item, g:BufStatus_RightStatus)
-    else
-        return '%#BUFNHL#%{w:sbl_left_item}%#BUFHL#%{w:sbl_active_item}%#BUFNHL# %{w:sbl_right_item}' . g:BufStatus_RightStatus
-    endif
+    return printf('%%#BUFNHL#%s%%#BUFHL#%s%%#BUFNHL# %s %%=%s',
+                \l:sbl_left_item, l:sbl_active_item, l:sbl_right_item, g:BufStatus_RightStatus)
 endfunction"}}}
 
 " Calc capacity.
-function! s:BufStatus.CalcCapacity(width, bufs)"{{{
+function! s:calc_capacity(width, bufs)"{{{
     let l:bufs = a:bufs
-    let l:max_width = (a:width*95 + 50)/100
+    let l:max_width = a:width*90/100
 
     " Check
     let l:capacity = len(a:bufs)
@@ -397,18 +399,7 @@ function! s:BufStatus.CalcCapacity(width, bufs)"{{{
     return l:capacity
 endfunction"}}}
 
-" Status line set.
-set statusline=%!g:Bufstatus_Show(1)
-
-" Hook to events to show buftabs at startup, when creating and when switching
-" buffers
-augroup BufStatus
-    autocmd!
-    autocmd BufNew,WinEnter,VimResized * setlocal statusline=%!g:Bufstatus_Show(1)
-    autocmd WinLeave,BufLeave * if &filetype != 'qf' && &previewwindow == 0 | setlocal statusline=%!g:Bufstatus_Show(0) | endif
-augroup END
-
-" Global variables difinition"{{{
+" Global variables difinition."{{{
 "
 if !exists("g:BufStatus_MaxItemLength")
     " Maximum item length.
@@ -420,17 +411,21 @@ if !exists("g:BufStatus_MinItemLength")
 endif
 if !exists("g:BufStatus_SideMargin")
     " Right side information margin.
-    let g:BufStatus_SideMargin = 43
+    let g:BufStatus_SideMargin = 5
 endif
 if !exists("g:BufStatus_RightStatus")
-    " Right statusline information.
-    let g:BufStatus_RightStatus = '%=%m%y%{"[".(&fenc!=""?&fenc:&enc).",".&ff."]"}%{"[".neocomplcache#keyword_complete#caching_percent("")."%]"} %3l,%3c %3p%%'
-endif
-if !exists("g:BufStatus_ShortStatus")
-    " Short statusline information.
-    let g:BufStatus_ShortStatus = '%=%m%y %3p%%'
+    " Right tabline information.
+    let g:BufStatus_RightStatus = ''
 endif
 "}}}
+
+" Anywhere SID.
+function! s:SID_PREFIX()
+    return matchstr(expand('<sfile>'), '<SNR>\d\+_')
+endfunction
+
+" Tab line set.
+let &tabline = '%!'. s:SID_PREFIX() . 'redraw()'
 
 let loaded_bufstatus = 1
 

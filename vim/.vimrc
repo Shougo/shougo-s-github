@@ -30,6 +30,11 @@ xnoremap m  <Nop>
 nnoremap ,  <Nop>
 xnoremap ,  <Nop>
 
+if has('win32') || has('win64') 
+    " Exchange path separator.
+    set shellslash
+endif
+
 " Windows/Linuxにおいて、.vimと$VIM/vimfilesの違いを吸収する
 if has('win32') || has('win64')
     let $DOTVIM = $VIM."/vimfiles"
@@ -220,28 +225,11 @@ if has('multi_byte_ime')
     " Settings of default ime condition.
     set iminsert=0 imsearch=0
     " Don't save ime condition.
-    if has('gui_running') && !has('win32') && !has('win64')
-        autocmd MyAutoCmd InsertLeave * call s:ForceImeOff()
-        function! s:ForceImeOff()
-            call system('xvkbd -text "\[Shift]\[Space]" > /dev/null 2>&1')
-        endfunction
-        "autocmd MyAutoCmd InsertLeave * set iminsert=0
-        
-        nnoremap / :<C-u>set imsearch=0<CR>/
-        xnoremap / :<C-u>set imsearch=0<CR>/
-        nnoremap ? :<C-u>set imsearch=0<CR>?
-        xnoremap ? :<C-u>set imsearch=0<CR>?
-    endif
-endif
-
-if has('xim')
-    " To use ATOK X3.
-    let $GTK_IM_MODULE='xim'
-    set imactivatekey=S-space
-
-    " To use uim-anthy.
-    "let $GTK_IM_MODULE='uim-anthy'
-    "set imactivatekey=C-space
+    autocmd MyAutoCmd InsertLeave * set imsearch=0
+    nnoremap / :<C-u>set imsearch=0<CR>/
+    xnoremap / :<C-u>set imsearch=0<CR>/
+    nnoremap ? :<C-u>set imsearch=0<CR>?
+    xnoremap ? :<C-u>set imsearch=0<CR>?
 endif
 "}}}
 
@@ -310,7 +298,7 @@ set foldenable
 " 折りたたみ方法は分かりやすいマーカーにする。
 set foldmethod=marker
 " Show folding level.
-set foldcolumn=4
+set foldcolumn=3
 
 " GrepをVim標準のGrepにする
 set grepprg=internal
@@ -330,11 +318,14 @@ else
     autocmd MyAutoCmd BufWritePost .gvimrc if has('gui_running') | source $MYGVIMRC
 endif
 
-" キーマッピング時やキーコード解釈の遅延時間を設定
+" Keymapping timeout.
 set timeout timeoutlen=2500 ttimeoutlen=50
 
-" 何も操作していないときにCursorHoldが呼ばれる時間
+" CursorHold time.
 set updatetime=3000
+
+" Set swap directory.
+set directory-=.
 
 "}}}
 
@@ -396,7 +387,21 @@ function! s:my_tabline()  "{{{
       let l:s .= '%#TabLineFill#%T%=%#TabLine#|%999X %X'
       return l:s
 endfunction "}}}
-let &tabline = '%!'. s:SID_PREFIX() . 'my_tabline()'
+"let &tabline = '%!'. s:SID_PREFIX() . 'my_tabline()'
+set showtabline=2
+
+" Adjust highlight settings according to the current colorscheme.
+autocmd MyAutoCmd ColorScheme *
+            \  highlight TabLineSel
+            \             term=bold,reverse
+            \             cterm=bold,underline ctermfg=lightgray ctermbg=darkgray
+            \ | highlight TabLine
+            \             term=reverse
+            \             cterm=NONE ctermfg=lightgray ctermbg=darkgray
+            \ | highlight TabLineFill
+            \             term=reverse
+            \             cterm=NONE ctermfg=lightgray ctermbg=darkgray
+doautocmd MyAutoCmd ColorScheme because-colorscheme-has-been-set-above.
 
 " 画面に収まりきる最後の文字ではなく、オプション 'breakat'
 " に指定された文字のところで、長い行を折り返す
@@ -447,7 +452,7 @@ set splitbelow
 " Splitting a window will put the new window right the current one.
 set splitright
 " Set minimal width for current window.
-set winwidth=40
+set winwidth=60
 " Set minimal height for current window.
 set winheight=20
 
@@ -475,12 +480,38 @@ set display=lastline
 "set display+=uhex
 
 " Set cursor line in current window.
-setlocal cursorline
-autocmd MyAutoCmd WinLeave * setlocal nocursorline
-autocmd MyAutoCmd WinEnter,BufRead * setlocal cursorline
+augroup vimrc-auto-cursorline"{{{
+    autocmd!
+    autocmd CursorMoved * call s:auto_cursorline('CursorMoved')
+    autocmd CursorHold * call s:auto_cursorline('CursorHold')
+    autocmd WinEnter * call s:auto_cursorline('WinEnter')
+    autocmd WinLeave * call s:auto_cursorline('WinLeave')
 
-" Set text format.
-set formatoptions=lmoq
+    let s:cursorline_lock = 0
+    function! s:auto_cursorline(event)
+        if a:event ==# 'WinEnter'
+            setlocal cursorline
+            let s:cursorline_lock = 2
+        elseif a:event ==# 'WinLeave'
+            setlocal nocursorline
+        elseif a:event ==# 'CursorMoved'
+            if s:cursorline_lock
+                if s:cursorline_lock > 1
+                    let s:cursorline_lock = 1
+                else
+                    setlocal nocursorline
+                    let s:cursorline_lock = 0
+                endif
+            endif
+        elseif a:event ==# 'CursorHold'
+            setlocal cursorline
+            let s:cursorline_lock = 1
+        endif
+    endfunction
+augroup END"}}}
+
+" Disable automatically insert comment.
+autocmd MyAutoCmd FileType * set formatoptions-=ro
 
 "}}}
 
@@ -503,9 +534,6 @@ augroup MyAutoCmd"{{{
     autocmd FileType vim nnoremap <silent><buffer> <LocalLeader>R :Source<CR>
     autocmd FileType vim xnoremap <silent><buffer> <LocalLeader>R :Source<CR>
 
-    " For scratch.
-    autocmd FileType vim noremap <silent><buffer> <C-j> :ScratchEvaluate<CR>
-
     " Auto reload VimScript.
     autocmd BufWritePost,FileWritePost *.vim if &autoread | source <afile> | endif
 
@@ -520,7 +548,7 @@ augroup MyAutoCmd"{{{
 
     " Enable omni completion."{{{
     autocmd FileType ada setlocal omnifunc=adacomplete#Complete
-    "autocmd FileType c setlocal omnifunc=ccomplete#Complete
+    autocmd FileType c setlocal omnifunc=ccomplete#Complete
     autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
     autocmd FileType html setlocal omnifunc=htmlcomplete#CompleteTags
     autocmd FileType java setlocal omnifunc=javacomplete#Complete
@@ -556,8 +584,12 @@ xmap <silent> SP    <Plug>(yanktmp_paste_P)
 "}}}
 
 " bufstatus.vim"{{{
-" <C-l>: redraw statusline.
-nmap <silent> <C-l> <Plug>(bufstatus_redraw)
+" Right tabline information.
+let g:BufStatus_RightStatus = ''
+" Set margin.
+let g:BufStatus_SideMargin = 0
+" Set statusline.
+let &statusline = '%f%=%m%y%{"[".(&fenc!=""?&fenc:&enc).",".&ff."]"}%{"[".neocomplcache#keyword_complete#caching_percent("")."%]"} %3p%%'
 "}}}
 
 " neocomplcache.vim"{{{
@@ -580,7 +612,7 @@ let g:NeoComplCache_EnableUnderbarCompletion = 1
 " Set minimum syntax keyword length.
 let g:NeoComplCache_MinSyntaxLength = 3
 " Set skip input time.
-let g:NeoComplCache_SkipInputTime = '0.1'
+let g:NeoComplCache_SkipInputTime = '0.2'
 " Set manual completion length.
 let g:NeoComplCache_ManualCompletionStartLength = 0
 
@@ -623,7 +655,11 @@ call vimshell#set_execute_file('txt,vim,c,h,cpp,d,xml,java', 'vim')
 let g:VimShell_ExecuteFileList['rb'] = 'ruby'
 let g:VimShell_ExecuteFileList['pl'] = 'perl'
 let g:VimShell_ExecuteFileList['py'] = 'python'
-call vimshell#set_execute_file('html,xhtml', 'bg firefox')
+call vimshell#set_execute_file('html,xhtml', 'gexe firefox')
+
+let g:VimShell_EnableInteractive = 1
+let g:VimShell_EnableSmartCase = 1
+let g:VimShell_EnableAutoLs = 1
 
 if has('win32') || has('win64') 
     " Display user name on Windows.
@@ -635,17 +671,24 @@ else
     " Display user name on Linux.
     let g:VimShell_Prompt = $USER."% "
 
-    call vimshell#set_execute_file('bmp,jpg,png,gif', 'bg eog')
-    call vimshell#set_execute_file('mp3,m4a,ogg', 'bg amarok')
+    call vimshell#set_execute_file('bmp,jpg,png,gif', 'gexe eog')
+    call vimshell#set_execute_file('mp3,m4a,ogg', 'gexe amarok')
     let g:VimShell_ExecuteFileList['zip'] = 'zipinfo'
     call vimshell#set_execute_file('tgz,gz', 'gzcat')
     call vimshell#set_execute_file('tbz,bz2', 'bzcat')
 endif
 
-" vimshell.
+" <C-Space>: switch to vimshell.
 nmap <C-@>  <Plug>(vimshell_switch)
-" <C-Space>: Elegant <ESC>
 imap <C-@>  <Plug>(vimshell_switch)
+" !: vimshell interactive execute.
+nnoremap !  :<C-u>VimShellInteractive<Space>
+" &: vimshell background execute.
+nnoremap &  :<C-u>VimShellExecute<Space>
+" Command completion.
+autocmd MyAutoCmd Filetype vimshell imap <buffer> P <Plug>(vimshell_insert_command_completion)
+" Fast move to parent directory.
+autocmd MyAutoCmd Filetype vimshell imap <buffer> &  cd<Space>..<CR>
 "}}}
 
 " scratch.vim"{{{
@@ -673,6 +716,13 @@ let errormarker_errortext      = "!!"
 let errormarker_warningtext    = "??"
 let g:errormarker_errorgroup   = "Error"
 let g:errormarker_warninggroup = "Todo"
+if has('win32') || has('win64')
+    let g:errormarker_erroricon    = $DOTVIM . "/signs/err.bmp"
+    let g:errormarker_warningicon  = $DOTVIM . "/signs/warn.bmp"
+else
+    let g:errormarker_erroricon    = $DOTVIM . "/signs/err.png"
+    let g:errormarker_warningicon  = $DOTVIM . "/signs/warn.png"
+endif
 "}}}
 
 " QFixGrep"{{{
@@ -752,24 +802,25 @@ nmap    ' [Ku]
 nnoremap [Ku]u  :<C-u>Ku<Space>
 nnoremap <silent> [Ku]a  :<C-u>Ku args<CR>
 nnoremap <silent> [Ku]b  :<C-u>Ku buffer<CR>
-nnoremap <silent> [Ku]c  :<C-u>Ku cmd_mru<CR>
+nnoremap <silent> [Ku]c  :<C-u>Ku cmd_mru/cmd<CR>
 nnoremap <silent> [Ku]f  :<C-u>Ku file<CR>
 nnoremap <silent> [Ku]g  :<C-u>Ku metarw-git<CR>
 nnoremap <silent> [Ku]h  :<C-u>Ku history<CR>
 nnoremap <silent> [Ku]k  :<C-u>call ku#restart()<CR>
 nnoremap <silent> [Ku]m  :<C-u>Ku file_mru<CR>
-" p is for packages.
-nnoremap <silent> [Ku]p  :<C-u>Ku bundle<CR>
+nnoremap <silent> [Ku]u  :<C-u>Ku bundle<CR>
+nnoremap <silent> [Ku]p  :<C-u>Ku yankring<CR>
 nnoremap <silent> [Ku]q  :<C-u>Ku quickfix<CR>
 nnoremap <silent> [Ku]s  :<C-u>Ku source<CR>
 nnoremap <silent> [Ku]'  :<C-u>Ku source<CR>
+nnoremap <silent> [Ku]/  :<C-u>Ku cmd_mru/search<CR>
 " w is for ~/working.
 "nnoremap <silent> [Ku]w  :<C-u>Ku myproject<CR>
 autocmd MyAutoCmd FileType ku
             \   call ku#default_key_mappings(1)
-            \ | call Ku_my_keymappings()
+            \ | call s:Ku_my_settings()
 
-function! Ku_my_keymappings()
+function! s:Ku_my_settings()
     inoremap <buffer> <silent> <Tab> <C-n>
     inoremap <buffer> <silent> <S-Tab> <C-p>
     imap <buffer> <silent> <Esc><Esc> <Plug>(ku-cancel)
@@ -795,7 +846,7 @@ call ku#custom_action('myproject', 'default', 'common', 'tab-Right')
 call ku#custom_prefix('common', 'home', substitute($HOME, '\\', '/', 'g'))
 call ku#custom_prefix('common', '~', substitute($HOME, '\\', '/', 'g'))
 call ku#custom_prefix('common', '.v', substitute($DOTVIM, '\\', '/', 'g'))
-call ku#custom_prefix('common', 'VIM', substitute($VIMRUNTIME, '\\', '/', 'g'))
+call ku#custom_prefix('common', 'runtime', substitute($VIMRUNTIME, '\\', '/', 'g'))
 
 " metarw.vim
 " Define wrapper commands.
@@ -878,6 +929,20 @@ nmap <  <Plug>(eev_search_forward)
 nmap <C-e>  <Plug>(eev_eval)
 nmap <C-u>  <Plug>(eev_create)
 "}}}
+
+" smarttill.vim"{{{
+xmap q  <Plug>(smarttill-t)
+xmap Q  <Plug>(smarttill-T)
+" Operator pending mode.
+omap q  <Plug>(smarttill-t)
+omap Q  <Plug>(smarttill-T)
+"}}}
+
+" changelog.vim"{{{
+let g:changelog_timeformat = "%Y-%m-%d"
+let g:changelog_username = "Shougo "
+"}}}
+
 "}}}
 
 "---------------------------------------------------------------------------
@@ -939,7 +1004,7 @@ inoremap <expr><C-y>  pumvisible() ? neocomplcache#close_popup() :  "\<C-r>0"
 " <C-e>: close popup.
 inoremap <expr><C-e>  pumvisible() ? neocomplcache#cancel_popup() : "\<End>"
 " YY: paste.
-inoremap YY  <C-r>0
+inoremap YY  <C-r>*
 " Y0-Y9: paste.
 for i in range(0, 9)
     execute 'inoremap ' ('Y'.i)  ('<C-r>'.i)
@@ -979,12 +1044,13 @@ imap W  <C-o><Plug>(smartword-w)
 imap B  <C-o><Plug>(smartword-b)
 " E: Backward to the end of word.
 inoremap E  <ESC>gea
-" ': close popup.
-inoremap <expr>' pumvisible() ? neocomplcache#close_popup() : "'"
 " <Space>: close popup and insert space.
 inoremap <expr><Space> pumvisible() ? neocomplcache#close_popup() . ' ' : ' '
 " <C-x><C-f>: filname completion.
 inoremap <expr><C-x><C-f>  neocomplcache#manual_filename_complete()
+" <Up>, <Down>: move.
+inoremap <expr><Down> pumvisible() ? neocomplcache#close_popup()."\<Down>" : "\<Down>"
+inoremap <expr><Up> pumvisible() ? neocomplcache#close_popup()."\<Up>" : "\<Up>"
 "}}}
 
 " Command-line mode keymappings:"{{{
@@ -1114,20 +1180,19 @@ nnoremap <silent> [Space]mm :call <SID>EnableFlyMake()<CR>
 " Exchange gj and gk to j and k. "{{{
 command! -nargs=? -bar -bang ToggleGJK call s:ToggleGJK()
 nnoremap <silent> [Space]gj :<C-u>ToggleGJK<CR>
-let g:enable_mapping_gjk = 0
 function! s:ToggleGJK()
-    if g:enable_mapping_gjk
-        let g:enable_mapping_gjk = 0
-        noremap j j
-        noremap k k
-        noremap gj gj
-        noremap gk gk
+    if exists('b:enable_mapping_gjk') && b:enable_mapping_gjk
+        let b:enable_mapping_gjk = 0
+        noremap <buffer> j j
+        noremap <buffer> k k
+        noremap <buffer> gj gj
+        noremap <buffer> gk gk
     else
-        let g:enable_mapping_gjk = 1
-        noremap j gj
-        noremap k gk
-        noremap gj j
-        noremap gk k
+        let b:enable_mapping_gjk = 1
+        noremap <buffer> j gj
+        noremap <buffer> k gk
+        noremap <buffer> gj j
+        noremap <buffer> gk k
     endif
 endfunction"}}}
 
@@ -1198,14 +1263,20 @@ nnoremap    [Window]   <Nop>
 nmap    s [Window]
 nnoremap C         s
 xnoremap C         s
-nnoremap <silent> [Window]p  :<C-u>split<CR>
+nnoremap <silent> [Window]p  :<C-u>call <SID>split_nicely()<CR>
 nnoremap <silent> [Window]v  :<C-u>vsplit<CR>
 nnoremap <silent> [Window]c  :<C-u>close<CR>
 nnoremap <silent> [Window]o  :<C-u>only<CR>
-nnoremap <silent> [Window]h  <C-w>h
 nnoremap <silent> [Window]w  <C-w>w
-nnoremap <silent> <Tab>      <C-w>w
+nnoremap <silent> <Tab>      :<C-u>call <SID>MovePreviousWindow()<CR>
 nnoremap <silent> [Window]<Space>  :<C-u>call <SID>ToggleSplit()<CR>
+function! s:MovePreviousWindow()
+    let l:prev_name = winnr()
+    silent! wincmd p
+    if l:prev_name == winnr()
+        silent! wincmd w
+    endif
+endfunction
 " If window isn't splited, split buffer.
 function! s:ToggleSplit()
     let l:prev_name = winnr()
@@ -1216,17 +1287,18 @@ function! s:ToggleSplit()
         close
     endif
 endfunction
-" ウインドウサイズに応じてsplit"{{{
+" Split nicely."{{{
 command! SplitNicely call s:split_nicely()
 function! s:split_nicely()
-    if 80*2 * 15/16 <= winwidth(0) " FIXME: threshold customization
-        vsplit
-    else
+    " Split nicely.
+    if winheight(0) > &winheight
         split
+    else
+        vsplit
     endif
 endfunction
 "}}}
-" sdで現在のバッファを閉じる"{{{
+" Delete current buffer."{{{
 nnoremap <silent> [Window]d  :<C-u>call <SID>CustomBufferDelete(0)<CR>
 function! s:CustomBufferDelete(is_force)
     let current = bufnr('%')
@@ -1234,13 +1306,13 @@ function! s:CustomBufferDelete(is_force)
     call s:CustomAlternateBuffer()
 
     if a:is_force
-        silent execute 'bdelete! ' . current
+        silent! execute 'bdelete! ' . current
     else
-        silent execute 'bdelete ' . current
+        silent! execute 'bdelete ' . current
     endif
 endfunction
 "}}}
-"sDで指定したバッファを閉じる"{{{
+" Delete input buffer."{{{
 nnoremap <silent> [Window]D  :<C-u>call <SID>InputBufferDelete(0)<CR>
 function! s:InputBufferDelete(is_force)
     call s:ViewBufferList()
@@ -1280,10 +1352,11 @@ function! s:InputBufferDelete(is_force)
     endfor
 endfunction
 "}}}
-" sfdで現在のバッファを強制的に閉じる
+" Force delete current buffer.
 nnoremap <silent> [Window]fd  :<C-u>call <SID>CustomBufferDelete(1)<CR>
-" sfDで指定したバッファを強制的に閉じる
 nnoremap <silent> [Window]fD  :<C-u>call <SID>InputBufferDelete(1)<CR>
+" Delete current buffer and close current window.
+nnoremap <silent> [Window]q  :<C-u>call <SID>CustomBufferDelete(0)<CR>:<C-u>close<CR>
 " Buffer move.
 nnoremap <silent> [Window][  :<C-u>bfirst<CR>
 nnoremap <silent> [Window]<C-a>  :<C-u>bfirst<CR>
@@ -1297,7 +1370,6 @@ nnoremap <silent> <C-s>  :<C-u>bnext<CR>
 nnoremap <silent> <C-d>  :<C-u>bprevious<CR>
 " Fast buffer switch."{{{
 nnoremap <silent> [Window]s :<C-u>call <SID>CustomAlternateBuffer()<CR>
-nnoremap <silent> [Space]<Space>  :<C-u>call <SID>CustomAlternateBuffer()<CR>
 function! s:CustomAlternateBuffer()
     if bufnr('%') != bufnr('#') && buflisted(bufnr('#'))
         buffer # 
@@ -1432,9 +1504,11 @@ nnoremap [Alt]o o<ESC>
 nnoremap [Alt]O O<ESC>
 " Yank to end line.
 nmap [Alt]y y$
+nmap Y y$
 " Delete first character.
-nnoremap [Alt]x ^x
-nnoremap X ^x
+nnoremap [Alt]x ^"_x
+nnoremap X ^"_x
+nnoremap x "_x
 " Line selection <C-v>.
 nnoremap [Alt]V 0<C-v>$h
 " Folding close.
@@ -1813,9 +1887,16 @@ nnoremap vb /{<CR>%v%0
 xnoremap g* y/\V<C-R>=substitute(escape(@",'/'),"\n","\\\\n","g")<CR>/<CR>
 
 " Insert buffer directory in command line."{{{
-cnoremap <C-x> <C-r>=<SID>GetBufferDirectory()<CR>/
-function! s:GetBufferDirectory()
-  let l:path = expand('%:p:h')
+" Expand path.
+cnoremap <C-x> <C-r>=<SID>GetBufferDirectory(1)<CR>/
+" Expand file (not ext).
+cnoremap <C-z> <C-r>=<SID>GetBufferDirectory(0)<CR>
+function! s:GetBufferDirectory(with_ext)
+    if a:with_ext
+        let l:path = expand('%:p:h')
+    else
+        let l:path = expand('%:p:r')
+    endif
   let l:cwd = getcwd()
   if match(l:path, l:cwd) != 0
     return l:path
@@ -1844,19 +1925,6 @@ endfunction
 " Paste and indent line.
 nnoremap ]p p`[=`]^
 nnoremap ]P P`[=`]^
-
-" Like YankRing paste."{{{
-for i in range(0, 9)
-    execute 'nnoremap ' ('y'.i)  ('"'.i.'gp')
-endfor
-unlet i
-nnoremap y+  "+gp
-nnoremap y*  "*gp
-nnoremap <silent> Y   y$:CpR0toR1<CR>
-xnoremap <silent> Y   y$:CpR0toR1<CR>
-xnoremap <silent> y   y:CpR0toR1<CR>
-command! CpR0toR1 if @0 =~ "\<NL>"|let @9=@8|let @8=@7|let @7=@6|let @6=@5|let @5=@4|let @4=@3|let @3=@2|let @2=@1|let @1=@0|endif
-"}}}
 
 "Return Redraw
 nnoremap <silent> <C-l>    :<C-u>redraw!<CR>
@@ -1907,7 +1975,7 @@ nnoremap g, g;
 nnoremap g; g,
 
 " Repeat previous command.
-nnoremap &   @:
+nnoremap ^   @:
 
 " Recording commands."{{{
 nnoremap <silent> +      :<C-u>call <SID>recording_commands()<CR>
@@ -1940,9 +2008,9 @@ endfunction
 xmap <C-w><C-_>  <C-w>_ 
 xnoremap <silent> <C-w>_  :<C-u><C-r>=line("'>") - line("'<") + 1<CR>wincmd _<CR>`<zt
 
-" Stickey shift in English keyboard."{{{
-" Stickey key.
-let s:stickey_table = {
+" Sticky shift in English keyboard."{{{
+" Sticky key.
+let s:sticky_table = {
             \'a' : 'A', 'b' : 'B', 'c' : 'C', 'd' : 'D', 'e' : 'E', 'f' : 'F', 'g' : 'G',
             \'h' : 'H', 'i' : 'I', 'j' : 'J', 'k' : 'K', 'l' : 'L', 'm' : 'M', 'n' : 'N',
             \'o' : 'O', 'p' : 'P', 'q' : 'Q', 'r' : 'R', 's' : 'S', 't' : 'T', 'u' : 'U',
@@ -1951,17 +2019,17 @@ let s:stickey_table = {
             \'1' : '!', '2' : '@', '3' : '#', '4' : '$', '5' : '%',
             \'6' : '^', '7' : '&', '8' : '*', '9' : '(', '0' : ')', '-' : '_', '=' : '+',
             \';' : ':', '[' : '{', ']' : '}', '`' : '~', "'" : "\"", '\' : '\|',
-            \'<ESC>' : '<ESC>', 'J' : ';<ESC>', '<Space>' : ';'
+            \'<ESC>' : '<ESC>', 'J' : ';<ESC>', '<Space>' : ';', '<CR>' : ';<CR>'
             \}
 inoremap ;  <Nop>
 cnoremap ;  <Nop>
 snoremap ;  <Nop>
-for key in keys(s:stickey_table)
-    execute 'inoremap ' (';'.key)  (s:stickey_table[key])
-    execute 'cnoremap ' (';'.key)  (s:stickey_table[key])
-    execute 'snoremap ' (';'.key)  (s:stickey_table[key])
+for key in keys(s:sticky_table)
+    execute 'inoremap ' (';'.key)  (s:sticky_table[key])
+    execute 'cnoremap ' (';'.key)  (s:sticky_table[key])
+    execute 'snoremap ' (';'.key)  (s:sticky_table[key])
 endfor
-unlet s:stickey_table
+unlet s:sticky_table
 
 " Easy escape."{{{
 xnoremap J            <ESC>
@@ -2029,6 +2097,18 @@ onoremap ar  a]
 xnoremap ar  a]
 onoremap ir  i]
 xnoremap ir  i]
+
+" 'quote'
+onoremap aq  a'
+xnoremap aq  a'
+onoremap iq  i'
+xnoremap iq  i'
+
+" "double quote"
+onoremap ad  a"
+xnoremap ad  a"
+onoremap id  i"
+xnoremap id  i"
 "}}}
 
 " almigh-t
@@ -2110,8 +2190,7 @@ function! s:UpdateQuickFix(command, jump, only)
         endif
     endif
 
-    "let n_error = len(filter(getqflist(), 'v:val.valid'))
-    let n_error = len(filter(getqflist(), 'v:val.type == "E"'))
+    let n_error = len(filter(getqflist(), 'v:val.valid || v:val.type == "E"'))
     let n_warning = len(filter(getqflist(), 'v:val.type == "W"'))
     if n_error == 0
         cclose
@@ -2138,9 +2217,9 @@ command! -nargs=? -bar -bang Make call s:UpdateQuickFix("<args>", len('<bang>'),
 " arg: 1->enable / 0->disable / omitted->toggle"{{{
 function! s:EnableFlyMake(...)
     if a:0
-        let s:flymake_enabled = a:1
+        let b:flymake_enabled = a:1
     else
-        let s:flymake_enabled = (!exists('s:flymake_enabled') || !s:flymake_enabled)
+        let b:flymake_enabled = (!exists('b:flymake_enabled') || !b:flymake_enabled)
     endif
     redraw
     augroup MyAutoCmd
@@ -2149,6 +2228,7 @@ function! s:EnableFlyMake(...)
             echo "flymake enabled."
         else
             echo "flymake disabled."
+        endif
     augroup END
 endfunction"}}}
 
@@ -2199,9 +2279,6 @@ command! -range -narg=0 Batch :<line1>,<line2>call s:Batch()
 command! -range=% LeadUnderscores <line1>,<line2>s/^\s*/\=repeat('_', strlen(submatch(0)))/g
 nnoremap <silent> [Space]u        :LeadUnderscores<CR>
 xnoremap <silent> [Space]u        :LeadUnderscores<CR>
-
-" Interactive run.
-command! -nargs=1 Async call interactive#run(<q-args>)
 
 " Open junk file."{{{
 command! -nargs=0 JunkFile call s:open_junk_file()
@@ -2267,9 +2344,6 @@ if has('win32') || has('win64')
     "set shellpipe=2>&1\|\ tee
     "set shellredir=>%s\ 2>&1
     "set shellxquote=\"
-
-    " Exchange path separator.
-    set shellslash
 
     " Change colorscheme.
     " Don't override colorscheme.

@@ -19,7 +19,7 @@ else
     
     "set guifont=UmePlus\ Gothic\ bold\ 12
     " Don't use bold fonts.
-    set guifont=UmePlus\ Gothic\ 13
+    set guifont=VL\ Gothic\ 10
 endif
 "}}}
 
@@ -49,6 +49,13 @@ endif
 " Input Japanese:"{{{
 " For Linux
 if (has('multi_byte_ime') || has('xim')) && has('GUI_GTK')
+    " To use ATOK X3.
+    let $GTK_IM_MODULE='xim'
+    set imactivatekey=S-space
+
+    " To use uim-anthy.
+    "let $GTK_IM_MODULE='uim-anthy'
+    "set imactivatekey=C-space
 endif
 "}}}
 
