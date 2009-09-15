@@ -3,7 +3,7 @@
 " AUTHOR: Ico Doornekamp<http://www.vim.org/scripts/script.php?script_id=1664>(Original)
 "         Gonbei <gonbei0671@hotmail.com>(Modified)
 "         Shougo Matsushita <Shougo.Matsu@gmail.com>(Modified)
-" Last Modified: 10 Jul 2009
+" Last Modified: 01 Apl 2009
 " Usage: Just source this file.
 "        source bufstatus.vim
 " LICENSE: GPL version2"{{{
@@ -17,7 +17,7 @@
 " MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 " GNU General Public License for more details.
 ""}}}
-" Version: 4.1, for Vim 7.0
+" Version: 4.2, for Vim 7.0
 " Introduction"{{{
 " ------------
 " This is a simple script that shows a tabs-like list of buffers in the top
@@ -49,6 +49,9 @@
 "-----------------------------------------------------------------------------
 " Changelog"{{{
 " ---------
+"   4.2:
+"     - Use &columns.
+"
 "   4.1:
 "     - Don't use window variables.
 "     - Displayed nomodifiable.
@@ -184,7 +187,7 @@ function! s:getbuf()"{{{
         endif
     endif
 
-    let s:display_width = winwidth(0) - g:BufStatus_SideMargin
+    let s:display_width = &columns - g:BufStatus_SideMargin
 
     " Make adjustments to item length"{{{
     let l:item_length = s:display_width / l:maxbuf - 2
@@ -411,7 +414,7 @@ if !exists("g:BufStatus_MinItemLength")
 endif
 if !exists("g:BufStatus_SideMargin")
     " Right side information margin.
-    let g:BufStatus_SideMargin = 5
+    let g:BufStatus_SideMargin = 10
 endif
 if !exists("g:BufStatus_RightStatus")
     " Right tabline information.

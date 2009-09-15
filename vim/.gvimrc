@@ -35,7 +35,7 @@ else
     " Width of window.
     set columns=160
     " Height of window.
-    set lines=50
+    set lines=60
 endif
 
 " Setting of colorscheme.

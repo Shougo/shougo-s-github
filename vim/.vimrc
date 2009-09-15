@@ -225,7 +225,7 @@ if has('multi_byte_ime')
     " Settings of default ime condition.
     set iminsert=0 imsearch=0
     " Don't save ime condition.
-    autocmd MyAutoCmd InsertLeave * set imsearch=0
+    autocmd MyAutoCmd InsertLeave * set iminsert=0 imsearch=0
     nnoremap / :<C-u>set imsearch=0<CR>/
     xnoremap / :<C-u>set imsearch=0<CR>/
     nnoremap ? :<C-u>set imsearch=0<CR>?
@@ -310,12 +310,12 @@ set isfname-==
 " GUIの場合、.vimrcを編集したら.gvimrcもロードする。
 if !has('gui_running') && !(has('win32') || has('win64'))
     " .vimrcの再読込時にも色が変化するようにする
-    autocmd MyAutoCmd BufWritePost .vimrc nested source $MYVIMRC
+    autocmd MyAutoCmd BufWritePost .vimrc nested source $MYVIMRC | echo "source $MYVIMRC"
 else
     " .vimrcの再読込時にも色が変化するようにする
     autocmd MyAutoCmd BufWritePost .vimrc source $MYVIMRC | 
-                \if has('gui_running') | source $MYGVIMRC  
-    autocmd MyAutoCmd BufWritePost .gvimrc if has('gui_running') | source $MYGVIMRC
+                \if has('gui_running') | source $MYGVIMRC | echo "source $MYVIMRC"
+    autocmd MyAutoCmd BufWritePost .gvimrc if has('gui_running') | source $MYGVIMRC | echo "source $MYGVIMRC"
 endif
 
 " Keymapping timeout.
@@ -326,6 +326,15 @@ set updatetime=3000
 
 " Set swap directory.
 set directory-=.
+
+" Set tags file.
+set tags=./tags,tags;
+
+" Enable virtualedit in visual block mode.
+set virtualedit=block
+
+" Set keyword help.
+set keywordprg=:help
 
 "}}}
 
@@ -389,19 +398,6 @@ function! s:my_tabline()  "{{{
 endfunction "}}}
 "let &tabline = '%!'. s:SID_PREFIX() . 'my_tabline()'
 set showtabline=2
-
-" Adjust highlight settings according to the current colorscheme.
-autocmd MyAutoCmd ColorScheme *
-            \  highlight TabLineSel
-            \             term=bold,reverse
-            \             cterm=bold,underline ctermfg=lightgray ctermbg=darkgray
-            \ | highlight TabLine
-            \             term=reverse
-            \             cterm=NONE ctermfg=lightgray ctermbg=darkgray
-            \ | highlight TabLineFill
-            \             term=reverse
-            \             cterm=NONE ctermfg=lightgray ctermbg=darkgray
-doautocmd MyAutoCmd ColorScheme because-colorscheme-has-been-set-above.
 
 " 画面に収まりきる最後の文字ではなく、オプション 'breakat'
 " に指定された文字のところで、長い行を折り返す
@@ -491,7 +487,7 @@ augroup vimrc-auto-cursorline"{{{
     function! s:auto_cursorline(event)
         if a:event ==# 'WinEnter'
             setlocal cursorline
-            let s:cursorline_lock = 2
+            let s:cursorline_lock = 1
         elseif a:event ==# 'WinLeave'
             setlocal nocursorline
         elseif a:event ==# 'CursorMoved'
@@ -530,12 +526,10 @@ augroup MyAutoCmd"{{{
                 \let b:current_syntax='' | syntax enable
 
     " Easily load VimScript.
-    autocmd FileType vim nnoremap <silent><buffer> <LocalLeader>r :write \| source %<CR>
-    autocmd FileType vim nnoremap <silent><buffer> <LocalLeader>R :Source<CR>
-    autocmd FileType vim xnoremap <silent><buffer> <LocalLeader>R :Source<CR>
+    autocmd FileType vim nnoremap <silent><buffer> [Space]rr :write \| source % \| echo "source " . bufname('%')<CR>
 
     " Auto reload VimScript.
-    autocmd BufWritePost,FileWritePost *.vim if &autoread | source <afile> | endif
+    autocmd BufWritePost,FileWritePost *.vim if &autoread | source <afile> | echo "source " . bufname('%') | endif
 
     " netrwでは<C-h>で上のディレクトリへ移動
     autocmd FileType netrw nmap <buffer> <C-h> -
@@ -637,6 +631,16 @@ imap <silent>L     <Plug>(neocomplcache_snippets_expand)
 smap <silent>L     <Plug>(neocomplcache_snippets_expand)
 nmap <silent><C-w>     <Plug>(neocomplcache_keyword_caching)
 imap <expr><silent><C-e>     pumvisible() ? "\<C-e>" : "\<Plug>(neocomplcache_keyword_caching)"
+
+"let g:NeoComplCache_KeywordCompletionStartLength = 1
+"if !exists('g:NeoComplCache_PluginCompletionLength')
+    "let g:NeoComplCache_PluginCompletionLength = {}
+"endif
+"let g:NeoComplCache_PluginCompletionLength['snippets_complete'] = 1
+"let g:NeoComplCache_PluginCompletionLength['keyword_complete'] = 2
+"let g:NeoComplCache_PluginCompletionLength['syntax_complete'] = 2
+"let g:NeoComplCache_PluginCompletionLength['tags_complete'] = 3
+
 "}}}
 
 " NERD_comments.vim"{{{
@@ -649,6 +653,12 @@ nunmap <C-c>
 
 " vimshell.vim"{{{
  
+"let g:VimShell_UserPrompt = "3\ngetcwd()"
+let g:VimShell_UserPrompt = 'fnamemodify(getcwd(), ":~")'
+let g:VimShell_EnableInteractive = 1
+let g:VimShell_EnableSmartCase = 1
+let g:VimShell_EnableAutoLs = 1
+
 " Initialize execute file list.
 let g:VimShell_ExecuteFileList = {}
 call vimshell#set_execute_file('txt,vim,c,h,cpp,d,xml,java', 'vim')
@@ -656,10 +666,6 @@ let g:VimShell_ExecuteFileList['rb'] = 'ruby'
 let g:VimShell_ExecuteFileList['pl'] = 'perl'
 let g:VimShell_ExecuteFileList['py'] = 'python'
 call vimshell#set_execute_file('html,xhtml', 'gexe firefox')
-
-let g:VimShell_EnableInteractive = 1
-let g:VimShell_EnableSmartCase = 1
-let g:VimShell_EnableAutoLs = 1
 
 if has('win32') || has('win64') 
     " Display user name on Windows.
@@ -785,14 +791,18 @@ nnoremap <silent> <leader>tl :<C-u>TlistToggle<CR>
 "}}}
 
 " git.vim ----------------------------------------------------- {{{
-nnoremap [Space]gad :CD! \| GitAdd<Space>
-nnoremap [Space]gac :CD! \| GitAdd <C-r>=expand("%:t")<CR><CR>
-nnoremap [Space]gd :CD! \| GitDiff<Space> 
-nnoremap [Space]gco :CD! \| GitCommit<Space>
-nnoremap [Space]gca :CD! \| GitCommit -a<CR>
-nnoremap [Space]gcc :CD! \| GitCommit <C-r>=expand("%:t")<CR><CR>
-nnoremap [Space]gl :CD! \| GitLog<CR>
-nnoremap [Space]gs :CD! \| GitStatus<CR>
+let g:git_no_map_default = 1
+let g:git_command_edit = 'rightbelow vnew'
+nnoremap [Space]gd :<C-u>GitDiff --cached<CR>
+nnoremap [Space]gD :<C-u>GitDiff<CR>
+nnoremap [Space]gs :<C-u>GitStatus<CR>
+nnoremap [Space]gl :<C-u>GitLog<CR>
+nnoremap [Space]gL :<C-u>GitLog -u \| head -10000<CR>
+nnoremap [Space]ga :<C-u>GitAdd<CR>
+nnoremap [Space]gA :<C-u>GitAdd <cfile><CR>
+nnoremap [Space]gc :<C-u>GitCommit --amend<CR>
+nnoremap [Space]gC :<C-u>GitCommit<CR>
+nnoremap [Space]gp :<C-u>Git push
 "}}}
 
 " ku.vim"{{{
@@ -943,6 +953,26 @@ let g:changelog_timeformat = "%Y-%m-%d"
 let g:changelog_username = "Shougo "
 "}}}
 
+" capslock.vim
+imap <C-g>     <Plug>CapsLockToggle
+
+" QuickRun.vim"{{{
+" Set shortcut keys.
+for [key, com] in items({
+            \   '<Leader>x' : '>:',
+            \   '<Leader>p' : '>!',
+            \   '<Leader>w' : '>',
+            \   '<Leader>q' : '>>',
+            \ })
+    execute 'nnoremap <silent>' key ':QuickRun' com '-mode n<CR>'
+    execute 'vnoremap <silent>' key ':QuickRun' com '-mode v<CR>'
+endfor
+unlet key
+unlet com"}}}
+
+" python.vim
+let python_highlight_all = 1
+
 "}}}
 
 "---------------------------------------------------------------------------
@@ -1000,7 +1030,7 @@ endfunction"}}}
 " <S-TAB>: completion back.
 inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<C-h>"
 " <C-y>: paste.
-inoremap <expr><C-y>  pumvisible() ? neocomplcache#close_popup() :  "\<C-r>0"
+inoremap <expr><C-y>  pumvisible() ? neocomplcache#close_popup() :  "\<C-r>\""
 " <C-e>: close popup.
 inoremap <expr><C-e>  pumvisible() ? neocomplcache#cancel_popup() : "\<End>"
 " YY: paste.
@@ -1013,7 +1043,7 @@ unlet i
 " <C-a>: toggle preview window.
 inoremap <silent><C-a>  <C-o>:<C-u>call<SID>preview_window_toggle()<CR>
 " <C-j>: omni completion.
-inoremap <expr> <C-j>  &filetype == 'vim' ? "\<C-x>\<C-v>\<C-p>" : "\<C-x>\<C-o>\<C-p>"
+inoremap <expr> <C-j>  &filetype == 'vim' ? "\<C-x>\<C-v>\<C-p>" : neocomplcache#manual_omni_complete()
 " <C-k>: delete to end.
 inoremap <C-k>  <C-o>D
 " <C-h>, <BS>: close popup and delete backword char.
@@ -1028,10 +1058,10 @@ inoremap <expr><C-n>  pumvisible() ? "\<C-n>" : "\<C-x>\<C-u>\<C-p>"
 inoremap <expr><C-p>  pumvisible() ? "\<C-p>" : "\<C-p>\<C-n>"
 " <C-x>: neocomplcache.
 inoremap <expr><C-x>  pumvisible() ? "\<C-x>\<C-u>\<C-p>" : "\<C-x>"
-" <Enter>: close popup and save indent.
+" <CR>: close popup and save indent.
 inoremap <expr><CR> pumvisible() ? neocomplcache#close_popup()."\<CR>X\<BS>" : "\<CR>X\<BS>"
 " U: user completion.
-inoremap <expr>U  pumvisible() ? "\<C-y>" : "\<C-x>\<C-u>\<C-p>"
+inoremap <expr>U  pumvisible() ? "\<C-y>\<C-x>\<C-u>\<C-p>" : "\<C-x>\<C-u>\<C-p>"
 " O: Open previous line.
 inoremap O  <ESC>O
 " M: Open next line.
@@ -1074,7 +1104,7 @@ cnoremap <C-p>          <Up>
 cnoremap <C-k>          <C-f>d$<C-c><End>
 cnoremap K              <C-f>d$<C-c><End>
 " <C-y>: paste.
-cnoremap <C-y>          <C-r>0
+cnoremap <C-y>          <C-r>"
 " <C-s>: view history.
 cnoremap <C-s>          <C-f>
 " <C-l>: view completion list.
@@ -1112,6 +1142,8 @@ xnoremap  [Space]   <Nop>
 nnoremap <silent> [Space]/  :<C-u>call ToggleOption('hlsearch')<CR>
 " Toggle cursorline.
 nnoremap <silent> [Space]cl  :<C-u>call ToggleOption('cursorline')<CR>
+" Set autoread.
+nnoremap [Space]ar  :<C-u>setlocal autoread<CR>
 " Output encoding information.
 nnoremap <silent> [Space]en  :<C-u>setlocal encoding? termencoding? fenc? fencs?<CR>
 " Set fileencoding.
@@ -1121,8 +1153,8 @@ nnoremap [Space]fe  :<C-u>set fileencoding=
 nnoremap <silent> [Space]ev  :<C-u>edit $MYVIMRC<CR>
 nnoremap <silent> [Space]eg  :<C-u>edit $MYGVIMRC<CR>
 " Load .gvimrc after .vimrc edited at GVim.
-nnoremap <silent> [Space]rv :<C-u>source $MYVIMRC \| if has('gui_running') \| source $MYGVIMRC \| endif <CR>
-nnoremap <silent> [Space]rg :<C-u>source $MYGVIMRC<CR>
+nnoremap <silent> [Space]rv :<C-u>source $MYVIMRC \| if has('gui_running') \| source $MYGVIMRC \| endif \| echo "source $MYVIMRC"<CR>
+nnoremap <silent> [Space]rg :<C-u>source $MYGVIMRC \| echo "source $MYGVIMRC"<CR>
 "}}}
 
 " Easily check registers and marks.
@@ -1267,8 +1299,8 @@ nnoremap <silent> [Window]p  :<C-u>call <SID>split_nicely()<CR>
 nnoremap <silent> [Window]v  :<C-u>vsplit<CR>
 nnoremap <silent> [Window]c  :<C-u>close<CR>
 nnoremap <silent> [Window]o  :<C-u>only<CR>
-nnoremap <silent> [Window]w  <C-w>w
-nnoremap <silent> <Tab>      :<C-u>call <SID>MovePreviousWindow()<CR>
+nnoremap <silent> [Window]w  :<C-u>call <SID>MovePreviousWindow()<CR>
+nnoremap <silent> <Tab>      <C-w>w
 nnoremap <silent> [Window]<Space>  :<C-u>call <SID>ToggleSplit()<CR>
 function! s:MovePreviousWindow()
     let l:prev_name = winnr()
@@ -1353,10 +1385,11 @@ function! s:InputBufferDelete(is_force)
 endfunction
 "}}}
 " Force delete current buffer.
-nnoremap <silent> [Window]fd  :<C-u>call <SID>CustomBufferDelete(1)<CR>
-nnoremap <silent> [Window]fD  :<C-u>call <SID>InputBufferDelete(1)<CR>
+nnoremap <silent> [Window]fq  :<C-u>call <SID>CustomBufferDelete(1)<CR>
+nnoremap <silent> [Window]fQ  :<C-u>call <SID>InputBufferDelete(1)<CR>
 " Delete current buffer and close current window.
-nnoremap <silent> [Window]q  :<C-u>call <SID>CustomBufferDelete(0)<CR>:<C-u>close<CR>
+nnoremap <silent> [Window]d  :<C-u>call <SID>CustomBufferDelete(0)<CR>:if winnr() != 1 <Bar> close<CR>:endif<CR>
+nnoremap <silent> [Window]fd  :<C-u>call <SID>CustomBufferDelete(1)<CR>:<C-u>close<CR>
 " Buffer move.
 nnoremap <silent> [Window][  :<C-u>bfirst<CR>
 nnoremap <silent> [Window]<C-a>  :<C-u>bfirst<CR>
@@ -1376,6 +1409,7 @@ function! s:CustomAlternateBuffer()
     else
         let l:cnt = 0
         let l:pos = 1
+        let l:current = 0
         while l:pos <= bufnr('$')
             if buflisted(l:pos)
                 if l:pos == bufnr('%')
@@ -1396,7 +1430,7 @@ function! s:CustomAlternateBuffer()
     endif
 endfunction
 "}}}
-nnoremap <silent> [Window]d  :<C-u>call <SID>CustomBufferDelete(0)<CR>
+nnoremap <silent> [Window]q  :<C-u>call <SID>CustomBufferDelete(0)<CR>
 " Move to other buffer numbering from left."{{{
 for i in range(0, 9)
   execute 'nnoremap <silent>' ('[Window]'.i)  (':<C-u>call '.s:SID_PREFIX().'MoveBufferFromLeft('.i.')<CR>')
@@ -1500,8 +1534,8 @@ nmap    e  [Alt]
 nnoremap <silent> [Alt]p o<ESC>:call <SID>chomp_register()<CR>pm``[=`]``^
 nnoremap <silent> [Alt]P O<ESC>:call <SID>chomp_register()<CR>Pm``[=`]``^
 " Insert blank line.
-nnoremap [Alt]o o<ESC>
-nnoremap [Alt]O O<ESC>
+nnoremap <silent> [Alt]o :<C-u>call append(line('.'), '')<CR>j
+nnoremap <silent> [Alt]O :<C-u>call append(line('.')-1, '')<CR>k
 " Yank to end line.
 nmap [Alt]y y$
 nmap Y y$
@@ -1517,18 +1551,6 @@ nnoremap [Alt]h  zc
 " Useless commands
 nnoremap [Alt];  ;
 nnoremap [Alt],  ,
-
-" eregex.vim commands."{{{
-" Don't allow M/ region.
-nnoremap [Alt]/ :<C-u>M/
-" S, G, V target whole current buffer.
-nnoremap [Alt]s :%S/
-xnoremap [Alt]s :S/
-nnoremap [Alt]g :%G/
-xnoremap [Alt]g :G/
-nnoremap [Alt]v :%V/
-xnoremap [Alt]v :V/
-"}}}
 
 "}}}
 
@@ -1752,9 +1774,10 @@ nnoremap ;  :
 xnoremap ;  :
 
 " Like gv, but select the last changed text.
-nnoremap gc  `[v`]
+nnoremap gm  `[v`]
 " Specify the last changed text as {motion}.
-onoremap <silent> gc  :<C-u>normal! gc<CR>
+vnoremap <silent> gm  :<C-u>normal gc<CR>
+onoremap <silent> gm  :<C-u>normal gc<CR>
 
 " Auto escape / and ? in search command.
 cnoremap <expr> / getcmdtype() == '/' ? '\/' : '/'
@@ -1880,7 +1903,11 @@ nnoremap <silent> g} :<C-u>call search("^" . matchstr(getline(line(".")), '\(\s*
 "}}}
 
 " Select block for example 'for, while, ...'
-nnoremap vb /{<CR>%v%0
+xnoremap b /{<CR>%v%0
+" Select rectangle.
+xnoremap r <C-v>
+" Select until end of current line in visual mode.
+xnoremap v $h
 
 " Search for selecting text.
 " ^@ などキー入力が困難なコントロール文字を検索（もしくは置換）対象にするときに重宝する。
@@ -1907,9 +1934,6 @@ function! s:GetBufferDirectory(with_ext)
   endif
 endfunction
 "}}}
-
-" v select until end of current line in visual mode.
-xnoremap v $h
 
 " Paste current line.
 nnoremap cp Pjdd
@@ -2010,26 +2034,32 @@ xnoremap <silent> <C-w>_  :<C-u><C-r>=line("'>") - line("'<") + 1<CR>wincmd _<CR
 
 " Sticky shift in English keyboard."{{{
 " Sticky key.
-let s:sticky_table = {
-            \'a' : 'A', 'b' : 'B', 'c' : 'C', 'd' : 'D', 'e' : 'E', 'f' : 'F', 'g' : 'G',
-            \'h' : 'H', 'i' : 'I', 'j' : 'J', 'k' : 'K', 'l' : 'L', 'm' : 'M', 'n' : 'N',
-            \'o' : 'O', 'p' : 'P', 'q' : 'Q', 'r' : 'R', 's' : 'S', 't' : 'T', 'u' : 'U',
-            \'v' : 'V', 'w' : 'W', 'x' : 'X', 'y' : 'Y', 'z' : 'Z',
-            \',' : '<', '.' : '>', '/' : '?',
-            \'1' : '!', '2' : '@', '3' : '#', '4' : '$', '5' : '%',
-            \'6' : '^', '7' : '&', '8' : '*', '9' : '(', '0' : ')', '-' : '_', '=' : '+',
-            \';' : ':', '[' : '{', ']' : '}', '`' : '~', "'" : "\"", '\' : '\|',
-            \'<ESC>' : '<ESC>', 'J' : ';<ESC>', '<Space>' : ';', '<CR>' : ';<CR>'
-            \}
-inoremap ;  <Nop>
-cnoremap ;  <Nop>
-snoremap ;  <Nop>
-for key in keys(s:sticky_table)
-    execute 'inoremap ' (';'.key)  (s:sticky_table[key])
-    execute 'cnoremap ' (';'.key)  (s:sticky_table[key])
-    execute 'snoremap ' (';'.key)  (s:sticky_table[key])
-endfor
-unlet s:sticky_table
+inoremap <expr> ;  <SID>sticky_func()
+cnoremap <expr> ;  <SID>sticky_func()
+snoremap <expr> ;  <SID>sticky_func()
+
+function! s:sticky_func()
+    let l:sticky_table = {
+                \',' : '<', '.' : '>', '/' : '?',
+                \'1' : '!', '2' : '@', '3' : '#', '4' : '$', '5' : '%',
+                \'6' : '^', '7' : '&', '8' : '*', '9' : '(', '0' : ')', '-' : '_', '=' : '+',
+                \';' : ':', '[' : '{', ']' : '}', '`' : '~', "'" : "\"", '\' : '|',
+                \}
+    let l:special_table = {
+                \"\<ESC>" : "\<ESC>", "\<Space>" : ';', "\<CR>" : ";\<CR>"
+                \}
+
+    let l:key = getchar()
+    if nr2char(l:key) =~ '\l'
+        return toupper(nr2char(l:key))
+    elseif has_key(l:sticky_table, nr2char(l:key))
+        return l:sticky_table[nr2char(l:key)]
+    elseif has_key(l:special_table, nr2char(l:key))
+        return l:special_table[nr2char(l:key)]
+    else
+        return ''
+    endif
+endfunction
 
 " Easy escape."{{{
 xnoremap J            <ESC>
@@ -2233,7 +2263,7 @@ function! s:EnableFlyMake(...)
 endfunction"}}}
 
 " Change current directory."{{{
-command! -nargs=? -complete=dir -bang CD  call s:ChangeCurrentDir('<args>', '<bang>') 
+command! -nargs=? -complete=customlist,CompleteCD -bang CD  call s:ChangeCurrentDir('<args>', '<bang>') 
 function! s:ChangeCurrentDir(directory, bang)
     if a:directory == ''
         lcd %:p:h
@@ -2245,6 +2275,11 @@ function! s:ChangeCurrentDir(directory, bang)
         pwd
     endif
 endfunction"}}}
+function! CompleteCD(arglead, cmdline, cursorpos)
+    let l:pattern = join(split(a:cmdline, '\s', !0)[1:], ' ') . '*/'
+    return split(globpath(&cdpath, l:pattern), "\n")
+endfunction
+cnoreabbrev <expr> cd  (getcmdtype() == ':' && getcmdline()  ==# 'cd') ? 'CD' : 'cd'
 
 function! s:Batch() range"{{{
     " read vimscript from selected area.
@@ -2316,6 +2351,9 @@ function! CalcLeven(str1, str2)
 
     return l:p1[l:l2]
 endfunction"}}}
+
+command! -nargs=1 -bang -bar -complete=file Rename saveas<bang> <args> | call delete(expand('#:p'))
+command! -nargs=+ Grep  execute 'grep' '/'.[<f-args>][-1].'/' join([<f-args>][:-2])
 
 "}}}
   
@@ -2446,14 +2484,6 @@ else
     endif
 
     "}}}
-endif
-
-" ファイル名に大文字小文字の区別がないシステム用の設定:
-"   (例: DOS/Windows/MacOS)
-"
-if filereadable($VIM . '/vimrc') && filereadable($VIM . '/ViMrC')
-    " tagsファイルの重複防止
-    set tags=./tags,tags
 endif
 
 "}}}
