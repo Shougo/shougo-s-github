@@ -37,19 +37,11 @@ if s:iswin
 endif
 
 " In Windows/Linux, take in a difference of ".vim" and "$VIM/vimfiles".
-if s:iswin
-  let $DOTVIM = expand('~/.vim')
-else
-  let $DOTVIM = $HOME."/.vim"
-endif
+let $DOTVIM = expand('~/.vim')
 
 " Because a value is not set in $MYGVIMRC with the console, set it.
 if !exists($MYGVIMRC)
   let $MYGVIMRC = expand('~/.gvimrc')
-endif
-
-if s:iswin
-  let &runtimepath = join([expand('~/.vim'), expand('$VIM/runtime'), expand('~/.vim/after')], ',')
 endif
 
 " Anywhere SID.
@@ -71,16 +63,7 @@ augroup MyAutoCmd
   autocmd!
 augroup END
 
-if filereadable(expand('~/.secret_vimrc'))
-  execute 'source' expand('~/.secret_vimrc')
-endif
-
 " Load settings for each location."{{{
-augroup vimrc-local
-  autocmd!
-  autocmd VimEnter * call s:vimrc_local(expand('<afile>:p:h'))
-augroup END
-
 function! s:vimrc_local(loc)
   let files = findfile('vimrc_local.vim', escape(a:loc, ' '), -1)
   for i in reverse(filter(files, 'filereadable(v:val)'))
@@ -88,14 +71,22 @@ function! s:vimrc_local(loc)
   endfor
 endfunction
 
-if has('vim_starting')
-  call s:vimrc_local(getcwd())
+" Set runtimepath.
+if s:iswin
+  let &runtimepath = join([expand('~/.vim'), expand('$VIM/runtime'), expand('~/.vim/after')], ',')
 endif
 
 " Load bundles.
 call pathogen#runtime_append_all_bundles()
+
+if has('vim_starting')
+  call s:vimrc_local(getcwd())
+endif
 "}}}
 
+if filereadable(expand('~/.secret_vimrc'))
+  execute 'source' expand('~/.secret_vimrc')
+endif
 "}}}
 
 "---------------------------------------------------------------------------
@@ -279,13 +270,13 @@ set nocompatible
 set smarttab
 " Exchange tab to spaces.
 set expandtab
-" ファイルの<Tab>が対応する空白の数
+" Substitute <Tab> with blanks.
 "set tabstop=8
-" <Tab>の代わりに挿入する空白の数
+" Spaces instead <Tab>.
 "set softtabstop=4
-" 自動インデントに使われる空白の数
+" Autoindent width.
 "set shiftwidth=4
-" インデントをshiftwidthの倍数に丸める
+" Round indent by shiftwidth.
 set shiftround
 
 " Enable modeline.
@@ -300,15 +291,15 @@ autocmd MyAutoCmd FileType * set textwidth=0
 " Enable backspace delete indent and newline.
 set backspace=indent,eol,start
 
-" 括弧入力時に対応する括弧を表示
+" Highlight parenthesis.
 set showmatch
-" 移動キーを押しても括弧の強調を有効にする
+" Highlight when CursorMoved.
 set cpoptions-=m
 set matchtime=3
-" <>にもマッチするようにする
+" Highlight <>.
 set matchpairs+=<:>
 
-" 保存していなくても別のファイルを表示できるようにする
+" Display another buffer when current buffer isn't saved.
 set hidden
 
 " Auto reload if file is changed.
@@ -328,9 +319,11 @@ set foldmethod=marker
 set foldcolumn=3
 
 " Use vimgrep.
-set grepprg=internal
+"set grepprg=internal
+" Use grep.
+set grepprg=grep\ -nH
 
-" = をファイル名の一部と認識しない
+" Exclude = from isfilename.
 set isfname-==
 
 " Reload .vimrc and .gvimrc automatically.
@@ -343,13 +336,19 @@ else
 endif
 
 " Keymapping timeout.
-set timeout timeoutlen=1000 ttimeoutlen=50
+set timeout timeoutlen=3000 ttimeoutlen=100
 
 " CursorHold time.
-set updatetime=3000
+set updatetime=1000
 
 " Set swap directory.
 set directory-=.
+
+if v:version >= 703
+  " Set undofile.
+  set undofile
+  let &undodir=&directory
+endif
 
 " Set tags file.
 " Don't search tags file in current directory. And search upward.
@@ -394,9 +393,8 @@ augroup END"}}}
 "
 " Show line number.
 "set number
-" タブや改行を表示
+" Show <TAB> and <CR>
 set list
-" どの文字でタブや改行を表示するかを設定
 set listchars=tab:>-,extends:>,precedes:<
 " Wrap long line.
 set wrap
@@ -413,7 +411,7 @@ set title
 " Title length.
 set titlelen=95
 " Title string.
-set titlestring=%{expand('%:p:.')}%(\ %m%r%w%)\ %<\(%{SnipMid(getcwd(),80-len(expand('%:p:.')),'...')}\)\ -\ Vim
+let &titlestring="%{expand('%:p:.')}%(%m%r%w%) %<\(%{SnipMid(getcwd(),80-len(expand('%:p:.')),'...')}\) - Vim"
 
 " Set tabline.
 function! s:my_tabline()  "{{{
@@ -449,7 +447,8 @@ let &tabline = '%!'. s:SID_PREFIX() . 'my_tabline()'
 set showtabline=2
 
 " Set statusline.
-set statusline=%{expand('%:p:.')}\ %<\(%{SnipMid(getcwd(),80-len(expand('%:p:.')),'...')}\)\ %=%m%y%{'['.(&fenc!=''?&fenc:&enc).','.&ff.']'}%{eskk#is_enabled()?eskk#get_stl():SkkGetModeStr()}\ %3p%%
+"let &statusline="%{winnr('$')>1?'['.winnr().'/'.winnr('$').(winnr('#')==winnr()?'#':'').']':''}\ %{expand('%:p:.')}\ %<\(%{SnipMid(getcwd(),80-len(expand('%:p:.')),'...')}\)\ %=%m%y%{cfi#format('[%s()]', '')}%{'['.(&fenc!=''?&fenc:&enc).','.&ff.']'}%{eskk#statusline()}\ %3p%%"
+let &statusline="%{winnr('$')>1?'['.winnr().'/'.winnr('$').(winnr('#')==winnr()?'#':'').']':''}\ %{expand('%:p:.')}\ %<\(%{SnipMid(getcwd(),80-len(expand('%:p:.')),'...')}\)\ %=%m%y%{'['.(&fenc!=''?&fenc:&enc).','.&ff.']'}\ %3p%%"
 
 " Turn down a long line appointed in 'breakat'
 set linebreak
@@ -504,6 +503,8 @@ set winwidth=60
 set winheight=20
 " Set maximam maximam command line window.
 set cmdwinheight=5
+" No equal window size.
+set noequalalways
 
 " Adjust window size of preview and help.
 set previewheight=3
@@ -512,21 +513,15 @@ set helpheight=12
 " Don't redraw while macro executing.
 set lazyredraw
 
-" Enable menu in console.
-if !has('gui_running')
-  source $VIMRUNTIME/menu.vim
-  set cpo-=<
-  set wcm=<C-z>
-  noremap <F2> :emenu <C-z>
-endif
-
 " When a line is long, do not omit it in @.
 set display=lastline
 " Display an invisible letter with hex format.
 "set display+=uhex
 
 " Disable automatically insert comment.
-autocmd MyAutoCmd FileType * set formatoptions-=ro
+autocmd MyAutoCmd FileType * setl formatoptions-=ro | setl formatoptions+=mM
+" Enable multibyte format.
+set formatoptions+=mM
 
 "}}}
 
@@ -554,11 +549,13 @@ augroup MyAutoCmd"{{{
   autocmd BufNewfile,BufRead Rakefile foldmethod=syntax foldnestmax=1
 
   " Close help and git window by pressing q.
-  autocmd FileType help,git-status,git-log,qf,gitcommit,quickrun,qfreplace,ref nnoremap <buffer> q <C-w>c
-  autocmd FileType * if &readonly |  nnoremap <buffer> q <C-w>c | endif 
+  autocmd FileType help,git-status,git-log,qf,gitcommit,quickrun,qfreplace,ref,simpletap-summary nnoremap <buffer><silent> q :<C-u>close<CR>
+  autocmd FileType * if &readonly |  nnoremap <buffer><silent> q :<C-u>close<CR> | endif 
 
   " Close help and git window by pressing q.
   autocmd FileType ref nnoremap <buffer> <TAB> <C-w>w
+  
+  autocmd FileType c setlocal foldmethod=syntax
 
   " Enable omni completion."{{{
   autocmd FileType ada setlocal omnifunc=adacomplete#Complete
@@ -602,15 +599,15 @@ let g:vimsyntax_noerror = 1
 "
 
 " yanktmp.vim"{{{
-" Because I don't use it that much, I demote it to Sy.
-nnoremap S    <Nop>
-xnoremap S    <Nop>
-nmap <silent> Sy    <Plug>(yanktmp_yank)
-xmap <silent> Sy    <Plug>(yanktmp_yank)
-nmap <silent> Sp    <Plug>(yanktmp_paste_p)
-xmap <silent> Sp    <Plug>(yanktmp_paste_p)
-nmap <silent> SP    <Plug>(yanktmp_paste_P)
-xmap <silent> SP    <Plug>(yanktmp_paste_P)
+" Because I don't use it that much, I demote it to Ty.
+nnoremap T    <Nop>
+xnoremap T    <Nop>
+nmap <silent> Ty    <Plug>(yanktmp_yank)
+xmap <silent> Ty    <Plug>(yanktmp_yank)
+nmap <silent> Tp    <Plug>(yanktmp_paste_p)
+xmap <silent> Tp    <Plug>(yanktmp_paste_p)
+nmap <silent> TP    <Plug>(yanktmp_paste_P)
+xmap <silent> TP    <Plug>(yanktmp_paste_P)
 "}}}
 
 " neocomplcache.vim"{{{
@@ -633,7 +630,21 @@ let g:neocomplcache_min_keyword_length = 3
 let g:neocomplcache_enable_cursor_hold_i = 1
 let g:neocomplcache_cursor_hold_i_time = 250
 let g:neocomplcache_enable_auto_select = 1
-let g:neocomplcache_lock_buffer_name_pattern = '\*neoui\*\|\[neoui\]'
+"let g:neocomplcache_disable_caching_buffer_name_pattern = '[\[*]\%(unite\)[\]*]'
+"let g:neocomplcache_disable_auto_select_buffer_name_pattern = '^\[\d\+\]vimshell'
+"let g:neocomplcache_disable_auto_complete = 0
+let g:neocomplcache_max_list = 100
+
+" Quick match test.
+let g:neocomplcache_enable_quick_match = 1
+if !exists('g:neocomplcache_quick_match_patterns')
+  let g:neocomplcache_quick_match_patterns = {}
+endif
+let g:neocomplcache_quick_match_patterns.default = ' '
+let g:neocomplcache_quick_match_table = {
+      \'a' : 1, 's' : 2, 'd' : 3, 'f' : 4, 'g' : 5, 'h' : 6, 'j' : 7, 'k' : 8, 'l' : 9, ';' : 10,
+      \'q' : 11, 'w' : 12, 'e' : 13, 'r' : 14, 't' : 15, 'y' : 16, 'u' : 17, 'i' : 18, 'o' : 19, 'p' : 20, 
+      \}
 
 " Define dictionary.
 let g:neocomplcache_dictionary_filetype_lists = {
@@ -641,10 +652,15 @@ let g:neocomplcache_dictionary_filetype_lists = {
       \ 'vimshell' : $HOME.'/.vimshell_hist',
       \ 'scheme' : $HOME.'/.gosh_completions',
       \ 'scala' : $DOTVIM.'/dict/scala.dict',
-      \ 'ruby' : $DOTVIM.'/dict/ruby.dict'
+      \ 'ruby' : $DOTVIM.'/dict/ruby.dict',
+      \ 'int-termtter' : expand('~/.vimshell/int-history/int-termtter'),
       \ }
+if !s:iswin
+  let g:neocomplcache_dictionary_filetype_lists.help = '/usr/share/dict/words'
+endif
 
-let g:neocomplcache_omni_function_list = {
+
+let g:neocomplcache_omni_functions = {
       \ 'python' : 'pythoncomplete#Complete',
       \ 'ruby' : 'rubycomplete#Complete',
       \ }
@@ -655,28 +671,30 @@ if !exists('g:neocomplcache_keyword_patterns')
 endif
 let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
-let g:neocomplcache_snippets_dir = $HOME.'/snippets'
+let g:neocomplcache_snippets_dir = $HOME . '/snippets'
 
 if !exists('g:neocomplcache_omni_patterns')
   let g:neocomplcache_omni_patterns = {}
 endif
-"let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
-let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+"let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 
 if !exists('g:neocomplcache_same_filetype_lists')
   let g:neocomplcache_same_filetype_lists = {}
 endif
 "let g:neocomplcache_same_filetype_lists.perl = 'ref'
 
-if !exists('g:neocomplcache_vim_completefuncs')
-  let g:neocomplcache_vim_completefuncs = {}
-endif
-let g:neocomplcache_vim_completefuncs.Ref = 'ref#complete'
-let g:neocomplcache_vim_completefuncs.NeoUI = 'neoui#complete'
+let g:neocomplcache_vim_completefuncs = {
+      \ 'Ref' : 'ref#complete',
+      \ 'NeoUI' : 'neoui#complete',
+      \ 'Unite' : 'unite#complete_source',
+      \ 'VimShellExecute' : 'vimshell#complete#vimshell_execute_complete#completefunc',
+      \ 'VimShellInteractive' : 'vimshell#complete#vimshell_execute_complete#completefunc',
+      \ 'VimShellTerminal' : 'vimshell#complete#vimshell_execute_complete#completefunc',
+      \}
 
 " Plugin key-mappings."{{{
 imap <silent>L     <Plug>(neocomplcache_snippets_expand)
-"imap <expr>L    neocomplcache#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : "\<C-n>"
+"imap <expr>L    neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : "\<C-n>"
 smap <silent>L     <Plug>(neocomplcache_snippets_expand)
 inoremap <expr><C-g>     neocomplcache#undo_completion()
 "imap <silent>J     <Plug>(neocomplcache_snippets_jump)
@@ -685,14 +703,14 @@ inoremap <expr><C-l>     neocomplcache#complete_common_string()
 
 " Test."{{{
 "let g:neocomplcache_auto_completion_start_length = 1
-"let g:neocomplcache_plugin_completion_length_list = {
+"let g:neocomplcache_plugin_completion_length = {
 "\ 'snippets_complete' : 1,
 "\ 'buffer_complete' : 2,
 "\ 'syntax_complete' : 2,
 "\ 'tags_complete' : 3,
 "\ 'vim_complete' : 4,
 "\ }
-"let g:neocomplcache_disable_plugin_list = {
+"let g:neocomplcache_plugin_disable = {
 "\'vim_complete' : 1
 "\}"}}}
 
@@ -700,29 +718,29 @@ inoremap <expr><C-l>     neocomplcache#complete_common_string()
 " <C-f>, <C-b>: page move.
 inoremap <expr><C-f>  pumvisible() ? "\<PageDown>" : "\<Right>"
 inoremap <expr><C-b>  pumvisible() ? "\<PageUp>"   :
-      \neocomplcache#complfunc#completefunc_complete#call_completefunc('googlesuggest_complete#completefunc')
+      \neocomplcache#sources#completefunc_complete#call_completefunc('googlesuggest_complete#completefunc')
 " <C-y>: paste.
 inoremap <expr><C-y>  pumvisible() ? neocomplcache#close_popup() :  "\<C-r>\""
 " <C-e>: close popup.
 inoremap <expr><C-e>  pumvisible() ? neocomplcache#cancel_popup() : "\<End>"
 " <C-k>: omni completion.
 inoremap <expr> <C-k>  &filetype == 'vim' ? neocomplcache#start_manual_complete('vim_complete') : neocomplcache#manual_omni_complete()
+inoremap <expr> O  &filetype == 'vim' ? "\<C-x>\<C-v>" : "\<C-x>\<C-o>"
 " <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> pumvisible() ? neocomplcache#cancel_popup()."\<C-h>" : "\<C-h>"
-inoremap <expr><BS> pumvisible() ? neocomplcache#cancel_popup()."\<C-h>" : "\<C-h>"
+inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
 " <C-n>: neocomplcache.
 inoremap <expr><C-n>  pumvisible() ? "\<C-n>" : "\<C-x>\<C-u>\<C-p>\<Down>"
 " <C-p>: keyword completion.
 inoremap <expr><C-p>  pumvisible() ? "\<C-p>" : "\<C-p>\<C-n>"
 inoremap <expr>'  pumvisible() ? neocomplcache#close_popup() : "'"
-"inoremap <expr>;  pumvisible() ? "\<C-n>" : ";"
-inoremap <expr>[  pumvisible() ? "\<Down>" : "["
-inoremap <expr>]  pumvisible() ? "\<Up>" : "]"
+inoremap <expr>[  pumvisible() ? "\<C-n>" : "["
+inoremap <expr>]  pumvisible() ? "\<C-p>" : "]"
 
 " <CR>: close popup and save indent.
-inoremap <expr><CR>  (pumvisible() ? "\<C-e>":'') . (&indentexpr != '' ? "\<C-f>\<CR>X\<BS>":"\<CR>")
+inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
 " <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "\<TAB>" : "\<C-x>\<C-u>\<C-p>"
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "\<TAB>" : "\<C-x>\<C-u>\<C-p>\<Down>"
 function! s:check_back_space()"{{{
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~ '\s'
@@ -730,6 +748,10 @@ endfunction"}}}
 " <S-TAB>: completion back.
 inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<C-h>"
 "}}}
+"}}}
+
+" echodoc.vim"{{{
+let g:echodoc_enable_at_startup = 1
 "}}}
 
 " NERD_comments.vim"{{{
@@ -750,6 +772,7 @@ let g:vimshell_right_prompt = 'vimshell#vcs#info("(%s)-[%b]", "(%s)-[%b|%a]")'
 let g:vimshell_enable_smart_case = 1
 let g:vimshell_ignore_case = 0
 let g:vimshell_prompt = "% "
+"let g:vimshell_environment_term = 'xterm'
 
 if s:iswin
   " Display user name on Windows.
@@ -760,6 +783,9 @@ if s:iswin
 else
   " Display user name on Linux.
   "let g:vimshell_prompt = $USER."% "
+
+  " Use zsh history.
+  let g:vimshell_external_history_path = expand('~/.zsh-history')
 
   call vimshell#set_execute_file('bmp,jpg,png,gif', 'gexe eog')
   call vimshell#set_execute_file('mp3,m4a,ogg', 'gexe amarok')
@@ -777,32 +803,69 @@ let g:vimshell_execute_file_list['py'] = 'python'
 call vimshell#set_execute_file('html,xhtml', 'gexe firefox')
 
 
-" <C-Space>: switch to vimshell.
-nmap <C-@>  <Plug>(vimshell_switch)
-imap <C-@>  <Plug>(vimshell_switch)
-" !: vimshell interactive execute.
-nnoremap !  :<C-u>VimShellInteractive<Space>
-" &: vimshell background execute.
-nnoremap &  :<C-u>VimShellExecute<Space>
+autocmd MyAutoCmd FileType vimshell call s:vimshell_settings()
+function! s:vimshell_settings()
+  imap <buffer><silent> &  <C-o>:call vimshell#mappings#push_and_execute('cd ..')<CR>
+  nnoremap <buffer> T  Ga
+  nmap <buffer> R   Gah<CR>
+  call vimshell#altercmd#define('g', 'git')
+  call vimshell#altercmd#define('i', 'iexe')
+  call vimshell#altercmd#define('t', 'texe')
+  call vimshell#set_alias('l.', 'ls -d .*')
+  call vimshell#set_galias('L', 'ls -l')
+  call vimshell#hook#set('chpwd', [s:SID_PREFIX().'my_chpwd'])
+  call vimshell#hook#set('emptycmd', [s:SID_PREFIX().'my_emptycmd'])
+  call vimshell#hook#set('preexec', [s:SID_PREFIX().'my_preexec'])
+  call vimshell#hook#set('preprompt', [s:SID_PREFIX().'my_preprompt'])
+endfunction
 
-autocmd MyAutoCmd FileType vimshell
-      \   imap <buffer><silent> &  <C-o>:call vimshell#mappings#push_and_execute('cd ..')<CR>
-      \| nnoremap <buffer> T  Ga
-      \| nmap <buffer> R   Gah<CR>
-      \| imap <buffer> <BS> <Plug>(vimshell_another_delete_backword_char)
-      \| imap <buffer> <C-h> <Plug>(vimshell_another_delete_backword_char)
-      \| call vimshell#altercmd#define('g', 'git')
-      \| call vimshell#altercmd#define('i', 'iexe')
-      \| call vimshell#set_alias('l.', 'ls -d .*')
-      \| call vimshell#set_galias('L', 'ls -l')
-      \| call vimshell#hook#set('chpwd', [s:SID_PREFIX().'my_chpwd'])
-      \| call vimshell#hook#set('emptycmd', [s:SID_PREFIX().'my_emptycmd'])
-      \| call vimshell#hook#set('preexec', [s:SID_PREFIX().'my_preexec'])
-      \| call vimshell#hook#set('preprompt', [s:SID_PREFIX().'my_preprompt'])
+autocmd MyAutoCmd FileType int-* call s:interactive_settings()
+function! s:interactive_settings()
+endfunction
 
-autocmd MyAutoCmd FileType int-*
-      \  imap <buffer> <BS> <Plug>(vimshell_int_another_delete_backword_char)
-      \| imap <buffer> <C-h> <Plug>(vimshell_int_another_delete_backword_char)
+autocmd MyAutoCmd FileType term-* call s:terminal_settings()
+function! s:terminal_settings()
+  inoremap <silent><buffer><expr> <Plug>(vimshell_term_send_semicolon) vimshell#term_mappings#send_key(';')
+  inoremap <silent><buffer><expr> j<Space> vimshell#term_mappings#send_key('j')
+  "inoremap <silent><buffer><expr> <Up> vimshell#term_mappings#send_keys("\<ESC>[A")
+  
+  " Sticky key.
+  imap <buffer><expr> ;  <SID>texe_sticky_func()
+
+  " Escape key.
+  iunmap <buffer> <ESC><ESC>
+  imap <buffer> <ESC>         <Plug>(vimshell_term_send_escape)
+endfunction
+function! s:texe_sticky_func()
+  let l:sticky_table = {
+        \',' : '<', '.' : '>', '/' : '?',
+        \'1' : '!', '2' : '@', '3' : '#', '4' : '$', '5' : '%',
+        \'6' : '^', '7' : '&', '8' : '*', '9' : '(', '0' : ')', '-' : '_', '=' : '+',
+        \';' : ':', '[' : '{', ']' : '}', '`' : '~', "'" : "\"", '\' : '|',
+        \}
+  let l:special_table = {
+        \"\<ESC>" : "\<ESC>", "\<Space>" : "\<Plug>(vimshell_term_send_semicolon)", "\<CR>" : ";\<CR>"
+        \}
+
+  if mode() !~# '^c'
+    echo 'Input sticky key: '
+  endif
+  let l:char = ''
+
+  while l:char == ''
+    let l:char = nr2char(getchar())
+  endwhile
+
+  if l:char =~ '\l'
+    return toupper(l:char)
+  elseif has_key(l:sticky_table, l:char)
+    return l:sticky_table[l:char]
+  elseif has_key(l:special_table, l:char)
+    return l:special_table[l:char]
+  else
+    return ''
+  endif
+endfunction
 
 function! s:my_chpwd(args, context)
   call vimshell#execute('ls')
@@ -816,9 +879,21 @@ function! s:my_preprompt(args, context)
 endfunction
 function! s:my_preexec(cmdline, context)
   call vimshell#execute('echo "preexec"')
+
+  if a:cmdline =~# '^\s*diff\>'
+    call vimshell#set_syntax('diff')
+  endif
   return a:cmdline
 endfunction
 
+" Plugin key-mappings."{{{
+" <C-Space>: switch to vimshell.
+nmap <C-@>  <Plug>(vimshell_switch)
+imap <C-@>  <Plug>(vimshell_switch)
+nnoremap !  :<C-u>VimShellExecute<Space>
+nnoremap [Space]i  :<C-u>VimShellInteractive<Space>
+nnoremap [Space]t  :<C-u>VimShellTerminal<Space>
+"}}}
 "}}}
 
 " scratch.vim"{{{
@@ -835,13 +910,8 @@ if executable('wget')
 endif
 "}}}
 
-" hexedit.vim"{{{
-nnoremap <Leader>he  :<C-u>Hedit<CR>
-nnoremap <Leader>hv  :<C-u>Hview<CR>
-nnoremap <Leader>hw  :<C-u>Hwrite<CR>
-nnoremap <Leader>hc  :<C-u>Hconvert<CR>
-nnoremap <Leader>hr  :<C-u>Hredraw<CR>
-nnoremap <Leader>hR  :<C-u>Hreset<CR>
+" vinarise.vim"{{{
+let g:vinarise_enable_auto_detect = 1
 "}}}
 
 " errormarker.vim"{{{
@@ -877,7 +947,6 @@ nnoremap <silent> [Space]gt :<C-u>Git tag<Space>
 " neoui.vim"{{{
 " The prefix key.
 nnoremap    [neoui]   <Nop>
-nmap    ' [neoui]
 nnoremap    [neoui]'   :<C-u>NeoUI file buffer file/mru<CR>
 nnoremap [neoui]u  :<C-u>NeoUI<Space>
 "nnoremap <silent> [neoui]c  :<C-u>NeoUI cmd_mru/cmd<CR>
@@ -889,7 +958,7 @@ nnoremap <silent> [neoui]q  :<C-u>NeoUI quickfix/buffer<CR>
 nnoremap <silent> [neoui]r  :<C-u>NeoUI ref<CR>
 nnoremap <silent> [neoui]s  :<C-u>NeoUI source<CR>
 "nnoremap <silent> [neoui]/  :<C-u>NeoUI cmd_mru/search<CR>
-nnoremap <silent> [Space]<Space>  :<C-u>NeoUI buffer file file/mru<CR>
+"nnoremap <silent> [Space]<Space>  :<C-u>NeoUI buffer file file/mru<CR>
 
 autocmd MyAutoCmd FileType neoui call s:neoui_my_settings()
 
@@ -912,7 +981,44 @@ call neoui#custom_prefix('common', '~', substitute($HOME, '\\', '/', 'g'))
 call neoui#custom_prefix('common', '.v', substitute($DOTVIM, '\\', '/', 'g'))
 call neoui#custom_prefix('common', 'runtime', substitute($VIMRUNTIME, '\\', '/', 'g'))
 
-let g:ku_file_mru_limit = 200
+let g:neoui_file_mru_limit = 200
+"}}}
+
+" unite.vim"{{{
+" The prefix key.
+nnoremap    [unite]   <Nop>
+xnoremap    [unite]   <Nop>
+nmap    f [unite]
+xmap    f [unite]
+nnoremap [unite]u  :<C-u>Unite<Space>
+nnoremap <silent> [unite]f  :<C-u>UniteWithCurrentDir -buffer-name=files buffer file_mru bookmark file<CR>
+nnoremap <silent> [unite]b  :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
+nnoremap <silent> [unite]r  :<C-u>Unite -buffer-name=register register<CR>
+xnoremap <silent> [unite]r  :<C-u>Unite -buffer-name=register register<CR>
+nnoremap <silent> [unite]w  :<C-u>UniteWithCursorWord -buffer-name=register buffer file_mru bookmark file<CR>
+inoremap <silent> <C-z>  <C-o>:call unite#start(['register'], {'is_insert' : 1})<CR>
+nnoremap <silent> [Window]s  :<C-u>Unite -buffer-name=files buffer file_mru bookmark file<CR>
+nnoremap <silent> [Space]b  :<C-u>UniteBookmarkAdd<CR>
+
+"let g:unite_enable_split_vertically = 1
+
+autocmd MyAutoCmd FileType unite call s:unite_my_settings()
+
+call unite#set_substitute_pattern('files', '^\~', substitute($HOME, '\\', '/', 'g'))
+call unite#set_substitute_pattern('files', '^\@<!/', '*/')
+" Test.
+"call unite#set_substitute_pattern('files', '[[:alnum:]]', '*\0')
+
+function! s:unite_my_settings()"{{{
+  " Overwrite settings.
+  imap <buffer> jj      <Plug>(unite_insert_leave)
+  imap <buffer> <ESC>   <Plug>(unite_choose_action)
+  imap <buffer> <TAB>   <Plug>(unite_select_next_line)
+  nnoremap <buffer> t G
+  "startinsert
+endfunction"}}}
+
+let g:unite_source_file_mru_limit = 200
 "}}}
 
 " smartword.vim"{{{
@@ -940,8 +1046,6 @@ let g:autoprotectfile_readonly_paths = "$VIMRUNTIME/*,~/important"
 let g:autoprotectfile_nomodifiable_paths = "$VIMRUNTIME/*,~/important"
 
 " smartchr.vim"{{{
-inoremap <expr> & smartchr#one_of('&', ' & ', ' && ')
-inoremap <expr> <Bar> smartchr#one_of('<Bar>', ' <Bar> ', ' <Bar><Bar> ')
 inoremap <expr> , smartchr#one_of(', ', ',')
 
 inoremap <expr> ? smartchr#one_of('?', '? ')
@@ -980,8 +1084,8 @@ augroup END
 " eev.vim"{{{
 nmap >  <Plug>(eev_search_forward)
 nmap <  <Plug>(eev_search_forward)
-nmap <C-e>  <Plug>(eev_eval)
-nmap <C-u>  <Plug>(eev_create)
+"nmap <C-e>  <Plug>(eev_eval)
+"nmap <C-u>  <Plug>(eev_create)
 "}}}
 
 " smarttill.vim"{{{
@@ -1025,7 +1129,7 @@ nmap <silent> [Space]r <Plug>(quickrun-op)
 if !exists('g:quickrun_config')
   " Enable async.
   let g:quickrun_config = {
-        \   '*': {'runmode': 'async:remote:vimproc'},
+        \   '*': {'runmode': 'async:vimproc'},
         \ }
 
   if s:iswin
@@ -1057,8 +1161,39 @@ endif
 " python.vim
 let python_highlight_all = 1
 
-" fakeclip.vim
-map "&Y "&y$
+" fakeclip.vim"{{{
+let g:fakeclip_no_default_key_mappings = 1
+
+for _ in ['+', '*']
+  execute 'silent! nmap "'._.'y  <Plug>(fakeclip-y)'
+  execute 'silent! nmap "'._.'Y  <Plug>(fakeclip-Y)'
+  execute 'silent! nmap "'._.'yy  <Plug>(fakeclip-Y)'
+  execute 'silent! vmap "'._.'y  <Plug>(fakeclip-y)'
+  execute 'silent! vmap "'._.'Y  <Plug>(fakeclip-Y)'
+
+  execute 'silent! nmap "'._.'p  <Plug>(fakeclip-p)'
+  execute 'silent! nmap "'._.'P  <Plug>(fakeclip-P)'
+  execute 'silent! nmap "'._.'gp  <Plug>(fakeclip-gp)'
+  execute 'silent! nmap "'._.'gP  <Plug>(fakeclip-gP)'
+  execute 'silent! nmap "'._.']p  <Plug>(fakeclip-]p)'
+  execute 'silent! nmap "'._.']P  <Plug>(fakeclip-]P)'
+  execute 'silent! nmap "'._.'[p  <Plug>(fakeclip-[p)'
+  execute 'silent! nmap "'._.'[P  <Plug>(fakeclip-[P)'
+  execute 'silent! vmap "'._.'p  <Plug>(fakeclip-p)'
+  execute 'silent! vmap "'._.'P  <Plug>(fakeclip-P)'
+  execute 'silent! vmap "'._.'gp  <Plug>(fakeclip-gp)'
+  execute 'silent! vmap "'._.'gP  <Plug>(fakeclip-gP)'
+  execute 'silent! vmap "'._.']p  <Plug>(fakeclip-]p)'
+  execute 'silent! vmap "'._.']P  <Plug>(fakeclip-]P)'
+  execute 'silent! vmap "'._.'[p  <Plug>(fakeclip-[p)'
+  execute 'silent! vmap "'._.'[P  <Plug>(fakeclip-[P)'
+
+  "execute 'silent! map! <C-r>'._.'  <Plug>(fakeclip-insert)'
+  "execute 'silent! map! <C-r><C-r>'._.'  <Plug>(fakeclip-insert-r)'
+  "execute 'silent! map! <C-r><C-o>'._.'  <Plug>(fakeclip-insert-o)'
+  "execute 'silent! imap <C-r><C-p>'._.'  <Plug>(fakeclip-insert-p)'
+endfor
+"}}}
 
 " Align.vim
 let g:Align_xstrlen=3
@@ -1079,17 +1214,18 @@ endif
 "}}}
 
 " vimfiler.vim"{{{
-nmap    [Space]vv   <Plug>(vimfiler_switch)
-nmap    [Space]vf   <Plug>(vimfiler_split_create)
-nmap    [Space]vs   <Plug>(vimfiler_simple)
-nmap    [Space]vh   :<C-u>edit %:h<CR>
+"nmap    [Space]v   <Plug>(vimfiler_switch)
+nnoremap <silent>   [Space]v   :<C-u>silent! execute 'VimFiler' fnamemodify(bufname('%'), ':p:h')<CR>
+nmap    [Space]f   <Plug>(vimfiler_split_create)
+nmap    [Space]s   <Plug>(vimfiler_simple)
+nmap    [Space]h   :<C-u>edit %:h<CR>
 
 " Set local mappings.
 nmap <C-p>       <Plug>(vimfiler_open_previous_file)
 nmap <C-n>       <Plug>(vimfiler_open_next_file)
 
 call vimfiler#set_execute_file('vim', 'vim')
-call vimfiler#set_execute_file('txt', 'notepad')
+call vimfiler#set_execute_file('txt', 'vim')
 "let g:vimfiler_split_command = ''
 "let g:vimfiler_edit_command = 'tabedit'
 "let g:vimfiler_pedit_command = 'vnew'
@@ -1118,55 +1254,92 @@ endfunction"}}}
 
 " eskk.vim"{{{
 if !exists('g:eskk_disable') || !g:eskk_disable
-  runtime! plugin/eskk.vim
-  map! <C-o> <Plug>(eskk:toggle)
-  EskkMap jj <Plug>(eskk:disable)<Esc>
-  EskkMap -type=sticky ;
+  " Disable skk.vim
+  let g:plugin_skk_disable = 1
   
-  let g:eskk_dictionary = {
-        \   'path': expand('~/.skk-eskk-jisyo'),
-        \   'sorted': 0,
-        \   'encoding': 'utf-8',
-        \}
+  let g:eskk_disable = 0
+  let g:eskk_debug = 0
+  let g:eskk_debug_file = expand('~/eskk-debug.log')
+  "let g:eskk_compl_enter_send_keys = ['<CR>']
+  
+  " Don't keep state.
+  let g:eskk_keep_state = 0
+  
+  " Disable mapping.
+  "let g:eskk_map_normal_keys = 0
+
+  " Toggle debug.
+  nnoremap <silent> [Space]ed  :<C-u>call ToggleVariable('g:eskk_debug')<CR>
+  
+  " Load SKK.
+  call eskk#load()
+  
+  EskkMap -remap jj <Plug>(eskk:disable)<Esc>
+  
+  "let g:eskk_dictionary = {
+        "\   'path': expand('~/.skk-eskk-jisyo'),
+        "\   'sorted': 0,
+        "\   'encoding': 'utf-8',
+        "\}
   let g:eskk_large_dictionary = {
         \   'path': expand('~/SKK-JISYO.L'),
         \   'sorted': 1,
         \   'encoding': 'euc-jp',
         \}
-  let g:eskk_dont_map_default_if_already_mapped = 1
+
+  " Use /bin/sh -c "VTE_CJK_WIDTH=1 gnome-terminal --disable-factory" instead of this settings.
+  "if &encoding == 'utf-8' && !has('gui_running')
+    " GNOME Terminal only.
+    
+    " Use <> instead of ▽.
+    "let g:eskk_marker_henkan = '<>'
+    " Use >> instead of ▼.
+    "let g:eskk_marker_henkan_select = '>>'
+  "endif
   
-  if &encoding == 'utf-8' && !has('gui_running')
-    " ▽の代わりに <>
-    let g:eskk_marker_henkan = '<>'
-    " ▼の代わりに >>
-    let g:eskk_marker_henkan_select = '>>'
-  endif
+  " Define table.
+  let t = eskk#table#create('my_table', 'rom_to_hira')
+  call t.add('z ', '　')
+  call t.add('~', '〜')
+  call t.add('zc', '©')
+  call t.add('zr', '®')
+  call t.add('z9', '（')
+  call t.add('z0', '）')
+  call t.register()
+  unlet t
+  let g:eskk_mode_use_tables.hira = 'my_table' 
   
   let g:eskk_show_annotation = 1 
-  let g:eskk_hira_input_style = 'msime'
+  let g:eskk_rom_input_style = 'msime'
+  let g:eskk_egg_like_newline = 1
 endif
 "}}}
 
 " skk.vim"{{{
-if !exists('g:plugin_skk_disable') || !g:plugin_skk_disable
-  map! <C-j> <Plug>(skk-toggle-im)
-  imap jj <Plug>(skk-disable-im)<ESC>
+"if !exists('g:plugin_skk_disable') || !g:plugin_skk_disable
+  "map! <C-j> <Plug>(skk-toggle-im)
+  "imap jj <Plug>(skk-disable-im)<ESC>
   
-  let g:skk_auto_save_jisyo = 1
-  let g:skk_user_rom_kana_rules = ""
-        \. "z 	　\<NL>"
-        \. "z9	（\<NL>"
-        \. "z0	）\<NL>"
-  if &encoding == 'utf-8' && !has('gui_running')
-    " ▽の代わりに <>
-    let g:skk_marker_white = '<>'
-    " ▼の代わりに >>
-    let g:skk_marker_black = '>>'
-  endif
-  " Use remap.
-  let g:skk_remap_lang_mode = 1
-  let g:skk_large_jisyo = expand('~/SKK-JISYO.L')
-endif
+  "let g:skk_auto_save_jisyo = 1
+  "let g:skk_user_rom_kana_rules = ""
+        "\. "z 	　\<NL>"
+        "\. "z9	（\<NL>"
+        "\. "z0	）\<NL>"
+
+  "" Use /bin/sh -c "VTE_CJK_WIDTH=1 gnome-terminal --disable-factory" instead of this settings.
+  ""if &encoding == 'utf-8' && !has('gui_running')
+    """ GNOME Terminal only.
+    
+    """ Use <> instead of ▽.
+    ""let g:skk_marker_white = '<>'
+    """ Use >> instead of ▼.
+    ""let g:skk_marker_black = '>>'
+  ""endif
+  
+  "" Use remap.
+  "let g:skk_remap_lang_mode = 1
+  "let g:skk_large_jisyo = expand('~/SKK-JISYO.L')
+"endif
 "}}}
 
 " stickykey.vim
@@ -1184,8 +1357,33 @@ let g:skk_sticky_key = ';'
 "}}}
 
 " lingr-vim"{{{
-" Keymapping.
-autocmd MyAutoCmd FileType lingr-say imap <buffer> <CR> <Plug>(lingr-say-insert-mode-say)
+let g:lingr_vim_sidebar_width = 30
+
+" Keymappings.
+autocmd MyAutoCmd FileType lingr-messages call s:lingr_messages_my_settings()
+autocmd MyAutoCmd FileType lingr-say call s:lingr_say_my_settings()
+autocmd MyAutoCmd FileType lingr-rooms call s:lingr_looms_my_settings()
+
+function! s:lingr_messages_my_settings()"{{{
+  nmap <buffer> o <Plug>(lingr-messages-show-say-buffer)
+  
+  if s:iswin
+    " Dirty shellslash hack.
+    set noshellslash
+    
+    augroup MyAutoCmd 
+      autocmd WinEnter,BufWinEnter <buffer> set noshellslash
+      autocmd WinLeave,BufWinLeave <buffer> set shellslash
+    augroup END
+  endif
+endfunction"}}}
+function! s:lingr_say_my_settings()"{{{
+  imap <buffer> <CR> <Plug>(lingr-say-insert-mode-say)
+  nmap <buffer> q <Plug>(lingr-say-close)
+endfunction"}}}
+function! s:lingr_looms_my_settings()"{{{
+  nmap <buffer> l <Plug>(lingr-rooms-select-room)
+endfunction"}}}
 "}}}
 
 
@@ -1220,6 +1418,12 @@ endfunction
 
 " qfreplace.vim
 autocmd MyAutoCmd FileType qf nnoremap <buffer> r :<C-u>Qfreplace<CR>
+
+" simpletap.vim"{{{
+" Easily test.
+nnoremap [Space]te :<C-u>SimpleTapRun ./test<CR>
+"}}}
+
 "}}}
 
 "---------------------------------------------------------------------------
@@ -1260,6 +1464,8 @@ inoremap <A-f>  <S-Right>
 " Enable undo <C-w> and <C-u>.
 inoremap <C-w>  <C-g>u<C-w>
 inoremap <C-u>  <C-g>u<C-u>
+" <C-k>: kill line.
+inoremap <expr><C-k>  col('.') == col('$') ? "" : "\<ESC>lDa"
 
 " <?>: toggle preview window.
 "inoremap <silent><C-a>  <C-o>:<C-u>call<SID>preview_window_toggle()<CR>
@@ -1286,14 +1492,10 @@ function! s:camelcase_delete(is_reverse)
     let l:cur_cnt = len(matchstr(l:cur_text, '\%('.l:pattern.'\)$'))
   endif
 
-  let l:close = neocomplcache#cancel_popup()
-  "let l:close = neocomplcache#close_popup()
   let l:del = a:is_reverse ? "\<Del>" : "\<BS>"
 
-  return (pumvisible() ? l:close : '') . repeat(l:del, l:cur_cnt)
+  return (pumvisible() ? neocomplcache#smart_close_popup() : '') . repeat(l:del, l:cur_cnt)
 endfunction
-" <C-x><C-f>: filname completion.
-inoremap <expr><C-x><C-f>  neocomplcache#manual_filename_complete()
 "}}}
 
 " Command-line mode keymappings:"{{{
@@ -1344,22 +1546,23 @@ function! s:init_cmdwin()
   nnoremap <buffer> <TAB> :<C-u>quit<CR>
   nnoremap <buffer> ; :
   xnoremap <buffer> ; :
-  inoremap <buffer><expr><CR> pumvisible() ? "\<C-e>\<CR>" : "\<CR>"
-  inoremap <buffer><expr><C-h> pumvisible() ? "\<C-e>\<C-h>" : "\<C-h>"
-  inoremap <buffer><expr><BS> pumvisible() ? "\<C-e>\<C-h>" : "\<C-h>"
-
+  inoremap <buffer><expr><CR> neocomplcache#close_popup()."\<CR>"
+  inoremap <buffer><expr><C-h> col('.') == 1 ? "\<ESC>:quit\<CR>" : neocomplcache#cancel_popup()."\<C-h>"
+  inoremap <buffer><expr><BS> col('.') == 1 ? "\<ESC>:quit\<CR>" : neocomplcache#cancel_popup()."\<C-h>"
+  
   " Completion.
   inoremap <buffer><expr><TAB>  pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "\<TAB>" : "\<C-x>\<C-u>\<C-p>"
 
   " Altercmd.
   call altercmd#define('<buffer>', 'grep', 'Grep', 'i')
+  call altercmd#define('<buffer>', 'uniq', 'Uniq', 'i')
 
   startinsert!
 endfunction"}}}
 
 " [Space]: Other useful commands "{{{
-" スペースキーのマッピングを見やすくする
-" noremapに<Space>で始まるものを使うと[Space]が表示されなくなるので注意！
+" Smart space mapping.
+" Notice: when starting other <Space> mappings in noremap, disappeared [Space].
 nmap  <Space>   [Space]
 xmap  <Space>   [Space]
 nnoremap  [Space]   <Nop>
@@ -1403,18 +1606,12 @@ nnoremap [Space]mpn  :<C-u>nnoremap<Space>
 nnoremap [Space]mpi  :<C-u>inoremap<Space>
 nnoremap [Space]mpc  :<C-u>cnoremap<Space>
 
-" Saves "{{{
-" :wはよく使うので<Space>wにマッピングする
+" Useful save mappings."{{{
 nnoremap <silent> [Space]w  :<C-u>update<CR>
-" :w!はよく使うので<Space>fwにマッピングする
 nnoremap <silent> [Space]fw  :<C-u>write!<CR>
-" :qはよく使うので<Space>qにマッピングする
 nnoremap <silent> [Space]q  :<C-u>quit<CR>
-" :qaは<Space>aqにマッピングする
 nnoremap <silent> [Space]aq  :<C-u>quitall<CR>
-" :q!はよく使うので<Space>fqにマッピングする
 nnoremap <silent> [Space]fq  :<C-u>quitall!<CR>
-" <Leader><Leader>で変更があれば保存
 nnoremap <Leader><Leader> :<C-u>update<CR>
 "}}}
 
@@ -1492,7 +1689,7 @@ nnoremap <silent> [Space]t8 :<C-u>setl shiftwidth=8 softtabstop=8<CR>
 "}}}
 
 " Easily ctags command."{{{
-nnoremap <silent> [Space]tr :<C-u>silent !ctags -R<CR>
+nnoremap <silent> [Space]tr :<C-u>VimShellExecute ctags -R<CR>
 " Easily helptags command.
 if !exists('g:loaded_vimrc_local')
   nnoremap <silent> [Space]td :<C-u>helptags $VIMRUNTIME/doc<CR>:<C-u>call pathogen#helptags()<CR>
@@ -1546,17 +1743,15 @@ nnoremap <silent> [Tag]p  :<C-u>pop<CR>
 nnoremap <silent> [Tag]l  :<C-u>tags<CR>
 " Jump the selected tag.
 nnoremap <silent> [Tag]s  :<C-u>tselect<CR>
-" 現在の候補を表示
+" Display current candidate.
 nnoremap <silent> [Tag]i  :<C-u>0tnext<CR>
-" 次の候補へ
+" Next candidate.
 nnoremap <silent> [Tag]N  :<C-u>tnext<CR>
-" 前の候補へ
+" Previous candidate.
 nnoremap <silent> [Tag]P  :<C-u>tprevious<CR>
-" 最初の候補へ
 nnoremap <silent> [Tag]F  :<C-u>tfirst<CR>
-" 前の候補へ
 nnoremap <silent> [Tag]L  :<C-u>tlast<CR>
-" タグを指定してジャンプする
+" Tag jump.
 nnoremap [Tag]f  :<C-u>tag<Space>
 " Display in preview window.
 nnoremap [Tag]'t  <C-w>}
@@ -1582,12 +1777,12 @@ nnoremap <silent> [Window]v  :<C-u>vsplit<CR>
 nnoremap <silent> [Window]c  :<C-u>close<CR>
 nnoremap <silent> -  :<C-u>close<CR>
 nnoremap <silent> [Window]o  :<C-u>only<CR>
-nnoremap <silent> [Window]w  :<C-u>call <SID>MovePreviousWindow()<CR>
-"nnoremap <silent><expr> <Tab>   winnr('$') == 1? ":\<C-u>call \<SID>split_nicely()\<CR>" :  "\<C-w>w"
+nnoremap <silent> [Window]w  <C-w>w
 
 " A .vimrc snippet that allows you to move around windows beyond tabs
-nnoremap <silent> <Tab> :<C-u>call <SID>NextWindowOrTab()<CR>
-nnoremap <silent> <S-Tab> :<C-u>call <SID>PreviousWindowOrTab()<CR>
+nnoremap <silent> <Tab> :call <SID>NextWindowOrTab()<CR>
+nnoremap <silent> <S-Tab> :call <SID>PreviousWindowOrTab()<CR>
+nnoremap <silent> [Space]<Space> <C-w>p
 
 function! s:NextWindowOrTab()
   if tabpagenr('$') == 1 && winnr('$') == 1
@@ -1701,10 +1896,7 @@ nnoremap <silent> [Window]fQ  :<C-u>call <SID>InputBufferDelete(1)<CR>
 nnoremap <silent> [Window]d  :<C-u>call <SID>CustomBufferDelete(0)<CR>:if winnr() != 1 <Bar> close<CR>:endif<CR>
 nnoremap <silent> [Window]fd  :<C-u>call <SID>CustomBufferDelete(1)<CR>:<C-u>close<CR>
 " Buffer move.
-nnoremap <silent> <C-s>  :<C-u>bnext<CR>
-nnoremap <silent> <C-d>  :<C-u>bprevious<CR>
 " Fast buffer switch."{{{
-nnoremap <silent> [Window]s :<C-u>call <SID>CustomAlternateBuffer()<CR>
 function! s:CustomAlternateBuffer()
   if bufnr('%') != bufnr('#') && buflisted(bufnr('#'))
     buffer #
@@ -1736,12 +1928,23 @@ nnoremap <silent> [Window]q  :<C-u>call <SID>CustomBufferDelete(0)<CR>
 " Edit"{{{
 nnoremap [Window]b  :<C-u>edit<Space>
 nnoremap <silent> [Window]en  :<C-u>new<CR>
-nnoremap <silent> [Window]ee  :<C-u>enew<CR>
-nnoremap <silent> [Window]ej  :<C-u>JunkFile<CR>
+nnoremap <silent> [Window]ee  :<C-u>JunkFile<CR>
 nnoremap [Window]r  :<C-u>REdit<Space>
 "}}}
 " View buffer list.
-nnoremap <silent> [Window]l  :<C-u>NeoUI buffer<CR>
+nnoremap <silent> [Window]l  :<C-u>Unite buffer<CR>
+
+" Scroll other window.
+nnoremap <silent> <C-y> :<C-u>call <SID>ScrollOtherWindow(1)<CR>
+inoremap <silent> <A-y> <C-o>:<C-u>call <SID>ScrollOtherWindow(1)<CR>
+nnoremap <silent> <C-u> :<C-u>call <SID>ScrollOtherWindow(0)<CR>
+inoremap <silent> <A-u> <C-o>:<C-u>call <SID>ScrollOtherWindow(0)<CR>
+
+function! s:ScrollOtherWindow(direction)
+  execute 'wincmd' (winnr('#') == 0 ? 'w' : 'p')
+  execute (a:direction ? "normal! \<C-d>" : "normal! \<C-u>")
+  wincmd p
+endfunction
 "}}}
 
 " <C-t>: Tab pages"{{{
@@ -1949,7 +2152,7 @@ endfunction"}}}
 
 " Jump mark can restore column."{{{
 nnoremap \  `
-" mもMに降格
+" Useless command.
 nnoremap M  m
 "}}}
 
@@ -1965,8 +2168,8 @@ nnoremap g#  g#zv
 "}}}
 
 " Smart <C-f>, <C-b>.
-nnoremap <silent> <C-f> z<CR><C-f>z.
-nnoremap <silent> <C-b> z-<C-b>z.
+nnoremap <silent> <C-f> z<CR><C-f>zz
+nnoremap <silent> <C-b> z-<C-b>zz
 
 " Execute help."{{{
 nnoremap <C-h>  :<C-u>help<Space>
@@ -2130,8 +2333,6 @@ function! s:GetBufferDirectory(with_ext)
 endfunction
 "}}}
 
-" Paste current line.
-nnoremap cp Pjdd
 " Paste next line.
 nnoremap <silent> gp o<ESC>p^
 nnoremap <silent> gP O<ESC>P^
@@ -2150,8 +2351,6 @@ nnoremap <expr> l foldclosed(line('.')) != -1 ? 'zo0' : 'l'
 "xnoremap <expr> h col('.') == 1 && foldlevel(line('.')) > 0 ? 'zcgv' : 'h'
 " If press l on fold, range fold open.
 xnoremap <expr> l foldclosed(line('.')) != -1 ? 'zogv0' : 'l'
-" Useful command.
-nnoremap zz   za
 "}}}
 
 " Search a parenthesis.
@@ -2215,12 +2414,12 @@ endfunction
 "}}}
 
 " Easy escape."{{{
-silent! inoremap <unique>jj           <ESC>
+inoremap jj           <ESC>
 onoremap jj           <ESC>
 cnoremap jj           <C-c>
-onoremap j;           j
-inoremap j;           j
-cnoremap j;           j
+inoremap j<Space>     j
+onoremap j<Space>     j
+cnoremap j<Space>     j
 "}}}
 
 " Smart word search."{{{
@@ -2305,6 +2504,57 @@ endfunction
 cnoremap <expr> <Bslash> HomedirOrBackslash()
 "}}}
 
+" Move to top/center/bottom.
+noremap <expr> zz (winline() == (winheight(0)+1)/ 2) ? 'zt' : (winline() == 1)? 'zb' : 'zz'
+
+" Move window position {{{
+nmap [Space]<C-n> <Plug>swap_window_next
+nmap [Space]<C-p> <Plug>swap_window_prev
+nmap [Space]<C-j> <Plug>swap_window_j
+nmap [Space]<C-k> <Plug>swap_window_k
+nmap [Space]<C-h> <Plug>swap_window_h
+nmap [Space]<C-l> <Plug>swap_window_l
+" nmap [Space]<C-t> <Plug>swap_window_t
+" nmap [Space]<C-b> <Plug>swap_window_b
+
+nnoremap <silent> <Plug>swap_window_next :<C-u>call <SID>swap_window(v:count1)<CR>
+nnoremap <silent> <Plug>swap_window_prev :<C-u>call <SID>swap_window(-v:count1)<CR>
+nnoremap <silent> <Plug>swap_window_j :<C-u>call <SID>swap_window_dir(v:count1, 'j')<CR>
+nnoremap <silent> <Plug>swap_window_k :<C-u>call <SID>swap_window_dir(v:count1, 'k')<CR>
+nnoremap <silent> <Plug>swap_window_h :<C-u>call <SID>swap_window_dir(v:count1, 'h')<CR>
+nnoremap <silent> <Plug>swap_window_l :<C-u>call <SID>swap_window_dir(v:count1, 'l')<CR>
+nnoremap <silent> <Plug>swap_window_t :<C-u>call <SID>swap_window_dir(v:count1, 't')<CR>
+nnoremap <silent> <Plug>swap_window_b :<C-u>call <SID>swap_window_dir(v:count1, 'b')<CR>
+
+function! s:modulo(n, m) "{{{
+  let d = a:n * a:m < 0 ? 1 : 0
+  return a:n + (-(a:n + (0 < a:m ? d : -d)) / a:m + d) * a:m
+endfunction "}}}
+
+function! s:swap_window(n) "{{{
+  let curbuf = bufnr('%')
+  let target = s:modulo(winnr() + a:n - 1, winnr('$')) + 1
+  execute 'hide' winbufnr(target) . 'buffer'
+  execute target 'wincmd w'
+  execute curbuf 'buffer'
+endfunction "}}}
+
+function! s:swap_window_dir(n, dir) "{{{
+  let curbuf = bufnr('%')
+  execute a:n 'wincmd ' . a:dir
+  let target = winnr()
+  let targetbuf = bufnr('%')
+  if curbuf != targetbuf
+    wincmd p
+    execute 'hide' targetbuf . 'buffer'
+    execute target 'wincmd w'
+    execute curbuf 'buffer'
+  endif
+endfunction "}}}
+" }}}
+
+" Capitalize.
+inoremap <C-q> <ESC>gUiw`]a
 "}}}
 
 "---------------------------------------------------------------------------
@@ -2334,17 +2584,16 @@ function! NewHelpgrep( arg )
 endfunction
 "}}}
 
-" 指定したファイルとの差分を表示
+" Display diff with the file.
 command! -nargs=1 -complete=file VDsplit vertical diffsplit <args>
-" 最後の保存から、どれだけ編集したのか差分を表示
+" Display diff from last save.
 command! DiffOrig vert new | setlocal bt=nofile | r # | 0d_ | diffthis | wincmd p | diffthis
-" diffモードを解除する
+" Disable diff mode.
 command! -nargs=0 Undiff setlocal nodiff noscrollbind wrap
 
 " Smart make."{{{
 " Unlike normal ':make', don't flick.
 function! s:UpdateQuickFix(command, jump, only)
-  " Rubyではruby -wcで文法チェックを行う
   if filereadable("Makefile")
     let lines = split(system('make -s'), "\n")
     cgetexpr lines
@@ -2469,27 +2718,14 @@ endfunction"}}}
 
 command! -nargs=1 -bang -bar -complete=file Rename saveas<bang> <args> | call delete(expand('#:p'))
 
-command! -complete=file -nargs=+ Grep call s:grep([<f-args>])
+command! -complete=file -nargs=+ Grep call s:grep([<q-args>])
 call altercmd#define('grep', 'Grep')
+nnoremap gr :<C-u>Grep<Space>
 function! s:grep(args)
-  let target = len(a:args) > 1 ? join(a:args[1:]) : '**/*'
-  execute 'vimgrep' '/' . escape(substitute(a:args[0], bufname('#'), '#', 'g'), '\&/') . '/j ' . target
+  let l:target = join(map(split(glob('**/*'), '\n'), 'v:val'))
+  silent! execute 'grep!' escape(substitute(join(a:args), bufname('#'), '#', 'g'), '\&/') l:target
   if !empty(getqflist()) | copen | endif
 endfunction
-
-" Calc Vim fight power.
-function! Scouter(file, ...)
-  let pat = '^\s*$\|^\s*"'
-  let lines = readfile(a:file)
-  if !a:0 || !a:1
-    let lines = split(substitute(join(lines, "\n"), '\n\s*\\', '', 'g'), "\n")
-  endif
-  return len(filter(lines,'v:val !~ pat'))
-endfunction
-command! -bar -bang -nargs=? -complete=file Scouter
-      \        echo Scouter(empty(<q-args>) ? $MYVIMRC : expand(<q-args>), <bang>0)
-command! -bar -bang -nargs=? -complete=file GScouter
-      \        echo Scouter(empty(<q-args>) ? $MYGVIMRC : expand(<q-args>), <bang>0)
 
 " Capture {{{
 command!
@@ -2535,6 +2771,12 @@ function! s:highlight_with(args) range
         \             c, a:firstline, a:lastline, c)
   let b:highlight_count = c + 1
 endfunction"}}}
+
+" Unique text."{{{
+command! -range=% Uniq sort u
+call altercmd#define('uniq', 'Uniq')
+"}}}
+
 "}}}
 
 "---------------------------------------------------------------------------
@@ -2630,7 +2872,7 @@ endfunction
 if s:iswin
   " For Windows"{{{
 
-  " WinではPATHに$VIMが含まれていないときにexeを見つけ出せないので修正
+  " In Windows, can't find exe, when $PATH isn't contained $VIM.
   if $PATH !~? '\(^\|;\)' . escape($VIM, '\\') . '\(;\|$\)'
     let $PATH = $VIM . ';' . $PATH
   endif
@@ -2658,7 +2900,7 @@ if s:iswin
   " Disable error messages.
   let g:CSApprox_verbose_level = 0
 
-  " そこそこ見れる補完リストにする
+  " Popup color.
   hi Pmenu ctermbg=8
   hi PmenuSel ctermbg=1
   hi PmenuSbar ctermbg=0
@@ -2685,7 +2927,67 @@ else
   " For non GVim.
   if !has('gui_running')
     " Enable 256 color terminal.
-    set t_Co=256
+    if !exists('$TMUX')
+      set t_Co=256
+      
+      " For screen."{{{
+      if &term =~ '^screen'
+        augroup MyAutoCmd
+          " Show filename on screen statusline.
+          " But invalid 'another' screen buffer.
+          autocmd BufEnter * if $WINDOW != 0 &&  bufname("") !~ "[A-Za-z0-9\]*://"
+                \ | silent! exe '!echo -n "kv:%:t\\"' | endif
+          " When 'mouse' isn't empty, Vim will freeze. Why?
+          autocmd VimLeave * :set mouse=
+        augroup END
+
+        " For Vim inside screen.
+        set ttymouse=xterm2
+
+        " Split Vim and screen.
+        function! ScreenSpiritOpen(cmd)
+          call system("screen -X eval split  focus 'screen " . a:cmd ."' focus")
+        endfunction
+        function! ScreenEval(str)
+          let s = substitute(a:str, "[\n]*$", "\n\n", "")
+          call writefile(split(s, "\n"), "/tmp/vim-screen", "b")
+          call system("screen -X eval focus 'readreg p /tmp/vim-screen' 'paste p' focus")
+        endfunction
+
+        command! -nargs=1 Screen call ScreenSpiritOpen("<args>")
+
+        " Pseudo :suspend with automtic cd.
+        " Assumption: Use GNU screen.
+        " Assumption: There is a window with the title "another".
+        noremap <silent> <C-z>  :<C-u>call PseudoSuspendWithAutomaticCD()<CR>
+
+        if !exists('g:gnu_screen_availablep')
+          " Check the existence of $WINDOW to avoid using GNU screen in Vim on
+          " a remote machine (for example, "screen -t remote ssh example.com").
+          let g:gnu_screen_availablep = len($WINDOW) != 0
+        endif
+        function! PseudoSuspendWithAutomaticCD()
+          if g:gnu_screen_availablep
+            " \015 = <C-m>
+            " To avoid adding the cd script into the command-line history,
+            " there are extra leading whitespaces in the cd script.
+            silent execute '!screen -X eval'
+                  \         '''select another'''
+                  \         '''stuff " cd \"'.getcwd().'\"  \#\#,vim-auto-cd\015"'''
+            redraw!
+            let g:gnu_screen_availablep = (v:shell_error == 0)
+          endif
+
+          if !g:gnu_screen_availablep
+            suspend
+          endif
+        endfunction
+      endif
+      
+      " For prevent bug.
+      autocmd MyAutoCmd VimLeave * set term=screen
+      "}}}
+    endif
 
     if has('gui')
       " Use CSApprox.vim
@@ -2704,63 +3006,11 @@ else
       let g:CSApprox_verbose_level = 0
     endif
 
-    " For prevent bug.
-    autocmd MyAutoCmd VimLeave * set term=screen
-
-    " For screen."{{{
-    if &term =~ '^screen'
-      augroup MyAutoCmd
-        " Show filename on screen statusline.
-        " But invalid 'another' screen buffer.
-        autocmd BufEnter * if $WINDOW != 0 &&  bufname("") !~ "[A-Za-z0-9\]*://"
-              \ | silent! exe '!echo -n "kv:%:t\\"' | endif
-        " なぜかは知らないがmouseを空にしないと終了時にフリーズする
-        autocmd VimLeave * :set mouse=
-      augroup END
-
-      " screenでマウスを使用するとフリーズするのでその対策
-      set ttymouse=xterm2
-
-      " Split Vim and screen.
-      function! ScreenSpiritOpen(cmd)
-        call system("screen -X eval split  focus 'screen " . a:cmd ."' focus")
-      endfunction
-      function! ScreenEval(str)
-        let s = substitute(a:str, "[\n]*$", "\n\n", "") " 最後が改行 * 2で終わるようにする。
-        call writefile(split(s, "\n"), "/tmp/vim-screen", "b")
-        call system("screen -X eval focus 'readreg p /tmp/vim-screen' 'paste p' focus")
-      endfunction
-
-      command! -nargs=1 Screen call ScreenSpiritOpen("<args>")
-
-      " Pseudo :suspend with automtic cd.
-      " Assumption: Use GNU screen.
-      " Assumption: There is a window with the title "another".
-      noremap <silent> <C-z>  :<C-u>call PseudoSuspendWithAutomaticCD()<CR>
-
-      if !exists('g:gnu_screen_availablep')
-        " Check the existence of $WINDOW to avoid using GNU screen in Vim on
-        " a remote machine (for example, "screen -t remote ssh example.com").
-        let g:gnu_screen_availablep = len($WINDOW) != 0
-      endif
-      function! PseudoSuspendWithAutomaticCD()
-        if g:gnu_screen_availablep
-          " \015 = <C-m>
-          " To avoid adding the cd script into the command-line history,
-          " there are extra leading whitespaces in the cd script.
-          silent execute '!screen -X eval'
-                \         '''select another'''
-                \         '''stuff " cd \"'.getcwd().'\"  \#\#,vim-auto-cd\015"'''
-          redraw!
-          let g:gnu_screen_availablep = (v:shell_error == 0)
-        endif
-
-        if !g:gnu_screen_availablep
-          suspend
-        endif
-      endfunction
+    " Change cursor shape.
+    if &term =~ "xterm"
+      let &t_SI = "\<Esc>]12;lightgreen\x7"
+      let &t_EI = "\<Esc>]12;white\x7"
     endif
-    "}}}
   endif
 
   "}}}
@@ -2792,7 +3042,7 @@ autocmd MyAutoCmd TabEnter *
     \ | execute 'cd' fnameescape(t:cwd)
 
 " Exchange ':cd' to ':TabCD'.
-cnoreabbrev <expr> lhs (getcmdtype() == ':' && getcmdline() ==# 'cd') ? 'TabCD' : 'cd'
+cnoreabbrev <expr> cd (getcmdtype() == ':' && getcmdline() ==# 'cd') ? 'TabCD' : 'cd'
 "}}}
 
 " For snipMate.
