@@ -72,7 +72,7 @@ else
   " Width of window.
   set columns=150
   " Height of window.
-  set lines=34
+  set lines=44
 endif
 
 " Save the setting of window.
