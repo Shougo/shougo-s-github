@@ -1,14 +1,16 @@
 "---------------------------------------------------------------------------
-" Shougo's .gvimrc
-"---------------------------------------------------------------------------
 " Fonts:"{{{
 "
 if has('win32') || has('win64')
   " For Windows.
 
-  set guifontwide=VL\ Gothic:h11
+  "set guifontwide=VL\ Gothic:h11
+  "set guifontwide=MigMix\ 1M:h11
+  set guifontwide=Ricty:h12
 
-  set guifont=Courier\ New:h11
+  set guifont=Ricty:h12
+  "set guifont=Anonymous\ Pro:h11
+  "set guifont=Courier\ New:h11
   "set guifont=MS\ Gothic:h11
   "set guifont=VL\ Gothic:h11
   "set guifont=Consolas:h12
@@ -17,7 +19,7 @@ if has('win32') || has('win64')
   "set guifont=Terminal:h10:cSHIFTJIS
 
   " Number of pixel lines inserted between characters.
-  set linespace=1
+  set linespace=2
 
   " Toggle font setting.
   function! FontToggle()
@@ -61,9 +63,9 @@ endif
 "
 if has('win32') || has('win64')
   " Width of window.
-  set columns=170
+  set columns=230
   " Height of window.
-  set lines=45
+  set lines=55
 
   " Set transparency.
   "autocmd GuiEnter * set transparency=221
@@ -151,6 +153,9 @@ set guioptions-=rL
 " Not guitablabel.
 set guioptions-=e
 
+" Confirm without window.
+set guioptions+=c
+
 if has('kaoriya')
   " For Kaoriya only.
   "set guioptions+=C
@@ -167,7 +172,8 @@ set nohlsearch
 set vb t_vb=
 
 " Don't flick cursor.
-set guicursor=a:blinkon0
+set guicursor&
+set guicursor+=a:blinkon0
 
 "}}}
 
