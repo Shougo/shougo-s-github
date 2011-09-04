@@ -63,8 +63,8 @@ augroup MyAutoCmd
   autocmd!
 augroup END
 
-" Load settings for each location."{{{
-if has('vim_starting')
+if has('vim_starting')"{{{
+  " Load settings for each location.
   function! s:vimrc_local(loc)
     let files = findfile('vimrc_local.vim', escape(a:loc, ' '), -1)
     for i in reverse(filter(files, 'filereadable(v:val)'))
@@ -72,18 +72,17 @@ if has('vim_starting')
     endfor
   endfunction
 
+  filetype off
+
   " Set runtimepath.
   if s:iswin
     let &runtimepath = join([expand('~/.vim'), expand('$VIM/runtime'), expand('~/.vim/after')], ',')
   endif
 
-  call s:vimrc_local(getcwd())
-
-  filetype off
-
   " Load bundles.
   call pathogen#runtime_append_all_bundles()
   call vundle#rc(expand('~/.bundle'))
+  call s:vimrc_local(getcwd())
 
   filetype plugin on
   filetype indent on
@@ -94,7 +93,6 @@ if has('vim_starting')
   Bundle 'git://github.com/Shougo/eev.vim.git'
   Bundle 'git://github.com/Shougo/git-vim.git'
   Bundle 'git://github.com/Shougo/neocomplcache.git'
-  Bundle 'git://github.com/Shougo/unite-help.git'
   Bundle 'git://github.com/Shougo/unite.vim.git'
   Bundle 'git://github.com/Shougo/vim-vcs.git'
   Bundle 'git://github.com/Shougo/vimfiler.git'
@@ -105,6 +103,9 @@ if has('vim_starting')
   Bundle 'git://github.com/kana/vim-altr.git'
   Bundle 'git://github.com/kana/vim-smartchr.git'
   Bundle 'git://github.com/kana/vim-wwwsearch.git'
+  Bundle 'git://github.com/pocket7878/curses-vim.git'
+  Bundle 'git://github.com/pocket7878/presen-vim.git'
+  Bundle 'git://github.com/sjl/gundo.vim.git'
   Bundle 'git://github.com/soh335/unite-qflist.git'
   Bundle 'git://github.com/t9md/vim-surround_custom_mapping.git'
   Bundle 'git://github.com/t9md/vim-textmanip.git'
@@ -114,9 +115,11 @@ if has('vim_starting')
   Bundle 'git://github.com/thinca/vim-poslist.git'
   Bundle 'git://github.com/thinca/vim-prettyprint.git'
   Bundle 'git://github.com/thinca/vim-quickrun.git'
+  Bundle 'git://github.com/thinca/vim-scouter.git'
   Bundle 'git://github.com/thinca/vim-ref.git'
   Bundle 'git://github.com/thinca/vim-unite-history.git'
   Bundle 'git://github.com/tsukkee/lingr-vim.git'
+  Bundle 'git://github.com/tsukkee/unite-help.git'
   Bundle 'git://github.com/tsukkee/unite-tag.git'
   Bundle 'git://github.com/tyru/caw.vim.git'
   Bundle 'git://github.com/tyru/cul.vim.git'
@@ -129,25 +132,36 @@ if has('vim_starting')
   Bundle 'git://github.com/tyru/skk.vim.git'
   Bundle 'git://github.com/tyru/skkdict.vim.git'
   Bundle 'git://github.com/tyru/vice.vim.git'
+  Bundle 'git://github.com/tyru/vim-altercmd.git'
+  Bundle 'git://github.com/tyru/winmove.vim.git'
   Bundle 'git://github.com/ujihisa/neco-ghc.git'
   Bundle 'git://github.com/ujihisa/neco-look.git'
   Bundle 'git://github.com/ujihisa/unite-colorscheme.git'
   Bundle 'git://github.com/ujihisa/unite-locate.git'
   Bundle 'git://github.com/ujihisa/vimshell-ssh.git'
   Bundle 'git://github.com/vim-scripts/VimClojure.git'
+  Bundle 'git://github.com/vim-scripts/Conque-Shell.git'
+  Bundle 'git://github.com/vim-scripts/netrw.vim.git'
+  Bundle 'git://github.com/vim-ruby/vim-ruby.git'
   "}}}
 endif
 "}}}
 
 
 " Delete bundle directories contained local runtimepath.
-for base in map(filter(split(&runtimepath, ','), 'v:val !~ "[^,]\\+/bundle/"'), "fnamemodify(v:val, ':t')")
-  let &runtimepath = substitute(&runtimepath, ',[^,]\+/bundle/'.base.'\ze,', '', 'g')
+for base in map(filter(split(&runtimepath, ','), 'v:val !~ "/\\.\\?bundle/"'), "fnamemodify(v:val, ':t')")
+  if base !=# 'after'
+    let &runtimepath = substitute(&runtimepath,
+          \ '\%(^\|,\)[^,]\+/\.\?bundle/'.base.'\ze,', '', 'g')
+  endif
 endfor
 
 if filereadable(expand('~/.secret_vimrc'))
   execute 'source' expand('~/.secret_vimrc')
 endif
+
+" altercommand.vim
+call altercmd#load()
 "}}}
 
 "---------------------------------------------------------------------------
@@ -683,7 +697,7 @@ let g:neocomplcache_enable_at_startup = 1
 " Use smartcase.
 let g:neocomplcache_enable_smart_case = 1
 " Use camel case completion.
-"let g:neocomplcache_enable_camel_case_completion = 1
+let g:neocomplcache_enable_camel_case_completion = 1
 " Use underbar completion.
 let g:neocomplcache_enable_underbar_completion = 1
 " Set minimum syntax keyword length.
@@ -694,12 +708,17 @@ let g:neocomplcache_auto_completion_start_length = 2
 let g:neocomplcache_manual_completion_start_length = 0
 " Set minimum keyword length.
 let g:neocomplcache_min_keyword_length = 3
-let g:neocomplcache_enable_cursor_hold_i = 0
+let g:neocomplcache_enable_cursor_hold_i = v:version > 703 ||
+      \ v:version == 703 && has('patch289')
 let g:neocomplcache_cursor_hold_i_time = 300
+
+" For auto select.
 let g:neocomplcache_enable_auto_select = 1
+
 let g:neocomplcache_enable_auto_delimiter = 1
 "let g:neocomplcache_disable_caching_buffer_name_pattern = '[\[*]\%(unite\)[\]*]'
 let g:neocomplcache_disable_auto_select_buffer_name_pattern = '\[Command Line\]'
+" let g:neocomplcache_lock_buffer_name_pattern = '\.txt'
 "let g:neocomplcache_disable_auto_complete = 0
 let g:neocomplcache_max_list = 100
 let g:neocomplcache_force_overwrite_completefunc = 1
@@ -709,17 +728,6 @@ endif
 
 " For clang_complete.
 let g:neocomplcache_clang_use_library = 1
-
-" Quick match test.
-let g:neocomplcache_enable_quick_match = 0
-if !exists('g:neocomplcache_quick_match_patterns')
-  let g:neocomplcache_quick_match_patterns = {}
-endif
-let g:neocomplcache_quick_match_patterns.default = '-'
-let g:neocomplcache_quick_match_table = {
-      \'a' : 1, 's' : 2, 'd' : 3, 'f' : 4, 'g' : 5, 'h' : 6, 'j' : 7, 'k' : 8, 'l' : 9, ';' : 10,
-      \'q' : 11, 'w' : 12, 'e' : 13, 'r' : 14, 't' : 15, 'y' : 16, 'u' : 17, 'i' : 18, 'o' : 19, 'p' : 20, 
-      \}
 
 " Define dictionary.
 let g:neocomplcache_dictionary_filetype_lists = {
@@ -746,8 +754,8 @@ let g:neocomplcache_snippets_dir = $HOME . '/snippets'
 if !exists('g:neocomplcache_omni_patterns')
   let g:neocomplcache_omni_patterns = {}
 endif
-"let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-"let g:neocomplcache_omni_patterns.php = '[^. *\t]\.\w*\|\h\w*::'
+let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+let g:neocomplcache_omni_patterns.php = '[^. *\t]\.\w*\|\h\w*::'
 
 if !exists('g:neocomplcache_same_filetype_lists')
   let g:neocomplcache_same_filetype_lists = {}
@@ -763,10 +771,13 @@ let g:neocomplcache_vim_completefuncs = {
       \ 'VimShellExecute' : 'vimshell#complete#vimshell_execute_complete#completefunc',
       \ 'VimShellInteractive' : 'vimshell#complete#vimshell_execute_complete#completefunc',
       \ 'VimShellTerminal' : 'vimshell#complete#vimshell_execute_complete#completefunc',
+      \ 'VimFiler' : 'vimfiler#complete',
       \}
-let g:neocomplcache_plugin_completion_length = {
-      \ 'look' : 4,
-      \ }
+if !exists('g:neocomplcache_plugin_completion_length')
+  let g:neocomplcache_plugin_completion_length = {
+        \ 'look' : 4,
+        \ }
+endif
 
 " Plugin key-mappings."{{{
 imap <silent>L     <Plug>(neocomplcache_snippets_jump)
@@ -802,8 +813,6 @@ inoremap <expr><C-b>  pumvisible() ? "\<PageUp>"   :
 inoremap <expr><C-y>  pumvisible() ? neocomplcache#close_popup() :  "\<C-r>\""
 " <C-e>: close popup.
 inoremap <expr><C-e>  pumvisible() ? neocomplcache#cancel_popup() : "\<End>"
-" <C-k>: omni completion.
-" inoremap <expr> <C-k>  &filetype == 'vim' ? neocomplcache#start_manual_complete('vim_complete') : neocomplcache#manual_omni_complete()
 " <C-k>: unite completion.
 imap <C-k>  <Plug>(neocomplcache_start_unite_complete)
 inoremap <expr> O  &filetype == 'vim' ? "\<C-x>\<C-v>" : "\<C-x>\<C-o>"
@@ -843,10 +852,9 @@ let g:echodoc_enable_at_startup = 1
 "let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
 "let g:vimshell_user_prompt = 'printf("%s  %50s", fnamemodify(getcwd(), ":~"), vimshell#vcs#info("(%s)-[%b]"))'
 let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
-let g:vimshell_right_prompt = 'vcs#info("(%s)-[%b]{%p}", "(%s)-[%b|%a]%p")'
+let g:vimshell_right_prompt = 'vcs#info("(%s)-[%b]%p", "(%s)-[%b|%a]%p")'
 let g:vimshell_prompt = '% '
 "let g:vimshell_environment_term = 'xterm'
-let g:vimshell_enable_auto_slash = 1
 let g:vimshell_cd_command = 'TabpageCD'
 
 if s:iswin
@@ -1042,23 +1050,30 @@ xnoremap    [unite]   <Nop>
 nmap    f [unite]
 xmap    f [unite]
 nnoremap [unite]u  q:Unite<Space>
-nnoremap <silent> ;  :<C-u>Unite history/command command<CR>
-nnoremap <silent> [unite]b  :<C-u>UniteWithBufferDir -buffer-name=files -prompt=%\  buffer file_mru bookmark file<CR>
+nnoremap <silent> :  :<C-u>Unite history/command command<CR>
+nnoremap <silent> [unite]b  :<C-u>UniteWithBufferDir
+      \ -buffer-name=files -prompt=%\ buffer file_mru bookmark file<CR>
 nnoremap <silent> [unite]r  :<C-u>Unite -buffer-name=register register<CR>
 nnoremap <silent> [unite]o  :<C-u>Unite outline<CR>
 nnoremap  [unite]f  :<C-u>Unite source<CR>
 nnoremap <silent> [unite]t  :<C-u>UniteWithCursorWord -buffer-name=tag tag<CR>
 xnoremap <silent> [unite]r  d:<C-u>Unite -buffer-name=register register<CR>
-nnoremap <silent> [unite]w  :<C-u>UniteWithCursorWord -buffer-name=register buffer file_mru bookmark file<CR>
+nnoremap <silent> [unite]w  :<C-u>UniteWithCursorWord -buffer-name=register
+      \ buffer file_mru bookmark file<CR>
 nnoremap <silent> [unite]h  :<C-u>Unite history/command<CR>
 nnoremap <silent> [unite]q  :<C-u>Unite qflist -no-quit<CR>
 nnoremap <silent> [unite]g  :<C-u>Unite grep -buffer-name=search -no-quit<CR>
-nnoremap <silent> [unite]j  :<C-u>Unite poslist<CR>
+nnoremap <silent> [unite]j  :<C-u>Unite jump<CR>
+nnoremap <silent> <C-k>  :<C-u>Unite jump<CR>
+nnoremap <silent> [unite]c  :<C-u>Unite change<CR>
+nnoremap <silent> [unite]d  :<C-u>Unite -buffer-name=files directory_mru<CR>
 nnoremap <silent> [unite]ma  :<C-u>Unite mapping<CR>
 nnoremap <silent> [unite]me  :<C-u>Unite output:message<CR>
-inoremap <silent> <C-z>  <C-o>:call unite#start(['register'], {'is_insert' : 1})<CR>
+inoremap <silent><expr> <C-z>    unite#start_complete(['register'])
 
-nnoremap <silent> [Window]s  :<C-u>Unite -buffer-name=files buffer_tab file_rec file file_mru<CR>
+
+nnoremap <silent> [Window]s  :<C-u>Unite -buffer-name=files -no-split
+      \ jump_point file_point buffer_tab file_rec file file_mru<CR>
 nnoremap <silent> [Window]r  :<C-u>Unite resume<CR>
 " nnoremap <silent> [Window]s  :<C-u>Unite -buffer-name=files buffer_tab file file_mru file<CR>
 nnoremap <silent> [Window]t  :<C-u>Unite -buffer-name=files tab<CR>
@@ -1078,8 +1093,8 @@ nnoremap <silent> *  :<C-u>UniteWithCursorWord -buffer-name=search line<CR>
 nnoremap <silent> n  :<C-u>UniteResume search<CR>
 
 let g:unite_enable_split_vertically = 0
-let g:unite_cd_command = 'TabpageCD'
-let g:unite_lcd_command = 'TabpageCD'
+let g:unite_kind_file_cd_command = 'TabpageCD'
+let g:unite_kind_file_lcd_command = 'TabpageCD'
 
 let g:unite_winheight = 20
 
@@ -1093,6 +1108,9 @@ call unite#set_substitute_pattern('files', '^\.v/', unite#util#substitute_path_s
 call unite#set_substitute_pattern('files', '\.', '*.', 1000)
 call unite#custom_alias('file', 'h', 'left')
 " call unite#custom_default_action('file', 'my_tabopen')
+" call unite#custom_filters('line', ['matcher_default', 'sorter_default', 'converter_default'])
+" call unite#custom_filters('file_rec',
+      " \ ['converter_relative_word', 'matcher_default', 'sorter_default'])
 
 " Custom actions."{{{
 let my_tabopen = {
@@ -1121,12 +1139,15 @@ function! s:unite_my_settings()"{{{
   imap <buffer> <TAB>   <Plug>(unite_select_next_line)
   imap <buffer> <C-w>     <Plug>(unite_delete_backward_path)
   imap <buffer> '     <Plug>(unite_quick_match_default_action)
-  nmap <buffer> '     <Plug>(unite_quick_match_default_action)
+  nmap <buffer> cd     <Plug>(unite_quick_match_default_action)
   imap <buffer> <C-g>     <Plug>(unite_input_directory)
   nmap <buffer> <C-z>     <Plug>(unite_toggle_transpose_window)
   imap <buffer> <C-z>     <Plug>(unite_toggle_transpose_window)
   imap <buffer> <C-y>     <Plug>(unite_narrowing_path)
   nmap <buffer> <C-y>     <Plug>(unite_narrowing_path)
+  nmap <buffer> <C-j>     <Plug>(unite_toggle_auto_preview)
+  nmap <buffer> <C-r>     <Plug>(unite_narrowing_input_history)
+  imap <buffer> <C-r>     <Plug>(unite_narrowing_input_history)
 
   let l:unite = unite#get_current_unite()
   if l:unite.buffer_name ==# 'search'
@@ -1134,6 +1155,12 @@ function! s:unite_my_settings()"{{{
   else
     nnoremap <buffer><expr> r     unite#do_action('rename')
   endif
+
+  nnoremap <buffer><expr> cd     unite#do_action('lcd')
+  nnoremap <buffer><expr> S      unite#mappings#set_current_filters(
+        \ empty(unite#mappings#get_current_filters()) ? ['sorter_reverse'] : [])
+  inoremap <buffer><expr> S      unite#mappings#set_current_filters(
+        \ empty(unite#mappings#get_current_filters()) ? ['sorter_reverse'] : [])
 
   " <C-l>: manual neocomplcache completion.
   inoremap <buffer><C-l>  <C-x><C-u><C-p><Down>
@@ -1181,7 +1208,11 @@ let g:unite_source_file_mru_filename_format = ':~:.'
 let g:unite_source_file_mru_limit = 300
 let g:unite_source_directory_mru_time_format = ''
 let g:unite_source_directory_mru_limit = 300
-" let g:unite_source_grep_default_opts = ''
+
+" For jvgrep.
+" let g:unite_source_grep_command = 'jvgrep'
+" let g:unite_source_grep_default_opts = '-exclude=''\.(git|svn|hg|bzr)'''
+" let g:unite_source_grep_recursive_opt = '-R'
 
 let g:unite_quick_match_table = {
       \'a' : 1, 's' : 2, 'd' : 3, 'f' : 4, 'g' : 5, 'h' : 6, 'k' : 7, 'l' : 8, ';' : 9,
@@ -1190,6 +1221,14 @@ let g:unite_quick_match_table = {
       \}
 
 " call unite#custom_default_action('directory', 'cd')
+
+" For unite-alias.
+let g:unite_source_alias_aliases = {
+      \   'test' : {
+      \     'source': 'file_rec',
+      \     'args': '~/',
+      \   },
+      \ }
 "}}}
 
 " smartword.vim"{{{
@@ -1366,10 +1405,6 @@ for _ in ['+', '*']
 endfor
 "}}}
 
-" poslist.vim
-nmap <C-k> <Plug>(poslist-prev-pos)
-nmap <C-j> <Plug>(poslist-next-pos)
-
 " ref.vim"{{{
 let g:ref_use_vimproc = 1
 if s:iswin
@@ -1380,8 +1415,15 @@ endif
 "}}}
 
 " vimfiler.vim"{{{
+
+" Alter commands.
+AlterCommand <cmdwin> e[dit] Edit
+AlterCommand <cmdwin> r[ead] Read
+AlterCommand <cmdwin> s[ource] Source
+AlterCommand <cmdwin> w[rite] Write
+
 "nmap    [Space]v   <Plug>(vimfiler_switch)
-nnoremap <silent>   [Space]v   :<C-u>VimFiler `=<SID>GetBufferDirectory()`<CR>
+nnoremap <silent>   [Space]v   :<C-u>VimFiler<CR>
 nmap    [Space]ff   <Plug>(vimfiler_switch)
 nmap    [Space]si   <Plug>(vimfiler_simple)
 nmap    [Space]h   :<C-u>edit %:h<CR>
@@ -1390,14 +1432,14 @@ nmap    [Space]h   :<C-u>edit %:h<CR>
 " nmap <C-p>       <Plug>(vimfiler_open_previous_file)
 " nmap <C-n>       <Plug>(vimfiler_open_next_file)
 
-call vimfiler#set_execute_file('vim', 'vim')
+call vimfiler#set_execute_file('vim', ['vim', 'notepad'])
 call vimfiler#set_execute_file('txt', 'vim')
 "let g:vimfiler_split_command = ''
 "let g:vimfiler_edit_command = 'tabedit'
 "let g:vimfiler_pedit_command = 'vnew'
 
 let g:vimfiler_enable_clipboard = 0
-let g:vimfiler_safe_mode_by_default = 1
+let g:vimfiler_safe_mode_by_default = 0
 let g:vimshell_cd_command = 'TabpageCD'
 
 " Linux default.
@@ -1482,10 +1524,6 @@ if !exists('g:eskk#disable') || !g:eskk#disable
 endif
 "}}}
 
-" metarw.vim
-" Define wrapper commands.
-call metarw#define_wrapper_commands(1)
-
 " lingr-vim"{{{
 let g:lingr_vim_sidebar_width = 30
 
@@ -1543,6 +1581,16 @@ endfunction
 
 " qfreplace.vim
 autocmd MyAutoCmd FileType qf nnoremap <buffer> r :<C-u>Qfreplace<CR>
+
+" poslist.vim"{{{
+" nmap <C-k> <Plug>(poslist-prev-pos)
+" nmap <C-j> <Plug>(poslist-next-pos)
+" nmap <C-k> <Plug>(poslist-prev-line)
+" nmap <C-j> <Plug>(poslist-next-line)
+let g:poslist_histsize = 100
+let g:poslist_lines = 3
+let g:poslist_min_save_unit = 10
+"}}}
 
 " simpletap.vim"{{{
 " Easily test.
@@ -1639,6 +1687,16 @@ let g:surround_custom_mapping.vim= {
             \'f':  "function! \r endfunction"
             \ }
 "}}}
+
+" vim-presen.vim"{{{
+autocmd MyAutoCmd FileType presen call s:my_presen_settings()
+function! s:my_presen_settings()
+  nnoremap <buffer><silent><CR> :<C-u>call vimproc#open(expand('<cfile>'))<CR>
+endfunction"}}}
+
+" Gundo.vim
+nnoremap U      :<C-u>GundoToggle<CR>
+
 "}}}
 
 "---------------------------------------------------------------------------
@@ -1750,7 +1808,7 @@ nnoremap <sid>(command-line-enter) q:
 xnoremap <sid>(command-line-enter) q:
 nnoremap <sid>(command-line-norange) q:<C-u>
 
-nmap :  <sid>(command-line-enter)
+nmap ;  <sid>(command-line-enter)
 xmap ;  <sid>(command-line-enter)
 
 autocmd MyAutoCmd CmdwinEnter * call s:init_cmdwin()
@@ -2141,6 +2199,11 @@ function! s:my_tabnew()
   if l:title != ''
     let t:title = l:title
   endif
+
+  let l:dir = input('Please input current directory: ', getcwd(), 'dir')
+  if l:dir != ''
+    execute 'VimShellCreate' l:dir
+  endif
 endfunction
 
 function! s:my_tabnext()
@@ -2332,10 +2395,8 @@ nnoremap g#  g#zv
 "}}}
 
 " Smart <C-f>, <C-b>.
-" nnoremap <silent> <C-f> z<CR><C-f>zz
-nnoremap <silent> <C-f> <C-f>z.
-" nnoremap <silent> <C-b> z-<C-b>zz
-nnoremap <silent> <C-b> <C-b>z.
+nnoremap <silent> <C-f> <C-f>
+nnoremap <silent> <C-b> <C-b>
 
 " Disable ZZ.
 nnoremap ZZ  <Nop>
@@ -2482,7 +2543,7 @@ nnoremap <silent> <C-l>    :<C-u>redraw!<CR>
 
 " Folding."{{{
 " If press h on head, fold close.
-nnoremap <expr> h col('.') == 1 && foldlevel(line('.')) > 0 ? 'zc' : 'h'
+"nnoremap <expr> h col('.') == 1 && foldlevel(line('.')) > 0 ? 'zc' : 'h'
 " If press l on fold, fold open.
 nnoremap <expr> l foldclosed(line('.')) != -1 ? 'zo0' : 'l'
 " If press h on head, range fold close.
@@ -2629,7 +2690,6 @@ onoremap <silent> q
 
 " Upcase word.
 nnoremap [Alt]u  gUiw
-nnoremap U  gU
 
 " Easy home directory."{{{
 function! HomedirOrBackslash()
@@ -2759,7 +2819,7 @@ function! s:ChangeCurrentDir(directory, bang)
     pwd
   endif
 endfunction"}}}
-call altercmd#define('cd', 'CD')
+AlterCommand cd CD
 
 function! s:Batch() range"{{{
   " read vimscript from selected area.
@@ -2855,11 +2915,6 @@ function! s:highlight_with(args) range
         \             c, a:firstline, a:lastline, c)
   let b:highlight_count = c + 1
 endfunction"}}}
-
-" Unique text."{{{
-command! -range=% Uniq sort u
-call altercmd#define('uniq', 'Uniq')
-"}}}
 
 "}}}
 

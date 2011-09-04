@@ -13,9 +13,7 @@ if has('win32') || has('win64')
   "set guifont=Courier\ New:h11
   "set guifont=MS\ Gothic:h11
   "set guifont=VL\ Gothic:h11
-  "set guifont=Consolas:h12
-  "set guifont=Bitstream\ Vera\ Sans\ Mono:h11
-  "set guifont=Inconsolata:h12
+  "set guifont=Consolas:h11
   "set guifont=Terminal:h10:cSHIFTJIS
 
   " Number of pixel lines inserted between characters.
@@ -30,7 +28,7 @@ if has('win32') || has('win64')
       " Width of window.
       set columns=155
       " Height of window.
-      set lines=50
+      set lines=45
     else
       set guifont=VL\ Gothic:h11.5
       set guifontwide=
@@ -53,8 +51,8 @@ elseif has('mac')
   set guifont=Osaka－等幅:h14
 else
   " For Linux.
-  set guifontwide=VL\ Gothic\ 10
-  set guifont=Courier\ 10\ Pitch\ 10
+  set guifontwide=VL\ Gothic\ 11
+  set guifont=Courier\ 10\ Pitch\ 11
 endif
 "}}}
 
@@ -63,7 +61,7 @@ endif
 "
 if has('win32') || has('win64')
   " Width of window.
-  set columns=230
+  set columns=155
   " Height of window.
   set lines=55
 
@@ -76,7 +74,7 @@ else
   " Width of window.
   set columns=150
   " Height of window.
-  set lines=34
+  set lines=44
 endif
 
 " Save the setting of window.
