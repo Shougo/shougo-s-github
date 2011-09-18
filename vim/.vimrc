@@ -79,74 +79,82 @@ if has('vim_starting')"{{{
     let &runtimepath = join([expand('~/.vim'), expand('$VIM/runtime'), expand('~/.vim/after')], ',')
   endif
 
+  call s:vimrc_local(getcwd())
+
+  " Load neobundle.
+  if &runtimepath !~ '/neobundle.vim'
+    execute 'set runtimepath+=' . expand('~/.bundle/neobundle.vim')
+  endif
+
   " Load bundles.
   call pathogen#runtime_append_all_bundles()
-  call vundle#rc(expand('~/.bundle'))
-  call s:vimrc_local(getcwd())
+  " call vundle#rc(expand('~/.bundle'))
+  call neobundle#rc(expand('~/.bundle'))
 
   filetype plugin on
   filetype indent on
-
-  " vundle.vim"{{{
-  Bundle 'git://github.com/Shougo/clang_complete.git'
-  Bundle 'git://github.com/Shougo/echodoc.git'
-  Bundle 'git://github.com/Shougo/eev.vim.git'
-  Bundle 'git://github.com/Shougo/git-vim.git'
-  Bundle 'git://github.com/Shougo/neocomplcache.git'
-  Bundle 'git://github.com/Shougo/unite.vim.git'
-  Bundle 'git://github.com/Shougo/vim-vcs.git'
-  Bundle 'git://github.com/Shougo/vimfiler.git'
-  Bundle 'git://github.com/Shougo/vimshell.git'
-  Bundle 'git://github.com/Shougo/vinarise.git'
-  Bundle 'git://github.com/h1mesuke/unite-outline.git'
-  Bundle 'git://github.com/hail2u/vim-css3-syntax.git'
-  Bundle 'git://github.com/kana/vim-altr.git'
-  Bundle 'git://github.com/kana/vim-smartchr.git'
-  Bundle 'git://github.com/kana/vim-wwwsearch.git'
-  Bundle 'git://github.com/pocket7878/curses-vim.git'
-  Bundle 'git://github.com/pocket7878/presen-vim.git'
-  Bundle 'git://github.com/sjl/gundo.vim.git'
-  Bundle 'git://github.com/soh335/unite-qflist.git'
-  Bundle 'git://github.com/t9md/vim-surround_custom_mapping.git'
-  Bundle 'git://github.com/t9md/vim-textmanip.git'
-  Bundle 'git://github.com/thinca/vim-fontzoom.git'
-  Bundle 'git://github.com/thinca/vim-ft-vim_fold.git'
-  Bundle 'git://github.com/thinca/vim-openbuf.git'
-  Bundle 'git://github.com/thinca/vim-poslist.git'
-  Bundle 'git://github.com/thinca/vim-prettyprint.git'
-  Bundle 'git://github.com/thinca/vim-quickrun.git'
-  Bundle 'git://github.com/thinca/vim-scouter.git'
-  Bundle 'git://github.com/thinca/vim-ref.git'
-  Bundle 'git://github.com/thinca/vim-unite-history.git'
-  Bundle 'git://github.com/tsukkee/lingr-vim.git'
-  Bundle 'git://github.com/tsukkee/unite-help.git'
-  Bundle 'git://github.com/tsukkee/unite-tag.git'
-  Bundle 'git://github.com/tyru/caw.vim.git'
-  Bundle 'git://github.com/tyru/cul.vim.git'
-  Bundle 'git://github.com/tyru/eskk.vim.git'
-  Bundle 'git://github.com/tyru/open-browser.vim.git'
-  Bundle 'git://github.com/tyru/operator-html-escape.vim.git'
-  Bundle 'git://github.com/tyru/restart.vim.git'
-  Bundle 'git://github.com/tyru/savemap.vim.git'
-  Bundle 'git://github.com/tyru/simpletap.vim.git'
-  Bundle 'git://github.com/tyru/skk.vim.git'
-  Bundle 'git://github.com/tyru/skkdict.vim.git'
-  Bundle 'git://github.com/tyru/vice.vim.git'
-  Bundle 'git://github.com/tyru/vim-altercmd.git'
-  Bundle 'git://github.com/tyru/winmove.vim.git'
-  Bundle 'git://github.com/ujihisa/neco-ghc.git'
-  Bundle 'git://github.com/ujihisa/neco-look.git'
-  Bundle 'git://github.com/ujihisa/unite-colorscheme.git'
-  Bundle 'git://github.com/ujihisa/unite-locate.git'
-  Bundle 'git://github.com/ujihisa/vimshell-ssh.git'
-  Bundle 'git://github.com/vim-scripts/VimClojure.git'
-  Bundle 'git://github.com/vim-scripts/Conque-Shell.git'
-  Bundle 'git://github.com/vim-scripts/netrw.vim.git'
-  Bundle 'git://github.com/vim-ruby/vim-ruby.git'
-  "}}}
 endif
 "}}}
 
+" neobundle.vim"{{{
+NeoBundle 'git://github.com/Shougo/clang_complete.git'
+NeoBundle 'git://github.com/Shougo/clang_complete.git'
+NeoBundle 'git://github.com/Shougo/echodoc.git'
+NeoBundle 'git://github.com/Shougo/eev.vim.git'
+NeoBundle 'git://github.com/Shougo/git-vim.git'
+NeoBundle 'git://github.com/Shougo/neocomplcache.git'
+NeoBundle 'git://github.com/Shougo/neobundle.vim.git'
+NeoBundle 'git://github.com/Shougo/unite.vim.git'
+NeoBundle 'git://github.com/Shougo/vim-vcs.git'
+NeoBundle 'git://github.com/Shougo/vimfiler.git'
+NeoBundle 'git://github.com/Shougo/vimshell.git'
+NeoBundle 'git://github.com/Shougo/vinarise.git'
+NeoBundle 'git://github.com/h1mesuke/unite-outline.git'
+NeoBundle 'git://github.com/hail2u/vim-css3-syntax.git'
+NeoBundle 'git://github.com/kana/vim-altr.git'
+NeoBundle 'git://github.com/kana/vim-smartchr.git'
+NeoBundle 'git://github.com/kana/vim-wwwsearch.git'
+NeoBundle 'git://github.com/pocket7878/curses-vim.git'
+NeoBundle 'git://github.com/pocket7878/presen-vim.git'
+NeoBundle 'git://github.com/sjl/gundo.vim.git'
+NeoBundle 'git://github.com/soh335/unite-qflist.git'
+NeoBundle 'git://github.com/t9md/vim-surround_custom_mapping.git'
+NeoBundle 'git://github.com/t9md/vim-textmanip.git'
+NeoBundle 'git://github.com/thinca/vim-fontzoom.git'
+NeoBundle 'git://github.com/thinca/vim-ft-vim_fold.git'
+NeoBundle 'git://github.com/thinca/vim-openbuf.git'
+NeoBundle 'git://github.com/thinca/vim-poslist.git'
+NeoBundle 'git://github.com/thinca/vim-prettyprint.git'
+NeoBundle 'git://github.com/thinca/vim-quickrun.git'
+NeoBundle 'git://github.com/thinca/vim-scouter.git'
+NeoBundle 'git://github.com/thinca/vim-ref.git'
+NeoBundle 'git://github.com/thinca/vim-unite-history.git'
+NeoBundle 'git://github.com/tsukkee/lingr-vim.git'
+NeoBundle 'git://github.com/tsukkee/unite-help.git'
+NeoBundle 'git://github.com/tsukkee/unite-tag.git'
+NeoBundle 'git://github.com/tyru/caw.vim.git'
+NeoBundle 'git://github.com/tyru/cul.vim.git'
+NeoBundle 'git://github.com/tyru/eskk.vim.git'
+NeoBundle 'git://github.com/tyru/open-browser.vim.git'
+NeoBundle 'git://github.com/tyru/operator-html-escape.vim.git'
+NeoBundle 'git://github.com/tyru/restart.vim.git'
+NeoBundle 'git://github.com/tyru/savemap.vim.git'
+NeoBundle 'git://github.com/tyru/simpletap.vim.git'
+NeoBundle 'git://github.com/tyru/skk.vim.git'
+NeoBundle 'git://github.com/tyru/skkdict.vim.git'
+NeoBundle 'git://github.com/tyru/vice.vim.git'
+NeoBundle 'git://github.com/tyru/vim-altercmd.git'
+NeoBundle 'git://github.com/tyru/winmove.vim.git'
+NeoBundle 'git://github.com/ujihisa/neco-ghc.git'
+NeoBundle 'git://github.com/ujihisa/neco-look.git'
+NeoBundle 'git://github.com/ujihisa/unite-colorscheme.git'
+NeoBundle 'git://github.com/ujihisa/unite-locate.git'
+NeoBundle 'git://github.com/ujihisa/vimshell-ssh.git'
+NeoBundle 'git://github.com/vim-scripts/VimClojure.git'
+NeoBundle 'git://github.com/vim-scripts/Conque-Shell.git'
+NeoBundle 'git://github.com/vim-scripts/netrw.vim.git'
+NeoBundle 'git://github.com/vim-ruby/vim-ruby.git'
+"}}}
 
 " Delete bundle directories contained local runtimepath.
 for base in map(filter(split(&runtimepath, ','), 'v:val !~ "/\\.\\?bundle/"'), "fnamemodify(v:val, ':t')")
@@ -697,7 +705,7 @@ let g:neocomplcache_enable_at_startup = 1
 " Use smartcase.
 let g:neocomplcache_enable_smart_case = 1
 " Use camel case completion.
-let g:neocomplcache_enable_camel_case_completion = 1
+let g:neocomplcache_enable_camel_case_completion = 0
 " Use underbar completion.
 let g:neocomplcache_enable_underbar_completion = 1
 " Set minimum syntax keyword length.
@@ -708,9 +716,11 @@ let g:neocomplcache_auto_completion_start_length = 2
 let g:neocomplcache_manual_completion_start_length = 0
 " Set minimum keyword length.
 let g:neocomplcache_min_keyword_length = 3
-let g:neocomplcache_enable_cursor_hold_i = v:version > 703 ||
-      \ v:version == 703 && has('patch289')
+" let g:neocomplcache_enable_cursor_hold_i = v:version > 703 ||
+"       \ v:version == 703 && has('patch289')
+let g:neocomplcache_enable_cursor_hold_i = 0
 let g:neocomplcache_cursor_hold_i_time = 300
+let g:neocomplcache_enable_prefetch = 1
 
 " For auto select.
 let g:neocomplcache_enable_auto_select = 1
@@ -828,6 +838,8 @@ inoremap <expr>'  pumvisible() ? "\<C-y>" : "'"
 inoremap <expr>[  pumvisible() ? "\<C-n>" : "["
 inoremap <expr>]  pumvisible() ? "\<C-p>" : "]"
 
+inoremap <expr><C-x><C-f>  neocomplcache#manual_filename_complete()
+
 imap <C-s>  <Plug>(neocomplcache_start_unite_snippet)
 
 " <CR>: close popup and save indent.
@@ -841,6 +853,25 @@ endfunction"}}}
 " <S-TAB>: completion back.
 inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<C-h>"
 "}}}
+
+function! CompleteFiles(findstart, base)
+    if a:findstart
+        " Get cursor word.
+        let cur_text = strpart(getline('.'), 0, col('.') - 1)
+
+        return match(cur_text, '\f*$')
+    endif
+
+    let words = split(expand(a:base . '*'), '\n')
+    let list = []
+    let cnt = 0
+    for word in words
+        call add(list, { 'word' : word, 'abbr' : printf('%3d: %s', cnt, word), 'menu' : 'file_complete' })
+        let cnt += 1
+    endfor
+
+    return { 'words' : list, 'refresh' : 'always' }
+endfunction
 "}}}
 
 " echodoc.vim"{{{
@@ -1051,8 +1082,8 @@ nmap    f [unite]
 xmap    f [unite]
 nnoremap [unite]u  q:Unite<Space>
 nnoremap <silent> :  :<C-u>Unite history/command command<CR>
-nnoremap <silent> [unite]b  :<C-u>UniteWithBufferDir
-      \ -buffer-name=files -prompt=%\ buffer file_mru bookmark file<CR>
+nnoremap <silent> [unite]b  :<C-u>UniteWithBufferDir -buffer-name=files -prompt=%\ 
+      \ buffer file_mru bookmark file<CR>
 nnoremap <silent> [unite]r  :<C-u>Unite -buffer-name=register register<CR>
 nnoremap <silent> [unite]o  :<C-u>Unite outline<CR>
 nnoremap  [unite]f  :<C-u>Unite source<CR>
@@ -1069,8 +1100,7 @@ nnoremap <silent> [unite]c  :<C-u>Unite change<CR>
 nnoremap <silent> [unite]d  :<C-u>Unite -buffer-name=files directory_mru<CR>
 nnoremap <silent> [unite]ma  :<C-u>Unite mapping<CR>
 nnoremap <silent> [unite]me  :<C-u>Unite output:message<CR>
-inoremap <silent><expr> <C-z>    unite#start_complete(['register'])
-
+inoremap <silent> <C-z>  <C-o>:call unite#start_complete(['register'], {'is_insert' : 1})<CR>
 
 nnoremap <silent> [Window]s  :<C-u>Unite -buffer-name=files -no-split
       \ jump_point file_point buffer_tab file_rec file file_mru<CR>
@@ -1090,7 +1120,7 @@ nnoremap <silent> g<C-h>  :<C-u>UniteWithCursorWord help<CR>
 " Search.
 nnoremap <silent> /  :<C-u>Unite -buffer-name=search -start-insert line<CR>
 nnoremap <silent> *  :<C-u>UniteWithCursorWord -buffer-name=search line<CR>
-nnoremap <silent> n  :<C-u>UniteResume search<CR>
+nnoremap <silent> n  :<C-u>UniteResume search -no-start-insert<CR>
 
 let g:unite_enable_split_vertically = 0
 let g:unite_kind_file_cd_command = 'TabpageCD'
@@ -1107,6 +1137,7 @@ autocmd MyAutoCmd FileType unite call s:unite_my_settings()
 call unite#set_substitute_pattern('files', '^\.v/', unite#util#substitute_path_separator($HOME).'/.vim/', 1000)
 call unite#set_substitute_pattern('files', '\.', '*.', 1000)
 call unite#custom_alias('file', 'h', 'left')
+call unite#custom_default_action('directory', 'lcd')
 " call unite#custom_default_action('file', 'my_tabopen')
 " call unite#custom_filters('line', ['matcher_default', 'sorter_default', 'converter_default'])
 " call unite#custom_filters('file_rec',
@@ -1139,6 +1170,7 @@ function! s:unite_my_settings()"{{{
   imap <buffer> <TAB>   <Plug>(unite_select_next_line)
   imap <buffer> <C-w>     <Plug>(unite_delete_backward_path)
   imap <buffer> '     <Plug>(unite_quick_match_default_action)
+  nmap <buffer> '     <Plug>(unite_quick_match_default_action)
   nmap <buffer> cd     <Plug>(unite_quick_match_default_action)
   imap <buffer> <C-g>     <Plug>(unite_input_directory)
   nmap <buffer> <C-z>     <Plug>(unite_toggle_transpose_window)
@@ -1158,8 +1190,6 @@ function! s:unite_my_settings()"{{{
 
   nnoremap <buffer><expr> cd     unite#do_action('lcd')
   nnoremap <buffer><expr> S      unite#mappings#set_current_filters(
-        \ empty(unite#mappings#get_current_filters()) ? ['sorter_reverse'] : [])
-  inoremap <buffer><expr> S      unite#mappings#set_current_filters(
         \ empty(unite#mappings#get_current_filters()) ? ['sorter_reverse'] : [])
 
   " <C-l>: manual neocomplcache completion.
@@ -1229,6 +1259,16 @@ let g:unite_source_alias_aliases = {
       \     'args': '~/',
       \   },
       \ }
+
+let g:unite_source_alias_aliases.sow_moveentry_entry = {
+\ 'source': 'sow_gatherentry',
+\ }
+let sow_moveto_entry ={'description': 'action :move entry to ...',}
+function! sow_moveto_entry.func(candidates)
+  echo "test"
+endfunction
+call unite#custom_action('source/sow_moveentry_entry/*', 'sow_moveto_entry', sow_moveto_entry)
+call unite#custom_default_action('source/sow_moveentry_entry/*', 'sow_moveto_entry')
 "}}}
 
 " smartword.vim"{{{
