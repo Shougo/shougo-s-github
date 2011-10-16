@@ -79,74 +79,83 @@ if has('vim_starting')"{{{
     let &runtimepath = join([expand('~/.vim'), expand('$VIM/runtime'), expand('~/.vim/after')], ',')
   endif
 
+  call s:vimrc_local(getcwd())
+
+  " Load neobundle.
+  if &runtimepath !~ '/neobundle.vim'
+    execute 'set runtimepath+=' . expand('~/.bundle/neobundle.vim')
+  endif
+
   " Load bundles.
   call pathogen#runtime_append_all_bundles()
-  call vundle#rc(expand('~/.bundle'))
-  call s:vimrc_local(getcwd())
+  " call vundle#rc(expand('~/.bundle'))
+  call neobundle#rc(expand('~/.bundle'))
 
   filetype plugin on
   filetype indent on
-
-  " vundle.vim"{{{
-  Bundle 'git://github.com/Shougo/clang_complete.git'
-  Bundle 'git://github.com/Shougo/echodoc.git'
-  Bundle 'git://github.com/Shougo/eev.vim.git'
-  Bundle 'git://github.com/Shougo/git-vim.git'
-  Bundle 'git://github.com/Shougo/neocomplcache.git'
-  Bundle 'git://github.com/Shougo/unite.vim.git'
-  Bundle 'git://github.com/Shougo/vim-vcs.git'
-  Bundle 'git://github.com/Shougo/vimfiler.git'
-  Bundle 'git://github.com/Shougo/vimshell.git'
-  Bundle 'git://github.com/Shougo/vinarise.git'
-  Bundle 'git://github.com/h1mesuke/unite-outline.git'
-  Bundle 'git://github.com/hail2u/vim-css3-syntax.git'
-  Bundle 'git://github.com/kana/vim-altr.git'
-  Bundle 'git://github.com/kana/vim-smartchr.git'
-  Bundle 'git://github.com/kana/vim-wwwsearch.git'
-  Bundle 'git://github.com/pocket7878/curses-vim.git'
-  Bundle 'git://github.com/pocket7878/presen-vim.git'
-  Bundle 'git://github.com/sjl/gundo.vim.git'
-  Bundle 'git://github.com/soh335/unite-qflist.git'
-  Bundle 'git://github.com/t9md/vim-surround_custom_mapping.git'
-  Bundle 'git://github.com/t9md/vim-textmanip.git'
-  Bundle 'git://github.com/thinca/vim-fontzoom.git'
-  Bundle 'git://github.com/thinca/vim-ft-vim_fold.git'
-  Bundle 'git://github.com/thinca/vim-openbuf.git'
-  Bundle 'git://github.com/thinca/vim-poslist.git'
-  Bundle 'git://github.com/thinca/vim-prettyprint.git'
-  Bundle 'git://github.com/thinca/vim-quickrun.git'
-  Bundle 'git://github.com/thinca/vim-scouter.git'
-  Bundle 'git://github.com/thinca/vim-ref.git'
-  Bundle 'git://github.com/thinca/vim-unite-history.git'
-  Bundle 'git://github.com/tsukkee/lingr-vim.git'
-  Bundle 'git://github.com/tsukkee/unite-help.git'
-  Bundle 'git://github.com/tsukkee/unite-tag.git'
-  Bundle 'git://github.com/tyru/caw.vim.git'
-  Bundle 'git://github.com/tyru/cul.vim.git'
-  Bundle 'git://github.com/tyru/eskk.vim.git'
-  Bundle 'git://github.com/tyru/open-browser.vim.git'
-  Bundle 'git://github.com/tyru/operator-html-escape.vim.git'
-  Bundle 'git://github.com/tyru/restart.vim.git'
-  Bundle 'git://github.com/tyru/savemap.vim.git'
-  Bundle 'git://github.com/tyru/simpletap.vim.git'
-  Bundle 'git://github.com/tyru/skk.vim.git'
-  Bundle 'git://github.com/tyru/skkdict.vim.git'
-  Bundle 'git://github.com/tyru/vice.vim.git'
-  Bundle 'git://github.com/tyru/vim-altercmd.git'
-  Bundle 'git://github.com/tyru/winmove.vim.git'
-  Bundle 'git://github.com/ujihisa/neco-ghc.git'
-  Bundle 'git://github.com/ujihisa/neco-look.git'
-  Bundle 'git://github.com/ujihisa/unite-colorscheme.git'
-  Bundle 'git://github.com/ujihisa/unite-locate.git'
-  Bundle 'git://github.com/ujihisa/vimshell-ssh.git'
-  Bundle 'git://github.com/vim-scripts/VimClojure.git'
-  Bundle 'git://github.com/vim-scripts/Conque-Shell.git'
-  Bundle 'git://github.com/vim-scripts/netrw.vim.git'
-  Bundle 'git://github.com/vim-ruby/vim-ruby.git'
-  "}}}
 endif
 "}}}
 
+" neobundle.vim"{{{
+NeoBundle 'git://github.com/anyakichi/vim-surround'
+NeoBundle 'git://github.com/Shougo/clang_complete.git'
+NeoBundle 'git://github.com/Shougo/echodoc.git'
+NeoBundle 'git://github.com/Shougo/eev.vim.git'
+NeoBundle 'git://github.com/Shougo/git-vim.git'
+NeoBundle 'git://github.com/Shougo/neocomplcache.git'
+NeoBundle 'git://github.com/Shougo/neobundle.vim.git'
+NeoBundle 'git://github.com/Shougo/unite.vim.git'
+NeoBundle 'git://github.com/Shougo/unite-build.git'
+NeoBundle 'git://github.com/Shougo/vim-vcs.git'
+NeoBundle 'git://github.com/Shougo/vimfiler.git'
+NeoBundle 'git://github.com/Shougo/vimshell.git'
+NeoBundle 'git://github.com/Shougo/vinarise.git'
+NeoBundle 'git://github.com/h1mesuke/unite-outline.git'
+NeoBundle 'git://github.com/hail2u/vim-css3-syntax.git'
+NeoBundle 'git://github.com/kana/vim-altr.git'
+NeoBundle 'git://github.com/kana/vim-smartchr.git'
+NeoBundle 'git://github.com/kana/vim-wwwsearch.git'
+NeoBundle 'git://github.com/pocket7878/curses-vim.git'
+NeoBundle 'git://github.com/pocket7878/presen-vim.git'
+NeoBundle 'git://github.com/sjl/gundo.vim.git'
+NeoBundle 'git://github.com/soh335/unite-qflist.git'
+NeoBundle 'git://github.com/t9md/vim-surround_custom_mapping.git'
+NeoBundle 'git://github.com/t9md/vim-textmanip.git'
+NeoBundle 'git://github.com/thinca/vim-fontzoom.git'
+NeoBundle 'git://github.com/thinca/vim-ft-vim_fold.git'
+NeoBundle 'git://github.com/thinca/vim-openbuf.git'
+NeoBundle 'git://github.com/thinca/vim-prettyprint.git'
+NeoBundle 'git://github.com/thinca/vim-quickrun.git'
+NeoBundle 'git://github.com/thinca/vim-scouter.git'
+NeoBundle 'git://github.com/thinca/vim-ref.git'
+NeoBundle 'git://github.com/thinca/vim-unite-history.git'
+NeoBundle 'git://github.com/tsukkee/lingr-vim.git'
+NeoBundle 'git://github.com/tsukkee/unite-help.git'
+NeoBundle 'git://github.com/tsukkee/unite-tag.git'
+NeoBundle 'git://github.com/tyru/caw.vim.git'
+NeoBundle 'git://github.com/tyru/cul.vim.git'
+NeoBundle 'git://github.com/tyru/eskk.vim.git'
+NeoBundle 'git://github.com/tyru/open-browser.vim.git'
+NeoBundle 'git://github.com/tyru/operator-html-escape.vim.git'
+NeoBundle 'git://github.com/tyru/restart.vim.git'
+NeoBundle 'git://github.com/tyru/savemap.vim.git'
+NeoBundle 'git://github.com/tyru/simpletap.vim.git'
+NeoBundle 'git://github.com/tyru/skk.vim.git'
+NeoBundle 'git://github.com/tyru/skkdict.vim.git'
+NeoBundle 'git://github.com/tyru/vice.vim.git'
+NeoBundle 'git://github.com/tyru/vim-altercmd.git'
+NeoBundle 'git://github.com/tyru/winmove.vim.git'
+NeoBundle 'git://github.com/ujihisa/neco-ghc.git'
+NeoBundle 'git://github.com/ujihisa/neco-look.git'
+NeoBundle 'git://github.com/ujihisa/unite-colorscheme.git'
+NeoBundle 'git://github.com/ujihisa/unite-locate.git'
+NeoBundle 'git://github.com/ujihisa/vimshell-ssh.git'
+NeoBundle 'git://github.com/vim-jp/vimdoc-ja.git'
+NeoBundle 'git://github.com/vim-scripts/VimClojure.git'
+NeoBundle 'git://github.com/vim-scripts/Conque-Shell.git'
+NeoBundle 'git://github.com/vim-scripts/netrw.vim.git'
+NeoBundle 'git://github.com/vim-ruby/vim-ruby.git'
+"}}}
 
 " Delete bundle directories contained local runtimepath.
 for base in map(filter(split(&runtimepath, ','), 'v:val !~ "/\\.\\?bundle/"'), "fnamemodify(v:val, ':t')")
@@ -430,7 +439,10 @@ endif
 " Set tags file.
 " Don't search tags file in current directory. And search upward.
 set tags& tags-=tags tags+=./tags;
-set notagbsearch
+if v:version < 7.3 || (v:version == 7.3 && !has('patch336'))
+  " Vim's bug.
+  set notagbsearch
+endif
 
 " Enable virtualedit in visual block mode.
 set virtualedit=block
@@ -498,22 +510,22 @@ function! s:my_tabline()  "{{{
   let s = ''
 
   for i in range(1, tabpagenr('$'))
-    let l:bufnrs = tabpagebuflist(i)
-    let l:bufnr = l:bufnrs[tabpagewinnr(i) - 1]  " first window, first appears
+    let bufnrs = tabpagebuflist(i)
+    let bufnr = bufnrs[tabpagewinnr(i) - 1]  " first window, first appears
 
-    let l:no = (i <= 10 ? i : '#')  " display 0-origin tabpagenr.
-    let l:mod = getbufvar(l:bufnr, '&modified') ? '!' : ' '
+    let no = (i <= 10 ? i : '#')  " display 0-origin tabpagenr.
+    let mod = getbufvar(bufnr, '&modified') ? '!' : ' '
 
     " Use gettabvar().
-    let l:title = exists('*gettabvar') && gettabvar(i, 'title') != '' ?
+    let title = exists('*gettabvar') && gettabvar(i, 'title') != '' ?
           \ gettabvar(i, 'title') : 'No Name'
 
-    let l:title = '[' . l:title . ']'
+    let title = '[' . title . ']'
 
     let s .= '%'.i.'T'
     let s .= '%#' . (i == tabpagenr() ? 'TabLineSel' : 'TabLine') . '#'
-    let s .= l:no . ':' . l:title
-    let s .= l:mod
+    let s .= no . ':' . title
+    let s .= mod
     let s .= '%#TabLineFill# '
   endfor
 
@@ -697,7 +709,7 @@ let g:neocomplcache_enable_at_startup = 1
 " Use smartcase.
 let g:neocomplcache_enable_smart_case = 1
 " Use camel case completion.
-let g:neocomplcache_enable_camel_case_completion = 1
+let g:neocomplcache_enable_camel_case_completion = 0
 " Use underbar completion.
 let g:neocomplcache_enable_underbar_completion = 1
 " Set minimum syntax keyword length.
@@ -708,9 +720,11 @@ let g:neocomplcache_auto_completion_start_length = 2
 let g:neocomplcache_manual_completion_start_length = 0
 " Set minimum keyword length.
 let g:neocomplcache_min_keyword_length = 3
-let g:neocomplcache_enable_cursor_hold_i = v:version > 703 ||
-      \ v:version == 703 && has('patch289')
+" let g:neocomplcache_enable_cursor_hold_i = v:version > 703 ||
+"       \ v:version == 703 && has('patch289')
+let g:neocomplcache_enable_cursor_hold_i = 0
 let g:neocomplcache_cursor_hold_i_time = 300
+let g:neocomplcache_enable_prefetch = 1
 
 " For auto select.
 let g:neocomplcache_enable_auto_select = 1
@@ -800,8 +814,9 @@ inoremap <expr><C-l>     neocomplcache#complete_common_string()
 "\ 'vim_complete' : 4,
 "\ }
 " let g:neocomplcache_plugin_disable = {
-" \'filename_complete' : 1
-" \}"}}}
+"       \ 'omni_complete' : 1
+"       \}
+"}}}
 let g:snippets_dir = '~/.vim/snippets/,~/.vim/bundle/snipmate/snippets/'
 
 " For neocomplcache."{{{
@@ -828,19 +843,48 @@ inoremap <expr>'  pumvisible() ? "\<C-y>" : "'"
 inoremap <expr>[  pumvisible() ? "\<C-n>" : "["
 inoremap <expr>]  pumvisible() ? "\<C-p>" : "]"
 
+inoremap <expr><C-x><C-f>  neocomplcache#manual_filename_complete()
+
 imap <C-s>  <Plug>(neocomplcache_start_unite_snippet)
 
 " <CR>: close popup and save indent.
 inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
 " <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "\<TAB>" : "\<C-x>\<C-u>\<C-p>\<Down>"
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ neocomplcache#start_manual_complete()
 function! s:check_back_space()"{{{
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~ '\s'
 endfunction"}}}
 " <S-TAB>: completion back.
 inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<C-h>"
+
+" For cursor moving in insert mode(Not recommended)
+inoremap <expr><Left>  neocomplcache#close_popup() . "\<Left>"
+inoremap <expr><Right> neocomplcache#close_popup() . "\<Right>"
+inoremap <expr><Up>    neocomplcache#close_popup() . "\<Up>"
+inoremap <expr><Down>  neocomplcache#close_popup() . "\<Down>"
 "}}}
+
+function! CompleteFiles(findstart, base)
+    if a:findstart
+        " Get cursor word.
+        let cur_text = strpart(getline('.'), 0, col('.') - 1)
+
+        return match(cur_text, '\f*$')
+    endif
+
+    let words = split(expand(a:base . '*'), '\n')
+    let list = []
+    let cnt = 0
+    for word in words
+        call add(list, { 'word' : word, 'abbr' : printf('%3d: %s', cnt, word), 'menu' : 'file_complete' })
+        let cnt += 1
+    endfor
+
+    return { 'words' : list, 'refresh' : 'always' }
+endfunction
 "}}}
 
 " echodoc.vim"{{{
@@ -856,13 +900,14 @@ let g:vimshell_right_prompt = 'vcs#info("(%s)-[%b]%p", "(%s)-[%b|%a]%p")'
 let g:vimshell_prompt = '% '
 "let g:vimshell_environment_term = 'xterm'
 let g:vimshell_cd_command = 'TabpageCD'
+let g:vimshell_split_command = ''
 
 if s:iswin
   " Display user name on Windows.
   "let g:vimshell_prompt = $USERNAME."% "
 
   " Use ckw.
-  let g:vimshell_use_ckw = 1
+  let g:vimshell_use_terminal_command = 'ckw -e'
 else
   " Display user name on Linux.
   "let g:vimshell_prompt = $USER."% "
@@ -875,6 +920,9 @@ else
   let g:vimshell_execute_file_list['zip'] = 'zipinfo'
   call vimshell#set_execute_file('tgz,gz', 'gzcat')
   call vimshell#set_execute_file('tbz,bz2', 'bzcat')
+
+  " Use gnome-terminal.
+  let g:vimshell_use_terminal_command = 'gnome-terminal -e'
 endif
 
 " Initialize execute file list.
@@ -893,6 +941,7 @@ function! s:vimshell_settings()
   inoremap <buffer><expr>'  pumvisible() ? "\<C-y>" : "'"
   imap <buffer><BS>  <Plug>(vimshell_another_delete_backward_char)
   imap <buffer><C-h>  <Plug>(vimshell_another_delete_backward_char)
+  inoremap <silent><expr><buffer><C-r>  unite#sources#vimshell_history#start_complete(!0)
 
   call vimshell#altercmd#define('g', 'git')
   call vimshell#altercmd#define('i', 'iexe')
@@ -925,31 +974,31 @@ function! s:terminal_settings()
   imap <buffer> <ESC>         <Plug>(vimshell_term_send_escape)
 endfunction
 function! s:texe_sticky_func()
-  let l:sticky_table = {
+  let sticky_table = {
         \',' : '<', '.' : '>', '/' : '?',
         \'1' : '!', '2' : '@', '3' : '#', '4' : '$', '5' : '%',
         \'6' : '^', '7' : '&', '8' : '*', '9' : '(', '0' : ')', '-' : '_', '=' : '+',
         \';' : ':', '[' : '{', ']' : '}', '`' : '~', "'" : "\"", '\' : '|',
         \}
-  let l:special_table = {
+  let special_table = {
         \"\<ESC>" : "\<ESC>", "\<Space>" : "\<Plug>(vimshell_term_send_semicolon)", "\<CR>" : ";\<CR>"
         \}
 
   if mode() !~# '^c'
     echo 'Input sticky key: '
   endif
-  let l:char = ''
+  let char = ''
 
-  while l:char == ''
-    let l:char = nr2char(getchar())
+  while char == ''
+    let char = nr2char(getchar())
   endwhile
 
-  if l:char =~ '\l'
-    return toupper(l:char)
-  elseif has_key(l:sticky_table, l:char)
-    return l:sticky_table[l:char]
-  elseif has_key(l:special_table, l:char)
-    return l:special_table[l:char]
+  if char =~ '\l'
+    return toupper(char)
+  elseif has_key(sticky_table, char)
+    return sticky_table[char]
+  elseif has_key(special_table, char)
+    return special_table[char]
   else
     return ''
   endif
@@ -971,8 +1020,8 @@ endfunction
 function! s:vimshell_hooks.preexec(cmdline, context)
   " call vimshell#execute('echo "preexec"')
 
-  let l:args = vimproc#parser#split_args(a:cmdline)
-  if len(l:args) > 0 && l:args[0] ==# 'diff'
+  let args = vimproc#parser#split_args(a:cmdline)
+  if len(args) > 0 && args[0] ==# 'diff'
     call vimshell#set_syntax('diff')
   endif
 
@@ -1040,6 +1089,7 @@ nnoremap <silent> [Space]gt q:Git tag<Space>
 
 " vcs.vim{{{
 nnoremap <silent> [Space]gc :<C-u>Vcs commit<CR>
+nnoremap <silent> [Space]gC :<C-u>Vcs commit --amend<CR>
 nnoremap <silent> [Space]gs :<C-u>Vcs status<CR>
 "}}}
 
@@ -1051,9 +1101,11 @@ nmap    f [unite]
 xmap    f [unite]
 nnoremap [unite]u  q:Unite<Space>
 nnoremap <silent> :  :<C-u>Unite history/command command<CR>
-nnoremap <silent> [unite]b  :<C-u>UniteWithBufferDir
-      \ -buffer-name=files -prompt=%\ buffer file_mru bookmark file<CR>
-nnoremap <silent> [unite]r  :<C-u>Unite -buffer-name=register register<CR>
+nnoremap <expr><silent> [unite]b  <SID>unite_build()
+function! s:unite_build()
+  return ":\<C-u>Unite -buffer-name=build". tabpagenr() ." -no-quit build\<CR>"
+endfunction
+nnoremap <silent> [unite]r  :<C-u>Unite -buffer-name=register register history/yank<CR>
 nnoremap <silent> [unite]o  :<C-u>Unite outline<CR>
 nnoremap  [unite]f  :<C-u>Unite source<CR>
 nnoremap <silent> [unite]t  :<C-u>UniteWithCursorWord -buffer-name=tag tag<CR>
@@ -1064,18 +1116,16 @@ nnoremap <silent> [unite]h  :<C-u>Unite history/command<CR>
 nnoremap <silent> [unite]q  :<C-u>Unite qflist -no-quit<CR>
 nnoremap <silent> [unite]g  :<C-u>Unite grep -buffer-name=search -no-quit<CR>
 nnoremap <silent> [unite]j  :<C-u>Unite jump<CR>
-nnoremap <silent> <C-k>  :<C-u>Unite jump<CR>
+nnoremap <silent> <C-k>  :<C-u>Unite change jump<CR>
 nnoremap <silent> [unite]c  :<C-u>Unite change<CR>
+nnoremap <silent> [unite]f  :<C-u>Unite resume<CR>
 nnoremap <silent> [unite]d  :<C-u>Unite -buffer-name=files directory_mru<CR>
 nnoremap <silent> [unite]ma  :<C-u>Unite mapping<CR>
 nnoremap <silent> [unite]me  :<C-u>Unite output:message<CR>
-inoremap <silent><expr> <C-z>    unite#start_complete(['register'])
-
+inoremap <silent> <C-z>  <C-o>:call unite#start_complete(['register'], {'is_insert' : 1})<CR>
 
 nnoremap <silent> [Window]s  :<C-u>Unite -buffer-name=files -no-split
       \ jump_point file_point buffer_tab file_rec file file_mru<CR>
-nnoremap <silent> [Window]r  :<C-u>Unite resume<CR>
-" nnoremap <silent> [Window]s  :<C-u>Unite -buffer-name=files buffer_tab file file_mru file<CR>
 nnoremap <silent> [Window]t  :<C-u>Unite -buffer-name=files tab<CR>
 nnoremap <silent> [Window]w  :<C-u>Unite window<CR>
 nnoremap <silent> [Space]b  :<C-u>UniteBookmarkAdd<CR>
@@ -1089,12 +1139,16 @@ nnoremap <silent> g<C-h>  :<C-u>UniteWithCursorWord help<CR>
 
 " Search.
 nnoremap <silent> /  :<C-u>Unite -buffer-name=search -start-insert line<CR>
+nnoremap <silent> ?  :<C-u>Unite mapping<CR>
+nnoremap g/  /
 nnoremap <silent> *  :<C-u>UniteWithCursorWord -buffer-name=search line<CR>
-nnoremap <silent> n  :<C-u>UniteResume search<CR>
+nnoremap <silent> n  :<C-u>UniteResume search -no-start-insert<CR>
 
 let g:unite_enable_split_vertically = 0
 let g:unite_kind_file_cd_command = 'TabpageCD'
 let g:unite_kind_file_lcd_command = 'TabpageCD'
+
+let g:unite_source_history_yank_enable = 1
 
 let g:unite_winheight = 20
 
@@ -1107,6 +1161,7 @@ autocmd MyAutoCmd FileType unite call s:unite_my_settings()
 call unite#set_substitute_pattern('files', '^\.v/', unite#util#substitute_path_separator($HOME).'/.vim/', 1000)
 call unite#set_substitute_pattern('files', '\.', '*.', 1000)
 call unite#custom_alias('file', 'h', 'left')
+call unite#custom_default_action('directory', 'lcd')
 " call unite#custom_default_action('file', 'my_tabopen')
 " call unite#custom_filters('line', ['matcher_default', 'sorter_default', 'converter_default'])
 " call unite#custom_filters('file_rec',
@@ -1120,15 +1175,15 @@ let my_tabopen = {
 function! my_tabopen.func(candidates)"{{{
   call unite#take_action('tabopen', a:candidates)
 
-  let l:dir = isdirectory(a:candidates[0].word) ? a:candidates[0].word : fnamemodify(a:candidates[0].word, ':p:h')
-  execute g:unite_lcd_command '`=l:dir`'
+  let dir = isdirectory(a:candidates[0].word) ? a:candidates[0].word : fnamemodify(a:candidates[0].word, ':p:h')
+  execute g:unite_lcd_command '`=dir`'
 endfunction"}}}
 call unite#custom_action('file,buffer', 'tabopen', my_tabopen)
 unlet my_tabopen
 "}}}
 
 " Custom filters."{{{
-" call unite#custom_filters('file,buffer', ['sorter_default', 'converter_default'])
+" call unite#custom_filters('file,buffer,file_rec', ['matcher_fuzzy', 'sorter_default', 'converter_default'])
 "}}}
 
 let g:unite_enable_start_insert = 0
@@ -1139,6 +1194,7 @@ function! s:unite_my_settings()"{{{
   imap <buffer> <TAB>   <Plug>(unite_select_next_line)
   imap <buffer> <C-w>     <Plug>(unite_delete_backward_path)
   imap <buffer> '     <Plug>(unite_quick_match_default_action)
+  nmap <buffer> '     <Plug>(unite_quick_match_default_action)
   nmap <buffer> cd     <Plug>(unite_quick_match_default_action)
   imap <buffer> <C-g>     <Plug>(unite_input_directory)
   nmap <buffer> <C-z>     <Plug>(unite_toggle_transpose_window)
@@ -1149,17 +1205,15 @@ function! s:unite_my_settings()"{{{
   nmap <buffer> <C-r>     <Plug>(unite_narrowing_input_history)
   imap <buffer> <C-r>     <Plug>(unite_narrowing_input_history)
 
-  let l:unite = unite#get_current_unite()
-  if l:unite.buffer_name ==# 'search'
-    nnoremap <buffer><expr> r     unite#do_action('replace')
+  let unite = unite#get_current_unite()
+  if unite.buffer_name ==# 'search'
+    nnoremap <silent><buffer><expr> r     unite#do_action('replace')
   else
-    nnoremap <buffer><expr> r     unite#do_action('rename')
+    nnoremap <silent><buffer><expr> r     unite#do_action('rename')
   endif
 
-  nnoremap <buffer><expr> cd     unite#do_action('lcd')
+  nnoremap <silent><buffer><expr> cd     unite#do_action('lcd')
   nnoremap <buffer><expr> S      unite#mappings#set_current_filters(
-        \ empty(unite#mappings#get_current_filters()) ? ['sorter_reverse'] : [])
-  inoremap <buffer><expr> S      unite#mappings#set_current_filters(
         \ empty(unite#mappings#get_current_filters()) ? ['sorter_reverse'] : [])
 
   " <C-l>: manual neocomplcache completion.
@@ -1229,6 +1283,33 @@ let g:unite_source_alias_aliases = {
       \     'args': '~/',
       \   },
       \ }
+
+let g:unite_source_alias_aliases.sow_moveentry_entry = {
+\ 'source': 'sow_gatherentry',
+\ }
+let sow_moveto_entry ={'description': 'action :move entry to ...',}
+function! sow_moveto_entry.func(candidates)
+  echo "test"
+endfunction
+call unite#custom_action('source/sow_moveentry_entry/*', 'sow_moveto_entry', sow_moveto_entry)
+call unite#custom_default_action('source/sow_moveentry_entry/*', 'sow_moveto_entry')
+
+" For unite-menu.
+let g:unite_source_menu_menus = {}
+let g:unite_source_menu_menus.test = {
+      \     'description' : 'Test menu',
+      \ }
+let g:unite_source_menu_menus.test.candidates = {
+      \       'ghci'      : 'VimShellInteractive ghci',
+      \       'python'    : 'VimShellInteractive python',
+      \       'Unite Beautiful Attack' : 'Unite -auto-preview colorscheme',
+      \     }
+function g:unite_source_menu_menus.test.map(key, value)
+  return {
+        \       'word' : a:key, 'kind' : 'command',
+        \       'action__command' : a:value,
+        \     }
+endfunction
 "}}}
 
 " smartword.vim"{{{
@@ -1345,16 +1426,16 @@ if !exists('g:quickrun_config')
   if s:iswin
     function! TexEncoding()
       if &fileencoding ==# 'utf-8'
-        let l:arg = 'utf8 '
+        let arg = 'utf8 '
       elseif &fileencoding =~# '^euc-\%(jp\|jisx0213\)$'
-        let l:arg = 'euc '
+        let arg = 'euc '
       elseif &fileencoding =~# '^iso-2022-jp'
-        let l:arg = 'jis '
+        let arg = 'jis '
       else " cp932
-        let l:arg = 'sjis '
+        let arg = 'sjis '
       endif
 
-      return l:arg
+      return arg
     endfunction
     let tex = 'platex -kanji={TexEncoding()}'
     let g:quickrun_config.tex = { 'command' : tex, 'exec': ['%c %s', 'dvipdfmx %s:r.dvi'] }
@@ -1428,35 +1509,19 @@ nmap    [Space]ff   <Plug>(vimfiler_switch)
 nmap    [Space]si   <Plug>(vimfiler_simple)
 nmap    [Space]h   :<C-u>edit %:h<CR>
 
-" Set local mappings.
-" nmap <C-p>       <Plug>(vimfiler_open_previous_file)
-" nmap <C-n>       <Plug>(vimfiler_open_next_file)
-
 call vimfiler#set_execute_file('vim', ['vim', 'notepad'])
 call vimfiler#set_execute_file('txt', 'vim')
-"let g:vimfiler_split_command = ''
-"let g:vimfiler_edit_command = 'tabedit'
-"let g:vimfiler_pedit_command = 'vnew'
 
 let g:vimfiler_enable_clipboard = 0
 let g:vimfiler_safe_mode_by_default = 0
 let g:vimshell_cd_command = 'TabpageCD'
 
-" Linux default.
-"let g:vimfiler_external_copy_directory_command = 'cp -r $src $dest'
-"let g:vimfiler_external_copy_file_command = 'cp $src $dest'
-"let g:vimfiler_external_delete_command = 'rm -r $srcs'
-"let g:vimfiler_external_move_command = 'mv $srcs $dest'
-
-" Windows default.
-"let g:vimfiler_external_delete_command = 'system rmdir /Q /S $srcs'
-"let g:vimfiler_external_copy_file_command = 'system copy $src $dest'
-"let g:vimfiler_external_copy_directory_command = ''
-"let g:vimfiler_external_move_command = 'move /Y $srcs $dest'
-
 let g:vimfiler_as_default_explorer = 1
-let g:vimfiler_detect_drives = ['C', 'D', 'E', 'F', 'G', 'H', 'I', 
-      \ 'J', 'K', 'L', 'M', 'N']
+let g:vimfiler_detect_drives = s:iswin ? [
+      \ 'C:/', 'D:/', 'E:/', 'F:/', 'G:/', 'H:/', 'I:/',
+      \ 'J:/', 'K:/', 'L:/', 'M:/', 'N:/'] :
+      \ split(glob('/mnt/*'), '\n') + split(glob('/media/*'), '\n') +
+      \ split(glob('/Users/*'), '\n')
 
 autocmd MyAutoCmd FileType vimfiler call s:vimfiler_my_settings()
 function! s:vimfiler_my_settings()"{{{
@@ -1582,16 +1647,6 @@ endfunction
 " qfreplace.vim
 autocmd MyAutoCmd FileType qf nnoremap <buffer> r :<C-u>Qfreplace<CR>
 
-" poslist.vim"{{{
-" nmap <C-k> <Plug>(poslist-prev-pos)
-" nmap <C-j> <Plug>(poslist-next-pos)
-" nmap <C-k> <Plug>(poslist-prev-line)
-" nmap <C-j> <Plug>(poslist-next-line)
-let g:poslist_histsize = 100
-let g:poslist_lines = 3
-let g:poslist_min_save_unit = 10
-"}}}
-
 " simpletap.vim"{{{
 " Easily test.
 nnoremap [Space]te :<C-u>SimpleTapRun ./test<CR>
@@ -1600,14 +1655,16 @@ nnoremap [Space]te :<C-u>SimpleTapRun ./test<CR>
 " open-browser.vim"{{{
 nnoremap gs :<C-u>call <SID>www_search()<CR>
 function! s:www_search()
-  let l:search_word = input('Please input search word: ', '', 'customlist,wwwsearch#cmd_Wwwsearch_complete')
-  if l:search_word != ''
-    execute 'OpenBrowserSearch' escape(l:search_word, '"')
+  let search_word = input('Please input search word: ', '', 'customlist,wwwsearch#cmd_Wwwsearch_complete')
+  if search_word != ''
+    execute 'OpenBrowserSearch' escape(search_word, '"')
   endif
 endfunction
 "}}}
 
 " caw.vim"{{{
+nmap gc <Plug>(caw:prefix)
+xmap gc <Plug>(caw:prefix)
 nmap gcc <Plug>(caw:i:toggle)
 xmap gcc <Plug>(caw:i:toggle)
 "}}}
@@ -1746,26 +1803,26 @@ inoremap <silent><C-a>  <Home>
 inoremap <expr>H           <SID>camelcase_delete(0)
 inoremap <expr>D           <SID>camelcase_delete(1)
 function! s:camelcase_delete(is_reverse)
-  let l:save_ve = &l:virtualedit
+  let save_ve = &l:virtualedit
   setlocal virtualedit=all
   if a:is_reverse
-    let l:cur_text = getline('.')[virtcol('.')-1 : ]
+    let cur_text = getline('.')[virtcol('.')-1 : ]
   else
-    let l:cur_text = getline('.')[: virtcol('.')-2]
+    let cur_text = getline('.')[: virtcol('.')-2]
   endif
-  let &l:virtualedit = l:save_ve
+  let &l:virtualedit = save_ve
 
-  let l:pattern = '\d\+\|\u\+\ze\%(\u\l\|\d\)\|\u\l\+\|\%(\a\|\d\)\+\ze_\|\%(\k\@!\S\)\+\|\%(_\@!\k\)\+\>\|[_]\|\s\+'
+  let pattern = '\d\+\|\u\+\ze\%(\u\l\|\d\)\|\u\l\+\|\%(\a\|\d\)\+\ze_\|\%(\k\@!\S\)\+\|\%(_\@!\k\)\+\>\|[_]\|\s\+'
 
   if a:is_reverse
-    let l:cur_cnt = len(matchstr(l:cur_text, '^\%('.l:pattern.'\)'))
+    let cur_cnt = len(matchstr(cur_text, '^\%('.pattern.'\)'))
   else
-    let l:cur_cnt = len(matchstr(l:cur_text, '\%('.l:pattern.'\)$'))
+    let cur_cnt = len(matchstr(cur_text, '\%('.pattern.'\)$'))
   endif
 
-  let l:del = a:is_reverse ? "\<Del>" : "\<BS>"
+  let del = a:is_reverse ? "\<Del>" : "\<BS>"
 
-  return (pumvisible() ? neocomplcache#smart_close_popup() : '') . repeat(l:del, l:cur_cnt)
+  return (pumvisible() ? neocomplcache#smart_close_popup() : '') . repeat(del, cur_cnt)
 endfunction
 "}}}
 
@@ -1885,16 +1942,16 @@ nnoremap <Leader><Leader> :<C-u>update<CR>
 " Change current directory.
 nnoremap <silent> [Space]cd :<C-u>call <SID>cd_buffer_dir()<CR>
 function! s:cd_buffer_dir()"{{{
-  let l:filetype = getbufvar(bufnr('%'), '&filetype')
-  if l:filetype ==# 'vimfiler'
-    let l:dir = getbufvar(bufnr('%'), 'vimfiler').current_dir
-  elseif l:filetype ==# 'vimshell'
-    let l:dir = getbufvar(bufnr('%'), 'vimshell').save_dir
+  let filetype = getbufvar(bufnr('%'), '&filetype')
+  if filetype ==# 'vimfiler'
+    let dir = getbufvar(bufnr('%'), 'vimfiler').current_dir
+  elseif filetype ==# 'vimshell'
+    let dir = getbufvar(bufnr('%'), 'vimshell').save_dir
   else
-    let l:dir = isdirectory(bufname('%')) ? bufname('%') : fnamemodify(bufname('%'), ':p:h')
+    let dir = isdirectory(bufname('%')) ? bufname('%') : fnamemodify(bufname('%'), ':p:h')
   endif
 
-  TabpageCD `=l:dir`
+  TabpageCD `=dir`
 endfunction"}}}
 
 " Delete windows ^M codes.
@@ -2074,17 +2131,17 @@ endfunction
 
 nnoremap <silent> [Window]<Space>  :<C-u>call <SID>ToggleSplit()<CR>
 function! s:MovePreviousWindow()
-  let l:prev_name = winnr()
+  let prev_name = winnr()
   silent! wincmd p
-  if l:prev_name == winnr()
+  if prev_name == winnr()
     silent! wincmd w
   endif
 endfunction
 " If window isn't splited, split buffer.
 function! s:ToggleSplit()
-  let l:prev_name = winnr()
+  let prev_name = winnr()
   silent! wincmd w
-  if l:prev_name == winnr()
+  if prev_name == winnr()
     split
   else
     call s:smart_close()
@@ -2124,22 +2181,22 @@ function! s:CustomAlternateBuffer()
   if bufnr('%') != bufnr('#') && buflisted(bufnr('#'))
     buffer #
   else
-    let l:cnt = 0
-    let l:pos = 1
-    let l:current = 0
-    while l:pos <= bufnr('$')
-      if buflisted(l:pos)
-        if l:pos == bufnr('%')
-          let l:current = l:cnt
+    let cnt = 0
+    let pos = 1
+    let current = 0
+    while pos <= bufnr('$')
+      if buflisted(pos)
+        if pos == bufnr('%')
+          let current = cnt
         endif
 
-        let l:cnt += 1
+        let cnt += 1
       endif
 
-      let l:pos += 1
+      let pos += 1
     endwhile
 
-    if l:current > l:cnt / 2
+    if current > cnt / 2
       bprevious
     else
       bnext
@@ -2184,25 +2241,24 @@ nnoremap <silent> [Tabbed]h
       \ :<C-u>execute 'tabmove' max([tabpagenr() - v:count1 - 1, 0])<CR>
 nnoremap <silent> [Tabbed]L  :<C-u>tabmove<CR>
 nnoremap <silent> [Tabbed]H  :<C-u>tabmove 0<CR>
-nnoremap <silent> [Tabbed]d  :<C-u>tabclose<CR>
-nnoremap <silent> [Tabbed]<C-t>       :<C-u>call <SID>my_tabnext()<CR>
+nnoremap <silent> [Tabbed]<C-t>       :<C-u>Unite tab<CR>
 nmap [Tabbed]n  [Tabbed]j
 nmap [Tabbed]p  [Tabbed]k
 nmap <C-n>  [Tabbed]j
 nmap <C-p>  [Tabbed]k
 
 function! s:my_tabnew()
-  let l:title = input('Please input tab title: ', '')
+  let title = input('Please input tab title: ', '')
 
   tabnew
 
-  if l:title != ''
-    let t:title = l:title
+  if title != ''
+    let t:title = title
   endif
 
-  let l:dir = input('Please input current directory: ', getcwd(), 'dir')
-  if l:dir != ''
-    execute 'VimShellCreate' l:dir
+  let dir = input('Please input current directory: ', getcwd(), 'dir')
+  if dir != ''
+    execute 'VimShellCreate' dir
   endif
 endfunction
 
@@ -2433,27 +2489,27 @@ nnoremap <silent> L :<C-u>call LContext()<CR>
 xnoremap <silent> H <ESC>:<C-u>call HContext()<CR>mzgv`z
 xnoremap <silent> L <ESC>:<C-u>call LContext()<CR>mzgv`z
 function! HContext()
-  let l:moved = MoveCursor("H")
-  if !l:moved && line('.') != 1
+  let moved = MoveCursor("H")
+  if !moved && line('.') != 1
     execute "normal! " . "\<pageup>H"
   endif
 endfunction
 function! LContext()
-  let l:moved = MoveCursor("L")
+  let moved = MoveCursor("L")
 
-  if !l:moved && line('.') != line('$')
+  if !moved && line('.') != line('$')
     execute "normal! " . "\<pagedown>L"
   endif
 endfunction
 function! MoveCursor(key)
-  let l:cnum = col('.')
-  let l:lnum = line('.')
-  let l:wline = winline()
+  let cnum = col('.')
+  let lnum = line('.')
+  let wline = winline()
 
   execute "normal! " . v:count . a:key
-  let l:moved =  l:cnum != col('.') || l:lnum != line('.') || l:wline != winline()
+  let moved =  cnum != col('.') || lnum != line('.') || wline != winline()
 
-  return l:moved
+  return moved
 endfunction
 "}}}
 
@@ -2466,14 +2522,14 @@ nnoremap <expr> gm    (virtcol('$')/2).'\|'
 xnoremap <expr> gm    (virtcol('$')/2).'\|'
 " Smart home function"{{{
 function! SmartHome(mode)
-  let l:curcol = col('.')
+  let curcol = col('.')
 
   if &wrap
     normal! g^
   else
     normal! ^
   endif
-  if col('.') == l:curcol
+  if col('.') == curcol
     if &wrap
       normal! g0
     else
@@ -2490,15 +2546,15 @@ endfunction"}}}
 
 " Smart end function"{{{
 function! SmartEnd(mode)
-  let l:curcol = col('.')
-  let l:lastcol = a:mode ==# 'i' ? col('$') : col('$') - 1
+  let curcol = col('.')
+  let lastcol = a:mode ==# 'i' ? col('$') : col('$') - 1
 
   " Gravitate towards ending for wrapped lines
-  if l:curcol < l:lastcol - 1
-    call cursor(0, l:curcol + 1)
+  if curcol < lastcol - 1
+    call cursor(0, curcol + 1)
   endif
 
-  if l:curcol < l:lastcol
+  if curcol < lastcol
     if &wrap
       normal! g$
     else
@@ -2545,11 +2601,11 @@ nnoremap <silent> <C-l>    :<C-u>redraw!<CR>
 " If press h on head, fold close.
 "nnoremap <expr> h col('.') == 1 && foldlevel(line('.')) > 0 ? 'zc' : 'h'
 " If press l on fold, fold open.
-nnoremap <expr> l foldclosed(line('.')) != -1 ? 'zo0' : 'l'
+" nnoremap <expr> l foldclosed(line('.')) != -1 ? 'zo0' : 'l'
 " If press h on head, range fold close.
 "xnoremap <expr> h col('.') == 1 && foldlevel(line('.')) > 0 ? 'zcgv' : 'h'
 " If press l on fold, range fold open.
-xnoremap <expr> l foldclosed(line('.')) != -1 ? 'zogv0' : 'l'
+" xnoremap <expr> l foldclosed(line('.')) != -1 ? 'zogv0' : 'l'
 "}}}
 
 " Search a parenthesis.
@@ -2581,31 +2637,31 @@ cnoremap <expr> ;  <SID>sticky_func()
 snoremap <expr> ;  <SID>sticky_func()
 
 function! s:sticky_func()
-  let l:sticky_table = {
+  let sticky_table = {
         \',' : '<', '.' : '>', '/' : '?',
         \'1' : '!', '2' : '@', '3' : '#', '4' : '$', '5' : '%',
         \'6' : '^', '7' : '&', '8' : '*', '9' : '(', '0' : ')', '-' : '_', '=' : '+',
         \';' : ':', '[' : '{', ']' : '}', '`' : '~', "'" : "\"", '\' : '|',
         \}
-  let l:special_table = {
+  let special_table = {
         \"\<ESC>" : "\<ESC>", "\<Space>" : ';', "\<CR>" : ";\<CR>"
         \}
 
   if mode() !~# '^c'
     echo 'Input sticky key: '
   endif
-  let l:char = ''
+  let char = ''
 
-  while l:char == ''
-    let l:char = nr2char(getchar())
+  while char == ''
+    let char = nr2char(getchar())
   endwhile
 
-  if l:char =~ '\l'
-    return toupper(l:char)
-  elseif has_key(l:sticky_table, l:char)
-    return l:sticky_table[l:char]
-  elseif has_key(l:special_table, l:char)
-    return l:special_table[l:char]
+  if char =~ '\l'
+    return toupper(char)
+  elseif has_key(sticky_table, char)
+    return sticky_table[char]
+  elseif has_key(special_table, char)
+    return special_table[char]
   else
     return ''
   endif
@@ -2762,14 +2818,14 @@ nnoremap <ESC><ESC> :nohlsearch<CR>
 nmap <Leader>h <Plug>(operator-html-escape)
 xmap <Leader>h <Plug>(operator-html-escape)
 
-" Search.
-" nnoremap / q:/
-nnoremap ? q:/
-
 onoremap ) t)
 onoremap ( t(
 vnoremap ) t)
 vnoremap ( t(
+
+" Easily macro.
+nnoremap @@ @a
+
 "}}}
 
 "---------------------------------------------------------------------------
@@ -2823,16 +2879,16 @@ AlterCommand cd CD
 
 function! s:Batch() range"{{{
   " read vimscript from selected area.
-  let l:selected = getline(a:firstline, a:lastline)
+  let selected = getline(a:firstline, a:lastline)
   " get temp file.
-  let l:tempfile = tempname()
+  let tempfile = tempname()
   " try-finally
   try
     " write vimscript to temp file.
-    call writefile(l:selected, l:tempfile)
+    call writefile(selected, tempfile)
     try
       " execute temp file.
-      execute 'source ' . l:tempfile
+      execute 'source ' . tempfile
     catch
       " catch exception
       echohl WarningMsg |
@@ -2842,8 +2898,8 @@ function! s:Batch() range"{{{
     endtry
   finally
     " delete temp file.
-    if filewritable(l:tempfile)
-      call delete(l:tempfile)
+    if filewritable(tempfile)
+      call delete(tempfile)
     endif
   endtry
 endfunction"}}}
@@ -2858,14 +2914,14 @@ xnoremap <silent> [Space]u        :LeadUnderscores<CR>
 " Open junk file."{{{
 command! -nargs=0 JunkFile call s:open_junk_file()
 function! s:open_junk_file()
-  let l:junk_dir = $HOME . '/.vim_junk'. strftime('/%Y/%m')
-  if !isdirectory(l:junk_dir)
-    call mkdir(l:junk_dir, 'p')
+  let junk_dir = $HOME . '/.vim_junk'. strftime('/%Y/%m')
+  if !isdirectory(junk_dir)
+    call mkdir(junk_dir, 'p')
   endif
 
-  let l:filename = input('Junk Code: ', l:junk_dir.strftime('/%Y-%m-%d-%H%M%S.'))
-  if l:filename != ''
-    execute 'edit ' . l:filename
+  let filename = input('Junk Code: ', junk_dir.strftime('/%Y-%m-%d-%H%M%S.'))
+  if filename != ''
+    execute 'edit ' . filename
   endif
 endfunction"}}}
 
@@ -2916,6 +2972,25 @@ function! s:highlight_with(args) range
   let b:highlight_count = c + 1
 endfunction"}}}
 
+" For git update.
+command! GitPullAll call s:git_pull_all()
+function! s:git_pull_all()
+  let current_dir = getcwd()
+  let cnt = 1
+  let dirs = map(split(glob('*/.git'), '\n'), 'fnamemodify(v:val, ":p:h:h")')
+  let max = len(dirs)
+  for dir in dirs
+    lcd `=dir`
+    echo printf('%d/%d git pull %s', cnt, max, dir)
+    echo vimproc#system('git pull')
+    redraw
+
+    let cnt += 1
+  endfor
+
+  lcd `=current_dir`
+endfunction
+
 "}}}
 
 "---------------------------------------------------------------------------
@@ -2924,25 +2999,25 @@ endfunction"}}}
 
 " LevenShtein argorithm."{{{
 function! CalcLeven(str1, str2)
-  let [l:p1, l:p2, l:l1, l:l2] = [[], [], len(a:str1), len(a:str2)]
+  let [p1, p2, l1, l2] = [[], [], len(a:str1), len(a:str2)]
 
-  for l:i in range(l:l2+1)
-    call add(l:p1, l:i)
+  for i in range(l2+1)
+    call add(p1, i)
   endfor
-  for l:i in range(l:l2+1)
-    call add(l:p2, 0)
+  for i in range(l2+1)
+    call add(p2, 0)
   endfor
 
-  for l:i in range(l:l1)
-    let l:p2[0] = l:p1[0] + 1
-    for l:j in range(l:l2)
-      let l:p2[l:j+1] = min([l:p1[l:j] + ((a:str1[l:i] == a:str2[l:j]) ? 0 : 1),
-            \l:p1[l:j+1] + 1, l:p2[l:j]+1])
+  for i in range(l1)
+    let p2[0] = p1[0] + 1
+    for j in range(l2)
+      let p2[j+1] = min([p1[j] + ((a:str1[i] == a:str2[j]) ? 0 : 1),
+            \p1[j+1] + 1, p2[j]+1])
     endfor
-    let [l:p1, l:p2] = [l:p2, l:p1]
+    let [p1, p2] = [p2, p1]
   endfor
 
-  return l:p1[l:l2]
+  return p1[l2]
 endfunction"}}}
 
 function! SnipMid(str, len, mask)"{{{
@@ -2958,49 +3033,69 @@ function! SnipMid(str, len, mask)"{{{
   return (len_head > 0 ? a:str[: len_head - 1] : '') . a:mask . (len_tail > 0 ? a:str[-len_tail :] : '')
 endfunction"}}}
 
+" SnipNest('std::vector<std::vector<int>>', '<', '>', 1)
+"  => std::vector<<>>
+function! SnipNest(str, start, end, max)"{{{
+  let _ = ''
+  let nest_level = 0
+  for c in split(a:str, '\zs')
+    if c ==# a:start
+      let nest_level += 1
+      let _ .= c
+    elseif c ==# a:end
+      let nest_level -= 1
+      let _ .= c
+    elseif nest_level <= a:max
+      let _ .= c
+    endif
+  endfor
+
+  return _
+endfunction"}}}
+
 " Search match pair."{{{
 function! MatchPair(string, start_pattern, end_pattern, start_cnt)
-  let l:end = -1
-  let l:start_pattern = '\%(' . a:start_pattern . '\)'
-  let l:end_pattern = '\%(' . a:end_pattern . '\)'
+  let end = -1
+  let start_pattern = '\%(' . a:start_pattern . '\)'
+  let end_pattern = '\%(' . a:end_pattern . '\)'
 
-  let l:i = a:start_cnt
-  let l:max = len(a:string)
-  let l:nest_level = 0
-  while l:i < l:max
-    if match(a:string, l:start_pattern, l:i) >= 0
-      let l:i = matchend(a:string, l:start_pattern, l:i)
-      let l:nest_level += 1
-    elseif match(a:string, l:end_pattern, l:i) >= 0
-      let l:end = match(a:string, l:end_pattern, l:i)
-      let l:nest_level -= 1
+  let i = a:start_cnt
+  let max = len(a:string)
+  let nest_level = 0
+  while i < max
+    if match(a:string, start_pattern, i) >= 0
+      let i = matchend(a:string, start_pattern, i)
+      let nest_level += 1
+    elseif match(a:string, end_pattern, i) >= 0
+      let end = match(a:string, end_pattern, i)
+      let nest_level -= 1
 
-      if l:nest_level == 0
-        return l:end
+      if nest_level == 0
+        return end
       endif
 
-      let l:i = matchend(a:string, l:end_pattern, l:i)
+      let i = matchend(a:string, end_pattern, i)
     else
       break
     endif
   endwhile
 
-  if l:nest_level != 0
+  if nest_level != 0
     return -1
   else
-    return l:end
+    return end
   endif
 endfunction"}}}
 
 " For snipMate.
 function! Filename(...)
-  let l:filename = expand('%:t:r')
-  if l:filename == ''
+  let filename = expand('%:t:r')
+  if filename == ''
     return a:0 == 2 ? a:2 : ''
   elseif a:0 == 0 || a:1 == ''
-    return l:filename
+    return filename
   else
-    return substitute(a:1, '$1', l:filename, 'g')
+    return substitute(a:1, '$1', filename, 'g')
   endif
 endfunction
 "}}}

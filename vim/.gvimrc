@@ -13,7 +13,9 @@ if has('win32') || has('win64')
   "set guifont=Courier\ New:h11
   "set guifont=MS\ Gothic:h11
   "set guifont=VL\ Gothic:h11
-  "set guifont=Consolas:h11
+  "set guifont=Consolas:h12
+  "set guifont=Bitstream\ Vera\ Sans\ Mono:h11
+  "set guifont=Inconsolata:h12
   "set guifont=Terminal:h10:cSHIFTJIS
 
   " Number of pixel lines inserted between characters.
@@ -28,7 +30,7 @@ if has('win32') || has('win64')
       " Width of window.
       set columns=155
       " Height of window.
-      set lines=45
+      set lines=50
     else
       set guifont=VL\ Gothic:h11.5
       set guifontwide=
@@ -61,7 +63,7 @@ endif
 "
 if has('win32') || has('win64')
   " Width of window.
-  set columns=155
+  set columns=230
   " Height of window.
   set lines=55
 
@@ -72,9 +74,9 @@ if has('win32') || has('win64')
   nnoremap TT     :<C-u>TransparencyToggle<CR>
 else
   " Width of window.
-  set columns=150
+  set columns=151
   " Height of window.
-  set lines=44
+  set lines=41
 endif
 
 " Save the setting of window.
@@ -150,6 +152,41 @@ nnoremap <silent> <F2> :<C-u>if &guioptions =~# 'm' <Bar>
 set guioptions-=rL
 " Not guitablabel.
 set guioptions-=e
+
+" fullscreen
+"-----------------------------------------------------------
+nnoremap <silent> <F11> :<C-u>call <SID>toggle_full_secreen()<CR>
+function! s:toggle_full_secreen()
+  if &guioptions =~# 'C'
+    set guioptions-=C
+    if exists('s:go_temp')
+      if s:go_temp =~# 'm'
+        set guioptions+=m
+      endif
+      if s:go_temp =~# 'T'
+        set guioptions+=T
+      endif
+    endif
+    if has('win32') || has('win64')
+      simalt ~r
+    endif
+
+    let [&lines, &columns] = [s:lines_save, s:columns_save]
+  else
+    let s:go_temp = &guioptions
+    set guioptions+=C
+    set guioptions-=m
+    set guioptions-=T
+    if has('win32') || has('win64')
+      simalt ~x
+    endif
+
+    let [s:lines_save, s:columns_save] = [&lines, &columns]
+
+    set columns=999
+    set lines=999
+  endif
+endfunction
 
 " Confirm without window.
 set guioptions+=c
