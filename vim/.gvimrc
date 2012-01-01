@@ -4,19 +4,20 @@
 if has('win32') || has('win64')
   " For Windows.
 
-  "set guifontwide=VL\ Gothic:h11
-  "set guifontwide=MigMix\ 1M:h11
-  set guifontwide=Ricty:h12
+  " set guifontwide=VL\ Gothic:h12
+  " set guifontwide=MigMix\ 1M:h11
+  set guifontwide=Ricty:h13
 
-  set guifont=Ricty:h12
-  "set guifont=Anonymous\ Pro:h11
-  "set guifont=Courier\ New:h11
-  "set guifont=MS\ Gothic:h11
-  "set guifont=VL\ Gothic:h11
-  "set guifont=Consolas:h12
-  "set guifont=Bitstream\ Vera\ Sans\ Mono:h11
-  "set guifont=Inconsolata:h12
+  set guifont=Ricty:h13
+  " set guifont=Anonymous\ Pro:h13
+  " set guifont=Courier\ New:h13
+  " set guifont=MS\ Gothic:h13
+  " set guifont=VL\ Gothic:h13
+  " set guifont=Consolas:h12
+  " set guifont=Bitstream\ Vera\ Sans\ Mono:h11
+  " set guifont=Inconsolata:h13
   "set guifont=Terminal:h10:cSHIFTJIS
+  " set guifont=Droid\ Sans\ Mono:h11
 
   " Number of pixel lines inserted between characters.
   set linespace=2
@@ -42,7 +43,7 @@ if has('win32') || has('win64')
     endif
   endfunction
 
-  nnoremap TF     :<C-u>call FontToggle()<CR>
+  nnoremap [yanktmp]F     :<C-u>call FontToggle()<CR>
 
   if has('kaoriya')
     " For Kaoriya only.
@@ -68,10 +69,11 @@ if has('win32') || has('win64')
   set lines=55
 
   " Set transparency.
-  "autocmd GuiEnter * set transparency=221
+  autocmd GuiEnter * set transparency=221
   " Toggle font setting.
-  command! TransparencyToggle let &transparency = (&transparency != 255 && &transparency != 0)? 255 : 221
-  nnoremap TT     :<C-u>TransparencyToggle<CR>
+  command! TransparencyToggle
+        \ let &transparency = (&transparency != 255 && &transparency != 0)? 255 : 221
+  nnoremap [yanktmp]T     :<C-u>TransparencyToggle<CR>
 else
   " Width of window.
   set columns=151
