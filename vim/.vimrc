@@ -91,9 +91,10 @@ if has('vim_starting')"{{{
 
   " Load bundles.
   call pathogen#runtime_append_all_bundles()
-  call neobundle#rc(expand('~/.bundle'))
 endif
 "}}}
+
+call neobundle#rc(expand('~/.bundle'))
 
 " neobundle.vim"{{{
 NeoBundle 'git://github.com/anyakichi/vim-surround'
@@ -526,8 +527,10 @@ set title
 set titlelen=95
 " Title string.
 let &titlestring="%{(&filetype ==# 'lingr-messages' && lingr#unread_count() > 0 )?"
-      \ . " '('.lingr#unread_count().')' : ''}%{expand('%:p:.')}%(%m%r%w%)"
-      \ . " \ %<\(%{SnipMid(getcwd(),80-len(expand('%:p:.')),'...')}\) - Vim"
+      \ . " '('.lingr#unread_count().')' : ''}%{expand('%:p:.:~')}%(%m%r%w%)"
+      \ . " \ %<\(%{SnipMid(fnamemodify(&filetype ==# 'vimfiler' ?"
+      \ . "substitute(b:vimfiler.current_dir, '.\\zs/$', '', '') : getcwd(), ':~'),"
+      \ . "80-len(expand('%:p:.')),'...')}\) - Vim"
 set colorcolumn=85
 
 " Set tabline.
@@ -562,9 +565,16 @@ set showtabline=2
 
 " Set statusline.
 let &statusline="%{winnr('$')>1?'['.winnr().'/'.winnr('$')"
-      \ . ".(winnr('#')==winnr()?'#':'').']':''}\ %{expand('%:p:.')}"
+      \ . ".(winnr('#')==winnr()?'#':'').']':''}\ "
+      \ . "%{expand('%:p:.')}"
+      \ . "%{".s:SID_PREFIX()."get_twitter_len()}"
       \ . "\ %=%m%y%{'['.(&fenc!=''?&fenc:&enc).','.&ff.']'}"
       \ . "%{printf(' %5d/%d',line('.'),line('$'))}"
+
+function! s:get_twitter_len()
+  return &filetype !=# 'int-earthquake' || mode() !=# 'i' ? '' :
+        \ '(rest:' . (140 - len(substitute(vimshell#get_cur_text(),'.','x','g'))) . ')'
+endfunction
 
 " Turn down a long line appointed in 'breakat'
 set linebreak
@@ -714,6 +724,28 @@ let g:vimsyntax_noerror = 1
 " Bash
 let g:is_bash = 1
 
+" Syntax highlight for user commands.
+augroup syntax-highlight-extends
+  autocmd!
+  autocmd Syntax vim call s:set_syntax_of_user_defined_commands()
+augroup END
+
+function! s:set_syntax_of_user_defined_commands()
+  redir => _
+  silent! command
+  redir END
+
+  let command_names = []
+  for command_info in split(_, '\n')[1:]
+    let command_name = matchstr(command_info, '^[!"b]*\s\+\zs\u\w*\ze')
+    call add(command_names, command_name)
+  endfor
+
+  if empty(command_names) | return | endif
+
+  execute 'syntax keyword vimCommand contained ' . join(command_names)
+endfunction
+
 "}}}
 
 "---------------------------------------------------------------------------
@@ -757,7 +789,6 @@ let g:neocomplcache_min_keyword_length = 3
 "       \ v:version == 703 && has('patch289')
 let g:neocomplcache_enable_cursor_hold_i = 0
 let g:neocomplcache_cursor_hold_i_time = 300
-let g:neocomplcache_enable_prefetch = 1
 
 " For auto select.
 let g:neocomplcache_enable_auto_select = 1
@@ -781,6 +812,8 @@ let g:neocomplcache_force_overwrite_completefunc = 1
 let g:clang_complete_auto = 1
 let g:clang_use_library   = 1
 let g:clang_complete_auto = 1
+let g:clang_auto_select = 1
+" let g:clang_library_path = 'libclang.dll'
 
 " Define dictionary.
 let g:neocomplcache_dictionary_filetype_lists = {
@@ -825,6 +858,7 @@ let g:neocomplcache_vim_completefuncs = {
       \ 'VimShellExecute' : 'vimshell#complete#vimshell_execute_complete#completefunc',
       \ 'VimShellInteractive' : 'vimshell#complete#vimshell_execute_complete#completefunc',
       \ 'VimShellTerminal' : 'vimshell#complete#vimshell_execute_complete#completefunc',
+      \ 'VimShell' : 'vimshell#complete',
       \ 'VimFiler' : 'vimfiler#complete',
       \}
 if !exists('g:neocomplcache_plugin_completion_length')
@@ -919,7 +953,11 @@ function! CompleteFiles(findstart, base)
     let list = []
     let cnt = 0
     for word in words
-        call add(list, { 'word' : word, 'abbr' : printf('%3d: %s', cnt, word), 'menu' : 'file_complete' })
+        call add(list, {
+              \ 'word' : word,
+              \ 'abbr' : printf('%3d: %s', cnt, word),
+              \ 'menu' : 'file_complete'
+              \ })
         let cnt += 1
     endfor
 
@@ -992,6 +1030,7 @@ function! s:vimshell_settings()
   call vimshell#set_alias('l.', 'ls -d .*')
   call vimshell#set_alias('gvim', 'gexe gvim')
   call vimshell#set_galias('L', 'ls -l')
+  call vimshell#set_galias('time', 'exe time -p')
   call vimshell#hook#add('chpwd', 'my_chpwd', s:vimshell_hooks.chpwd)
   call vimshell#hook#add('emptycmd', 'my_emptycmd', s:vimshell_hooks.emptycmd)
   call vimshell#hook#add('preprompt', 'my_preprompt', s:vimshell_hooks.preprompt)
@@ -1162,7 +1201,7 @@ nnoremap <silent> [unite]g  :<C-u>Unite grep -buffer-name=search -no-quit<CR>
 nnoremap <silent> <C-k>  :<C-u>Unite change jump<CR>
 nnoremap <silent> [unite]c  :<C-u>Unite change<CR>
 nnoremap <silent> [unite]f  :<C-u>Unite -buffer-name=resume resume<CR>
-nnoremap <silent> [unite]d  :<C-u>Unite -buffer-name=files directory_mru<CR>
+nnoremap <silent> [unite]d  :<C-u>Unite -buffer-name=files -default-action=lcd directory_mru<CR>
 nnoremap <silent> [unite]ma  :<C-u>Unite mapping<CR>
 nnoremap <silent> [unite]me  :<C-u>Unite output:message<CR>
 inoremap <silent> <C-z>  <C-o>:call unite#start_complete(['register'], {'is_insert' : 1})<CR>
@@ -1187,10 +1226,6 @@ nnoremap <silent> [Tag]n  :<C-u>tag<CR>
 " nnoremap <silent> [Tag]p  :<C-u>pop<CR>
 nnoremap <silent><expr> [Tag]p  &filetype == 'help' ?
       \ ":\<C-u>pop\<CR>" : ":\<C-u>Unite jump\<CR>"
-" Jump history list.
-nnoremap <silent> [Tag]l  :<C-u>tags<CR>
-" Close preview window.
-nnoremap <silent> [Tag]c  :<C-u>pclose<CR>
 "}}}
 
 " Execute help.
@@ -1207,8 +1242,16 @@ nnoremap <silent><expr> g/  line('$') > 10000 ?  'g/' :
       \ ":\<C-u>Unite -buffer-name=search -start-insert line_migemo\<CR>"
 nnoremap [Alt]/  g/
 nnoremap <silent> ?  :<C-u>Unite mapping<CR>
-nnoremap <silent> *  :<C-u>UniteWithCursorWord -buffer-name=search line<CR>
-nnoremap <silent> n  :<C-u>UniteResume search@1 -no-start-insert<CR>
+nnoremap <silent> *  :<C-u>call <SID>smart_search()<CR>
+
+function! s:smart_search()
+  let @/= expand('<cword>')
+  UniteWithCursorWord -buffer-name=search line
+endfunction
+
+nnoremap <expr><silent> N
+      \ ":\<C-u>Unite -buffer-name=search -input=" . @/ . " -no-start-insert line\<CR>"
+nnoremap <silent> n   :UniteResume search<CR>
 
 let g:unite_enable_split_vertically = 0
 let g:unite_kind_file_cd_command = 'TabpageCD'
@@ -1294,9 +1337,6 @@ function! s:unite_my_settings()"{{{
   nnoremap <silent><buffer><expr> cd     unite#do_action('lcd')
   nnoremap <buffer><expr> S      unite#mappings#set_current_filters(
         \ empty(unite#mappings#get_current_filters()) ? ['sorter_reverse'] : [])
-
-  " <C-l>: manual neocomplcache completion.
-  inoremap <buffer><C-l>  <C-x><C-u><C-p><Down>
 endfunction"}}}
 
 " Original source."{{{
@@ -1345,6 +1385,13 @@ let g:unite_source_directory_mru_limit = 300
 " let g:unite_source_grep_command = 'jvgrep'
 " let g:unite_source_grep_default_opts = '-exclude=''\.(git|svn|hg|bzr)'''
 " let g:unite_source_grep_recursive_opt = '-R'
+
+" For ack.
+if executable('ack-grep')
+  " let g:unite_source_grep_command = 'ack-grep'
+  " let g:unite_source_grep_default_opts = '--no-heading --no-color -a'
+  " let g:unite_source_grep_recursive_opt = ''
+endif
 
 let g:unite_quick_match_table = {
       \'a' : 1, 's' : 2, 'd' : 3, 'f' : 4, 'g' : 5, 'h' : 6, 'k' : 7, 'l' : 8, ';' : 9,
@@ -1629,6 +1676,12 @@ function! s:vimfiler_my_settings()"{{{
   nnoremap <silent><buffer> J
         \ <C-u>:Unite -buffer-name=files -default-action=lcd directory_mru<CR>
   " setlocal cursorline
+
+  " Migemo search.
+  if !empty(unite#get_sources('matcher_migemo'))
+    nnoremap <silent><buffer><expr> /  line('$') > 10000 ?  'g/' :
+          \ ":\<C-u>Unite -buffer-name=search -start-insert line_migemo\<CR>"
+  endif
 endfunction"}}}
 "}}}
 
@@ -1987,7 +2040,10 @@ nmap ;  <sid>(command-line-enter)
 xmap ;  <sid>(command-line-enter)
 
 autocmd MyAutoCmd CmdwinEnter * call s:init_cmdwin()
+autocmd MyAutoCmd CmdwinLeave * let g:neocomplcache_enable_auto_select = 1
 function! s:init_cmdwin()
+  let g:neocomplcache_enable_auto_select = 0
+
   nnoremap <buffer><silent> q :<C-u>quit<CR>
   nnoremap <buffer><silent> <TAB> :<C-u>quit<CR>
   nnoremap <buffer> ; :
@@ -2165,7 +2221,7 @@ endfunction
 
 function! s:NextWindow()
   if winnr('$') == 1
-    normal! ``z.
+    silent! normal! ``z.
   else
     wincmd w
   endif
@@ -2314,19 +2370,28 @@ function! s:my_tabnew()
   let title = input('Please input tab title: ', '',
         \ 'customlist,' . s:SID_PREFIX() . 'history_complete')
 
-  tabnew
-
-  if title != ''
-    let t:title = title
-  endif
-
-  let dir = input('Please input current directory: ', getcwd(), 'dir')
+  let dir = input('Please input current directory: ',
+        \ getcwd(), 'dir')
   if dir == ''
     return
   endif
 
   if !isdirectory(dir)
+    let yesno = input(printf(
+          \ 'Directory path "%s" is not exists. Create? :', dir))
+    if yesno !~ '^y\[es]$'
+      redraw
+      echo 'Canceled.'
+      return
+    endif
+
     call mkdir(dir, 'p')
+  endif
+
+  tabnew
+
+  if title != ''
+    let t:title = title
   endif
 
   execute 'VimShellCreate' dir
@@ -2517,13 +2582,6 @@ nnoremap M  m
 
 " Don't calc octal.
 set nrformats-=octal
-
-" Move search word and fold open."{{{
-nnoremap N  nzv
-nnoremap #  #zv
-nnoremap g*  g*zv
-nnoremap g#  g#zv
-"}}}
 
 " Smart <C-f>, <C-b>.
 nnoremap <silent> <C-f> <C-f>
@@ -3193,6 +3251,10 @@ function! Filename(...)
     return substitute(a:1, '$1', filename, 'g')
   endif
 endfunction
+
+function! s:expand(path)
+  return expand(escape(a:path, '*?[]"={}'))
+endfunction
 "}}}
 
 "---------------------------------------------------------------------------
@@ -3323,7 +3385,7 @@ command! -bar -complete=dir -nargs=?
       \   TabpageCD <args>
 command! -bar -complete=dir -nargs=?
       \   TabpageCD
-      \   execute 'cd' fnameescape(expand(<q-args>))
+      \   execute 'cd' fnameescape(s:expand(<q-args>))
       \   | let t:cwd = getcwd()
 
 autocmd TabEnter *
@@ -3333,7 +3395,7 @@ autocmd TabEnter *
     \ | if !exists('t:cwd')
       \ |   let t:cwd = getcwd()
       \ | endif
-    \ | execute 'cd' fnameescape(expand(t:cwd))
+    \ | execute 'cd' fnameescape(s:expand(t:cwd))
 
 " Exchange ':cd' to ':TabpageCD'.
 cnoreabbrev <expr> cd (getcmdtype() == ':' && getcmdline() ==# 'cd') ? 'TabpageCD' : 'cd'
@@ -3344,6 +3406,3 @@ let g:snips_author = 'Shougo'
 "}}}
 
 set secure
-
-"
-" vim: foldmethod=marker
