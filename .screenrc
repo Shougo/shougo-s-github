@@ -1,0 +1,104 @@
+# 日本語を使えるようにする
+defutf8 on
+defencoding utf-8
+defkanji utf-8
+encoding utf-8 utf-8
+
+# C-lをscreen用に確保する
+escape ^l^l
+
+# zshを使う
+shell zsh
+
+# 最終行にそのとき開いてるウィンドウ一覧が出る
+hardstatus on
+hardstatus alwayslastline "%-w%{=b bg}%n %t%{-}%+Lw"
+
+# 邪魔なスタートアップ画面を表示させなくする
+startup_message off
+
+# screen上のvimで256色サポートを有効に
+attrcolor b ".I"
+termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+defbce on 
+
+# 隠れているwindowに動きがあったとき、それを伝える
+defmonitor on
+# メッセージを表示する秒数
+msgwait 0
+# 隠れているwindowで動きがあったときのメッセージ
+activity ""
+# ビープを鳴らすときに錫際に音を鳴らさず、下のメッセージ領域にメッセージを表示させる。
+vbell on
+# 隠れているwindowでbellが鳴ったときのメッセージ
+bell_msg "Bell in window %."
+
+# スクロールバッファを増やす
+defscrollback 10000
+
+# 回線が切れた場合もscreenは生き続け、"screen -r'で再接続できる。
+autodetach on        
+
+# Window move.
+bind , prev
+bind ; next
+bind p prev
+bind n next
+bind ' ' other
+
+# wコマンドでWindow Listを表示する
+# メニュー形式なので多くのwindowを開いているときに便利
+bind w windows
+bind . windowlist -b
+
+# Fast window move.
+bind 0 select 0
+bind 1 select 1
+bind 2 select 2
+bind 3 select 3
+bind 4 select 4
+bind 5 select 5
+bind 6 select 6
+bind 7 select 7
+bind 8 select 8
+bind 9 select 9
+bindkey -k k1 select 1
+bindkey -k k2 select 2
+bindkey -k k3 select 3
+bindkey -k k4 select 4
+bindkey -k k5 select 5
+bindkey -k k6 select 6
+bindkey -k k7 select 7
+bindkey -k k8 select 8
+bindkey -k k9 select 9
+bindkey -k k; select 0
+bindkey -k F1 select 0
+bindkey -k F2 select 0
+
+# 任意のレジスタをペーストする
+# レジスタにコピーするには、copyやhistory, 
+# readbuf, registerやreadregを用いる
+bind ^c copy
+bind ^y paste .
+bind p paste
+
+# resizeの便利な設定
+bind r eval 'echo "Resize window"' 'command -c resize'
+bind -c resize ^]  command
+bind -c resize j eval 'resize +1' 'command -c resize'
+bind -c resize k eval 'resize -1' 'command -c resize'
+
+# C-l C-n（あるいは C-l C-p）したら、あとはC-nとC-pだけでウィンドウを移動
+bind ^n eval "next" "command -c next"
+bind ^p eval "prev" "command -c prev"
+bind -c next ^n eval "next" "command -c next"
+bind -c next ^p eval "prev" "command -c prev"
+bind -c next ^l command
+bind -c prev ^p eval "prev" "command -c prev"
+bind -c prev ^n eval "next" "command -c next"
+bind -c prev ^l command
+
+# suspend用のウインドウを作成する
+screen -t another 0
+screen -t main
+bind ^a screen -t another 0
