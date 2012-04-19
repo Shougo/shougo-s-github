@@ -74,9 +74,9 @@ if has('win32') || has('win64')
   nnoremap TT     :<C-u>TransparencyToggle<CR>
 else
   " Width of window.
-  set columns=150
+  set columns=151
   " Height of window.
-  set lines=54
+  set lines=41
 endif
 
 " Save the setting of window.

@@ -7,10 +7,10 @@
 " Enable no Vi compatible commands.
 set nocompatible
 
-let s:iswin = has('win32') || has('win64')
+let s:is_windows = has('win32') || has('win64')
 
 " Use English interface.
-if s:iswin
+if s:is_windows
   " For Windows.
   language message en
 else
@@ -34,7 +34,7 @@ xnoremap m  <Nop>
 nnoremap ,  <Nop>
 xnoremap ,  <Nop>
 
-if s:iswin
+if s:is_windows
   " Exchange path separator.
   set shellslash
 endif
@@ -64,6 +64,7 @@ augroup MyAutoCmd
 augroup END
 
 filetype off
+filetype indent plugin off
 
 if has('vim_starting')"{{{
   " Load settings for each location.
@@ -75,7 +76,7 @@ if has('vim_starting')"{{{
   endfunction
 
   " Set runtimepath.
-  if s:iswin
+  if s:is_windows
     let &runtimepath = join([
           \ expand('~/.vim'),
           \ expand('$VIM/runtime'),
@@ -88,88 +89,93 @@ if has('vim_starting')"{{{
   if &runtimepath !~ '/neobundle.vim'
     execute 'set runtimepath+=' . expand('~/.bundle/neobundle.vim')
   endif
-
-  " Load bundles.
-  call pathogen#runtime_append_all_bundles()
 endif
 "}}}
 
 call neobundle#rc(expand('~/.bundle'))
 
 " neobundle.vim"{{{
-NeoBundle 'git://github.com/anyakichi/vim-surround'
-NeoBundle 'git://github.com/basyura/TweetVim.git'
-NeoBundle 'git://github.com/basyura/twibill.vim.git'
-NeoBundle 'git://github.com/choplin/unite-vim_hacks'
-" NeoBundle 'git://github.com/Shougo/neocomplcache-clang.git'
-NeoBundle 'git://github.com/Shougo/echodoc.git'
-NeoBundle 'git://github.com/Shougo/eev.vim.git'
-NeoBundle 'git://github.com/Shougo/git-vim.git'
-NeoBundle 'git://github.com/Shougo/neocomplcache.git'
-NeoBundle 'git://github.com/Shougo/neobundle.vim.git'
-NeoBundle 'git://github.com/Shougo/unite.vim.git'
-NeoBundle 'git://github.com/Shougo/unite-build.git'
-NeoBundle 'git://github.com/Shougo/vim-vcs.git'
-NeoBundle 'git://github.com/Shougo/vimfiler.git'
-" NeoBundle 'git://github.com/Shougo/vimfiler.git', 'ver.1.50'
-NeoBundle 'git://github.com/Shougo/vimproc.git'
-NeoBundle 'git://github.com/Shougo/vimshell.git'
-NeoBundle 'git://github.com/Shougo/vinarise.git'
-NeoBundle 'git://github.com/h1mesuke/unite-outline.git'
-NeoBundle 'git://github.com/hail2u/vim-css3-syntax.git'
-NeoBundle 'git://github.com/kana/vim-altr.git'
-NeoBundle 'git://github.com/kana/vim-smartchr.git'
-NeoBundle 'git://github.com/kana/vim-wwwsearch.git'
-NeoBundle 'git://github.com/Rip-Rip/clang_complete.git'
-NeoBundle 'git://github.com/Shougo/foldCC.git'
-NeoBundle 'git://github.com/mattn/wwwrenderer-vim.git'
-" NeoBundle 'git://github.com/mattn/webapi-vim.git'
-NeoBundle 'git://github.com/basyura/webapi-vim.git'
-NeoBundle 'git://github.com/pocket7878/curses-vim.git'
-NeoBundle 'git://github.com/pocket7878/presen-vim.git'
-NeoBundle 'git://github.com/rson/vim-conque.git'
-NeoBundle 'git://github.com/sjl/gundo.vim.git'
-NeoBundle 'git://github.com/soh335/unite-qflist.git'
-NeoBundle 'git://github.com/t9md/vim-surround_custom_mapping.git'
-NeoBundle 'git://github.com/t9md/vim-textmanip.git'
-NeoBundle 'git://github.com/thinca/vim-fontzoom.git'
-NeoBundle 'git://github.com/thinca/vim-ft-vim_fold.git'
-NeoBundle 'git://github.com/thinca/vim-openbuf.git'
-NeoBundle 'git://github.com/thinca/vim-prettyprint.git'
-NeoBundle 'git://github.com/thinca/vim-quickrun.git'
-NeoBundle 'git://github.com/thinca/vim-scouter.git'
-NeoBundle 'git://github.com/thinca/vim-ref.git'
-NeoBundle 'git://github.com/thinca/vim-unite-history.git'
-NeoBundle 'git://github.com/tsukkee/lingr-vim.git'
-NeoBundle 'git://github.com/tsukkee/unite-help.git'
-NeoBundle 'git://github.com/tsukkee/unite-tag.git'
-NeoBundle 'git://github.com/tyru/caw.vim.git'
-NeoBundle 'git://github.com/tyru/cul.vim.git'
-NeoBundle 'git://github.com/tyru/eskk.vim.git'
-NeoBundle 'git://github.com/tyru/open-browser.vim.git'
-NeoBundle 'git://github.com/tyru/operator-html-escape.vim.git'
-NeoBundle 'git://github.com/tyru/restart.vim.git'
-NeoBundle 'git://github.com/tyru/savemap.vim.git'
-NeoBundle 'git://github.com/tyru/simpletap.vim.git'
-NeoBundle 'git://github.com/tyru/skk.vim.git'
-NeoBundle 'git://github.com/tyru/skkdict.vim.git'
-NeoBundle 'git://github.com/tyru/vice.vim.git'
-NeoBundle 'git://github.com/tyru/vim-altercmd.git'
-NeoBundle 'git://github.com/tyru/winmove.vim.git'
-NeoBundle 'git://github.com/ujihisa/neco-ghc.git'
-NeoBundle 'git://github.com/ujihisa/neco-look.git'
-NeoBundle 'git://github.com/ujihisa/unite-colorscheme.git'
-NeoBundle 'git://github.com/ujihisa/unite-locate.git'
-NeoBundle 'git://github.com/ujihisa/vimshell-ssh.git'
-NeoBundle 'git://github.com/vim-jp/vimdoc-ja.git'
-NeoBundle 'git://github.com/vim-scripts/VimClojure.git'
-NeoBundle 'git://github.com/vim-scripts/netrw.vim.git'
-NeoBundle 'git://github.com/vim-ruby/vim-ruby.git'
+NeoBundle 'anyakichi/vim-surround'
+NeoBundle 'basyura/TweetVim.git'
+NeoBundle 'basyura/twibill.vim.git'
+NeoBundle 'choplin/unite-vim_hacks'
+NeoBundle 'liquidz/vimfiler-sendto.git'
+" NeoBundle 'osyo-manga/unite-boost-online-doc.git'
+" NeoBundle 'Shougo/neocomplcache-clang.git'
+NeoBundle 'Shougo/echodoc.git'
+NeoBundle 'Shougo/eev.vim.git'
+NeoBundle 'Shougo/git-vim.git'
+NeoBundle 'Shougo/neocomplcache.git'
+NeoBundle 'Shougo/neocomplcache-snippets-complete.git'
+NeoBundle 'Shougo/neobundle.vim.git'
+NeoBundle 'Shougo/unite.vim.git'
+NeoBundle 'Shougo/unite-build.git'
+NeoBundle 'Shougo/vim-vcs.git'
+NeoBundle 'Shougo/vimfiler.git'
+" NeoBundle 'Shougo/vimfiler.git', 'ver.1.50'
+NeoBundle 'Shougo/vimproc.git'
+NeoBundle 'Shougo/vimshell.git'
+NeoBundle 'Shougo/vinarise.git'
+NeoBundle 'h1mesuke/unite-outline.git'
+NeoBundle 'hail2u/vim-css3-syntax.git'
+NeoBundle 'kana/vim-altr.git'
+NeoBundle 'kana/vim-smartchr.git'
+NeoBundle 'kana/vim-wwwsearch.git'
+NeoBundle 'Rip-Rip/clang_complete.git'
+NeoBundle 'Shougo/foldCC.git'
+NeoBundle 'mattn/wwwrenderer-vim.git'
+NeoBundle 'mattn/webapi-vim.git'
+" NeoBundle 'basyura/webapi-vim.git'
+NeoBundle 'pocket7878/curses-vim.git'
+NeoBundle 'pocket7878/presen-vim.git'
+NeoBundle 'rson/vim-conque.git'
+NeoBundle 'sjl/gundo.vim.git'
+NeoBundle 'soh335/unite-qflist.git'
+NeoBundle 't9md/vim-surround_custom_mapping.git'
+NeoBundle 't9md/vim-textmanip.git'
+NeoBundle 'thinca/vim-fontzoom.git'
+NeoBundle 'thinca/vim-ft-vim_fold.git'
+NeoBundle 'thinca/vim-openbuf.git'
+NeoBundle 'thinca/vim-prettyprint.git'
+NeoBundle 'thinca/vim-quickrun.git'
+NeoBundle 'thinca/vim-scouter.git'
+NeoBundle 'thinca/vim-ref.git'
+NeoBundle 'thinca/vim-unite-history.git'
+NeoBundle 'tsukkee/lingr-vim.git'
+NeoBundle 'tsukkee/unite-help.git'
+NeoBundle 'tsukkee/unite-tag.git'
+NeoBundle 'tyru/caw.vim.git'
+NeoBundle 'tyru/cul.vim.git'
+NeoBundle 'tyru/eskk.vim.git'
+NeoBundle 'tyru/open-browser.vim.git'
+NeoBundle 'tyru/operator-html-escape.vim.git'
+NeoBundle 'tyru/restart.vim.git'
+NeoBundle 'tyru/savemap.vim.git'
+NeoBundle 'tyru/simpletap.vim.git'
+NeoBundle 'tyru/skk.vim.git'
+NeoBundle 'tyru/skkdict.vim.git'
+NeoBundle 'tyru/vice.vim.git'
+NeoBundle 'tyru/vim-altercmd.git'
+NeoBundle 'tyru/winmove.vim.git'
+NeoBundle 'ujihisa/neco-ghc.git'
+NeoBundle 'ujihisa/neco-look.git'
+NeoBundle 'ujihisa/unite-colorscheme.git'
+NeoBundle 'ujihisa/unite-locate.git'
+NeoBundle 'ujihisa/vimshell-ssh.git'
+NeoBundle 'vim-jp/vimdoc-ja.git'
+NeoBundle 'vim-scripts/VimClojure.git'
+NeoBundle 'vim-scripts/netrw.vim.git'
+NeoBundle 'vim-ruby/vim-ruby.git'
 " NeoBundle 'Markdown'
+NeoBundle 'yuratomo/w3m.vim'
+
+" nosync test.
+NeoBundle 'yanktmp', {'type' : 'nosync', 'base' : '~/.vim/bundle'}
+NeoBundle 'qfreplace', {'type' : 'nosync', 'base' : '~/.vim/bundle'}
 "}}}
 
-filetype plugin on
-filetype indent on
+filetype plugin indent on
+filetype on
 
 " Delete bundle directories contained local runtimepath.
 for base in map(filter(split(&runtimepath, ','), 'v:val !~ "/\\.\\?bundle/"'), "fnamemodify(v:val, ':t')")
@@ -215,7 +221,7 @@ if !has('gui_running')
       set termencoding=  " same as 'encoding'
     endif
   endif
-elseif s:iswin
+elseif s:is_windows
   " For system.
   set termencoding=cp932
 endif
@@ -374,7 +380,7 @@ set modeline
 set clipboard& clipboard+=unnamed
 
 " Disable auto wrap.
-autocmd MyAutoCmd FileType * set textwidth=0
+autocmd MyAutoCmd FileType * setlocal textwidth=0
 
 " Enable backspace delete indent and newline.
 set backspace=indent,eol,start
@@ -439,7 +445,7 @@ set grepprg=grep\ -nH
 set isfname-==
 
 " Reload .vimrc and .gvimrc automatically.
-if !has('gui_running') && !s:iswin
+if !has('gui_running') && !s:is_windows
   autocmd MyAutoCmd BufWritePost .vimrc nested source $MYVIMRC | echo "source $MYVIMRC"
 else
   autocmd MyAutoCmd BufWritePost .vimrc source $MYVIMRC |
@@ -805,7 +811,7 @@ if $USER ==# 'root'
 endif
 
 " For neocomplcache-clang.
-let g:neocomplcache_clang_use_library = 1
+let g:neocomplcache_clang_use_library = 0
 
 " For neocomplcache-clang_complete.
 let g:neocomplcache_force_overwrite_completefunc = 1
@@ -822,6 +828,7 @@ let g:neocomplcache_dictionary_filetype_lists = {
       \ 'scala' : expand('$DOTVIM/dict/scala.dict'),
       \ 'ruby' : expand('$DOTVIM/dict/ruby.dict'),
       \ 'int-termtter' : expand('~/.vimshell/int-history/int-termtter'),
+      \ 'hoge' : expand('~/work/test.dic'),
       \ }
 
 let g:neocomplcache_omni_functions = {
@@ -855,11 +862,15 @@ let g:neocomplcache_source_look_dictionary_path = ''
 let g:neocomplcache_vim_completefuncs = {
       \ 'Ref' : 'ref#complete',
       \ 'Unite' : 'unite#complete_source',
-      \ 'VimShellExecute' : 'vimshell#complete#vimshell_execute_complete#completefunc',
-      \ 'VimShellInteractive' : 'vimshell#complete#vimshell_execute_complete#completefunc',
-      \ 'VimShellTerminal' : 'vimshell#complete#vimshell_execute_complete#completefunc',
+      \ 'VimShellExecute' :
+      \      'vimshell#vimshell_execute_complete',
+      \ 'VimShellInteractive' :
+      \      'vimshell#vimshell_execute_complete',
+      \ 'VimShellTerminal' :
+      \      'vimshell#vimshell_execute_complete',
       \ 'VimShell' : 'vimshell#complete',
       \ 'VimFiler' : 'vimfiler#complete',
+      \ 'Vinarise' : 'vinarise#complete',
       \}
 if !exists('g:neocomplcache_plugin_completion_length')
   let g:neocomplcache_plugin_completion_length = {
@@ -872,6 +883,7 @@ imap <silent>L     <Plug>(neocomplcache_snippets_expand)
 "imap <expr>L    neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : "\<C-n>"
 smap <silent>L     <Plug>(neocomplcache_snippets_jump)
 imap <silent>G     <Plug>(neocomplcache_snippets_force_expand)
+imap <silent>S     <Plug>(neocomplcache_start_unite_snippet)
 " imap <silent>J     <Plug>(neocomplcache_snippets_jump)
 
 inoremap <expr><C-g>     neocomplcache#undo_completion()
@@ -980,7 +992,7 @@ let g:vimshell_prompt = '% '
 let g:vimshell_cd_command = 'TabpageCD'
 let g:vimshell_split_command = ''
 
-if s:iswin
+if s:is_windows
   " Display user name on Windows.
   "let g:vimshell_prompt = $USERNAME."% "
 
@@ -1146,9 +1158,9 @@ let errormarker_warningtext    = '??'
 let g:errormarker_errorgroup   = 'Error'
 let g:errormarker_warninggroup = 'Todo'
 let g:errormarker_erroricon    = $DOTVIM . '/signs/err.'
-      \ . (s:iswin ? 'bmp' : 'png')
+      \ . (s:is_windows ? 'bmp' : 'png')
 let g:errormarker_warningicon  = $DOTVIM . '/signs/warn.'
-      \ . (s:iswin ? 'bmp' : 'png')
+      \ . (s:is_windows ? 'bmp' : 'png')
 "}}}
 
 " git.vim{{{
@@ -1191,7 +1203,7 @@ endfunction
 nnoremap <silent> [unite]r  :<C-u>Unite -buffer-name=register register history/yank<CR>
 nnoremap <silent> [unite]o  :<C-u>Unite outline -start-insert<CR>
 nnoremap  [unite]f  :<C-u>Unite source<CR>
-nnoremap <silent> [unite]t  :<C-u>UniteWithCursorWord -buffer-name=tag tag<CR>
+nnoremap <silent> [unite]t  :<C-u>UniteWithCursorWord -buffer-name=tag tag/include<CR>
 xnoremap <silent> [unite]r  d:<C-u>Unite -buffer-name=register register history/yank<CR>
 nnoremap <silent> [unite]w  :<C-u>UniteWithCursorWord -buffer-name=register
       \ buffer file_mru bookmark file<CR>
@@ -1207,7 +1219,7 @@ nnoremap <silent> [unite]me  :<C-u>Unite output:message<CR>
 inoremap <silent> <C-z>  <C-o>:call unite#start_complete(['register'], {'is_insert' : 1})<CR>
 
 nnoremap <silent> [Window]s  :<C-u>Unite -buffer-name=files -no-split
-      \ jump_point file_point buffer_tab file_rec file file_mru<CR>
+      \ jump_point file_point buffer_tab file_rec file file/new file_mru<CR>
 nnoremap <silent> [Window]t  :<C-u>Unite -buffer-name=files tab<CR>
 nnoremap <silent> [Window]w  :<C-u>Unite window<CR>
 nnoremap <silent> [Space]b  :<C-u>UniteBookmarkAdd<CR>
@@ -1219,7 +1231,7 @@ nmap    t [Tag]
 " Jump.
 " nnoremap [Tag]t  <C-]>
 nnoremap <silent><expr> [Tag]t  &filetype == 'help' ?  "\<C-]>" :
-      \ ":\<C-u>UniteWithCursorWord -buffer-name=tag tag\<CR>"
+      \ ":\<C-u>UniteWithCursorWord -buffer-name=tag tag/include\<CR>"
 " Jump next.
 nnoremap <silent> [Tag]n  :<C-u>tag<CR>
 " Jump previous.
@@ -1236,22 +1248,26 @@ nnoremap <C-h>  :<C-u>UniteWithInput help<CR>
 nnoremap <silent> g<C-h>  :<C-u>UniteWithCursorWord help<CR>
 
 " Search.
-nnoremap <silent><expr> /  line('$') > 10000 ?  '/' :
-      \ ":\<C-u>Unite -buffer-name=search -start-insert line\<CR>"
-nnoremap <silent><expr> g/  line('$') > 10000 ?  'g/' :
-      \ ":\<C-u>Unite -buffer-name=search -start-insert line_migemo\<CR>"
+nnoremap <expr> /  <SID>smart_search_expr('/',
+      \ ":\<C-u>Unite -buffer-name=search -start-insert line\<CR>")
+nnoremap <expr> g/  <SID>smart_search_expr('g/',
+      \ ":\<C-u>Unite -buffer-name=search -start-insert line_migemo\<CR>")
 nnoremap [Alt]/  g/
-nnoremap <silent> ?  :<C-u>Unite mapping<CR>
-nnoremap <silent> *  :<C-u>call <SID>smart_search()<CR>
+nnoremap <silent><expr> ? <SID>smart_search_expr('?',
+      \ ":\<C-u>Unite mapping\<CR>")
+nnoremap <silent><expr> * <SID>smart_search_expr('*',
+      \ ":\<C-u>UniteWithCursorWord -input="
+      \ . expand('<cword>') . " -buffer-name=search line\<CR>")
 
-function! s:smart_search()
-  let @/= expand('<cword>')
-  UniteWithCursorWord -buffer-name=search line
+function! s:smart_search_expr(expr1, expr2)
+  return line('$') > 4000 ?  a:expr1 : a:expr2
 endfunction
 
-nnoremap <expr><silent> N
-      \ ":\<C-u>Unite -buffer-name=search -input=" . @/ . " -no-start-insert line\<CR>"
-nnoremap <silent> n   :UniteResume search<CR>
+nnoremap <expr><silent> N  <SID>smart_search_expr('N',
+      \ ":\<C-u>Unite -buffer-name=search -input=" . @/
+      \  . " -no-start-insert line\<CR>")
+nnoremap <silent><expr> n  <SID>smart_search_expr('n',
+      \ ":\<C-u>UniteResume search\<CR>")
 
 let g:unite_enable_split_vertically = 0
 let g:unite_kind_file_cd_command = 'TabpageCD'
@@ -1278,8 +1294,8 @@ call unite#set_substitute_pattern('file', '[^~.]\zs/', '*/*', 20)
 
 " migemo.
 call unite#custom_filters('line_migemo', ['matcher_migemo', 'sorter_default', 'converter_default'])
-" call unite#custom_filters('file_rec',
-      " \ ['converter_relative_word', 'matcher_default', 'sorter_default'])
+call unite#custom_filters('file_rec',
+      \ ['matcher_default', 'sorter_rank', 'converter_default'])
 
 " Custom actions."{{{
 let my_tabopen = {
@@ -1375,10 +1391,10 @@ unlet source
 
 let g:unite_cursor_line_highlight = 'TabLineSel'
 let g:unite_abbr_highlight = 'TabLine'
-let g:unite_source_file_mru_time_format = ''
+" let g:unite_source_file_mru_time_format = ''
 let g:unite_source_file_mru_filename_format = ':~:.'
 let g:unite_source_file_mru_limit = 300
-let g:unite_source_directory_mru_time_format = ''
+" let g:unite_source_directory_mru_time_format = ''
 let g:unite_source_directory_mru_limit = 300
 
 " For jvgrep.
@@ -1439,9 +1455,9 @@ function g:unite_source_menu_menus.test.map(key, value)
 endfunction
 
 let g:unite_build_error_icon    = $DOTVIM . '/signs/err.'
-      \ . (s:iswin ? 'bmp' : 'png')
+      \ . (s:is_windows ? 'bmp' : 'png')
 let g:unite_build_warning_icon  = $DOTVIM . '/signs/warn.'
-      \ . (s:iswin ? 'bmp' : 'png')
+      \ . (s:is_windows ? 'bmp' : 'png')
 
 " For unite-session.
 " Save session automatically.
@@ -1560,7 +1576,7 @@ if !exists('g:quickrun_config')
         \   '*': {'runmode': 'async:vimproc'},
         \ }
 
-  if s:iswin
+  if s:is_windows
     function! TexEncoding()
       if &fileencoding ==# 'utf-8'
         let arg = 'utf8 '
@@ -1625,11 +1641,32 @@ endfor
 
 " ref.vim"{{{
 let g:ref_use_vimproc = 1
-if s:iswin
+if s:is_windows
   let g:ref_refe_encoding = 'cp932'
 else
   let g:ref_refe_encoding = 'euc-jp'
 endif
+
+" ref-lynx.
+if s:is_windows
+  let s:lynx = 'C:/lynx/lynx.exe'
+  let s:cfg  = 'C:/lynx/lynx.cfg'
+  let g:ref_lynx_cmd = s:lynx.' -cfg='.s:cfg.' -dump -nonumbers %s'
+  let g:ref_alc_cmd = s:lynx.' -cfg='.s:cfg.' -dump %s'
+  unlet s:lynx
+  unlet s:cfg
+endif
+
+let g:ref_lynx_use_cache = 1
+let g:ref_lynx_start_linenumber = 0 " Skip.
+let g:ref_lynx_hide_url_number = 0
+
+autocmd MyAutoCmd FileType ref call s:ref_my_settings()
+function! s:ref_my_settings()"{{{
+  " Overwrite settings.
+  nmap <buffer> [Tag]t  <Plug>(ref-keyword)
+  nmap <buffer> [Tag]p  <Plug>(ref-back)
+endfunction"}}}
 "}}}
 
 " vimfiler.vim"{{{
@@ -1652,13 +1689,27 @@ let g:vimfiler_safe_mode_by_default = 0
 let g:vimshell_cd_command = 'TabpageCD'
 
 let g:vimfiler_as_default_explorer = 1
-let g:vimfiler_detect_drives = s:iswin ? [
+let g:vimfiler_detect_drives = s:is_windows ? [
       \ 'C:/', 'D:/', 'E:/', 'F:/', 'G:/', 'H:/', 'I:/',
       \ 'J:/', 'K:/', 'L:/', 'M:/', 'N:/'] :
       \ split(glob('/mnt/*'), '\n') + split(glob('/media/*'), '\n') +
       \ split(glob('/Users/*'), '\n')
 
-if s:iswin
+" %p : full path
+" %d : current directory
+" %f : filename
+" %F : filename removed extensions
+" %* : filenames
+" %# : filenames fullpath
+let g:vimfiler_sendto = {
+      \ 'unzip' : 'unzip %f',
+      \ 'zip' : 'zip -r %F.zip %*',
+      \ 'Inkscape' : 'inkspace',
+      \ 'GIMP' : 'gimp %*',
+      \ 'gedit' : 'gedit',
+\ }
+
+if s:is_windows
   " Use trashbox.
   let g:unite_kind_file_use_trashbox = 1
 else
@@ -1675,6 +1726,8 @@ function! s:vimfiler_my_settings()"{{{
   " Overwrite settings.
   nnoremap <silent><buffer> J
         \ <C-u>:Unite -buffer-name=files -default-action=lcd directory_mru<CR>
+  " Call sendto.
+  nnoremap <buffer> - <C-u>:Unite sendto<CR>
   " setlocal cursorline
 
   " Migemo search.
@@ -1758,7 +1811,7 @@ function! s:lingr_messages_my_settings()"{{{
   nmap <buffer> o <Plug>(lingr-messages-show-say-buffer)
   nunmap <buffer> s
 
-  if s:iswin
+  if s:is_windows
     " Dirty shellslash hack.
     set noshellslash
 
@@ -1910,6 +1963,9 @@ endfunction"}}}
 
 " Gundo.vim
 nnoremap U      :<C-u>GundoToggle<CR>
+
+" w3m.vim
+nnoremap W      :<C-u>W3m<Space>
 
 " TweetVim
 " Start TweetVim.
@@ -2378,9 +2434,9 @@ function! s:my_tabnew()
 
   if !isdirectory(dir)
     let yesno = input(printf(
-          \ 'Directory path "%s" is not exists. Create? :', dir))
-    if yesno !~ '^y\[es]$'
-      redraw
+          \ 'Directory path "%s" is not exists. Create? : ', dir))
+    redraw
+    if yesno !~ '^y\%[es]$'
       echo 'Canceled.'
       return
     endif
@@ -3128,13 +3184,12 @@ function! s:git_pull_all()
   let max = len(dirs)
   for dir in dirs
     lcd `=dir`
+    redraw
     echo printf('%d/%d git pull origin master %s', cnt, max, dir)
     let output = vimproc#system('git pull origin master')
     if vimproc#get_last_status()
       echohl WarningMsg | echomsg output | echohl None
     endif
-    redraw
-    echo ''
 
     let cnt += 1
   endfor
@@ -3260,7 +3315,7 @@ endfunction
 "---------------------------------------------------------------------------
 " Platform depends:"{{{
 "
-if s:iswin
+if s:is_windows
   " For Windows"{{{
 
   " In Windows, can't find exe, when $PATH isn't contained $VIM.
