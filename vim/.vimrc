@@ -85,6 +85,18 @@ if has('vim_starting')"{{{
 
   call s:vimrc_local(getcwd())
 
+  " Load current directory plugins.
+  for dir in filter(split(glob('*'), '\n'), 'isdirectory(v:val)')
+    let base = fnamemodify(dir, ':t')
+    let dir = fnamemodify(dir, ':p')[: -2]
+    let &rtp = dir . ',' . &rtp . ',' . dir . '/after'
+
+    augroup vimrc-local-dev-plugin
+      execute 'autocmd SourcePre */' . base . '/*/plugin/*.vim'
+            \       'unlet! g:loaded_{expand("<afile>:p:r:s?.*/plugin/??:gs?[/\\\\]?_?")}'
+    augroup END
+  endfor
+
   " Load neobundle.
   if &runtimepath !~ '/neobundle.vim'
     execute 'set runtimepath+=' . expand('~/.bundle/neobundle.vim')
@@ -121,6 +133,7 @@ NeoBundle 'hail2u/vim-css3-syntax.git'
 NeoBundle 'kana/vim-altr.git'
 NeoBundle 'kana/vim-smartchr.git'
 NeoBundle 'kana/vim-wwwsearch.git'
+NeoBundle 'kien/ctrlp.vim.git'
 NeoBundle 'Rip-Rip/clang_complete.git'
 NeoBundle 'Shougo/foldCC.git'
 NeoBundle 'mattn/wwwrenderer-vim.git'
@@ -178,11 +191,10 @@ filetype plugin indent on
 filetype on
 
 " Delete bundle directories contained local runtimepath.
-for base in map(filter(split(&runtimepath, ','), 'v:val !~ "/\\.\\?bundle/"'), "fnamemodify(v:val, ':t')")
-  if base !=# 'after'
-    let &runtimepath = substitute(&runtimepath,
-          \ '\%(^\|,\)[^,]\+/\.\?bundle/'.base.'\ze,', '', 'g')
-  endif
+for base in map(filter(split(&runtimepath, ','),
+      \ 'v:val !~ "/after/\|/\\.\\?bundle/"'), "fnamemodify(v:val, ':t')")
+  let &runtimepath = substitute(&runtimepath,
+        \ '\%(^\|,\)[^,]\+/\.\?bundle/'.base.'\ze,', '', 'g')
 endfor
 
 if filereadable(expand('~/.secret_vimrc'))
@@ -707,6 +719,8 @@ augroup MyAutoCmd
   "autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
   "autocmd FileType sql setlocal omnifunc=sqlcomplete#Complete
   autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+  autocmd FileType python setlocal foldmethod=indent
 augroup END
 
 " Java
@@ -1219,7 +1233,7 @@ nnoremap <silent> [unite]me  :<C-u>Unite output:message<CR>
 inoremap <silent> <C-z>  <C-o>:call unite#start_complete(['register'], {'is_insert' : 1})<CR>
 
 nnoremap <silent> [Window]s  :<C-u>Unite -buffer-name=files -no-split
-      \ jump_point file_point buffer_tab file_rec file file/new file_mru<CR>
+      \ jump_point file_point buffer_tab file_rec/async:! file file/new file_mru<CR>
 nnoremap <silent> [Window]t  :<C-u>Unite -buffer-name=files tab<CR>
 nnoremap <silent> [Window]w  :<C-u>Unite window<CR>
 nnoremap <silent> [Space]b  :<C-u>UniteBookmarkAdd<CR>
