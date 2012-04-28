@@ -101,6 +101,9 @@ if has('vim_starting')"{{{
   if &runtimepath !~ '/neobundle.vim'
     execute 'set runtimepath+=' . expand('~/.bundle/neobundle.vim')
   endif
+
+  " Enable syntax color.
+  syntax enable
 endif
 "}}}
 
@@ -130,7 +133,6 @@ NeoBundle 'Shougo/vimshell.git'
 NeoBundle 'Shougo/vinarise.git'
 NeoBundle 'h1mesuke/unite-outline.git'
 NeoBundle 'hail2u/vim-css3-syntax.git'
-NeoBundle 'kana/vim-altr.git'
 NeoBundle 'kana/vim-smartchr.git'
 NeoBundle 'kana/vim-wwwsearch.git'
 NeoBundle 'kien/ctrlp.vim.git'
@@ -192,7 +194,7 @@ filetype on
 
 " Delete bundle directories contained local runtimepath.
 for base in map(filter(split(&runtimepath, ','),
-      \ 'v:val !~ "/after/\|/\\.\\?bundle/"'), "fnamemodify(v:val, ':t')")
+      \ "v:val !~ '/after\\|/\\.\\?bundle/'"), "fnamemodify(v:val, ':t')")
   let &runtimepath = substitute(&runtimepath,
         \ '\%(^\|,\)[^,]\+/\.\?bundle/'.base.'\ze,', '', 'g')
 endfor
@@ -676,9 +678,6 @@ set conceallevel=2 concealcursor=iv
 "---------------------------------------------------------------------------
 " Syntax:"{{{
 "
-" Enable syntax color.
-syntax enable
-
 " Enable smart indent.
 set autoindent smartindent
 
@@ -1906,12 +1905,6 @@ let g:ConqueTerm_PyVersion = 3
 " fontzoom.vim"{{{
 nmap + <Plug>(fontzoom-larger)
 nmap _ <Plug>(fontzoom-smaller)
-"}}}
-
-" altr.vim"{{{
-nmap [Window]a  <Plug>(altr-forward)
-nmap [Window]b  <Plug>(altr-forward)
-call altr#define('autoload/%.vim', 'doc/%.txt', 'doc/%.jax', 'plugin/%.vim')
 "}}}
 
 " textmanip.vim"{{{
