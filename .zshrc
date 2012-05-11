@@ -129,12 +129,21 @@ elif [ ${VIMSHELL_TERM:-""} != "" ]; then
 else
         PROMPT='%{[$[31+$RANDOM % 7]m%}%U%B%n%#'"%b%{[m%}%u "
         RPROMPT="%{[33m%}[%35<..<%~]%{[m%}"
-        
+
         # vcs_infoを使う
         #autoload -Uz vcs_info
         #zstyle ':vcs_info:*' formats '(%s)-[%b]'
         #zstyle ':vcs_info:*' actionformats '(%s)-[%b|%a]'
         #RPROMPT="%{[33m%}[%~]%{[m%} %1(v|%F{green}%1v%f|)"
+fi
+
+if [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] ; then
+        PROMPT="%{^[[37m%}${HOST%%.*} ${PROMPT}"
+fi
+
+if [ $UID = "0" ]; then
+    PROMPT="%B%{^[[31m%}%/#%{^[[m%}%b "
+    PROMPT2="%B%{^[[31m%}%_#%{^[[m%}%b "
 fi
 
 # 複数行入力時のプロンプト
