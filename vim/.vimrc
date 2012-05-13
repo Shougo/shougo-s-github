@@ -190,10 +190,12 @@ NeoBundleLazy 'yanktmp', {
 
 " Test.
 NeoBundleLazy 'tpope/vim-fugitive'
+NeoBundleLazy 'masudaK/vim-python'
+NeoBundleLazy 'klen/python-mode'
+autocmd MyAutoCmd FileType python* NeoBundleSource python-mode vim-python
 "}}}
 
 filetype plugin indent on
-filetype on
 
 " Delete bundle directories contained local runtimepath.
 for base in map(filter(split(&runtimepath, ','),
@@ -2434,11 +2436,11 @@ nmap <C-p>  [Tabbed]k
 function! s:my_tabnew()
   let title = input('Please input tab title: ', '',
         \ 'customlist,' . s:SID_PREFIX() . 'history_complete')
+
+  tabnew
   if title != ''
     let t:title = title
   endif
-
-  tabnew
 
   VimShellCreate
 
@@ -2809,12 +2811,6 @@ onoremap <silent> q /["',.{}()[\]<>]<CR>
 
 " Auto escape / substitute.
 xnoremap s y:%s/<C-r>=substitute(@0, '/', '\\/', 'g')<Return>//g<Left><Left>
-
-" Use operator-replace.
-nmap [Alt]r <Plug>(operator-replace)
-xmap [Alt]r <Plug>(operator-replace)
-xmap p <Plug>(operator-replace)
-xmap P <Plug>(operator-replace)
 
 " Move last modified text.
 nnoremap gb `.zz
