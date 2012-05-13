@@ -85,18 +85,6 @@ if has('vim_starting')"{{{
 
   call s:vimrc_local(getcwd())
 
-  " Load current directory plugins.
-  for dir in filter(split(glob('*'), '\n'), 'isdirectory(v:val)')
-    let base = fnamemodify(dir, ':t')
-    let dir = fnamemodify(dir, ':p')[: -2]
-    let &rtp = dir . ',' . &rtp . ',' . dir . '/after'
-
-    augroup vimrc-local-dev-plugin
-      execute 'autocmd SourcePre */' . base . '/*/plugin/*.vim'
-            \       'unlet! g:loaded_{expand("<afile>:p:r:s?.*/plugin/??:gs?[/\\\\]?_?")}'
-    augroup END
-  endfor
-
   " Load neobundle.
   if &runtimepath !~ '/neobundle.vim'
     execute 'set runtimepath+=' . expand('~/.bundle/neobundle.vim')
@@ -111,14 +99,13 @@ call neobundle#rc(expand('~/.bundle'))
 
 " neobundle.vim"{{{
 NeoBundle 'anyakichi/vim-surround'
-NeoBundle 'basyura/TweetVim.git'
-NeoBundle 'basyura/twibill.vim.git'
-NeoBundle 'choplin/unite-vim_hacks'
-NeoBundle 'liquidz/vimfiler-sendto.git'
-" NeoBundle 'osyo-manga/unite-boost-online-doc.git'
-" NeoBundle 'Shougo/neocomplcache-clang.git'
+NeoBundleLazy 'basyura/TweetVim.git'
+NeoBundleLazy 'basyura/twibill.vim.git'
+" NeoBundleLazy 'c9s/perlomni.vim.git'
+NeoBundleLazy 'choplin/unite-vim_hacks'
+NeoBundleLazy 'liquidz/vimfiler-sendto.git'
+" NeoBundleLazy 'Shougo/neocomplcache-clang.git'
 NeoBundle 'Shougo/echodoc.git'
-NeoBundle 'Shougo/eev.vim.git'
 NeoBundle 'Shougo/git-vim.git'
 NeoBundle 'Shougo/neocomplcache.git'
 NeoBundle 'Shougo/neocomplcache-snippets-complete.git'
@@ -132,26 +119,30 @@ NeoBundle 'Shougo/vimproc.git'
 NeoBundle 'Shougo/vimshell.git'
 NeoBundle 'Shougo/vinarise.git'
 NeoBundle 'h1mesuke/unite-outline.git'
-NeoBundle 'hail2u/vim-css3-syntax.git'
+NeoBundleLazy 'hail2u/vim-css3-syntax.git'
 NeoBundle 'kana/vim-smartchr.git'
-NeoBundle 'kana/vim-wwwsearch.git'
-NeoBundle 'kien/ctrlp.vim.git'
-NeoBundle 'Rip-Rip/clang_complete.git'
+NeoBundle 'kana/vim-smartword.git'
+NeoBundle 'kana/vim-smarttill.git'
+NeoBundle 'kana/vim-fakeclip.git'
+" NeoBundleLazy 'kana/vim-wwwsearch.git'
+NeoBundleLazy 'kien/ctrlp.vim.git'
+NeoBundleLazy 'Rip-Rip/clang_complete.git'
 NeoBundle 'Shougo/foldCC.git'
-NeoBundle 'mattn/wwwrenderer-vim.git'
+NeoBundleLazy 'mattn/wwwrenderer-vim.git'
 NeoBundle 'mattn/webapi-vim.git'
 " NeoBundle 'basyura/webapi-vim.git'
-NeoBundle 'pocket7878/curses-vim.git'
-NeoBundle 'pocket7878/presen-vim.git'
-NeoBundle 'rson/vim-conque.git'
-NeoBundle 'sjl/gundo.vim.git'
+" NeoBundle 'pocket7878/curses-vim.git'
+" NeoBundle 'pocket7878/presen-vim.git'
+NeoBundleLazy 'rson/vim-conque.git'
+" NeoBundle 'sjl/gundo.vim.git'
 NeoBundle 'soh335/unite-qflist.git'
 NeoBundle 't9md/vim-surround_custom_mapping.git'
-NeoBundle 't9md/vim-textmanip.git'
-NeoBundle 'thinca/vim-fontzoom.git'
+" NeoBundle 't9md/vim-textmanip.git'
+NeoBundleLazy 'thinca/vim-fontzoom.git'
 NeoBundle 'thinca/vim-ft-vim_fold.git'
 NeoBundle 'thinca/vim-openbuf.git'
-NeoBundle 'thinca/vim-prettyprint.git'
+" NeoBundle 'thinca/vim-prettyprint.git'
+NeoBundle 'thinca/vim-qfreplace.git'
 NeoBundle 'thinca/vim-quickrun.git'
 NeoBundle 'thinca/vim-scouter.git'
 NeoBundle 'thinca/vim-ref.git'
@@ -162,31 +153,43 @@ NeoBundle 'tsukkee/unite-tag.git'
 NeoBundle 'tyru/caw.vim.git'
 NeoBundle 'tyru/cul.vim.git'
 NeoBundle 'tyru/eskk.vim.git'
-NeoBundle 'tyru/open-browser.vim.git'
-NeoBundle 'tyru/operator-html-escape.vim.git'
+NeoBundleLazy 'tyru/open-browser.vim.git'
+NeoBundleLazy 'tyru/operator-html-escape.vim.git'
 NeoBundle 'tyru/restart.vim.git'
 NeoBundle 'tyru/savemap.vim.git'
-NeoBundle 'tyru/simpletap.vim.git'
-NeoBundle 'tyru/skk.vim.git'
+" NeoBundle 'tyru/simpletap.vim.git'
+" NeoBundle 'tyru/skk.vim.git'
 NeoBundle 'tyru/skkdict.vim.git'
 NeoBundle 'tyru/vice.vim.git'
 NeoBundle 'tyru/vim-altercmd.git'
 NeoBundle 'tyru/winmove.vim.git'
-NeoBundle 'ujihisa/neco-ghc.git'
+NeoBundleLazy 'ujihisa/neco-ghc.git'
 NeoBundle 'ujihisa/neco-look.git'
-NeoBundle 'ujihisa/unite-colorscheme.git'
-NeoBundle 'ujihisa/unite-locate.git'
+NeoBundleLazy 'ujihisa/unite-colorscheme.git'
+NeoBundleLazy 'ujihisa/unite-locate.git'
 NeoBundle 'ujihisa/vimshell-ssh.git'
 NeoBundle 'vim-jp/vimdoc-ja.git'
-NeoBundle 'vim-scripts/VimClojure.git'
+NeoBundleLazy 'vim-scripts/VimClojure.git'
 NeoBundle 'vim-scripts/netrw.vim.git'
-NeoBundle 'vim-ruby/vim-ruby.git'
-" NeoBundle 'Markdown'
-NeoBundle 'yuratomo/w3m.vim'
+NeoBundleLazy 'vim-ruby/vim-ruby.git'
+" NeoBundleLazy 'Markdown'
+NeoBundleLazy 'yuratomo/w3m.vim'
+
+" From vim.org
+NeoBundleLazy 'CSApprox'
+NeoBundleLazy 'guicolorscheme.vim'
+NeoBundle 'SudoEdit.vim'
+NeoBundle 'repeat.vim'
+NeoBundle 'autodate.vim'
+NeoBundle 'matchit.zip'
 
 " nosync test.
-NeoBundle 'yanktmp', {'type' : 'nosync', 'base' : '~/.vim/bundle'}
-NeoBundle 'qfreplace', {'type' : 'nosync', 'base' : '~/.vim/bundle'}
+NeoBundleLazy 'yanktmp', {
+      \ 'type' : 'nosync', 'base' : '~/.vim/bundle'
+      \ }
+
+" Test.
+NeoBundleLazy 'tpope/vim-fugitive'
 "}}}
 
 filetype plugin indent on
@@ -754,11 +757,8 @@ function! s:set_syntax_of_user_defined_commands()
   silent! command
   redir END
 
-  let command_names = []
-  for command_info in split(_, '\n')[1:]
-    let command_name = matchstr(command_info, '^[!"b]*\s\+\zs\u\w*\ze')
-    call add(command_names, command_name)
-  endfor
+  let command_names = map(split(_, '\n')[1:],
+        \ "matchstr(v:val, '^[!\"b]*\s\+\zs\u\w*\ze')")
 
   if empty(command_names) | return | endif
 
@@ -853,7 +853,8 @@ let g:neocomplcache_omni_functions = {
 if !exists('g:neocomplcache_keyword_patterns')
   let g:neocomplcache_keyword_patterns = {}
 endif
-let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
+let g:neocomplcache_keyword_patterns.default = '\h\w*'
+let g:neocomplcache_keyword_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 
 let g:neocomplcache_snippets_dir = $HOME . '/snippets'
 
@@ -1403,7 +1404,7 @@ unlet source
 "}}}
 
 let g:unite_cursor_line_highlight = 'TabLineSel'
-let g:unite_abbr_highlight = 'TabLine'
+" let g:unite_abbr_highlight = 'TabLine'
 " let g:unite_source_file_mru_time_format = ''
 let g:unite_source_file_mru_filename_format = ':~:.'
 let g:unite_source_file_mru_limit = 300
@@ -1757,6 +1758,7 @@ if !exists('g:eskk#disable') || !g:eskk#disable
   let g:plugin_skk_disable = 1
 
   let g:eskk#disable = 0
+
   let g:eskk#debug = 0
 
   " Don't keep state.
@@ -2432,32 +2434,16 @@ nmap <C-p>  [Tabbed]k
 function! s:my_tabnew()
   let title = input('Please input tab title: ', '',
         \ 'customlist,' . s:SID_PREFIX() . 'history_complete')
-
-  let dir = input('Please input current directory: ',
-        \ getcwd(), 'dir')
-  if dir == ''
-    return
-  endif
-
-  if !isdirectory(dir)
-    let yesno = input(printf(
-          \ 'Directory path "%s" is not exists. Create? : ', dir))
-    redraw
-    if yesno !~ '^y\%[es]$'
-      echo 'Canceled.'
-      return
-    endif
-
-    call mkdir(dir, 'p')
-  endif
-
-  tabnew
-
   if title != ''
     let t:title = title
   endif
 
-  execute 'VimShellCreate' dir
+  tabnew
+
+  VimShellCreate
+
+  Unite -buffer-name=files -start-insert
+        \ -default-action=cd directory directory/new
 endfunction
 function! s:history_complete(arglead, cmdline, cursorpos)
   return filter(map(reverse(range(1, histnr('input'))),
@@ -3401,16 +3387,23 @@ else
 
     if has('gui')
       " Use CSApprox.vim
+      NeoBundleSource CSApprox
 
       " Convert colorscheme in Konsole.
       let g:CSApprox_konsole = 1
-      let g:CSApprox_attr_map = { 'bold' : 'bold', 'italic' : '', 'sp' : '' }
+      let g:CSApprox_attr_map = {
+            \ 'bold' : 'bold',
+            \ 'italic' : '', 'sp' : ''
+            \ }
       if !exists('g:colors_name')
         colorscheme candy
       endif
     else
       " Use guicolorscheme.vim
-      autocmd MyAutoCmd VimEnter,BufAdd * if !exists('g:colors_name') | GuiColorScheme candy
+      NeoBundleSource guicolorscheme
+
+      autocmd MyAutoCmd VimEnter,BufAdd *
+            \ if !exists('g:colors_name') | GuiColorScheme candy
 
       " Disable error messages.
       let g:CSApprox_verbose_level = 0
