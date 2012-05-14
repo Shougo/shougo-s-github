@@ -556,7 +556,6 @@ let &titlestring="%{(&filetype ==# 'lingr-messages' && lingr#unread_count() > 0 
       \ . " \ %<\(%{SnipMid(fnamemodify(&filetype ==# 'vimfiler' ?"
       \ . "substitute(b:vimfiler.current_dir, '.\\zs/$', '', '') : getcwd(), ':~'),"
       \ . "80-len(expand('%:p:.')),'...')}\) - Vim"
-set colorcolumn=85
 
 " Set tabline.
 function! s:my_tabline()  "{{{
@@ -675,8 +674,12 @@ autocmd MyAutoCmd FileType * setl formatoptions-=ro | setl formatoptions+=mM
 " Enable multibyte format.
 set formatoptions+=mM
 
-" For conceal.
-set conceallevel=2 concealcursor=iv
+if v:version >= 703
+  " For conceal.
+  set conceallevel=2 concealcursor=iv
+
+  set colorcolumn=85
+endif
 
 "}}}
 
@@ -3396,7 +3399,7 @@ else
       endif
     else
       " Use guicolorscheme.vim
-      NeoBundleSource guicolorscheme
+      NeoBundleSource guicolorscheme.vim
 
       autocmd MyAutoCmd VimEnter,BufAdd *
             \ if !exists('g:colors_name') | GuiColorScheme candy
