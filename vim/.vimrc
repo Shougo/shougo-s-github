@@ -3438,9 +3438,12 @@ command! -bar -complete=dir -nargs=?
       \   CD
       \   TabpageCD <args>
 command! -bar -complete=dir -nargs=?
-      \   TabpageCD
-      \   execute 'cd' fnameescape(s:expand(<q-args>))
-      \   | let t:cwd = getcwd()
+      \   TabpageCD call s:tabpagecd(<q-args>)
+
+function! s:tabpagecd(path)
+  cd `=a:path`
+  let t:cwd = getcwd()
+endfunction
 
 autocmd TabEnter *
       \   if exists('t:cwd') && !isdirectory(t:cwd)
