@@ -189,10 +189,10 @@ NeoBundleLazy 'yanktmp', {
       \ }
 
 " Test.
-NeoBundleLazy 'tpope/vim-fugitive'
-NeoBundleLazy 'masudaK/vim-python'
-NeoBundleLazy 'klen/python-mode'
-autocmd MyAutoCmd FileType python* NeoBundleSource python-mode vim-python
+" NeoBundleLazy 'tpope/vim-fugitive'
+" NeoBundleLazy 'masudaK/vim-python'
+" NeoBundleLazy 'klen/python-mode'
+" autocmd MyAutoCmd FileType python* NeoBundleSource python-mode vim-python
 "}}}
 
 filetype plugin indent on
