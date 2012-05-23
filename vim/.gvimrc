@@ -203,9 +203,6 @@ endif
 " Don't highlight search result.
 set nohlsearch
 
-" Disable bell.
-set vb t_vb=
-
 " Don't flick cursor.
 set guicursor&
 set guicursor+=a:blinkon0
