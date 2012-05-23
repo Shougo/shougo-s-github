@@ -613,7 +613,7 @@ set nowritebackup
 set nobackup
 
 " Disable bell.
-set visualbell
+set novisualbell
 set vb t_vb=
 
 " Display candidate supplement.
