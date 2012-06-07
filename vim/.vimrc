@@ -63,6 +63,10 @@ augroup MyAutoCmd
   autocmd!
 augroup END
 
+if filereadable(expand('~/.secret_vimrc'))
+  execute 'source' expand('~/.secret_vimrc')
+endif
+
 filetype off
 filetype indent plugin off
 
@@ -203,10 +207,6 @@ for base in map(filter(split(&runtimepath, ','),
   let &runtimepath = substitute(&runtimepath,
         \ '\%(^\|,\)[^,]\+/\.\?bundle/'.base.'\ze,', '', 'g')
 endfor
-
-if filereadable(expand('~/.secret_vimrc'))
-  execute 'source' expand('~/.secret_vimrc')
-endif
 
 " altercommand.vim
 call altercmd#load()
@@ -922,7 +922,7 @@ inoremap <expr><C-l>     neocomplcache#complete_common_string()
 "       \ 'omni_complete' : 1
 "       \}
 "}}}
-let g:snippets_dir = '~/.vim/snippets/,~/.vim/bundle/snipmate/snippets/'
+" let g:snippets_dir = '~/.vim/snippets/,~/.vim/bundle/snipmate/snippets/'
 
 " For neocomplcache."{{{
 " <C-f>, <C-b>: page move.
