@@ -556,7 +556,7 @@ let &titlestring="%{(&filetype ==# 'lingr-messages' && lingr#unread_count() > 0 
       \ . " '('.lingr#unread_count().')' : ''}%{expand('%:p:.:~')}%(%m%r%w%)"
       \ . " \ %<\(%{SnipMid(fnamemodify(&filetype ==# 'vimfiler' ?"
       \ . "substitute(b:vimfiler.current_dir, '.\\zs/$', '', '') : getcwd(), ':~'),"
-      \ . "80-len(expand('%:p:.')),'...')}\) - GVIM"
+      \ . "80-len(expand('%:p:.')),'...')}\) - VIM"
 
 " Set tabline.
 function! s:my_tabline()  "{{{
