@@ -178,6 +178,7 @@ NeoBundle 'vim-scripts/netrw.vim.git'
 NeoBundleLazy 'vim-ruby/vim-ruby.git'
 " NeoBundleLazy 'Markdown'
 NeoBundleLazy 'yuratomo/w3m.vim'
+NeoBundle 'pasela/unite-webcolorname'
 
 " From vim.org
 NeoBundleLazy 'CSApprox'
@@ -555,7 +556,7 @@ let &titlestring="%{(&filetype ==# 'lingr-messages' && lingr#unread_count() > 0 
       \ . " '('.lingr#unread_count().')' : ''}%{expand('%:p:.:~')}%(%m%r%w%)"
       \ . " \ %<\(%{SnipMid(fnamemodify(&filetype ==# 'vimfiler' ?"
       \ . "substitute(b:vimfiler.current_dir, '.\\zs/$', '', '') : getcwd(), ':~'),"
-      \ . "80-len(expand('%:p:.')),'...')}\) - Vim"
+      \ . "80-len(expand('%:p:.')),'...')}\) - VIM"
 
 " Set tabline.
 function! s:my_tabline()  "{{{
@@ -869,6 +870,7 @@ endif
 let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 let g:neocomplcache_omni_patterns.php = '[^. *\t]\.\w*\|\h\w*::'
 let g:neocomplcache_omni_patterns.mail = '^\s*\w\+'
+let g:neocomplcache_caching_limit_file_size = 500000
 
 if !exists('g:neocomplcache_same_filetype_lists')
   let g:neocomplcache_same_filetype_lists = {}
@@ -1222,7 +1224,7 @@ endfunction
 nnoremap <silent> [unite]r  :<C-u>Unite -buffer-name=register register history/yank<CR>
 nnoremap <silent> [unite]o  :<C-u>Unite outline -start-insert<CR>
 nnoremap  [unite]f  :<C-u>Unite source<CR>
-nnoremap <silent> [unite]t  :<C-u>UniteWithCursorWord -buffer-name=tag tag/include<CR>
+nnoremap <silent> [unite]t  :<C-u>UniteWithCursorWord -buffer-name=tag tag tag/include<CR>
 xnoremap <silent> [unite]r  d:<C-u>Unite -buffer-name=register register history/yank<CR>
 nnoremap <silent> [unite]w  :<C-u>UniteWithCursorWord -buffer-name=register
       \ buffer file_mru bookmark file<CR>
@@ -1250,7 +1252,7 @@ nmap    t [Tag]
 " Jump.
 " nnoremap [Tag]t  <C-]>
 nnoremap <silent><expr> [Tag]t  &filetype == 'help' ?  "\<C-]>" :
-      \ ":\<C-u>UniteWithCursorWord -buffer-name=tag tag/include\<CR>"
+      \ ":\<C-u>UniteWithCursorWord -buffer-name=tag tag tag/include\<CR>"
 " Jump next.
 nnoremap <silent> [Tag]n  :<C-u>tag<CR>
 " Jump previous.
@@ -1286,7 +1288,7 @@ nnoremap <expr><silent> N  <SID>smart_search_expr('N',
       \ ":\<C-u>Unite -buffer-name=search -input=" . @/
       \  . " -no-start-insert line\<CR>")
 nnoremap <silent><expr> n  <SID>smart_search_expr('n',
-      \ ":\<C-u>UniteResume search\<CR>")
+      \ ":\<C-u>UniteResume search -no-start-insert\<CR>")
 
 let g:unite_enable_split_vertically = 0
 let g:unite_kind_file_cd_command = 'TabpageCD'
@@ -1312,7 +1314,8 @@ call unite#custom_default_action('directory', 'narrow')
 call unite#set_substitute_pattern('file', '[^~.]\zs/', '*/*', 20)
 
 " migemo.
-call unite#custom_filters('line_migemo', ['matcher_migemo', 'sorter_default', 'converter_default'])
+call unite#custom_filters('line_migemo',
+      \ ['matcher_migemo', 'sorter_default', 'converter_default'])
 call unite#custom_filters('file_rec',
       \ ['matcher_default', 'sorter_rank', 'converter_default'])
 
@@ -1750,7 +1753,7 @@ function! s:vimfiler_my_settings()"{{{
   " setlocal cursorline
 
   " Migemo search.
-  if !empty(unite#get_sources('matcher_migemo'))
+  if !empty(unite#get_filters('matcher_migemo'))
     nnoremap <silent><buffer><expr> /  line('$') > 10000 ?  'g/' :
           \ ":\<C-u>Unite -buffer-name=search -start-insert line_migemo\<CR>"
   endif
@@ -2366,30 +2369,8 @@ endfunction
 " Buffer move.
 " Fast buffer switch."{{{
 function! s:CustomAlternateBuffer()
-  if bufnr('%') != bufnr('#') && buflisted(bufnr('#'))
-    buffer #
-  else
-    let cnt = 0
-    let pos = 1
-    let current = 0
-    while pos <= bufnr('$')
-      if buflisted(pos)
-        if pos == bufnr('%')
-          let current = cnt
-        endif
-
-        let cnt += 1
-      endif
-
-      let pos += 1
-    endwhile
-
-    if current > cnt / 2
-      bprevious
-    else
-      bnext
-    endif
-  endif
+  " Use unite.
+  call unite#util#alternate_buffer()
 endfunction
 "}}}
 " Edit"{{{
