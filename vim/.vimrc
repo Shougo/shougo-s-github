@@ -1314,7 +1314,8 @@ call unite#custom_default_action('directory', 'narrow')
 call unite#set_substitute_pattern('file', '[^~.]\zs/', '*/*', 20)
 
 " migemo.
-call unite#custom_filters('line_migemo', ['matcher_migemo', 'sorter_default', 'converter_default'])
+call unite#custom_filters('line_migemo',
+      \ ['matcher_migemo', 'sorter_default', 'converter_default'])
 call unite#custom_filters('file_rec',
       \ ['matcher_default', 'sorter_rank', 'converter_default'])
 
@@ -1752,7 +1753,7 @@ function! s:vimfiler_my_settings()"{{{
   " setlocal cursorline
 
   " Migemo search.
-  if !empty(unite#get_sources('matcher_migemo'))
+  if !empty(unite#get_filters('matcher_migemo'))
     nnoremap <silent><buffer><expr> /  line('$') > 10000 ?  'g/' :
           \ ":\<C-u>Unite -buffer-name=search -start-insert line_migemo\<CR>"
   endif
@@ -2368,30 +2369,8 @@ endfunction
 " Buffer move.
 " Fast buffer switch."{{{
 function! s:CustomAlternateBuffer()
-  if bufnr('%') != bufnr('#') && buflisted(bufnr('#'))
-    buffer #
-  else
-    let cnt = 0
-    let pos = 1
-    let current = 0
-    while pos <= bufnr('$')
-      if buflisted(pos)
-        if pos == bufnr('%')
-          let current = cnt
-        endif
-
-        let cnt += 1
-      endif
-
-      let pos += 1
-    endwhile
-
-    if current > cnt / 2
-      bprevious
-    else
-      bnext
-    endif
-  endif
+  " Use unite.
+  call unite#util#alternate_buffer()
 endfunction
 "}}}
 " Edit"{{{
