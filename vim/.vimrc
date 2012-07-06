@@ -918,9 +918,9 @@ inoremap <expr><C-l>     neocomplcache#complete_common_string()
 "\ 'tags_complete' : 3,
 "\ 'vim_complete' : 4,
 "\ }
-" let g:neocomplcache_plugin_disable = {
-"       \ 'omni_complete' : 1
-"       \}
+let g:neocomplcache_source_disable = {
+      \ 'tags_complete' : 0
+      \}
 "}}}
 " let g:snippets_dir = '~/.vim/snippets/,~/.vim/bundle/snipmate/snippets/'
 
