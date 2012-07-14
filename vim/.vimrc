@@ -151,7 +151,9 @@ NeoBundle 'thinca/vim-quickrun.git'
 NeoBundle 'thinca/vim-scouter.git'
 NeoBundle 'thinca/vim-ref.git'
 NeoBundle 'thinca/vim-unite-history.git'
-NeoBundle 'tsukkee/lingr-vim.git'
+if !has('gui_running') || s:is_windows
+  NeoBundle 'tsukkee/lingr-vim.git'
+endif
 NeoBundle 'tsukkee/unite-help.git'
 NeoBundle 'tsukkee/unite-tag.git'
 NeoBundle 'tyru/caw.vim.git'
@@ -851,7 +853,6 @@ let g:neocomplcache_dictionary_filetype_lists = {
       \ }
 
 let g:neocomplcache_omni_functions = {
-      \ 'python' : 'pythoncomplete#Complete',
       \ 'ruby' : 'rubycomplete#Complete',
       \ }
 
@@ -1327,8 +1328,9 @@ let my_tabopen = {
 function! my_tabopen.func(candidates)"{{{
   call unite#take_action('tabopen', a:candidates)
 
-  let dir = isdirectory(a:candidates[0].word) ? a:candidates[0].word : fnamemodify(a:candidates[0].word, ':p:h')
-  execute g:unite_lcd_command '`=dir`'
+  let dir = isdirectory(a:candidates[0].word) ?
+        \ a:candidates[0].word : fnamemodify(a:candidates[0].word, ':p:h')
+  execute g:unite_kind_openable_lcd_command '`=dir`'
 endfunction"}}}
 call unite#custom_action('file,buffer', 'tabopen', my_tabopen)
 unlet my_tabopen
