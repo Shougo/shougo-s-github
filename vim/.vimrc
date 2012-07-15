@@ -1853,6 +1853,10 @@ endfunction"}}}
 function! s:lingr_looms_my_settings()"{{{
   nmap <buffer> l <Plug>(lingr-rooms-select-room)
 endfunction"}}}
+
+if !s:is_windows
+  command! Suicide call system('kill -KILL ' . getpid())
+endif
 "}}}
 
 " rsense.vim"{{{
