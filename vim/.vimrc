@@ -2847,12 +2847,11 @@ endfunction
 "}}}
 
 " Easy escape."{{{
-inoremap jj           <ESC>
 onoremap jj           <ESC>
-cnoremap jj           <C-c>
-inoremap j<Space>     j
+inoremap <expr> j       getline('.')[col('.') - 2] ==# 'j' ? "\<BS>\<ESC>" : 'j'
+cnoremap <expr> j       getcmdline()[getcmdpos()-2] ==# 'j' ? "\<BS>\<C-c>" : 'j'
+
 onoremap j<Space>     j
-cnoremap j<Space>     j
 "}}}
 
 " Smart word search."{{{
