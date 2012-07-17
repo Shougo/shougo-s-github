@@ -118,17 +118,18 @@ colors
 if [ $TERM = "dumb" ]; then
         # GVimから実行する場合、色分けできないのでシンプルなプロンプトにする
         PROMPT='%n%# '
-elif [ ${VIMSHELL_TERM:-""} != "" ]; then
-        if [ $VIMSHELL_TERM = "interactive" ]; then
-                PROMPT='%{[$[31+$RANDOM % 7]m%}%U%B%n%#'"%b%{[m%}%u "
-        else
-                PROMPT='%{[$[31+$RANDOM % 7]m%}%U%B%n%#'"%b%{[m%}%u "
-
-                RPROMPT="%{[33m%}[%35<..<%~]%{[m%}"
-        fi
 else
         PROMPT='%{[$[31+$RANDOM % 7]m%}%U%B%n%#'"%b%{[m%}%u "
-        RPROMPT="%{[33m%}[%35<..<%~]%{[m%}"
+
+        if [ ${VIMSHELL_TERM:-""} = "terminal" ] \
+                || [ ${VIMSHELL_TERM:-""} = "" ]; then
+                RPROMPT="%{[33m%}[%35<..<%~]%{[m%}"
+        else
+                PROMPT='%{[$[31+$RANDOM % 7]m%}%B%n%#'"%b%{[m%}%u "
+
+                # For test
+                # PROMPT="%{$fg[green]%}%B%~$%b%{${reset_color}%} "
+        fi
 
         # vcs_infoを使う
         #autoload -Uz vcs_info
@@ -150,6 +151,7 @@ fi
 PROMPT2="%_%% "
 # 入力ミス確認時のプロンプト
 SPROMPT="correct> %R -> %r [n,y,a,e]? "
+
 
 # sudo cmd で補完したいけど補完が効かない……、という場合に有効
 zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin \
@@ -311,10 +313,6 @@ alias -s ogg=amarok
 alias pd=pushd
 alias po="popd"
 alias ..='cd ..'
-
-# suの置き換え
-# ちゃんと名前も変化するようにした
-alias su="su -szsh"
 
 # lvできちんと表示されるようにする
 alias lv='lv -c -T8192'
