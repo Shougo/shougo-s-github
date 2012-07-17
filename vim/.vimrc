@@ -2851,10 +2851,12 @@ endfunction
 "}}}
 
 " Easy escape."{{{
-onoremap jj           <ESC>
-inoremap <expr> j       getline('.')[col('.') - 2] ==# 'j' ? "\<BS>\<ESC>" : 'j'
+inoremap jj           <ESC>
+" inoremap <expr> j       getline('.')[col('.') - 2] ==# 'j' ? "\<BS>\<ESC>" : 'j'
 cnoremap <expr> j       getcmdline()[getcmdpos()-2] ==# 'j' ? "\<BS>\<C-c>" : 'j'
+onoremap jj           <ESC>
 
+inoremap j<Space>     j
 onoremap j<Space>     j
 "}}}
 
