@@ -111,13 +111,15 @@ NeoBundleLazy 'liquidz/vimfiler-sendto.git'
 " NeoBundleLazy 'Shougo/neocomplcache-clang.git'
 NeoBundle 'Shougo/echodoc.git'
 NeoBundle 'Shougo/git-vim.git'
-NeoBundle 'Shougo/neocomplcache.git'
-NeoBundle 'Shougo/neocomplcache-snippets-complete.git'
+NeoBundle 'Shougo/neocomplcache.git',
+      \ { 'depends' : 'Shougo/neocomplcache-snippets-complete.git' }
 NeoBundle 'Shougo/neobundle.vim.git'
 NeoBundle 'Shougo/unite.vim.git'
 NeoBundle 'Shougo/unite-build.git'
-NeoBundle 'Shougo/vim-vcs.git'
-NeoBundle 'Shougo/vimfiler.git'
+NeoBundle 'Shougo/vim-vcs.git',
+      \ { 'depends' : 'thinca/vim-openbuf.git' }
+NeoBundle 'Shougo/vimfiler.git',
+      \ { 'depends' : 'Shougo/unite.vim.git' }
 " NeoBundle 'Shougo/vimfiler.git', 'ver.1.50'
 NeoBundle 'Shougo/vimproc.git'
 NeoBundle 'Shougo/vimshell.git'
@@ -135,8 +137,8 @@ NeoBundle 'Shougo/foldCC.git'
 NeoBundleLazy 'mattn/wwwrenderer-vim.git'
 NeoBundle 'mattn/webapi-vim.git'
 " NeoBundle 'basyura/webapi-vim.git'
-" NeoBundle 'pocket7878/curses-vim.git'
-" NeoBundle 'pocket7878/presen-vim.git'
+" NeoBundle 'pocket7878/presen-vim.git',
+" \ { 'depends' : 'pocket7878/curses-vim.git'}
 NeoBundleLazy 'rson/vim-conque.git'
 " NeoBundle 'sjl/gundo.vim.git'
 NeoBundle 'soh335/unite-qflist.git'
@@ -144,7 +146,6 @@ NeoBundle 't9md/vim-surround_custom_mapping.git'
 " NeoBundle 't9md/vim-textmanip.git'
 NeoBundleLazy 'thinca/vim-fontzoom.git'
 NeoBundle 'thinca/vim-ft-vim_fold.git'
-NeoBundle 'thinca/vim-openbuf.git'
 " NeoBundle 'thinca/vim-prettyprint.git'
 NeoBundle 'thinca/vim-qfreplace.git'
 NeoBundle 'thinca/vim-quickrun.git'
@@ -157,16 +158,15 @@ endif
 NeoBundle 'tsukkee/unite-help.git'
 NeoBundle 'tsukkee/unite-tag.git'
 NeoBundle 'tyru/caw.vim.git'
-NeoBundle 'tyru/cul.vim.git'
-NeoBundle 'tyru/eskk.vim.git'
+NeoBundle 'tyru/eskk.vim.git',
+      \ { 'depends' : [
+      \   'tyru/cul.vim.git', 'tyru/savemap.vim.git',
+      \   'tyru/vice.vim.git', 'tyru/skkdict.vim.git',
+      \ ]}
 NeoBundleLazy 'tyru/open-browser.vim.git'
 NeoBundleLazy 'tyru/operator-html-escape.vim.git'
 NeoBundle 'tyru/restart.vim.git'
-NeoBundle 'tyru/savemap.vim.git'
-" NeoBundle 'tyru/simpletap.vim.git'
 " NeoBundle 'tyru/skk.vim.git'
-NeoBundle 'tyru/skkdict.vim.git'
-NeoBundle 'tyru/vice.vim.git'
 NeoBundle 'tyru/vim-altercmd.git'
 NeoBundle 'tyru/winmove.vim.git'
 NeoBundleLazy 'ujihisa/neco-ghc.git'
