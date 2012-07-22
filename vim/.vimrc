@@ -902,7 +902,6 @@ endif
 
 " Plugin key-mappings."{{{
 imap <silent>L     <Plug>(neocomplcache_snippets_expand)
-"imap <expr>L    neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : "\<C-n>"
 smap <silent>L     <Plug>(neocomplcache_snippets_jump)
 imap <silent>G     <Plug>(neocomplcache_snippets_force_expand)
 imap <silent>S     <Plug>(neocomplcache_start_unite_snippet)
@@ -956,7 +955,11 @@ inoremap <expr><C-x><C-f>  neocomplcache#manual_filename_complete()
 imap <C-s>  <Plug>(neocomplcache_start_unite_snippet)
 
 " <CR>: close popup and save indent.
-inoremap <expr><CR>  neocomplcache#close_popup() . "\<CR>"
+inoremap <expr><silent> <CR> <SID>my_cr_function()
+function! s:my_cr_function()
+  return pumvisible() ? neocomplcache#close_popup() . "\<CR>" : "\<CR>"
+endfunction
+
 " <TAB>: completion.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
