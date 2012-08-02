@@ -182,14 +182,16 @@ NeoBundleLazy 'vim-ruby/vim-ruby.git'
 " NeoBundleLazy 'Markdown'
 NeoBundleLazy 'yuratomo/w3m.vim'
 NeoBundle 'pasela/unite-webcolorname'
+" NeoBundle 'hrsh7th/vim-unite-vcs'
 
 " From vim.org
 NeoBundleLazy 'CSApprox'
 NeoBundleLazy 'guicolorscheme.vim'
-NeoBundle 'SudoEdit.vim'
+NeoBundle 'sudo.vim'
 NeoBundle 'repeat.vim'
 NeoBundle 'autodate.vim'
 NeoBundle 'matchit.zip'
+NeoBundle 'autofmt'
 
 " nosync test.
 NeoBundleLazy 'yanktmp', {
@@ -530,6 +532,9 @@ augroup vimrc-scratch-buffer"{{{
     filetype detect
   endfunction
 augroup END"}}}
+
+" Use autofmt.
+set formatexpr=autofmt#japanese#formatexpr()
 "}}}
 
 "---------------------------------------------------------------------------
@@ -817,6 +822,7 @@ let g:neocomplcache_min_keyword_length = 3
 "       \ v:version == 703 && has('patch289')
 let g:neocomplcache_enable_cursor_hold_i = 0
 let g:neocomplcache_cursor_hold_i_time = 300
+let g:neocomplcache_enable_insert_char_pre = 1
 
 " For auto select.
 let g:neocomplcache_enable_auto_select = 1
@@ -939,7 +945,8 @@ inoremap <expr><C-e>  pumvisible() ? neocomplcache#cancel_popup() : "\<End>"
 " <C-k>: unite completion.
 imap <C-k>  <Plug>(neocomplcache_start_unite_complete)
 " : unite quick match.
-imap :  <Plug>(neocomplcache_start_unite_quick_match)
+imap <expr> -  pumvisible() ?
+      \ "\<Plug>(neocomplcache_start_unite_quick_match)" : '-'
 inoremap <expr> O  &filetype == 'vim' ? "\<C-x>\<C-v>" : "\<C-x>\<C-o>"
 " <C-h>, <BS>: close popup and delete backword char.
 inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
@@ -1008,10 +1015,10 @@ let g:echodoc_enable_at_startup = 1
 "}}}
 
 " vimshell.vim"{{{
-"let g:vimshell_user_prompt = "3\ngetcwd()"
-"let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
-"let g:vimshell_user_prompt = 'printf("%s  %50s", fnamemodify(getcwd(), ":~"), vimshell#vcs#info("(%s)-[%b]"))'
+" let g:vimshell_user_prompt = "3\ngetcwd()"
 let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
+"let g:vimshell_user_prompt = 'printf("%s  %50s", fnamemodify(getcwd(), ":~"), vimshell#vcs#info("(%s)-[%b]"))'
+" let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
 let g:vimshell_right_prompt = 'vcs#info("(%s)-[%b]%p", "(%s)-[%b|%a]%p")'
 let g:vimshell_prompt = '% '
 "let g:vimshell_environment_term = 'xterm'
