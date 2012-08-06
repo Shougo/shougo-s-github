@@ -124,12 +124,16 @@ NeoBundle 'Shougo/vimfiler.git',
 NeoBundle 'Shougo/vimproc.git'
 NeoBundle 'Shougo/vimshell.git'
 NeoBundle 'Shougo/vinarise.git'
-NeoBundle 'h1mesuke/unite-outline.git'
+" NeoBundle 'h1mesuke/unite-outline.git'
+NeoBundle 'Shougo/unite-outline.git'
 NeoBundleLazy 'hail2u/vim-css3-syntax.git'
 NeoBundle 'kana/vim-smartchr.git'
 NeoBundle 'kana/vim-smartword.git'
 NeoBundle 'kana/vim-smarttill.git'
 NeoBundle 'kana/vim-fakeclip.git'
+NeoBundle 'kana/vim-operator-user.git'
+NeoBundle 'kana/vim-operator-replace.git'
+NeoBundle 'kana/vim-textobj-user.git'
 " NeoBundleLazy 'kana/vim-wwwsearch.git'
 NeoBundleLazy 'kien/ctrlp.vim.git'
 NeoBundleLazy 'Rip-Rip/clang_complete.git'
@@ -140,7 +144,7 @@ NeoBundle 'mattn/webapi-vim.git'
 " NeoBundle 'pocket7878/presen-vim.git',
 " \ { 'depends' : 'pocket7878/curses-vim.git'}
 NeoBundleLazy 'rson/vim-conque.git'
-" NeoBundle 'sjl/gundo.vim.git'
+NeoBundle 'sjl/gundo.vim.git'
 NeoBundle 'soh335/unite-qflist.git'
 NeoBundle 't9md/vim-surround_custom_mapping.git'
 " NeoBundle 't9md/vim-textmanip.git'
@@ -2002,7 +2006,7 @@ nnoremap W      :<C-u>W3m<Space>
 
 " TweetVim
 " Start TweetVim.
-nnoremap <silent> [unite]w :Unite tweetvim<CR>
+nnoremap <silent> [unite]w :<C-u>Unite tweetvim<CR>
 autocmd MyAutoCmd FileType tweetvim call s:tweetvim_my_settings()
 function! s:tweetvim_my_settings()"{{{
   " Open say buffer.
@@ -2014,6 +2018,11 @@ endfunction"}}}
 " Complete by neocomplcache.
 let g:neocomplcache_dictionary_filetype_lists.tweetvim_say =
       \ expand('~/.tweetvim/screen_name')
+
+nmap R <Plug>(operator-replace)
+xmap R <Plug>(operator-replace)
+xmap p <Plug>(operator-replace)
+
 "}}}
 
 "---------------------------------------------------------------------------
