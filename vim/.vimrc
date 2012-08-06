@@ -116,6 +116,7 @@ NeoBundle 'Shougo/neocomplcache.git',
 NeoBundle 'Shougo/neobundle.vim.git'
 NeoBundle 'Shougo/unite.vim.git'
 NeoBundle 'Shougo/unite-build.git'
+NeoBundle 'Shougo/unite-ssh.git'
 NeoBundle 'Shougo/vim-vcs.git',
       \ { 'depends' : 'thinca/vim-openbuf.git' }
 NeoBundle 'Shougo/vimfiler.git',
