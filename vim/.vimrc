@@ -1297,7 +1297,7 @@ nnoremap <silent><expr> * <SID>smart_search_expr('*',
       \ . expand('<cword>') . " -buffer-name=search line\<CR>")
 
 function! s:smart_search_expr(expr1, expr2)
-  return line('$') > 4000 ?  a:expr1 : a:expr2
+  return line('$') > 10000 ?  a:expr1 : a:expr2
 endfunction
 
 nnoremap <expr><silent> N  <SID>smart_search_expr('N',
