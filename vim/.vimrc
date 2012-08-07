@@ -826,7 +826,7 @@ let g:neocomplcache_min_keyword_length = 3
 "       \ v:version == 703 && has('patch289')
 let g:neocomplcache_enable_cursor_hold_i = 0
 let g:neocomplcache_cursor_hold_i_time = 300
-let g:neocomplcache_enable_insert_char_pre = 1
+let g:neocomplcache_enable_insert_char_pre = 0
 
 " For auto select.
 let g:neocomplcache_enable_auto_select = 1
@@ -959,8 +959,7 @@ inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
 inoremap <expr><C-n>  pumvisible() ? "\<C-n>" : "\<C-x>\<C-u>\<C-p>\<Down>"
 " <C-p>: keyword completion.
 inoremap <expr><C-p>  pumvisible() ? "\<C-p>" : "\<C-p>\<C-n>"
-"inoremap <expr>'  pumvisible() ? neocomplcache#close_popup() : "'"
-inoremap <expr>'  pumvisible() ? "\<C-y>" : "'"
+inoremap <expr>'  pumvisible() ? neocomplcache#close_popup() : "'"
 
 inoremap <expr><C-x><C-f>  neocomplcache#manual_filename_complete()
 
@@ -1237,29 +1236,46 @@ nnoremap <expr><silent> [unite]b  <SID>unite_build()
 function! s:unite_build()
   return ":\<C-u>Unite -buffer-name=build". tabpagenr() ." -no-quit build\<CR>"
 endfunction
-nnoremap <silent> [unite]r  :<C-u>Unite -buffer-name=register register history/yank<CR>
-nnoremap <silent> [unite]o  :<C-u>Unite outline -start-insert<CR>
+nnoremap <silent> [unite]r
+      \ :<C-u>Unite -buffer-name=register register history/yank<CR>
+nnoremap <silent> [unite]o
+      \ :<C-u>Unite outline -start-insert<CR>
 nnoremap  [unite]f  :<C-u>Unite source<CR>
-nnoremap <silent> [unite]t  :<C-u>UniteWithCursorWord -buffer-name=tag tag tag/include<CR>
-xnoremap <silent> [unite]r  d:<C-u>Unite -buffer-name=register register history/yank<CR>
-nnoremap <silent> [unite]w  :<C-u>UniteWithCursorWord -buffer-name=register
+nnoremap <silent> [unite]t
+      \ :<C-u>UniteWithCursorWord -buffer-name=tag tag tag/include<CR>
+xnoremap <silent> [unite]r
+      \ :<C-u>Unite -buffer-name=register register history/yank<CR>
+nnoremap <silent> [unite]w
+      \ :<C-u>UniteWithCursorWord -buffer-name=register
       \ buffer file_mru bookmark file<CR>
-nnoremap <silent> [unite]h  :<C-u>Unite history/command<CR>
-nnoremap <silent> [unite]q  :<C-u>Unite qflist -no-quit<CR>
-nnoremap <silent> [unite]g  :<C-u>Unite grep -buffer-name=search -no-quit<CR>
-nnoremap <silent> <C-k>  :<C-u>Unite change jump<CR>
-nnoremap <silent> [unite]c  :<C-u>Unite change<CR>
-nnoremap <silent> [unite]f  :<C-u>Unite -buffer-name=resume resume<CR>
-nnoremap <silent> [unite]d  :<C-u>Unite -buffer-name=files -default-action=lcd directory_mru<CR>
-nnoremap <silent> [unite]ma  :<C-u>Unite mapping<CR>
-nnoremap <silent> [unite]me  :<C-u>Unite output:message<CR>
-inoremap <silent> <C-z>  <C-o>:call unite#start_complete(['register'], {'is_insert' : 1})<CR>
+nnoremap <silent> [unite]h
+      \ :<C-u>Unite history/command<CR>
+nnoremap <silent> [unite]q
+      \ :<C-u>Unite qflist -no-quit<CR>
+nnoremap <silent> [unite]g
+      \ :<C-u>Unite grep -buffer-name=search -no-quit<CR>
+nnoremap <silent> <C-k>
+      \ :<C-u>Unite change jump<CR>
+nnoremap <silent> [unite]f
+      \ :<C-u>Unite -buffer-name=resume resume<CR>
+nnoremap <silent> [unite]d
+      \ :<C-u>Unite -buffer-name=files -default-action=lcd directory_mru<CR>
+nnoremap <silent> [unite]ma
+      \ :<C-u>Unite mapping<CR>
+nnoremap <silent> [unite]me
+      \ :<C-u>Unite output:message<CR>
+inoremap <silent> <C-z>
+      \ <C-o>:call unite#start_complete(['register'], {'is_insert' : 1})<CR>
 
-nnoremap <silent> [Window]s  :<C-u>Unite -buffer-name=files -no-split
+nnoremap <silent> [Window]s
+      \ :<C-u>Unite -buffer-name=files -no-split
       \ jump_point file_point buffer_tab file_rec/async:! file file/new file_mru<CR>
-nnoremap <silent> [Window]t  :<C-u>Unite -buffer-name=files tab<CR>
-nnoremap <silent> [Window]w  :<C-u>Unite window<CR>
-nnoremap <silent> [Space]b  :<C-u>UniteBookmarkAdd<CR>
+nnoremap <silent> [Window]t
+      \ :<C-u>Unite -buffer-name=files tab<CR>
+nnoremap <silent> [Window]w
+      \ :<C-u>Unite window<CR>
+nnoremap <silent> [Space]b
+      \ :<C-u>UniteBookmarkAdd<CR>
 
 " t: tags-and-searches "{{{
 " The prefix key.
@@ -1362,8 +1378,8 @@ function! s:unite_my_settings()"{{{
   imap <buffer>  jj      <Plug>(unite_insert_leave)
   imap <buffer> <TAB>   <Plug>(unite_select_next_line)
   imap <buffer> <C-w>     <Plug>(unite_delete_backward_path)
-  imap <buffer> '     <Plug>(unite_quick_match_default_action)
-  nmap <buffer> '     <Plug>(unite_quick_match_default_action)
+  imap <buffer> '     <Plug>(unite_do_default_action)
+  nmap <buffer> '     <Plug>(unite_do_default_action)
   imap <buffer><expr> x
         \ unite#smart_map('x', "\<Plug>(unite_quick_match_choose_action)")
   nmap <buffer> x     <Plug>(unite_quick_match_choose_action)
