@@ -408,7 +408,10 @@ set modeline
 set clipboard& clipboard+=unnamed
 
 " Disable auto wrap.
-autocmd MyAutoCmd FileType * setlocal textwidth=0
+autocmd MyAutoCmd FileType *
+      \ if &l:textwidth != 70 && &filetype !=# 'help' |
+      \    setlocal textwidth=0 |
+      \ endif
 
 " Enable backspace delete indent and newline.
 set backspace=indent,eol,start
