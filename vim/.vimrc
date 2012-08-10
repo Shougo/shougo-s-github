@@ -952,9 +952,9 @@ inoremap <expr><C-y>  pumvisible() ? neocomplcache#close_popup() :  "\<C-r>\""
 inoremap <expr><C-e>  pumvisible() ? neocomplcache#cancel_popup() : "\<End>"
 " <C-k>: unite completion.
 imap <C-k>  <Plug>(neocomplcache_start_unite_complete)
-" : unite quick match.
-imap <expr> -  pumvisible() ?
-      \ "\<Plug>(neocomplcache_start_unite_quick_match)" : '-'
+" - unite quick match.
+" imap <expr> -  pumvisible() ?
+"       \ "\<Plug>(neocomplcache_start_unite_quick_match)" : '-'
 inoremap <expr> O  &filetype == 'vim' ? "\<C-x>\<C-v>" : "\<C-x>\<C-o>"
 " <C-h>, <BS>: close popup and delete backword char.
 inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
