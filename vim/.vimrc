@@ -626,6 +626,7 @@ set shortmess=aTI
 " Don't create backup.
 set nowritebackup
 set nobackup
+set backupdir-=.
 
 " Disable bell.
 set vb t_vb=
@@ -884,6 +885,7 @@ endif
 let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 let g:neocomplcache_omni_patterns.php = '[^. *\t]\.\w*\|\h\w*::'
 let g:neocomplcache_omni_patterns.mail = '^\s*\w\+'
+let g:neocomplcache_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
 let g:neocomplcache_caching_limit_file_size = 500000
 
 if !exists('g:neocomplcache_same_filetype_lists')
@@ -1303,26 +1305,26 @@ nnoremap <C-h>  :<C-u>UniteWithInput help<CR>
 nnoremap <silent> g<C-h>  :<C-u>UniteWithCursorWord help<CR>
 
 " Search.
-nnoremap <expr> /  <SID>smart_search_expr('/',
+" nnoremap <expr> /  <SID>smart_search_expr('/',
+nnoremap <expr><silent> /  <SID>smart_search_expr(
+      \ ":\<C-u>Unite -buffer-name=search -no-split -start-insert line:!\<CR>",
       \ ":\<C-u>Unite -buffer-name=search -start-insert line\<CR>")
 nnoremap <expr> g/  <SID>smart_search_expr('g/',
       \ ":\<C-u>Unite -buffer-name=search -start-insert line_migemo\<CR>")
 nnoremap [Alt]/  g/
 nnoremap <silent><expr> ? <SID>smart_search_expr('?',
       \ ":\<C-u>Unite mapping\<CR>")
-nnoremap <silent><expr> * <SID>smart_search_expr('*',
-      \ ":\<C-u>UniteWithCursorWord -input="
-      \ . expand('<cword>') . " -buffer-name=search line\<CR>")
+" nnoremap <silent><expr> * <SID>smart_search_expr('*',
+nnoremap <silent><expr> * <SID>smart_search_expr(
+      \ ":\<C-u>UniteWithCursorWord -buffer-name=search line:!\<CR>",
+      \ ":\<C-u>UniteWithCursorWord -buffer-name=search line\<CR>")
 
 function! s:smart_search_expr(expr1, expr2)
-  return line('$') > 10000 ?  a:expr1 : a:expr2
+  return line('$') > 5000 ?  a:expr1 : a:expr2
 endfunction
 
-nnoremap <expr><silent> N  <SID>smart_search_expr('N',
-      \ ":\<C-u>Unite -buffer-name=search -input=" . @/
-      \  . " -no-start-insert line\<CR>")
-nnoremap <silent><expr> n  <SID>smart_search_expr('n',
-      \ ":\<C-u>UniteResume search -no-start-insert\<CR>")
+nnoremap <silent> n
+      \ :<C-u>UniteResume search -no-start-insert<CR>
 
 let g:unite_enable_split_vertically = 0
 let g:unite_kind_file_cd_command = 'TabpageCD'
@@ -1350,8 +1352,8 @@ call unite#set_substitute_pattern('file', '[^~.]\zs/', '*/*', 20)
 " migemo.
 call unite#custom_filters('line_migemo',
       \ ['matcher_migemo', 'sorter_default', 'converter_default'])
-call unite#custom_filters('file_rec',
-      \ ['matcher_default', 'sorter_rank', 'converter_default'])
+" call unite#custom_filters('file_rec',
+"       \ ['matcher_default', 'sorter_rank', 'converter_default'])
 
 " Custom actions."{{{
 let my_tabopen = {
@@ -1380,8 +1382,8 @@ function! s:unite_my_settings()"{{{
   imap <buffer>  jj      <Plug>(unite_insert_leave)
   imap <buffer> <TAB>   <Plug>(unite_select_next_line)
   imap <buffer> <C-w>     <Plug>(unite_delete_backward_path)
-  imap <buffer> '     <Plug>(unite_do_default_action)
-  nmap <buffer> '     <Plug>(unite_do_default_action)
+  imap <buffer> '     <Plug>(unite_quick_match_default_action)
+  nmap <buffer> '     <Plug>(unite_quick_match_default_action)
   imap <buffer><expr> x
         \ unite#smart_map('x', "\<Plug>(unite_quick_match_choose_action)")
   nmap <buffer> x     <Plug>(unite_quick_match_choose_action)
@@ -1397,8 +1399,6 @@ function! s:unite_my_settings()"{{{
   nmap <silent><buffer> <Tab>     :call <SID>NextWindow()<CR>
   nnoremap <silent><buffer><expr> l
         \ unite#smart_map('l', unite#do_action('default'))
-  nunmap <buffer> x
-  iunmap <buffer> x
 
   let unite = unite#get_current_unite()
   if unite.buffer_name =~# '^search'
