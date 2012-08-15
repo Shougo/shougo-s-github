@@ -68,7 +68,6 @@ if filereadable(expand('~/.secret_vimrc'))
 endif
 
 filetype off
-filetype indent plugin off
 
 if has('vim_starting')"{{{
   " Load settings for each location.
@@ -1372,7 +1371,8 @@ unlet my_tabopen
 "}}}
 
 " Custom filters."{{{
-" call unite#custom_filters('file,buffer,file_rec', ['matcher_fuzzy', 'sorter_default', 'converter_default'])
+" call unite#custom_filters('file,buffer,file_rec',
+"       \ ['converter_relative_word', 'matcher_fuzzy', 'sorter_default'])
 "}}}
 
 let g:unite_enable_start_insert = 0
