@@ -185,6 +185,7 @@ NeoBundleLazy 'vim-ruby/vim-ruby.git'
 NeoBundleLazy 'yuratomo/w3m.vim'
 NeoBundle 'pasela/unite-webcolorname'
 " NeoBundle 'hrsh7th/vim-unite-vcs'
+NeoBundle 'deris/vim-loadafterft'
 
 " From vim.org
 NeoBundleLazy 'CSApprox'
@@ -196,9 +197,12 @@ NeoBundle 'matchit.zip'
 NeoBundle 'autofmt'
 
 " nosync test.
-NeoBundleLazy 'yanktmp', {
-      \ 'type' : 'nosync', 'base' : '~/.vim/bundle'
-      \ }
+" NeoBundleLazy 'yanktmp', {
+"       \ 'type' : 'nosync', 'base' : '~/.vim/bundle'
+"       \ }
+
+" NeoBundleLocal test.
+NeoBundleLocal ~/.vim/bundle/
 
 " Test.
 " NeoBundleLazy 'tpope/vim-fugitive'
@@ -208,6 +212,14 @@ NeoBundleLazy 'yanktmp', {
 "}}}
 
 filetype plugin indent on
+
+" Installation check.
+if neobundle#exists_not_installed_bundles()
+  echomsg 'Not installed bundles : ' .
+        \ string(neobundle#get_not_installed_bundle_names())
+  echomsg 'Please execute ":NeoBundleInstall" command.'
+  " finish
+endif
 
 " Delete bundle directories contained local runtimepath.
 for base in map(filter(split(&runtimepath, ','),
@@ -706,6 +718,18 @@ set display=lastline
 
 " Disable automatically insert comment.
 autocmd MyAutoCmd FileType * setl formatoptions-=ro | setl formatoptions+=mM
+let g:execcmd_after_ftplugin = {
+  \    '_': [
+  \        'setlocal fo-=t fo-=c fo-=r fo-=o',
+  \    ],
+  \    'c': [
+  \        'setlocal fo-=t fo-=c fo-=r fo-=o',
+  \    ],
+  \    'perl': [
+  \        'setlocal fo-=t fo-=c fo-=r fo-=o',
+  \    ],
+  \}
+
 " Enable multibyte format.
 set formatoptions+=mM
 
