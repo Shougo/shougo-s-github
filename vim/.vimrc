@@ -1291,7 +1291,7 @@ nnoremap  [unite]f  :<C-u>Unite source<CR>
 nnoremap <silent> [unite]t
       \ :<C-u>UniteWithCursorWord -buffer-name=tag tag tag/include<CR>
 xnoremap <silent> [unite]r
-      \ :<C-u>Unite -buffer-name=register register history/yank<CR>
+      \ d:<C-u>Unite -buffer-name=register register history/yank<CR>
 nnoremap <silent> [unite]w
       \ :<C-u>UniteWithCursorWord -buffer-name=register
       \ buffer file_mru bookmark file<CR>
