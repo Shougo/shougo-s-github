@@ -150,8 +150,8 @@ NeoBundle 't9md/vim-surround_custom_mapping.git'
 " NeoBundle 't9md/vim-textmanip.git'
 NeoBundleLazy 'thinca/vim-fontzoom.git'
 NeoBundle 'thinca/vim-ft-vim_fold.git'
-" NeoBundle 'thinca/vim-prettyprint.git'
-NeoBundle 'thinca/vim-qfreplace.git'
+NeoBundle 'thinca/vim-prettyprint.git'
+" NeoBundle 'thinca/vim-qfreplace.git'
 NeoBundle 'thinca/vim-quickrun.git'
 NeoBundle 'thinca/vim-scouter.git'
 NeoBundle 'thinca/vim-ref.git'
@@ -709,6 +709,14 @@ let g:execcmd_after_ftplugin = {
   \        'setlocal fo-=t fo-=c fo-=r fo-=o',
   \    ],
   \}
+let g:execcmd_after_indent = {
+  \    '_': [
+  \        'setlocal fo-=t fo-=c fo-=r fo-=o',
+  \    ],
+  \    'php': [
+  \        'setlocal fo-=t fo-=c fo-=r fo-=o',
+  \    ],
+  \}
 
 " Enable multibyte format.
 set formatoptions+=mM
@@ -853,6 +861,7 @@ let g:neocomplcache_min_keyword_length = 3
 let g:neocomplcache_enable_cursor_hold_i = 0
 let g:neocomplcache_cursor_hold_i_time = 300
 let g:neocomplcache_enable_insert_char_pre = 0
+let g:neocomplcache_enable_prefetch = 0
 
 " For auto select.
 let g:neocomplcache_enable_auto_select = 1
@@ -897,7 +906,8 @@ let g:neocomplcache_omni_functions = {
 if !exists('g:neocomplcache_keyword_patterns')
   let g:neocomplcache_keyword_patterns = {}
 endif
-let g:neocomplcache_keyword_patterns.default = '\h\w*'
+" let g:neocomplcache_keyword_patterns.default = '\h\w*'
+let g:neocomplcache_keyword_patterns['default'] = '[0-9a-zA-Z:#_]\+'
 let g:neocomplcache_keyword_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 
 let g:neocomplcache_snippets_dir = $HOME . '/snippets'
@@ -1801,6 +1811,7 @@ else
   let g:vimfiler_file_icon = '-'
   let g:vimfiler_marked_file_icon = '*'
 endif
+" let g:vimfiler_readonly_file_icon = '[O]'
 
 autocmd MyAutoCmd FileType vimfiler call s:vimfiler_my_settings()
 function! s:vimfiler_my_settings()"{{{
