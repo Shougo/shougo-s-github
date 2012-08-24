@@ -114,11 +114,15 @@ if (has('multi_byte_ime') || has('xim')) && has('GUI_GTK')
   "set imactivatekey=S-space
 
   " Disable uim when use skk.vim.
-  let &imdisable=1
+  " let &imdisable=1
 
   " To use uim-anthy.
   "let $GTK_IM_MODULE='uim-anthy'
   "set imactivatekey=C-space
+
+  " To use ibus-mozc.
+  " let $GTK_IM_MODULE='xim'
+  " set imactivatekey=S-space
 endif
 "}}}
 

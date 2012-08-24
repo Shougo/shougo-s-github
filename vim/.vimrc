@@ -121,7 +121,14 @@ NeoBundle 'Shougo/vim-vcs.git',
 NeoBundle 'Shougo/vimfiler.git',
       \ { 'depends' : 'Shougo/unite.vim.git' }
 " NeoBundle 'Shougo/vimfiler.git', 'ver.1.50'
-NeoBundle 'Shougo/vimproc.git'
+NeoBundle 'Shougo/vimproc', {
+      \ 'build' : {
+      \     'windows' : 'echo "Sorry, cannot update vimproc binary file in Windows."',
+      \     'cygwin' : 'make -f make_cygwin.mak',
+      \     'mac' : 'make -f make_mac.mak',
+      \     'unix' : 'make -f make_unix.mak',
+      \    },
+      \ }
 NeoBundle 'Shougo/vimshell.git'
 NeoBundle 'Shougo/vinarise.git'
 " NeoBundle 'h1mesuke/unite-outline.git'
@@ -145,7 +152,6 @@ NeoBundle 'mattn/webapi-vim.git'
 " \ { 'depends' : 'pocket7878/curses-vim.git'}
 NeoBundleLazy 'rson/vim-conque.git'
 NeoBundle 'sjl/gundo.vim.git'
-NeoBundle 'soh335/unite-qflist.git'
 NeoBundle 't9md/vim-surround_custom_mapping.git'
 " NeoBundle 't9md/vim-textmanip.git'
 NeoBundleLazy 'thinca/vim-fontzoom.git'
@@ -186,6 +192,7 @@ NeoBundleLazy 'yuratomo/w3m.vim'
 NeoBundle 'pasela/unite-webcolorname'
 " NeoBundle 'hrsh7th/vim-unite-vcs'
 NeoBundle 'deris/vim-loadafterft'
+NeoBundle 'osyo-manga/unite-quickfix'
 
 " From vim.org
 NeoBundleLazy 'CSApprox'
@@ -376,6 +383,26 @@ command! -bang -complete=file -nargs=? WDos write<bang> ++fileformat=dos <args> 
 if has('multi_byte_ime')
   set iminsert=0 imsearch=0
 endif
+
+" Disable ibus setting.
+" From http://d.hatena.ne.jp/fuenor/20110705/1309866529
+if !has('gui_running') && (has('python/dyn') || has('python') ||
+      \ (executable('python') && executable('~/bin/ibus-disable.py')))
+
+  autocmd MyAutoCmd InsertLeave * call s:ibus_disable()
+
+  function! s:ibus_disable()
+    if has('python/dyn') || has('python')
+python << EOF
+import ibus
+bus = ibus.Bus()
+ibus.InputContext(bus, bus.current_input_contxt()).disable()
+EOF
+    else
+      call system('python ~/bin/ibus-disable.py')
+    endif
+  endfunction
+endif
 "}}}
 
 "---------------------------------------------------------------------------
@@ -416,7 +443,11 @@ set shiftround
 set modeline
 
 " Use clipboard register.
-set clipboard& clipboard+=unnamed
+if has('unnamedplus')
+  set clipboard& clipboard+=unnamedplus
+else
+  set clipboard& clipboard+=unnamed
+endif
 
 " Disable auto wrap.
 autocmd MyAutoCmd FileType *
@@ -1281,7 +1312,7 @@ nnoremap  [unite]f  :<C-u>Unite source<CR>
 nnoremap <silent> [unite]t
       \ :<C-u>UniteWithCursorWord -buffer-name=tag tag tag/include<CR>
 xnoremap <silent> [unite]r
-      \ :<C-u>Unite -buffer-name=register register history/yank<CR>
+      \ d:<C-u>Unite -buffer-name=register register history/yank<CR>
 nnoremap <silent> [unite]w
       \ :<C-u>UniteWithCursorWord -buffer-name=register
       \ buffer file_mru bookmark file<CR>
