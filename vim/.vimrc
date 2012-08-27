@@ -2857,6 +2857,9 @@ xnoremap r <C-v>
 " Select until end of current line in visual mode.
 xnoremap v $h
 
+" Use <C-v> instead of V.
+nnoremap V  0<C-v>$
+
 " Paste next line.
 nnoremap <silent> gp o<ESC>p^
 nnoremap <silent> gP O<ESC>P^
