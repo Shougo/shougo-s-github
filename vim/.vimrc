@@ -113,7 +113,8 @@ NeoBundle 'Shougo/git-vim.git'
 NeoBundle 'Shougo/neocomplcache.git',
       \ { 'depends' : 'Shougo/neocomplcache-snippets-complete.git' }
 NeoBundle 'Shougo/neobundle.vim.git'
-NeoBundle 'Shougo/unite.vim.git'
+" NeoBundle 'Shougo/unite.vim.git'
+NeoBundleDepends 'Shougo/unite.vim.git'
 NeoBundle 'Shougo/unite-build.git'
 NeoBundle 'Shougo/unite-ssh.git'
 NeoBundle 'Shougo/vim-vcs.git',
@@ -1447,6 +1448,7 @@ let g:unite_enable_start_insert = 0
 function! s:unite_my_settings()"{{{
   " Overwrite settings.
   imap <buffer>  jj      <Plug>(unite_insert_leave)
+  imap <buffer><expr> j unite#smart_map('j', '')
   imap <buffer> <TAB>   <Plug>(unite_select_next_line)
   imap <buffer> <C-w>     <Plug>(unite_delete_backward_path)
   imap <buffer> '     <Plug>(unite_quick_match_default_action)
