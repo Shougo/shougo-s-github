@@ -155,9 +155,10 @@ NeoBundle 'sjl/gundo.vim.git'
 NeoBundle 't9md/vim-surround_custom_mapping.git'
 " NeoBundle 't9md/vim-textmanip.git'
 NeoBundleLazy 'thinca/vim-fontzoom.git'
+NeoBundle 'ujihisa/unite-font'
 NeoBundle 'thinca/vim-ft-vim_fold.git'
 NeoBundle 'thinca/vim-prettyprint.git'
-" NeoBundle 'thinca/vim-qfreplace.git'
+NeoBundle 'thinca/vim-qfreplace.git'
 NeoBundle 'thinca/vim-quickrun.git'
 NeoBundle 'thinca/vim-scouter.git'
 NeoBundle 'thinca/vim-ref.git'
@@ -1135,6 +1136,7 @@ function! s:vimshell_settings()
   inoremap <buffer><expr>'  pumvisible() ? "\<C-y>" : "'"
   imap <buffer><BS>  <Plug>(vimshell_another_delete_backward_char)
   imap <buffer><C-h>  <Plug>(vimshell_another_delete_backward_char)
+  imap <buffer><C-k>  <Plug>(vimshell_zsh_complete)
   inoremap <silent><expr><buffer><C-r>  unite#sources#vimshell_history#start_complete(!0)
 
   nnoremap <silent><buffer> J
@@ -1846,6 +1848,8 @@ endif
 
 autocmd MyAutoCmd FileType vimfiler call s:vimfiler_my_settings()
 function! s:vimfiler_my_settings()"{{{
+  " setlocal nobuflisted
+
   " Overwrite settings.
   nnoremap <silent><buffer> J
         \ <C-u>:Unite -buffer-name=files -default-action=lcd directory_mru<CR>
