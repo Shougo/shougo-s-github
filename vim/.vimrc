@@ -113,7 +113,7 @@ NeoBundle 'Shougo/git-vim.git'
 NeoBundle 'Shougo/neocomplcache.git',
       \ { 'depends' : 'Shougo/neocomplcache-snippets-complete.git' }
 NeoBundle 'Shougo/neobundle.vim.git'
-" NeoBundle 'Shougo/unite.vim.git'
+NeoBundle 'Shougo/unite.vim.git'
 NeoBundleDepends 'Shougo/unite.vim.git'
 NeoBundle 'Shougo/unite-build.git'
 NeoBundle 'Shougo/unite-ssh.git'
@@ -155,6 +155,7 @@ NeoBundleLazy 'rson/vim-conque.git'
 NeoBundle 'sjl/gundo.vim.git'
 NeoBundle 't9md/vim-surround_custom_mapping.git'
 " NeoBundle 't9md/vim-textmanip.git'
+" NeoBundle 't9md/vim-quickhl'
 NeoBundleLazy 'thinca/vim-fontzoom.git'
 NeoBundle 'thinca/vim-ft-vim_fold.git'
 " NeoBundle 'thinca/vim-prettyprint.git'
@@ -1126,7 +1127,9 @@ function! s:vimshell_settings()
   inoremap <buffer><expr>'  pumvisible() ? "\<C-y>" : "'"
   imap <buffer><BS>  <Plug>(vimshell_another_delete_backward_char)
   imap <buffer><C-h>  <Plug>(vimshell_another_delete_backward_char)
-  inoremap <silent><expr><buffer><C-r>  unite#sources#vimshell_history#start_complete(!0)
+  inoremap <silent><expr><buffer><C-r>
+        \ unite#sources#vimshell_history#start_complete(!0)
+  imap <buffer><C-k> <Plug>(vimshell_zsh_complete)
 
   nnoremap <silent><buffer> J
         \ <C-u>:Unite -buffer-name=files -default-action=lcd directory_mru<CR>
