@@ -113,8 +113,7 @@ NeoBundle 'Shougo/git-vim.git'
 NeoBundle 'Shougo/neocomplcache.git',
       \ { 'depends' : 'Shougo/neocomplcache-snippets-complete.git' }
 NeoBundle 'Shougo/neobundle.vim.git'
-" NeoBundle 'Shougo/unite.vim.git'
-NeoBundleDepends 'Shougo/unite.vim.git'
+NeoBundle 'Shougo/unite.vim.git'
 NeoBundle 'Shougo/unite-build.git'
 NeoBundle 'Shougo/unite-ssh.git'
 NeoBundle 'Shougo/vim-vcs.git',
@@ -130,6 +129,7 @@ NeoBundle 'Shougo/vimproc', {
       \     'unix' : 'make -f make_unix.mak',
       \    },
       \ }
+
 NeoBundle 'Shougo/vimshell.git'
 NeoBundle 'Shougo/vinarise.git'
 " NeoBundle 'h1mesuke/unite-outline.git'
@@ -209,9 +209,6 @@ NeoBundle 'autofmt'
 " NeoBundleLazy 'yanktmp', {
 "       \ 'type' : 'nosync', 'base' : '~/.vim/bundle'
 "       \ }
-
-" NeoBundleLocal test.
-NeoBundleLocal ~/.vim/bundle/
 
 " Test.
 " NeoBundleLazy 'tpope/vim-fugitive'
@@ -1568,7 +1565,7 @@ let g:unite_source_menu_menus = {}
 let g:unite_source_menu_menus.test = {
       \     'description' : 'Test menu',
       \ }
-let g:unite_source_menu_menus.test.candidates = {
+let g:unite_source_menu_menus.test.command_candidates = {
       \       'ghci'      : 'VimShellInteractive ghci',
       \       'python'    : 'VimShellInteractive python',
       \       'Unite Beautiful Attack' : 'Unite -auto-preview colorscheme',
@@ -1850,7 +1847,7 @@ endif
 
 autocmd MyAutoCmd FileType vimfiler call s:vimfiler_my_settings()
 function! s:vimfiler_my_settings()"{{{
-  " setlocal nobuflisted
+  setlocal nobuflisted
 
   " Overwrite settings.
   nnoremap <silent><buffer> J
