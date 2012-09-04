@@ -155,6 +155,7 @@ NeoBundleLazy 'rson/vim-conque.git'
 NeoBundle 'sjl/gundo.vim.git'
 NeoBundle 't9md/vim-surround_custom_mapping.git'
 " NeoBundle 't9md/vim-textmanip.git'
+" NeoBundle 't9md/vim-quickhl'
 NeoBundleLazy 'thinca/vim-fontzoom.git'
 NeoBundle 'ujihisa/unite-font'
 NeoBundle 'thinca/vim-ft-vim_fold.git'
@@ -195,6 +196,7 @@ NeoBundle 'pasela/unite-webcolorname'
 " NeoBundle 'hrsh7th/vim-unite-vcs'
 NeoBundle 'deris/vim-loadafterft'
 NeoBundle 'osyo-manga/unite-quickfix'
+" NeoBundle 'taglist.vim'
 
 " From vim.org
 NeoBundleLazy 'CSApprox'
@@ -791,6 +793,8 @@ augroup MyAutoCmd
 
   autocmd FileType c setlocal foldmethod=syntax
 
+  autocmd FileType c,cpp NeoBundleSource clang_complete
+
   " Enable omni completion.
   autocmd FileType ada setlocal omnifunc=adacomplete#Complete
   autocmd FileType c setlocal omnifunc=ccomplete#Complete
@@ -906,16 +910,22 @@ let g:neocomplcache_force_overwrite_completefunc = 1
 if $USER ==# 'root'
   let g:neocomplcache_temporary_dir = '/root/.neocon'
 endif
+if !exists('g:neocomplcache_force_omni_patterns')
+  let g:neocomplcache_force_omni_patterns = {}
+endif
 
 " For neocomplcache-clang.
 let g:neocomplcache_clang_use_library = 0
 
 " For neocomplcache-clang_complete.
 let g:neocomplcache_force_overwrite_completefunc = 1
-let g:clang_complete_auto = 1
+let g:neocomplcache_force_omni_patterns.c =
+      \ '[^.[:digit:] *\t]\%(\.\|->\)'
+let g:neocomplcache_force_omni_patterns.cpp =
+      \ '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+let g:clang_complete_auto = 0
+let g:clang_auto_select = 0
 let g:clang_use_library   = 1
-let g:clang_complete_auto = 1
-let g:clang_auto_select = 1
 " let g:clang_library_path = 'libclang.dll'
 
 " Define dictionary.
@@ -946,6 +956,7 @@ if !exists('g:neocomplcache_omni_patterns')
   let g:neocomplcache_omni_patterns = {}
 endif
 let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+let g:neocomplcache_force_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 let g:neocomplcache_omni_patterns.php = '[^. *\t]\.\w*\|\h\w*::'
 let g:neocomplcache_omni_patterns.mail = '^\s*\w\+'
 let g:neocomplcache_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
@@ -1135,7 +1146,6 @@ function! s:vimshell_settings()
   imap <buffer><BS>  <Plug>(vimshell_another_delete_backward_char)
   imap <buffer><C-h>  <Plug>(vimshell_another_delete_backward_char)
   imap <buffer><C-k>  <Plug>(vimshell_zsh_complete)
-  inoremap <silent><expr><buffer><C-r>  unite#sources#vimshell_history#start_complete(!0)
 
   nnoremap <silent><buffer> J
         \ <C-u>:Unite -buffer-name=files -default-action=lcd directory_mru<CR>
@@ -1802,7 +1812,7 @@ AlterCommand <cmdwin> w[rite] Write
 
 "nmap    [Space]v   <Plug>(vimfiler_switch)
 nnoremap <silent>   [Space]v   :<C-u>VimFiler<CR>
-nnoremap    [Space]ff   :<C-u>VimFiler -buffer-name=explorer -split -simple -winwidth=35 -toggle<CR>
+nnoremap    [Space]ff   :<C-u>VimFilerExplorer<CR>
 
 call vimfiler#set_execute_file('vim', ['vim', 'notepad'])
 call vimfiler#set_execute_file('txt', 'vim')
@@ -2110,6 +2120,11 @@ let g:neocomplcache_dictionary_filetype_lists.tweetvim_say =
 nmap R <Plug>(operator-replace)
 xmap R <Plug>(operator-replace)
 xmap p <Plug>(operator-replace)
+
+" Taglist.
+let Tlist_Show_One_File = 1
+let Tlist_Use_Right_Window = 1
+let Tlist_Exit_OnlyWindow = 1
 
 "}}}
 
