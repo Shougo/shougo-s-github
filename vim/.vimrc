@@ -198,6 +198,7 @@ NeoBundle 'pasela/unite-webcolorname'
 " NeoBundle 'hrsh7th/vim-unite-vcs'
 NeoBundle 'deris/vim-loadafterft'
 NeoBundle 'osyo-manga/unite-quickfix'
+NeoBundle 'osyo-manga/unite-filetype'
 " NeoBundle 'taglist.vim'
 
 " From vim.org
@@ -1865,8 +1866,10 @@ function! s:vimfiler_my_settings()"{{{
   nnoremap <silent><buffer> J
         \ <C-u>:Unite -buffer-name=files -default-action=lcd directory_mru<CR>
   " Call sendto.
-  nnoremap <buffer> - <C-u>:Unite sendto<CR>
+  " nnoremap <buffer> - <C-u>:Unite sendto<CR>
   " setlocal cursorline
+
+  nmap <buffer> O <Plug>(vimfiler_sync_with_another_vimfiler)
 
   " Migemo search.
   if !empty(unite#get_filters('matcher_migemo'))
@@ -2330,8 +2333,8 @@ nnoremap <silent> [Space]ss mmHmt:<C-u>%s/<Space>$//ge<CR>`tzt`m
 
 " Easily syntax change."{{{
 " Detect syntax
-nnoremap [Space]$ :filetype detect<cr>
-nnoremap [Space]ft q:setfiletype<Space>
+nnoremap [Space]$ :filetype detect<CR>
+nnoremap [Space]ft :<C-u>Unite filetype<CR>
 "}}}
 
 " Exchange gj and gk to j and k. "{{{
