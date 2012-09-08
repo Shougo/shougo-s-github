@@ -167,6 +167,8 @@ NeoBundle 'thinca/vim-ref.git'
 NeoBundle 'thinca/vim-unite-history.git'
 if !has('gui_running') || s:is_windows
   NeoBundle 'tsukkee/lingr-vim.git'
+else
+  NeoBundleLazy 'tsukkee/lingr-vim.git'
 endif
 NeoBundle 'tsukkee/unite-help.git'
 NeoBundle 'tsukkee/unite-tag.git'
@@ -925,7 +927,7 @@ let g:neocomplcache_force_omni_patterns.cpp =
       \ '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 let g:clang_complete_auto = 0
 let g:clang_auto_select = 0
-let g:clang_use_library   = 1
+let g:clang_use_library   = 0
 " let g:clang_library_path = 'libclang.dll'
 
 " Define dictionary.
