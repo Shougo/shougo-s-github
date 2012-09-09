@@ -202,6 +202,7 @@ NeoBundle 'deris/vim-loadafterft'
 NeoBundle 'osyo-manga/unite-quickfix'
 NeoBundle 'osyo-manga/unite-filetype'
 " NeoBundle 'taglist.vim'
+NeoBundle 'rbtnn/hexript.vim'
 
 " From vim.org
 NeoBundleLazy 'CSApprox'
