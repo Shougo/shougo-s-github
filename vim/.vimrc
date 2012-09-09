@@ -234,13 +234,6 @@ if neobundle#exists_not_installed_bundles()
   " finish
 endif
 
-" Delete bundle directories contained local runtimepath.
-" for base in map(filter(split(&runtimepath, ','),
-"       \ "v:val !~ '/after\\|/\\.\\?bundle/'"), "fnamemodify(v:val, ':t')")
-"   let &runtimepath = substitute(&runtimepath,
-"         \ '\%(^\|,\)[^,]\+/\.\?bundle/'.base.'\ze,', '', 'g')
-" endfor
-
 " altercommand.vim
 call altercmd#load()
 "}}}
