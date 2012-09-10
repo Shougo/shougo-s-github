@@ -98,6 +98,8 @@ if has('vim_starting')"{{{
 endif
 "}}}
 
+let g:neobundle_enable_tail_path = 1
+
 call neobundle#rc(expand('~/.bundle'))
 
 " neobundle.vim"{{{
@@ -167,6 +169,8 @@ NeoBundle 'thinca/vim-ref.git'
 NeoBundle 'thinca/vim-unite-history.git'
 if !has('gui_running') || s:is_windows
   NeoBundle 'tsukkee/lingr-vim.git'
+else
+  NeoBundleLazy 'tsukkee/lingr-vim.git'
 endif
 NeoBundle 'tsukkee/unite-help.git'
 NeoBundle 'tsukkee/unite-tag.git'
@@ -198,6 +202,7 @@ NeoBundle 'deris/vim-loadafterft'
 NeoBundle 'osyo-manga/unite-quickfix'
 NeoBundle 'osyo-manga/unite-filetype'
 " NeoBundle 'taglist.vim'
+NeoBundle 'rbtnn/hexript.vim'
 
 " From vim.org
 NeoBundleLazy 'CSApprox'
@@ -231,13 +236,6 @@ if neobundle#exists_not_installed_bundles()
   echomsg 'Please execute ":NeoBundleInstall" command.'
   " finish
 endif
-
-" Delete bundle directories contained local runtimepath.
-for base in map(filter(split(&runtimepath, ','),
-      \ "v:val !~ '/after\\|/\\.\\?bundle/'"), "fnamemodify(v:val, ':t')")
-  let &runtimepath = substitute(&runtimepath,
-        \ '\%(^\|,\)[^,]\+/\.\?bundle/'.base.'\ze,', '', 'g')
-endfor
 
 " altercommand.vim
 call altercmd#load()
@@ -559,31 +557,11 @@ set virtualedit=block
 " Set keyword help.
 set keywordprg=:help
 
-" Make a scratch buffer when unnamed buffer.
-augroup vimrc-scratch-buffer"{{{
-  autocmd!
-  autocmd BufEnter * call s:scratch_buffer()
-  autocmd FileType qfreplace autocmd! vimrc-scratch * <buffer>
+" Check timestamp more for 'autoread'.
+autocmd MyAutoCmd WinEnter * checktime
 
-  function! s:scratch_buffer()
-    if exists('b:scratch_buffer') || bufname('%') != '' || &l:buftype != ''
-      return
-    endif
-    let b:scratch_buffer = 1
-    setlocal buftype=nofile nobuflisted noswapfile bufhidden=hide
-    augroup vimrc-scratch
-      autocmd! * <buffer>
-      autocmd BufWriteCmd <buffer> call s:scratch_on_BufWriteCmd()
-    augroup END
-  endfunction
-  function! s:scratch_on_BufWriteCmd()
-    silent! setl buftype< buflisted< swapfile< bufhidden< nomodified
-    autocmd! vimrc-scratch * <buffer>
-    unlet! b:scratch_buffer
-    execute 'saveas' . (v:cmdbang ? '!' : '') ' <afile>'
-    filetype detect
-  endfunction
-augroup END"}}}
+" Disable paste.
+autocmd MyAutoCmd InsertLeave * if &paste | set nopaste | endif
 
 " Use autofmt.
 set formatexpr=autofmt#japanese#formatexpr()
@@ -763,6 +741,21 @@ if v:version >= 703
   set colorcolumn=85
 endif
 
+" Restore view.
+set viewdir=~/.vim/view viewoptions-=options viewoptions+=slash,unix
+augroup MyAutoCmd
+  autocmd!
+  autocmd BufLeave * if expand('%') !=# '' && &buftype ==# ''
+  \                |   mkview
+  \                | endif
+  autocmd BufReadPost * if !exists('b:view_loaded') &&
+  \                         expand('%') !=# '' && &buftype ==# ''
+  \                   |   silent! loadview
+  \                   |   let b:view_loaded = 1
+  \                   | endif
+  autocmd VimLeave * call map(split(glob(&viewdir . '/*'), "\n"),
+  \                           'delete(v:val)')
+augroup END
 "}}}
 
 "---------------------------------------------------------------------------
@@ -812,6 +805,13 @@ augroup MyAutoCmd
   autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
   autocmd FileType python setlocal foldmethod=indent
+
+  " Update filetype.
+  autocmd BufWritePost
+  \ * if &l:filetype ==# '' || exists('b:ftdetect')
+  \ |   unlet! b:ftdetect
+  \ |   filetype detect
+  \ | endif
 augroup END
 
 " Java
@@ -928,7 +928,7 @@ let g:neocomplcache_force_omni_patterns.cpp =
       \ '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 let g:clang_complete_auto = 0
 let g:clang_auto_select = 0
-let g:clang_use_library   = 1
+let g:clang_use_library   = 0
 " let g:clang_library_path = 'libclang.dll'
 
 " Define dictionary.
@@ -1454,6 +1454,7 @@ unlet my_tabopen
 "}}}
 
 let g:unite_enable_start_insert = 0
+let g:unite_enable_short_source_names = 1
 
 function! s:unite_my_settings()"{{{
   " Overwrite settings.
@@ -1467,7 +1468,6 @@ function! s:unite_my_settings()"{{{
         \ unite#smart_map('x', "\<Plug>(unite_quick_match_choose_action)")
   nmap <buffer> x     <Plug>(unite_quick_match_choose_action)
   nmap <buffer> cd     <Plug>(unite_quick_match_default_action)
-  imap <buffer> <C-g>     <Plug>(unite_input_directory)
   nmap <buffer> <C-z>     <Plug>(unite_toggle_transpose_window)
   imap <buffer> <C-z>     <Plug>(unite_toggle_transpose_window)
   imap <buffer> <C-y>     <Plug>(unite_narrowing_path)
