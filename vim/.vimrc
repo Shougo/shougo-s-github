@@ -207,6 +207,8 @@ NeoBundle 'repeat.vim'
 NeoBundle 'autodate.vim'
 NeoBundle 'matchit.zip'
 NeoBundle 'autofmt'
+" NeoBundle 'perl-mauke.vim'
+NeoBundle 'DirDiff.vim'
 
 " nosync test.
 " NeoBundleLazy 'yanktmp', {
@@ -2332,7 +2334,7 @@ nnoremap <silent> [Space]ss mmHmt:<C-u>%s/<Space>$//ge<CR>`tzt`m
 " Easily syntax change."{{{
 " Detect syntax
 nnoremap [Space]$ :filetype detect<CR>
-nnoremap [Space]ft :<C-u>Unite filetype<CR>
+nnoremap <silent> [Space]ft :<C-u>Unite -start-insert filetype<CR>
 "}}}
 
 " Exchange gj and gk to j and k. "{{{
