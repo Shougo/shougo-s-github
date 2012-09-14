@@ -172,7 +172,7 @@ if !has('gui_running') || s:is_windows
 else
   NeoBundleLazy 'tsukkee/lingr-vim.git'
 endif
-NeoBundle 'tsukkee/unite-help.git'
+NeoBundle 'Shougo/unite-help.git'
 NeoBundle 'tsukkee/unite-tag.git'
 NeoBundle 'tyru/caw.vim.git'
 NeoBundle 'tyru/eskk.vim.git',
@@ -203,6 +203,7 @@ NeoBundle 'osyo-manga/unite-quickfix'
 NeoBundle 'osyo-manga/unite-filetype'
 " NeoBundle 'taglist.vim'
 NeoBundle 'rbtnn/hexript.vim'
+NeoBundle 'vim-jp/vital.vim'
 
 " From vim.org
 NeoBundleLazy 'CSApprox'
@@ -1860,8 +1861,6 @@ endif
 
 autocmd MyAutoCmd FileType vimfiler call s:vimfiler_my_settings()
 function! s:vimfiler_my_settings()"{{{
-  setlocal nobuflisted
-
   " Overwrite settings.
   nnoremap <silent><buffer> J
         \ <C-u>:Unite -buffer-name=files -default-action=lcd directory_mru<CR>
