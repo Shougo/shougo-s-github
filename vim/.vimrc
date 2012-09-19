@@ -2130,6 +2130,13 @@ let Tlist_Show_One_File = 1
 let Tlist_Use_Right_Window = 1
 let Tlist_Exit_OnlyWindow = 1
 
+" restart.vim {{{
+let g:restart_save_window_values = 0
+let g:restart_sessionoptions =
+      \     'blank,curdir,folds,help,localoptions,tabpages,unix'
+nnoremap <silent> <Leader><Leader>r :<C-u>Restart<CR>
+"}}}
+
 "}}}
 
 "---------------------------------------------------------------------------
