@@ -1048,9 +1048,9 @@ inoremap <expr><C-x><C-f>  neocomplcache#manual_filename_complete()
 imap <C-s>  <Plug>(neocomplcache_start_unite_snippet)
 
 " <CR>: close popup and save indent.
-inoremap <expr><silent> <CR> <SID>my_cr_function()
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
 function! s:my_cr_function()
-  return pumvisible() ? neocomplcache#close_popup() . "\<CR>" : "\<CR>"
+  return neocomplcache#smart_close_popup() . "\<CR>"
 endfunction
 
 " <TAB>: completion.
