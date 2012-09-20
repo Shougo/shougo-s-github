@@ -898,7 +898,7 @@ let g:neocomplcache_min_keyword_length = 3
 "       \ v:version == 703 && has('patch289')
 let g:neocomplcache_enable_cursor_hold_i = 0
 let g:neocomplcache_cursor_hold_i_time = 300
-let g:neocomplcache_enable_insert_char_pre = 1
+let g:neocomplcache_enable_insert_char_pre = 0
 let g:neocomplcache_enable_prefetch = 0
 
 " For auto select.
@@ -1385,7 +1385,7 @@ nnoremap <silent> g<C-h>  :<C-u>UniteWithCursorWord help<CR>
 " Search.
 " nnoremap <expr> /  <SID>smart_search_expr('/',
 nnoremap <expr><silent> /  <SID>smart_search_expr(
-      \ ":\<C-u>Unite -buffer-name=search -no-split -start-insert line:!\<CR>",
+      \ ":\<C-u>Unite -buffer-name=search -no-split -start-insert line/fast\<CR>",
       \ ":\<C-u>Unite -buffer-name=search -start-insert line\<CR>")
 nnoremap <expr> g/  <SID>smart_search_expr('g/',
       \ ":\<C-u>Unite -buffer-name=search -start-insert line_migemo\<CR>")
@@ -1394,7 +1394,7 @@ nnoremap <silent><expr> ? <SID>smart_search_expr('?',
       \ ":\<C-u>Unite mapping\<CR>")
 " nnoremap <silent><expr> * <SID>smart_search_expr('*',
 nnoremap <silent><expr> * <SID>smart_search_expr(
-      \ ":\<C-u>UniteWithCursorWord -buffer-name=search line:!\<CR>",
+      \ ":\<C-u>UniteWithCursorWord -buffer-name=search line/fast\<CR>",
       \ ":\<C-u>UniteWithCursorWord -buffer-name=search line\<CR>")
 
 function! s:smart_search_expr(expr1, expr2)
