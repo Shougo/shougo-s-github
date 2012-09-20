@@ -104,25 +104,24 @@ call neobundle#rc(expand('~/.bundle'))
 
 " neobundle.vim"{{{
 NeoBundle 'anyakichi/vim-surround'
-NeoBundleLazy 'basyura/TweetVim.git'
-NeoBundleLazy 'basyura/twibill.vim.git'
-" NeoBundleLazy 'c9s/perlomni.vim.git'
+NeoBundleLazy 'basyura/TweetVim'
+NeoBundleLazy 'basyura/twibill.vim'
+" NeoBundleLazy 'c9s/perlomni.vim'
 NeoBundleLazy 'choplin/unite-vim_hacks'
-NeoBundleLazy 'liquidz/vimfiler-sendto.git'
-" NeoBundleLazy 'Shougo/neocomplcache-clang.git'
-NeoBundle 'Shougo/echodoc.git'
-NeoBundle 'Shougo/git-vim.git'
-NeoBundle 'Shougo/neocomplcache.git',
-      \ { 'depends' : 'Shougo/neocomplcache-snippets-complete.git' }
-NeoBundle 'Shougo/neobundle.vim.git'
-NeoBundle 'Shougo/unite.vim.git'
-NeoBundle 'Shougo/unite-build.git'
-NeoBundle 'Shougo/unite-ssh.git'
-NeoBundle 'Shougo/vim-vcs.git',
-      \ { 'depends' : 'thinca/vim-openbuf.git' }
-NeoBundle 'Shougo/vimfiler.git',
-      \ { 'depends' : 'Shougo/unite.vim.git' }
-" NeoBundle 'Shougo/vimfiler.git', 'ver.1.50'
+NeoBundleLazy 'liquidz/vimfiler-sendto'
+" NeoBundleLazy 'Shougo/neocomplcache-clang'
+NeoBundle 'Shougo/echodoc'
+NeoBundle 'Shougo/neocomplcache',
+      \ { 'depends' : 'Shougo/neocomplcache-snippets-complete' }
+NeoBundle 'Shougo/neobundle.vim'
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/unite-build'
+NeoBundle 'Shougo/unite-ssh'
+NeoBundle 'Shougo/vim-vcs',
+      \ { 'depends' : 'thinca/vim-openbuf' }
+NeoBundle 'Shougo/vimfiler',
+      \ { 'depends' : 'Shougo/unite.vim' }
+" NeoBundle 'Shougo/vimfiler', 'ver.1.50'
 NeoBundle 'Shougo/vimproc', {
       \ 'build' : {
       \     'windows' : 'echo "Sorry, cannot update vimproc binary file in Windows."',
@@ -132,63 +131,63 @@ NeoBundle 'Shougo/vimproc', {
       \    },
       \ }
 
-NeoBundle 'Shougo/vimshell.git'
-NeoBundle 'Shougo/vinarise.git'
-" NeoBundle 'h1mesuke/unite-outline.git'
-NeoBundle 'Shougo/unite-outline.git'
-NeoBundleLazy 'hail2u/vim-css3-syntax.git'
-NeoBundle 'kana/vim-smartchr.git'
-NeoBundle 'kana/vim-smartword.git'
-NeoBundle 'kana/vim-smarttill.git'
-NeoBundle 'kana/vim-fakeclip.git'
-NeoBundle 'kana/vim-operator-user.git'
-NeoBundle 'kana/vim-operator-replace.git'
-NeoBundle 'kana/vim-textobj-user.git'
-" NeoBundleLazy 'kana/vim-wwwsearch.git'
-NeoBundleLazy 'kien/ctrlp.vim.git'
-NeoBundleLazy 'Rip-Rip/clang_complete.git'
-NeoBundle 'Shougo/foldCC.git'
-NeoBundleLazy 'mattn/wwwrenderer-vim.git'
-NeoBundle 'mattn/webapi-vim.git'
-" NeoBundle 'basyura/webapi-vim.git'
-" NeoBundle 'pocket7878/presen-vim.git',
-" \ { 'depends' : 'pocket7878/curses-vim.git'}
-NeoBundleLazy 'rson/vim-conque.git'
-NeoBundle 'sjl/gundo.vim.git'
-NeoBundle 't9md/vim-surround_custom_mapping.git'
-" NeoBundle 't9md/vim-textmanip.git'
+NeoBundle 'Shougo/vimshell'
+NeoBundle 'Shougo/vinarise'
+" NeoBundle 'h1mesuke/unite-outline'
+NeoBundle 'Shougo/unite-outline'
+NeoBundleLazy 'hail2u/vim-css3-syntax'
+NeoBundle 'kana/vim-smartchr'
+NeoBundle 'kana/vim-smartword'
+NeoBundle 'kana/vim-smarttill'
+NeoBundle 'kana/vim-fakeclip'
+NeoBundle 'kana/vim-operator-user'
+NeoBundle 'kana/vim-operator-replace'
+NeoBundle 'kana/vim-textobj-user'
+" NeoBundleLazy 'kana/vim-wwwsearch'
+NeoBundleLazy 'kien/ctrlp.vim'
+NeoBundleLazy 'Rip-Rip/clang_complete'
+NeoBundle 'Shougo/foldCC'
+NeoBundleLazy 'mattn/wwwrenderer-vim'
+NeoBundle 'mattn/webapi-vim'
+" NeoBundle 'basyura/webapi-vim'
+" NeoBundle 'pocket7878/presen-vim',
+" \ { 'depends' : 'pocket7878/curses-vim'}
+NeoBundleLazy 'rson/vim-conque'
+NeoBundle 'sjl/gundo.vim'
+NeoBundle 't9md/vim-surround_custom_mapping'
+" NeoBundle 't9md/vim-textmanip'
 " NeoBundle 't9md/vim-quickhl'
-NeoBundleLazy 'thinca/vim-fontzoom.git'
+NeoBundleLazy 'thinca/vim-fontzoom'
 NeoBundle 'ujihisa/unite-font'
-NeoBundle 'thinca/vim-ft-vim_fold.git'
-NeoBundle 'thinca/vim-prettyprint.git'
-NeoBundle 'thinca/vim-qfreplace.git'
-NeoBundle 'thinca/vim-quickrun.git'
-NeoBundle 'thinca/vim-scouter.git'
-NeoBundle 'thinca/vim-ref.git'
-NeoBundle 'thinca/vim-unite-history.git'
+NeoBundle 'thinca/vim-ft-vim_fold'
+NeoBundle 'thinca/vim-prettyprint'
+NeoBundle 'thinca/vim-qfreplace'
+NeoBundle 'thinca/vim-quickrun'
+NeoBundle 'thinca/vim-scouter'
+NeoBundle 'thinca/vim-ref'
+NeoBundle 'thinca/vim-unite-history'
 if !has('gui_running') || s:is_windows
-  NeoBundle 'tsukkee/lingr-vim.git'
+  NeoBundle 'tsukkee/lingr-vim'
 else
-  NeoBundleLazy 'tsukkee/lingr-vim.git'
+  NeoBundleLazy 'tsukkee/lingr-vim'
 endif
-NeoBundle 'Shougo/unite-help.git'
-NeoBundle 'tsukkee/unite-tag.git'
-NeoBundle 'tyru/caw.vim.git'
-NeoBundle 'tyru/eskk.vim.git',
+NeoBundle 'Shougo/unite-help'
+NeoBundle 'tsukkee/unite-tag'
+NeoBundle 'tyru/caw.vim'
+NeoBundle 'tyru/eskk.vim',
       \ { 'depends' : [
-      \   'tyru/cul.vim.git', 'tyru/savemap.vim.git',
-      \   'tyru/vice.vim.git', 'tyru/skkdict.vim.git',
+      \   'tyru/cul.vim', 'tyru/savemap.vim',
+      \   'tyru/vice.vim', 'tyru/skkdict.vim',
       \ ]}
-NeoBundleLazy 'tyru/open-browser.vim.git'
-NeoBundleLazy 'tyru/operator-html-escape.vim.git'
-NeoBundle 'tyru/restart.vim.git'
-" NeoBundle 'tyru/skk.vim.git'
-NeoBundle 'tyru/vim-altercmd.git'
-NeoBundle 'tyru/winmove.vim.git'
-NeoBundleLazy 'ujihisa/neco-ghc.git'
-NeoBundle 'ujihisa/neco-look.git'
-NeoBundleLazy 'ujihisa/unite-colorscheme.git'
+NeoBundleLazy 'tyru/open-browser.vim'
+NeoBundleLazy 'tyru/operator-html-escape.vim'
+NeoBundle 'tyru/restart.vim'
+" NeoBundle 'tyru/skk.vim'
+NeoBundle 'tyru/vim-altercmd'
+NeoBundle 'tyru/winmove.vim'
+NeoBundleLazy 'ujihisa/neco-ghc'
+NeoBundle 'ujihisa/neco-look'
+NeoBundleLazy 'ujihisa/unite-colorscheme'
 NeoBundleLazy 'ujihisa/unite-locate.git'
 NeoBundle 'ujihisa/vimshell-ssh.git'
 NeoBundle 'vim-jp/vimdoc-ja.git'
@@ -204,6 +203,7 @@ NeoBundle 'osyo-manga/unite-filetype'
 " NeoBundle 'taglist.vim'
 NeoBundle 'rbtnn/hexript.vim'
 NeoBundle 'vim-jp/vital.vim'
+NeoBundleLazy 'tpope/vim-endwise'
 
 " From vim.org
 NeoBundleLazy 'CSApprox'
@@ -898,7 +898,7 @@ let g:neocomplcache_min_keyword_length = 3
 "       \ v:version == 703 && has('patch289')
 let g:neocomplcache_enable_cursor_hold_i = 0
 let g:neocomplcache_cursor_hold_i_time = 300
-let g:neocomplcache_enable_insert_char_pre = 0
+let g:neocomplcache_enable_insert_char_pre = 1
 let g:neocomplcache_enable_prefetch = 0
 
 " For auto select.
@@ -2132,8 +2132,6 @@ let Tlist_Exit_OnlyWindow = 1
 
 " restart.vim {{{
 let g:restart_save_window_values = 0
-let g:restart_sessionoptions =
-      \     'blank,curdir,folds,help,localoptions,tabpages,unix'
 nnoremap <silent> <Leader><Leader>r :<C-u>Restart<CR>
 "}}}
 
