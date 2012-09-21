@@ -200,7 +200,7 @@ NeoBundle 'pasela/unite-webcolorname'
 NeoBundle 'deris/vim-loadafterft'
 NeoBundle 'osyo-manga/unite-quickfix'
 NeoBundle 'osyo-manga/unite-filetype'
-" NeoBundle 'taglist.vim'
+"NeoBundle 'taglist.vim'
 NeoBundle 'rbtnn/hexript.vim'
 NeoBundle 'vim-jp/vital.vim'
 NeoBundleLazy 'tpope/vim-endwise'
@@ -1014,7 +1014,7 @@ inoremap <expr><C-l>     neocomplcache#complete_common_string()
 "\ 'vim_complete' : 4,
 "\ }
 let g:neocomplcache_source_disable = {
-      \ 'tags_complete' : 0
+      \ 'tags_complete' : 1,
       \}
 "}}}
 " let g:snippets_dir = '~/.vim/snippets/,~/.vim/bundle/snipmate/snippets/'
@@ -1022,8 +1022,7 @@ let g:neocomplcache_source_disable = {
 " For neocomplcache."{{{
 " <C-f>, <C-b>: page move.
 inoremap <expr><C-f>  pumvisible() ? "\<PageDown>" : "\<Right>"
-inoremap <expr><C-b>  pumvisible() ? "\<PageUp>"   :
-      \neocomplcache#sources#completefunc_complete#call_completefunc('googlesuggest_complete#completefunc')
+inoremap <expr><C-b>  pumvisible() ? "\<PageUp>"   : "\<Left>"
 " <C-y>: paste.
 inoremap <expr><C-y>  pumvisible() ? neocomplcache#close_popup() :  "\<C-r>\""
 " <C-e>: close popup.
