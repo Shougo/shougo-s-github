@@ -109,7 +109,6 @@ NeoBundleLazy 'basyura/twibill.vim'
 " NeoBundleLazy 'c9s/perlomni.vim'
 NeoBundleLazy 'choplin/unite-vim_hacks'
 NeoBundleLazy 'liquidz/vimfiler-sendto'
-" NeoBundleLazy 'Shougo/neocomplcache-clang'
 NeoBundle 'Shougo/echodoc'
 NeoBundle 'Shougo/neocomplcache',
       \ { 'depends' : 'Shougo/neocomplcache-snippets-complete' }
@@ -929,8 +928,7 @@ let g:neocomplcache_force_omni_patterns.cpp =
       \ '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 let g:clang_complete_auto = 0
 let g:clang_auto_select = 0
-let g:clang_use_library   = 0
-" let g:clang_library_path = 'libclang.dll'
+let g:clang_use_library   = 1
 
 " Define dictionary.
 let g:neocomplcache_dictionary_filetype_lists = {
