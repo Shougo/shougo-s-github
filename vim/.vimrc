@@ -1533,10 +1533,12 @@ let g:unite_source_file_mru_limit = 300
 " let g:unite_source_directory_mru_time_format = ''
 let g:unite_source_directory_mru_limit = 300
 
-" For jvgrep.
-" let g:unite_source_grep_command = 'jvgrep'
-" let g:unite_source_grep_default_opts = '-exclude=''\.(git|svn|hg|bzr)'''
-" let g:unite_source_grep_recursive_opt = '-R'
+if executable('jvgrep')
+  " For jvgrep.
+  let g:unite_source_grep_command = 'jvgrep'
+  let g:unite_source_grep_default_opts = '--exclude ''\.(git|svn|hg|bzr)'''
+  let g:unite_source_grep_recursive_opt = '-R'
+endif
 
 " For ack.
 if executable('ack-grep')
