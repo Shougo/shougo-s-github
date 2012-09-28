@@ -524,7 +524,7 @@ if !has('gui_running') && !s:is_windows
   autocmd MyAutoCmd BufWritePost .vimrc nested source $MYVIMRC | echo "source $MYVIMRC"
 else
   autocmd MyAutoCmd BufWritePost .vimrc source $MYVIMRC |
-        \if has('gui_running') | source $MYGVIMRC | echo "source $MYVIMRC"
+        \ if has('gui_running') | source $MYGVIMRC | echo "source $MYVIMRC"
   autocmd MyAutoCmd BufWritePost .gvimrc if has('gui_running') | source $MYGVIMRC | echo "source $MYGVIMRC"
 endif
 
@@ -744,7 +744,6 @@ endif
 " Restore view.
 set viewdir=~/.vim/view viewoptions-=options viewoptions+=slash,unix
 augroup MyAutoCmd
-  autocmd!
   autocmd BufLeave * if expand('%') !=# '' && &buftype ==# ''
   \                |   mkview
   \                | endif
@@ -1348,8 +1347,10 @@ nnoremap <silent> [unite]ma
       \ :<C-u>Unite mapping<CR>
 nnoremap <silent> [unite]me
       \ :<C-u>Unite output:message<CR>
-inoremap <silent> <C-z>
-      \ <C-o>:call unite#start_complete(['register'], {'is_insert' : 1})<CR>
+inoremap <silent><expr> <C-z>
+      \ unite#start_complete(['register'],
+      \ { 'input': neocomplcache#get_cur_text(1) })
+
 
 nnoremap <silent> [Window]s
       \ :<C-u>Unite -buffer-name=files -no-split
