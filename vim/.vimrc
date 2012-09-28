@@ -2134,7 +2134,6 @@ let Tlist_Exit_OnlyWindow = 1
 
 " restart.vim {{{
 let g:restart_save_window_values = 0
-nnoremap <silent> <Leader><Leader>r :<C-u>Restart<CR>
 "}}}
 
 "}}}
