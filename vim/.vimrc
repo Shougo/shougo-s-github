@@ -900,6 +900,11 @@ let g:neocomplcache_cursor_hold_i_time = 300
 let g:neocomplcache_enable_insert_char_pre = 0
 let g:neocomplcache_enable_prefetch = 0
 
+if !exists('g:neocomplcache_wildcard_characters')
+  let g:neocomplcache_wildcard_characters = {}
+endif
+let g:neocomplcache_wildcard_characters._ = '-'
+
 " For auto select.
 let g:neocomplcache_enable_auto_select = 1
 
@@ -928,7 +933,7 @@ let g:neocomplcache_force_omni_patterns.cpp =
       \ '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 let g:clang_complete_auto = 0
 let g:clang_auto_select = 0
-let g:clang_use_library   = 1
+let g:clang_use_library = 1
 
 " Define dictionary.
 let g:neocomplcache_dictionary_filetype_lists = {
@@ -2533,12 +2538,6 @@ nnoremap [Tabbed]   <Nop>
 " Create tab page.
 nnoremap <silent> [Tabbed]c  :<C-u>call <SID>my_tabnew()<CR>
 nnoremap <silent> [Tabbed]d  :<C-u>tabclose<CR>
-" Move to other tab page.
-nnoremap <silent> [Tabbed]j
-      \ :execute 'tabnext' 1 + (tabpagenr() + v:count1 - 1) % tabpagenr('$')<CR>
-nnoremap <silent> [Tabbed]k  :<C-u>tabprevious<CR>
-nnoremap <silent> [Tabbed]K  :<C-u>tabfirst<CR>
-nnoremap <silent> [Tabbed]J  :<C-u>tablast<CR>
 nnoremap <silent> [Tabbed]l
       \ :<C-u>execute 'tabmove' min([tabpagenr() + v:count1 - 1, tabpagenr('$')])<CR>
 nnoremap <silent> [Tabbed]h
@@ -2546,10 +2545,6 @@ nnoremap <silent> [Tabbed]h
 nnoremap <silent> [Tabbed]L  :<C-u>tabmove<CR>
 nnoremap <silent> [Tabbed]H  :<C-u>tabmove 0<CR>
 nnoremap <silent> [Tabbed]<C-t>       :<C-u>Unite tab<CR>
-nmap [Tabbed]n  [Tabbed]j
-nmap [Tabbed]p  [Tabbed]k
-nmap <C-n>  [Tabbed]j
-nmap <C-p>  [Tabbed]k
 
 function! s:my_tabnew()
   let title = input('Please input tab title: ', '',
@@ -2570,22 +2565,6 @@ function! s:history_complete(arglead, cmdline, cursorpos)
   \                     'histget("input", v:val)'),
   \                 'v:val != "" && stridx(v:val, a:arglead) == 0')
 endfunction
-
-function! s:my_tabnext()
-  if tabpagenr('$') == 1
-    call s:my_tabnew()
-  else
-    Unite -immediately tab:no-current
-  endif
-endfunction
-
-" Change current tab like GNU screen.
-" Note that the numbers in {lhs}s are 1-origin.  See also 'tabline'.
-for i in range(10)
-  execute 'nnoremap <silent>' ('[Tabbed]'.(i))  (i.'gt')
-  execute 'nnoremap <silent>' ('[Window]'.(i))  (i.'gt')
-endfor
-unlet i
 "}}}
 
 " e: Change basic commands "{{{
