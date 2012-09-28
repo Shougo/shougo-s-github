@@ -385,26 +385,6 @@ command! -bang -complete=file -nargs=? WDos write<bang> ++fileformat=dos <args> 
 if has('multi_byte_ime')
   set iminsert=0 imsearch=0
 endif
-
-" Disable ibus setting.
-" From http://d.hatena.ne.jp/fuenor/20110705/1309866529
-if !has('gui_running') && (has('python/dyn') || has('python') ||
-      \ (executable('python') && executable('~/bin/ibus-disable.py')))
-
-  autocmd MyAutoCmd InsertLeave * call s:ibus_disable()
-
-  function! s:ibus_disable()
-    if has('python/dyn') || has('python')
-python << EOF
-import ibus
-bus = ibus.Bus()
-ibus.InputContext(bus, bus.current_input_contxt()).disable()
-EOF
-    else
-      call system('python ~/bin/ibus-disable.py')
-    endif
-  endfunction
-endif
 "}}}
 
 "---------------------------------------------------------------------------
@@ -1348,9 +1328,7 @@ nnoremap <silent> [unite]ma
 nnoremap <silent> [unite]me
       \ :<C-u>Unite output:message<CR>
 inoremap <silent><expr> <C-z>
-      \ unite#start_complete(['register'],
-      \ { 'input': neocomplcache#get_cur_text(1) })
-
+      \ unite#start_complete('register', { 'input': unite#get_cur_text() })
 
 nnoremap <silent> [Window]s
       \ :<C-u>Unite -buffer-name=files -no-split
