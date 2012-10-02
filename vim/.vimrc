@@ -109,7 +109,6 @@ NeoBundleLazy 'basyura/twibill.vim'
 " NeoBundleLazy 'c9s/perlomni.vim'
 NeoBundleLazy 'choplin/unite-vim_hacks'
 NeoBundleLazy 'liquidz/vimfiler-sendto'
-" NeoBundleLazy 'Shougo/neocomplcache-clang'
 NeoBundle 'Shougo/echodoc'
 NeoBundle 'Shougo/neocomplcache',
       \ { 'depends' : 'Shougo/neocomplcache-snippets-complete' }
@@ -386,26 +385,6 @@ command! -bang -complete=file -nargs=? WDos write<bang> ++fileformat=dos <args> 
 if has('multi_byte_ime')
   set iminsert=0 imsearch=0
 endif
-
-" Disable ibus setting.
-" From http://d.hatena.ne.jp/fuenor/20110705/1309866529
-if !has('gui_running') && (has('python/dyn') || has('python') ||
-      \ (executable('python') && executable('~/bin/ibus-disable.py')))
-
-  autocmd MyAutoCmd InsertLeave * call s:ibus_disable()
-
-  function! s:ibus_disable()
-    if has('python/dyn') || has('python')
-python << EOF
-import ibus
-bus = ibus.Bus()
-ibus.InputContext(bus, bus.current_input_contxt()).disable()
-EOF
-    else
-      call system('python ~/bin/ibus-disable.py')
-    endif
-  endfunction
-endif
 "}}}
 
 "---------------------------------------------------------------------------
@@ -525,7 +504,7 @@ if !has('gui_running') && !s:is_windows
   autocmd MyAutoCmd BufWritePost .vimrc nested source $MYVIMRC | echo "source $MYVIMRC"
 else
   autocmd MyAutoCmd BufWritePost .vimrc source $MYVIMRC |
-        \if has('gui_running') | source $MYGVIMRC | echo "source $MYVIMRC"
+        \ if has('gui_running') | source $MYGVIMRC | echo "source $MYVIMRC"
   autocmd MyAutoCmd BufWritePost .gvimrc if has('gui_running') | source $MYGVIMRC | echo "source $MYGVIMRC"
 endif
 
@@ -745,7 +724,6 @@ endif
 " Restore view.
 set viewdir=~/.vim/view viewoptions-=options viewoptions+=slash,unix
 augroup MyAutoCmd
-  autocmd!
   autocmd BufLeave * if expand('%') !=# '' && &buftype ==# ''
   \                |   mkview
   \                | endif
@@ -901,6 +879,11 @@ let g:neocomplcache_cursor_hold_i_time = 300
 let g:neocomplcache_enable_insert_char_pre = 0
 let g:neocomplcache_enable_prefetch = 0
 
+if !exists('g:neocomplcache_wildcard_characters')
+  let g:neocomplcache_wildcard_characters = {}
+endif
+let g:neocomplcache_wildcard_characters._ = '-'
+
 " For auto select.
 let g:neocomplcache_enable_auto_select = 1
 
@@ -927,7 +910,6 @@ let g:neocomplcache_force_omni_patterns.cpp =
 let g:clang_complete_auto = 0
 let g:clang_auto_select = 0
 let g:clang_use_library   = 1
-" let g:clang_library_path = 'libclang.dll'
 
 " Define dictionary.
 let g:neocomplcache_dictionary_filetype_lists = {
@@ -1342,12 +1324,13 @@ nnoremap <silent> [unite]ma
       \ :<C-u>Unite mapping<CR>
 nnoremap <silent> [unite]me
       \ :<C-u>Unite output:message<CR>
-inoremap <silent> <C-z>
-      \ <C-o>:call unite#start_complete(['register'], {'is_insert' : 1})<CR>
+inoremap <silent><expr> <C-z>
+      \ unite#start_complete('register', { 'input': unite#get_cur_text() })
 
 nnoremap <silent> [Window]s
       \ :<C-u>Unite -buffer-name=files -no-split
-      \ jump_point file_point buffer_tab file_rec/async:! file file/new file_mru<CR>
+      \ jump_point file_point buffer_tab
+      \ file_rec/async:! file file/new file_mru<CR>
 nnoremap <silent> [Window]t
       \ :<C-u>Unite -buffer-name=files tab<CR>
 nnoremap <silent> [Window]w
@@ -1373,10 +1356,12 @@ nnoremap <silent><expr> [Tag]p  &filetype == 'help' ?
 
 " Execute help.
 " nnoremap <C-h>  :<C-u>help<Space>
-nnoremap <C-h>  :<C-u>UniteWithInput help<CR>
+" nnoremap <C-h>  :<C-u>UniteWithInput help<CR>
+nnoremap <silent> <C-h>  :<C-u>Unite -no-quit help<CR>
+
 " Execute help by cursor keyword.
 " nnoremap <silent> g<C-h>  :<C-u>help<Space><C-r><C-w><CR>
-nnoremap <silent> g<C-h>  :<C-u>UniteWithCursorWord help<CR>
+nnoremap <silent> g<C-h>  :<C-u>UniteWithInput help<CR>
 
 " Search.
 " nnoremap <expr> /  <SID>smart_search_expr('/',
@@ -1411,12 +1396,16 @@ let g:unite_winheight = 20
 autocmd MyAutoCmd FileType unite call s:unite_my_settings()
 
 " Directory partial match.
-" call unite#set_substitute_pattern('files', '\%([~.*]\+\)\@<!/', '*/*', 100)
-" call unite#set_substitute_pattern('files', '^\\', substitute(substitute($HOME, '\\', '/', 'g'), ' ', '\\ ', 'g') . '/*', -100)
+" call unite#set_substitute_pattern('files',
+"      \'\%([~.*]\+\)\@<!/', '*/*', 100)
+" call unite#set_substitute_pattern('files', '^\\',
+"      \ substitute(substitute($HOME, '\\', '/', 'g'), ' ', '\\ ', 'g') . '/*', -100)
 " Test.
-" call unite#set_substitute_pattern('files', '^\.v/', unite#util#substitute_path_separator($HOME).'/.vim/', 1000)
+" call unite#set_substitute_pattern('files', '^\.v/',
+"      \ unite#util#substitute_path_separator($HOME).'/.vim/', 1000)
 call unite#set_substitute_pattern('files', '^\.v/',
-      \ [expand('~/.vim/'), unite#util#substitute_path_separator($HOME) . '/.bundle/*/'], 1000)
+      \ [expand('~/.vim/'), unite#util#substitute_path_separator($HOME)
+      \ . '/.bundle/*/'], 1000)
 call unite#set_substitute_pattern('files', '\.', '*.', 1000)
 call unite#custom_alias('file', 'h', 'left')
 call unite#custom_default_action('directory', 'narrow')
@@ -2130,7 +2119,6 @@ let Tlist_Exit_OnlyWindow = 1
 
 " restart.vim {{{
 let g:restart_save_window_values = 0
-nnoremap <silent> <Leader><Leader>r :<C-u>Restart<CR>
 "}}}
 
 "}}}
@@ -2534,12 +2522,6 @@ nnoremap [Tabbed]   <Nop>
 " Create tab page.
 nnoremap <silent> [Tabbed]c  :<C-u>call <SID>my_tabnew()<CR>
 nnoremap <silent> [Tabbed]d  :<C-u>tabclose<CR>
-" Move to other tab page.
-nnoremap <silent> [Tabbed]j
-      \ :execute 'tabnext' 1 + (tabpagenr() + v:count1 - 1) % tabpagenr('$')<CR>
-nnoremap <silent> [Tabbed]k  :<C-u>tabprevious<CR>
-nnoremap <silent> [Tabbed]K  :<C-u>tabfirst<CR>
-nnoremap <silent> [Tabbed]J  :<C-u>tablast<CR>
 nnoremap <silent> [Tabbed]l
       \ :<C-u>execute 'tabmove' min([tabpagenr() + v:count1 - 1, tabpagenr('$')])<CR>
 nnoremap <silent> [Tabbed]h
@@ -2547,10 +2529,6 @@ nnoremap <silent> [Tabbed]h
 nnoremap <silent> [Tabbed]L  :<C-u>tabmove<CR>
 nnoremap <silent> [Tabbed]H  :<C-u>tabmove 0<CR>
 nnoremap <silent> [Tabbed]<C-t>       :<C-u>Unite tab<CR>
-nmap [Tabbed]n  [Tabbed]j
-nmap [Tabbed]p  [Tabbed]k
-nmap <C-n>  [Tabbed]j
-nmap <C-p>  [Tabbed]k
 
 function! s:my_tabnew()
   let title = input('Please input tab title: ', '',
@@ -2571,22 +2549,6 @@ function! s:history_complete(arglead, cmdline, cursorpos)
   \                     'histget("input", v:val)'),
   \                 'v:val != "" && stridx(v:val, a:arglead) == 0')
 endfunction
-
-function! s:my_tabnext()
-  if tabpagenr('$') == 1
-    call s:my_tabnew()
-  else
-    Unite -immediately tab:no-current
-  endif
-endfunction
-
-" Change current tab like GNU screen.
-" Note that the numbers in {lhs}s are 1-origin.  See also 'tabline'.
-for i in range(10)
-  execute 'nnoremap <silent>' ('[Tabbed]'.(i))  (i.'gt')
-  execute 'nnoremap <silent>' ('[Window]'.(i))  (i.'gt')
-endfor
-unlet i
 "}}}
 
 " e: Change basic commands "{{{
@@ -3187,7 +3149,6 @@ function! s:ChangeCurrentDir(directory, bang)
     pwd
   endif
 endfunction"}}}
-AlterCommand cd CD
 
 function! s:Batch() range"{{{
   " read vimscript from selected area.
@@ -3570,9 +3531,6 @@ autocmd TabEnter *
       \ |   let t:cwd = getcwd()
       \ | endif
     \ | execute 'cd' fnameescape(s:expand(t:cwd))
-
-" Exchange ':cd' to ':TabpageCD'.
-cnoreabbrev <expr> cd (getcmdtype() == ':' && getcmdline() ==# 'cd') ? 'TabpageCD' : 'cd'
 "}}}
 
 " For snipMate.
