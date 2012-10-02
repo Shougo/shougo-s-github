@@ -1332,7 +1332,8 @@ inoremap <silent><expr> <C-z>
 
 nnoremap <silent> [Window]s
       \ :<C-u>Unite -buffer-name=files -no-split
-      \ jump_point file_point buffer_tab file_rec/async:! file file/new file_mru<CR>
+      \ jump_point file_point buffer_tab
+      \ file_rec/async:! file file/new file_mru<CR>
 nnoremap <silent> [Window]t
       \ :<C-u>Unite -buffer-name=files tab<CR>
 nnoremap <silent> [Window]w
@@ -1358,10 +1359,12 @@ nnoremap <silent><expr> [Tag]p  &filetype == 'help' ?
 
 " Execute help.
 " nnoremap <C-h>  :<C-u>help<Space>
-nnoremap <C-h>  :<C-u>UniteWithInput help<CR>
+" nnoremap <C-h>  :<C-u>UniteWithInput help<CR>
+nnoremap <silent> <C-h>  :<C-u>Unite -no-quit help<CR>
+
 " Execute help by cursor keyword.
 " nnoremap <silent> g<C-h>  :<C-u>help<Space><C-r><C-w><CR>
-nnoremap <silent> g<C-h>  :<C-u>UniteWithCursorWord help<CR>
+nnoremap <silent> g<C-h>  :<C-u>UniteWithInput help<CR>
 
 " Search.
 " nnoremap <expr> /  <SID>smart_search_expr('/',
@@ -1396,12 +1399,16 @@ let g:unite_winheight = 20
 autocmd MyAutoCmd FileType unite call s:unite_my_settings()
 
 " Directory partial match.
-" call unite#set_substitute_pattern('files', '\%([~.*]\+\)\@<!/', '*/*', 100)
-" call unite#set_substitute_pattern('files', '^\\', substitute(substitute($HOME, '\\', '/', 'g'), ' ', '\\ ', 'g') . '/*', -100)
+" call unite#set_substitute_pattern('files',
+"      \'\%([~.*]\+\)\@<!/', '*/*', 100)
+" call unite#set_substitute_pattern('files', '^\\',
+"      \ substitute(substitute($HOME, '\\', '/', 'g'), ' ', '\\ ', 'g') . '/*', -100)
 " Test.
-" call unite#set_substitute_pattern('files', '^\.v/', unite#util#substitute_path_separator($HOME).'/.vim/', 1000)
+" call unite#set_substitute_pattern('files', '^\.v/',
+"      \ unite#util#substitute_path_separator($HOME).'/.vim/', 1000)
 call unite#set_substitute_pattern('files', '^\.v/',
-      \ [expand('~/.vim/'), unite#util#substitute_path_separator($HOME) . '/.bundle/*/'], 1000)
+      \ [expand('~/.vim/'), unite#util#substitute_path_separator($HOME)
+      \ . '/.bundle/*/'], 1000)
 call unite#set_substitute_pattern('files', '\.', '*.', 1000)
 call unite#custom_alias('file', 'h', 'left')
 call unite#custom_default_action('directory', 'narrow')
@@ -3143,7 +3150,6 @@ function! s:ChangeCurrentDir(directory, bang)
     pwd
   endif
 endfunction"}}}
-AlterCommand cd CD
 
 function! s:Batch() range"{{{
   " read vimscript from selected area.
@@ -3526,9 +3532,6 @@ autocmd TabEnter *
       \ |   let t:cwd = getcwd()
       \ | endif
     \ | execute 'cd' fnameescape(s:expand(t:cwd))
-
-" Exchange ':cd' to ':TabpageCD'.
-cnoreabbrev <expr> cd (getcmdtype() == ':' && getcmdline() ==# 'cd') ? 'TabpageCD' : 'cd'
 "}}}
 
 " For snipMate.
