@@ -173,10 +173,6 @@ NeoBundle 'Shougo/unite-help'
 NeoBundle 'tsukkee/unite-tag'
 NeoBundle 'tyru/caw.vim'
 NeoBundle 'tyru/eskk.vim',
-      \ { 'depends' : [
-      \   'tyru/cul.vim', 'tyru/savemap.vim',
-      \   'tyru/vice.vim', 'tyru/skkdict.vim',
-      \ ]}
 NeoBundleLazy 'tyru/open-browser.vim'
 NeoBundleLazy 'tyru/operator-html-escape.vim'
 NeoBundle 'tyru/restart.vim'
