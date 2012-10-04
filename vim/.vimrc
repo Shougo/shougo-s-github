@@ -3095,12 +3095,27 @@ xmap <Leader>h <Plug>(operator-html-escape)
 
 onoremap ) t)
 onoremap ( t(
-vnoremap ) t)
-vnoremap ( t(
+xnoremap ) t)
+xnoremap ( t(
 
 " Easily macro.
 nnoremap @@ @a
 
+" Improved visual selection.{{{
+" http://labs.timedia.co.jp/2012/10/vim-more-useful-blockwise-insertion.html
+xnoremap <expr> I  <SID>force_blockwise_visual('I')
+xnoremap <expr> A  <SID>force_blockwise_visual('A')
+
+function! s:force_blockwise_visual(next_key)"{{{
+  if mode() ==# 'v'
+    return "\<C-v>" . a:next_key
+  elseif mode() ==# 'V'
+    return "\<C-v>0o$" . a:next_key
+  else  " mode() ==# "\<C-v>"
+    return a:next_key
+  endif
+endfunction}}}
+"}}}
 "}}}
 
 "---------------------------------------------------------------------------
