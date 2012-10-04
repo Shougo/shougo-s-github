@@ -144,7 +144,6 @@ NeoBundle 'kana/vim-operator-replace'
 NeoBundle 'kana/vim-textobj-user'
 " NeoBundleLazy 'kana/vim-wwwsearch'
 NeoBundleLazy 'kien/ctrlp.vim'
-NeoBundleLazy 'Rip-Rip/clang_complete'
 NeoBundle 'Shougo/foldCC'
 NeoBundleLazy 'mattn/wwwrenderer-vim'
 NeoBundle 'mattn/webapi-vim'
@@ -203,6 +202,7 @@ NeoBundle 'osyo-manga/unite-filetype'
 NeoBundle 'rbtnn/hexript.vim'
 NeoBundle 'vim-jp/vital.vim'
 NeoBundleLazy 'tpope/vim-endwise'
+NeoBundleLazy 'Rip-Rip/clang_complete'
 
 " From vim.org
 NeoBundleLazy 'CSApprox'
@@ -901,9 +901,6 @@ if !exists('g:neocomplcache_force_omni_patterns')
   let g:neocomplcache_force_omni_patterns = {}
 endif
 
-" For neocomplcache-clang.
-let g:neocomplcache_clang_use_library = 0
-
 " For neocomplcache-clang_complete.
 let g:neocomplcache_force_overwrite_completefunc = 1
 let g:neocomplcache_force_omni_patterns.c =
@@ -912,7 +909,7 @@ let g:neocomplcache_force_omni_patterns.cpp =
       \ '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 let g:clang_complete_auto = 0
 let g:clang_auto_select = 0
-let g:clang_use_library = 1
+let g:clang_use_library   = 1
 
 " Define dictionary.
 let g:neocomplcache_dictionary_filetype_lists = {
@@ -1522,10 +1519,12 @@ let g:unite_source_file_mru_limit = 300
 " let g:unite_source_directory_mru_time_format = ''
 let g:unite_source_directory_mru_limit = 300
 
-" For jvgrep.
-" let g:unite_source_grep_command = 'jvgrep'
-" let g:unite_source_grep_default_opts = '-exclude=''\.(git|svn|hg|bzr)'''
-" let g:unite_source_grep_recursive_opt = '-R'
+if executable('jvgrep')
+  " For jvgrep.
+  let g:unite_source_grep_command = 'jvgrep'
+  let g:unite_source_grep_default_opts = '--exclude ''\.(git|svn|hg|bzr)'''
+  let g:unite_source_grep_recursive_opt = '-R'
+endif
 
 " For ack.
 if executable('ack-grep')
