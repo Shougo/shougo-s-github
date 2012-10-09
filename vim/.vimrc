@@ -111,7 +111,8 @@ NeoBundleLazy 'choplin/unite-vim_hacks'
 NeoBundleLazy 'liquidz/vimfiler-sendto'
 NeoBundle 'Shougo/echodoc'
 NeoBundle 'Shougo/neocomplcache',
-      \ { 'depends' : 'Shougo/neocomplcache-snippets-complete' }
+      \ { 'depends' : [['Shougo/neocomplcache-snippets-complete',
+      \                {'rev': 'neosnippet'}]] }
 NeoBundle 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/unite-build'
@@ -200,6 +201,7 @@ NeoBundle 'vim-jp/vital.vim'
 NeoBundleLazy 'tpope/vim-endwise'
 NeoBundleLazy 'Rip-Rip/clang_complete'
 NeoBundle 'kana/vim-tabpagecd'
+NeoBundle 'rhysd/accelerated-jk'
 
 " From vim.org
 NeoBundleLazy 'CSApprox'
@@ -2117,6 +2119,9 @@ let Tlist_Exit_OnlyWindow = 1
 let g:restart_save_window_values = 0
 "}}}
 
+" accelerated-jk
+nmap <silent>j <Plug>(accelerated_jk_gj)
+nmap <silent>k <Plug>(accelerated_jk_gk)
 "}}}
 
 "---------------------------------------------------------------------------
