@@ -211,6 +211,9 @@ NeoBundle 'autofmt'
 " NeoBundle 'perl-mauke.vim'
 NeoBundle 'DirDiff.vim'
 
+" NeoBundle 'https://raw.github.com/m2ym/rsense/master/etc/rsense.vim',
+"       \ {'script_type' : 'plugin'}
+
 " nosync test.
 " NeoBundleLazy 'yanktmp', {
 "       \ 'type' : 'nosync', 'base' : '~/.vim/bundle'
