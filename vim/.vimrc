@@ -199,6 +199,7 @@ NeoBundle 'rbtnn/hexript.vim'
 NeoBundle 'vim-jp/vital.vim'
 NeoBundleLazy 'tpope/vim-endwise'
 NeoBundleLazy 'Rip-Rip/clang_complete'
+NeoBundle 'kana/vim-tabpagecd'
 
 " From vim.org
 NeoBundleLazy 'CSApprox'
@@ -1084,7 +1085,6 @@ let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
 let g:vimshell_right_prompt = 'vcs#info("(%s)-[%b]%p", "(%s)-[%b|%a]%p")'
 let g:vimshell_prompt = '% '
 "let g:vimshell_environment_term = 'xterm'
-let g:vimshell_cd_command = 'TabpageCD'
 let g:vimshell_split_command = ''
 
 if s:is_windows
@@ -1385,8 +1385,6 @@ nnoremap <silent> n
       \ :<C-u>UniteResume search -no-start-insert<CR>
 
 let g:unite_enable_split_vertically = 0
-let g:unite_kind_file_cd_command = 'TabpageCD'
-let g:unite_kind_file_lcd_command = 'TabpageCD'
 
 let g:unite_source_history_yank_enable = 1
 
@@ -1809,7 +1807,6 @@ call vimfiler#set_execute_file('txt', 'vim')
 
 let g:vimfiler_enable_clipboard = 0
 let g:vimfiler_safe_mode_by_default = 0
-let g:vimshell_cd_command = 'TabpageCD'
 
 let g:vimfiler_as_default_explorer = 1
 let g:vimfiler_detect_drives = s:is_windows ? [
@@ -2311,7 +2308,7 @@ function! s:cd_buffer_dir()"{{{
     let dir = isdirectory(bufname('%')) ? bufname('%') : fnamemodify(bufname('%'), ':p:h')
   endif
 
-  TabpageCD `=dir`
+  cd `=dir`
 endfunction"}}}
 
 " Delete windows ^M codes.
@@ -3524,28 +3521,6 @@ set helplang& helplang=en,ja
 " Default home directory.
 let g:home = getcwd()
 let t:cwd = getcwd()
-
-" Each tab has current directory."{{{
-command! -bar -complete=dir -nargs=?
-      \   CD
-      \   TabpageCD <args>
-command! -bar -complete=dir -nargs=?
-      \   TabpageCD call s:tabpagecd(<q-args>)
-
-function! s:tabpagecd(path)
-  cd `=a:path`
-  let t:cwd = getcwd()
-endfunction
-
-autocmd TabEnter *
-      \   if exists('t:cwd') && !isdirectory(t:cwd)
-      \ |     unlet t:cwd
-      \ | endif
-    \ | if !exists('t:cwd')
-      \ |   let t:cwd = getcwd()
-      \ | endif
-    \ | execute 'cd' fnameescape(s:expand(t:cwd))
-"}}}
 
 " For snipMate.
 let g:snips_author = 'Shougo'
