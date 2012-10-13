@@ -111,11 +111,12 @@ NeoBundleLazy 'choplin/unite-vim_hacks'
 NeoBundleLazy 'liquidz/vimfiler-sendto'
 NeoBundle 'Shougo/echodoc'
 NeoBundle 'Shougo/neocomplcache',
-      \ { 'depends' : 'Shougo/neocomplcache-snippets-complete' }
+      \ { 'depends' : [['Shougo/neocomplcache-snippets-complete',
+      \               {'rev' : 'neosnippet'}]] }
 NeoBundle 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/unite-build'
-NeoBundle 'Shougo/unite-ssh'
+" NeoBundle 'Shougo/unite-ssh'
 NeoBundle 'Shougo/vim-vcs',
       \ { 'depends' : 'thinca/vim-openbuf' }
 NeoBundle 'Shougo/vimfiler',
@@ -179,7 +180,7 @@ NeoBundle 'tyru/restart.vim'
 " NeoBundle 'tyru/skk.vim'
 NeoBundle 'tyru/vim-altercmd'
 NeoBundle 'tyru/winmove.vim'
-NeoBundleLazy 'ujihisa/neco-ghc'
+NeoBundleLazy 'ujihisa/neco-ghc',
 NeoBundle 'ujihisa/neco-look'
 NeoBundleLazy 'ujihisa/unite-colorscheme'
 NeoBundleLazy 'ujihisa/unite-locate.git'
@@ -195,7 +196,7 @@ NeoBundle 'deris/vim-loadafterft'
 NeoBundle 'osyo-manga/unite-quickfix'
 NeoBundle 'osyo-manga/unite-filetype'
 "NeoBundle 'taglist.vim'
-NeoBundle 'rbtnn/hexript.vim'
+NeoBundle 'rbtnn/hexript.vim', {'external_commands' : 'xxd'}
 NeoBundle 'vim-jp/vital.vim'
 NeoBundleLazy 'tpope/vim-endwise'
 NeoBundleLazy 'Rip-Rip/clang_complete'
@@ -211,6 +212,7 @@ NeoBundle 'matchit.zip'
 NeoBundle 'autofmt'
 " NeoBundle 'perl-mauke.vim'
 NeoBundle 'DirDiff.vim'
+" NeoBundle 'taichouchou2/alpaca_complete.git'
 
 " nosync test.
 " NeoBundleLazy 'yanktmp', {
@@ -372,11 +374,11 @@ command! Nkf !nkf -g %
 
 " Appoint a line feed."{{{
 command! -bang -bar -complete=file -nargs=? Unix edit<bang> ++fileformat=unix <args>
-command! -bang -bar -complete=file -nargs=? Mac edit<bang> ++fileformat=mac <args>
 command! -bang -bar -complete=file -nargs=? Dos edit<bang> ++fileformat=dos <args>
+command! -bang -bar -complete=file -nargs=? Mac edit<bang> ++fileformat=mac <args>
 command! -bang -complete=file -nargs=? WUnix write<bang> ++fileformat=unix <args> | edit <args>
-command! -bang -complete=file -nargs=? WMac write<bang> ++fileformat=mac <args> | edit <args>
 command! -bang -complete=file -nargs=? WDos write<bang> ++fileformat=dos <args> | edit <args>
+command! -bang -complete=file -nargs=? WMac write<bang> ++fileformat=mac <args> | edit <args>
 "}}}
 
 if has('multi_byte_ime')
@@ -935,8 +937,8 @@ let g:neocomplcache_snippets_dir = $HOME . '/snippets'
 if !exists('g:neocomplcache_omni_patterns')
   let g:neocomplcache_omni_patterns = {}
 endif
-let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-let g:neocomplcache_force_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+" let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+" let g:neocomplcache_force_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 let g:neocomplcache_omni_patterns.php = '[^. *\t]\.\w*\|\h\w*::'
 let g:neocomplcache_omni_patterns.mail = '^\s*\w\+'
 let g:neocomplcache_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
@@ -1292,8 +1294,6 @@ nnoremap <expr><silent> [unite]b  <SID>unite_build()
 function! s:unite_build()
   return ":\<C-u>Unite -buffer-name=build". tabpagenr() ." -no-quit build\<CR>"
 endfunction
-nnoremap <silent> [unite]r
-      \ :<C-u>Unite -buffer-name=register register history/yank<CR>
 nnoremap <silent> [unite]o
       \ :<C-u>Unite outline -start-insert<CR>
 nnoremap  [unite]f  :<C-u>Unite source<CR>
@@ -1353,7 +1353,7 @@ nnoremap <silent><expr> [Tag]p  &filetype == 'help' ?
 " Execute help.
 " nnoremap <C-h>  :<C-u>help<Space>
 " nnoremap <C-h>  :<C-u>UniteWithInput help<CR>
-nnoremap <silent> <C-h>  :<C-u>Unite -no-quit help<CR>
+nnoremap <silent> <C-h>  :<C-u>Unite -buffer-name=help help<CR>
 
 " Execute help by cursor keyword.
 " nnoremap <silent> g<C-h>  :<C-u>help<Space><C-r><C-w><CR>
@@ -1528,9 +1528,12 @@ if executable('ack-grep')
 endif
 
 let g:unite_quick_match_table = {
-      \'a' : 1, 's' : 2, 'd' : 3, 'f' : 4, 'g' : 5, 'h' : 6, 'k' : 7, 'l' : 8, ';' : 9,
-      \'q' : 10, 'w' : 11, 'e' : 12, 'r' : 13, 't' : 14, 'y' : 15, 'u' : 16, 'i' : 17, 'o' : 18, 'p' : 19,
-      \'1' : 20, '2' : 21, '3' : 22, '4' : 23, '5' : 24, '6' : 25, '7' : 26, '8' : 27, '9' : 28, '0' : 29,
+      \ 'a' : 1, 's' : 2, 'd' : 3, 'f' : 4, 'g' : 5,
+      \ 'h' : 6, 'k' : 7, 'l' : 8, ';' : 9,
+      \ 'q' : 10, 'w' : 11, 'e' : 12, 'r' : 13, 't' : 14,
+      \ 'y' : 15, 'u' : 16, 'i' : 17, 'o' : 18, 'p' : 19,
+      \ '1' : 20, '2' : 21, '3' : 22, '4' : 23, '5' : 24,
+      \ '6' : 25, '7' : 26, '8' : 27, '9' : 28, '0' : 29,
       \}
 
 " call unite#custom_default_action('directory', 'cd')
@@ -1545,6 +1548,7 @@ let g:unite_source_alias_aliases.line_migemo = {
       \ 'source' : 'line',
       \ }
 
+
 let g:unite_source_alias_aliases.sow_moveentry_entry = {
 \ 'source': 'sow_gatherentry',
 \ }
@@ -1552,25 +1556,55 @@ let sow_moveto_entry ={'description': 'action :move entry to ...',}
 function! sow_moveto_entry.func(candidates)
   echo "test"
 endfunction
-call unite#custom_action('source/sow_moveentry_entry/*', 'sow_moveto_entry', sow_moveto_entry)
-call unite#custom_default_action('source/sow_moveentry_entry/*', 'sow_moveto_entry')
+call unite#custom_action(
+      \ 'source/sow_moveentry_entry/*', 'sow_moveto_entry', sow_moveto_entry)
+call unite#custom_default_action(
+      \ 'source/sow_moveentry_entry/*', 'sow_moveto_entry')
 
 " For unite-menu.
 let g:unite_source_menu_menus = {}
-let g:unite_source_menu_menus.test = {
-      \     'description' : 'Test menu',
+
+let g:unite_source_menu_menus.enc = {
+      \     'description' : 'Open with a specific character code again.',
       \ }
-let g:unite_source_menu_menus.test.command_candidates = {
-      \       'ghci'      : 'VimShellInteractive ghci',
-      \       'python'    : 'VimShellInteractive python',
-      \       'Unite Beautiful Attack' : 'Unite -auto-preview colorscheme',
+let g:unite_source_menu_menus.enc.command_candidates = {
+      \       'utf8'      : 'Utf8',
+      \       'iso2022jp'    : 'Iso2022jp',
+      \       'cp932' : 'Cp932',
+      \       'euc' : 'Euc',
+      \       'utf16' : 'Utf16',
+      \       'utf16-be' : 'Utf16be',
+      \       'jis' : 'Jis',
+      \       'sjis' : 'Sjis',
+      \       'unicode' : 'Unicode',
       \     }
-function g:unite_source_menu_menus.test.map(key, value)
-  return {
-        \       'word' : a:key, 'kind' : 'command',
-        \       'action__command' : a:value,
-        \     }
-endfunction
+nnoremap <silent> <Leader>e :<C-u>Unite menu:enc<CR>
+
+let g:unite_source_menu_menus.fenc = {
+      \     'description' : 'Change file fenc option.',
+      \ }
+let g:unite_source_menu_menus.fenc.command_candidates = {
+      \       'utf8'      : 'WUtf8',
+      \       'iso2022jp'    : 'WIso2022jp',
+      \       'cp932' : 'WCp932',
+      \       'euc' : 'WEuc',
+      \       'utf16' : 'WUtf16',
+      \       'utf16-be' : 'WUtf16be',
+      \       'jis' : 'WJis',
+      \       'sjis' : 'WSjis',
+      \       'unicode' : 'WUnicode',
+      \     }
+nnoremap <silent> <Leader>f :<C-u>Unite menu:fenc<CR>
+
+let g:unite_source_menu_menus.ff = {
+      \     'description' : 'Change file format option.',
+      \ }
+let g:unite_source_menu_menus.ff.command_candidates = {
+      \       'unix'      : 'WUnix',
+      \       'dos' : 'WDos',
+      \       'mac'    : 'WMac',
+      \     }
+nnoremap <silent> <Leader>w :<C-u>Unite menu:ff<CR>
 
 let g:unite_build_error_icon    = $DOTVIM . '/signs/err.'
       \ . (s:is_windows ? 'bmp' : 'png')
