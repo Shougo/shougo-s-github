@@ -1328,10 +1328,17 @@ nnoremap <silent> [unite]me
 inoremap <silent><expr> <C-z>
       \ unite#start_complete('register', { 'input': unite#get_cur_text() })
 
-nnoremap <silent> [Window]s
-      \ :<C-u>Unite -buffer-name=files -no-split
-      \ jump_point file_point buffer_tab
-      \ file_rec/async:! file file/new file_mru<CR>
+if s:is_windows
+  nnoremap <silent> [Window]s
+        \ :<C-u>Unite -buffer-name=files -no-split
+        \ jump_point file_point buffer_tab
+        \ file_rec:! file file/new file_mru<CR>
+else
+  nnoremap <silent> [Window]s
+        \ :<C-u>Unite -buffer-name=files -no-split
+        \ jump_point file_point buffer_tab
+        \ file_rec/async:! file file/new file_mru<CR>
+endif
 nnoremap <silent> [Window]t
       \ :<C-u>Unite -buffer-name=files tab<CR>
 nnoremap <silent> [Window]w
