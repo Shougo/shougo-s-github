@@ -201,6 +201,7 @@ NeoBundle 'vim-jp/vital.vim'
 NeoBundleLazy 'tpope/vim-endwise'
 NeoBundleLazy 'Rip-Rip/clang_complete'
 NeoBundle 'kana/vim-tabpagecd'
+NeoBundle 'rhysd/accelerated-jk'
 
 " From vim.org
 NeoBundleLazy 'CSApprox'
@@ -213,6 +214,9 @@ NeoBundle 'autofmt'
 " NeoBundle 'perl-mauke.vim'
 NeoBundle 'DirDiff.vim'
 " NeoBundle 'taichouchou2/alpaca_complete.git'
+
+" NeoBundle 'https://raw.github.com/m2ym/rsense/master/etc/rsense.vim',
+"       \ {'script_type' : 'plugin'}
 
 " nosync test.
 " NeoBundleLazy 'yanktmp', {
@@ -975,7 +979,7 @@ endif
 imap <silent>L     <Plug>(neocomplcache_snippets_expand)
 smap <silent>L     <Plug>(neocomplcache_snippets_jump)
 imap <silent>G     <Plug>(neocomplcache_snippets_force_expand)
-imap <silent>S     <Plug>(neocomplcache_start_unite_snippet)
+imap <silent>S     <Plug>(neosnippet_start_unite_snippet)
 " imap <silent>J     <Plug>(neocomplcache_snippets_jump)
 
 inoremap <expr><C-g>     neocomplcache#undo_completion()
@@ -1299,6 +1303,8 @@ nnoremap <silent> [unite]o
 nnoremap  [unite]f  :<C-u>Unite source<CR>
 nnoremap <silent> [unite]t
       \ :<C-u>UniteWithCursorWord -buffer-name=tag tag tag/include<CR>
+nnoremap <silent> [unite]r
+      \ :<C-u>Unite -buffer-name=register register history/yank<CR>
 xnoremap <silent> [unite]r
       \ d:<C-u>Unite -buffer-name=register register history/yank<CR>
 nnoremap <silent> [unite]w
@@ -2148,6 +2154,9 @@ let Tlist_Exit_OnlyWindow = 1
 let g:restart_save_window_values = 0
 "}}}
 
+" accelerated-jk
+nmap <silent>j <Plug>(accelerated_jk_gj)
+nmap <silent>k <Plug>(accelerated_jk_gk)
 "}}}
 
 "---------------------------------------------------------------------------
