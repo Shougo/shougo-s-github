@@ -483,16 +483,16 @@ if exists('*FoldCCtext')
         \             | endif
 endif
 
-augroup foldmethod-expr
-  autocmd!
-  autocmd InsertEnter * if &l:foldmethod ==# 'expr'
-  \                   |   let b:foldinfo = [&l:foldmethod, &l:foldexpr]
-  \                   |   setlocal foldmethod=manual foldexpr=0
-  \                   | endif
-  autocmd InsertLeave * if exists('b:foldmethod')
-  \                   |   let [&l:foldmethod, &l:foldexpr] = b:foldinfo
-  \                   | endif
-augroup END
+" augroup foldmethod-expr
+"   autocmd!
+"   autocmd InsertEnter * if &l:foldmethod ==# 'expr'
+"   \                   |   let b:foldinfo = [&l:foldmethod, &l:foldexpr]
+"   \                   |   setlocal foldmethod=manual foldexpr=0
+"   \                   | endif
+"   autocmd InsertLeave * if exists('b:foldmethod')
+"   \                   |   let [&l:foldmethod, &l:foldexpr] = b:foldinfo
+"   \                   | endif
+" augroup END
 
 " Use vimgrep.
 "set grepprg=internal
@@ -969,8 +969,8 @@ let g:neocomplcache_vim_completefuncs = {
       \ 'VimFiler' : 'vimfiler#complete',
       \ 'Vinarise' : 'vinarise#complete',
       \}
-if !exists('g:neocomplcache_plugin_completion_length')
-  let g:neocomplcache_plugin_completion_length = {
+if !exists('g:neocomplcache_source_completion_length')
+  let g:neocomplcache_source_completion_length = {
         \ 'look' : 4,
         \ }
 endif
@@ -1329,10 +1329,17 @@ nnoremap <silent> [unite]me
 inoremap <silent><expr> <C-z>
       \ unite#start_complete('register', { 'input': unite#get_cur_text() })
 
-nnoremap <silent> [Window]s
-      \ :<C-u>Unite -buffer-name=files -no-split
-      \ jump_point file_point buffer_tab
-      \ file_rec/async:! file file/new file_mru<CR>
+if s:is_windows
+  nnoremap <silent> [Window]s
+        \ :<C-u>Unite -buffer-name=files -no-split
+        \ jump_point file_point buffer_tab
+        \ file_rec:! file file/new file_mru<CR>
+else
+  nnoremap <silent> [Window]s
+        \ :<C-u>Unite -buffer-name=files -no-split
+        \ jump_point file_point buffer_tab
+        \ file_rec/async:! file file/new file_mru<CR>
+endif
 nnoremap <silent> [Window]t
       \ :<C-u>Unite -buffer-name=files tab<CR>
 nnoremap <silent> [Window]w
@@ -2156,7 +2163,9 @@ let g:restart_save_window_values = 0
 
 " accelerated-jk
 nmap <silent>j <Plug>(accelerated_jk_gj)
+nmap gj j
 nmap <silent>k <Plug>(accelerated_jk_gk)
+nmap gk k
 "}}}
 
 "---------------------------------------------------------------------------
