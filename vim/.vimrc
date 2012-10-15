@@ -482,16 +482,16 @@ if exists('*FoldCCtext')
         \             | endif
 endif
 
-augroup foldmethod-expr
-  autocmd!
-  autocmd InsertEnter * if &l:foldmethod ==# 'expr'
-  \                   |   let b:foldinfo = [&l:foldmethod, &l:foldexpr]
-  \                   |   setlocal foldmethod=manual foldexpr=0
-  \                   | endif
-  autocmd InsertLeave * if exists('b:foldmethod')
-  \                   |   let [&l:foldmethod, &l:foldexpr] = b:foldinfo
-  \                   | endif
-augroup END
+" augroup foldmethod-expr
+"   autocmd!
+"   autocmd InsertEnter * if &l:foldmethod ==# 'expr'
+"   \                   |   let b:foldinfo = [&l:foldmethod, &l:foldexpr]
+"   \                   |   setlocal foldmethod=manual foldexpr=0
+"   \                   | endif
+"   autocmd InsertLeave * if exists('b:foldmethod')
+"   \                   |   let [&l:foldmethod, &l:foldexpr] = b:foldinfo
+"   \                   | endif
+" augroup END
 
 " Use vimgrep.
 "set grepprg=internal
@@ -968,8 +968,8 @@ let g:neocomplcache_vim_completefuncs = {
       \ 'VimFiler' : 'vimfiler#complete',
       \ 'Vinarise' : 'vinarise#complete',
       \}
-if !exists('g:neocomplcache_plugin_completion_length')
-  let g:neocomplcache_plugin_completion_length = {
+if !exists('g:neocomplcache_source_completion_length')
+  let g:neocomplcache_source_completion_length = {
         \ 'look' : 4,
         \ }
 endif
@@ -2128,7 +2128,9 @@ let g:restart_save_window_values = 0
 
 " accelerated-jk
 nmap <silent>j <Plug>(accelerated_jk_gj)
+nmap gj j
 nmap <silent>k <Plug>(accelerated_jk_gk)
+nmap gk k
 "}}}
 
 "---------------------------------------------------------------------------
