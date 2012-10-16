@@ -130,6 +130,7 @@ NeoBundle 'Shougo/vimproc', {
       \     'unix' : 'make -f make_unix.mak',
       \    },
       \ }
+NeoBundle 'Shougo/vim-ft-vim_fold'
 
 NeoBundle 'Shougo/vimshell'
 NeoBundle 'Shougo/vinarise'

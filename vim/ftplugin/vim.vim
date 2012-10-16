@@ -10,7 +10,6 @@ endif
 let b:undo_ftplugin .= 'setl modeline<'
 
 " setlocal nomodeline
-setlocal foldmethod=marker
 
 " set indent.
 setlocal shiftwidth=2 softtabstop=2
