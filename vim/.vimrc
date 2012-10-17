@@ -111,7 +111,10 @@ NeoBundleLazy 'choplin/unite-vim_hacks'
 NeoBundleLazy 'liquidz/vimfiler-sendto'
 NeoBundle 'Shougo/echodoc'
 NeoBundle 'Shougo/neocomplcache',
-      \ { 'depends' : 'Shougo/neocomplcache-snippets-complete', }
+
+NeoBundle 'Shougo/neocomplcache-snippets-complete'
+" NeoBundle 'git@github.com:Shougo/neocomplcache-snippets-complete-old.git'
+
 NeoBundle 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/unite-build'
