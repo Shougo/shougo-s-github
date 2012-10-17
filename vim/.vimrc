@@ -159,7 +159,6 @@ NeoBundle 't9md/vim-surround_custom_mapping'
 " NeoBundle 't9md/vim-quickhl'
 NeoBundleLazy 'thinca/vim-fontzoom'
 NeoBundle 'ujihisa/unite-font'
-NeoBundle 'thinca/vim-ft-vim_fold'
 NeoBundle 'thinca/vim-prettyprint'
 NeoBundle 'thinca/vim-qfreplace'
 NeoBundle 'thinca/vim-quickrun'
@@ -900,6 +899,9 @@ let g:neocomplcache_max_list = 100
 let g:neocomplcache_force_overwrite_completefunc = 1
 if $USER ==# 'root'
   let g:neocomplcache_temporary_dir = '/root/.neocon'
+endif
+if !exists('g:neocomplcache_omni_patterns')
+  let g:neocomplcache_omni_patterns = {}
 endif
 if !exists('g:neocomplcache_force_omni_patterns')
   let g:neocomplcache_force_omni_patterns = {}
@@ -2308,18 +2310,27 @@ xmap  <Space>   [Space]
 nnoremap  [Space]   <Nop>
 xnoremap  [Space]   <Nop>
 
+" Toggle relativenumber.
+nnoremap <silent> [Space].
+      \ :<C-u>call ToggleOption('relativenumber')<CR>
 " Toggle highlight.
-nnoremap <silent> [Space]/  :<C-u>call ToggleOption('hlsearch')<CR>
+nnoremap <silent> [Space]/
+      \ :<C-u>call ToggleOption('hlsearch')<CR>
 " Toggle cursorline.
-nnoremap <silent> [Space]cl  :<C-u>call ToggleOption('cursorline')<CR>
+nnoremap <silent> [Space]cl
+      \ :<C-u>call ToggleOption('cursorline')<CR>
 " Set autoread.
-nnoremap [Space]ar  :<C-u>setlocal autoread<CR>
+nnoremap [Space]ar
+      \ :<C-u>setlocal autoread<CR>
 " Output encoding information.
-nnoremap <silent> [Space]en  :<C-u>setlocal encoding? termencoding? fenc? fencs?<CR>
+nnoremap <silent> [Space]en
+      \ :<C-u>setlocal encoding? termencoding? fenc? fencs?<CR>
 " Set spell check.
-nnoremap [Space]sp  :<C-u>call ToggleOption('spell')<CR>
+nnoremap [Space]sp
+      \ :<C-u>call ToggleOption('spell')<CR>
 " Echo syntax name.
-nnoremap [Space]sy  :<C-u>echo synIDattr(synID(line('.'), col('.'), 1), "name")<CR>
+nnoremap [Space]sy
+      \ :<C-u>echo synIDattr(synID(line('.'), col('.'), 1), "name")<CR>
 
 " Easily edit .vimrc and .gvimrc "{{{
 nnoremap <silent> [Space]ev  :<C-u>edit $MYVIMRC<CR>
