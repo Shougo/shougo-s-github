@@ -118,7 +118,7 @@ NeoBundle 'Shougo/neocomplcache-snippets-complete'
 NeoBundle 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/unite-build'
-" NeoBundle 'Shougo/unite-ssh'
+NeoBundle 'Shougo/unite-ssh'
 NeoBundle 'Shougo/vim-vcs',
       \ { 'depends' : 'thinca/vim-openbuf' }
 NeoBundle 'Shougo/vimfiler',
@@ -204,6 +204,7 @@ NeoBundleLazy 'tpope/vim-endwise'
 NeoBundleLazy 'Rip-Rip/clang_complete'
 NeoBundle 'kana/vim-tabpagecd'
 NeoBundle 'rhysd/accelerated-jk'
+" NeoBundle 'gmarik/vundle'
 
 " From vim.org
 NeoBundleLazy 'CSApprox'
@@ -1423,6 +1424,8 @@ call unite#custom_alias('file', 'h', 'left')
 call unite#custom_default_action('directory', 'narrow')
 " call unite#custom_default_action('file', 'my_tabopen')
 call unite#set_substitute_pattern('file', '[^~.]\zs/', '*/*', 20)
+
+call unite#set_profile('action', 'context', {'start_insert' : 1})
 
 " migemo.
 call unite#custom_filters('line_migemo',
