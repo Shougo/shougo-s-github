@@ -1335,6 +1335,11 @@ nnoremap <silent> [unite]me
 inoremap <silent><expr> <C-z>
       \ unite#start_complete('register', { 'input': unite#get_cur_text() })
 
+" <C-t>: Tab pages
+nnoremap <silent> <C-t>       :<C-u>Unite tab<CR>
+"}}}
+
+
 if s:is_windows
   nnoremap <silent> [Window]s
         \ :<C-u>Unite -buffer-name=files -no-split
@@ -2573,43 +2578,6 @@ function! s:ScrollOtherWindow(direction)
   execute 'wincmd' (winnr('#') == 0 ? 'w' : 'p')
   execute (a:direction ? "normal! \<C-d>" : "normal! \<C-u>")
   wincmd p
-endfunction
-"}}}
-
-" <C-t>: Tab pages"{{{
-"
-" The prefix key.
-nmap <C-t> [Tabbed]
-nnoremap [Tabbed]   <Nop>
-" Create tab page.
-nnoremap <silent> [Tabbed]c  :<C-u>call <SID>my_tabnew()<CR>
-nnoremap <silent> [Tabbed]d  :<C-u>tabclose<CR>
-nnoremap <silent> [Tabbed]l
-      \ :<C-u>execute 'tabmove' min([tabpagenr() + v:count1 - 1, tabpagenr('$')])<CR>
-nnoremap <silent> [Tabbed]h
-      \ :<C-u>execute 'tabmove' max([tabpagenr() - v:count1 - 1, 0])<CR>
-nnoremap <silent> [Tabbed]L  :<C-u>tabmove<CR>
-nnoremap <silent> [Tabbed]H  :<C-u>tabmove 0<CR>
-nnoremap <silent> [Tabbed]<C-t>       :<C-u>Unite tab<CR>
-
-function! s:my_tabnew()
-  let title = input('Please input tab title: ', '',
-        \ 'customlist,' . s:SID_PREFIX() . 'history_complete')
-
-  tabnew
-  if title != ''
-    let t:title = title
-  endif
-
-  VimShellCreate
-
-  Unite -buffer-name=files -start-insert
-        \ -default-action=cd directory directory/new
-endfunction
-function! s:history_complete(arglead, cmdline, cursorpos)
-  return filter(map(reverse(range(1, histnr('input'))),
-  \                     'histget("input", v:val)'),
-  \                 'v:val != "" && stridx(v:val, a:arglead) == 0')
 endfunction
 "}}}
 
