@@ -205,6 +205,7 @@ NeoBundleLazy 'Rip-Rip/clang_complete'
 NeoBundle 'kana/vim-tabpagecd'
 NeoBundle 'rhysd/accelerated-jk'
 " NeoBundle 'gmarik/vundle'
+NeoBundle 'davidhalter/jedi-vim.git'
 
 " From vim.org
 NeoBundleLazy 'CSApprox'
@@ -784,7 +785,7 @@ augroup MyAutoCmd
   "autocmd FileType java setlocal omnifunc=javacomplete#Complete
   autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
   autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
-  autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+  " autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
   "autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
   "autocmd FileType sql setlocal omnifunc=sqlcomplete#Complete
   autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
@@ -910,7 +911,7 @@ if !exists('g:neocomplcache_force_omni_patterns')
   let g:neocomplcache_force_omni_patterns = {}
 endif
 
-" For neocomplcache-clang_complete.
+" For clang_complete.
 let g:neocomplcache_force_overwrite_completefunc = 1
 let g:neocomplcache_force_omni_patterns.c =
       \ '[^.[:digit:] *\t]\%(\.\|->\)'
@@ -919,6 +920,12 @@ let g:neocomplcache_force_omni_patterns.cpp =
 let g:clang_complete_auto = 0
 let g:clang_auto_select = 0
 let g:clang_use_library   = 1
+
+" For jedi-vim.
+let g:jedi#auto_initialization = 1
+let g:jedi#popup_on_dot = 0
+let g:jedi#rename_command = '<leader>R'
+autocmd MyAutoCmd FileType python let b:did_ftplugin = 1
 
 " Define dictionary.
 let g:neocomplcache_dictionary_filetype_lists = {
