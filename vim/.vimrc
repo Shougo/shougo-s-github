@@ -1464,6 +1464,8 @@ unlet my_tabopen
 " Custom filters."{{{
 " call unite#custom_filters('file,buffer,file_rec',
 "       \ ['converter_relative_word', 'matcher_fuzzy', 'sorter_default'])
+call unite#custom_filters('file,file_rec,file_rec/async',
+      \ ['converter_relative_word', 'matcher_default', 'sorter_length'])
 "}}}
 
 let g:unite_enable_start_insert = 0
@@ -2302,8 +2304,10 @@ xmap ;  <sid>(command-line-enter)
 
 autocmd MyAutoCmd CmdwinEnter * call s:init_cmdwin()
 autocmd MyAutoCmd CmdwinLeave * let g:neocomplcache_enable_auto_select = 1
+
 function! s:init_cmdwin()
   let g:neocomplcache_enable_auto_select = 0
+  let b:neocomplcache_sources_list = ['vim_complete']
 
   nnoremap <buffer><silent> q :<C-u>quit<CR>
   nnoremap <buffer><silent> <TAB> :<C-u>quit<CR>
