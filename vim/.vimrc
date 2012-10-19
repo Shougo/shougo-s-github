@@ -1342,6 +1342,11 @@ nnoremap <silent> [unite]me
 inoremap <silent><expr> <C-z>
       \ unite#start_complete('register', { 'input': unite#get_cur_text() })
 
+" <C-t>: Tab pages
+nnoremap <silent> <C-t>       :<C-u>Unite tab<CR>
+"}}}
+
+
 if s:is_windows
   nnoremap <silent> [Window]s
         \ :<C-u>Unite -buffer-name=files -no-split -multi-line
@@ -1459,6 +1464,8 @@ unlet my_tabopen
 " Custom filters."{{{
 " call unite#custom_filters('file,buffer,file_rec',
 "       \ ['converter_relative_word', 'matcher_fuzzy', 'sorter_default'])
+call unite#custom_filters('file,file_rec,file_rec/async',
+      \ ['converter_relative_word', 'matcher_default', 'sorter_length'])
 "}}}
 
 let g:unite_enable_start_insert = 0
@@ -2297,8 +2304,10 @@ xmap ;  <sid>(command-line-enter)
 
 autocmd MyAutoCmd CmdwinEnter * call s:init_cmdwin()
 autocmd MyAutoCmd CmdwinLeave * let g:neocomplcache_enable_auto_select = 1
+
 function! s:init_cmdwin()
   let g:neocomplcache_enable_auto_select = 0
+  let b:neocomplcache_sources_list = ['vim_complete']
 
   nnoremap <buffer><silent> q :<C-u>quit<CR>
   nnoremap <buffer><silent> <TAB> :<C-u>quit<CR>
@@ -2580,43 +2589,6 @@ function! s:ScrollOtherWindow(direction)
   execute 'wincmd' (winnr('#') == 0 ? 'w' : 'p')
   execute (a:direction ? "normal! \<C-d>" : "normal! \<C-u>")
   wincmd p
-endfunction
-"}}}
-
-" <C-t>: Tab pages"{{{
-"
-" The prefix key.
-nmap <C-t> [Tabbed]
-nnoremap [Tabbed]   <Nop>
-" Create tab page.
-nnoremap <silent> [Tabbed]c  :<C-u>call <SID>my_tabnew()<CR>
-nnoremap <silent> [Tabbed]d  :<C-u>tabclose<CR>
-nnoremap <silent> [Tabbed]l
-      \ :<C-u>execute 'tabmove' min([tabpagenr() + v:count1 - 1, tabpagenr('$')])<CR>
-nnoremap <silent> [Tabbed]h
-      \ :<C-u>execute 'tabmove' max([tabpagenr() - v:count1 - 1, 0])<CR>
-nnoremap <silent> [Tabbed]L  :<C-u>tabmove<CR>
-nnoremap <silent> [Tabbed]H  :<C-u>tabmove 0<CR>
-nnoremap <silent> [Tabbed]<C-t>       :<C-u>Unite tab<CR>
-
-function! s:my_tabnew()
-  let title = input('Please input tab title: ', '',
-        \ 'customlist,' . s:SID_PREFIX() . 'history_complete')
-
-  tabnew
-  if title != ''
-    let t:title = title
-  endif
-
-  VimShellCreate
-
-  Unite -buffer-name=files -start-insert
-        \ -default-action=cd directory directory/new
-endfunction
-function! s:history_complete(arglead, cmdline, cursorpos)
-  return filter(map(reverse(range(1, histnr('input'))),
-  \                     'histget("input", v:val)'),
-  \                 'v:val != "" && stridx(v:val, a:arglead) == 0')
 endfunction
 "}}}
 
