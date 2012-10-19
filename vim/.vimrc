@@ -1349,12 +1349,12 @@ nnoremap <silent> <C-t>       :<C-u>Unite tab<CR>
 
 if s:is_windows
   nnoremap <silent> [Window]s
-        \ :<C-u>Unite -buffer-name=files -no-split
+        \ :<C-u>Unite -buffer-name=files -no-split -multi-line
         \ jump_point file_point buffer_tab
         \ file_rec:! file file/new file_mru<CR>
 else
   nnoremap <silent> [Window]s
-        \ :<C-u>Unite -buffer-name=files -no-split
+        \ :<C-u>Unite -buffer-name=files -no-split -multi-line
         \ jump_point file_point buffer_tab
         \ file_rec/async:! file file/new file_mru<CR>
 endif
