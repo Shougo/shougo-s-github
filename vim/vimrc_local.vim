@@ -5,7 +5,8 @@ endif
 let g:loaded_vimrc_local = 1
 for dir in filter(split(glob('*'), '\n'),
       \ "isdirectory(v:val) && (glob(v:val.'/*/*.vim') != ''
-      \  || glob(v:val.'/*/*/*.vim') != '')")
+      \  || glob(v:val.'/*/*/*.vim') != ''
+      \  || glob(v:val.'/*/*/*/*.vim') != ''))")
   let base = fnamemodify(dir, ':t')
   let dir = fnamemodify(dir, ':p')[: -2]
   let after = dir . '/after'
