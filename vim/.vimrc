@@ -1316,13 +1316,17 @@ nnoremap <silent> ;o
 nnoremap  [unite]f  :<C-u>Unite source<CR>
 nnoremap <silent> ;t
       \ :<C-u>UniteWithCursorWord -buffer-name=tag tag tag/include<CR>
-xnoremap <silent> [Window]r
+xnoremap <silent> ;r
       \ d:<C-u>Unite -buffer-name=register register history/yank<CR>
-nnoremap <silent> [unite]w
+nnoremap <silent> ;w
       \ :<C-u>UniteWithCursorWord -buffer-name=register
       \ buffer file_mru bookmark file<CR>
 nnoremap <silent> <C-k>
       \ :<C-u>Unite change jump<CR>
+nnoremap <silent> ;g
+      \ :<C-u>Unite grep -buffer-name=search -no-quit<CR>
+nnoremap <silent> ;r
+      \ :<C-u>Unite -buffer-name=register register history/yank<CR>
 inoremap <silent><expr> <C-z>
       \ unite#start_complete('register', { 'input': unite#get_cur_text() })
 
@@ -1348,10 +1352,6 @@ nnoremap <silent> [Window]w
       \ :<C-u>Unite window<CR>
 nnoremap <silent> [Space]b
       \ :<C-u>UniteBookmarkAdd<CR>
-nnoremap <silent> [Window]g
-      \ :<C-u>Unite grep -buffer-name=search -no-quit<CR>
-nnoremap <silent> [Window]r
-      \ :<C-u>Unite -buffer-name=register register history/yank<CR>
 
 " t: tags-and-searches "{{{
 " The prefix key.
@@ -1452,8 +1452,8 @@ unlet my_tabopen
 " Custom filters."{{{
 " call unite#custom_filters('file,buffer,file_rec',
 "       \ ['converter_relative_word', 'matcher_fuzzy', 'sorter_default'])
-call unite#custom_filters('file,file_rec,file_rec/async',
-      \ ['converter_relative_word', 'matcher_default', 'sorter_length'])
+" call unite#custom_filters('file,file_rec,file_rec/async',
+"       \ ['converter_relative_word', 'matcher_default', 'sorter_length'])
 "}}}
 
 let g:unite_enable_start_insert = 0
@@ -1461,6 +1461,7 @@ let g:unite_enable_short_source_names = 1
 
 function! s:unite_my_settings()"{{{
   " Overwrite settings.
+  imap <buffer>  <BS>      <Plug>(unite_delete_backward_path)
   imap <buffer>  jj      <Plug>(unite_insert_leave)
   imap <buffer><expr> j unite#smart_map('j', '')
   imap <buffer> <TAB>   <Plug>(unite_select_next_line)
