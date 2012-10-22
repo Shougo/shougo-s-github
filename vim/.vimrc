@@ -119,6 +119,7 @@ NeoBundle 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/unite-build'
 NeoBundle 'Shougo/unite-ssh'
+NeoBundle 'Shougo/unite-sudo'
 NeoBundle 'Shougo/vim-vcs',
       \ { 'depends' : 'thinca/vim-openbuf' }
 NeoBundle 'Shougo/vimfiler',
@@ -210,7 +211,6 @@ NeoBundle 'davidhalter/jedi-vim.git'
 " From vim.org
 NeoBundleLazy 'CSApprox'
 NeoBundleLazy 'guicolorscheme.vim'
-NeoBundle 'sudo.vim'
 NeoBundle 'repeat.vim'
 NeoBundle 'autodate.vim'
 NeoBundle 'matchit.zip'
@@ -3368,7 +3368,8 @@ function! SnipMid(str, len, mask)"{{{
   let len_head = (a:len - len(a:mask)) / 2
   let len_tail = a:len - len(a:mask) - len_head
 
-  return (len_head > 0 ? a:str[: len_head - 1] : '') . a:mask . (len_tail > 0 ? a:str[-len_tail :] : '')
+  return (len_head > 0 ? a:str[: len_head - 1] : '')
+        \ . a:mask . (len_tail > 0 ? a:str[-len_tail :] : '')
 endfunction"}}}
 
 " SnipNest('std::vector<std::vector<int>>', '<', '>', 1)
