@@ -112,8 +112,8 @@ NeoBundleLazy 'liquidz/vimfiler-sendto'
 NeoBundle 'Shougo/echodoc'
 NeoBundle 'Shougo/neocomplcache',
 
-NeoBundle 'Shougo/neocomplcache-snippets-complete'
-" NeoBundle 'git@github.com:Shougo/neocomplcache-snippets-complete-old.git'
+NeoBundle 'Shougo/neosnippet'
+" NeoBundle 'git@github.com:Shougo/neocomplcache-snippets-complete.git'
 
 NeoBundle 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/unite.vim'
@@ -1300,45 +1300,33 @@ nnoremap <silent> [Space]gs :<C-u>Vcs status<CR>
 " The prefix key.
 nnoremap    [unite]   <Nop>
 xnoremap    [unite]   <Nop>
-nmap    f [unite]
-xmap    f [unite]
+nmap    ;u [unite]
+xmap    ;u [unite]
 
 AlterCommand <cmdwin> u[nite] Unite
 
 nnoremap [unite]u  q:Unite<Space>
 " nnoremap <silent> :  :<C-u>Unite history/command command<CR>
-nnoremap <expr><silent> [unite]b  <SID>unite_build()
+nnoremap <expr><silent> ;b  <SID>unite_build()
 function! s:unite_build()
   return ":\<C-u>Unite -buffer-name=build". tabpagenr() ." -no-quit build\<CR>"
 endfunction
-nnoremap <silent> [unite]o
+nnoremap <silent> ;o
       \ :<C-u>Unite outline -start-insert<CR>
 nnoremap  [unite]f  :<C-u>Unite source<CR>
-nnoremap <silent> [unite]t
+nnoremap <silent> ;t
       \ :<C-u>UniteWithCursorWord -buffer-name=tag tag tag/include<CR>
-nnoremap <silent> [unite]r
-      \ :<C-u>Unite -buffer-name=register register history/yank<CR>
-xnoremap <silent> [unite]r
+xnoremap <silent> ;r
       \ d:<C-u>Unite -buffer-name=register register history/yank<CR>
-nnoremap <silent> [unite]w
+nnoremap <silent> ;w
       \ :<C-u>UniteWithCursorWord -buffer-name=register
       \ buffer file_mru bookmark file<CR>
-nnoremap <silent> [unite]h
-      \ :<C-u>Unite history/command<CR>
-nnoremap <silent> [unite]q
-      \ :<C-u>Unite qflist -no-quit<CR>
-nnoremap <silent> [unite]g
-      \ :<C-u>Unite grep -buffer-name=search -no-quit<CR>
 nnoremap <silent> <C-k>
       \ :<C-u>Unite change jump<CR>
-nnoremap <silent> [unite]f
-      \ :<C-u>Unite -buffer-name=resume resume<CR>
-nnoremap <silent> [unite]d
-      \ :<C-u>Unite -buffer-name=files -default-action=lcd directory_mru<CR>
-nnoremap <silent> [unite]ma
-      \ :<C-u>Unite mapping<CR>
-nnoremap <silent> [unite]me
-      \ :<C-u>Unite output:message<CR>
+nnoremap <silent> ;g
+      \ :<C-u>Unite grep -buffer-name=search -no-quit<CR>
+nnoremap <silent> ;r
+      \ :<C-u>Unite -buffer-name=register register history/yank<CR>
 inoremap <silent><expr> <C-z>
       \ unite#start_complete('register', { 'input': unite#get_cur_text() })
 
@@ -1464,8 +1452,8 @@ unlet my_tabopen
 " Custom filters."{{{
 " call unite#custom_filters('file,buffer,file_rec',
 "       \ ['converter_relative_word', 'matcher_fuzzy', 'sorter_default'])
-call unite#custom_filters('file,file_rec,file_rec/async',
-      \ ['converter_relative_word', 'matcher_default', 'sorter_length'])
+" call unite#custom_filters('file,file_rec,file_rec/async',
+"       \ ['converter_relative_word', 'matcher_default', 'sorter_length'])
 "}}}
 
 let g:unite_enable_start_insert = 0
@@ -1473,6 +1461,7 @@ let g:unite_enable_short_source_names = 1
 
 function! s:unite_my_settings()"{{{
   " Overwrite settings.
+  imap <buffer>  <BS>      <Plug>(unite_delete_backward_path)
   imap <buffer>  jj      <Plug>(unite_insert_leave)
   imap <buffer><expr> j unite#smart_map('j', '')
   imap <buffer> <TAB>   <Plug>(unite_select_next_line)
@@ -1613,7 +1602,7 @@ let g:unite_source_menu_menus.enc.command_candidates = {
       \       'sjis' : 'Sjis',
       \       'unicode' : 'Unicode',
       \     }
-nnoremap <silent> <Leader>e :<C-u>Unite menu:enc<CR>
+nnoremap <silent> ;e :<C-u>Unite menu:enc<CR>
 
 let g:unite_source_menu_menus.fenc = {
       \     'description' : 'Change file fenc option.',
@@ -1629,7 +1618,7 @@ let g:unite_source_menu_menus.fenc.command_candidates = {
       \       'sjis' : 'WSjis',
       \       'unicode' : 'WUnicode',
       \     }
-nnoremap <silent> <Leader>f :<C-u>Unite menu:fenc<CR>
+nnoremap <silent> ;f :<C-u>Unite menu:fenc<CR>
 
 let g:unite_source_menu_menus.ff = {
       \     'description' : 'Change file format option.',
@@ -1639,7 +1628,21 @@ let g:unite_source_menu_menus.ff.command_candidates = {
       \       'dos' : 'WDos',
       \       'mac'    : 'WMac',
       \     }
-nnoremap <silent> <Leader>w :<C-u>Unite menu:ff<CR>
+nnoremap <silent> ;w :<C-u>Unite menu:ff<CR>
+
+let g:unite_source_menu_menus.unite = {
+      \     'description' : 'Start unite sources',
+      \ }
+let g:unite_source_menu_menus.unite.command_candidates = {
+      \       'history'      : 'Unite history/command',
+      \       'quickfix' : 'Unite qflist -no-quit',
+      \       'resume'    : 'Unite -buffer-name=resume resume',
+      \       'directory'    : 'Unite -buffer-name=files '.
+      \             '-default-action=lcd directory_mru',
+      \       'mapping'    : 'Unite mapping',
+      \       'message'    : 'Unite output:message',
+      \     }
+nnoremap <silent> ;u :<C-u>Unite menu:unite<CR>
 
 let g:unite_build_error_icon    = $DOTVIM . '/signs/err.'
       \ . (s:is_windows ? 'bmp' : 'png')
@@ -1950,7 +1953,8 @@ if !exists('g:eskk#disable') || !g:eskk#disable
   " Toggle debug.
   nnoremap <silent> [Space]ed  :<C-u>call ToggleVariable('g:eskk#debug')<CR>
 
-  autocmd MyAutoCmd User eskk-initialize EskkMap -remap jj <Plug>(eskk:disable)<Esc>
+  autocmd MyAutoCmd User eskk-initialize-post
+        \ EskkMap -remap jj <Plug>(eskk:disable)<Esc>
 
   "let g:eskk#dictionary = {
         "\   'path': expand('~/.skk-eskk-jisyo'),
@@ -1963,7 +1967,8 @@ if !exists('g:eskk#disable') || !g:eskk#disable
         \   'encoding': 'euc-jp',
         \}
 
-  " Use /bin/sh -c "VTE_CJK_WIDTH=1 gnome-terminal --disable-factory" instead of this settings.
+  " Use /bin/sh -c "VTE_CJK_WIDTH=1 gnome-terminal --disable-factory"
+  " instead of this settings.
   "if &encoding == 'utf-8' && !has('gui_running')
     " GNOME Terminal only.
 
@@ -2299,8 +2304,8 @@ nnoremap <sid>(command-line-enter) q:
 xnoremap <sid>(command-line-enter) q:
 nnoremap <sid>(command-line-norange) q:<C-u>
 
-nmap ;  <sid>(command-line-enter)
-xmap ;  <sid>(command-line-enter)
+nmap ;;  <sid>(command-line-enter)
+xmap ;;  <sid>(command-line-enter)
 
 autocmd MyAutoCmd CmdwinEnter * call s:init_cmdwin()
 autocmd MyAutoCmd CmdwinLeave * let g:neocomplcache_enable_auto_select = 1
@@ -2558,7 +2563,7 @@ nnoremap <silent> [Window]D  :<C-u>call <SID>CustomBufferDelete(1)<CR>
 function! s:CustomBufferDelete(is_force)
   let current = bufnr('%')
 
-  call s:CustomAlternateBuffer()
+  call unite#util#alternate_buffer()
 
   if a:is_force
     silent! execute 'bdelete! ' . current
@@ -2567,17 +2572,8 @@ function! s:CustomBufferDelete(is_force)
   endif
 endfunction
 "}}}
-" Buffer move.
-" Fast buffer switch."{{{
-function! s:CustomAlternateBuffer()
-  " Use unite.
-  call unite#util#alternate_buffer()
-endfunction
-"}}}
-" Edit"{{{
-nnoremap <silent> [Window]en  :<C-u>new<CR>
-nnoremap <silent> [Window]ee  :<C-u>JunkFile<CR>
-"}}}
+" JunkFile
+nnoremap <silent> [Window]e  :<C-u>JunkFile<CR>
 
 " Scroll other window.
 " nnoremap <silent> <C-y> :<C-u>call <SID>ScrollOtherWindow(1)<CR>
