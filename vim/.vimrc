@@ -3304,14 +3304,22 @@ function! s:git_pull_all()
   let cnt = 1
   let dirs = map(split(glob('*/.git'), '\n'), 'fnamemodify(v:val, ":p:h:h")')
   let max = len(dirs)
-  for dir in dirs
+
+  for dir in filter(dirs, "
+      \ glob(v:val.'/*/*.vim') != '' ||
+      \ glob(v:val.'/*/*/*.vim') != '' ||
+      \ glob(v:val.'/*/*/*/*.vim') != ''")
     lcd `=dir`
     redraw
-    echo printf('%d/%d git pull origin master %s', cnt, max, dir)
-    let output = vimproc#system('git pull origin master')
+
+    echo printf('%d/%d git pull in %s', cnt, max, dir)
+
+    let output = vimproc#system('git pull')
     if vimproc#get_last_status()
       echohl WarningMsg | echomsg output | echohl None
     endif
+
+    echo ''
 
     let cnt += 1
   endfor
