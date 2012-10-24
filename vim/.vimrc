@@ -206,7 +206,7 @@ NeoBundleLazy 'Rip-Rip/clang_complete'
 NeoBundle 'kana/vim-tabpagecd'
 NeoBundle 'rhysd/accelerated-jk'
 " NeoBundle 'gmarik/vundle'
-NeoBundle 'davidhalter/jedi-vim.git'
+NeoBundle 'davidhalter/jedi-vim'
 
 " From vim.org
 NeoBundleLazy 'CSApprox'
