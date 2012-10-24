@@ -119,6 +119,7 @@ NeoBundle 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/unite-build'
 NeoBundle 'Shougo/unite-ssh'
+NeoBundle 'ujihisa/vimshell-ssh'
 NeoBundle 'Shougo/unite-sudo'
 NeoBundle 'Shougo/vim-vcs',
       \ { 'depends' : 'thinca/vim-openbuf' }
@@ -926,6 +927,7 @@ let g:jedi#auto_initialization = 1
 let g:jedi#popup_on_dot = 0
 let g:jedi#rename_command = '<leader>R'
 autocmd MyAutoCmd FileType python let b:did_ftplugin = 1
+"let g:neocomplcache_force_omni_patterns.python = '[^. \t]\.\w*'
 
 " Define dictionary.
 let g:neocomplcache_dictionary_filetype_lists = {
