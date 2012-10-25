@@ -597,7 +597,7 @@ function! s:my_tabline()  "{{{
 
     " Use gettabvar().
     let title = exists('*gettabvar') && gettabvar(i, 'title') != '' ?
-          \ gettabvar(i, 'title') : 'No Name'
+          \ gettabvar(i, 'title') : fnamemodify(gettabvar(i, 'cwd'), ':t')
 
     let title = '[' . title . ']'
 
