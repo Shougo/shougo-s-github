@@ -207,7 +207,7 @@ NeoBundleLazy 'Rip-Rip/clang_complete'
 NeoBundle 'kana/vim-tabpagecd'
 NeoBundle 'rhysd/accelerated-jk'
 " NeoBundle 'gmarik/vundle'
-NeoBundle 'davidhalter/jedi-vim'
+NeoBundleLazy 'davidhalter/jedi-vim'
 
 " From vim.org
 NeoBundleLazy 'CSApprox'
@@ -926,7 +926,8 @@ let g:clang_use_library   = 1
 let g:jedi#auto_initialization = 1
 let g:jedi#popup_on_dot = 0
 let g:jedi#rename_command = '<leader>R'
-autocmd MyAutoCmd FileType python let b:did_ftplugin = 1
+autocmd MyAutoCmd FileType python*
+      \ NeoBundleSource jedi-vim | let b:did_ftplugin = 1
 "let g:neocomplcache_force_omni_patterns.python = '[^. \t]\.\w*'
 
 " Define dictionary.
