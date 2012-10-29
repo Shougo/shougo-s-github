@@ -992,9 +992,12 @@ if !exists('g:neocomplcache_source_completion_length')
 endif
 
 " Plugin key-mappings."{{{
-imap <silent>L     <Plug>(neocomplcache_snippets_expand)
-smap <silent>L     <Plug>(neocomplcache_snippets_jump)
-imap <silent>G     <Plug>(neocomplcache_snippets_force_expand)
+imap <silent>L     <Plug>(neosnippet_jump_or_expand)
+smap <silent>L     <Plug>(neosnippet_jump_or_expand)
+xmap <silent>L     <Plug>(neosnippet_expand_target)
+imap <silent>K     <Plug>(neosnippet_expand_or_jump)
+smap <silent>K     <Plug>(neosnippet_expand_or_jump)
+imap <silent>G     <Plug>(neosnippet_expand)
 imap <silent>S     <Plug>(neosnippet_start_unite_snippet)
 " imap <silent>J     <Plug>(neocomplcache_snippets_jump)
 
@@ -2785,36 +2788,6 @@ function! ForwardParagraph()
     endif
     let i = i + 1
   endwhile
-endfunction
-"}}}
-
-" Context sensitive H,L."{{{
-nnoremap <silent> H :<C-u>call HContext()<CR>
-nnoremap <silent> L :<C-u>call LContext()<CR>
-xnoremap <silent> H <ESC>:<C-u>call HContext()<CR>mzgv`z
-xnoremap <silent> L <ESC>:<C-u>call LContext()<CR>mzgv`z
-function! HContext()
-  let moved = MoveCursor("H")
-  if !moved && line('.') != 1
-    execute "normal! " . "\<pageup>H"
-  endif
-endfunction
-function! LContext()
-  let moved = MoveCursor("L")
-
-  if !moved && line('.') != line('$')
-    execute "normal! " . "\<pagedown>L"
-  endif
-endfunction
-function! MoveCursor(key)
-  let cnum = col('.')
-  let lnum = line('.')
-  let wline = winline()
-
-  execute "normal! " . v:count . a:key
-  let moved =  cnum != col('.') || lnum != line('.') || wline != winline()
-
-  return moved
 endfunction
 "}}}
 
