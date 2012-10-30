@@ -1458,8 +1458,8 @@ unlet my_tabopen
 " Custom filters."{{{
 " call unite#custom_filters('file,buffer,file_rec',
 "       \ ['converter_relative_word', 'matcher_fuzzy', 'sorter_default'])
-" call unite#custom_filters('file,file_rec,file_rec/async',
-"       \ ['converter_relative_word', 'matcher_default', 'sorter_length'])
+call unite#custom_filters('file,file_rec,file_rec/async',
+      \ ['converter_relative_word', 'matcher_default', 'sorter_length'])
 "}}}
 
 let g:unite_enable_start_insert = 0
