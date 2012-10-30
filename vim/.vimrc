@@ -999,7 +999,7 @@ imap <silent>K     <Plug>(neosnippet_expand_or_jump)
 smap <silent>K     <Plug>(neosnippet_expand_or_jump)
 imap <silent>G     <Plug>(neosnippet_expand)
 imap <silent>S     <Plug>(neosnippet_start_unite_snippet)
-" imap <silent>J     <Plug>(neocomplcache_snippets_jump)
+xmap <silent>o     <Plug>(neosnippet_register_oneshot_snippet)
 
 inoremap <expr><C-g>     neocomplcache#undo_completion()
 inoremap <expr><C-l>     neocomplcache#complete_common_string()
