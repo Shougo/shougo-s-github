@@ -218,6 +218,7 @@ NeoBundle 'matchit.zip'
 NeoBundle 'autofmt'
 " NeoBundle 'perl-mauke.vim'
 NeoBundle 'DirDiff.vim'
+
 " NeoBundle 'taichouchou2/alpaca_complete.git'
 
 " NeoBundle 'https://raw.github.com/m2ym/rsense/master/etc/rsense.vim',
@@ -886,6 +887,7 @@ let g:neocomplcache_enable_cursor_hold_i = 0
 let g:neocomplcache_cursor_hold_i_time = 300
 let g:neocomplcache_enable_insert_char_pre = 0
 let g:neocomplcache_enable_prefetch = 0
+let g:neocomplcache_enable_refresh_always = 1
 
 if !exists('g:neocomplcache_wildcard_characters')
   let g:neocomplcache_wildcard_characters = {}
@@ -992,6 +994,8 @@ if !exists('g:neocomplcache_source_completion_length')
 endif
 
 " Plugin key-mappings."{{{
+
+" For neosnippet.
 imap <silent>L     <Plug>(neosnippet_jump_or_expand)
 smap <silent>L     <Plug>(neosnippet_jump_or_expand)
 xmap <silent>L     <Plug>(neosnippet_expand_target)
@@ -1000,6 +1004,9 @@ smap <silent>K     <Plug>(neosnippet_expand_or_jump)
 imap <silent>G     <Plug>(neosnippet_expand)
 imap <silent>S     <Plug>(neosnippet_start_unite_snippet)
 xmap <silent>o     <Plug>(neosnippet_register_oneshot_snippet)
+xmap <silent>U     <Plug>(neosnippet_start_unite_snippet_target)
+
+let g:neosnippet#enable_snipmate_compatibility = 1
 
 inoremap <expr><C-g>     neocomplcache#undo_completion()
 inoremap <expr><C-l>     neocomplcache#complete_common_string()
@@ -3401,18 +3408,6 @@ function! MatchPair(string, start_pattern, end_pattern, start_cnt)
     return end
   endif
 endfunction"}}}
-
-" For snipMate.
-function! Filename(...)
-  let filename = expand('%:t:r')
-  if filename == ''
-    return a:0 == 2 ? a:2 : ''
-  elseif a:0 == 0 || a:1 == ''
-    return filename
-  else
-    return substitute(a:1, '$1', filename, 'g')
-  endif
-endfunction
 
 function! s:expand(path)
   return expand(escape(a:path, '*?[]"={}'))
