@@ -104,8 +104,7 @@ call neobundle#rc(expand('~/.bundle'))
 
 " neobundle.vim"{{{
 NeoBundle 'anyakichi/vim-surround'
-NeoBundleLazy 'basyura/TweetVim'
-NeoBundleLazy 'basyura/twibill.vim'
+NeoBundle 'basyura/TweetVim', { 'depends' : 'basyura/twibill.vim' }
 " NeoBundleLazy 'c9s/perlomni.vim'
 NeoBundleLazy 'choplin/unite-vim_hacks'
 NeoBundleLazy 'liquidz/vimfiler-sendto'
@@ -128,7 +127,7 @@ NeoBundle 'Shougo/vimfiler',
 " NeoBundle 'Shougo/vimfiler', 'ver.1.50'
 NeoBundle 'Shougo/vimproc', {
       \ 'build' : {
-      \     'windows' : 'echo "Sorry, cannot update vimproc binary file in Windows."',
+      \     'windows' : 'make -f make_mingw32.mak',
       \     'cygwin' : 'make -f make_cygwin.mak',
       \     'mac' : 'make -f make_mac.mak',
       \     'unix' : 'make -f make_unix.mak',
@@ -208,6 +207,7 @@ NeoBundle 'kana/vim-tabpagecd'
 NeoBundle 'rhysd/accelerated-jk'
 " NeoBundle 'gmarik/vundle'
 NeoBundleLazy 'davidhalter/jedi-vim'
+NeoBundle 'vim-jp/autofmt'
 
 " From vim.org
 NeoBundleLazy 'CSApprox'
@@ -215,7 +215,6 @@ NeoBundleLazy 'guicolorscheme.vim'
 NeoBundle 'repeat.vim'
 NeoBundle 'autodate.vim'
 NeoBundle 'matchit.zip'
-NeoBundle 'autofmt'
 " NeoBundle 'perl-mauke.vim'
 NeoBundle 'DirDiff.vim'
 
@@ -930,7 +929,7 @@ let g:jedi#popup_on_dot = 0
 let g:jedi#rename_command = '<leader>R'
 autocmd MyAutoCmd FileType python*
       \ NeoBundleSource jedi-vim | let b:did_ftplugin = 1
-"let g:neocomplcache_force_omni_patterns.python = '[^. \t]\.\w*'
+let g:neocomplcache_force_omni_patterns.python = '[^. \t]\.\w*'
 
 " Define dictionary.
 let g:neocomplcache_dictionary_filetype_lists = {
