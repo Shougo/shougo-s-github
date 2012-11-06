@@ -887,7 +887,6 @@ let g:neocomplcache_enable_cursor_hold_i = 0
 let g:neocomplcache_cursor_hold_i_time = 300
 let g:neocomplcache_enable_insert_char_pre = 0
 let g:neocomplcache_enable_prefetch = 0
-let g:neocomplcache_enable_refresh_always = 1
 
 if !exists('g:neocomplcache_wildcard_characters')
   let g:neocomplcache_wildcard_characters = {}
@@ -998,13 +997,13 @@ endif
 " For neosnippet.
 imap <silent>L     <Plug>(neosnippet_jump_or_expand)
 smap <silent>L     <Plug>(neosnippet_jump_or_expand)
-xmap <silent>L     <Plug>(neosnippet_expand_target)
+xmap <silent>L     <Plug>(neosnippet_start_unite_snippet_target)
 imap <silent>K     <Plug>(neosnippet_expand_or_jump)
 smap <silent>K     <Plug>(neosnippet_expand_or_jump)
 imap <silent>G     <Plug>(neosnippet_expand)
 imap <silent>S     <Plug>(neosnippet_start_unite_snippet)
 xmap <silent>o     <Plug>(neosnippet_register_oneshot_snippet)
-xmap <silent>U     <Plug>(neosnippet_start_unite_snippet_target)
+xmap <silent>U     <Plug>(neosnippet_expand_target)
 
 let g:neosnippet#enable_snipmate_compatibility = 1
 
@@ -1079,26 +1078,26 @@ inoremap <expr><Down>  neocomplcache#close_popup() . "\<Down>"
 "}}}
 
 function! CompleteFiles(findstart, base)
-    if a:findstart
-        " Get cursor word.
-        let cur_text = strpart(getline('.'), 0, col('.') - 1)
+  if a:findstart
+    " Get cursor word.
+    let cur_text = strpart(getline('.'), 0, col('.') - 1)
 
-        return match(cur_text, '\f*$')
-    endif
+    return match(cur_text, '\f*$')
+  endif
 
-    let words = split(expand(a:base . '*'), '\n')
-    let list = []
-    let cnt = 0
-    for word in words
-        call add(list, {
-              \ 'word' : word,
-              \ 'abbr' : printf('%3d: %s', cnt, word),
-              \ 'menu' : 'file_complete'
-              \ })
-        let cnt += 1
-    endfor
+  let words = split(expand(a:base . '*'), '\n')
+  let list = []
+  let cnt = 0
+  for word in words
+    call add(list, {
+          \ 'word' : word,
+          \ 'abbr' : printf('%3d: %s', cnt, word),
+          \ 'menu' : 'file_complete'
+          \ })
+    let cnt += 1
+  endfor
 
-    return { 'words' : list, 'refresh' : 'always' }
+  return { 'words' : list, 'refresh' : 'always' }
 endfunction
 "}}}
 
