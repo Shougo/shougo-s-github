@@ -103,11 +103,13 @@ let g:neobundle_enable_tail_path = 1
 call neobundle#rc(expand('~/.bundle'))
 
 " neobundle.vim"{{{
-NeoBundle 'anyakichi/vim-surround'
-NeoBundle 'basyura/TweetVim', { 'depends' : 'basyura/twibill.vim' }
+NeoBundle 'anyakichi/vim-surround', { 'nosync' : 1 }
+NeoBundle 'basyura/TweetVim', { 'depends' :
+      \ ['basyura/twibill.vim', 'tyru/open-browser.vim'] }
+      " \ ['basyura/twibill.vim', 'tyru/open-browser.vim', 'yomi322/neco-tweetvim'] }
 " NeoBundleLazy 'c9s/perlomni.vim'
-NeoBundleLazy 'choplin/unite-vim_hacks'
-NeoBundleLazy 'liquidz/vimfiler-sendto'
+NeoBundleLazy 'choplin/unite-vim_hacks', { 'nosync' : 1 }
+NeoBundleLazy 'liquidz/vimfiler-sendto', { 'nosync' : 1 }
 NeoBundle 'Shougo/echodoc'
 NeoBundle 'Shougo/neocomplcache',
 
@@ -115,6 +117,7 @@ NeoBundle 'Shougo/neosnippet'
 " NeoBundle 'git@github.com:Shougo/neocomplcache-snippets-complete.git'
 
 NeoBundle 'Shougo/neobundle.vim'
+NeoBundle 'Shougo/neobundle-vim-scripts'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/unite-build'
 NeoBundle 'Shougo/unite-ssh'
@@ -133,90 +136,90 @@ NeoBundle 'Shougo/vimproc', {
       \     'unix' : 'make -f make_unix.mak',
       \    },
       \ }
-NeoBundle 'Shougo/vim-ft-vim_fold'
+NeoBundle 'Shougo/vim-ft-vim_fold', { 'nosync' : 1 }
 
 NeoBundle 'Shougo/vimshell'
 NeoBundle 'Shougo/vinarise'
 " NeoBundle 'h1mesuke/unite-outline'
-NeoBundle 'Shougo/unite-outline'
-NeoBundleLazy 'hail2u/vim-css3-syntax'
+NeoBundle 'Shougo/unite-outline', { 'nosync' : 1 }
+NeoBundleLazy 'hail2u/vim-css3-syntax', { 'nosync' : 1 }
 NeoBundle 'kana/vim-smartchr'
 NeoBundle 'kana/vim-smartword'
 NeoBundle 'kana/vim-smarttill'
 NeoBundle 'kana/vim-fakeclip'
 NeoBundle 'kana/vim-operator-user'
-NeoBundle 'kana/vim-operator-replace'
+NeoBundle 'kana/vim-operator-replace', { 'nosync' : 1 }
 NeoBundle 'kana/vim-textobj-user'
 " NeoBundleLazy 'kana/vim-wwwsearch'
 NeoBundleLazy 'kien/ctrlp.vim'
-NeoBundle 'Shougo/foldCC'
-NeoBundleLazy 'mattn/wwwrenderer-vim'
+NeoBundle 'Shougo/foldCC', { 'nosync' : 1 }
+NeoBundleLazy 'mattn/wwwrenderer-vim', { 'nosync' : 1 }
 NeoBundle 'mattn/webapi-vim'
 " NeoBundle 'basyura/webapi-vim'
 " NeoBundle 'pocket7878/presen-vim',
 " \ { 'depends' : 'pocket7878/curses-vim'}
 NeoBundleLazy 'rson/vim-conque'
 NeoBundle 'sjl/gundo.vim'
-NeoBundle 't9md/vim-surround_custom_mapping'
+NeoBundle 't9md/vim-surround_custom_mapping', { 'nosync' : 1 }
 " NeoBundle 't9md/vim-textmanip'
 " NeoBundle 't9md/vim-quickhl'
-NeoBundleLazy 'thinca/vim-fontzoom'
-NeoBundle 'ujihisa/unite-font'
-NeoBundle 'thinca/vim-prettyprint'
-NeoBundle 'thinca/vim-qfreplace'
+NeoBundleLazy 'thinca/vim-fontzoom', { 'nosync' : 1 }
+NeoBundle 'ujihisa/unite-font', { 'nosync' : 1 }
+NeoBundle 'thinca/vim-prettyprint', { 'nosync' : 1 }
+NeoBundle 'thinca/vim-qfreplace', { 'nosync' : 1 }
 NeoBundle 'thinca/vim-quickrun'
-NeoBundle 'thinca/vim-scouter'
+NeoBundle 'thinca/vim-scouter', { 'nosync' : 1 }
 NeoBundle 'thinca/vim-ref'
-NeoBundle 'thinca/vim-unite-history'
+NeoBundle 'thinca/vim-unite-history', { 'nosync' : 1 }
 if !has('gui_running') || s:is_windows
-  NeoBundle 'tsukkee/lingr-vim'
+  NeoBundle 'tsukkee/lingr-vim', { 'nosync' : 1 }
 else
-  NeoBundleLazy 'tsukkee/lingr-vim'
+  NeoBundleLazy 'tsukkee/lingr-vim', { 'nosync' : 1 }
 endif
-NeoBundle 'Shougo/unite-help'
-NeoBundle 'tsukkee/unite-tag'
+NeoBundle 'Shougo/unite-help', { 'nosync' : 1 }
+NeoBundle 'tsukkee/unite-tag', { 'nosync' : 1 }
 NeoBundle 'tyru/caw.vim'
 NeoBundle 'tyru/eskk.vim',
-NeoBundleLazy 'tyru/open-browser.vim'
-NeoBundleLazy 'tyru/operator-html-escape.vim'
-NeoBundle 'tyru/restart.vim'
+NeoBundleLazy 'tyru/open-browser.vim', { 'nosync' : 1 }
+NeoBundleLazy 'tyru/operator-html-escape.vim', { 'nosync' : 1 }
+NeoBundle 'tyru/restart.vim', { 'nosync' : 1 }
 " NeoBundle 'tyru/skk.vim'
-NeoBundle 'tyru/vim-altercmd'
-NeoBundle 'tyru/winmove.vim'
+NeoBundle 'tyru/vim-altercmd', { 'nosync' : 1 }
+NeoBundle 'tyru/winmove.vim', { 'nosync' : 1 }
 NeoBundleLazy 'ujihisa/neco-ghc',
-NeoBundle 'ujihisa/neco-look'
-NeoBundleLazy 'ujihisa/unite-colorscheme'
-NeoBundleLazy 'ujihisa/unite-locate.git'
+NeoBundle 'ujihisa/neco-look', { 'nosync' : 1 }
+NeoBundleLazy 'ujihisa/unite-colorscheme', { 'nosync' : 1 }
+NeoBundleLazy 'ujihisa/unite-locate.git', { 'nosync' : 1 }
 NeoBundle 'ujihisa/vimshell-ssh.git'
 NeoBundle 'vim-jp/vimdoc-ja.git'
 NeoBundle 'vim-scripts/netrw.vim.git'
 NeoBundleLazy 'vim-ruby/vim-ruby.git'
 " NeoBundleLazy 'Markdown'
-NeoBundleLazy 'yuratomo/w3m.vim'
-NeoBundle 'pasela/unite-webcolorname'
+NeoBundleLazy 'yuratomo/w3m.vim', { 'nosync' : 1 }
+NeoBundle 'pasela/unite-webcolorname', { 'nosync' : 1 }
 " NeoBundle 'hrsh7th/vim-unite-vcs'
-NeoBundle 'deris/vim-loadafterft'
-NeoBundle 'osyo-manga/unite-quickfix'
-NeoBundle 'osyo-manga/unite-filetype'
+NeoBundle 'deris/vim-loadafterft', { 'nosync' : 1 }
+NeoBundle 'osyo-manga/unite-quickfix', { 'nosync' : 1 }
+NeoBundle 'osyo-manga/unite-filetype', { 'nosync' : 1 }
 "NeoBundle 'taglist.vim'
 NeoBundle 'rbtnn/hexript.vim', {'external_commands' : 'xxd'}
 NeoBundle 'vim-jp/vital.vim'
-NeoBundleLazy 'tpope/vim-endwise'
+NeoBundleLazy 'tpope/vim-endwise', { 'nosync' : 1 }
 NeoBundleLazy 'Rip-Rip/clang_complete'
-NeoBundle 'kana/vim-tabpagecd'
+NeoBundle 'kana/vim-tabpagecd', { 'nosync' : 1 }
 NeoBundle 'rhysd/accelerated-jk'
 " NeoBundle 'gmarik/vundle'
 NeoBundleLazy 'davidhalter/jedi-vim'
 NeoBundle 'vim-jp/autofmt'
 
 " From vim.org
-NeoBundleLazy 'CSApprox'
-NeoBundleLazy 'guicolorscheme.vim'
-NeoBundle 'repeat.vim'
-NeoBundle 'autodate.vim'
-NeoBundle 'matchit.zip'
-" NeoBundle 'perl-mauke.vim'
-NeoBundle 'DirDiff.vim'
+NeoBundleLazy 'CSApprox', { 'nosync' : 1 }
+NeoBundleLazy 'guicolorscheme.vim', { 'nosync' : 1 }
+NeoBundle 'repeat.vim', { 'nosync' : 1 }
+NeoBundle 'autodate.vim', { 'nosync' : 1 }
+NeoBundle 'matchit.zip', { 'nosync' : 1 }
+" NeoBundle 'perl-mauke.vim', { 'nosync' : 1 }
+NeoBundle 'DirDiff.vim', { 'nosync' : 1 }
 
 " NeoBundle 'taichouchou2/alpaca_complete.git'
 
@@ -867,11 +870,11 @@ let g:neocomplcache_enable_at_startup = 1
 " Use smartcase.
 let g:neocomplcache_enable_smart_case = 0
 " Use camel case completion.
-let g:neocomplcache_enable_camel_case_completion = 0
+let g:neocomplcache_enable_camel_case_completion = 1
 " Use underbar completion.
-let g:neocomplcache_enable_underbar_completion = 0
+let g:neocomplcache_enable_underbar_completion = 1
 " Use fuzzy completion.
-let g:neocomplcache_enable_fuzzy_completion = 1
+let g:neocomplcache_enable_fuzzy_completion = 0
 " Set minimum syntax keyword length.
 let g:neocomplcache_min_syntax_length = 3
 " Set auto completion length.
@@ -2179,13 +2182,11 @@ autocmd MyAutoCmd FileType tweetvim call s:tweetvim_my_settings()
 function! s:tweetvim_my_settings()"{{{
   " Open say buffer.
   nnoremap <silent><buffer> o :TweetVimSay<CR>
-  nnoremap <silent><buffer> s :TweetVimSay<CR>
   nnoremap <silent><buffer> q :close<CR>
+  nmap <silent><buffer> j <Plug>(accelerated_jk_gj)
 endfunction"}}}
 
-" Complete by neocomplcache.
-let g:neocomplcache_dictionary_filetype_lists.tweetvim_say =
-      \ expand('~/.tweetvim/screen_name')
+let g:tweetvim_display_separator = 0
 
 nmap R <Plug>(operator-replace)
 xmap R <Plug>(operator-replace)
