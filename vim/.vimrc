@@ -98,20 +98,21 @@ if has('vim_starting')"{{{
 endif
 "}}}
 
-let g:neobundle_enable_tail_path = 1
+let g:neobundle#enable_tail_path = 1
+let g:neobundle#default_options = { 'same' : {'stay_same' : 1}}
 
 call neobundle#rc(expand('~/.bundle'))
 
 " neobundle.vim"{{{
-NeoBundle 'anyakichi/vim-surround', { 'nosync' : 1 }
+NeoBundle 'anyakichi/vim-surround', '', 'same'
 NeoBundle 'basyura/TweetVim', { 'depends' :
       \ ['basyura/twibill.vim', 'tyru/open-browser.vim'] }
       " \ ['basyura/twibill.vim', 'tyru/open-browser.vim', 'yomi322/neco-tweetvim'] }
 " NeoBundleLazy 'c9s/perlomni.vim'
-NeoBundleLazy 'choplin/unite-vim_hacks', { 'nosync' : 1 }
-NeoBundleLazy 'liquidz/vimfiler-sendto', { 'nosync' : 1 }
-NeoBundle 'Shougo/echodoc'
-NeoBundle 'Shougo/neocomplcache',
+NeoBundleLazy 'choplin/unite-vim_hacks', '', 'same'
+NeoBundleLazy 'liquidz/vimfiler-sendto', '', 'same'
+NeoBundle 'Shougo/echodoc', '', 'same'
+NeoBundle 'Shougo/neocomplcache'
 
 NeoBundle 'Shougo/neosnippet'
 " NeoBundle 'git@github.com:Shougo/neocomplcache-snippets-complete.git'
@@ -136,90 +137,91 @@ NeoBundle 'Shougo/vimproc', {
       \     'unix' : 'make -f make_unix.mak',
       \    },
       \ }
-NeoBundle 'Shougo/vim-ft-vim_fold', { 'nosync' : 1 }
+NeoBundle 'Shougo/vim-ft-vim_fold', '', 'same'
 
 NeoBundle 'Shougo/vimshell'
 NeoBundle 'Shougo/vinarise'
 " NeoBundle 'h1mesuke/unite-outline'
-NeoBundle 'Shougo/unite-outline', { 'nosync' : 1 }
+NeoBundle 'Shougo/unite-outline', '', 'same'
 NeoBundleLazy 'hail2u/vim-css3-syntax', { 'nosync' : 1 }
-NeoBundle 'kana/vim-smartchr'
-NeoBundle 'kana/vim-smartword'
-NeoBundle 'kana/vim-smarttill'
-NeoBundle 'kana/vim-fakeclip'
-NeoBundle 'kana/vim-operator-user'
-NeoBundle 'kana/vim-operator-replace', { 'nosync' : 1 }
-NeoBundle 'kana/vim-textobj-user'
+NeoBundle 'kana/vim-smartchr', '', 'same'
+NeoBundle 'kana/vim-smartword', '', 'same'
+NeoBundle 'kana/vim-smarttill', '', 'same'
+NeoBundle 'kana/vim-fakeclip', '', 'same'
+NeoBundle 'kana/vim-operator-user', '', 'same'
+NeoBundle 'kana/vim-operator-replace', '', 'same'
+NeoBundle 'kana/vim-textobj-user', '', 'same'
 " NeoBundleLazy 'kana/vim-wwwsearch'
 NeoBundleLazy 'kien/ctrlp.vim'
-NeoBundle 'Shougo/foldCC', { 'nosync' : 1 }
-NeoBundleLazy 'mattn/wwwrenderer-vim', { 'nosync' : 1 }
+NeoBundle 'Shougo/foldCC', '', 'same'
+NeoBundleLazy 'mattn/wwwrenderer-vim', '', 'same'
 NeoBundle 'mattn/webapi-vim'
 " NeoBundle 'basyura/webapi-vim'
 " NeoBundle 'pocket7878/presen-vim',
 " \ { 'depends' : 'pocket7878/curses-vim'}
-NeoBundleLazy 'rson/vim-conque'
-NeoBundle 'sjl/gundo.vim'
-NeoBundle 't9md/vim-surround_custom_mapping', { 'nosync' : 1 }
-" NeoBundle 't9md/vim-textmanip'
-" NeoBundle 't9md/vim-quickhl'
-NeoBundleLazy 'thinca/vim-fontzoom', { 'nosync' : 1 }
-NeoBundle 'ujihisa/unite-font', { 'nosync' : 1 }
-NeoBundle 'thinca/vim-prettyprint', { 'nosync' : 1 }
-NeoBundle 'thinca/vim-qfreplace', { 'nosync' : 1 }
+NeoBundleLazy 'rson/vim-conque', '', 'same'
+NeoBundle 'sjl/gundo.vim', '', 'same'
+NeoBundle 't9md/vim-surround_custom_mapping', '', 'same'
+" NeoBundle 't9md/vim-textmanip', '', 'same'
+" NeoBundle 't9md/vim-quickhl', '', 'same'
+NeoBundleLazy 'thinca/vim-fontzoom', '', 'same'
+NeoBundle 'ujihisa/unite-font', '', 'same'
+NeoBundle 'thinca/vim-prettyprint', '', 'same'
+NeoBundle 'thinca/vim-qfreplace', '', 'same'
 NeoBundle 'thinca/vim-quickrun'
-NeoBundle 'thinca/vim-scouter', { 'nosync' : 1 }
+NeoBundle 'thinca/vim-scouter', '', 'same'
 NeoBundle 'thinca/vim-ref'
-NeoBundle 'thinca/vim-unite-history', { 'nosync' : 1 }
-if !has('gui_running') || s:is_windows
-  NeoBundle 'tsukkee/lingr-vim', { 'nosync' : 1 }
-else
-  NeoBundleLazy 'tsukkee/lingr-vim', { 'nosync' : 1 }
+NeoBundle 'thinca/vim-unite-history', '', 'same'
+
+NeoBundle 'tsukkee/lingr-vim', '', 'same'
+if has('gui_running') && !s:is_windows
+  NeoBundleDisable lingr-vim
 endif
-NeoBundle 'Shougo/unite-help', { 'nosync' : 1 }
-NeoBundle 'tsukkee/unite-tag', { 'nosync' : 1 }
+
+NeoBundle 'Shougo/unite-help', '', 'same'
+NeoBundle 'tsukkee/unite-tag', '', 'same'
 NeoBundle 'tyru/caw.vim'
 NeoBundle 'tyru/eskk.vim',
-NeoBundleLazy 'tyru/open-browser.vim', { 'nosync' : 1 }
-NeoBundleLazy 'tyru/operator-html-escape.vim', { 'nosync' : 1 }
-NeoBundle 'tyru/restart.vim', { 'nosync' : 1 }
+NeoBundleLazy 'tyru/open-browser.vim', '', 'same'
+NeoBundleLazy 'tyru/operator-html-escape.vim', '', 'same'
+NeoBundle 'tyru/restart.vim', '', 'same'
 " NeoBundle 'tyru/skk.vim'
-NeoBundle 'tyru/vim-altercmd', { 'nosync' : 1 }
-NeoBundle 'tyru/winmove.vim', { 'nosync' : 1 }
-NeoBundleLazy 'ujihisa/neco-ghc',
-NeoBundle 'ujihisa/neco-look', { 'nosync' : 1 }
-NeoBundleLazy 'ujihisa/unite-colorscheme', { 'nosync' : 1 }
-NeoBundleLazy 'ujihisa/unite-locate.git', { 'nosync' : 1 }
+NeoBundle 'tyru/vim-altercmd', '', 'same'
+NeoBundle 'tyru/winmove.vim', '', 'same'
+NeoBundleLazy 'ujihisa/neco-ghc'
+NeoBundle 'ujihisa/neco-look', '', 'same'
+NeoBundleLazy 'ujihisa/unite-colorscheme', '', 'same'
+NeoBundleLazy 'ujihisa/unite-locate.git', '', 'same'
 NeoBundle 'ujihisa/vimshell-ssh.git'
 NeoBundle 'vim-jp/vimdoc-ja.git'
-NeoBundle 'vim-scripts/netrw.vim.git'
+NeoBundle 'vim-scripts/netrw.vim.git', '', 'same'
 NeoBundleLazy 'vim-ruby/vim-ruby.git'
-" NeoBundleLazy 'Markdown'
-NeoBundleLazy 'yuratomo/w3m.vim', { 'nosync' : 1 }
-NeoBundle 'pasela/unite-webcolorname', { 'nosync' : 1 }
-" NeoBundle 'hrsh7th/vim-unite-vcs'
-NeoBundle 'deris/vim-loadafterft', { 'nosync' : 1 }
-NeoBundle 'osyo-manga/unite-quickfix', { 'nosync' : 1 }
-NeoBundle 'osyo-manga/unite-filetype', { 'nosync' : 1 }
-"NeoBundle 'taglist.vim'
+" NeoBundleLazy 'Markdown', '', 'same'
+NeoBundleLazy 'yuratomo/w3m.vim', '', 'same'
+NeoBundle 'pasela/unite-webcolorname', '', 'same'
+" NeoBundle 'hrsh7th/vim-unite-vcs', '', 'same'
+NeoBundle 'deris/vim-loadafterft', '', 'same'
+NeoBundle 'osyo-manga/unite-quickfix', '', 'same'
+NeoBundle 'osyo-manga/unite-filetype', '', 'same'
+"NeoBundle 'taglist.vim', '', 'same'
 NeoBundle 'rbtnn/hexript.vim', {'external_commands' : 'xxd'}
 NeoBundle 'vim-jp/vital.vim'
-NeoBundleLazy 'tpope/vim-endwise', { 'nosync' : 1 }
+NeoBundleLazy 'tpope/vim-endwise', '', 'same'
 NeoBundleLazy 'Rip-Rip/clang_complete'
-NeoBundle 'kana/vim-tabpagecd', { 'nosync' : 1 }
+NeoBundle 'kana/vim-tabpagecd', '', 'same'
 NeoBundle 'rhysd/accelerated-jk'
 " NeoBundle 'gmarik/vundle'
 NeoBundleLazy 'davidhalter/jedi-vim'
-NeoBundle 'vim-jp/autofmt'
+NeoBundle 'vim-jp/autofmt', '', 'same'
 
 " From vim.org
-NeoBundleLazy 'CSApprox', { 'nosync' : 1 }
-NeoBundleLazy 'guicolorscheme.vim', { 'nosync' : 1 }
-NeoBundle 'repeat.vim', { 'nosync' : 1 }
-NeoBundle 'autodate.vim', { 'nosync' : 1 }
-NeoBundle 'matchit.zip', { 'nosync' : 1 }
-" NeoBundle 'perl-mauke.vim', { 'nosync' : 1 }
-NeoBundle 'DirDiff.vim', { 'nosync' : 1 }
+NeoBundleLazy 'CSApprox', '', 'same'
+NeoBundleLazy 'guicolorscheme.vim', '', 'same'
+NeoBundle 'repeat.vim', '', 'same'
+NeoBundle 'autodate.vim', '', 'same'
+NeoBundle 'matchit.zip', '', 'same'
+" NeoBundle 'perl-mauke.vim', '', 'same'
+NeoBundle 'DirDiff.vim', '', 'same'
 
 " NeoBundle 'taichouchou2/alpaca_complete.git'
 
@@ -741,6 +743,7 @@ augroup MyAutoCmd
   autocmd BufReadPost * if !exists('b:view_loaded') &&
   \                         expand('%') !=# '' && &buftype ==# ''
   \                   |   silent! loadview
+  \                   |   normal! zv
   \                   |   let b:view_loaded = 1
   \                   | endif
   autocmd VimLeave * call map(split(glob(&viewdir . '/*'), "\n"),
@@ -3134,6 +3137,27 @@ function! s:force_blockwise_visual(next_key)"{{{
   endif
 endfunction}}}
 "}}}
+
+" Improved increment.
+nnoremap <silent> <C-a>    :AddNumbers 1<CR>
+nnoremap <silent> <C-x>    :AddNumbers -1<CR>
+command! -range -nargs=1 AddNumbers
+      \ call s:add_numbers((<line2>-<line1>+1) * eval(<args>))
+function! s:add_numbers(num)
+  let prev_line = getline('.')[: col('.')-1]
+  let next_line = getline('.')[col('.') :]
+  let prev_num = matchstr(prev_line, '\d\+$')
+  if prev_num != ''
+    let next_num = matchstr(next_line, '^\d\+')
+    let new_line = prev_line[: -len(prev_num)-1] .
+          \ max([0, prev_num . next_num + a:num]) . next_line[len(next_num):]
+  else
+    let new_line = prev_line . substitute(next_line, '\d\+',
+          \ '\=max([0, submatch(0) + a:num])', '')
+  endif
+
+  call setline('.', new_line)
+endfunction
 "}}}
 
 "---------------------------------------------------------------------------
