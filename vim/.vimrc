@@ -238,6 +238,7 @@ NeoBundle 'DirDiff.vim', '', 'same'
 " NeoBundleLazy 'masudaK/vim-python'
 " NeoBundleLazy 'klen/python-mode'
 " autocmd MyAutoCmd FileType python* NeoBundleSource python-mode vim-python
+autocmd MyAutoCmd FileType ruby NeoBundleSource vim-ruby
 "}}}
 
 filetype plugin indent on
@@ -978,6 +979,9 @@ endif
 " let g:neocomplcache_source_look_dictionary_path = $HOME . '/words'
 let g:neocomplcache_source_look_dictionary_path = ''
 
+" Set $RSENSE_HOME path.
+let g:neocomplcache#sources#rsense#home_directory = '/opt/rsense'
+
 let g:neocomplcache_vim_completefuncs = {
       \ 'Ref' : 'ref#complete',
       \ 'Unite' : 'unite#complete_source',
@@ -1161,7 +1165,7 @@ function! s:vimshell_settings()
   imap <buffer><C-h>  <Plug>(vimshell_another_delete_backward_char)
   imap <buffer><C-k>  <Plug>(vimshell_zsh_complete)
 
-  nnoremap <silent><buffer> J
+  nnoremap <silent><buffer> <C-j>
         \ <C-u>:Unite -buffer-name=files -default-action=lcd directory_mru<CR>
 
   call vimshell#altercmd#define('g', 'git')
