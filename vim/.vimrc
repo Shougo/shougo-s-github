@@ -647,7 +647,7 @@ set nobackup
 set backupdir-=.
 
 " Disable bell.
-set vb t_vb=
+set t_vb=
 set novisualbell
 
 " Display candidate supplement.
