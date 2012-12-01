@@ -69,7 +69,7 @@ endif
 
 filetype off
 
-if has('vim_starting')"{{{
+if has('vim_starting') "{{{
   " Load settings for each location.
   function! s:vimrc_local(loc)
     let files = findfile('vimrc_local.vim', escape(a:loc, ' '), -1)
@@ -195,7 +195,6 @@ NeoBundleLazy 'ujihisa/unite-locate.git', '', 'same'
 NeoBundle 'ujihisa/vimshell-ssh.git'
 NeoBundle 'vim-jp/vimdoc-ja.git'
 NeoBundle 'vim-scripts/netrw.vim.git', '', 'same'
-NeoBundleLazy 'vim-ruby/vim-ruby.git'
 " NeoBundleLazy 'Markdown', '', 'same'
 NeoBundleLazy 'yuratomo/w3m.vim', '', 'same'
 NeoBundle 'pasela/unite-webcolorname', '', 'same'
@@ -238,7 +237,6 @@ NeoBundle 'DirDiff.vim', '', 'same'
 " NeoBundleLazy 'masudaK/vim-python'
 " NeoBundleLazy 'klen/python-mode'
 " autocmd MyAutoCmd FileType python* NeoBundleSource python-mode vim-python
-autocmd MyAutoCmd FileType ruby NeoBundleSource vim-ruby
 "}}}
 
 filetype plugin indent on
@@ -1072,7 +1070,7 @@ endfunction
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ neocomplcache#start_manual_complete()
-function! s:check_back_space()"{{{
+function! s:check_back_space() "{{{
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~ '\s'
 endfunction"}}}
@@ -1459,7 +1457,7 @@ let my_tabopen = {
       \ 'description' : 'my tabopen items',
       \ 'is_selectable' : 1,
       \ }
-function! my_tabopen.func(candidates)"{{{
+function! my_tabopen.func(candidates) "{{{
   call unite#take_action('tabopen', a:candidates)
 
   let dir = isdirectory(a:candidates[0].word) ?
@@ -1480,7 +1478,7 @@ call unite#custom_filters('file,file_rec,file_rec/async',
 let g:unite_enable_start_insert = 0
 let g:unite_enable_short_source_names = 1
 
-function! s:unite_my_settings()"{{{
+function! s:unite_my_settings() "{{{
   " Overwrite settings.
   imap <buffer>  <BS>      <Plug>(unite_delete_backward_path)
   imap <buffer>  jj      <Plug>(unite_insert_leave)
@@ -1526,11 +1524,11 @@ let source = {
         \ }
 call unite#define_source(source)
 
-function! source.hooks.on_init(args, context)"{{{
+function! source.hooks.on_init(args, context) "{{{
   let a:context.source__lines = getbufline(bufnr('%'), 1, '$')
   let a:context.source__bufname = bufname('%')
 endfunction"}}}
-function! source.gather_candidates(args, context)"{{{
+function! source.gather_candidates(args, context) "{{{
   let candidates = []
   let linenr = 1
   for line in a:context.source__lines
@@ -1873,7 +1871,7 @@ let g:ref_lynx_start_linenumber = 0 " Skip.
 let g:ref_lynx_hide_url_number = 0
 
 autocmd MyAutoCmd FileType ref call s:ref_my_settings()
-function! s:ref_my_settings()"{{{
+function! s:ref_my_settings() "{{{
   " Overwrite settings.
   nmap <buffer> [Tag]t  <Plug>(ref-keyword)
   nmap <buffer> [Tag]p  <Plug>(ref-back)
@@ -1933,7 +1931,7 @@ endif
 " let g:vimfiler_readonly_file_icon = '[O]'
 
 autocmd MyAutoCmd FileType vimfiler call s:vimfiler_my_settings()
-function! s:vimfiler_my_settings()"{{{
+function! s:vimfiler_my_settings() "{{{
   " Overwrite settings.
   nnoremap <silent><buffer> J
         \ <C-u>:Unite -buffer-name=files -default-action=lcd directory_mru<CR>
@@ -2023,7 +2021,7 @@ autocmd MyAutoCmd FileType lingr-messages call s:lingr_messages_my_settings()
 autocmd MyAutoCmd FileType lingr-say call s:lingr_say_my_settings()
 autocmd MyAutoCmd FileType lingr-rooms call s:lingr_looms_my_settings()
 
-function! s:lingr_messages_my_settings()"{{{
+function! s:lingr_messages_my_settings() "{{{
   nmap <buffer> o <Plug>(lingr-messages-show-say-buffer)
   nunmap <buffer> s
 
@@ -2037,11 +2035,11 @@ function! s:lingr_messages_my_settings()"{{{
     augroup END
   endif
 endfunction"}}}
-function! s:lingr_say_my_settings()"{{{
+function! s:lingr_say_my_settings() "{{{
   imap <buffer> <CR> <Plug>(lingr-say-insert-mode-say)
   nmap <buffer> q <Plug>(lingr-say-close)
 endfunction"}}}
-function! s:lingr_looms_my_settings()"{{{
+function! s:lingr_looms_my_settings() "{{{
   nmap <buffer> l <Plug>(lingr-rooms-select-room)
 endfunction"}}}
 
@@ -2185,7 +2183,7 @@ nnoremap W      :<C-u>W3m<Space>
 " Start TweetVim.
 nnoremap <silent> [unite]w :<C-u>Unite tweetvim<CR>
 autocmd MyAutoCmd FileType tweetvim call s:tweetvim_my_settings()
-function! s:tweetvim_my_settings()"{{{
+function! s:tweetvim_my_settings() "{{{
   " Open say buffer.
   nnoremap <silent><buffer> o :TweetVimSay<CR>
   nnoremap <silent><buffer> q :close<CR>
@@ -2404,7 +2402,7 @@ nnoremap <Leader><Leader> :<C-u>update<CR>
 
 " Change current directory.
 nnoremap <silent> [Space]cd :<C-u>call <SID>cd_buffer_dir()<CR>
-function! s:cd_buffer_dir()"{{{
+function! s:cd_buffer_dir() "{{{
   let filetype = getbufvar(bufnr('%'), '&filetype')
   if filetype ==# 'vimfiler'
     let dir = getbufvar(bufnr('%'), 'vimfiler').current_dir
@@ -3131,7 +3129,7 @@ nnoremap @@ @a
 xnoremap <expr> I  <SID>force_blockwise_visual('I')
 xnoremap <expr> A  <SID>force_blockwise_visual('A')
 
-function! s:force_blockwise_visual(next_key)"{{{
+function! s:force_blockwise_visual(next_key) "{{{
   if mode() ==# 'v'
     return "\<C-v>" . a:next_key
   elseif mode() ==# 'V'
@@ -3182,7 +3180,7 @@ function! ToggleVariable(variable_name)
   echo printf('%s = %s', a:variable_name, eval(a:variable_name))
 endfunction  "}}}
 
-" :Hg (alternative of ':helpg[rep]')"{{{
+" :Hg (alternative of ':helpg[rep]') "{{{
 " Because if use default ':helpgrep', Japanese texts are garbled.
 command! -nargs=1 Hg call s:new_help_grep('<args>')
 function! s:new_help_grep(arg)
@@ -3212,7 +3210,7 @@ function! s:ChangeCurrentDir(directory, bang)
   endif
 endfunction"}}}
 
-function! s:Batch() range"{{{
+function! s:Batch() range "{{{
   " read vimscript from selected area.
   let selected = getline(a:firstline, a:lastline)
   " get temp file.
@@ -3368,7 +3366,7 @@ function! CalcLeven(str1, str2)
   return p1[l2]
 endfunction"}}}
 
-function! SnipMid(str, len, mask)"{{{
+function! SnipMid(str, len, mask) "{{{
   if a:len >= len(a:str)
     return a:str
   elseif a:len <= len(a:mask)
@@ -3384,7 +3382,7 @@ endfunction"}}}
 
 " SnipNest('std::vector<std::vector<int>>', '<', '>', 1)
 "  => std::vector<<>>
-function! SnipNest(str, start, end, max)"{{{
+function! SnipNest(str, start, end, max) "{{{
   let _ = ''
   let nest_level = 0
   for c in split(a:str, '\zs')
