@@ -891,6 +891,7 @@ let g:neocomplcache_enable_cursor_hold_i = 0
 let g:neocomplcache_cursor_hold_i_time = 300
 let g:neocomplcache_enable_insert_char_pre = 0
 let g:neocomplcache_enable_prefetch = 0
+let g:neocomplcache_skip_auto_completion_time = '0.3'
 
 if !exists('g:neocomplcache_wildcard_characters')
   let g:neocomplcache_wildcard_characters = {}
@@ -3141,8 +3142,10 @@ endfunction}}}
 "}}}
 
 " Improved increment.
-nnoremap <silent> <C-a>    :AddNumbers 1<CR>
-nnoremap <silent> <C-x>    :AddNumbers -1<CR>
+nmap <C-a> <SID>(increment)
+nmap <C-x> <SID>(decrement)
+nnoremap <silent> <SID>(increment)    :AddNumbers 1<CR>
+nnoremap <silent> <SID>(decrement)   :AddNumbers -1<CR>
 command! -range -nargs=1 AddNumbers
       \ call s:add_numbers((<line2>-<line1>+1) * eval(<args>))
 function! s:add_numbers(num)
@@ -3152,13 +3155,17 @@ function! s:add_numbers(num)
   if prev_num != ''
     let next_num = matchstr(next_line, '^\d\+')
     let new_line = prev_line[: -len(prev_num)-1] .
-          \ max([0, prev_num . next_num + a:num]) . next_line[len(next_num):]
+          \ printf('%0'.len(prev_num).'d',
+          \    max([0, prev_num . next_num + a:num])) . next_line[len(next_num):]
   else
     let new_line = prev_line . substitute(next_line, '\d\+',
-          \ '\=max([0, submatch(0) + a:num])', '')
+          \ "\\=printf('%0'.len(submatch(0)).'d',
+          \         max([0, submatch(0) + a:num]))", '')
   endif
 
-  call setline('.', new_line)
+  if getline('.') !=# new_line
+    call setline('.', new_line)
+  endif
 endfunction
 "}}}
 
