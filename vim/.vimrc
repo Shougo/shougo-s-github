@@ -222,6 +222,7 @@ NeoBundle 'DirDiff.vim'
 
 " NeoBundle 'https://raw.github.com/m2ym/rsense/master/etc/rsense.vim',
 "       \ {'script_type' : 'plugin'}
+" NeoBundle 'taichouchou2/vim-rsense'
 
 " nosync test.
 " NeoBundleLazy 'yanktmp', {
@@ -928,7 +929,7 @@ let g:jedi#popup_on_dot = 0
 let g:jedi#rename_command = '<leader>R'
 autocmd MyAutoCmd FileType python*
       \ NeoBundleSource jedi-vim | let b:did_ftplugin = 1
-let g:neocomplcache_force_omni_patterns.python = '[^. \t]\.\w*'
+" let g:neocomplcache_force_omni_patterns.python = '[^. \t]\.\w*'
 
 " Define dictionary.
 let g:neocomplcache_dictionary_filetype_lists = {
@@ -942,6 +943,7 @@ let g:neocomplcache_dictionary_filetype_lists = {
 
 let g:neocomplcache_omni_functions = {
       \ 'ruby' : 'rubycomplete#Complete',
+      \ 'python' : 'jedi#complete',
       \ }
 
 " Define keyword pattern.
@@ -957,7 +959,7 @@ let g:neocomplcache_snippets_dir = $HOME . '/snippets'
 if !exists('g:neocomplcache_omni_patterns')
   let g:neocomplcache_omni_patterns = {}
 endif
-" let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 " let g:neocomplcache_force_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 let g:neocomplcache_omni_patterns.php = '[^. *\t]\.\w*\|\h\w*::'
 let g:neocomplcache_omni_patterns.mail = '^\s*\w\+'
