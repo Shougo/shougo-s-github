@@ -212,6 +212,7 @@ NeoBundle 'rhysd/accelerated-jk'
 " NeoBundle 'gmarik/vundle'
 NeoBundleLazy 'davidhalter/jedi-vim'
 NeoBundle 'vim-jp/autofmt', '', 'same'
+NeoBundle 'hrsh7th/vim-versions' " useful version control system interface for vim.
 
 " From vim.org
 NeoBundleLazy 'CSApprox', '', 'same'
@@ -2232,13 +2233,6 @@ xnoremap <TAB>  >
 xnoremap <S-TAB>  <
 "}}}
 
-" Selection mode keymappings: "{{{
-snoremap <CR>     <Space><BS>
-snoremap <Space>  <Space><BS>
-snoremap <C-f>  <ESC>a
-snoremap <C-b>  <ESC>bi
-"}}}
-
 " Insert mode keymappings: "{{{
 " <C-t>: insert tab.
 inoremap <C-t>  <C-v><TAB>
@@ -2916,9 +2910,6 @@ noremap [Space]gg :<C-u>echo FoldCCnavi()<CR>
 
 " Search a parenthesis.
 onoremap <silent> q /["',.{}()[\]<>]<CR>
-
-" Auto escape / substitute.
-xnoremap s y:%s/<C-r>=substitute(@0, '/', '\\/', 'g')<Return>//g<Left><Left>
 
 " Move last modified text.
 nnoremap gb `.zz
