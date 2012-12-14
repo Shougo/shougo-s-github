@@ -172,6 +172,7 @@ NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'thinca/vim-scouter', '', 'same'
 NeoBundle 'thinca/vim-ref'
 NeoBundle 'thinca/vim-unite-history', '', 'same'
+NeoBundle 'vim-ruby/vim-ruby'
 
 NeoBundle 'tsukkee/lingr-vim', '', 'same'
 if has('gui_running') && !s:is_windows
@@ -891,7 +892,7 @@ let g:neocomplcache_enable_cursor_hold_i = 0
 let g:neocomplcache_cursor_hold_i_time = 300
 let g:neocomplcache_enable_insert_char_pre = 0
 let g:neocomplcache_enable_prefetch = 0
-let g:neocomplcache_skip_auto_completion_time = '0.3'
+let g:neocomplcache_skip_auto_completion_time = '0.6'
 
 if !exists('g:neocomplcache_wildcard_characters')
   let g:neocomplcache_wildcard_characters = {}
@@ -1941,6 +1942,7 @@ function! s:vimfiler_my_settings() "{{{
   " setlocal cursorline
 
   nmap <buffer> O <Plug>(vimfiler_sync_with_another_vimfiler)
+  nnoremap <silent><buffer><expr> gy vimfiler#do_action('tabopen')
 
   " Migemo search.
   if !empty(unite#get_filters('matcher_migemo'))
