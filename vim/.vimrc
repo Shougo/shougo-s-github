@@ -104,6 +104,8 @@ let g:neobundle#default_options = { 'same' : {'stay_same' : 1}}
 call neobundle#rc(expand('~/.bundle'))
 
 " neobundle.vim"{{{
+NeoBundleFetch 'Shougo/neobundle.vim'
+
 NeoBundle 'anyakichi/vim-surround', '', 'same'
 NeoBundle 'basyura/TweetVim', { 'depends' :
       \ ['basyura/twibill.vim', 'tyru/open-browser.vim'] }
@@ -117,7 +119,6 @@ NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/neosnippet'
 " NeoBundle 'git@github.com:Shougo/neocomplcache-snippets-complete.git'
 
-NeoBundle 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/neobundle-vim-scripts'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/unite-build'
@@ -172,6 +173,7 @@ NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'thinca/vim-scouter', '', 'same'
 NeoBundle 'thinca/vim-ref'
 NeoBundle 'thinca/vim-unite-history', '', 'same'
+NeoBundle 'vim-ruby/vim-ruby'
 
 NeoBundle 'tsukkee/lingr-vim', '', 'same'
 if has('gui_running') && !s:is_windows
@@ -222,6 +224,7 @@ NeoBundle 'autodate.vim', '', 'same'
 NeoBundle 'matchit.zip', '', 'same'
 " NeoBundle 'perl-mauke.vim', '', 'same'
 NeoBundle 'DirDiff.vim', '', 'same'
+NeoBundle 'hrsh7th/vim-versions' " useful version control system interface for vim.
 
 " NeoBundle 'taichouchou2/alpaca_complete.git'
 
@@ -874,11 +877,11 @@ let g:neocomplcache_enable_at_startup = 1
 " Use smartcase.
 let g:neocomplcache_enable_smart_case = 0
 " Use camel case completion.
-let g:neocomplcache_enable_camel_case_completion = 1
+let g:neocomplcache_enable_camel_case_completion = 0
 " Use underbar completion.
-let g:neocomplcache_enable_underbar_completion = 1
+let g:neocomplcache_enable_underbar_completion = 0
 " Use fuzzy completion.
-let g:neocomplcache_enable_fuzzy_completion = 0
+let g:neocomplcache_enable_fuzzy_completion = 1
 " Set minimum syntax keyword length.
 let g:neocomplcache_min_syntax_length = 3
 " Set auto completion length.
@@ -893,7 +896,7 @@ let g:neocomplcache_enable_cursor_hold_i = 0
 let g:neocomplcache_cursor_hold_i_time = 300
 let g:neocomplcache_enable_insert_char_pre = 0
 let g:neocomplcache_enable_prefetch = 0
-let g:neocomplcache_skip_auto_completion_time = '0.3'
+let g:neocomplcache_skip_auto_completion_time = '0.6'
 
 if !exists('g:neocomplcache_wildcard_characters')
   let g:neocomplcache_wildcard_characters = {}
@@ -1944,6 +1947,7 @@ function! s:vimfiler_my_settings() "{{{
   " setlocal cursorline
 
   nmap <buffer> O <Plug>(vimfiler_sync_with_another_vimfiler)
+  nnoremap <silent><buffer><expr> gy vimfiler#do_action('tabopen')
 
   " Migemo search.
   if !empty(unite#get_filters('matcher_migemo'))
