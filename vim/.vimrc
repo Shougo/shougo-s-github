@@ -106,9 +106,14 @@ call neobundle#rc(expand('~/.bundle'))
 " neobundle.vim"{{{
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-NeoBundle 'anyakichi/vim-surround', '', 'same'
-NeoBundle 'basyura/TweetVim', { 'depends' :
-      \ ['basyura/twibill.vim', 'tyru/open-browser.vim'] }
+NeoBundle 'anyakichi/vim-surround', '', 'same', { 'autoload' : {
+      \ 'mappings' : [
+      \   ['n', '<Plug>Dsurround'], ['n', '<Plug>Csurround'],
+      \   ['n', '<Plug>Ysurround'], ['n', '<Plug>YSurround']
+      \ ]}}
+NeoBundleLazy 'basyura/TweetVim', { 'depends' :
+      \ ['basyura/twibill.vim', 'tyru/open-browser.vim'],
+      \ 'autoload' : { 'commands' : 'TweetVimHomeTimeline' }}
       " \ ['basyura/twibill.vim', 'tyru/open-browser.vim', 'yomi322/neco-tweetvim'] }
 " NeoBundleLazy 'c9s/perlomni.vim'
 NeoBundleLazy 'choplin/unite-vim_hacks', '', 'same'
@@ -119,14 +124,16 @@ NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/neosnippet'
 " NeoBundle 'git@github.com:Shougo/neocomplcache-snippets-complete.git'
 
-NeoBundle 'Shougo/neobundle-vim-scripts'
+NeoBundle 'Shougo/neobundle-vim-scripts', 'ver.3'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/unite-build'
 NeoBundle 'Shougo/unite-ssh'
 NeoBundle 'ujihisa/vimshell-ssh'
 NeoBundle 'Shougo/unite-sudo'
-NeoBundle 'Shougo/vim-vcs',
-      \ { 'depends' : 'thinca/vim-openbuf' }
+NeoBundleLazy 'Shougo/vim-vcs', {
+      \ 'depends' : 'thinca/vim-openbuf',
+      \ 'autoload' : {'functions' : 'vcs#info', 'commands' : 'Vcs'},
+      \   }
 NeoBundle 'Shougo/vimfiler',
       \ { 'depends' : 'Shougo/unite.vim' }
 " NeoBundle 'Shougo/vimfiler', 'ver.1.50'
@@ -138,44 +145,78 @@ NeoBundle 'Shougo/vimproc', {
       \     'unix' : 'make -f make_unix.mak',
       \    },
       \ }
-NeoBundle 'Shougo/vim-ft-vim_fold', '', 'same'
+NeoBundleLazy 'Shougo/vim-ft-vim_fold', '', 'same',
+      \  { 'autoload' : { 'filetypes' : 'vim' }}
 
 NeoBundle 'Shougo/vimshell'
-NeoBundle 'Shougo/vinarise'
+NeoBundleLazy 'Shougo/vinarise', { 'autoload' :
+      \  {'commands' : 'Vinarise' }
+      \ }
 " NeoBundle 'h1mesuke/unite-outline'
 NeoBundle 'Shougo/unite-outline', '', 'same'
 NeoBundleLazy 'hail2u/vim-css3-syntax', { 'nosync' : 1 }
 NeoBundle 'kana/vim-smartchr', '', 'same'
-NeoBundle 'kana/vim-smartword', '', 'same'
+NeoBundleLazy 'kana/vim-smartword', '', 'same', { 'autoload' : {
+      \ 'mappings' : [
+      \   '<Plug>(smartword-w)', '<Plug>(smartword-b)', '<Plug>(smartword-ge)']
+      \ }}
 NeoBundle 'kana/vim-smarttill', '', 'same'
-NeoBundle 'kana/vim-fakeclip', '', 'same'
+NeoBundleLazy 'kana/vim-fakeclip', '', 'same', { 'autoload' : {
+      \ 'mappings' : [
+      \   ['nv', '<Plug>(fakeclip-y)'], ['nv', '<Plug>(fakeclip-Y)'],
+      \   ['nv', '<Plug>(fakeclip-p)'], ['nv', '<Plug>(fakeclip-P)'],
+      \   ['nv', '<Plug>(fakeclip-gp)']]
+      \ }}
 NeoBundle 'kana/vim-operator-user', '', 'same'
-NeoBundle 'kana/vim-operator-replace', '', 'same'
+NeoBundle 'kana/vim-operator-replace', '', 'same', { 'autoload' : {
+      \ 'mappings' : [
+      \   ['nx', '<Plug>(operator-replace)']]
+      \ }}
 NeoBundle 'kana/vim-textobj-user', '', 'same'
 " NeoBundleLazy 'kana/vim-wwwsearch'
 NeoBundleLazy 'kien/ctrlp.vim'
-NeoBundle 'Shougo/foldCC', '', 'same'
+NeoBundleLazy 'Shougo/foldCC', '', 'same',
+      \  { 'autoload' : { 'filetypes' : 'vim' }}
 NeoBundleLazy 'mattn/wwwrenderer-vim', '', 'same'
 NeoBundle 'mattn/webapi-vim'
 " NeoBundle 'basyura/webapi-vim'
 " NeoBundle 'pocket7878/presen-vim',
 " \ { 'depends' : 'pocket7878/curses-vim'}
-NeoBundleLazy 'rson/vim-conque', '', 'same'
-NeoBundle 'sjl/gundo.vim', '', 'same'
+NeoBundleLazy 'rson/vim-conque', '', 'same', { 'autoload' : {
+      \ 'commands' : 'ConqueTerm'
+      \ }}
+NeoBundleLazy 'sjl/gundo.vim', '', 'same', { 'autoload' : {
+      \ 'commands' : 'GundoToggle'
+      \ }}
 NeoBundle 't9md/vim-surround_custom_mapping', '', 'same'
 " NeoBundle 't9md/vim-textmanip', '', 'same'
 " NeoBundle 't9md/vim-quickhl', '', 'same'
-NeoBundleLazy 'thinca/vim-fontzoom', '', 'same'
+NeoBundleLazy 'thinca/vim-fontzoom', '', 'same', { 'autoload' : {
+      \ 'mappings' : [
+      \   ['n', '<Plug>(fontzoom-larger)'],
+      \   ['n', '<Plug>(fontzoom-smaller)']]
+      \ }}
 NeoBundle 'ujihisa/unite-font', '', 'same'
-NeoBundle 'thinca/vim-prettyprint', '', 'same'
+NeoBundleLazy 'thinca/vim-prettyprint', '', 'same', { 'autoload' : {
+      \ 'commands' : 'PP'
+      \ }}
 NeoBundle 'thinca/vim-qfreplace', '', 'same'
-NeoBundle 'thinca/vim-quickrun'
-NeoBundle 'thinca/vim-scouter', '', 'same'
+NeoBundleLazy 'thinca/vim-quickrun', { 'autoload' : {
+      \ 'mappings' : [
+      \   ['nxo', '<Plug>(quickrun)']],
+      \ }}
+NeoBundleLazy 'thinca/vim-scouter', '', 'same', { 'autoload' : {
+      \ 'commands' : 'Scouter'
+      \ }}
 NeoBundle 'thinca/vim-ref'
 NeoBundle 'thinca/vim-unite-history', '', 'same'
-NeoBundle 'vim-ruby/vim-ruby'
+NeoBundleLazy 'vim-ruby/vim-ruby', { 'autoload' : {
+      \ 'filetypes' : 'ruby'
+      \ }}
 
-NeoBundle 'tsukkee/lingr-vim', '', 'same'
+NeoBundleLazy 'tsukkee/lingr-vim', '', 'same', { 'autoload' : {
+      \ 'commands' : 'LingrLaunch'
+      \ }}
 if has('gui_running') && !s:is_windows
   NeoBundleDisable lingr-vim
 endif
@@ -186,17 +227,27 @@ NeoBundle 'tyru/caw.vim'
 NeoBundle 'tyru/eskk.vim',
 NeoBundleLazy 'tyru/open-browser.vim', '', 'same'
 NeoBundleLazy 'tyru/operator-html-escape.vim', '', 'same'
-NeoBundle 'tyru/restart.vim', '', 'same'
+NeoBundleLazy 'tyru/restart.vim', '', 'same', { 'autoload' : {
+      \ 'commands' : 'Restart'
+      \ }}
 " NeoBundle 'tyru/skk.vim'
 NeoBundle 'tyru/vim-altercmd', '', 'same'
-NeoBundle 'tyru/winmove.vim', '', 'same'
-NeoBundleLazy 'ujihisa/neco-ghc'
+NeoBundleLazy 'tyru/winmove.vim', '', 'same', { 'autoload' : {
+      \ 'mappings' : [
+      \   ['n', '<Plug>(winmove-up)'], ['n', '<Plug>(winmove-down)'],
+      \   ['n', '<Plug>(winmove-left)'] , ['n', '<Plug>(winmove-right)']],
+      \ }}
+NeoBundleLazy 'ujihisa/neco-ghc', { 'autoload' : {
+      \ 'filetypes' : 'haskell'
+      \ }}
 NeoBundle 'ujihisa/neco-look', '', 'same'
 NeoBundleLazy 'ujihisa/unite-colorscheme', '', 'same'
 NeoBundleLazy 'ujihisa/unite-locate.git', '', 'same'
 NeoBundle 'ujihisa/vimshell-ssh.git'
 NeoBundle 'vim-jp/vimdoc-ja.git'
-NeoBundle 'vim-scripts/netrw.vim.git', '', 'same'
+NeoBundleLazy 'vim-scripts/netrw.vim.git', '', 'same', { 'autoload' : {
+      \ 'commands' : 'Explore',
+      \ }}
 " NeoBundleLazy 'Markdown', '', 'same'
 NeoBundleLazy 'yuratomo/w3m.vim', '', 'same'
 NeoBundle 'pasela/unite-webcolorname', '', 'same'
@@ -208,11 +259,19 @@ NeoBundle 'osyo-manga/unite-filetype', '', 'same'
 NeoBundle 'rbtnn/hexript.vim', {'external_commands' : 'xxd'}
 NeoBundle 'vim-jp/vital.vim'
 NeoBundleLazy 'tpope/vim-endwise', '', 'same'
-NeoBundleLazy 'Rip-Rip/clang_complete'
+NeoBundleLazy 'Rip-Rip/clang_complete', {
+      \ 'autoload' : {
+      \     'filetypes' : ['c', 'cpp'],
+      \    },
+      \ }
 NeoBundle 'kana/vim-tabpagecd', '', 'same'
 NeoBundle 'rhysd/accelerated-jk'
 " NeoBundle 'gmarik/vundle'
-NeoBundleLazy 'davidhalter/jedi-vim'
+NeoBundleLazy 'davidhalter/jedi-vim', {
+      \ 'autoload' : {
+      \     'filetypes' : ['python', 'python3'],
+      \    },
+      \ }
 NeoBundle 'vim-jp/autofmt', '', 'same'
 
 " From vim.org
@@ -239,7 +298,6 @@ NeoBundle 'hrsh7th/vim-versions' " useful version control system interface for v
 " NeoBundleLazy 'tpope/vim-fugitive'
 " NeoBundleLazy 'masudaK/vim-python'
 " NeoBundleLazy 'klen/python-mode'
-" autocmd MyAutoCmd FileType python* NeoBundleSource python-mode vim-python
 "}}}
 
 filetype plugin indent on
@@ -783,8 +841,6 @@ augroup MyAutoCmd
   autocmd FileType ref nnoremap <buffer> <TAB> <C-w>w
 
   autocmd FileType c setlocal foldmethod=syntax
-
-  autocmd FileType c,cpp NeoBundleSource clang_complete
 
   " Enable omni completion.
   autocmd FileType ada setlocal omnifunc=adacomplete#Complete
@@ -1832,18 +1888,10 @@ for _ in ['+', '*']
   execute 'silent! nmap "'._.'P  <Plug>(fakeclip-P)'
   execute 'silent! nmap "'._.'gp  <Plug>(fakeclip-gp)'
   execute 'silent! nmap "'._.'gP  <Plug>(fakeclip-gP)'
-  execute 'silent! nmap "'._.']p  <Plug>(fakeclip-]p)'
-  execute 'silent! nmap "'._.']P  <Plug>(fakeclip-]P)'
-  execute 'silent! nmap "'._.'[p  <Plug>(fakeclip-[p)'
-  execute 'silent! nmap "'._.'[P  <Plug>(fakeclip-[P)'
   execute 'silent! vmap "'._.'p  <Plug>(fakeclip-p)'
   execute 'silent! vmap "'._.'P  <Plug>(fakeclip-P)'
   execute 'silent! vmap "'._.'gp  <Plug>(fakeclip-gp)'
   execute 'silent! vmap "'._.'gP  <Plug>(fakeclip-gP)'
-  execute 'silent! vmap "'._.']p  <Plug>(fakeclip-]p)'
-  execute 'silent! vmap "'._.']P  <Plug>(fakeclip-]P)'
-  execute 'silent! vmap "'._.'[p  <Plug>(fakeclip-[p)'
-  execute 'silent! vmap "'._.'[P  <Plug>(fakeclip-[P)'
 
   "execute 'silent! map! <C-r>'._.'  <Plug>(fakeclip-insert)'
   "execute 'silent! map! <C-r><C-r>'._.'  <Plug>(fakeclip-insert-r)'
@@ -2071,9 +2119,6 @@ function! s:define_surround_keymappings()
   nmap <buffer>         cs   <Plug>Csurround
   nmap <buffer>         ys   <Plug>Ysurround
   nmap <buffer>         yS   <Plug>YSurround
-  nmap <buffer>         yss  <Plug>Yssurround
-  nmap <buffer>         ySs  <Plug>YSsurround
-  nmap <buffer>         ySS  <Plug>YSsurround
 endfunction
 "}}}
 
