@@ -67,8 +67,6 @@ if filereadable(expand('~/.secret_vimrc'))
   execute 'source' expand('~/.secret_vimrc')
 endif
 
-filetype off
-
 if has('vim_starting') "{{{
   " Load settings for each location.
   function! s:vimrc_local(loc)
@@ -149,6 +147,8 @@ NeoBundleLazy 'Shougo/vim-ft-vim_fold', '', 'same',
       \  { 'autoload' : { 'filetypes' : 'vim' }}
 
 NeoBundle 'Shougo/vimshell'
+NeoBundle 'yomi322/vim-gitcomplete'
+
 NeoBundleLazy 'Shougo/vinarise', { 'autoload' :
       \  {'commands' : 'Vinarise' }
       \ }
@@ -160,7 +160,10 @@ NeoBundleLazy 'kana/vim-smartword', '', 'same', { 'autoload' : {
       \ 'mappings' : [
       \   '<Plug>(smartword-w)', '<Plug>(smartword-b)', '<Plug>(smartword-ge)']
       \ }}
-NeoBundle 'kana/vim-smarttill', '', 'same'
+NeoBundle 'kana/vim-smarttill', '', 'same', { 'autoload' : {
+      \ 'mappings' : [
+      \   '<Plug>(smarttill-t)', '<Plug>(smarttill-T)']
+      \ }}
 NeoBundleLazy 'kana/vim-fakeclip', '', 'same', { 'autoload' : {
       \ 'mappings' : [
       \   ['nv', '<Plug>(fakeclip-y)'], ['nv', '<Plug>(fakeclip-Y)'],
@@ -225,7 +228,9 @@ NeoBundle 'Shougo/unite-help', '', 'same'
 NeoBundle 'tsukkee/unite-tag', '', 'same'
 NeoBundle 'tyru/caw.vim'
 NeoBundle 'tyru/eskk.vim',
-NeoBundleLazy 'tyru/open-browser.vim', '', 'same'
+NeoBundleLazy 'tyru/open-browser.vim', '', 'same', { 'autoload' : {
+      \ 'mappings' : '<Plug>(open-browser-wwwsearch)',
+      \ }}
 NeoBundleLazy 'tyru/operator-html-escape.vim', '', 'same'
 NeoBundleLazy 'tyru/restart.vim', '', 'same', { 'autoload' : {
       \ 'commands' : 'Restart'
@@ -243,13 +248,15 @@ NeoBundleLazy 'ujihisa/neco-ghc', { 'autoload' : {
 NeoBundle 'ujihisa/neco-look', '', 'same'
 NeoBundleLazy 'ujihisa/unite-colorscheme', '', 'same'
 NeoBundleLazy 'ujihisa/unite-locate.git', '', 'same'
-NeoBundle 'ujihisa/vimshell-ssh.git'
+NeoBundleLazy 'ujihisa/vimshell-ssh.git'
 NeoBundle 'vim-jp/vimdoc-ja.git'
 NeoBundleLazy 'vim-scripts/netrw.vim.git', '', 'same', { 'autoload' : {
       \ 'commands' : 'Explore',
       \ }}
 " NeoBundleLazy 'Markdown', '', 'same'
-NeoBundleLazy 'yuratomo/w3m.vim', '', 'same'
+NeoBundleLazy 'yuratomo/w3m.vim', '', 'same', { 'autoload' : {
+      \ 'commands' : 'W3m',
+      \ }}
 NeoBundle 'pasela/unite-webcolorname', '', 'same'
 " NeoBundle 'hrsh7th/vim-unite-vcs', '', 'same'
 NeoBundle 'deris/vim-loadafterft', '', 'same'
@@ -272,14 +279,20 @@ NeoBundleLazy 'davidhalter/jedi-vim', {
       \     'filetypes' : ['python', 'python3'],
       \    },
       \ }
-NeoBundle 'vim-jp/autofmt', '', 'same'
+NeoBundleLazy 'vim-jp/autofmt', '', 'same', { 'autoload' : {
+      \ 'mappings' : [['x', 'gq']],
+      \ }}
 
 " From vim.org
 NeoBundleLazy 'CSApprox', '', 'same'
 NeoBundleLazy 'guicolorscheme.vim', '', 'same'
-NeoBundle 'repeat.vim', '', 'same'
+NeoBundleLazy 'repeat.vim', '', 'same', { 'autoload' : {
+      \ 'mappings' : '.',
+      \ }}
 NeoBundle 'autodate.vim', '', 'same'
-NeoBundle 'matchit.zip', '', 'same'
+NeoBundleLazy 'matchit.zip', '', 'same', { 'autoload' : {
+      \ 'mappings' : '%',
+      \ }}
 " NeoBundle 'perl-mauke.vim', '', 'same'
 NeoBundle 'DirDiff.vim', '', 'same'
 NeoBundle 'hrsh7th/vim-versions' " useful version control system interface for vim.
@@ -443,13 +456,7 @@ command! WSjis  WCp932
 command! WUnicode WUtf16
 "}}}
 
-" Handle it in nkf and open.
-command! Nkf !nkf -g %
-
 " Appoint a line feed."{{{
-command! -bang -bar -complete=file -nargs=? Unix edit<bang> ++fileformat=unix <args>
-command! -bang -bar -complete=file -nargs=? Dos edit<bang> ++fileformat=dos <args>
-command! -bang -bar -complete=file -nargs=? Mac edit<bang> ++fileformat=mac <args>
 command! -bang -complete=file -nargs=? WUnix write<bang> ++fileformat=unix <args> | edit <args>
 command! -bang -complete=file -nargs=? WDos write<bang> ++fileformat=dos <args> | edit <args>
 command! -bang -complete=file -nargs=? WMac write<bang> ++fileformat=mac <args> | edit <args>
@@ -552,17 +559,6 @@ if exists('*FoldCCtext')
         \             |   setlocal foldtext=FoldCCtext()
         \             | endif
 endif
-
-" augroup foldmethod-expr
-"   autocmd!
-"   autocmd InsertEnter * if &l:foldmethod ==# 'expr'
-"   \                   |   let b:foldinfo = [&l:foldmethod, &l:foldexpr]
-"   \                   |   setlocal foldmethod=manual foldexpr=0
-"   \                   | endif
-"   autocmd InsertLeave * if exists('b:foldmethod')
-"   \                   |   let [&l:foldmethod, &l:foldexpr] = b:foldinfo
-"   \                   | endif
-" augroup END
 
 " Use vimgrep.
 "set grepprg=internal
@@ -822,9 +818,6 @@ augroup MyAutoCmd
   autocmd FileType scheme nested let b:is_gauche=1 | setlocal lispwords=define |
         \let b:current_syntax='' | syntax enable
 
-  " Easily load VimScript.
-  autocmd FileType vim nnoremap <silent><buffer> [Space]so :write \| source % \| echo "source " . bufname('%')<CR>
-
   " Auto reload VimScript.
   autocmd BufWritePost,FileWritePost *.vim if &autoread | source <afile> | echo "source " . bufname('%') | endif
 
@@ -897,12 +890,12 @@ function! s:set_syntax_of_user_defined_commands()
   silent! command
   redir END
 
-  let command_names = map(split(_, '\n')[1:],
-        \ "matchstr(v:val, '^[!\"b]*\s\+\zs\u\w*\ze')")
+  let command_names = join(map(split(_, '\n')[1:],
+        \ "matchstr(v:val, '[!\"b]*\\s\\+\\zs\\u\\w*\\ze')"))
 
-  if empty(command_names) | return | endif
+  if command_names == '' | return | endif
 
-  execute 'syntax keyword vimCommand contained ' . join(command_names)
+  execute 'syntax keyword vimCommand contained ' . command_names
 endfunction
 
 "}}}
@@ -1216,8 +1209,6 @@ call vimshell#set_execute_file('html,xhtml', 'gexe firefox')
 
 autocmd MyAutoCmd FileType vimshell call s:vimshell_settings()
 function! s:vimshell_settings()
-  imap <buffer><silent> &  <C-o>:call vimshell#mappings#push_and_execute('cd ..')<CR>
-
   inoremap <buffer><expr>'  pumvisible() ? "\<C-y>" : "'"
   imap <buffer><BS>  <Plug>(vimshell_another_delete_backward_char)
   imap <buffer><C-h>  <Plug>(vimshell_another_delete_backward_char)
@@ -1247,9 +1238,12 @@ endfunction
 
 autocmd MyAutoCmd FileType term-* call s:terminal_settings()
 function! s:terminal_settings()
-  inoremap <silent><buffer><expr> <Plug>(vimshell_term_send_semicolon) vimshell#term_mappings#send_key(';')
-  inoremap <silent><buffer><expr> j<Space> vimshell#term_mappings#send_key('j')
-  "inoremap <silent><buffer><expr> <Up> vimshell#term_mappings#send_keys("\<ESC>[A")
+  inoremap <silent><buffer><expr> <Plug>(vimshell_term_send_semicolon)
+        \ vimshell#term_mappings#send_key(';')
+  inoremap <silent><buffer><expr> j<Space>
+        \ vimshell#term_mappings#send_key('j')
+  "inoremap <silent><buffer><expr> <Up>
+  "      \ vimshell#term_mappings#send_keys("\<ESC>[A")
 
   " Sticky key.
   imap <buffer><expr> ;  <SID>texe_sticky_func()
@@ -1266,7 +1260,8 @@ function! s:texe_sticky_func()
         \';' : ':', '[' : '{', ']' : '}', '`' : '~', "'" : "\"", '\' : '|',
         \}
   let special_table = {
-        \"\<ESC>" : "\<ESC>", "\<Space>" : "\<Plug>(vimshell_term_send_semicolon)", "\<CR>" : ";\<CR>"
+        \ "\<ESC>" : "\<ESC>", "\<CR>" : ";\<CR>"
+        \ "\<Space>" : "\<Plug>(vimshell_term_send_semicolon)",
         \}
 
   if mode() !~# '^c'
@@ -1333,40 +1328,10 @@ let g:netrw_list_hide= '*.swp'
 nnoremap <silent> <BS> :<C-u>Explore<CR>
 " Change default directory.
 set browsedir=current
-if executable('wget')
-  let g:netrw_http_cmd = 'wget'
-endif
 "}}}
 
 " vinarise.vim"{{{
 let g:vinarise_enable_auto_detect = 1
-"}}}
-
-" errormarker.vim"{{{
-let errormarker_errortext      = '!!'
-let errormarker_warningtext    = '??'
-let g:errormarker_errorgroup   = 'Error'
-let g:errormarker_warninggroup = 'Todo'
-let g:errormarker_erroricon    = $DOTVIM . '/signs/err.'
-      \ . (s:is_windows ? 'bmp' : 'png')
-let g:errormarker_warningicon  = $DOTVIM . '/signs/warn.'
-      \ . (s:is_windows ? 'bmp' : 'png')
-"}}}
-
-" git.vim{{{
-let g:git_no_default_mappings = 1
-let g:git_use_vimproc = 1
-let g:git_command_edit = 'rightbelow vnew'
-nnoremap <silent> [Space]gd :<C-u>GitDiff --cached<CR>
-nnoremap <silent> [Space]gD :<C-u>GitDiff<CR>
-" nnoremap <silent> [Space]gs :<C-u>GitStatus<CR>
-nnoremap <silent> [Space]gl :<C-u>GitLog<CR>
-nnoremap <silent> [Space]gL :<C-u>GitLog -u \| head -10000<CR>
-nnoremap <silent> [Space]ga :<C-u>GitAdd<CR>
-nnoremap <silent> [Space]gA :<C-u>GitAdd <cfile><CR>
-" nnoremap <silent> [Space]gc :<C-u>GitCommit<CR>
-nnoremap <silent> [Space]gp q:Git push<Space>
-nnoremap <silent> [Space]gt q:Git tag<Space>
 "}}}
 
 " vcs.vim{{{
@@ -1413,7 +1378,6 @@ inoremap <silent><expr> <C-z>
 nnoremap <silent> <C-t>       :<C-u>Unite tab<CR>
 "}}}
 
-
 if s:is_windows
   nnoremap <silent> [Window]s
         \ :<C-u>Unite -buffer-name=files -no-split -multi-line
@@ -1425,8 +1389,6 @@ else
         \ jump_point file_point buffer_tab
         \ file_rec/async:! file file/new file_mru<CR>
 endif
-nnoremap <silent> [Window]t
-      \ :<C-u>Unite -buffer-name=files tab<CR>
 nnoremap <silent> [Window]w
       \ :<C-u>Unite window<CR>
 nnoremap <silent> [Space]b
@@ -1449,12 +1411,9 @@ nnoremap <silent><expr> [Tag]p  &filetype == 'help' ?
 "}}}
 
 " Execute help.
-" nnoremap <C-h>  :<C-u>help<Space>
-" nnoremap <C-h>  :<C-u>UniteWithInput help<CR>
 nnoremap <silent> <C-h>  :<C-u>Unite -buffer-name=help help<CR>
 
 " Execute help by cursor keyword.
-" nnoremap <silent> g<C-h>  :<C-u>help<Space><C-r><C-w><CR>
 nnoremap <silent> g<C-h>  :<C-u>UniteWithInput help<CR>
 
 " Search.
@@ -1533,6 +1492,9 @@ unlet my_tabopen
 "       \ ['converter_relative_word', 'matcher_fuzzy', 'sorter_default'])
 call unite#custom_filters('file,file_rec,file_rec/async',
       \ ['converter_relative_word', 'matcher_default', 'sorter_length'])
+call unite#filters#sorter_default#use(['sorter_rank'])
+call unite#custom_filters('menu',
+      \ ['matcher_default', 'sorter_nothing', 'converter_default'])
 "}}}
 
 let g:unite_enable_start_insert = 0
@@ -1764,7 +1726,8 @@ inoremap <expr> , smartchr#one_of(', ', ',')
 inoremap <expr> ? smartchr#one_of('?', '? ')
 
 " Smart =.
-inoremap <expr> = search('\(&\<bar><bar>\<bar>+\<bar>-\<bar>/\<bar>>\<bar><\) \%#', 'bcn')? '<bs>= '
+inoremap <expr> =
+      \ search('\(&\<bar><bar>\<bar>+\<bar>-\<bar>/\<bar>>\<bar><\) \%#', 'bcn')? '<bs>= '
       \ : search('\(*\<bar>!\)\%#', 'bcn') ? '= '
       \ : smartchr#one_of(' = ', '=', ' == ')
 augroup MyAutoCmd
@@ -2101,11 +2064,6 @@ if !s:is_windows
 endif
 "}}}
 
-" rsense.vim"{{{
-let g:rsenseHome = 'c:/rsense'
-let g:rsenseUseOmniFunc = 1
-"}}}
-
 " surround.vim"{{{
 let g:surround_no_mappings = 1
 autocmd MyAutoCmd FileType * call s:define_surround_keymappings()
@@ -2125,15 +2083,13 @@ endfunction
 " qfreplace.vim
 autocmd MyAutoCmd FileType qf nnoremap <buffer> r :<C-u>Qfreplace<CR>
 
-" simpletap.vim"{{{
-" Easily test.
-nnoremap [Space]te :<C-u>SimpleTapRun ./test<CR>
-"}}}
-
 " open-browser.vim"{{{
-nnoremap gs :<C-u>call <SID>www_search()<CR>
+nmap gs <Plug>(open-browser-wwwsearch)
+nnoremap <Plug>(open-browser-wwwsearch)
+      \ :<C-u>call <SID>www_search()<CR>
 function! s:www_search()
-  let search_word = input('Please input search word: ', '', 'customlist,wwwsearch#cmd_Wwwsearch_complete')
+  let search_word = input('Please input search word: ', '',
+        \ 'customlist,wwwsearch#cmd_Wwwsearch_complete')
   if search_word != ''
     execute 'OpenBrowserSearch' escape(search_word, '"')
   endif
@@ -2160,18 +2116,6 @@ let g:ConqueTerm_PyVersion = 3
 " fontzoom.vim"{{{
 nmap + <Plug>(fontzoom-larger)
 nmap _ <Plug>(fontzoom-smaller)
-"}}}
-
-" textmanip.vim"{{{
-" Move selected region.
-xmap <C-j> <Plug>(Textmanip.move_selection_down)
-xmap <C-k> <Plug>(Textmanip.move_selection_up)
-xmap <C-h> <Plug>(Textmanip.move_selection_left)
-xmap <C-l> <Plug>(Textmanip.move_selection_right)
-
-" Duplicate selected window.
-xmap <C-d> <Plug>(Textmanip.duplicate_selection_v)
-nmap <C-d> <Plug>(Textmanip.duplicate_selection_n)
 "}}}
 
 " surround_custom_mappings.vim"{{{
@@ -2217,17 +2161,8 @@ let g:surround_custom_mapping.vim= {
             \ }
 "}}}
 
-" vim-presen.vim"{{{
-autocmd MyAutoCmd FileType presen call s:my_presen_settings()
-function! s:my_presen_settings()
-  nnoremap <buffer><silent><CR> :<C-u>call vimproc#open(expand('<cfile>'))<CR>
-endfunction"}}}
-
 " Gundo.vim
 nnoremap U      :<C-u>GundoToggle<CR>
-
-" w3m.vim
-nnoremap W      :<C-u>W3m<Space>
 
 " TweetVim
 " Start TweetVim.
@@ -2271,19 +2206,10 @@ map <C-Space>  <C-@>
 cmap <C-Space>  <C-@>
 
 " Visual mode keymappings: "{{{
-" <CR>: change.
-xnoremap <CR>  c
 " <TAB>: indent.
 xnoremap <TAB>  >
 " <S-TAB>: unindent.
 xnoremap <S-TAB>  <
-"}}}
-
-" Selection mode keymappings: "{{{
-snoremap <CR>     <Space><BS>
-snoremap <Space>  <Space><BS>
-snoremap <C-f>  <ESC>a
-snoremap <C-b>  <ESC>bi
 "}}}
 
 " Insert mode keymappings: "{{{
@@ -2301,9 +2227,6 @@ inoremap <A-f>  <S-Right>
 inoremap <C-w>  <C-g>u<C-w>
 inoremap <C-u>  <C-g>u<C-u>
 
-" <?>: toggle preview window.
-"inoremap <silent><C-a>  <C-o>:<C-u>call<SID>preview_window_toggle()<CR>
-" <C-a>: toggle preview window.
 inoremap <silent><C-a>  <Home>
 " H, D: delete camlcasemotion.
 inoremap <expr>H           <SID>camelcase_delete(0)
@@ -2351,19 +2274,6 @@ cnoremap <C-p>          <Up>
 cnoremap <C-k> <C-\>e getcmdpos() == 1 ? '' : getcmdline()[:getcmdpos()-2]<CR>
 " <C-y>: paste.
 cnoremap <C-y>          <C-r>*
-" <C-s>: view history.
-cnoremap <C-s>          <C-f>
-" <C-l>: view completion list.
-cnoremap <C-l>          <C-d>
-" <A-b>, W: move to previous word.
-cnoremap <A-b>          <S-Left>
-" <A-f>, B: move to next word.
-cnoremap <A-f>          <S-Right>
-cnoremap <S-TAB>        <C-p>
-" <C-g>: decide candidate.
-cnoremap <C-g>          <Space><C-h>
-" <C-t>: insert space.
-cnoremap <C-t>          <Space>
 "}}}
 
 " Command line buffer."{{{
@@ -2386,11 +2296,14 @@ function! s:init_cmdwin()
   nnoremap <buffer> ; :
   xnoremap <buffer> ; :
   inoremap <buffer><expr><CR> neocomplcache#close_popup()."\<CR>"
-  inoremap <buffer><expr><C-h> col('.') == 1 ? "\<ESC>:quit\<CR>" : neocomplcache#cancel_popup()."\<C-h>"
-  inoremap <buffer><expr><BS> col('.') == 1 ? "\<ESC>:quit\<CR>" : neocomplcache#cancel_popup()."\<C-h>"
+  inoremap <buffer><expr><C-h> col('.') == 1 ?
+        \ "\<ESC>:quit\<CR>" : neocomplcache#cancel_popup()."\<C-h>"
+  inoremap <buffer><expr><BS> col('.') == 1 ?
+        \ "\<ESC>:quit\<CR>" : neocomplcache#cancel_popup()."\<C-h>"
 
   " Completion.
-  inoremap <buffer><expr><TAB>  pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "\<TAB>" : "\<C-x>\<C-u>\<C-p>"
+  inoremap <buffer><expr><TAB>  pumvisible() ?
+        \ "\<C-n>" : <SID>check_back_space() ? "\<TAB>" : "\<C-x>\<C-u>\<C-p>"
 
   startinsert!
 endfunction"}}}
@@ -2429,26 +2342,13 @@ nnoremap [Space]sy
 nnoremap <silent> [Space]ev  :<C-u>edit $MYVIMRC<CR>
 nnoremap <silent> [Space]eg  :<C-u>edit $MYGVIMRC<CR>
 " Load .gvimrc after .vimrc edited at GVim.
-nnoremap <silent> [Space]rv :<C-u>source $MYVIMRC \| if has('gui_running') \| source $MYGVIMRC \| endif \| echo "source $MYVIMRC"<CR>
+nnoremap <silent> [Space]rv :<C-u>source $MYVIMRC \|
+      \ if has('gui_running') \| source $MYGVIMRC \| endif \| echo "source $MYVIMRC"<CR>
 nnoremap <silent> [Space]rg :<C-u>source $MYGVIMRC \| echo "source $MYGVIMRC"<CR>
 "}}}
 
-" Easily edit snippets file
-nnoremap [Space]er  q:NeoComplCacheEditRuntimeSnippets<Space>
-nnoremap [Space]es  q:NeoComplCacheEditSnippets<Space>
-
-" Easily check registers and marks.
-nnoremap <silent> [Space]mk  :<C-u>marks<CR>
-nnoremap <silent> [Space]re  :<C-u>registers<CR>
-
-" Useful save mappings."{{{
-nnoremap <silent> [Space]w  :<C-u>update<CR>
-nnoremap <silent> [Space]fw  :<C-u>write!<CR>
-nnoremap <silent> [Space]q  :<C-u>quit<CR>
-nnoremap <silent> [Space]aq  :<C-u>quitall<CR>
-nnoremap <silent> [Space]fq  :<C-u>quitall!<CR>
+" Useful save mappings.
 nnoremap <Leader><Leader> :<C-u>update<CR>
-"}}}
 
 " Change current directory.
 nnoremap <silent> [Space]cd :<C-u>call <SID>cd_buffer_dir()<CR>
@@ -2471,11 +2371,8 @@ nnoremap <silent> [Space]<C-m> mmHmt:<C-u>%s/<C-v><CR>$//ge<CR>'tzt'm
 " Delete spaces before newline.
 nnoremap <silent> [Space]ss mmHmt:<C-u>%s/<Space>$//ge<CR>`tzt`m
 
-" Easily syntax change."{{{
-" Detect syntax
-nnoremap [Space]$ :filetype detect<CR>
+" Easily syntax change.
 nnoremap <silent> [Space]ft :<C-u>Unite -start-insert filetype<CR>
-"}}}
 
 " Exchange gj and gk to j and k. "{{{
 command! -nargs=? -bar -bang ToggleGJK call s:ToggleGJK()
@@ -2513,16 +2410,6 @@ nnoremap <silent> [Space]t4 :<C-u>setl shiftwidth=4 softtabstop=4<CR>
 nnoremap <silent> [Space]t8 :<C-u>setl shiftwidth=8 softtabstop=8<CR>
 "}}}
 
-" Easily ctags command."{{{
-nnoremap <silent> [Space]tr :<C-u>VimShellExecute ctags -R<CR>
-" Easily helptags command.
-if !exists('g:loaded_vimrc_local')
-  nnoremap <silent> [Space]td :<C-u>helptags $VIMRUNTIME/doc<CR>:<C-u>call pathogen#helptags()<CR>
-else
-  nnoremap <silent> [Space]td :<C-u>helptags $VIMRUNTIME/doc<CR>:<C-u>helptags $HOME/.vim/doc<CR>
-endif
-"}}}
-
 " [Space]<C-n>, [Space]<C-p>: Move window position {{{
 nnoremap <silent> [Space]<C-n> :<C-u>call <SID>call <SID>swap_window(v:count1)<CR>
 nnoremap <silent> [Space]<TAB> :<C-u>call <SID>call <SID>swap_window(v:count1)<CR>
@@ -2557,7 +2444,6 @@ nnoremap <silent> [Window]o  :<C-u>only<CR>
 " A .vimrc snippet that allows you to move around windows beyond tabs
 nnoremap <silent> <Tab> :call <SID>NextWindow()<CR>
 nnoremap <silent> <S-Tab> :call <SID>PreviousWindowOrTab()<CR>
-nnoremap <silent> [Space]<Space> :<C-u>buffer #<CR>
 
 function! s:smart_close()
   if winnr('$') != 1
@@ -2606,7 +2492,7 @@ function! s:ToggleSplit()
   let prev_name = winnr()
   silent! wincmd w
   if prev_name == winnr()
-    split
+    SplitNicely
   else
     call s:smart_close()
   endif
@@ -2639,20 +2525,9 @@ function! s:CustomBufferDelete(is_force)
   endif
 endfunction
 "}}}
+
 " JunkFile
 nnoremap <silent> [Window]e  :<C-u>JunkFile<CR>
-
-" Scroll other window.
-" nnoremap <silent> <C-y> :<C-u>call <SID>ScrollOtherWindow(1)<CR>
-" inoremap <silent> <A-y> <C-o>:<C-u>call <SID>ScrollOtherWindow(1)<CR>
-" nnoremap <silent> <C-u> :<C-u>call <SID>ScrollOtherWindow(0)<CR>
-" inoremap <silent> <A-u> <C-o>:<C-u>call <SID>ScrollOtherWindow(0)<CR>
-
-function! s:ScrollOtherWindow(direction)
-  execute 'wincmd' (winnr('#') == 0 ? 'w' : 'p')
-  execute (a:direction ? "normal! \<C-d>" : "normal! \<C-u>")
-  wincmd p
-endfunction
 "}}}
 
 " e: Change basic commands "{{{
@@ -2679,8 +2554,6 @@ nmap Y y$
 nnoremap [Alt]x ^"_x
 nnoremap X ^"_x
 nnoremap x "_x
-" Line selection <C-v>.
-nnoremap [Alt]V 0<C-v>$h
 " Folding close.
 nnoremap [Alt]h  zc
 
@@ -2688,22 +2561,6 @@ nnoremap [Alt]h  zc
 nnoremap [Alt];  ;
 nnoremap [Alt],  ,
 
-"}}}
-
-" <C-g>: Argument list  "{{{
-"
-" The prefix key.
-nnoremap [Argument]   <Nop>
-nmap    <C-g>  [Argument]
-
-nnoremap [Argument]<Space>  q:args<Space>
-nnoremap <silent> [Argument]l  :<C-u>args<CR>
-nnoremap <silent> [Argument]n  :<C-u>next<CR>
-nnoremap <silent> [Argument]p  :<C-u>previous<CR>
-nnoremap <silent> [Argument]P  :<C-u>first<CR>
-nnoremap <silent> [Argument]N  :<C-u>last<CR>
-nnoremap <silent> [Argument]wp :<C-u>wnext<CR>
-nnoremap <silent> [Argument]wn :<C-u>wprevious<CR>
 "}}}
 
 " q: Quickfix  "{{{
@@ -2714,23 +2571,6 @@ nmap    q  [Quickfix]
 " Disable Ex-mode.
 nnoremap Q  q
 
-" For quickfix list  "{{{
-nnoremap <silent> [Quickfix]n  :<C-u>cnext<CR>
-nnoremap <silent> [Quickfix]p  :<C-u>cprevious<CR>
-nnoremap <silent> [Quickfix]r  :<C-u>crewind<CR>
-nnoremap <silent> [Quickfix]N  :<C-u>cfirst<CR>
-nnoremap <silent> [Quickfix]P  :<C-u>clast<CR>
-nnoremap <silent> [Quickfix]fn :<C-u>cnfile<CR>
-nnoremap <silent> [Quickfix]fp :<C-u>cpfile<CR>
-nnoremap <silent> [Quickfix]l  :<C-u>clist<CR>
-nnoremap <silent> [Quickfix]q  :<C-u>cc<CR>
-nnoremap <silent> [Quickfix]o  :<C-u>copen<CR>
-nnoremap <silent> [Quickfix]c  :<C-u>cclose<CR>
-nnoremap <silent> [Quickfix]en :<C-u>cnewer<CR>
-nnoremap <silent> [Quickfix]ep :<C-u>colder<CR>
-nnoremap <silent> [Quickfix]m  :<C-u>make<CR>
-nnoremap [Quickfix]M  q:make<Space>
-nnoremap [Quickfix]g  q:grep<Space>
 " Toggle quickfix window.
 nnoremap <silent> [Quickfix]<Space> :<C-u>call <SID>toggle_quickfix_window()<CR>
 function! s:toggle_quickfix_window()
@@ -2744,80 +2584,11 @@ function! s:toggle_quickfix_window()
 endfunction
 "}}}
 
-" For location list (mnemonic: Quickfix list for the current Window)  "{{{
-nnoremap <silent> [Quickfix]wn  :<C-u>lnext<CR>
-nnoremap <silent> [Quickfix]wp  :<C-u>lprevious<CR>
-nnoremap <silent> [Quickfix]wr  :<C-u>lrewind<CR>
-nnoremap <silent> [Quickfix]wP  :<C-u>lfirst<CR>
-nnoremap <silent> [Quickfix]wN  :<C-u>llast<CR>
-nnoremap <silent> [Quickfix]wfn :<C-u>lnfile<CR>
-nnoremap <silent> [Quickfix]wfp :<C-u>lpfile<CR>
-nnoremap <silent> [Quickfix]wl  :<C-u>llist<CR>
-nnoremap <silent> [Quickfix]wq  :<C-u>ll<CR>
-nnoremap <silent> [Quickfix]wo  :<C-u>lopen<CR>
-nnoremap <silent> [Quickfix]wc  :<C-u>lclose<CR>
-nnoremap <silent> [Quickfix]wep :<C-u>lolder<CR>
-nnoremap <silent> [Quickfix]wen :<C-u>lnewer<CR>
-nnoremap <silent> [Quickfix]wm  :<C-u>lmake<CR>
-nnoremap [Quickfix]wM  q:lmake<Space>
-nnoremap [Quickfix]w<Space>  q:lmake<Space>
-nnoremap [Quickfix]wg  q:lgrep<Space>
-"}}}
-
-"}}}
-
-" \: Preview window "{{{
-" The prefix key.
-nnoremap [Preview]   <Nop>
-nmap    \  [Preview]
-
-" Toggle preview window."{{{
-nnoremap <silent> [Preview]0  :<C-u>call<SID>preview_window_toggle()<CR>
-function! s:preview_window_toggle()
-  silent! wincmd P
-  if &previewwindow
-    pclose
-  elseif expand('%') != ''
-    mkview
-    silent! pedit
-    silent! loadview
-    if foldclosed(line('.')) != -1
-      " Open folding.
-      normal! zogv0
-    endif
-  else
-    normal! ma
-    silent! pedit
-    normal! `a
-    if foldclosed(line('.')) != -1
-      " Open folding.
-      normal! zogv0
-    endif
-  endif
-endfunction"}}}
-" Open preview window.
-nnoremap [Preview]o  :<C-u>pedit<CR>
-" Close preview window.
-nnoremap [Preview]c  :<C-u>pclose<CR>
-" Move to preview window."{{{
-nnoremap <silent> [Preview]p :<C-u>call<SID>move_to_preview_window()<CR>
-function! s:move_to_preview_window()
-  if &previewwindow
-    wincmd p
-  else
-    silent! wincmd P
-  endif
-endfunction"}}}
-"}}}
-
 " Jump mark can restore column."{{{
 nnoremap \  `
 " Useless command.
 nnoremap M  m
 "}}}
-
-" Don't calc octal.
-set nrformats-=octal
 
 " Smart <C-f>, <C-b>.
 nnoremap <silent> <C-f> <C-f>
@@ -2857,8 +2628,6 @@ nnoremap <silent> gh  :<C-u>call SmartHome("n")<CR>
 nnoremap <silent> gl  :<C-u>call SmartEnd("n")<CR>
 xnoremap <silent> gh  <ESC>:<C-u>call SmartHome("v")<CR>
 xnoremap <silent> gl  <ESC>:<C-u>call SmartEnd("v")<CR>
-nnoremap <expr> gm    (virtcol('$')/2).'\|'
-xnoremap <expr> gm    (virtcol('$')/2).'\|'
 " Smart home function"{{{
 function! SmartHome(mode)
   let curcol = col('.')
@@ -2961,21 +2730,8 @@ noremap [Space]u :<C-u>Unite outline:foldings<CR>
 noremap [Space]gg :<C-u>echo FoldCCnavi()<CR>
 "}}}
 
-" Search a parenthesis.
-onoremap <silent> q /["',.{}()[\]<>]<CR>
-
 " Auto escape / substitute.
 xnoremap s y:%s/<C-r>=substitute(@0, '/', '\\/', 'g')<Return>//g<Left><Left>
-
-" Move last modified text.
-nnoremap gb `.zz
-nnoremap g, g;
-nnoremap g; g,
-
-" Change the height of the current window to match the visual selection and scroll
-" the text so that all of the selection is visible.
-xmap <C-w><C-_>  <C-w>_
-xnoremap <silent> <C-w>_  :<C-u><C-r>=line("'>") - line("'<") + 1<CR>wincmd _<CR>`<zt
 
 " Sticky shift in English keyboard."{{{
 " Sticky key.
@@ -3025,37 +2781,6 @@ inoremap j<Space>     j
 onoremap j<Space>     j
 "}}}
 
-" Smart word search."{{{
-" Search cursor word by word unit.
-" nnoremap <silent> *  :<C-u>call <SID>SetSearch('""yiw', 'word')<CR>
-" Search cursor word.
-nnoremap <silent> g* :<C-u>call <SID>SetSearch('""yiw')<CR>
-" Search from cursor to word end.
-nnoremap <silent> #  :<C-u>call <SID>SetSearch('""ye')<CR>
-
-" Search selected text.
-xnoremap <silent> * :<C-u>call <SID>SetSearch('""vgvy')<CR>
-xnoremap <silent> # :<C-u>call <SID>SetSearch('""vgvy')<CR>
-
-""""""""""""""""""""""""""""""
-" Set search word.
-" If set additional parametar, search by word unit.
-""""""""""""""""""""""""""""""
-function! s:SetSearch(cmd, ...)
-  let saved_reg = @"
-  if a:cmd != ''
-    silent exec 'normal! '.a:cmd
-  endif
-  let pattern = escape(@", '\\/.*$^~[]')
-  let pattern = substitute(pattern, '\n$', '', '')
-  if a:0 > 0
-    let pattern = '\<'.pattern.'\>'
-  endif
-  let @/ = pattern
-  let @" = saved_reg
-  echo @/
-endfunction "}}}
-
 " Execute countable 'n.'.
 " EXAMPLE: 3@n
 let @n='n.'
@@ -3086,74 +2811,8 @@ onoremap id  i"
 xnoremap id  i"
 "}}}
 
-" almigh-t
-onoremap <silent> q
-      \      :for i in range(v:count1)
-      \ <Bar>   call search('.\&\(\k\<Bar>\_s\)\@!', 'W')
-      \ <Bar> endfor<CR>
-
-" Upcase word.
-nnoremap [Alt]u  gUiw
-
-" Easy home directory."{{{
-function! HomedirOrBackslash()
-  if getcmdtype() == ':' && (getcmdline() =~# '^e\%[dit] ' || getcmdline() =~? '^r\%[ead]\?!' || getcmdline() =~? '^cd ')
-    return '~/'
-  else
-    return '\'
-  endif
-endfunction
-" cnoremap <expr> <Bslash> HomedirOrBackslash()
-"}}}
-
 " Move to top/center/bottom.
 noremap <expr> zz (winline() == (winheight(0)+1)/ 2) ? 'zt' : (winline() == 1)? 'zb' : 'zz'
-
-" Move window position {{{
-nmap [Space]<C-n> <Plug>swap_window_next
-nmap [Space]<C-p> <Plug>swap_window_prev
-nmap [Space]<C-j> <Plug>swap_window_j
-nmap [Space]<C-k> <Plug>swap_window_k
-nmap [Space]<C-h> <Plug>swap_window_h
-nmap [Space]<C-l> <Plug>swap_window_l
-" nmap [Space]<C-t> <Plug>swap_window_t
-" nmap [Space]<C-b> <Plug>swap_window_b
-
-nnoremap <silent> <Plug>swap_window_next :<C-u>call <SID>swap_window(v:count1)<CR>
-nnoremap <silent> <Plug>swap_window_prev :<C-u>call <SID>swap_window(-v:count1)<CR>
-nnoremap <silent> <Plug>swap_window_j :<C-u>call <SID>swap_window_dir(v:count1, 'j')<CR>
-nnoremap <silent> <Plug>swap_window_k :<C-u>call <SID>swap_window_dir(v:count1, 'k')<CR>
-nnoremap <silent> <Plug>swap_window_h :<C-u>call <SID>swap_window_dir(v:count1, 'h')<CR>
-nnoremap <silent> <Plug>swap_window_l :<C-u>call <SID>swap_window_dir(v:count1, 'l')<CR>
-nnoremap <silent> <Plug>swap_window_t :<C-u>call <SID>swap_window_dir(v:count1, 't')<CR>
-nnoremap <silent> <Plug>swap_window_b :<C-u>call <SID>swap_window_dir(v:count1, 'b')<CR>
-
-function! s:modulo(n, m) "{{{
-  let d = a:n * a:m < 0 ? 1 : 0
-  return a:n + (-(a:n + (0 < a:m ? d : -d)) / a:m + d) * a:m
-endfunction "}}}
-
-function! s:swap_window(n) "{{{
-  let curbuf = bufnr('%')
-  let target = s:modulo(winnr() + a:n - 1, winnr('$')) + 1
-  execute 'hide' winbufnr(target) . 'buffer'
-  execute target 'wincmd w'
-  execute curbuf 'buffer'
-endfunction "}}}
-
-function! s:swap_window_dir(n, dir) "{{{
-  let curbuf = bufnr('%')
-  execute a:n 'wincmd ' . a:dir
-  let target = winnr()
-  let targetbuf = bufnr('%')
-  if curbuf != targetbuf
-    wincmd p
-    execute 'hide' targetbuf . 'buffer'
-    execute target 'wincmd w'
-    execute curbuf 'buffer'
-  endif
-endfunction "}}}
-" }}}
 
 " Capitalize.
 nnoremap gu <ESC>gUiw`]
@@ -3165,11 +2824,6 @@ nnoremap <ESC><ESC> :nohlsearch<CR>
 " operator-html-escape.vim
 nmap <Leader>h <Plug>(operator-html-escape)
 xmap <Leader>h <Plug>(operator-html-escape)
-
-onoremap ) t)
-onoremap ( t(
-xnoremap ) t)
-xnoremap ( t(
 
 " Easily macro.
 nnoremap @@ @a
@@ -3236,69 +2890,12 @@ function! ToggleVariable(variable_name)
   echo printf('%s = %s', a:variable_name, eval(a:variable_name))
 endfunction  "}}}
 
-" :Hg (alternative of ':helpg[rep]') "{{{
-" Because if use default ':helpgrep', Japanese texts are garbled.
-command! -nargs=1 Hg call s:new_help_grep('<args>')
-function! s:new_help_grep(arg)
-  " Convert helpgrep argments.
-  exec ':helpgrep ' . iconv(a:arg, 'cp932', 'utf-8')
-endfunction
-"}}}
-
 " Display diff with the file.
 command! -nargs=1 -complete=file Diff vertical diffsplit <args>
 " Display diff from last save.
 command! DiffOrig vert new | setlocal bt=nofile | r # | 0d_ | diffthis | wincmd p | diffthis
 " Disable diff mode.
 command! -nargs=0 Undiff setlocal nodiff noscrollbind wrap
-
-" Change current directory."{{{
-command! -nargs=? -complete=dir -bang CD  call s:ChangeCurrentDir('<args>', '<bang>')
-function! s:ChangeCurrentDir(directory, bang)
-  if a:directory == ''
-    lcd %:p:h
-  else
-    execute 'lcd' a:directory
-  endif
-
-  if a:bang == ''
-    pwd
-  endif
-endfunction"}}}
-
-function! s:Batch() range "{{{
-  " read vimscript from selected area.
-  let selected = getline(a:firstline, a:lastline)
-  " get temp file.
-  let tempfile = tempname()
-  " try-finally
-  try
-    " write vimscript to temp file.
-    call writefile(selected, tempfile)
-    try
-      " execute temp file.
-      execute 'source ' . tempfile
-    catch
-      " catch exception
-      echohl WarningMsg |
-            \ echo 'EXCEPTION :' v:exception |
-            \ echo 'THROWPOINT:' v:throwpoint |
-            \ echohl None
-    endtry
-  finally
-    " delete temp file.
-    if filewritable(tempfile)
-      call delete(tempfile)
-    endif
-  endtry
-endfunction"}}}
-" Range source.
-command! -range -narg=0 Batch :<line1>,<line2>call s:Batch()
-
-" Substitute indent.
-command! -range=% LeadUnderscores <line1>,<line2>s/^\s*/\=repeat('_', strlen(submatch(0)))/g
-nnoremap <silent> [Space]U        :LeadUnderscores<CR>
-xnoremap <silent> [Space]U        :LeadUnderscores<CR>
 
 " Open junk file."{{{
 command! -nargs=0 JunkFile call s:open_junk_file()
@@ -3315,27 +2912,6 @@ function! s:open_junk_file()
 endfunction"}}}
 
 command! -nargs=1 -bang -bar -complete=file Rename saveas<bang> <args> | call delete(expand('#:p'))
-
-" Capture {{{
-command!
-      \ -nargs=+ -bang
-      \ -complete=command
-      \ Capture
-      \ call s:cmd_capture([<f-args>], <bang>0)
-
-function! C(cmd)
-  redir => result
-  silent execute a:cmd
-  redir END
-  return result
-endfunction
-
-function! s:cmd_capture(args, banged) "{{{
-  new
-  silent put =C(join(a:args))
-  1,2delete _
-endfunction "}}}
-" }}}
 
 " :HighlightWith {filetype} ['a 'b]  XXX: Don't work in some case."{{{
 command! -nargs=+ -range=% HighlightWith <line1>,<line2>call s:highlight_with(<q-args>)
@@ -3623,9 +3199,6 @@ set helplang& helplang=en,ja
 " Default home directory.
 let g:home = getcwd()
 let t:cwd = getcwd()
-
-" For snipMate.
-let g:snips_author = 'Shougo'
 "}}}
 
 set secure
