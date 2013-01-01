@@ -68,14 +68,6 @@ if filereadable(expand('~/.secret_vimrc'))
 endif
 
 if has('vim_starting') "{{{
-  " Load settings for each location.
-  function! s:vimrc_local(loc)
-    let files = findfile('vimrc_local.vim', escape(a:loc, ' '), -1)
-    for i in reverse(filter(files, 'filereadable(v:val)'))
-      source `=i`
-    endfor
-  endfunction
-
   " Set runtimepath.
   if s:is_windows
     let &runtimepath = join([
@@ -84,11 +76,16 @@ if has('vim_starting') "{{{
           \ expand('~/.vim/after')], ',')
   endif
 
-  call s:vimrc_local(getcwd())
-
   " Load neobundle.
-  if &runtimepath !~ '/neobundle.vim'
+  if isdirectory('neobundle.vim')
+    execute 'set runtimepath+=' . fnamemodify('neobundle.vim', ':p')
+  elseif &runtimepath !~ '/neobundle.vim'
     execute 'set runtimepath+=' . expand('~/.bundle/neobundle.vim')
+  endif
+
+  if filereadable('vimrc_local.vim')
+    " Load develop version.
+    call neobundle#local('.', { 'resettable' : 0 })
   endif
 
   " Enable syntax color.
@@ -97,7 +94,10 @@ endif
 "}}}
 
 let g:neobundle#enable_tail_path = 1
-let g:neobundle#default_options = { 'same' : {'stay_same' : 1}}
+let g:neobundle#default_options = {
+      \ 'same' : { 'stay_same' : 1 },
+      \ '_' : { 'overwrite' : 0 },
+      \ }
 
 call neobundle#rc(expand('~/.bundle'))
 
@@ -294,8 +294,15 @@ NeoBundleLazy 'matchit.zip', '', 'same', { 'autoload' : {
       \ 'mappings' : '%',
       \ }}
 " NeoBundle 'perl-mauke.vim', '', 'same'
-NeoBundle 'DirDiff.vim', '', 'same'
-NeoBundle 'hrsh7th/vim-versions' " useful version control system interface for vim.
+NeoBundleLazy 'DirDiff.vim', '', 'same', { 'autoload' : {
+      \ 'commands' : 'DirDiff'
+      \ }}
+NeoBundleLazy 'hrsh7th/vim-versions', {
+      \ 'autoload' : {'functions' : 'versions#info', 'commands' : 'UniteVersions'},
+      \ }
+NeoBundleLazy 'rhysd/clever-f.vim', { 'autoload' : {
+      \ 'mappings' : 'f',
+      \ }}
 
 " NeoBundle 'taichouchou2/alpaca_complete.git'
 
@@ -790,21 +797,8 @@ if v:version >= 703
   set colorcolumn=85
 endif
 
-" Restore view.
+" View setting.
 set viewdir=~/.vim/view viewoptions-=options viewoptions+=slash,unix
-augroup MyAutoCmd
-  autocmd BufLeave * if expand('%') !=# '' && &buftype ==# ''
-  \                |   mkview
-  \                | endif
-  autocmd BufReadPost * if !exists('b:view_loaded') &&
-  \                         expand('%') !=# '' && &buftype ==# ''
-  \                   |   silent! loadview
-  \                   |   normal! zv
-  \                   |   let b:view_loaded = 1
-  \                   | endif
-  autocmd VimLeave * call map(split(glob(&viewdir . '/*'), "\n"),
-  \                           'delete(v:val)')
-augroup END
 "}}}
 
 "---------------------------------------------------------------------------
@@ -1168,7 +1162,6 @@ let g:echodoc_enable_at_startup = 1
 " vimshell.vim"{{{
 " let g:vimshell_user_prompt = "3\ngetcwd()"
 let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
-"let g:vimshell_user_prompt = 'printf("%s  %50s", fnamemodify(getcwd(), ":~"), vimshell#vcs#info("(%s)-[%b]"))'
 " let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
 let g:vimshell_right_prompt = 'vcs#info("(%s)-[%b]%p", "(%s)-[%b|%a]%p")'
 let g:vimshell_prompt = '% '
@@ -1334,10 +1327,10 @@ set browsedir=current
 let g:vinarise_enable_auto_detect = 1
 "}}}
 
-" vcs.vim{{{
-nnoremap <silent> [Space]gc :<C-u>Vcs commit<CR>
-nnoremap <silent> [Space]gC :<C-u>Vcs commit --amend<CR>
-nnoremap <silent> [Space]gs :<C-u>Vcs status<CR>
+" vim-versions{{{
+nnoremap <silent> [Space]gs :<C-u>UniteVersions status:!<CR>
+
+call unite#custom_default_action('versions/git/status', 'commit')
 "}}}
 
 " unite.vim"{{{
@@ -1466,10 +1459,7 @@ call unite#set_substitute_pattern('file', '[^~.]\zs/', '*/*', 20)
 call unite#set_profile('action', 'context', {'start_insert' : 1})
 
 " migemo.
-call unite#custom_filters('line_migemo',
-      \ ['matcher_migemo', 'sorter_default', 'converter_default'])
-" call unite#custom_filters('file_rec',
-"       \ ['matcher_default', 'sorter_rank', 'converter_default'])
+call unite#custom_source('line_migemo', 'matchers', 'matcher_migemo')
 
 " Custom actions."{{{
 let my_tabopen = {
@@ -1488,13 +1478,8 @@ unlet my_tabopen
 "}}}
 
 " Custom filters."{{{
-" call unite#custom_filters('file,buffer,file_rec',
-"       \ ['converter_relative_word', 'matcher_fuzzy', 'sorter_default'])
-call unite#custom_filters('file,file_rec,file_rec/async',
-      \ ['converter_relative_word', 'matcher_default', 'sorter_length'])
+" call unite#custom_source('file,buffer,file_rec', 'matchers', 'matcher_fuzzy')
 call unite#filters#sorter_default#use(['sorter_rank'])
-call unite#custom_filters('menu',
-      \ ['matcher_default', 'sorter_nothing', 'converter_default'])
 "}}}
 
 let g:unite_enable_start_insert = 0
@@ -2085,14 +2070,18 @@ autocmd MyAutoCmd FileType qf nnoremap <buffer> r :<C-u>Qfreplace<CR>
 
 " open-browser.vim"{{{
 nmap gs <Plug>(open-browser-wwwsearch)
-nnoremap <Plug>(open-browser-wwwsearch)
-      \ :<C-u>call <SID>www_search()<CR>
-function! s:www_search()
-  let search_word = input('Please input search word: ', '',
-        \ 'customlist,wwwsearch#cmd_Wwwsearch_complete')
-  if search_word != ''
-    execute 'OpenBrowserSearch' escape(search_word, '"')
-  endif
+
+let bundle = neobundle#get('open-browser.vim')
+function! bundle.hooks.on_source(bundle)
+  nnoremap <Plug>(open-browser-wwwsearch)
+        \ :<C-u>call <SID>www_search()<CR>
+  function! s:www_search()
+    let search_word = input('Please input search word: ', '',
+          \ 'customlist,wwwsearch#cmd_Wwwsearch_complete')
+    if search_word != ''
+      execute 'OpenBrowserSearch' escape(search_word, '"')
+    endif
+  endfunction
 endfunction
 "}}}
 
@@ -2730,8 +2719,8 @@ noremap [Space]u :<C-u>Unite outline:foldings<CR>
 noremap [Space]gg :<C-u>echo FoldCCnavi()<CR>
 "}}}
 
-" Auto escape / substitute.
-xnoremap s y:%s/<C-r>=substitute(@0, '/', '\\/', 'g')<Return>//g<Left><Left>
+" Substitute.
+xnoremap s :s//g<Left><Left>
 
 " Sticky shift in English keyboard."{{{
 " Sticky key.
@@ -3200,5 +3189,7 @@ set helplang& helplang=en,ja
 let g:home = getcwd()
 let t:cwd = getcwd()
 "}}}
+
+call neobundle#call_hook('on_source')
 
 set secure
