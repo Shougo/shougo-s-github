@@ -87,9 +87,6 @@ if has('vim_starting') "{{{
     " Load develop version.
     call neobundle#local('.', { 'resettable' : 0 })
   endif
-
-  " Enable syntax color.
-  syntax enable
 endif
 "}}}
 
@@ -211,9 +208,12 @@ NeoBundleLazy 'thinca/vim-quickrun', { 'autoload' : {
 NeoBundleLazy 'thinca/vim-scouter', '', 'same', { 'autoload' : {
       \ 'commands' : 'Scouter'
       \ }}
-NeoBundle 'thinca/vim-ref'
+NeoBundleLazy 'thinca/vim-ref', { 'autoload' : {
+      \ 'commands' : 'Ref'
+      \ }}
 NeoBundle 'thinca/vim-unite-history', '', 'same'
 NeoBundleLazy 'vim-ruby/vim-ruby', { 'autoload' : {
+      \ 'mappings' : '<Plug>(ref-keyword)',
       \ 'filetypes' : 'ruby'
       \ }}
 
@@ -227,7 +227,9 @@ endif
 NeoBundle 'Shougo/unite-help', '', 'same'
 NeoBundle 'tsukkee/unite-tag', '', 'same'
 NeoBundle 'tyru/caw.vim'
-NeoBundle 'tyru/eskk.vim',
+NeoBundleLazy 'tyru/eskk.vim', { 'autoload' : {
+      \ 'mappings' : [['i', '<Plug>(eskk:toggle)']],
+      \ }}
 NeoBundleLazy 'tyru/open-browser.vim', '', 'same', { 'autoload' : {
       \ 'mappings' : '<Plug>(open-browser-wwwsearch)',
       \ }}
@@ -321,6 +323,9 @@ NeoBundleLazy 'rhysd/clever-f.vim', { 'autoload' : {
 "}}}
 
 filetype plugin indent on
+
+" Enable syntax color.
+syntax enable
 
 " Installation check.
 if neobundle#exists_not_installed_bundles()
@@ -1168,40 +1173,39 @@ let g:vimshell_prompt = '% '
 "let g:vimshell_environment_term = 'xterm'
 let g:vimshell_split_command = ''
 
-if s:is_windows
-  " Display user name on Windows.
-  "let g:vimshell_prompt = $USERNAME."% "
-
-  " Use ckw.
-  let g:vimshell_use_terminal_command = 'ckw -e'
-else
-  " Display user name on Linux.
-  "let g:vimshell_prompt = $USER."% "
-
-  " Use zsh history.
-  let g:vimshell_external_history_path = expand('~/.zsh-history')
-
-  call vimshell#set_execute_file('bmp,jpg,png,gif', 'gexe eog')
-  call vimshell#set_execute_file('mp3,m4a,ogg', 'gexe amarok')
-  let g:vimshell_execute_file_list['zip'] = 'zipinfo'
-  call vimshell#set_execute_file('tgz,gz', 'gzcat')
-  call vimshell#set_execute_file('tbz,bz2', 'bzcat')
-
-  " Use gnome-terminal.
-  let g:vimshell_use_terminal_command = 'gnome-terminal -e'
-endif
-
-" Initialize execute file list.
-let g:vimshell_execute_file_list = {}
-call vimshell#set_execute_file('txt,vim,c,h,cpp,d,xml,java', 'vim')
-let g:vimshell_execute_file_list['rb'] = 'ruby'
-let g:vimshell_execute_file_list['pl'] = 'perl'
-let g:vimshell_execute_file_list['py'] = 'python'
-call vimshell#set_execute_file('html,xhtml', 'gexe firefox')
-
-
 autocmd MyAutoCmd FileType vimshell call s:vimshell_settings()
 function! s:vimshell_settings()
+  if s:is_windows
+    " Display user name on Windows.
+    "let g:vimshell_prompt = $USERNAME."% "
+
+    " Use ckw.
+    let g:vimshell_use_terminal_command = 'ckw -e'
+  else
+    " Display user name on Linux.
+    "let g:vimshell_prompt = $USER."% "
+
+    " Use zsh history.
+    let g:vimshell_external_history_path = expand('~/.zsh-history')
+
+    call vimshell#set_execute_file('bmp,jpg,png,gif', 'gexe eog')
+    call vimshell#set_execute_file('mp3,m4a,ogg', 'gexe amarok')
+    let g:vimshell_execute_file_list['zip'] = 'zipinfo'
+    call vimshell#set_execute_file('tgz,gz', 'gzcat')
+    call vimshell#set_execute_file('tbz,bz2', 'bzcat')
+
+    " Use gnome-terminal.
+    let g:vimshell_use_terminal_command = 'gnome-terminal -e'
+  endif
+
+  " Initialize execute file list.
+  let g:vimshell_execute_file_list = {}
+  call vimshell#set_execute_file('txt,vim,c,h,cpp,d,xml,java', 'vim')
+  let g:vimshell_execute_file_list['rb'] = 'ruby'
+  let g:vimshell_execute_file_list['pl'] = 'perl'
+  let g:vimshell_execute_file_list['py'] = 'python'
+  call vimshell#set_execute_file('html,xhtml', 'gexe firefox')
+
   inoremap <buffer><expr>'  pumvisible() ? "\<C-y>" : "'"
   imap <buffer><BS>  <Plug>(vimshell_another_delete_backward_char)
   imap <buffer><C-h>  <Plug>(vimshell_another_delete_backward_char)
@@ -1431,61 +1435,63 @@ endfunction
 nnoremap <silent> n
       \ :<C-u>UniteResume search -no-start-insert<CR>
 
-let g:unite_enable_split_vertically = 0
-
-let g:unite_source_history_yank_enable = 1
-
-let g:unite_winheight = 20
-
 autocmd MyAutoCmd FileType unite call s:unite_my_settings()
-
-" Directory partial match.
-" call unite#set_substitute_pattern('files',
-"      \'\%([~.*]\+\)\@<!/', '*/*', 100)
-" call unite#set_substitute_pattern('files', '^\\',
-"      \ substitute(substitute($HOME, '\\', '/', 'g'), ' ', '\\ ', 'g') . '/*', -100)
-" Test.
-" call unite#set_substitute_pattern('files', '^\.v/',
-"      \ unite#util#substitute_path_separator($HOME).'/.vim/', 1000)
-call unite#set_substitute_pattern('files', '^\.v/',
-      \ [expand('~/.vim/'), unite#util#substitute_path_separator($HOME)
-      \ . '/.bundle/*/'], 1000)
-call unite#set_substitute_pattern('files', '\.', '*.', 1000)
-call unite#custom_alias('file', 'h', 'left')
-call unite#custom_default_action('directory', 'narrow')
-" call unite#custom_default_action('file', 'my_tabopen')
-call unite#set_substitute_pattern('file', '[^~.]\zs/', '*/*', 20)
 
 call unite#set_profile('action', 'context', {'start_insert' : 1})
 
 " migemo.
 call unite#custom_source('line_migemo', 'matchers', 'matcher_migemo')
 
-" Custom actions."{{{
-let my_tabopen = {
-      \ 'description' : 'my tabopen items',
-      \ 'is_selectable' : 1,
-      \ }
-function! my_tabopen.func(candidates) "{{{
-  call unite#take_action('tabopen', a:candidates)
-
-  let dir = isdirectory(a:candidates[0].word) ?
-        \ a:candidates[0].word : fnamemodify(a:candidates[0].word, ':p:h')
-  execute g:unite_kind_openable_lcd_command '`=dir`'
-endfunction"}}}
-call unite#custom_action('file,buffer', 'tabopen', my_tabopen)
-unlet my_tabopen
-"}}}
-
 " Custom filters."{{{
 " call unite#custom_source('file,buffer,file_rec', 'matchers', 'matcher_fuzzy')
 call unite#filters#sorter_default#use(['sorter_rank'])
 "}}}
 
-let g:unite_enable_start_insert = 0
-let g:unite_enable_short_source_names = 1
-
 function! s:unite_my_settings() "{{{
+  " Directory partial match.
+  " call unite#set_substitute_pattern('files',
+  "      \'\%([~.*]\+\)\@<!/', '*/*', 100)
+  " call unite#set_substitute_pattern('files', '^\\',
+  "      \ substitute(substitute($HOME, '\\', '/', 'g'), ' ', '\\ ', 'g') . '/*', -100)
+  " Test.
+  " call unite#set_substitute_pattern('files', '^\.v/',
+  "      \ unite#util#substitute_path_separator($HOME).'/.vim/', 1000)
+  call unite#set_substitute_pattern('files', '^\.v/',
+        \ [expand('~/.vim/'), unite#util#substitute_path_separator($HOME)
+        \ . '/.bundle/*/'], 1000)
+  call unite#set_substitute_pattern('files', '\.', '*.', 1000)
+  call unite#custom_alias('file', 'h', 'left')
+  call unite#custom_default_action('directory', 'narrow')
+  " call unite#custom_default_action('file', 'my_tabopen')
+  call unite#set_substitute_pattern('file', '[^~.]\zs/', '*/*', 20)
+
+  let g:unite_quick_match_table = {
+        \ 'a' : 1, 's' : 2, 'd' : 3, 'f' : 4, 'g' : 5,
+        \ 'h' : 6, 'k' : 7, 'l' : 8, ';' : 9,
+        \ 'q' : 10, 'w' : 11, 'e' : 12, 'r' : 13, 't' : 14,
+        \ 'y' : 15, 'u' : 16, 'i' : 17, 'o' : 18, 'p' : 19,
+        \ '1' : 20, '2' : 21, '3' : 22, '4' : 23, '5' : 24,
+        \ '6' : 25, '7' : 26, '8' : 27, '9' : 28, '0' : 29,
+        \}
+
+  " call unite#custom_default_action('directory', 'cd')
+
+  " Custom actions."{{{
+  let my_tabopen = {
+        \ 'description' : 'my tabopen items',
+        \ 'is_selectable' : 1,
+        \ }
+  function! my_tabopen.func(candidates) "{{{
+    call unite#take_action('tabopen', a:candidates)
+
+    let dir = isdirectory(a:candidates[0].word) ?
+          \ a:candidates[0].word : fnamemodify(a:candidates[0].word, ':p:h')
+    execute g:unite_kind_openable_lcd_command '`=dir`'
+  endfunction"}}}
+  call unite#custom_action('file,buffer', 'tabopen', my_tabopen)
+  unlet my_tabopen
+  "}}}
+
   " Overwrite settings.
   imap <buffer>  <BS>      <Plug>(unite_delete_backward_path)
   imap <buffer>  jj      <Plug>(unite_insert_leave)
@@ -1555,6 +1561,13 @@ endfunction"}}}
 unlet source
 "}}}
 
+" Variables.
+let g:unite_enable_split_vertically = 0
+let g:unite_source_history_yank_enable = 1
+let g:unite_winheight = 20
+let g:unite_enable_start_insert = 0
+let g:unite_enable_short_source_names = 1
+
 let g:unite_cursor_line_highlight = 'TabLineSel'
 " let g:unite_abbr_highlight = 'TabLine'
 " let g:unite_source_file_mru_time_format = ''
@@ -1568,25 +1581,12 @@ if executable('jvgrep')
   let g:unite_source_grep_command = 'jvgrep'
   let g:unite_source_grep_default_opts = '--exclude ''\.(git|svn|hg|bzr)'''
   let g:unite_source_grep_recursive_opt = '-R'
-endif
-
-" For ack.
-if executable('ack-grep')
+elseif executable('ack-grep')
+  " For ack.
   " let g:unite_source_grep_command = 'ack-grep'
   " let g:unite_source_grep_default_opts = '--no-heading --no-color -a'
   " let g:unite_source_grep_recursive_opt = ''
 endif
-
-let g:unite_quick_match_table = {
-      \ 'a' : 1, 's' : 2, 'd' : 3, 'f' : 4, 'g' : 5,
-      \ 'h' : 6, 'k' : 7, 'l' : 8, ';' : 9,
-      \ 'q' : 10, 'w' : 11, 'e' : 12, 'r' : 13, 't' : 14,
-      \ 'y' : 15, 'u' : 16, 'i' : 17, 'o' : 18, 'p' : 19,
-      \ '1' : 20, '2' : 21, '3' : 22, '4' : 23, '5' : 24,
-      \ '6' : 25, '7' : 26, '8' : 27, '9' : 28, '0' : 29,
-      \}
-
-" call unite#custom_default_action('directory', 'cd')
 
 " For unite-alias.
 let g:unite_source_alias_aliases = {}
@@ -1597,7 +1597,6 @@ let g:unite_source_alias_aliases.test = {
 let g:unite_source_alias_aliases.line_migemo = {
       \ 'source' : 'line',
       \ }
-
 
 let g:unite_source_alias_aliases.sow_moveentry_entry = {
 \ 'source': 'sow_gatherentry',
@@ -1617,33 +1616,33 @@ let g:unite_source_menu_menus = {}
 let g:unite_source_menu_menus.enc = {
       \     'description' : 'Open with a specific character code again.',
       \ }
-let g:unite_source_menu_menus.enc.command_candidates = {
-      \       'utf8'      : 'Utf8',
-      \       'iso2022jp'    : 'Iso2022jp',
-      \       'cp932' : 'Cp932',
-      \       'euc' : 'Euc',
-      \       'utf16' : 'Utf16',
-      \       'utf16-be' : 'Utf16be',
-      \       'jis' : 'Jis',
-      \       'sjis' : 'Sjis',
-      \       'unicode' : 'Unicode',
-      \     }
+let g:unite_source_menu_menus.enc.command_candidates = [
+      \       ['utf8', 'Utf8'],
+      \       ['iso2022jp', 'Iso2022jp'],
+      \       ['cp932', 'Cp932'],
+      \       ['euc', 'Euc'],
+      \       ['utf16', 'Utf16'],
+      \       ['utf16-be', 'Utf16be'],
+      \       ['jis', 'Jis'],
+      \       ['sjis', 'Sjis'],
+      \       ['unicode', 'Unicode'],
+      \     ]
 nnoremap <silent> ;e :<C-u>Unite menu:enc<CR>
 
 let g:unite_source_menu_menus.fenc = {
       \     'description' : 'Change file fenc option.',
       \ }
-let g:unite_source_menu_menus.fenc.command_candidates = {
-      \       'utf8'      : 'WUtf8',
-      \       'iso2022jp'    : 'WIso2022jp',
-      \       'cp932' : 'WCp932',
-      \       'euc' : 'WEuc',
-      \       'utf16' : 'WUtf16',
-      \       'utf16-be' : 'WUtf16be',
-      \       'jis' : 'WJis',
-      \       'sjis' : 'WSjis',
-      \       'unicode' : 'WUnicode',
-      \     }
+let g:unite_source_menu_menus.fenc.command_candidates = [
+      \       ['utf8', 'WUtf8'],
+      \       ['iso2022jp', 'WIso2022jp'],
+      \       ['cp932', 'WCp932'],
+      \       ['euc', 'WEuc'],
+      \       ['utf16', 'WUtf16'],
+      \       ['utf16-be', 'WUtf16be'],
+      \       ['jis', 'WJis'],
+      \       ['sjis', 'WSjis'],
+      \       ['unicode', 'WUnicode'],
+      \     ]
 nnoremap <silent> ;f :<C-u>Unite menu:fenc<CR>
 
 let g:unite_source_menu_menus.ff = {
@@ -1674,11 +1673,6 @@ let g:unite_build_error_icon    = $DOTVIM . '/signs/err.'
       \ . (s:is_windows ? 'bmp' : 'png')
 let g:unite_build_warning_icon  = $DOTVIM . '/signs/warn.'
       \ . (s:is_windows ? 'bmp' : 'png')
-
-" For unite-session.
-" Save session automatically.
-let g:unite_source_session_enable_auto_save = 1
-" autocmd MyAutoCmd VimEnter * UniteSessionLoad
 "}}}
 
 " smartword.vim"{{{
@@ -1849,33 +1843,36 @@ endfor
 "}}}
 
 " ref.vim"{{{
-let g:ref_use_vimproc = 1
-if s:is_windows
-  let g:ref_refe_encoding = 'cp932'
-else
-  let g:ref_refe_encoding = 'euc-jp'
-endif
+let bundle = neobundle#get('vim-ref')
+function! bundle.hooks.on_source(bundle)
+  let g:ref_use_vimproc = 1
+  if s:is_windows
+    let g:ref_refe_encoding = 'cp932'
+  else
+    let g:ref_refe_encoding = 'euc-jp'
+  endif
 
-" ref-lynx.
-if s:is_windows
-  let s:lynx = 'C:/lynx/lynx.exe'
-  let s:cfg  = 'C:/lynx/lynx.cfg'
-  let g:ref_lynx_cmd = s:lynx.' -cfg='.s:cfg.' -dump -nonumbers %s'
-  let g:ref_alc_cmd = s:lynx.' -cfg='.s:cfg.' -dump %s'
-  unlet s:lynx
-  unlet s:cfg
-endif
+  " ref-lynx.
+  if s:is_windows
+    let s:lynx = 'C:/lynx/lynx.exe'
+    let s:cfg  = 'C:/lynx/lynx.cfg'
+    let g:ref_lynx_cmd = s:lynx.' -cfg='.s:cfg.' -dump -nonumbers %s'
+    let g:ref_alc_cmd = s:lynx.' -cfg='.s:cfg.' -dump %s'
+    unlet s:lynx
+    unlet s:cfg
+  endif
 
-let g:ref_lynx_use_cache = 1
-let g:ref_lynx_start_linenumber = 0 " Skip.
-let g:ref_lynx_hide_url_number = 0
+  let g:ref_lynx_use_cache = 1
+  let g:ref_lynx_start_linenumber = 0 " Skip.
+  let g:ref_lynx_hide_url_number = 0
 
-autocmd MyAutoCmd FileType ref call s:ref_my_settings()
-function! s:ref_my_settings() "{{{
-  " Overwrite settings.
-  nmap <buffer> [Tag]t  <Plug>(ref-keyword)
-  nmap <buffer> [Tag]p  <Plug>(ref-back)
-endfunction"}}}
+  autocmd MyAutoCmd FileType ref call s:ref_my_settings()
+  function! s:ref_my_settings() "{{{
+    " Overwrite settings.
+    nmap <buffer> [Tag]t  <Plug>(ref-keyword)
+    nmap <buffer> [Tag]p  <Plug>(ref-back)
+  endfunction"}}}
+endfunction
 "}}}
 
 " vimfiler.vim"{{{
@@ -1889,9 +1886,6 @@ AlterCommand <cmdwin> w[rite] Write
 "nmap    [Space]v   <Plug>(vimfiler_switch)
 nnoremap <silent>   [Space]v   :<C-u>VimFiler<CR>
 nnoremap    [Space]ff   :<C-u>VimFilerExplorer<CR>
-
-call vimfiler#set_execute_file('vim', ['vim', 'notepad'])
-call vimfiler#set_execute_file('txt', 'vim')
 
 let g:vimfiler_enable_clipboard = 0
 let g:vimfiler_safe_mode_by_default = 0
@@ -1932,6 +1926,9 @@ endif
 
 autocmd MyAutoCmd FileType vimfiler call s:vimfiler_my_settings()
 function! s:vimfiler_my_settings() "{{{
+  call vimfiler#set_execute_file('vim', ['vim', 'notepad'])
+  call vimfiler#set_execute_file('txt', 'vim')
+
   " Overwrite settings.
   nnoremap <silent><buffer> J
         \ <C-u>:Unite -buffer-name=files -default-action=lcd directory_mru<CR>
@@ -1951,7 +1948,15 @@ endfunction"}}}
 "}}}
 
 " eskk.vim"{{{
-if !exists('g:eskk#disable') || !g:eskk#disable
+imap <C-j>     <Plug>(eskk:toggle)
+
+let bundle = neobundle#get('eskk.vim')
+function! bundle.hooks.on_source(bundle)
+  let g:eskk#large_dictionary = {
+        \   'path': expand('~/SKK-JISYO.L'),
+        \   'sorted': 1,
+        \   'encoding': 'euc-jp',
+        \}
   " Disable skk.vim
   let g:plugin_skk_disable = 1
 
@@ -1977,41 +1982,35 @@ if !exists('g:eskk#disable') || !g:eskk#disable
         \ EskkMap -remap jj <Plug>(eskk:disable)<Esc>
 
   "let g:eskk#dictionary = {
-        "\   'path': expand('~/.skk-eskk-jisyo'),
-        "\   'sorted': 0,
-        "\   'encoding': 'utf-8',
-        "\}
-  let g:eskk#large_dictionary = {
-        \   'path': expand('~/SKK-JISYO.L'),
-        \   'sorted': 1,
-        \   'encoding': 'euc-jp',
-        \}
-
+  "\   'path': expand('~/.skk-eskk-jisyo'),
+  "\   'sorted': 0,
+  "\   'encoding': 'utf-8',
+  "\}
   " Use /bin/sh -c "VTE_CJK_WIDTH=1 gnome-terminal --disable-factory"
   " instead of this settings.
   "if &encoding == 'utf-8' && !has('gui_running')
-    " GNOME Terminal only.
+  " GNOME Terminal only.
 
-    " Use <> instead of ▽.
-    "let g:eskk#marker_henkan = '<>'
-    " Use >> instead of ▼.
-    "let g:eskk#marker_henkan_select = '>>'
+  " Use <> instead of ▽.
+  "let g:eskk#marker_henkan = '<>'
+  " Use >> instead of ▼.
+  "let g:eskk#marker_henkan_select = '>>'
   "endif
 
   " Define table.
   autocmd MyAutoCmd User eskk-initialize-pre call s:eskk_initial_pre()
-    function! s:eskk_initial_pre() "{{{
-      let t = eskk#table#new('rom_to_hira*', 'rom_to_hira')
-      call t.add_map('z ', '　')
-      call t.add_map('~', '〜')
-      call t.add_map('zc', '©')
-      call t.add_map('zr', '®')
-      call t.add_map('z9', '（')
-      call t.add_map('z0', '）')
-      call eskk#register_mode_table('hira', t)
-      unlet t
-    endfunction "}}}
-endif
+  function! s:eskk_initial_pre() "{{{
+    let t = eskk#table#new('rom_to_hira*', 'rom_to_hira')
+    call t.add_map('z ', '　')
+    call t.add_map('~', '〜')
+    call t.add_map('zc', '©')
+    call t.add_map('zr', '®')
+    call t.add_map('z9', '（')
+    call t.add_map('z0', '）')
+    call eskk#register_mode_table('hira', t)
+    unlet t
+  endfunction "}}}
+endfunction
 "}}}
 
 " lingr-vim"{{{
