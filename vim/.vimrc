@@ -101,10 +101,13 @@ call neobundle#rc(expand('~/.bundle'))
 " neobundle.vim"{{{
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-NeoBundle 'anyakichi/vim-surround', '', 'same', { 'autoload' : {
-      \ 'mappings' : [
-      \   ['n', '<Plug>Dsurround'], ['n', '<Plug>Csurround'],
-      \   ['n', '<Plug>Ysurround'], ['n', '<Plug>YSurround']
+NeoBundleLazy 'tpope/vim-surround', '', 'same'
+NeoBundleLazy 't9md/vim-surround_custom_mapping', '', 'same', {
+      \ 'depends' : 'vim-surround',
+      \ 'autoload' : {
+      \   'mappings' : [
+      \     ['n', '<Plug>Dsurround'], ['n', '<Plug>Csurround'],
+      \     ['n', '<Plug>Ysurround'], ['n', '<Plug>YSurround']
       \ ]}}
 NeoBundleLazy 'basyura/TweetVim', { 'depends' :
       \ ['basyura/twibill.vim', 'tyru/open-browser.vim'],
@@ -113,17 +116,31 @@ NeoBundleLazy 'basyura/TweetVim', { 'depends' :
 " NeoBundleLazy 'c9s/perlomni.vim'
 NeoBundleLazy 'choplin/unite-vim_hacks', '', 'same'
 NeoBundleLazy 'liquidz/vimfiler-sendto', '', 'same'
-NeoBundle 'Shougo/echodoc', '', 'same'
+NeoBundleLazy 'Shougo/echodoc', '', 'same', { 'autoload' : {
+      \ 'insert' : 1,
+      \ }}
 NeoBundle 'Shougo/neocomplcache'
+call neobundle#config('neocomplcache', {
+      \ 'lazy' : 1,
+      \ 'autoload' : {
+      \   'insert' : 1,
+      \ }})
 
 NeoBundle 'Shougo/neosnippet'
+call neobundle#config('neosnippet', {
+      \ 'lazy' : 1,
+      \ 'autoload' : {
+      \   'insert' : 1,
+      \ }})
 " NeoBundle 'git@github.com:Shougo/neocomplcache-snippets-complete.git'
 
 NeoBundle 'Shougo/neobundle-vim-scripts'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/unite-build'
 NeoBundle 'Shougo/unite-ssh'
-NeoBundle 'ujihisa/vimshell-ssh'
+NeoBundleLazy 'ujihisa/vimshell-ssh', { 'autoload' : {
+      \ 'filetypes' : 'vimshell',
+      \ }}
 NeoBundle 'Shougo/unite-sudo'
 NeoBundleLazy 'Shougo/vim-vcs', {
       \ 'depends' : 'thinca/vim-openbuf',
@@ -144,7 +161,9 @@ NeoBundleLazy 'Shougo/vim-ft-vim_fold', '', 'same',
       \  { 'autoload' : { 'filetypes' : 'vim' }}
 
 NeoBundle 'Shougo/vimshell'
-NeoBundle 'yomi322/vim-gitcomplete'
+NeoBundleLazy 'yomi322/vim-gitcomplete', { 'autoload' : {
+      \ 'filetype' : 'vimshell'
+      \ }}
 
 NeoBundleLazy 'Shougo/vinarise', { 'autoload' :
       \  {'commands' : 'Vinarise' }
@@ -152,12 +171,14 @@ NeoBundleLazy 'Shougo/vinarise', { 'autoload' :
 " NeoBundle 'h1mesuke/unite-outline'
 NeoBundle 'Shougo/unite-outline', '', 'same'
 NeoBundleLazy 'hail2u/vim-css3-syntax', { 'nosync' : 1 }
-NeoBundle 'kana/vim-smartchr', '', 'same'
+NeoBundle 'kana/vim-smartchr', '', 'same', { 'autoload' : {
+      \ 'insert' : 1,
+      \ }}
 NeoBundleLazy 'kana/vim-smartword', '', 'same', { 'autoload' : {
       \ 'mappings' : [
       \   '<Plug>(smartword-w)', '<Plug>(smartword-b)', '<Plug>(smartword-ge)']
       \ }}
-NeoBundle 'kana/vim-smarttill', '', 'same', { 'autoload' : {
+NeoBundleLazy 'kana/vim-smarttill', '', 'same', { 'autoload' : {
       \ 'mappings' : [
       \   '<Plug>(smarttill-t)', '<Plug>(smarttill-T)']
       \ }}
@@ -167,12 +188,14 @@ NeoBundleLazy 'kana/vim-fakeclip', '', 'same', { 'autoload' : {
       \   ['nv', '<Plug>(fakeclip-p)'], ['nv', '<Plug>(fakeclip-P)'],
       \   ['nv', '<Plug>(fakeclip-gp)']]
       \ }}
-NeoBundle 'kana/vim-operator-user', '', 'same'
-NeoBundle 'kana/vim-operator-replace', '', 'same', { 'autoload' : {
-      \ 'mappings' : [
-      \   ['nx', '<Plug>(operator-replace)']]
+NeoBundleLazy 'kana/vim-operator-user', '', 'same'
+NeoBundleLazy 'kana/vim-operator-replace', '', 'same', {
+      \ 'depends' : 'vim-operator-user',
+      \ 'autoload' : {
+      \   'mappings' : [
+      \     ['nx', '<Plug>(operator-replace)']]
       \ }}
-NeoBundle 'kana/vim-textobj-user', '', 'same'
+NeoBundleLazy 'kana/vim-textobj-user', '', 'same'
 " NeoBundleLazy 'kana/vim-wwwsearch'
 NeoBundleLazy 'kien/ctrlp.vim'
 NeoBundleLazy 'Shougo/foldCC', '', 'same',
@@ -188,7 +211,6 @@ NeoBundleLazy 'rson/vim-conque', '', 'same', { 'autoload' : {
 NeoBundleLazy 'sjl/gundo.vim', '', 'same', { 'autoload' : {
       \ 'commands' : 'GundoToggle'
       \ }}
-NeoBundle 't9md/vim-surround_custom_mapping', '', 'same'
 " NeoBundle 't9md/vim-textmanip', '', 'same'
 " NeoBundle 't9md/vim-quickhl', '', 'same'
 NeoBundleLazy 'thinca/vim-fontzoom', '', 'same', { 'autoload' : {
@@ -200,7 +222,9 @@ NeoBundle 'ujihisa/unite-font', '', 'same'
 NeoBundleLazy 'thinca/vim-prettyprint', '', 'same', { 'autoload' : {
       \ 'commands' : 'PP'
       \ }}
-NeoBundle 'thinca/vim-qfreplace', '', 'same'
+NeoBundleLazy 'thinca/vim-qfreplace', '', 'same', { 'autoload' : {
+      \ 'filetypes' : ['unite', 'quickfix'],
+      \ }}
 NeoBundleLazy 'thinca/vim-quickrun', { 'autoload' : {
       \ 'mappings' : [
       \   ['nxo', '<Plug>(quickrun)']],
@@ -226,7 +250,10 @@ endif
 
 NeoBundle 'Shougo/unite-help', '', 'same'
 NeoBundle 'tsukkee/unite-tag', '', 'same'
-NeoBundle 'tyru/caw.vim'
+NeoBundleLazy 'tyru/caw.vim', { 'autoload' : {
+      \ 'mappings' : [
+      \   '<Plug>(caw:prefix)', '<Plug>(caw:i:toggle)']
+      \ }}
 NeoBundleLazy 'tyru/eskk.vim', { 'autoload' : {
       \ 'mappings' : [['i', '<Plug>(eskk:toggle)']],
       \ }}
@@ -265,7 +292,7 @@ NeoBundle 'deris/vim-loadafterft', '', 'same'
 NeoBundle 'osyo-manga/unite-quickfix', '', 'same'
 NeoBundle 'osyo-manga/unite-filetype', '', 'same'
 "NeoBundle 'taglist.vim', '', 'same'
-NeoBundle 'rbtnn/hexript.vim', {'external_commands' : 'xxd'}
+NeoBundle 'rbtnn/hexript.vim'
 NeoBundle 'vim-jp/vital.vim'
 NeoBundleLazy 'tpope/vim-endwise', '', 'same'
 NeoBundleLazy 'Rip-Rip/clang_complete', {
@@ -310,11 +337,6 @@ NeoBundleLazy 'rhysd/clever-f.vim', { 'autoload' : {
 
 " NeoBundle 'https://raw.github.com/m2ym/rsense/master/etc/rsense.vim',
 "       \ {'script_type' : 'plugin'}
-
-" nosync test.
-" NeoBundleLazy 'yanktmp', {
-"       \ 'type' : 'nosync', 'base' : '~/.vim/bundle'
-"       \ }
 
 " Test.
 " NeoBundleLazy 'tpope/vim-fugitive'
@@ -903,238 +925,208 @@ endfunction
 " Plugin:"{{{
 "
 
-" yanktmp.vim"{{{
-" Because I don't use it that much, I demote it to Ty.
-nnoremap    [yanktmp]   <Nop>
-xnoremap    [yanktmp]   <Nop>
-nmap    T [yanktmp]
-xmap    T [yanktmp]
-nmap <silent> [yanktmp]y    <Plug>(yanktmp_yank)
-xmap <silent> [yanktmp]y    <Plug>(yanktmp_yank)
-nmap <silent> [yanktmp]p    <Plug>(yanktmp_paste_p)
-xmap <silent> [yanktmp]p    <Plug>(yanktmp_paste_p)
-nmap <silent> [yanktmp]P    <Plug>(yanktmp_paste_P)
-xmap <silent> [yanktmp]P    <Plug>(yanktmp_paste_P)
-"}}}
-
 " neocomplcache.vim"{{{
 " Use neocomplcache.
 let g:neocomplcache_enable_at_startup = 1
-" Use smartcase.
-let g:neocomplcache_enable_smart_case = 0
-" Use camel case completion.
-let g:neocomplcache_enable_camel_case_completion = 0
-" Use underbar completion.
-let g:neocomplcache_enable_underbar_completion = 0
-" Use fuzzy completion.
-let g:neocomplcache_enable_fuzzy_completion = 1
-" Set minimum syntax keyword length.
-let g:neocomplcache_min_syntax_length = 3
-" Set auto completion length.
-let g:neocomplcache_auto_completion_start_length = 2
-" Set manual completion length.
-let g:neocomplcache_manual_completion_start_length = 0
-" Set minimum keyword length.
-let g:neocomplcache_min_keyword_length = 3
-" let g:neocomplcache_enable_cursor_hold_i = v:version > 703 ||
-"       \ v:version == 703 && has('patch289')
-let g:neocomplcache_enable_cursor_hold_i = 0
-let g:neocomplcache_cursor_hold_i_time = 300
-let g:neocomplcache_enable_insert_char_pre = 0
-let g:neocomplcache_enable_prefetch = 0
-let g:neocomplcache_skip_auto_completion_time = '0.6'
 
-if !exists('g:neocomplcache_wildcard_characters')
-  let g:neocomplcache_wildcard_characters = {}
-endif
-let g:neocomplcache_wildcard_characters._ = '-'
+let bundle = neobundle#get('neocomplcache')
+function! bundle.hooks.on_source(bundle)
+  " Use smartcase.
+  let g:neocomplcache_enable_smart_case = 0
+  " Use camel case completion.
+  let g:neocomplcache_enable_camel_case_completion = 0
+  " Use underbar completion.
+  let g:neocomplcache_enable_underbar_completion = 0
+  " Use fuzzy completion.
+  let g:neocomplcache_enable_fuzzy_completion = 1
+  " Set minimum syntax keyword length.
+  let g:neocomplcache_min_syntax_length = 3
+  " Set auto completion length.
+  let g:neocomplcache_auto_completion_start_length = 2
+  " Set manual completion length.
+  let g:neocomplcache_manual_completion_start_length = 0
+  " Set minimum keyword length.
+  let g:neocomplcache_min_keyword_length = 3
+  " let g:neocomplcache_enable_cursor_hold_i = v:version > 703 ||
+  "       \ v:version == 703 && has('patch289')
+  let g:neocomplcache_enable_cursor_hold_i = 0
+  let g:neocomplcache_cursor_hold_i_time = 300
+  let g:neocomplcache_enable_insert_char_pre = 0
+  let g:neocomplcache_enable_prefetch = 0
+  let g:neocomplcache_skip_auto_completion_time = '0.6'
 
-" For auto select.
-let g:neocomplcache_enable_auto_select = 1
+  if !exists('g:neocomplcache_wildcard_characters')
+    let g:neocomplcache_wildcard_characters = {}
+  endif
+  let g:neocomplcache_wildcard_characters._ = '-'
 
-let g:neocomplcache_enable_auto_delimiter = 1
-"let g:neocomplcache_disable_caching_buffer_name_pattern = '[\[*]\%(unite\)[\]*]'
-let g:neocomplcache_disable_auto_select_buffer_name_pattern = '\[Command Line\]'
-" let g:neocomplcache_lock_buffer_name_pattern = '\.txt'
-"let g:neocomplcache_disable_auto_complete = 0
-let g:neocomplcache_max_list = 100
-let g:neocomplcache_force_overwrite_completefunc = 1
-if $USER ==# 'root'
-  let g:neocomplcache_temporary_dir = '/root/.neocon'
-endif
-if !exists('g:neocomplcache_omni_patterns')
-  let g:neocomplcache_omni_patterns = {}
-endif
-if !exists('g:neocomplcache_force_omni_patterns')
-  let g:neocomplcache_force_omni_patterns = {}
-endif
+  " For auto select.
+  let g:neocomplcache_enable_auto_select = 1
 
-" For clang_complete.
-let g:neocomplcache_force_overwrite_completefunc = 1
-let g:neocomplcache_force_omni_patterns.c =
-      \ '[^.[:digit:] *\t]\%(\.\|->\)'
-let g:neocomplcache_force_omni_patterns.cpp =
-      \ '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-let g:clang_complete_auto = 0
-let g:clang_auto_select = 0
-let g:clang_use_library   = 1
+  let g:neocomplcache_enable_auto_delimiter = 1
+  "let g:neocomplcache_disable_caching_buffer_name_pattern = '[\[*]\%(unite\)[\]*]'
+  let g:neocomplcache_disable_auto_select_buffer_name_pattern = '\[Command Line\]'
+  " let g:neocomplcache_lock_buffer_name_pattern = '\.txt'
+  "let g:neocomplcache_disable_auto_complete = 0
+  let g:neocomplcache_max_list = 100
+  let g:neocomplcache_force_overwrite_completefunc = 1
+  if $USER ==# 'root'
+    let g:neocomplcache_temporary_dir = '/root/.neocon'
+  endif
+  if !exists('g:neocomplcache_omni_patterns')
+    let g:neocomplcache_omni_patterns = {}
+  endif
+  if !exists('g:neocomplcache_force_omni_patterns')
+    let g:neocomplcache_force_omni_patterns = {}
+  endif
 
-" For jedi-vim.
-let g:jedi#auto_initialization = 1
-let g:jedi#popup_on_dot = 0
-let g:jedi#rename_command = '<leader>R'
-autocmd MyAutoCmd FileType python*
-      \ NeoBundleSource jedi-vim | let b:did_ftplugin = 1
-let g:neocomplcache_force_omni_patterns.python = '[^. \t]\.\w*'
+  " For clang_complete.
+  let g:neocomplcache_force_overwrite_completefunc = 1
+  let g:neocomplcache_force_omni_patterns.c =
+        \ '[^.[:digit:] *\t]\%(\.\|->\)'
+  let g:neocomplcache_force_omni_patterns.cpp =
+        \ '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+  let g:clang_complete_auto = 0
+  let g:clang_auto_select = 0
+  let g:clang_use_library   = 1
 
-" Define dictionary.
-let g:neocomplcache_dictionary_filetype_lists = {
-      \ 'default' : '',
-      \ 'scheme' : expand('~/.gosh_completions'),
-      \ 'scala' : expand('$DOTVIM/dict/scala.dict'),
-      \ 'ruby' : expand('$DOTVIM/dict/ruby.dict'),
-      \ 'int-termtter' : expand('~/.vimshell/int-history/int-termtter'),
-      \ 'hoge' : expand('~/work/test.dic'),
-      \ }
+  " For jedi-vim.
+  let g:jedi#auto_initialization = 1
+  let g:jedi#popup_on_dot = 0
+  let g:jedi#rename_command = '<leader>R'
+  autocmd MyAutoCmd FileType python*
+        \ NeoBundleSource jedi-vim | let b:did_ftplugin = 1
+  let g:neocomplcache_force_omni_patterns.python = '[^. \t]\.\w*'
 
-let g:neocomplcache_omni_functions = {
-      \ 'ruby' : 'rubycomplete#Complete',
-      \ }
-
-" Define keyword pattern.
-if !exists('g:neocomplcache_keyword_patterns')
-  let g:neocomplcache_keyword_patterns = {}
-endif
-" let g:neocomplcache_keyword_patterns.default = '\h\w*'
-let g:neocomplcache_keyword_patterns['default'] = '[0-9a-zA-Z:#_]\+'
-let g:neocomplcache_keyword_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-
-let g:neocomplcache_snippets_dir = $HOME . '/snippets'
-
-if !exists('g:neocomplcache_omni_patterns')
-  let g:neocomplcache_omni_patterns = {}
-endif
-" let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-" let g:neocomplcache_force_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-let g:neocomplcache_omni_patterns.php = '[^. *\t]\.\w*\|\h\w*::'
-let g:neocomplcache_omni_patterns.mail = '^\s*\w\+'
-let g:neocomplcache_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-let g:neocomplcache_caching_limit_file_size = 500000
-
-if !exists('g:neocomplcache_same_filetype_lists')
-  let g:neocomplcache_same_filetype_lists = {}
-endif
-"let g:neocomplcache_same_filetype_lists.perl = 'ref'
-
-" let g:neocomplcache_source_look_dictionary_path = $HOME . '/words'
-let g:neocomplcache_source_look_dictionary_path = ''
-
-" Set $RSENSE_HOME path.
-let g:neocomplcache#sources#rsense#home_directory = '/opt/rsense'
-
-let g:neocomplcache_vim_completefuncs = {
-      \ 'Ref' : 'ref#complete',
-      \ 'Unite' : 'unite#complete_source',
-      \ 'VimShellExecute' :
-      \      'vimshell#vimshell_execute_complete',
-      \ 'VimShellInteractive' :
-      \      'vimshell#vimshell_execute_complete',
-      \ 'VimShellTerminal' :
-      \      'vimshell#vimshell_execute_complete',
-      \ 'VimShell' : 'vimshell#complete',
-      \ 'VimFiler' : 'vimfiler#complete',
-      \ 'Vinarise' : 'vinarise#complete',
-      \}
-if !exists('g:neocomplcache_source_completion_length')
-  let g:neocomplcache_source_completion_length = {
-        \ 'look' : 4,
+  " Define dictionary.
+  let g:neocomplcache_dictionary_filetype_lists = {
+        \ 'default' : '',
+        \ 'scheme' : expand('~/.gosh_completions'),
+        \ 'scala' : expand('$DOTVIM/dict/scala.dict'),
+        \ 'ruby' : expand('$DOTVIM/dict/ruby.dict'),
+        \ 'int-termtter' : expand('~/.vimshell/int-history/int-termtter'),
+        \ 'hoge' : expand('~/work/test.dic'),
         \ }
-endif
 
-" Plugin key-mappings."{{{
+  let g:neocomplcache_omni_functions = {
+        \ 'ruby' : 'rubycomplete#Complete',
+        \ }
 
-" For neosnippet.
-imap <silent>L     <Plug>(neosnippet_jump_or_expand)
-smap <silent>L     <Plug>(neosnippet_jump_or_expand)
-xmap <silent>L     <Plug>(neosnippet_start_unite_snippet_target)
-imap <silent>K     <Plug>(neosnippet_expand_or_jump)
-smap <silent>K     <Plug>(neosnippet_expand_or_jump)
-imap <silent>G     <Plug>(neosnippet_expand)
-imap <silent>S     <Plug>(neosnippet_start_unite_snippet)
-xmap <silent>o     <Plug>(neosnippet_register_oneshot_snippet)
-xmap <silent>U     <Plug>(neosnippet_expand_target)
+  " Define keyword pattern.
+  if !exists('g:neocomplcache_keyword_patterns')
+    let g:neocomplcache_keyword_patterns = {}
+  endif
+  " let g:neocomplcache_keyword_patterns.default = '\h\w*'
+  let g:neocomplcache_keyword_patterns['default'] = '[0-9a-zA-Z:#_]\+'
+  let g:neocomplcache_keyword_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 
-let g:neosnippet#enable_snipmate_compatibility = 1
+  let g:neocomplcache_snippets_dir = $HOME . '/snippets'
 
-inoremap <expr><C-g>     neocomplcache#undo_completion()
-inoremap <expr><C-l>     neocomplcache#complete_common_string()
-"}}}
+  if !exists('g:neocomplcache_omni_patterns')
+    let g:neocomplcache_omni_patterns = {}
+  endif
+  " let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+  " let g:neocomplcache_force_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+  let g:neocomplcache_omni_patterns.php = '[^. *\t]\.\w*\|\h\w*::'
+  let g:neocomplcache_omni_patterns.mail = '^\s*\w\+'
+  let g:neocomplcache_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+  let g:neocomplcache_caching_limit_file_size = 500000
 
-" Test."{{{
-"let g:neocomplcache_auto_completion_start_length = 1
-"let g:neocomplcache_plugin_completion_length = {
-"\ 'snippets_complete' : 1,
-"\ 'buffer_complete' : 2,
-"\ 'syntax_complete' : 2,
-"\ 'tags_complete' : 3,
-"\ 'vim_complete' : 4,
-"\ }
-let g:neocomplcache_source_disable = {
-      \ 'tags_complete' : 1,
-      \}
-"}}}
-" let g:snippets_dir = '~/.vim/snippets/,~/.vim/bundle/snipmate/snippets/'
+  if !exists('g:neocomplcache_same_filetype_lists')
+    let g:neocomplcache_same_filetype_lists = {}
+  endif
+  "let g:neocomplcache_same_filetype_lists.perl = 'ref'
 
-" For neocomplcache."{{{
-" <C-f>, <C-b>: page move.
-inoremap <expr><C-f>  pumvisible() ? "\<PageDown>" : "\<Right>"
-inoremap <expr><C-b>  pumvisible() ? "\<PageUp>"   : "\<Left>"
-" <C-y>: paste.
-inoremap <expr><C-y>  pumvisible() ? neocomplcache#close_popup() :  "\<C-r>\""
-" <C-e>: close popup.
-inoremap <expr><C-e>  pumvisible() ? neocomplcache#cancel_popup() : "\<End>"
-" <C-k>: unite completion.
-imap <C-k>  <Plug>(neocomplcache_start_unite_complete)
-" - unite quick match.
-" imap <expr> -  pumvisible() ?
-"       \ "\<Plug>(neocomplcache_start_unite_quick_match)" : '-'
-inoremap <expr> O  &filetype == 'vim' ? "\<C-x>\<C-v>" : "\<C-x>\<C-o>"
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
-" <C-n>: neocomplcache.
-inoremap <expr><C-n>  pumvisible() ? "\<C-n>" : "\<C-x>\<C-u>\<C-p>\<Down>"
-" <C-p>: keyword completion.
-inoremap <expr><C-p>  pumvisible() ? "\<C-p>" : "\<C-p>\<C-n>"
-inoremap <expr>'  pumvisible() ? neocomplcache#close_popup() : "'"
+  " let g:neocomplcache_source_look_dictionary_path = $HOME . '/words'
+  let g:neocomplcache_source_look_dictionary_path = ''
 
-inoremap <expr><C-x><C-f>  neocomplcache#manual_filename_complete()
+  " Set $RSENSE_HOME path.
+  let g:neocomplcache#sources#rsense#home_directory = '/opt/rsense'
 
-imap <C-s>  <Plug>(neocomplcache_start_unite_snippet)
+  let g:neocomplcache_vim_completefuncs = {
+        \ 'Ref' : 'ref#complete',
+        \ 'Unite' : 'unite#complete_source',
+        \ 'VimShellExecute' :
+        \      'vimshell#vimshell_execute_complete',
+        \ 'VimShellInteractive' :
+        \      'vimshell#vimshell_execute_complete',
+        \ 'VimShellTerminal' :
+        \      'vimshell#vimshell_execute_complete',
+        \ 'VimShell' : 'vimshell#complete',
+        \ 'VimFiler' : 'vimfiler#complete',
+        \ 'Vinarise' : 'vinarise#complete',
+        \}
+  if !exists('g:neocomplcache_source_completion_length')
+    let g:neocomplcache_source_completion_length = {
+          \ 'look' : 4,
+          \ }
+  endif
 
-" <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-  return neocomplcache#smart_close_popup() . "\<CR>"
+  " Test."{{{
+  "let g:neocomplcache_auto_completion_start_length = 1
+  "let g:neocomplcache_plugin_completion_length = {
+  "\ 'snippets_complete' : 1,
+  "\ 'buffer_complete' : 2,
+  "\ 'syntax_complete' : 2,
+  "\ 'tags_complete' : 3,
+  "\ 'vim_complete' : 4,
+  "\ }
+  let g:neocomplcache_source_disable = {
+        \ 'tags_complete' : 1,
+        \}
+  "}}}
+
+  " mappings."{{{
+  " <C-f>, <C-b>: page move.
+  inoremap <expr><C-f>  pumvisible() ? "\<PageDown>" : "\<Right>"
+  inoremap <expr><C-b>  pumvisible() ? "\<PageUp>"   : "\<Left>"
+  " <C-y>: paste.
+  inoremap <expr><C-y>  pumvisible() ? neocomplcache#close_popup() :  "\<C-r>\""
+  " <C-e>: close popup.
+  inoremap <expr><C-e>  pumvisible() ? neocomplcache#cancel_popup() : "\<End>"
+  " <C-k>: unite completion.
+  imap <C-k>  <Plug>(neocomplcache_start_unite_complete)
+  " - unite quick match.
+  " imap <expr> -  pumvisible() ?
+  "       \ "\<Plug>(neocomplcache_start_unite_quick_match)" : '-'
+  inoremap <expr> O  &filetype == 'vim' ? "\<C-x>\<C-v>" : "\<C-x>\<C-o>"
+  " <C-h>, <BS>: close popup and delete backword char.
+  inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+  inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+  " <C-n>: neocomplcache.
+  inoremap <expr><C-n>  pumvisible() ? "\<C-n>" : "\<C-x>\<C-u>\<C-p>\<Down>"
+  " <C-p>: keyword completion.
+  inoremap <expr><C-p>  pumvisible() ? "\<C-p>" : "\<C-p>\<C-n>"
+  inoremap <expr>'  pumvisible() ? neocomplcache#close_popup() : "'"
+
+  inoremap <expr><C-x><C-f>  neocomplcache#manual_filename_complete()
+
+  imap <C-s>  <Plug>(neocomplcache_start_unite_snippet)
+
+  " <CR>: close popup and save indent.
+  inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+  function! s:my_cr_function()
+    return neocomplcache#smart_close_popup() . "\<CR>"
+  endfunction
+
+  " <TAB>: completion.
+  inoremap <expr><TAB>  pumvisible() ? "\<C-n>" :
+        \ <SID>check_back_space() ? "\<TAB>" :
+        \ neocomplcache#start_manual_complete()
+  function! s:check_back_space() "{{{
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+  endfunction"}}}
+  " <S-TAB>: completion back.
+  inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<C-h>"
+
+  " For cursor moving in insert mode(Not recommended)
+  inoremap <expr><Left>  neocomplcache#close_popup() . "\<Left>"
+  inoremap <expr><Right> neocomplcache#close_popup() . "\<Right>"
+  inoremap <expr><Up>    neocomplcache#close_popup() . "\<Up>"
+  inoremap <expr><Down>  neocomplcache#close_popup() . "\<Down>"
+  "}}}
 endfunction
-
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ neocomplcache#start_manual_complete()
-function! s:check_back_space() "{{{
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~ '\s'
-endfunction"}}}
-" <S-TAB>: completion back.
-inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<C-h>"
-
-" For cursor moving in insert mode(Not recommended)
-inoremap <expr><Left>  neocomplcache#close_popup() . "\<Left>"
-inoremap <expr><Right> neocomplcache#close_popup() . "\<Right>"
-inoremap <expr><Up>    neocomplcache#close_popup() . "\<Up>"
-inoremap <expr><Down>  neocomplcache#close_popup() . "\<Down>"
-"}}}
 
 function! CompleteFiles(findstart, base)
   if a:findstart
@@ -1157,6 +1149,28 @@ function! CompleteFiles(findstart, base)
   endfor
 
   return { 'words' : list, 'refresh' : 'always' }
+endfunction
+"}}}
+
+" neosnippet.vim"{{{
+let bundle = neobundle#get('neosnippet')
+function! bundle.hooks.on_source(bundle)
+  imap <silent>L     <Plug>(neosnippet_jump_or_expand)
+  smap <silent>L     <Plug>(neosnippet_jump_or_expand)
+  xmap <silent>L     <Plug>(neosnippet_start_unite_snippet_target)
+  imap <silent>K     <Plug>(neosnippet_expand_or_jump)
+  smap <silent>K     <Plug>(neosnippet_expand_or_jump)
+  imap <silent>G     <Plug>(neosnippet_expand)
+  imap <silent>S     <Plug>(neosnippet_start_unite_snippet)
+  xmap <silent>o     <Plug>(neosnippet_register_oneshot_snippet)
+  xmap <silent>U     <Plug>(neosnippet_expand_target)
+
+  let g:neosnippet#enable_snipmate_compatibility = 1
+
+  inoremap <expr><C-g>     neocomplcache#undo_completion()
+  inoremap <expr><C-l>     neocomplcache#complete_common_string()
+
+  " let g:snippets_dir = '~/.vim/snippets/,~/.vim/bundle/snipmate/snippets/'
 endfunction
 "}}}
 
@@ -1700,40 +1714,43 @@ let g:autoprotectfile_readonly_paths = "$VIMRUNTIME/*,~/important"
 let g:autoprotectfile_nomodifiable_paths = "$VIMRUNTIME/*,~/important"
 
 " smartchr.vim"{{{
-inoremap <expr> , smartchr#one_of(', ', ',')
+let bundle = neobundle#get('vim-smartchr')
+function! bundle.hooks.on_source(bundle)
+  inoremap <expr> , smartchr#one_of(', ', ',')
 
-inoremap <expr> ? smartchr#one_of('?', '? ')
+  inoremap <expr> ? smartchr#one_of('?', '? ')
 
-" Smart =.
-inoremap <expr> =
-      \ search('\(&\<bar><bar>\<bar>+\<bar>-\<bar>/\<bar>>\<bar><\) \%#', 'bcn')? '<bs>= '
-      \ : search('\(*\<bar>!\)\%#', 'bcn') ? '= '
-      \ : smartchr#one_of(' = ', '=', ' == ')
-augroup MyAutoCmd
-  " Substitute .. into -> .
-  autocmd FileType c,cpp inoremap <buffer> <expr> . smartchr#loop('.', '->', '...')
-  autocmd FileType perl,php inoremap <buffer> <expr> . smartchr#loop(' . ', '->', '.')
-  autocmd FileType perl,php inoremap <buffer> <expr> - smartchr#loop('-', '->')
-  autocmd FileType vim inoremap <buffer> <expr> . smartchr#loop('.', ' . ', '..', '...')
+  " Smart =.
+  inoremap <expr> =
+        \ search('\(&\<bar><bar>\<bar>+\<bar>-\<bar>/\<bar>>\<bar><\) \%#', 'bcn')? '<bs>= '
+        \ : search('\(*\<bar>!\)\%#', 'bcn') ? '= '
+        \ : smartchr#one_of(' = ', '=', ' == ')
+  augroup MyAutoCmd
+    " Substitute .. into -> .
+    autocmd FileType c,cpp inoremap <buffer> <expr> . smartchr#loop('.', '->', '...')
+    autocmd FileType perl,php inoremap <buffer> <expr> . smartchr#loop(' . ', '->', '.')
+    autocmd FileType perl,php inoremap <buffer> <expr> - smartchr#loop('-', '->')
+    autocmd FileType vim inoremap <buffer> <expr> . smartchr#loop('.', ' . ', '..', '...')
 
-  autocmd FileType haskell,int-ghci
-        \ inoremap <buffer> <expr> + smartchr#loop('+', ' ++ ')
-        \| inoremap <buffer> <expr> - smartchr#loop('-', ' -> ', ' <- ')
-        \| inoremap <buffer> <expr> $ smartchr#loop(' $ ', '$')
-        \| inoremap <buffer> <expr> \ smartchr#loop('\ ', '\')
-        \| inoremap <buffer> <expr> : smartchr#loop(':', ' :: ', ' : ')
-        \| inoremap <buffer> <expr> . smartchr#loop('.', ' . ', '..')
+    autocmd FileType haskell,int-ghci
+          \ inoremap <buffer> <expr> + smartchr#loop('+', ' ++ ')
+          \| inoremap <buffer> <expr> - smartchr#loop('-', ' -> ', ' <- ')
+          \| inoremap <buffer> <expr> $ smartchr#loop(' $ ', '$')
+          \| inoremap <buffer> <expr> \ smartchr#loop('\ ', '\')
+          \| inoremap <buffer> <expr> : smartchr#loop(':', ' :: ', ' : ')
+          \| inoremap <buffer> <expr> . smartchr#loop('.', ' . ', '..')
 
-  autocmd FileType scala
-        \ inoremap <buffer> <expr> - smartchr#loop('-', ' -> ', ' <- ')
-        \| inoremap <buffer> <expr> = smartchr#loop(' = ', '=', ' => ')
-        \| inoremap <buffer> <expr> : smartchr#loop(': ', ':', ' :: ')
-        \| inoremap <buffer> <expr> . smartchr#loop('.', ' => ')
+    autocmd FileType scala
+          \ inoremap <buffer> <expr> - smartchr#loop('-', ' -> ', ' <- ')
+          \| inoremap <buffer> <expr> = smartchr#loop(' = ', '=', ' => ')
+          \| inoremap <buffer> <expr> : smartchr#loop(': ', ':', ' :: ')
+          \| inoremap <buffer> <expr> . smartchr#loop('.', ' => ')
 
-  autocmd FileType eruby
-        \ inoremap <buffer> <expr> > smartchr#loop('>', '%>')
-        \| inoremap <buffer> <expr> < smartchr#loop('<', '<%', '<%=')
-augroup END
+    autocmd FileType eruby
+          \ inoremap <buffer> <expr> > smartchr#loop('>', '%>')
+          \| inoremap <buffer> <expr> < smartchr#loop('<', '<%', '<%=')
+  augroup END
+endfunction
 "}}}
 
 " eev.vim"{{{
