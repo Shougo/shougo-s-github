@@ -83,7 +83,7 @@ if has('vim_starting') "{{{
     execute 'set runtimepath+=' . expand('~/.bundle/neobundle.vim')
   endif
 
-  if filereadable('vimrc_local.vim')
+  if findfile('vimrc_local.vim', '.;') != ''
     " Load develop version.
     call neobundle#local('.', { 'resettable' : 0 })
   endif
@@ -119,7 +119,7 @@ NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/neosnippet'
 " NeoBundle 'git@github.com:Shougo/neocomplcache-snippets-complete.git'
 
-NeoBundle 'Shougo/neobundle-vim-scripts', 'ver.3'
+NeoBundle 'Shougo/neobundle-vim-scripts'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/unite-build'
 NeoBundle 'Shougo/unite-ssh'
