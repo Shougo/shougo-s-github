@@ -333,6 +333,8 @@ NeoBundleLazy 'rhysd/clever-f.vim', { 'autoload' : {
       \ 'mappings' : 'f',
       \ }}
 
+NeoBundleLocal ~/.vim/bundle
+
 " NeoBundle 'taichouchou2/alpaca_complete.git'
 
 " NeoBundle 'https://raw.github.com/m2ym/rsense/master/etc/rsense.vim',
@@ -899,6 +901,13 @@ let g:vimsyntax_noerror = 1
 
 " Bash
 let g:is_bash = 1
+
+" Java
+let g:java_highlight_all=1
+let g:java_highlight_debug=1
+let g:java_allow_cpp_keywords=1
+let g:java_space_errors=1
+let g:java_highlight_functions=1
 
 " Syntax highlight for user commands.
 augroup syntax-highlight-extends
@@ -1753,13 +1762,6 @@ function! bundle.hooks.on_source(bundle)
 endfunction
 "}}}
 
-" eev.vim"{{{
-nmap >  <Plug>(eev_search_forward)
-nmap <  <Plug>(eev_search_forward)
-nmap <C-e>  <Plug>(eev_eval)
-nmap <C-u>  <Plug>(eev_create)
-"}}}
-
 " smarttill.vim"{{{
 xmap q  <Plug>(smarttill-t)
 xmap Q  <Plug>(smarttill-T)
@@ -2215,6 +2217,12 @@ cmap <C-Space>  <C-@>
 xnoremap <TAB>  >
 " <S-TAB>: unindent.
 xnoremap <S-TAB>  <
+
+" Indent
+nnoremap > >>
+nnoremap < <<
+xnoremap > >gv
+xnoremap < <gv
 "}}}
 
 " Insert mode keymappings: "{{{
@@ -2324,6 +2332,8 @@ xnoremap  [Space]   <Nop>
 " Toggle relativenumber.
 nnoremap <silent> [Space].
       \ :<C-u>call ToggleOption('relativenumber')<CR>
+nnoremap <silent> [Space]pa
+      \ :<C-u>call ToggleOption('paste')<CR>
 " Toggle highlight.
 nnoremap <silent> [Space]/
       \ :<C-u>call ToggleOption('hlsearch')<CR>
