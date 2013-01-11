@@ -661,8 +661,8 @@ set formatexpr=autofmt#japanese#formatexpr()
 " Show <TAB> and <CR>
 set list
 set listchars=tab:>-,trail:-,extends:>,precedes:<
-" Wrap long line.
-set wrap
+" Do not wrap long line.
+set nowrap
 " Wrap conditions.
 set whichwrap+=h,l,<,>,[,],b,s,~
 " Always display statusline.
@@ -854,6 +854,8 @@ augroup MyAutoCmd
   autocmd FileType * if (&readonly || !&modifiable) && !hasmapto('q', 'n')
         \ | nnoremap <buffer><silent> q :<C-u>call <sid>smart_close()<CR>| endif
 
+  autocmd FileType gitcommit setlocal nofoldenable
+
   " Close help and git window by pressing q.
   autocmd FileType ref nnoremap <buffer> <TAB> <C-w>w
 
@@ -875,8 +877,8 @@ augroup MyAutoCmd
   autocmd FileType python setlocal foldmethod=indent
 
   " Update filetype.
-  autocmd BufWritePost
-  \ * if &l:filetype ==# '' || exists('b:ftdetect')
+  autocmd BufWritePost *
+  \ if &l:filetype ==# '' || exists('b:ftdetect')
   \ |   unlet! b:ftdetect
   \ |   filetype detect
   \ | endif
@@ -1397,6 +1399,9 @@ inoremap <silent><expr> <C-z>
 
 " <C-t>: Tab pages
 nnoremap <silent> <C-t>       :<C-u>Unite tab<CR>
+
+" <C-w>: Windows operation
+nnoremap <silent> <C-w>       :<C-u>Unite window<CR>
 "}}}
 
 if s:is_windows
@@ -2350,6 +2355,8 @@ nnoremap <silent> [Space]en
 " Set spell check.
 nnoremap [Space]sp
       \ :<C-u>call ToggleOption('spell')<CR>
+nnoremap [Space]w
+      \ :<C-u>call ToggleOption('wrap')<CR>
 " Echo syntax name.
 nnoremap [Space]sy
       \ :<C-u>echo synIDattr(synID(line('.'), col('.'), 1), "name")<CR>
