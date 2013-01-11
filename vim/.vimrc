@@ -77,15 +77,16 @@ if has('vim_starting') "{{{
   endif
 
   " Load neobundle.
-  if isdirectory('neobundle.vim')
-    execute 'set runtimepath+=' . fnamemodify('neobundle.vim', ':p')
+  if finddir('neobundle.vim', '.;') != ''
+    execute 'set runtimepath+=' . finddir('neobundle.vim', '.;')
   elseif &runtimepath !~ '/neobundle.vim'
     execute 'set runtimepath+=' . expand('~/.bundle/neobundle.vim')
   endif
 
   if findfile('vimrc_local.vim', '.;') != ''
     " Load develop version.
-    call neobundle#local('.', { 'resettable' : 0 })
+    call neobundle#local(fnamemodify(
+          \ findfile('vimrc_local.vim', '.;'), ':h'), { 'resettable' : 0 })
   endif
 endif
 "}}}
