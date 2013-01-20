@@ -146,7 +146,9 @@ NeoBundle 'Shougo/unite.vim',
 call neobundle#config('unite.vim',{
       \ 'lazy' : 1,
       \ 'autoload' : {
-      \   'commands' : ['Unite', 'UniteWithCursorWord', 'UniteWithInput']
+      \   'commands' : [{ 'name' : 'Unite',
+      \                   'complete' : 'customlist,unite#complete_source'},
+      \                 'UniteWithCursorWord', 'UniteWithInput']
       \ }})
 NeoBundle 'Shougo/unite-build'
 NeoBundle 'Shougo/unite-ssh'
@@ -163,7 +165,9 @@ call neobundle#config('vimfiler', {
       \ 'lazy' : 1,
       \ 'depends' : 'Shougo/unite.vim',
       \ 'autoload' : {
-      \    'commands' : ['VimFilerExplorer', 'VimFiler', 'Edit'],
+      \    'commands' : [{ 'name' : 'VimFiler',
+      \                    'complete' : 'customlist,vimfiler#complete' },
+      \                  'VimFilerExplorer', 'Edit'],
       \    'mappings' : ['<Plug>(vimfiler_switch)']
       \ }
       \ })
@@ -183,8 +187,10 @@ NeoBundle 'Shougo/vimshell'
 call neobundle#config('vimshell',{
       \ 'lazy' : 1,
       \ 'autoload' : {
-      \   'commands' : ['VimShell', 'VimShellExecute',
-      \                 'VimShellInteractive', 'VimShellTerminal', 'VimShellPop'],
+      \   'commands' : [{ 'name' : 'VimShell',
+      \                   'complete' : 'customlist,vimshell#complete'},
+      \                 'VimShellExecute', 'VimShellInteractive',
+      \                 'VimShellTerminal', 'VimShellPop'],
       \   'mappings' : ['<Plug>(vimshell_switch)']
       \ }})
 NeoBundleLazy 'yomi322/vim-gitcomplete', { 'autoload' : {
