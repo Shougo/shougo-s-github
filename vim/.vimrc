@@ -233,12 +233,16 @@ NeoBundleLazy 'sjl/gundo.vim', '', 'same', { 'autoload' : {
       \ }}
 " NeoBundle 't9md/vim-textmanip', '', 'same'
 " NeoBundle 't9md/vim-quickhl', '', 'same'
-NeoBundleLazy 'thinca/vim-fontzoom', '', 'same', { 'autoload' : {
-      \ 'mappings' : [
+NeoBundleLazy 'thinca/vim-fontzoom', '', 'same', {
+      \ 'gui' : 1,
+      \ 'autoload' : {
+      \  'mappings' : [
       \   ['n', '<Plug>(fontzoom-larger)'],
       \   ['n', '<Plug>(fontzoom-smaller)']]
       \ }}
-NeoBundle 'ujihisa/unite-font', '', 'same'
+NeoBundle 'ujihisa/unite-font', '', 'same', {
+      \ 'gui' : 1,
+      \ }
 NeoBundleLazy 'thinca/vim-prettyprint', '', 'same', { 'autoload' : {
       \ 'commands' : 'PP'
       \ }}
@@ -281,12 +285,15 @@ NeoBundleLazy 'tyru/open-browser.vim', '', 'same', { 'autoload' : {
       \ 'mappings' : '<Plug>(open-browser-wwwsearch)',
       \ }}
 NeoBundleLazy 'tyru/operator-html-escape.vim', '', 'same'
-NeoBundleLazy 'tyru/restart.vim', '', 'same', { 'autoload' : {
-      \ 'commands' : 'Restart'
+NeoBundleLazy 'tyru/restart.vim', '', 'same', {
+      \ 'gui' : 1,
+      \ 'autoload' : {
+      \  'commands' : 'Restart'
       \ }}
 " NeoBundle 'tyru/skk.vim'
 NeoBundle 'tyru/vim-altercmd', '', 'same'
 NeoBundleLazy 'tyru/winmove.vim', '', 'same', { 'autoload' : {
+      \ 'gui' : 1,
       \ 'mappings' : [
       \   ['n', '<Plug>(winmove-up)'], ['n', '<Plug>(winmove-down)'],
       \   ['n', '<Plug>(winmove-left)'] , ['n', '<Plug>(winmove-right)']],
@@ -333,8 +340,8 @@ NeoBundleLazy 'vim-jp/autofmt', '', 'same', { 'autoload' : {
       \ }}
 
 " From vim.org
-NeoBundleLazy 'CSApprox', '', 'same'
-NeoBundleLazy 'guicolorscheme.vim', '', 'same'
+NeoBundleLazy 'CSApprox', '', 'same', { 'terminal' : 1 }
+NeoBundleLazy 'guicolorscheme.vim', '', 'same', { 'terminal' : 1 }
 NeoBundleLazy 'repeat.vim', '', 'same', { 'autoload' : {
       \ 'mappings' : '.',
       \ }}
@@ -666,7 +673,8 @@ set keywordprg=:help
 autocmd MyAutoCmd WinEnter * checktime
 
 " Disable paste.
-autocmd MyAutoCmd InsertLeave * if &paste | set nopaste | endif
+autocmd MyAutoCmd InsertLeave *
+      \ if &paste | set nopaste | echo 'nopaste' | endif
 
 " Use autofmt.
 set formatexpr=autofmt#japanese#formatexpr()
@@ -1236,6 +1244,7 @@ function! bundle.hooks.on_source(bundle)
   let g:vimshell_prompt = '% '
   "let g:vimshell_environment_term = 'xterm'
   let g:vimshell_split_command = ''
+  let g:vimshell_enable_transient_user_prompt = 1
 
   autocmd MyAutoCmd FileType vimshell call s:vimshell_settings()
   function! s:vimshell_settings()
@@ -1349,6 +1358,8 @@ function! bundle.hooks.on_source(bundle)
   function! s:vimshell_hooks.chpwd(args, context)
     if len(split(glob('*'), '\n')) < 100
       call vimshell#execute('ls')
+    else
+      call vimshell#execute('echo "Many files."')
     endif
   endfunction
   function! s:vimshell_hooks.emptycmd(cmdline, context)
@@ -2380,7 +2391,7 @@ xnoremap  [Space]   <Nop>
 " Toggle relativenumber.
 nnoremap <silent> [Space].
       \ :<C-u>call ToggleOption('relativenumber')<CR>
-nnoremap <silent> [Space]pa
+nnoremap <silent> [Space]p
       \ :<C-u>call ToggleOption('paste')<CR>
 " Toggle highlight.
 nnoremap <silent> [Space]/
@@ -2781,8 +2792,6 @@ nnoremap <expr> l foldclosed(line('.')) != -1 ? 'zo0' : 'l'
 xnoremap <expr> l foldclosed(line('.')) != -1 ? 'zogv0' : 'l'
 noremap [Space]j zj
 noremap [Space]k zk
-noremap [Space]n ]z
-noremap [Space]p [z
 noremap [Space]h zc
 noremap [Space]l zo
 noremap [Space]a za
