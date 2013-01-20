@@ -93,7 +93,7 @@ endif
 
 let g:neobundle#enable_tail_path = 1
 let g:neobundle#default_options = {
-      \ 'same' : { 'stay_same' : 1 },
+      \ 'same' : { 'stay_same' : 1, 'overwrite' : 0 },
       \ '_' : { 'overwrite' : 0 },
       \ }
 
@@ -117,9 +117,14 @@ NeoBundleLazy 'basyura/TweetVim', { 'depends' :
 " NeoBundleLazy 'c9s/perlomni.vim'
 NeoBundleLazy 'choplin/unite-vim_hacks', '', 'same'
 NeoBundleLazy 'liquidz/vimfiler-sendto', '', 'same'
-NeoBundleLazy 'Shougo/echodoc', '', 'same', { 'autoload' : {
-      \ 'insert' : 1,
-      \ }}
+
+NeoBundle 'Shougo/echodoc', '', 'same'
+call neobundle#config('echodoc', {
+      \ 'lazy' : 1,
+      \ 'autoload' : {
+      \   'insert' : 1,
+      \ }})
+
 NeoBundle 'Shougo/neocomplcache'
 call neobundle#config('neocomplcache', {
       \ 'lazy' : 1,
@@ -132,6 +137,7 @@ call neobundle#config('neosnippet', {
       \ 'lazy' : 1,
       \ 'autoload' : {
       \   'insert' : 1,
+      \   'filetypes' : 'snippet',
       \ }})
 " NeoBundle 'git@github.com:Shougo/neocomplcache-snippets-complete.git'
 
@@ -150,7 +156,7 @@ NeoBundleLazy 'ujihisa/vimshell-ssh', { 'autoload' : {
 NeoBundle 'Shougo/unite-sudo'
 NeoBundleLazy 'Shougo/vim-vcs', {
       \ 'depends' : 'thinca/vim-openbuf',
-      \ 'autoload' : {'functions' : 'vcs#info', 'commands' : 'Vcs'},
+      \ 'autoload' : {'commands' : 'Vcs'},
       \   }
 NeoBundle 'Shougo/vimfiler'
 call neobundle#config('vimfiler', {
@@ -170,8 +176,8 @@ NeoBundle 'Shougo/vimproc', {
       \     'unix' : 'make -f make_unix.mak',
       \    },
       \ }
-NeoBundleLazy 'Shougo/vim-ft-vim_fold', '', 'same',
-      \  { 'autoload' : { 'filetypes' : 'vim' }}
+" NeoBundleLazy 'Shougo/vim-ft-vim_fold', '', 'same',
+"       \  { 'autoload' : { 'filetypes' : 'vim' }}
 
 NeoBundle 'Shougo/vimshell'
 call neobundle#config('vimshell',{
@@ -190,8 +196,8 @@ NeoBundleLazy 'Shougo/vinarise', { 'autoload' :
       \ }
 " NeoBundle 'h1mesuke/unite-outline'
 NeoBundle 'Shougo/unite-outline', '', 'same'
-NeoBundleLazy 'hail2u/vim-css3-syntax', { 'nosync' : 1 }
-NeoBundle 'kana/vim-smartchr', '', 'same', { 'autoload' : {
+NeoBundleLazy 'hail2u/vim-css3-syntax', '', 'same'
+NeoBundleLazy 'kana/vim-smartchr', '', 'same', { 'autoload' : {
       \ 'insert' : 1,
       \ }}
 NeoBundleLazy 'kana/vim-smartword', '', 'same', { 'autoload' : {
@@ -303,10 +309,10 @@ NeoBundleLazy 'ujihisa/neco-ghc', { 'autoload' : {
       \ }}
 NeoBundle 'ujihisa/neco-look', '', 'same'
 NeoBundleLazy 'ujihisa/unite-colorscheme', '', 'same'
-NeoBundleLazy 'ujihisa/unite-locate.git', '', 'same'
-NeoBundleLazy 'ujihisa/vimshell-ssh.git'
+NeoBundleLazy 'ujihisa/unite-locate', '', 'same'
+NeoBundleLazy 'ujihisa/vimshell-ssh'
 NeoBundle 'vim-jp/vimdoc-ja.git'
-NeoBundleLazy 'vim-scripts/netrw.vim.git', '', 'same', { 'autoload' : {
+NeoBundleLazy 'vim-scripts/netrw.vim', '', 'same', { 'autoload' : {
       \ 'commands' : 'Explore',
       \ }}
 " NeoBundleLazy 'Markdown', '', 'same'
@@ -319,7 +325,7 @@ NeoBundle 'deris/vim-loadafterft', '', 'same'
 NeoBundle 'osyo-manga/unite-quickfix', '', 'same'
 NeoBundle 'osyo-manga/unite-filetype', '', 'same'
 "NeoBundle 'taglist.vim', '', 'same'
-NeoBundle 'rbtnn/hexript.vim'
+NeoBundleLazy 'rbtnn/hexript.vim'
 NeoBundle 'vim-jp/vital.vim'
 NeoBundleLazy 'tpope/vim-endwise', '', 'same'
 NeoBundleLazy 'Rip-Rip/clang_complete', {
@@ -345,7 +351,9 @@ NeoBundleLazy 'guicolorscheme.vim', '', 'same', { 'terminal' : 1 }
 NeoBundleLazy 'repeat.vim', '', 'same', { 'autoload' : {
       \ 'mappings' : '.',
       \ }}
-NeoBundle 'autodate.vim', '', 'same'
+NeoBundleLazy 'autodate.vim', '', 'same', { 'autoload' : {
+      \ 'filetypes' : 'vim',
+      \ }}
 NeoBundleLazy 'matchit.zip', '', 'same', { 'autoload' : {
       \ 'mappings' : '%',
       \ }}
@@ -354,7 +362,7 @@ NeoBundleLazy 'DirDiff.vim', '', 'same', { 'autoload' : {
       \ 'commands' : 'DirDiff'
       \ }}
 NeoBundleLazy 'hrsh7th/vim-versions', {
-      \ 'autoload' : {'functions' : 'versions#info', 'commands' : 'UniteVersions'},
+      \ 'autoload' : {'commands' : 'UniteVersions'},
       \ }
 NeoBundleLazy 'rhysd/clever-f.vim', { 'autoload' : {
       \ 'mappings' : 'f',
@@ -379,12 +387,7 @@ filetype plugin indent on
 syntax enable
 
 " Installation check.
-if neobundle#exists_not_installed_bundles()
-  echomsg 'Not installed bundles : ' .
-        \ string(neobundle#get_not_installed_bundle_names())
-  echomsg 'Please execute ":NeoBundleInstall" command.'
-  " finish
-endif
+NeoBundleCheck
 
 " altercommand.vim
 call altercmd#load()
@@ -1294,6 +1297,11 @@ function! bundle.hooks.on_source(bundle)
     call vimshell#set_alias('gvim', 'gexe gvim')
     call vimshell#set_galias('L', 'ls -l')
     call vimshell#set_galias('time', 'exe time -p')
+
+    " Auto jump.
+    call vimshell#set_alias('j', ':Unite -buffer-name=files
+          \ -default-action=lcd -input=$$args directory_mru')
+
     call vimshell#hook#add('chpwd', 'my_chpwd', s:vimshell_hooks.chpwd)
     call vimshell#hook#add('emptycmd', 'my_emptycmd', s:vimshell_hooks.emptycmd)
     call vimshell#hook#add('preprompt', 'my_preprompt', s:vimshell_hooks.preprompt)
