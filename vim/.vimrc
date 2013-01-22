@@ -352,8 +352,8 @@ NeoBundleLazy 'vim-jp/autofmt', '', 'same', { 'autoload' : {
       \ }}
 
 " From vim.org
-NeoBundleLazy 'CSApprox', '', 'same', { 'terminal' : 1 }
-NeoBundleLazy 'guicolorscheme.vim', '', 'same', { 'terminal' : 1 }
+NeoBundleLazy 'godlygeek/csapprox', '', 'same', { 'terminal' : 1 }
+NeoBundleLazy 'thinca/vim-guicolorscheme', '', 'same', { 'terminal' : 1 }
 NeoBundleLazy 'repeat.vim', '', 'same', { 'autoload' : {
       \ 'mappings' : '.',
       \ }}
@@ -372,6 +372,22 @@ NeoBundleLazy 'hrsh7th/vim-versions', {
       \ }
 NeoBundleLazy 'rhysd/clever-f.vim', { 'autoload' : {
       \ 'mappings' : 'f',
+      \ }}
+NeoBundleLazy 'rhysd/clever-f.vim', { 'autoload' : {
+      \ 'mappings' : 'f',
+      \ }}
+NeoBundleLazy 'jiangmiao/simple-javascript-indenter', { 'autoload' : {
+      \ 'filetypes' : 'javascript',
+      \ }}
+NeoBundleLazy 'jelera/vim-javascript-syntax', { 'autoload' : {
+      \ 'filetypes' : 'javascript',
+      \ }}
+NeoBundleLazy 'jelera/vim-javascript-syntax', { 'autoload' : {
+      \ 'filetypes' : 'javascript',
+      \ }}
+NeoBundleLazy 'bkad/CamelCaseMotion', { 'autoload' : {
+      \ 'mappings' : ['<Plug>CamelCaseMotion_w',
+      \               '<Plug>CamelCaseMotion_b'],
       \ }}
 
 NeoBundleLocal ~/.vim/bundle
@@ -612,7 +628,7 @@ set infercase
 
 " Search home directory path on cd.
 " But can't complete.
-set cdpath+=~
+" set cdpath+=~
 
 " Enable folding.
 set foldenable
@@ -643,11 +659,15 @@ set isfname-==
 
 " Reload .vimrc and .gvimrc automatically.
 if !has('gui_running') && !s:is_windows
-  autocmd MyAutoCmd BufWritePost .vimrc nested source $MYVIMRC | echo "source $MYVIMRC"
+  autocmd MyAutoCmd BufWritePost .vimrc nested source $MYVIMRC |
+        \ call s:set_syntax_of_user_defined_commands() |
+        \ echo "source $MYVIMRC"
 else
   autocmd MyAutoCmd BufWritePost .vimrc source $MYVIMRC |
+        \ call s:set_syntax_of_user_defined_commands() |
         \ if has('gui_running') | source $MYGVIMRC | echo "source $MYVIMRC"
-  autocmd MyAutoCmd BufWritePost .gvimrc if has('gui_running') | source $MYGVIMRC | echo "source $MYGVIMRC"
+  autocmd MyAutoCmd BufWritePost .gvimrc
+        \ if has('gui_running') | source $MYGVIMRC | echo "source $MYGVIMRC"
 endif
 
 " Keymapping timeout.
@@ -736,7 +756,7 @@ function! s:my_tabline()  "{{{
 
     " Use gettabvar().
     let title = exists('*gettabvar') && gettabvar(i, 'title') != '' ?
-          \ gettabvar(i, 'title') : fnamemodify(gettabvar(i, 'cwd'), ':t')
+          \ gettabvar(i, 'title') : fnamemodify(bufname(bufnr), ':t')
 
     let title = '[' . title . ']'
 
@@ -890,7 +910,9 @@ augroup MyAutoCmd
   autocmd BufNewfile,BufRead Rakefile foldmethod=syntax foldnestmax=1
 
   " Close help and git window by pressing q.
-  autocmd FileType help,git-status,git-log,qf,gitcommit,quickrun,qfreplace,ref,simpletap-summary,vcs-commit,vcs-status,vim-hacks
+  autocmd FileType help,git-status,git-log,qf,
+        \gitcommit,quickrun,qfreplace,ref,
+        \simpletap-summary,vcs-commit,vcs-status,vim-hacks
         \ nnoremap <buffer><silent> q :<C-u>call <sid>smart_close()<CR>
   autocmd FileType * if (&readonly || !&modifiable) && !hasmapto('q', 'n')
         \ | nnoremap <buffer><silent> q :<C-u>call <sid>smart_close()<CR>| endif
@@ -903,13 +925,13 @@ augroup MyAutoCmd
   autocmd FileType c setlocal foldmethod=syntax
 
   " Enable omni completion.
-  autocmd FileType ada setlocal omnifunc=adacomplete#Complete
-  autocmd FileType c setlocal omnifunc=ccomplete#Complete
+  " autocmd FileType ada setlocal omnifunc=adacomplete#Complete
+  " autocmd FileType c setlocal omnifunc=ccomplete#Complete
   autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
   autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
   "autocmd FileType java setlocal omnifunc=javacomplete#Complete
-  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-  autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
+  " autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+  " autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
   " autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
   "autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
   "autocmd FileType sql setlocal omnifunc=sqlcomplete#Complete
@@ -953,10 +975,15 @@ let g:java_allow_cpp_keywords=1
 let g:java_space_errors=1
 let g:java_highlight_functions=1
 
+" JavaScript
+let g:SimpleJsIndenter_BriefMode = 1
+let g:SimpleJsIndenter_CaseIndentLevel = -1
+
 " Syntax highlight for user commands.
 augroup syntax-highlight-extends
   autocmd!
-  autocmd Syntax vim call s:set_syntax_of_user_defined_commands()
+  autocmd Syntax vim
+        \ call s:set_syntax_of_user_defined_commands()
 augroup END
 
 function! s:set_syntax_of_user_defined_commands()
@@ -969,7 +996,7 @@ function! s:set_syntax_of_user_defined_commands()
 
   if command_names == '' | return | endif
 
-  execute 'syntax keyword vimCommand contained ' . command_names
+  execute 'syntax keyword vimCommand ' . command_names
 endfunction
 
 "}}}
@@ -1778,7 +1805,7 @@ omap <Leader>ge  <Plug>(smartword-ge)
 nmap <silent> W <Plug>CamelCaseMotion_w
 xmap <silent> W <Plug>CamelCaseMotion_w
 nmap <silent> B <Plug>CamelCaseMotion_b
-xmap <silent> W <Plug>CamelCaseMotion_b
+xmap <silent> B <Plug>CamelCaseMotion_b
 ""}}}
 
 " AutoProtectFile.vim
@@ -2192,46 +2219,49 @@ nmap _ <Plug>(fontzoom-smaller)
 "}}}
 
 " surround_custom_mappings.vim"{{{
-let g:surround_custom_mapping = {}
-let g:surround_custom_mapping._ = {
-            \ 'p':  "<pre> \r </pre>",
-            \ 'w':  "%w(\r)",
-            \ }
-let g:surround_custom_mapping.help = {
-            \ 'p':  "> \r <",
-            \ }
-let g:surround_custom_mapping.ruby = {
-            \ '-':  "<% \r %>",
-            \ '=':  "<%= \r %>",
-            \ '9':  "(\r)",
-            \ '5':  "%(\r)",
-            \ '%':  "%(\r)",
-            \ 'w':  "%w(\r)",
-            \ '#':  "#{\r}",
-            \ '3':  "#{\r}",
-            \ 'e':  "begin \r end",
-            \ 'E':  "<<EOS \r EOS",
-            \ 'i':  "if \1if\1 \r end",
-            \ 'u':  "unless \1unless\1 \r end",
-            \ 'c':  "class \1class\1 \r end",
-            \ 'm':  "module \1module\1 \r end",
-            \ 'd':  "def \1def\1\2args\r..*\r(&)\2 \r end",
-            \ 'p':  "\1method\1 do \2args\r..*\r|&| \2\r end",
-            \ 'P':  "\1method\1 {\2args\r..*\r|&|\2 \r }",
-            \ }
-let g:surround_custom_mapping.javascript = {
-            \ 'f':  "function(){ \r }"
-            \ }
-let g:surround_custom_mapping.lua = {
-            \ 'f':  "function(){ \r }"
-            \ }
-let g:surround_custom_mapping.python = {
-            \ 'p':  "print( \r)",
-            \ '[':  "[\r]",
-            \ }
-let g:surround_custom_mapping.vim= {
-            \'f':  "function! \r endfunction"
-            \ }
+let bundle = neobundle#get('vim-surround_custom_mapping')
+function! bundle.hooks.on_source(bundle)
+  let g:surround_custom_mapping = {}
+  let g:surround_custom_mapping._ = {
+        \ 'p':  "<pre> \r </pre>",
+        \ 'w':  "%w(\r)",
+        \ }
+  let g:surround_custom_mapping.help = {
+        \ 'p':  "> \r <",
+        \ }
+  let g:surround_custom_mapping.ruby = {
+        \ '-':  "<% \r %>",
+        \ '=':  "<%= \r %>",
+        \ '9':  "(\r)",
+        \ '5':  "%(\r)",
+        \ '%':  "%(\r)",
+        \ 'w':  "%w(\r)",
+        \ '#':  "#{\r}",
+        \ '3':  "#{\r}",
+        \ 'e':  "begin \r end",
+        \ 'E':  "<<EOS \r EOS",
+        \ 'i':  "if \1if\1 \r end",
+        \ 'u':  "unless \1unless\1 \r end",
+        \ 'c':  "class \1class\1 \r end",
+        \ 'm':  "module \1module\1 \r end",
+        \ 'd':  "def \1def\1\2args\r..*\r(&)\2 \r end",
+        \ 'p':  "\1method\1 do \2args\r..*\r|&| \2\r end",
+        \ 'P':  "\1method\1 {\2args\r..*\r|&|\2 \r }",
+        \ }
+  let g:surround_custom_mapping.javascript = {
+        \ 'f':  "function(){ \r }"
+        \ }
+  let g:surround_custom_mapping.lua = {
+        \ 'f':  "function(){ \r }"
+        \ }
+  let g:surround_custom_mapping.python = {
+        \ 'p':  "print( \r)",
+        \ '[':  "[\r]",
+        \ }
+  let g:surround_custom_mapping.vim= {
+        \'f':  "function! \r endfunction"
+        \ }
+endfunction
 "}}}
 
 " Gundo.vim
@@ -2250,6 +2280,7 @@ endfunction"}}}
 
 let g:tweetvim_display_separator = 0
 
+" Operator-replace.
 nmap R <Plug>(operator-replace)
 xmap R <Plug>(operator-replace)
 xmap p <Plug>(operator-replace)
@@ -2432,8 +2463,12 @@ nnoremap <silent> [Space]ev  :<C-u>edit $MYVIMRC<CR>
 nnoremap <silent> [Space]eg  :<C-u>edit $MYGVIMRC<CR>
 " Load .gvimrc after .vimrc edited at GVim.
 nnoremap <silent> [Space]rv :<C-u>source $MYVIMRC \|
-      \ if has('gui_running') \| source $MYGVIMRC \| endif \| echo "source $MYVIMRC"<CR>
-nnoremap <silent> [Space]rg :<C-u>source $MYGVIMRC \| echo "source $MYGVIMRC"<CR>
+      \ if has('gui_running') \|
+      \   source $MYGVIMRC \|
+      \ endif \| echo "source $MYVIMRC"<CR>
+nnoremap <silent> [Space]rg
+      \ :<C-u>source $MYGVIMRC \|
+      \ echo "source $MYGVIMRC"<CR>
 "}}}
 
 " Useful save mappings.
@@ -2498,26 +2533,6 @@ nnoremap <silent> [Space]t2 :<C-u>setl shiftwidth=2 softtabstop=2<CR>
 nnoremap <silent> [Space]t4 :<C-u>setl shiftwidth=4 softtabstop=4<CR>
 nnoremap <silent> [Space]t8 :<C-u>setl shiftwidth=8 softtabstop=8<CR>
 "}}}
-
-" [Space]<C-n>, [Space]<C-p>: Move window position {{{
-nnoremap <silent> [Space]<C-n> :<C-u>call <SID>call <SID>swap_window(v:count1)<CR>
-nnoremap <silent> [Space]<TAB> :<C-u>call <SID>call <SID>swap_window(v:count1)<CR>
-nnoremap <silent> [Space]<C-p> :<C-u>call <SID>call <SID>swap_window(-v:count1)<CR>
-
-function! s:modulo(n, m) "{{{
-  let d = a:n * a:m < 0 ? 1 : 0
-  return a:n + (-(a:n + (0 < a:m ? d : -d)) / a:m + d) * a:m
-endfunction "}}}
-
-function! s:swap_window(n) "{{{
-  let curbuf = bufnr('%')
-  let target = s:modulo(winnr() + a:n - 1, winnr('$')) + 1
-
-  execute 'hide' winbufnr(target) . 'buffer'
-  execute target . 'wincmd w'
-  execute curbuf . 'buffer'
-endfunction "}}}
-" }}}
 "}}}
 
 " s: Windows and buffers(High priority) "{{{
@@ -2639,17 +2654,11 @@ nnoremap <silent> [Alt]O O<Space><BS><ESC>
 " Yank to end line.
 nmap [Alt]y y$
 nmap Y y$
-" Delete first character.
-nnoremap [Alt]x ^"_x
-nnoremap X ^"_x
 nnoremap x "_x
-" Folding close.
-nnoremap [Alt]h  zc
 
 " Useless commands
 nnoremap [Alt];  ;
 nnoremap [Alt],  ,
-
 "}}}
 
 " q: Quickfix  "{{{
@@ -2776,8 +2785,10 @@ endfunction "}}}
 
 " Jump to a line and the line of before and after of the same indent."{{{
 " Useful for Python.
-nnoremap <silent> g{ :<C-u>call search('^' . matchstr(getline(line('.') + 1), '\(\s*\)') .'\S', 'b')<CR>^
-nnoremap <silent> g} :<C-u>call search('^' . matchstr(getline(line('.')), '\(\s*\)') .'\S')<CR>^
+nnoremap <silent> g{ :<C-u>call search('^' .
+      \ matchstr(getline(line('.') + 1), '\(\s*\)') .'\S', 'b')<CR>^
+nnoremap <silent> g} :<C-u>call search('^' .
+      \ matchstr(getline(line('.')), '\(\s*\)') .'\S')<CR>^
 "}}}
 
 " Select rectangle.
@@ -2899,7 +2910,8 @@ xnoremap id  i"
 "}}}
 
 " Move to top/center/bottom.
-noremap <expr> zz (winline() == (winheight(0)+1)/ 2) ? 'zt' : (winline() == 1)? 'zb' : 'zz'
+noremap <expr> zz (winline() == (winheight(0)+1)/ 2) ?
+      \ 'zt' : (winline() == 1)? 'zb' : 'zz'
 
 " Capitalize.
 nnoremap gu <ESC>gUiw`]
@@ -2998,8 +3010,6 @@ function! s:open_junk_file()
   endif
 endfunction"}}}
 
-command! -nargs=1 -bang -bar -complete=file Rename saveas<bang> <args> | call delete(expand('#:p'))
-
 " :HighlightWith {filetype} ['a 'b]  XXX: Don't work in some case."{{{
 command! -nargs=+ -range=% HighlightWith <line1>,<line2>call s:highlight_with(<q-args>)
 " xnoremap [Space]h q:HighlightWith<Space>
@@ -3024,7 +3034,7 @@ function! s:highlight_with(args) range
   let b:highlight_count = c + 1
 endfunction"}}}
 
-" For git update.
+" For git update in current directory.
 command! GitPullAll call s:git_pull_all()
 function! s:git_pull_all()
   let current_dir = getcwd()
@@ -3055,7 +3065,6 @@ function! s:git_pull_all()
 
   lcd `=current_dir`
 endfunction
-
 "}}}
 
 "---------------------------------------------------------------------------
@@ -3240,7 +3249,7 @@ else
 
     if has('gui')
       " Use CSApprox.vim
-      NeoBundleSource CSApprox
+      NeoBundleSource csapprox
 
       " Convert colorscheme in Konsole.
       let g:CSApprox_konsole = 1
@@ -3253,7 +3262,7 @@ else
       endif
     else
       " Use guicolorscheme.vim
-      NeoBundleSource guicolorscheme.vim
+      NeoBundleSource vim-guicolorscheme
 
       autocmd MyAutoCmd VimEnter,BufAdd *
             \ if !exists('g:colors_name') | GuiColorScheme candy
@@ -3268,10 +3277,8 @@ else
       let &t_EI = "\<Esc>]12;white\x7"
     endif
   endif
-
   "}}}
 endif
-
 "}}}
 
 "---------------------------------------------------------------------------
