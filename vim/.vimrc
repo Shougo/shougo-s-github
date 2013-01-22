@@ -1458,7 +1458,7 @@ function! s:unite_build()
   return ":\<C-u>Unite -buffer-name=build". tabpagenr() ." -no-quit build\<CR>"
 endfunction
 nnoremap <silent> ;o
-      \ :<C-u>Unite outline -start-insert<CR>
+      \ :<C-u>Unite outline -start-insert -resume<CR>
 nnoremap  [unite]f  :<C-u>Unite source<CR>
 nnoremap <silent> ;t
       \ :<C-u>UniteWithCursorWord -buffer-name=tag tag tag/include<CR>
@@ -1470,7 +1470,7 @@ nnoremap <silent> ;w
 nnoremap <silent> <C-k>
       \ :<C-u>Unite change jump<CR>
 nnoremap <silent> ;g
-      \ :<C-u>Unite grep -buffer-name=search -no-quit<CR>
+      \ :<C-u>Unite grep -buffer-name=search -no-quit -resume<CR>
 nnoremap <silent> ;r
       \ :<C-u>Unite -buffer-name=register register history/yank<CR>
 inoremap <silent><expr> <C-z>
@@ -1621,8 +1621,8 @@ function! bundle.hooks.on_source(bundle)
     imap <buffer> <C-y>     <Plug>(unite_narrowing_path)
     nmap <buffer> <C-y>     <Plug>(unite_narrowing_path)
     nmap <buffer> <C-j>     <Plug>(unite_toggle_auto_preview)
-    nmap <buffer> <C-r>     <Plug>(unite_narrowing_input_history)
-    imap <buffer> <C-r>     <Plug>(unite_narrowing_input_history)
+    " nmap <buffer> <C-r>     <Plug>(unite_narrowing_input_history)
+    " imap <buffer> <C-r>     <Plug>(unite_narrowing_input_history)
     nmap <silent><buffer> <Tab>     :call <SID>NextWindow()<CR>
     nnoremap <silent><buffer><expr> l
           \ unite#smart_map('l', unite#do_action('default'))
@@ -1779,7 +1779,7 @@ function! bundle.hooks.on_source(bundle)
         \       'mapping'    : 'Unite mapping',
         \       'message'    : 'Unite output:message',
         \     }
-  nnoremap <silent> ;u :<C-u>Unite menu:unite<CR>
+  nnoremap <silent> ;u :<C-u>Unite menu:unite -resume<CR>
 
   let g:unite_build_error_icon    = $DOTVIM . '/signs/err.'
         \ . (s:is_windows ? 'bmp' : 'png')
