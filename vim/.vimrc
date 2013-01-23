@@ -382,9 +382,6 @@ NeoBundleLazy 'jiangmiao/simple-javascript-indenter', { 'autoload' : {
 NeoBundleLazy 'jelera/vim-javascript-syntax', { 'autoload' : {
       \ 'filetypes' : 'javascript',
       \ }}
-NeoBundleLazy 'jelera/vim-javascript-syntax', { 'autoload' : {
-      \ 'filetypes' : 'javascript',
-      \ }}
 NeoBundleLazy 'bkad/CamelCaseMotion', { 'autoload' : {
       \ 'mappings' : ['<Plug>CamelCaseMotion_w',
       \               '<Plug>CamelCaseMotion_b'],
