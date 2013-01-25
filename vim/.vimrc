@@ -7,7 +7,12 @@
 " Enable no Vi compatible commands.
 set nocompatible
 
-let s:is_windows = has('win32') || has('win64')
+let s:is_windows = has('win16') || has('win32') || has('win64')
+let s:is_cygwin = has('win32unix')
+let s:is_mac = !s:is_windows && !s:is_cygwin
+      \ && (has('mac') || has('macunix') || has('gui_macvim') ||
+      \   (!executable('xdg-open') &&
+      \     system('uname') =~? '^darwin'))
 
 " Use English interface.
 if s:is_windows
@@ -1540,11 +1545,16 @@ endfunction
 nnoremap <silent> n
       \ :<C-u>UniteResume search -no-start-insert<CR>
 
+let g:unite_source_history_yank_enable = 1
+
 let bundle = neobundle#get('unite.vim')
 function! bundle.hooks.on_source(bundle)
   autocmd MyAutoCmd FileType unite call s:unite_my_settings()
 
   call unite#set_profile('action', 'context', {'start_insert' : 1})
+
+  " Set "-no-quit" automatically in grep unite source.
+  call unite#set_profile('source/grep', 'context', {'no_quit' : 1})
 
   " migemo.
   call unite#custom_source('line_migemo', 'matchers', 'matcher_migemo')
@@ -1623,6 +1633,7 @@ function! bundle.hooks.on_source(bundle)
     nmap <silent><buffer> <Tab>     :call <SID>NextWindow()<CR>
     nnoremap <silent><buffer><expr> l
           \ unite#smart_map('l', unite#do_action('default'))
+    nmap <buffer> <C-e>     <Plug>(unite_narrowing_input_history)
 
     let unite = unite#get_current_unite()
     if unite.buffer_name =~# '^search'
@@ -1672,7 +1683,6 @@ function! bundle.hooks.on_source(bundle)
 
   " Variables.
   let g:unite_enable_split_vertically = 0
-  let g:unite_source_history_yank_enable = 1
   let g:unite_winheight = 20
   let g:unite_enable_start_insert = 0
   let g:unite_enable_short_source_names = 1
@@ -2032,6 +2042,10 @@ function! bundle.hooks.on_source(bundle)
   endif
   " let g:vimfiler_readonly_file_icon = '[O]'
 
+  let g:vimfiler_quick_look_command =
+        \ s:is_windows ? 'maComfort.exe -ql' :
+        \ s:is_mac ? 'qlmanage -p' : 'gloobus-preview'
+
   autocmd MyAutoCmd FileType vimfiler call s:vimfiler_my_settings()
   function! s:vimfiler_my_settings() "{{{
     call vimfiler#set_execute_file('vim', ['vim', 'notepad'])
@@ -2046,6 +2060,7 @@ function! bundle.hooks.on_source(bundle)
 
     nmap <buffer> O <Plug>(vimfiler_sync_with_another_vimfiler)
     nnoremap <silent><buffer><expr> gy vimfiler#do_action('tabopen')
+    nmap <buffer> v <Plug>(vimfiler_quick_look)
 
     " Migemo search.
     if !empty(unite#get_filters('matcher_migemo'))
