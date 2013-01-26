@@ -20,12 +20,11 @@ if s:is_windows
   language message en
 else
   " For Linux.
-  language mes C
+  language message C
 endif
 
 " Use ',' instead of '\'.
 " It is not mapped with respect well unless I set it before setting for plug in.
-let mapleader = ','
 " Use <Leader> in global plugin.
 let g:mapleader = ','
 " Use <LocalLeader> in filetype plugin.
@@ -59,6 +58,7 @@ endfunction
 
 function! s:set_default(var, val)
   if !exists(a:var) || type({a:var}) != type(a:val)
+    silent! unlet {a:var}
     let {a:var} = a:val
   endif
 endfunction
@@ -333,7 +333,9 @@ NeoBundleLazy 'tyru/restart.vim', '', 'same', {
       \  'commands' : 'Restart'
       \ }}
 " NeoBundle 'tyru/skk.vim'
-NeoBundleLazy 'tyru/vim-altercmd', '', 'same'
+NeoBundleLazy 'tyru/vim-altercmd', '', 'same', { 'autoload' : {
+      \ 'mappings' : ':'
+      \ }}
 NeoBundleLazy 'tyru/winmove.vim', '', 'same', { 'autoload' : {
       \ 'gui' : 1,
       \ 'mappings' : [
@@ -357,7 +359,6 @@ NeoBundleLazy 'yuratomo/w3m.vim', '', 'same', { 'autoload' : {
       \ }}
 NeoBundle 'pasela/unite-webcolorname', '', 'same'
 " NeoBundle 'hrsh7th/vim-unite-vcs', '', 'same'
-NeoBundle 'deris/vim-loadafterft', '', 'same'
 NeoBundle 'osyo-manga/unite-quickfix', '', 'same'
 NeoBundle 'osyo-manga/unite-filetype', '', 'same'
 "NeoBundle 'taglist.vim', '', 'same'
@@ -398,9 +399,6 @@ NeoBundleLazy 'matchit.zip', '', 'same', { 'autoload' : {
 " NeoBundle 'perl-mauke.vim', '', 'same'
 NeoBundleLazy 'DirDiff.vim', '', 'same', { 'autoload' : {
       \ 'commands' : 'DirDiff'
-      \ }}
-NeoBundleLazy 'rhysd/clever-f.vim', { 'autoload' : {
-      \ 'mappings' : 'f',
       \ }}
 NeoBundleLazy 'rhysd/clever-f.vim', { 'autoload' : {
       \ 'mappings' : 'f',
@@ -462,7 +460,7 @@ set encoding=utf-8
 
 " Setting of terminal encoding."{{{
 if !has('gui_running')
-  if &term == 'win32' || &term == 'win64'
+  if &term ==# 'win32'
     " Setting when use the non-GUI Japanese console.
 
     " Garbled unless set this.
@@ -530,13 +528,13 @@ if has('kaoriya')
 endif
 
 " When do not include Japanese, use encoding for fileencoding.
-function! AU_ReCheck_FENC() "{{{
+function! s:ReCheck_FENC() "{{{
   if &fileencoding =~# 'iso-2022-jp' && search("[^\x01-\x7e]", 'n') == 0
     let &fileencoding=&encoding
   endif
 endfunction"}}}
 
-autocmd MyAutoCmd BufReadPost * call AU_ReCheck_FENC()
+autocmd MyAutoCmd BufReadPost * call s:ReCheck_FENC()
 
 " Default fileformat.
 set fileformat=unix
@@ -581,9 +579,12 @@ command! WUnicode WUtf16
 "}}}
 
 " Appoint a line feed."{{{
-command! -bang -complete=file -nargs=? WUnix write<bang> ++fileformat=unix <args> | edit <args>
-command! -bang -complete=file -nargs=? WDos write<bang> ++fileformat=dos <args> | edit <args>
-command! -bang -complete=file -nargs=? WMac write<bang> ++fileformat=mac <args> | edit <args>
+command! -bang -complete=file -nargs=? WUnix
+      \ write<bang> ++fileformat=unix <args> | edit <args>
+command! -bang -complete=file -nargs=? WDos
+      \ write<bang> ++fileformat=dos <args> | edit <args>
+command! -bang -complete=file -nargs=? WMac
+      \ write<bang> ++fileformat=mac <args> | edit <args>
 "}}}
 
 if has('multi_byte_ime')
@@ -723,7 +724,7 @@ endif
 " Set tags file.
 " Don't search tags file in current directory. And search upward.
 set tags& tags-=tags tags+=./tags;
-if v:version < 7.3 || (v:version == 7.3 && !has('patch336'))
+if v:version < 703 || (v:version == 7.3 && !has('patch336'))
   " Vim's bug.
   set notagbsearch
 endif
@@ -786,7 +787,7 @@ function! s:my_tabline()  "{{{
     let bufnrs = tabpagebuflist(i)
     let bufnr = bufnrs[tabpagewinnr(i) - 1]  " first window, first appears
 
-    let no = (i <= 10 ? i : '#')  " display 0-origin tabpagenr.
+    let no = i  " display 0-origin tabpagenr.
     let mod = getbufvar(bufnr, '&modified') ? '!' : ' '
 
     " Use gettabvar().
@@ -892,26 +893,8 @@ set display=lastline
 "set display+=uhex
 
 " Disable automatically insert comment.
-autocmd MyAutoCmd FileType * setl formatoptions-=ro | setl formatoptions+=mM
-let g:execcmd_after_ftplugin = {
-  \    '_': [
-  \        'setlocal fo-=t fo-=c fo-=r fo-=o',
-  \    ],
-  \    'c': [
-  \        'setlocal fo-=t fo-=c fo-=r fo-=o',
-  \    ],
-  \    'perl': [
-  \        'setlocal fo-=t fo-=c fo-=r fo-=o',
-  \    ],
-  \}
-let g:execcmd_after_indent = {
-  \    '_': [
-  \        'setlocal fo-=t fo-=c fo-=r fo-=o',
-  \    ],
-  \    'php': [
-  \        'setlocal fo-=t fo-=c fo-=r fo-=o',
-  \    ],
-  \}
+autocmd MyAutoCmd FileType *
+      \ setl formatoptions-=ro | setl formatoptions+=mM
 
 if v:version >= 703
   " For conceal.
@@ -944,15 +927,13 @@ augroup MyAutoCmd
 
   " Close help and git window by pressing q.
   autocmd FileType help,git-status,git-log,qf,
-        \gitcommit,quickrun,qfreplace,ref,
-        \simpletap-summary,vcs-commit,vcs-status,vim-hacks
+        \gitcommit,quickrun,qfreplace,ref,vcs-commit,vcs-status
         \ nnoremap <buffer><silent> q :<C-u>call <sid>smart_close()<CR>
   autocmd FileType * if (&readonly || !&modifiable) && !hasmapto('q', 'n')
         \ | nnoremap <buffer><silent> q :<C-u>call <sid>smart_close()<CR>| endif
 
   autocmd FileType gitcommit setlocal nofoldenable
 
-  " Close help and git window by pressing q.
   autocmd FileType ref nnoremap <buffer> <TAB> <C-w>w
 
   " Enable omni completion.
@@ -981,11 +962,6 @@ augroup MyAutoCmd
         \ | setlocal ft=hybrid | endif
 augroup END
 
-" Java
-let g:java_highlight_functions = 'style'
-let g:java_highlight_all = 1
-let g:java_allow_cpp_keywords = 1
-
 " PHP
 let g:php_folding = 1
 
@@ -1003,6 +979,7 @@ let g:vimsyntax_noerror = 1
 let g:is_bash = 1
 
 " Java
+let g:java_highlight_functions = 'style'
 let g:java_highlight_all=1
 let g:java_highlight_debug=1
 let g:java_allow_cpp_keywords=1
@@ -1084,9 +1061,6 @@ function! bundle.hooks.on_source(bundle)
   "let g:neocomplcache_disable_auto_complete = 0
   let g:neocomplcache_max_list = 100
   let g:neocomplcache_force_overwrite_completefunc = 1
-  if $USER ==# 'root'
-    let g:neocomplcache_temporary_dir = '/root/.neocon'
-  endif
   if !exists('g:neocomplcache_omni_patterns')
     let g:neocomplcache_omni_patterns = {}
   endif
@@ -1108,8 +1082,6 @@ function! bundle.hooks.on_source(bundle)
   let g:jedi#auto_initialization = 1
   let g:jedi#popup_on_dot = 0
   let g:jedi#rename_command = '<leader>R'
-  autocmd MyAutoCmd FileType python*
-        \ NeoBundleSource jedi-vim | let b:did_ftplugin = 1
   let g:neocomplcache_force_omni_patterns.python = '[^. \t]\.\w*'
 
   " Define dictionary.
@@ -1119,7 +1091,6 @@ function! bundle.hooks.on_source(bundle)
         \ 'scala' : expand('$DOTVIM/dict/scala.dict'),
         \ 'ruby' : expand('$DOTVIM/dict/ruby.dict'),
         \ 'int-termtter' : expand('~/.vimshell/int-history/int-termtter'),
-        \ 'hoge' : expand('~/work/test.dic'),
         \ }
 
   let g:neocomplcache_omni_functions = {
@@ -1891,59 +1862,7 @@ let g:changelog_username = "Shougo "
 "}}}
 
 " quickrun.vim"{{{
-function! s:init_quickrun()
-  for [key, com] in items({
-        \   '<Leader>x' : '<=@i >:',
-        \   '<Leader>p' : '<=@i >!',
-        \   '<Leader>"' : '<=@i >=@"',
-        \   '<Leader>w' : '<=@i >',
-        \   '<Leader>q' : '<=@i >>',
-        \   '<Leader>vx' : '-eval 1 <=@i >:',
-        \   '<Leader>vp' : '-eval 1 <=@i >!',
-        \   '<Leader>v"' : '-eval 1 <=@i >=@"',
-        \   '<Leader>vw' : '-eval 1 <=@i >',
-        \   '<Leader>vq' : '-eval 1 <=@i >>',
-        \ })
-    execute 'nnoremap <silent>' key ':QuickRun' com '-mode n<CR>'
-    execute 'vnoremap <silent>' key ':QuickRun' com '-mode v<CR>'
-  endfor
-
-  call s:set_default('g:QuickRunConfig', {'mkd': {'command': 'mdv2html'}})
-  call s:set_default('g:QuickRunConfig', {'xmodmap': {}})
-endfunction
-call s:init_quickrun()
 nmap <silent> [Space]r <Plug>(quickrun-op)
-
-if !exists('g:quickrun_config')
-  " Enable async.
-  let g:quickrun_config = {
-        \   '*': {'runmode': 'async:vimproc'},
-        \ }
-
-  if s:is_windows
-    function! TexEncoding()
-      if &fileencoding ==# 'utf-8'
-        let arg = 'utf8 '
-      elseif &fileencoding =~# '^euc-\%(jp\|jisx0213\)$'
-        let arg = 'euc '
-      elseif &fileencoding =~# '^iso-2022-jp'
-        let arg = 'jis '
-      else " cp932
-        let arg = 'sjis '
-      endif
-
-      return arg
-    endfunction
-    let tex = 'platex -kanji={TexEncoding()}'
-    let g:quickrun_config.tex = { 'command' : tex, 'exec': ['%c %s', 'dvipdfmx %s:r.dvi'] }
-  else
-    let tex = 'platex'
-    let g:quickrun_config.tex = { 'command' : tex, 'exec': ['%c %s', 'dvipdfmx %s:r.dvi', 'open %s:r.pdf'] }
-  endif
-  unlet tex
-
-  let g:quickrun_config.vim = {}
-endif
 "}}}
 
 " python.vim
@@ -2331,13 +2250,8 @@ nmap gk k
 autocmd MyAutoCmd TabEnter * NeoBundleSource vim-tabpagecd
 
 " altercmd.vim{{{
-nnoremap :      :<C-u>NeoBundleSource vim-altercmd<CR>:
-
 let bundle = neobundle#get('vim-altercmd')
 function! bundle.hooks.on_source(bundle)
-  silent! nunmap :
-  silent! xunmap :
-
   call altercmd#load()
 
   AlterCommand <cmdwin> u[nite] Unite
@@ -2446,12 +2360,12 @@ cnoremap <C-y>          <C-r>*
 "}}}
 
 " Command line buffer."{{{
-nnoremap <sid>(command-line-enter) q:
-xnoremap <sid>(command-line-enter) q:
-nnoremap <sid>(command-line-norange) q:<C-u>
+nnoremap <SID>(command-line-enter) q:
+xnoremap <SID>(command-line-enter) q:
+nnoremap <SID>(command-line-norange) q:<C-u>
 
-nmap ;;  <sid>(command-line-enter)
-xmap ;;  <sid>(command-line-enter)
+nmap ;;  <SID>(command-line-enter)
+xmap ;;  <SID>(command-line-enter)
 
 autocmd MyAutoCmd CmdwinEnter * call s:init_cmdwin()
 autocmd MyAutoCmd CmdwinLeave * let g:neocomplcache_enable_auto_select = 1
@@ -2595,7 +2509,7 @@ nmap    s [Window]
 nnoremap <silent> [Window]p  :<C-u>call <SID>split_nicely()<CR>
 nnoremap <silent> [Window]v  :<C-u>vsplit<CR>
 nnoremap <silent> [Window]c  :<C-u>call <sid>smart_close()<CR>
-nnoremap <silent> -  :<C-u>call <sid>smart_close()<CR>
+nnoremap <silent> -  :<C-u>call <SID>smart_close()<CR>
 nnoremap <silent> [Window]o  :<C-u>only<CR>
 
 " A .vimrc snippet that allows you to move around windows beyond tabs
@@ -2741,10 +2655,10 @@ nnoremap <silent> <C-b> <C-b>
 nnoremap ZZ  <Nop>
 
 " Like gv, but select the last changed text.
-nnoremap gc  `[v`]
+" nnoremap gc  `[v`]
 " Specify the last changed text as {motion}.
-vnoremap <silent> gc  :<C-u>normal gc<CR>
-onoremap <silent> gc  :<C-u>normal gc<CR>
+" vnoremap <silent> gc  :<C-u>normal gc<CR>
+" onoremap <silent> gc  :<C-u>normal gc<CR>
 
 " Auto escape / and ? in search command.
 cnoremap <expr> / getcmdtype() == '/' ? '\/' : '/'
@@ -2985,7 +2899,7 @@ function! s:force_blockwise_visual(next_key) "{{{
   else  " mode() ==# "\<C-v>"
     return a:next_key
   endif
-endfunction}}}
+endfunction"}}}
 "}}}
 
 " Improved increment.
