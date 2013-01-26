@@ -3114,29 +3114,6 @@ endfunction
 " Functions:"{{{
 "
 
-" LevenShtein argorithm."{{{
-function! CalcLeven(str1, str2)
-  let [p1, p2, l1, l2] = [[], [], len(a:str1), len(a:str2)]
-
-  for i in range(l2+1)
-    call add(p1, i)
-  endfor
-  for i in range(l2+1)
-    call add(p2, 0)
-  endfor
-
-  for i in range(l1)
-    let p2[0] = p1[0] + 1
-    for j in range(l2)
-      let p2[j+1] = min([p1[j] + ((a:str1[i] == a:str2[j]) ? 0 : 1),
-            \p1[j+1] + 1, p2[j]+1])
-    endfor
-    let [p1, p2] = [p2, p1]
-  endfor
-
-  return p1[l2]
-endfunction"}}}
-
 function! SnipMid(str, len, mask) "{{{
   if a:len >= len(a:str)
     return a:str
@@ -3149,60 +3126,6 @@ function! SnipMid(str, len, mask) "{{{
 
   return (len_head > 0 ? a:str[: len_head - 1] : '')
         \ . a:mask . (len_tail > 0 ? a:str[-len_tail :] : '')
-endfunction"}}}
-
-" SnipNest('std::vector<std::vector<int>>', '<', '>', 1)
-"  => std::vector<<>>
-function! SnipNest(str, start, end, max) "{{{
-  let _ = ''
-  let nest_level = 0
-  for c in split(a:str, '\zs')
-    if c ==# a:start
-      let nest_level += 1
-      let _ .= c
-    elseif c ==# a:end
-      let nest_level -= 1
-      let _ .= c
-    elseif nest_level <= a:max
-      let _ .= c
-    endif
-  endfor
-
-  return _
-endfunction"}}}
-
-" Search match pair."{{{
-function! MatchPair(string, start_pattern, end_pattern, start_cnt)
-  let end = -1
-  let start_pattern = '\%(' . a:start_pattern . '\)'
-  let end_pattern = '\%(' . a:end_pattern . '\)'
-
-  let i = a:start_cnt
-  let max = len(a:string)
-  let nest_level = 0
-  while i < max
-    if match(a:string, start_pattern, i) >= 0
-      let i = matchend(a:string, start_pattern, i)
-      let nest_level += 1
-    elseif match(a:string, end_pattern, i) >= 0
-      let end = match(a:string, end_pattern, i)
-      let nest_level -= 1
-
-      if nest_level == 0
-        return end
-      endif
-
-      let i = matchend(a:string, end_pattern, i)
-    else
-      break
-    endif
-  endwhile
-
-  if nest_level != 0
-    return -1
-  else
-    return end
-  endif
 endfunction"}}}
 "}}}
 
