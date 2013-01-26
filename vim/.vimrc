@@ -189,7 +189,7 @@ NeoBundle 'Shougo/vimproc', {
 "       \  { 'autoload' : { 'filetypes' : 'vim' }}
 
 NeoBundle 'Shougo/vimshell'
-call neobundle#config('vimshell',{
+call neobundle#config('vimshell', {
       \ 'lazy' : 1,
       \ 'autoload' : {
       \   'commands' : [{ 'name' : 'VimShell',
@@ -202,9 +202,26 @@ NeoBundleLazy 'yomi322/vim-gitcomplete', { 'autoload' : {
       \ 'filetype' : 'vimshell'
       \ }}
 
-NeoBundleLazy 'Shougo/vinarise', { 'autoload' :
-      \  {'commands' : 'Vinarise' }
-      \ }
+NeoBundle 'Shougo/vinarise',
+call neobundle#config('vinarise', {
+      \ 'lazy' : 1,
+      \ 'autoload' : {
+      \   'commands' : 'Vinarise',
+      \ }})
+
+NeoBundle 'Shougo/vesting'
+call neobundle#config('vesting', {
+      \ 'lazy' : 1,
+      \ 'autoload' : {
+      \   'commands' : 'Unite',
+      \ }})
+NeoBundle 'vim-jp/vital.vim'
+call neobundle#config('vital.vim', {
+      \ 'lazy' : 1,
+      \ 'autoload' : {
+      \     'commands' : ['Vitalize'],
+      \ }})
+
 " NeoBundle 'h1mesuke/unite-outline'
 NeoBundle 'Shougo/unite-outline', '', 'same'
 NeoBundleLazy 'hail2u/vim-css3-syntax', '', 'same'
@@ -308,7 +325,7 @@ NeoBundleLazy 'tyru/restart.vim', '', 'same', {
       \  'commands' : 'Restart'
       \ }}
 " NeoBundle 'tyru/skk.vim'
-NeoBundle 'tyru/vim-altercmd', '', 'same'
+NeoBundleLazy 'tyru/vim-altercmd', '', 'same'
 NeoBundleLazy 'tyru/winmove.vim', '', 'same', { 'autoload' : {
       \ 'gui' : 1,
       \ 'mappings' : [
@@ -323,9 +340,9 @@ NeoBundleLazy 'ujihisa/unite-colorscheme', '', 'same'
 NeoBundleLazy 'ujihisa/unite-locate', '', 'same'
 NeoBundleLazy 'ujihisa/vimshell-ssh'
 NeoBundle 'vim-jp/vimdoc-ja.git'
-NeoBundleLazy 'vim-scripts/netrw.vim', '', 'same', { 'autoload' : {
-      \ 'commands' : 'Explore',
-      \ }}
+" NeoBundleLazy 'vim-scripts/netrw.vim', '', 'same', { 'autoload' : {
+      " \ 'commands' : 'Explore',
+      " \ }}
 " NeoBundleLazy 'Markdown', '', 'same'
 NeoBundleLazy 'yuratomo/w3m.vim', '', 'same', { 'autoload' : {
       \ 'commands' : 'W3m',
@@ -337,15 +354,17 @@ NeoBundle 'osyo-manga/unite-quickfix', '', 'same'
 NeoBundle 'osyo-manga/unite-filetype', '', 'same'
 "NeoBundle 'taglist.vim', '', 'same'
 NeoBundleLazy 'rbtnn/hexript.vim'
-NeoBundle 'vim-jp/vital.vim'
 NeoBundleLazy 'tpope/vim-endwise', '', 'same'
 NeoBundleLazy 'Rip-Rip/clang_complete', {
       \ 'autoload' : {
       \     'filetypes' : ['c', 'cpp'],
       \    },
       \ }
-NeoBundle 'kana/vim-tabpagecd', '', 'same'
-NeoBundle 'rhysd/accelerated-jk'
+NeoBundleLazy 'kana/vim-tabpagecd', '', 'same'
+NeoBundleLazy 'rhysd/accelerated-jk', { 'autoload' : {
+      \ 'mappings' : ['<Plug>(accelerated_jk_gj)',
+      \               '<Plug>(accelerated_jk_gk)'],
+      \ }}
 " NeoBundle 'gmarik/vundle'
 NeoBundleLazy 'davidhalter/jedi-vim', {
       \ 'autoload' : {
@@ -391,6 +410,9 @@ NeoBundleLazy 'bkad/CamelCaseMotion', { 'autoload' : {
       \ 'mappings' : ['<Plug>CamelCaseMotion_w',
       \               '<Plug>CamelCaseMotion_b'],
       \ }}
+NeoBundleLazy 'HybridText', { 'autoload' : {
+      \ 'filetypes' : 'hybrid',
+      \ }}
 
 NeoBundleLocal ~/.vim/bundle
 
@@ -406,6 +428,13 @@ NeoBundleLocal ~/.vim/bundle
 " NeoBundleLazy 'klen/python-mode'
 "}}}
 
+" Disable menu.vim
+let g:did_install_default_menus = 1
+" Disable GetLatestVimPlugin.vim
+let g:loaded_getscriptPlugin = 1
+" Disable netrw.vim
+let g:loaded_netrwPlugin = 1
+
 filetype plugin indent on
 
 " Enable syntax color.
@@ -413,9 +442,6 @@ syntax enable
 
 " Installation check.
 NeoBundleCheck
-
-" altercommand.vim
-call altercmd#load()
 "}}}
 
 "---------------------------------------------------------------------------
@@ -947,6 +973,9 @@ augroup MyAutoCmd
   \ |   unlet! b:ftdetect
   \ |   filetype detect
   \ | endif
+
+  autocmd BufEnter,BufNewFile * if bufname('%') != '' && &filetype == ''
+        \ | setlocal ft=hybrid | endif
 augroup END
 
 " Java
@@ -1450,9 +1479,6 @@ xnoremap    [unite]   <Nop>
 nmap    ;u [unite]
 xmap    ;u [unite]
 
-AlterCommand <cmdwin> u[nite] Unite
-AlterCommand u[nite] Unite
-
 nnoremap [unite]u  q:Unite<Space>
 " nnoremap <silent> :  :<C-u>Unite history/command command<CR>
 nnoremap <expr><silent> ;b  <SID>unite_build()
@@ -1524,7 +1550,6 @@ nnoremap <silent> <C-h>  :<C-u>Unite -buffer-name=help help<CR>
 nnoremap <silent> g<C-h>  :<C-u>UniteWithInput help<CR>
 
 " Search.
-" nnoremap <expr> /  <SID>smart_search_expr('/',
 nnoremap <expr><silent> /  <SID>smart_search_expr(
       \ ":\<C-u>Unite -buffer-name=search -no-split -start-insert line/fast\<CR>",
       \ ":\<C-u>Unite -buffer-name=search -start-insert line\<CR>")
@@ -1533,7 +1558,6 @@ nnoremap <expr> g/  <SID>smart_search_expr('g/',
 nnoremap [Alt]/  g/
 nnoremap <silent><expr> ? <SID>smart_search_expr('?',
       \ ":\<C-u>Unite mapping\<CR>")
-" nnoremap <silent><expr> * <SID>smart_search_expr('*',
 nnoremap <silent><expr> * <SID>smart_search_expr(
       \ ":\<C-u>UniteWithCursorWord -buffer-name=search line/fast\<CR>",
       \ ":\<C-u>UniteWithCursorWord -buffer-name=search line\<CR>")
@@ -1716,18 +1740,6 @@ function! bundle.hooks.on_source(bundle)
   let g:unite_source_alias_aliases.line_migemo = {
         \ 'source' : 'line',
         \ }
-
-  let g:unite_source_alias_aliases.sow_moveentry_entry = {
-        \ 'source': 'sow_gatherentry',
-        \ }
-  let sow_moveto_entry ={'description': 'action :move entry to ...',}
-  function! sow_moveto_entry.func(candidates)
-    echo "test"
-  endfunction
-  call unite#custom_action(
-        \ 'source/sow_moveentry_entry/*', 'sow_moveto_entry', sow_moveto_entry)
-  call unite#custom_default_action(
-        \ 'source/sow_moveentry_entry/*', 'sow_moveto_entry')
 
   " For unite-menu.
   let g:unite_source_menu_menus = {}
@@ -1992,12 +2004,6 @@ endfunction
 "}}}
 
 " vimfiler.vim"{{{
-" Alter commands.
-AlterCommand <cmdwin> e[dit] Edit
-AlterCommand <cmdwin> r[ead] Read
-AlterCommand <cmdwin> s[ource] Source
-AlterCommand <cmdwin> w[rite] Write
-
 "nmap    [Space]v   <Plug>(vimfiler_switch)
 nnoremap <silent>   [Space]v   :<C-u>VimFiler<CR>
 nnoremap    [Space]ff   :<C-u>VimFilerExplorer<CR>
@@ -2178,13 +2184,16 @@ autocmd MyAutoCmd FileType * call s:define_surround_keymappings()
 
 function! s:define_surround_keymappings()
   if !&modifiable
-    return
+    silent! nunmap <buffer> ds
+    silent! nunmap <buffer> cs
+    silent! nunmap <buffer> ys
+    silent! nunmap <buffer> yS
+  else
+    nmap <buffer>         ds   <Plug>Dsurround
+    nmap <buffer>         cs   <Plug>Csurround
+    nmap <buffer>         ys   <Plug>Ysurround
+    nmap <buffer>         yS   <Plug>YSurround
   endif
-
-  nmap <buffer>         ds   <Plug>Dsurround
-  nmap <buffer>         cs   <Plug>Csurround
-  nmap <buffer>         ys   <Plug>Ysurround
-  nmap <buffer>         yS   <Plug>YSurround
 endfunction
 "}}}
 
@@ -2304,6 +2313,7 @@ let Tlist_Exit_OnlyWindow = 1
 
 " restart.vim {{{
 let g:restart_save_window_values = 0
+nnoremap <silent> [Space]re  :<C-u>Restart<CR>
 "}}}
 
 " accelerated-jk
@@ -2311,6 +2321,34 @@ nmap <silent>j <Plug>(accelerated_jk_gj)
 nmap gj j
 nmap <silent>k <Plug>(accelerated_jk_gk)
 nmap gk k
+
+" tabpagecd
+autocmd MyAutoCmd TabEnter * NeoBundleSource vim-tabpagecd
+
+" altercmd.vim{{{
+nnoremap :      :<C-u>NeoBundleSource vim-altercmd<CR>:
+
+let bundle = neobundle#get('vim-altercmd')
+function! bundle.hooks.on_source(bundle)
+  silent! nunmap :
+  silent! xunmap :
+
+  call altercmd#load()
+
+  AlterCommand <cmdwin> u[nite] Unite
+  AlterCommand u[nite] Unite
+  AlterCommand <cmdwin> u[nite] Unite
+  AlterCommand u[nite] Unite
+  AlterCommand <cmdwin> e[dit] Edit
+  AlterCommand e[dit] Edit
+  AlterCommand <cmdwin> r[ead] Read
+  AlterCommand r[ead] Read
+  AlterCommand <cmdwin> s[ource] Source
+  AlterCommand s[ource] Source
+  AlterCommand <cmdwin> w[rite] Write
+  AlterCommand w[rite] Write
+endfunction
+"}}}
 "}}}
 
 "---------------------------------------------------------------------------
@@ -2416,13 +2454,13 @@ autocmd MyAutoCmd CmdwinEnter * call s:init_cmdwin()
 autocmd MyAutoCmd CmdwinLeave * let g:neocomplcache_enable_auto_select = 1
 
 function! s:init_cmdwin()
+  NeoBundleSource vim-altercmd
+
   let g:neocomplcache_enable_auto_select = 0
   let b:neocomplcache_sources_list = ['vim_complete']
 
   nnoremap <buffer><silent> q :<C-u>quit<CR>
   nnoremap <buffer><silent> <TAB> :<C-u>quit<CR>
-  nnoremap <buffer> ; :
-  xnoremap <buffer> ; :
   inoremap <buffer><expr><CR> neocomplcache#close_popup()."\<CR>"
   inoremap <buffer><expr><C-h> col('.') == 1 ?
         \ "\<ESC>:quit\<CR>" : neocomplcache#cancel_popup()."\<C-h>"
@@ -2654,8 +2692,6 @@ nmap    e  [Alt]
 xmap    e  [Alt]
 
 " Indent paste.
-"nnoremap [Alt]p pm``[=`]``
-"nnoremap [Alt]P Pm``[=`]``
 nnoremap <silent> [Alt]p o<Esc>pm``[=`]``^
 xnoremap <silent> [Alt]p o<Esc>pm``[=`]``^
 nnoremap <silent> [Alt]P O<Esc>Pm``[=`]``^
