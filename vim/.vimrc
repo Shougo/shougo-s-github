@@ -2069,7 +2069,7 @@ function! bundle.hooks.on_source(bundle)
 
     nmap <buffer> O <Plug>(vimfiler_sync_with_another_vimfiler)
     nnoremap <silent><buffer><expr> gy vimfiler#do_action('tabopen')
-    nmap <buffer> v <Plug>(vimfiler_quick_look)
+    nmap <buffer> p <Plug>(vimfiler_quick_look)
 
     " Migemo search.
     if !empty(unite#get_filters('matcher_migemo'))
