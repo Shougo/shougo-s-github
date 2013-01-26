@@ -434,7 +434,9 @@ NeoBundleLocal ~/.vim/bundle
 "}}}
 
 " Disable menu.vim
-let g:did_install_default_menus = 1
+if has('gui_running')
+  set guioptions=Mc
+endif
 " Disable GetLatestVimPlugin.vim
 let g:loaded_getscriptPlugin = 1
 " Disable netrw.vim

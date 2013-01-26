@@ -144,7 +144,7 @@ set mousehide
 "
 
 " Hide toolbar and menus.
-set guioptions-=T
+set guioptions-=Tt
 set guioptions-=m
 " Scrollbar is always off.
 set guioptions-=rL
