@@ -222,6 +222,13 @@ call neobundle#config('vital.vim', {
       \     'commands' : ['Vitalize'],
       \ }})
 
+NeoBundle 'hrsh7th/vim-versions'
+call neobundle#config('hrsh7th/vim-versions', {
+      \ 'lazy' : 1,
+      \ 'autoload' : {
+      \   'commands' : 'UniteVersions'},
+      \ })
+
 " NeoBundle 'h1mesuke/unite-outline'
 NeoBundle 'Shougo/unite-outline', '', 'same'
 NeoBundleLazy 'hail2u/vim-css3-syntax', '', 'same'
@@ -391,9 +398,6 @@ NeoBundleLazy 'matchit.zip', '', 'same', { 'autoload' : {
 NeoBundleLazy 'DirDiff.vim', '', 'same', { 'autoload' : {
       \ 'commands' : 'DirDiff'
       \ }}
-NeoBundleLazy 'hrsh7th/vim-versions', {
-      \ 'autoload' : {'commands' : 'UniteVersions'},
-      \ }
 NeoBundleLazy 'rhysd/clever-f.vim', { 'autoload' : {
       \ 'mappings' : 'f',
       \ }}

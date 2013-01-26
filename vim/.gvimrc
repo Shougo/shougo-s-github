@@ -146,12 +146,6 @@ set mousehide
 " Hide toolbar and menus.
 set guioptions-=T
 set guioptions-=m
-" Toggle menu open if press <F2>.
-nnoremap <silent> <F2> :<C-u>if &guioptions =~# 'm' <Bar>
-      \set guioptions-=m <Bar>
-      \else <Bar>
-      \set guioptions+=m <Bar>
-      \endif <CR>
 " Scrollbar is always off.
 set guioptions-=rL
 " Not guitablabel.
