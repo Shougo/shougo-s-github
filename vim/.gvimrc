@@ -129,8 +129,7 @@ endif
 "---------------------------------------------------------------------------
 " Mouse:"{{{
 "
-" Show popup menu if right click.
-set mousemodel=popup
+set mousemodel=extend
 
 " Don't focus the window when the mouse pointer is moved.
 set nomousefocus

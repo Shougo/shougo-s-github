@@ -2374,6 +2374,8 @@ nnoremap > >>
 nnoremap < <<
 xnoremap > >gv
 xnoremap < <gv
+
+xmap <silent> y "*y:let [@+,@"]=[@*,@*]<CR>
 "}}}
 
 " Insert mode keymappings: "{{{
