@@ -172,7 +172,8 @@ call neobundle#config('vimfiler', {
       \ 'autoload' : {
       \    'commands' : [{ 'name' : 'VimFiler',
       \                    'complete' : 'customlist,vimfiler#complete' },
-      \                  'VimFilerExplorer', 'Edit'],
+      \                  'VimFilerExplorer',
+      \                  'Edit', 'Read', 'Source', 'Write'],
       \    'mappings' : ['<Plug>(vimfiler_switch)']
       \ }
       \ })
@@ -599,7 +600,7 @@ set smartcase
 " Enable incremental search.
 set incsearch
 " Don't highlight search result.
-set hlsearch
+set nohlsearch
 
 " Searches wrap around the end of the file.
 set wrapscan
@@ -910,9 +911,6 @@ let g:execcmd_after_indent = {
   \    ],
   \}
 
-" Enable multibyte format.
-set formatoptions+=mM
-
 if v:version >= 703
   " For conceal.
   set conceallevel=2 concealcursor=iv
@@ -936,7 +934,8 @@ augroup MyAutoCmd
         \let b:current_syntax='' | syntax enable
 
   " Auto reload VimScript.
-  autocmd BufWritePost,FileWritePost *.vim if &autoread | source <afile> | echo "source " . bufname('%') | endif
+  autocmd BufWritePost,FileWritePost *.vim if &autoread
+        \ | source <afile> | echo 'source ' . bufname('%') | endif
 
   " Manage long Rakefile easily
   autocmd BufNewfile,BufRead Rakefile foldmethod=syntax foldnestmax=1
@@ -953,8 +952,6 @@ augroup MyAutoCmd
 
   " Close help and git window by pressing q.
   autocmd FileType ref nnoremap <buffer> <TAB> <C-w>w
-
-  autocmd FileType c setlocal foldmethod=syntax
 
   " Enable omni completion.
   " autocmd FileType ada setlocal omnifunc=adacomplete#Complete
@@ -1723,6 +1720,12 @@ function! bundle.hooks.on_source(bundle)
   " let g:unite_source_directory_mru_time_format = ''
   let g:unite_source_directory_mru_limit = 300
 
+  if s:is_windows
+  else
+    " Like Textmate icons.
+    let g:unite_marked_icon = '✗'
+  endif
+
   if executable('jvgrep')
     " For jvgrep.
     let g:unite_source_grep_command = 'jvgrep'
@@ -1830,10 +1833,6 @@ xmap <silent> W <Plug>CamelCaseMotion_w
 nmap <silent> B <Plug>CamelCaseMotion_b
 xmap <silent> B <Plug>CamelCaseMotion_b
 ""}}}
-
-" AutoProtectFile.vim
-let g:autoprotectfile_readonly_paths = "$VIMRUNTIME/*,~/important"
-let g:autoprotectfile_nomodifiable_paths = "$VIMRUNTIME/*,~/important"
 
 " smartchr.vim"{{{
 let bundle = neobundle#get('vim-smartchr')
@@ -2385,10 +2384,6 @@ inoremap <C-t>  <C-v><TAB>
 inoremap <C-d>  <Del>
 " <C-a>: move to head.
 inoremap <silent><C-a>  <C-o>^
-" <A-b>: previous word.
-inoremap <A-b>  <S-Left>
-" <A-f>: next word.
-inoremap <A-f>  <S-Right>
 " Enable undo <C-w> and <C-u>.
 inoremap <C-w>  <C-g>u<C-w>
 inoremap <C-u>  <C-g>u<C-u>
@@ -2397,7 +2392,6 @@ if has('gui_running')
   inoremap <ESC> <ESC>
 endif
 
-inoremap <silent><C-a>  <Home>
 " H, D: delete camlcasemotion.
 inoremap <expr>H           <SID>camelcase_delete(0)
 inoremap <expr>D           <SID>camelcase_delete(1)
@@ -2443,7 +2437,8 @@ cnoremap <C-n>          <Down>
 " <C-p>: previous history.
 cnoremap <C-p>          <Up>
 " <C-k>, K: delete to end.
-cnoremap <C-k> <C-\>e getcmdpos() == 1 ? '' : getcmdline()[:getcmdpos()-2]<CR>
+cnoremap <C-k> <C-\>e getcmdpos() == 1 ?
+      \ '' : getcmdline()[:getcmdpos()-2]<CR>
 " <C-y>: paste.
 cnoremap <C-y>          <C-r>*
 "}}}
@@ -2640,13 +2635,6 @@ function! s:PreviousWindowOrTab()
 endfunction
 
 nnoremap <silent> [Window]<Space>  :<C-u>call <SID>ToggleSplit()<CR>
-function! s:MovePreviousWindow()
-  let prev_name = winnr()
-  silent! wincmd p
-  if prev_name == winnr()
-    silent! wincmd w
-  endif
-endfunction
 " If window isn't splited, split buffer.
 function! s:ToggleSplit()
   let prev_name = winnr()
@@ -2724,7 +2712,8 @@ nmap    q  [Quickfix]
 nnoremap Q  q
 
 " Toggle quickfix window.
-nnoremap <silent> [Quickfix]<Space> :<C-u>call <SID>toggle_quickfix_window()<CR>
+nnoremap <silent> [Quickfix]<Space>
+      \ :<C-u>call <SID>toggle_quickfix_window()<CR>
 function! s:toggle_quickfix_window()
   let _ = winnr('$')
   cclose
@@ -3215,10 +3204,6 @@ function! MatchPair(string, start_pattern, end_pattern, start_cnt)
     return end
   endif
 endfunction"}}}
-
-function! s:expand(path)
-  return expand(escape(a:path, '*?[]"={}'))
-endfunction
 "}}}
 
 "---------------------------------------------------------------------------
@@ -3286,8 +3271,9 @@ else
         augroup MyAutoCmd
           " Show filename on screen statusline.
           " But invalid 'another' screen buffer.
-          autocmd BufEnter * if $WINDOW != 0 &&  bufname("") !~ "[A-Za-z0-9\]*://"
-                \ | silent! exe '!echo -n "kv:%:t\\"' | endif
+          autocmd BufEnter * if $WINDOW != 0 &&
+                \ bufname("") !~ "[A-Za-z0-9\]*://"
+                \   | silent! exe '!echo -n "kv:%:t\\"' | endif
           " When 'mouse' isn't empty, Vim will freeze. Why?
           autocmd VimLeave * :set mouse=
         augroup END
@@ -3345,7 +3331,6 @@ set mouse=a
 set helplang& helplang=en,ja
 
 " Default home directory.
-let g:home = getcwd()
 let t:cwd = getcwd()
 "}}}
 

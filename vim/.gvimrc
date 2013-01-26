@@ -70,7 +70,8 @@ if has('win32') || has('win64')
   " Set transparency.
   "autocmd GuiEnter * set transparency=221
   " Toggle font setting.
-  command! TransparencyToggle let &transparency = (&transparency != 255 && &transparency != 0)? 255 : 221
+  command! TransparencyToggle let &transparency =
+        \ (&transparency != 255 && &transparency != 0)? 255 : 221
   nnoremap TT     :<C-u>TransparencyToggle<CR>
 else
   " Width of window.
@@ -203,21 +204,10 @@ set nohlsearch
 " Don't flick cursor.
 set guicursor&
 set guicursor+=a:blinkon0
-
 "}}}
 
 "---------------------------------------------------------------------------
 " Platform depends:"{{{
-"
-if has('win32') || has('win64') 
-  " For Windows
-else
-  " For Linux
-
-  "set shell=/bin/bash
-  " Use zsh.
-  set shell=zsh
-endif
 "}}}
 
 "---------------------------------------------------------------------------
