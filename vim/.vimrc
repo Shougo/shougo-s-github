@@ -98,7 +98,6 @@ endif
 
 let g:neobundle#enable_tail_path = 1
 let g:neobundle#default_options = {
-      \ 'same' : { 'stay_same' : 1, 'overwrite' : 0 },
       \ '_' : { 'overwrite' : 0 },
       \ }
 
@@ -107,8 +106,8 @@ call neobundle#rc(expand('~/.bundle'))
 " neobundle.vim"{{{
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-NeoBundleLazy 'tpope/vim-surround', '', 'same'
-NeoBundleLazy 't9md/vim-surround_custom_mapping', '', 'same', {
+NeoBundleLazy 'tpope/vim-surround'
+NeoBundleLazy 't9md/vim-surround_custom_mapping', {
       \ 'depends' : 'vim-surround',
       \ 'autoload' : {
       \   'mappings' : [
@@ -120,10 +119,10 @@ NeoBundleLazy 'basyura/TweetVim', { 'depends' :
       \ 'autoload' : { 'commands' : 'TweetVimHomeTimeline' }}
       " \ ['basyura/twibill.vim', 'tyru/open-browser.vim', 'yomi322/neco-tweetvim'] }
 " NeoBundleLazy 'c9s/perlomni.vim'
-NeoBundleLazy 'choplin/unite-vim_hacks', '', 'same'
-NeoBundleLazy 'liquidz/vimfiler-sendto', '', 'same'
+NeoBundleLazy 'choplin/unite-vim_hacks'
+NeoBundleLazy 'liquidz/vimfiler-sendto'
 
-NeoBundle 'Shougo/echodoc', '', 'same'
+NeoBundle 'Shougo/echodoc'
 call neobundle#config('echodoc', {
       \ 'lazy' : 1,
       \ 'autoload' : {
@@ -186,7 +185,7 @@ NeoBundle 'Shougo/vimproc', {
       \     'unix' : 'make -f make_unix.mak',
       \    },
       \ }
-" NeoBundleLazy 'Shougo/vim-ft-vim_fold', '', 'same',
+" NeoBundleLazy 'Shougo/vim-ft-vim_fold',
 "       \  { 'autoload' : { 'filetypes' : 'vim' }}
 
 NeoBundle 'Shougo/vimshell'
@@ -231,91 +230,91 @@ call neobundle#config('hrsh7th/vim-versions', {
       \ })
 
 " NeoBundle 'h1mesuke/unite-outline'
-NeoBundle 'Shougo/unite-outline', '', 'same'
-NeoBundleLazy 'hail2u/vim-css3-syntax', '', 'same'
-NeoBundleLazy 'kana/vim-smartchr', '', 'same', { 'autoload' : {
+NeoBundle 'Shougo/unite-outline'
+NeoBundleLazy 'hail2u/vim-css3-syntax'
+NeoBundleLazy 'kana/vim-smartchr', { 'autoload' : {
       \ 'insert' : 1,
       \ }}
-NeoBundleLazy 'kana/vim-smartword', '', 'same', { 'autoload' : {
+NeoBundleLazy 'kana/vim-smartword', { 'autoload' : {
       \ 'mappings' : [
       \   '<Plug>(smartword-w)', '<Plug>(smartword-b)', '<Plug>(smartword-ge)']
       \ }}
-NeoBundleLazy 'kana/vim-smarttill', '', 'same', { 'autoload' : {
+NeoBundleLazy 'kana/vim-smarttill', { 'autoload' : {
       \ 'mappings' : [
       \   '<Plug>(smarttill-t)', '<Plug>(smarttill-T)']
       \ }}
-NeoBundleLazy 'kana/vim-fakeclip', '', 'same', { 'autoload' : {
-      \ 'mappings' : [
-      \   ['nv', '<Plug>(fakeclip-y)'], ['nv', '<Plug>(fakeclip-Y)'],
-      \   ['nv', '<Plug>(fakeclip-p)'], ['nv', '<Plug>(fakeclip-P)'],
-      \   ['nv', '<Plug>(fakeclip-gp)']]
-      \ }}
-NeoBundleLazy 'kana/vim-operator-user', '', 'same'
-NeoBundleLazy 'kana/vim-operator-replace', '', 'same', {
+" NeoBundleLazy 'kana/vim-fakeclip', { 'autoload' : {
+"       \ 'mappings' : [
+"       \   ['nv', '<Plug>(fakeclip-y)'], ['nv', '<Plug>(fakeclip-Y)'],
+"       \   ['nv', '<Plug>(fakeclip-p)'], ['nv', '<Plug>(fakeclip-P)'],
+"       \   ['nv', '<Plug>(fakeclip-gp)']]
+"       \ }}
+NeoBundleLazy 'kana/vim-operator-user'
+NeoBundleLazy 'kana/vim-operator-replace', {
       \ 'depends' : 'vim-operator-user',
       \ 'autoload' : {
       \   'mappings' : [
       \     ['nx', '<Plug>(operator-replace)']]
       \ }}
-NeoBundleLazy 'kana/vim-textobj-user', '', 'same'
+NeoBundleLazy 'kana/vim-textobj-user'
 " NeoBundleLazy 'kana/vim-wwwsearch'
 NeoBundleLazy 'kien/ctrlp.vim'
-NeoBundleLazy 'Shougo/foldCC', '', 'same',
+NeoBundleLazy 'Shougo/foldCC',
       \  { 'autoload' : { 'filetypes' : 'vim' }}
-NeoBundleLazy 'mattn/wwwrenderer-vim', '', 'same'
+NeoBundleLazy 'mattn/wwwrenderer-vim'
 NeoBundle 'mattn/webapi-vim'
 " NeoBundle 'basyura/webapi-vim'
 " NeoBundle 'pocket7878/presen-vim',
 " \ { 'depends' : 'pocket7878/curses-vim'}
-NeoBundleLazy 'rson/vim-conque', '', 'same', { 'autoload' : {
+NeoBundleLazy 'rson/vim-conque', { 'autoload' : {
       \ 'commands' : 'ConqueTerm'
       \ }}
-NeoBundleLazy 'sjl/gundo.vim', '', 'same', { 'autoload' : {
+NeoBundleLazy 'sjl/gundo.vim', { 'autoload' : {
       \ 'commands' : 'GundoToggle'
       \ }}
-" NeoBundle 't9md/vim-textmanip', '', 'same'
-" NeoBundle 't9md/vim-quickhl', '', 'same'
-NeoBundleLazy 'thinca/vim-fontzoom', '', 'same', {
+" NeoBundle 't9md/vim-textmanip'
+" NeoBundle 't9md/vim-quickhl'
+NeoBundleLazy 'thinca/vim-fontzoom', {
       \ 'gui' : 1,
       \ 'autoload' : {
       \  'mappings' : [
       \   ['n', '<Plug>(fontzoom-larger)'],
       \   ['n', '<Plug>(fontzoom-smaller)']]
       \ }}
-NeoBundle 'ujihisa/unite-font', '', 'same', {
+NeoBundle 'ujihisa/unite-font', {
       \ 'gui' : 1,
       \ }
-NeoBundleLazy 'thinca/vim-prettyprint', '', 'same', { 'autoload' : {
+NeoBundleLazy 'thinca/vim-prettyprint', { 'autoload' : {
       \ 'commands' : 'PP'
       \ }}
-NeoBundleLazy 'thinca/vim-qfreplace', '', 'same', { 'autoload' : {
+NeoBundleLazy 'thinca/vim-qfreplace', { 'autoload' : {
       \ 'filetypes' : ['unite', 'quickfix'],
       \ }}
 NeoBundleLazy 'thinca/vim-quickrun', { 'autoload' : {
       \ 'mappings' : [
       \   ['nxo', '<Plug>(quickrun)']],
       \ }}
-NeoBundleLazy 'thinca/vim-scouter', '', 'same', { 'autoload' : {
+NeoBundleLazy 'thinca/vim-scouter', { 'autoload' : {
       \ 'commands' : 'Scouter'
       \ }}
 NeoBundleLazy 'thinca/vim-ref', { 'autoload' : {
       \ 'commands' : 'Ref'
       \ }}
-NeoBundle 'thinca/vim-unite-history', '', 'same'
+NeoBundle 'thinca/vim-unite-history'
 NeoBundleLazy 'vim-ruby/vim-ruby', { 'autoload' : {
       \ 'mappings' : '<Plug>(ref-keyword)',
       \ 'filetypes' : 'ruby'
       \ }}
 
-NeoBundleLazy 'tsukkee/lingr-vim', '', 'same', { 'autoload' : {
+NeoBundleLazy 'tsukkee/lingr-vim', { 'autoload' : {
       \ 'commands' : 'LingrLaunch'
       \ }}
 if has('gui_running') && !s:is_windows
   NeoBundleDisable lingr-vim
 endif
 
-NeoBundle 'Shougo/unite-help', '', 'same'
-NeoBundle 'tsukkee/unite-tag', '', 'same'
+NeoBundle 'Shougo/unite-help'
+NeoBundle 'tsukkee/unite-tag'
 NeoBundleLazy 'tyru/caw.vim', { 'autoload' : {
       \ 'mappings' : [
       \   '<Plug>(caw:prefix)', '<Plug>(caw:i:toggle)']
@@ -323,20 +322,20 @@ NeoBundleLazy 'tyru/caw.vim', { 'autoload' : {
 NeoBundleLazy 'tyru/eskk.vim', { 'autoload' : {
       \ 'mappings' : [['i', '<Plug>(eskk:toggle)']],
       \ }}
-NeoBundleLazy 'tyru/open-browser.vim', '', 'same', { 'autoload' : {
+NeoBundleLazy 'tyru/open-browser.vim', { 'autoload' : {
       \ 'mappings' : '<Plug>(open-browser-wwwsearch)',
       \ }}
-NeoBundleLazy 'tyru/operator-html-escape.vim', '', 'same'
-NeoBundleLazy 'tyru/restart.vim', '', 'same', {
+NeoBundleLazy 'tyru/operator-html-escape.vim'
+NeoBundleLazy 'tyru/restart.vim', {
       \ 'gui' : 1,
       \ 'autoload' : {
       \  'commands' : 'Restart'
       \ }}
 " NeoBundle 'tyru/skk.vim'
-NeoBundleLazy 'tyru/vim-altercmd', '', 'same', { 'autoload' : {
+NeoBundleLazy 'tyru/vim-altercmd', { 'autoload' : {
       \ 'mappings' : ':'
       \ }}
-NeoBundleLazy 'tyru/winmove.vim', '', 'same', { 'autoload' : {
+NeoBundleLazy 'tyru/winmove.vim', { 'autoload' : {
       \ 'gui' : 1,
       \ 'mappings' : [
       \   ['n', '<Plug>(winmove-up)'], ['n', '<Plug>(winmove-down)'],
@@ -345,31 +344,31 @@ NeoBundleLazy 'tyru/winmove.vim', '', 'same', { 'autoload' : {
 NeoBundleLazy 'ujihisa/neco-ghc', { 'autoload' : {
       \ 'filetypes' : 'haskell'
       \ }}
-NeoBundle 'ujihisa/neco-look', '', 'same'
-NeoBundleLazy 'ujihisa/unite-colorscheme', '', 'same'
-NeoBundleLazy 'ujihisa/unite-locate', '', 'same'
+NeoBundle 'ujihisa/neco-look'
+NeoBundleLazy 'ujihisa/unite-colorscheme'
+NeoBundleLazy 'ujihisa/unite-locate'
 NeoBundleLazy 'ujihisa/vimshell-ssh'
 NeoBundle 'vim-jp/vimdoc-ja.git'
-" NeoBundleLazy 'vim-scripts/netrw.vim', '', 'same', { 'autoload' : {
+" NeoBundleLazy 'vim-scripts/netrw.vim', { 'autoload' : {
       " \ 'commands' : 'Explore',
       " \ }}
-" NeoBundleLazy 'Markdown', '', 'same'
-NeoBundleLazy 'yuratomo/w3m.vim', '', 'same', { 'autoload' : {
+" NeoBundleLazy 'Markdown'
+NeoBundleLazy 'yuratomo/w3m.vim', { 'autoload' : {
       \ 'commands' : 'W3m',
       \ }}
-NeoBundle 'pasela/unite-webcolorname', '', 'same'
-" NeoBundle 'hrsh7th/vim-unite-vcs', '', 'same'
-NeoBundle 'osyo-manga/unite-quickfix', '', 'same'
-NeoBundle 'osyo-manga/unite-filetype', '', 'same'
-"NeoBundle 'taglist.vim', '', 'same'
+NeoBundle 'pasela/unite-webcolorname'
+" NeoBundle 'hrsh7th/vim-unite-vcs'
+NeoBundle 'osyo-manga/unite-quickfix'
+NeoBundle 'osyo-manga/unite-filetype'
+"NeoBundle 'taglist.vim'
 NeoBundleLazy 'rbtnn/hexript.vim'
-NeoBundleLazy 'tpope/vim-endwise', '', 'same'
+NeoBundleLazy 'tpope/vim-endwise'
 NeoBundleLazy 'Rip-Rip/clang_complete', {
       \ 'autoload' : {
       \     'filetypes' : ['c', 'cpp'],
       \    },
       \ }
-NeoBundleLazy 'kana/vim-tabpagecd', '', 'same'
+NeoBundleLazy 'kana/vim-tabpagecd'
 NeoBundleLazy 'rhysd/accelerated-jk', { 'autoload' : {
       \ 'mappings' : ['<Plug>(accelerated_jk_gj)',
       \               '<Plug>(accelerated_jk_gk)'],
@@ -380,24 +379,24 @@ NeoBundleLazy 'davidhalter/jedi-vim', {
       \     'filetypes' : ['python', 'python3'],
       \    },
       \ }
-NeoBundleLazy 'vim-jp/autofmt', '', 'same', { 'autoload' : {
+NeoBundleLazy 'vim-jp/autofmt', { 'autoload' : {
       \ 'mappings' : [['x', 'gq']],
       \ }}
 
 " From vim.org
-NeoBundleLazy 'godlygeek/csapprox', '', 'same', { 'terminal' : 1 }
-NeoBundleLazy 'thinca/vim-guicolorscheme', '', 'same', { 'terminal' : 1 }
-NeoBundleLazy 'repeat.vim', '', 'same', { 'autoload' : {
+NeoBundleLazy 'godlygeek/csapprox', { 'terminal' : 1 }
+NeoBundleLazy 'thinca/vim-guicolorscheme', { 'terminal' : 1 }
+NeoBundleLazy 'repeat.vim', { 'autoload' : {
       \ 'mappings' : '.',
       \ }}
-NeoBundleLazy 'autodate.vim', '', 'same', { 'autoload' : {
+NeoBundleLazy 'autodate.vim', { 'autoload' : {
       \ 'filetypes' : 'vim',
       \ }}
-NeoBundleLazy 'matchit.zip', '', 'same', { 'autoload' : {
+NeoBundleLazy 'matchit.zip', { 'autoload' : {
       \ 'mappings' : '%',
       \ }}
-" NeoBundle 'perl-mauke.vim', '', 'same'
-NeoBundleLazy 'DirDiff.vim', '', 'same', { 'autoload' : {
+" NeoBundle 'perl-mauke.vim'
+NeoBundleLazy 'DirDiff.vim', { 'autoload' : {
       \ 'commands' : 'DirDiff'
       \ }}
 NeoBundleLazy 'rhysd/clever-f.vim', { 'autoload' : {
@@ -415,6 +414,9 @@ NeoBundleLazy 'bkad/CamelCaseMotion', { 'autoload' : {
       \ }}
 NeoBundleLazy 'HybridText', { 'autoload' : {
       \ 'filetypes' : 'hybrid',
+      \ }}
+NeoBundleLazy 'ujihisa/vim-seek', { 'autoload' : {
+      \ 'mappings' : ['<Plug>(seek-seek)', '<Plug>(seek-back)'],
       \ }}
 
 NeoBundleLocal ~/.vim/bundle
@@ -1868,32 +1870,6 @@ nmap <silent> [Space]r <Plug>(quickrun-op)
 " python.vim
 let python_highlight_all = 1
 
-" fakeclip.vim"{{{
-let g:fakeclip_no_default_key_mappings = 1
-
-for _ in ['+', '*']
-  execute 'silent! nmap "'._.'y  <Plug>(fakeclip-y)'
-  execute 'silent! nmap "'._.'Y  <Plug>(fakeclip-Y)'
-  execute 'silent! nmap "'._.'yy  <Plug>(fakeclip-Y)'
-  execute 'silent! vmap "'._.'y  <Plug>(fakeclip-y)'
-  execute 'silent! vmap "'._.'Y  <Plug>(fakeclip-Y)'
-
-  execute 'silent! nmap "'._.'p  <Plug>(fakeclip-p)'
-  execute 'silent! nmap "'._.'P  <Plug>(fakeclip-P)'
-  execute 'silent! nmap "'._.'gp  <Plug>(fakeclip-gp)'
-  execute 'silent! nmap "'._.'gP  <Plug>(fakeclip-gP)'
-  execute 'silent! vmap "'._.'p  <Plug>(fakeclip-p)'
-  execute 'silent! vmap "'._.'P  <Plug>(fakeclip-P)'
-  execute 'silent! vmap "'._.'gp  <Plug>(fakeclip-gp)'
-  execute 'silent! vmap "'._.'gP  <Plug>(fakeclip-gP)'
-
-  "execute 'silent! map! <C-r>'._.'  <Plug>(fakeclip-insert)'
-  "execute 'silent! map! <C-r><C-r>'._.'  <Plug>(fakeclip-insert-r)'
-  "execute 'silent! map! <C-r><C-o>'._.'  <Plug>(fakeclip-insert-o)'
-  "execute 'silent! imap <C-r><C-p>'._.'  <Plug>(fakeclip-insert-p)'
-endfor
-"}}}
-
 " ref.vim"{{{
 let bundle = neobundle#get('vim-ref')
 function! bundle.hooks.on_source(bundle)
@@ -2268,6 +2244,14 @@ function! bundle.hooks.on_source(bundle)
   AlterCommand w[rite] Write
 endfunction
 "}}}
+
+" vim-seek
+let g:seek_no_default_key_mappings = 1
+
+nmap ' <Plug>(seek-seek)
+nmap " <Plug>(seek-back)
+omap ' <Plug>(seek-seek)
+omap " <Plug>(seek-back)
 "}}}
 
 "---------------------------------------------------------------------------
