@@ -742,7 +742,7 @@ autocmd MyAutoCmd WinEnter * checktime
 
 " Disable paste.
 autocmd MyAutoCmd InsertLeave *
-      \ if &paste | set nopaste | echo 'nopaste' | endif
+      \ if &paste | set nopaste mouse=a | echo 'nopaste' | endif
 
 " Use autofmt.
 set formatexpr=autofmt#japanese#formatexpr()
@@ -2387,7 +2387,7 @@ xnoremap  [Space]   <Nop>
 nnoremap <silent> [Space].
       \ :<C-u>call ToggleOption('relativenumber')<CR>
 nnoremap <silent> [Space]p
-      \ :<C-u>call ToggleOption('paste')<CR>
+      \ :<C-u>call ToggleOption('paste')<CR>:set mouse=<CR>
 " Toggle highlight.
 nnoremap <silent> [Space]/
       \ :<C-u>call ToggleOption('hlsearch')<CR>
@@ -3147,6 +3147,7 @@ endif
 "---------------------------------------------------------------------------
 " Others:"{{{
 "
+
 " Enable mouse support.
 set mouse=a
 
