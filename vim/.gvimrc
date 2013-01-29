@@ -137,6 +137,9 @@ set nomousefocus
 " Hide mouse pointer on insert mode.
 set mousehide
 
+" Paste.
+nnoremap <RightMouse> "+p
+inoremap <RightMouse> <C-r><C-o>+
 "}}}
 
 "---------------------------------------------------------------------------
