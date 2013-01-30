@@ -140,6 +140,7 @@ set mousehide
 " Paste.
 nnoremap <RightMouse> "+p
 inoremap <RightMouse> <C-r><C-o>+
+cnoremap <RightMouse> <C-r>+
 "}}}
 
 "---------------------------------------------------------------------------
