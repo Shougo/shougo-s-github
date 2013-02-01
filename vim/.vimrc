@@ -957,6 +957,13 @@ augroup MyAutoCmd
 
   autocmd BufEnter,BufNewFile * if bufname('%') != '' && &filetype == ''
         \ | setlocal ft=hybrid | endif
+
+  " Improved include pattern.
+  autocmd FileType html
+        \ setlocal includeexpr=substitute(v:fname,'^\\/','','') |
+        \ setlocal path+=./;/
+  autocmd FileType php setlocal path+=/usr/local/share/pear
+  autocmd FileType apache setlocal path+=./;/
 augroup END
 
 " PHP
