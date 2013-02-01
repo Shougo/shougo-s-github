@@ -106,9 +106,7 @@ call neobundle#rc(expand('~/.bundle'))
 " neobundle.vim"{{{
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-NeoBundleLazy 'tpope/vim-surround'
-NeoBundleLazy 't9md/vim-surround_custom_mapping', {
-      \ 'depends' : 'vim-surround',
+NeoBundle 'anyakichi/vim-surround', {
       \ 'autoload' : {
       \   'mappings' : [
       \     ['n', '<Plug>Dsurround'], ['n', '<Plug>Csurround'],
@@ -414,9 +412,6 @@ NeoBundleLazy 'bkad/CamelCaseMotion', { 'autoload' : {
       \ }}
 NeoBundleLazy 'HybridText', { 'autoload' : {
       \ 'filetypes' : 'hybrid',
-      \ }}
-NeoBundleLazy 'ujihisa/vim-seek', { 'autoload' : {
-      \ 'mappings' : ['<Plug>(seek-seek)', '<Plug>(seek-back)'],
       \ }}
 
 NeoBundleLocal ~/.vim/bundle
@@ -1485,7 +1480,6 @@ nnoremap <silent> <C-t>       :<C-u>Unite tab<CR>
 
 " <C-w>: Windows operation
 nnoremap <silent> <C-w>       :<C-u>Unite window<CR>
-"}}}
 
 if s:is_windows
   nnoremap <silent> [Window]s
@@ -2139,52 +2133,6 @@ nmap + <Plug>(fontzoom-larger)
 nmap _ <Plug>(fontzoom-smaller)
 "}}}
 
-" surround_custom_mappings.vim"{{{
-let bundle = neobundle#get('vim-surround_custom_mapping')
-function! bundle.hooks.on_source(bundle)
-  let g:surround_custom_mapping = {}
-  let g:surround_custom_mapping._ = {
-        \ 'p':  "<pre> \r </pre>",
-        \ 'w':  "%w(\r)",
-        \ }
-  let g:surround_custom_mapping.help = {
-        \ 'p':  "> \r <",
-        \ }
-  let g:surround_custom_mapping.ruby = {
-        \ '-':  "<% \r %>",
-        \ '=':  "<%= \r %>",
-        \ '9':  "(\r)",
-        \ '5':  "%(\r)",
-        \ '%':  "%(\r)",
-        \ 'w':  "%w(\r)",
-        \ '#':  "#{\r}",
-        \ '3':  "#{\r}",
-        \ 'e':  "begin \r end",
-        \ 'E':  "<<EOS \r EOS",
-        \ 'i':  "if \1if\1 \r end",
-        \ 'u':  "unless \1unless\1 \r end",
-        \ 'c':  "class \1class\1 \r end",
-        \ 'm':  "module \1module\1 \r end",
-        \ 'd':  "def \1def\1\2args\r..*\r(&)\2 \r end",
-        \ 'p':  "\1method\1 do \2args\r..*\r|&| \2\r end",
-        \ 'P':  "\1method\1 {\2args\r..*\r|&|\2 \r }",
-        \ }
-  let g:surround_custom_mapping.javascript = {
-        \ 'f':  "function(){ \r }"
-        \ }
-  let g:surround_custom_mapping.lua = {
-        \ 'f':  "function(){ \r }"
-        \ }
-  let g:surround_custom_mapping.python = {
-        \ 'p':  "print( \r)",
-        \ '[':  "[\r]",
-        \ }
-  let g:surround_custom_mapping.vim= {
-        \'f':  "function! \r endfunction"
-        \ }
-endfunction
-"}}}
-
 " Gundo.vim
 nnoremap U      :<C-u>GundoToggle<CR>
 
@@ -2244,14 +2192,6 @@ function! bundle.hooks.on_source(bundle)
   AlterCommand w[rite] Write
 endfunction
 "}}}
-
-" vim-seek
-let g:seek_no_default_key_mappings = 1
-
-nmap ' <Plug>(seek-seek)
-nmap " <Plug>(seek-back)
-omap ' <Plug>(seek-seek)
-omap " <Plug>(seek-back)
 "}}}
 
 "---------------------------------------------------------------------------
