@@ -391,8 +391,9 @@ NeoBundleLazy 'autodate.vim', { 'autoload' : {
       \ 'filetypes' : 'vim',
       \ }}
 NeoBundleLazy 'matchit.zip', { 'autoload' : {
-      \ 'mappings' : '%',
+      \ 'filetypes' : 'vim',
       \ }}
+
 " NeoBundle 'perl-mauke.vim'
 NeoBundleLazy 'DirDiff.vim', { 'autoload' : {
       \ 'commands' : 'DirDiff'
@@ -1252,6 +1253,8 @@ function! CompleteFiles(findstart, base)
 
   return { 'words' : list, 'refresh' : 'always' }
 endfunction
+
+unlet bundle
 "}}}
 
 " neosnippet.vim"{{{
@@ -1274,6 +1277,8 @@ function! bundle.hooks.on_source(bundle)
 
   " let g:snippets_dir = '~/.vim/snippets/,~/.vim/bundle/snipmate/snippets/'
 endfunction
+
+unlet bundle
 "}}}
 
 " echodoc.vim"{{{
@@ -1281,6 +1286,7 @@ let bundle = neobundle#get('echodoc')
 function! bundle.hooks.on_source(bundle)
   let g:echodoc_enable_at_startup = 1
 endfunction
+unlet bundle
 "}}}
 
 " vimshell.vim"{{{
@@ -1452,6 +1458,8 @@ function! bundle.hooks.on_source(bundle)
     return a:input
   endfunction
 endfunction
+
+unlet bundle
 "}}}
 
 " netrw.vim"{{{
@@ -1807,6 +1815,8 @@ function! bundle.hooks.on_source(bundle)
   let g:unite_build_warning_icon  = $DOTVIM . '/signs/warn.'
         \ . (s:is_windows ? 'bmp' : 'png')
 endfunction
+
+unlet bundle
 "}}}
 
 " smartword.vim"{{{
@@ -1867,6 +1877,8 @@ function! bundle.hooks.on_source(bundle)
           \| inoremap <buffer> <expr> < smartchr#loop('<', '<%', '<%=')
   augroup END
 endfunction
+
+unlet bundle
 "}}}
 
 " smarttill.vim"{{{
@@ -1921,6 +1933,8 @@ function! bundle.hooks.on_source(bundle)
     nmap <buffer> [Tag]p  <Plug>(ref-back)
   endfunction"}}}
 endfunction
+
+unlet bundle
 "}}}
 
 " vimfiler.vim"{{{
@@ -1995,6 +2009,8 @@ function! bundle.hooks.on_source(bundle)
     endif
   endfunction"}}}
 endfunction
+
+unlet bundle
 "}}}
 
 " eskk.vim"{{{
@@ -2061,6 +2077,8 @@ function! bundle.hooks.on_source(bundle)
     unlet t
   endfunction "}}}
 endfunction
+
+unlet bundle
 "}}}
 
 " lingr-vim"{{{
@@ -2135,6 +2153,8 @@ function! bundle.hooks.on_source(bundle)
     endif
   endfunction
 endfunction
+
+unlet bundle
 "}}}
 
 " caw.vim"{{{
@@ -2217,6 +2237,7 @@ function! bundle.hooks.on_source(bundle)
   AlterCommand <cmdwin> w[rite] Write
   AlterCommand w[rite] Write
 endfunction
+unlet bundle
 "}}}
 
 " switch.vim{{{
