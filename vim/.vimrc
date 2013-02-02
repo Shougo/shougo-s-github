@@ -413,6 +413,9 @@ NeoBundleLazy 'bkad/CamelCaseMotion', { 'autoload' : {
 NeoBundleLazy 'HybridText', { 'autoload' : {
       \ 'filetypes' : 'hybrid',
       \ }}
+NeoBundleLazy 'AndrewRadev/switch.vim', { 'autoload' : {
+      \ 'commands' : 'Switch',
+      \ }}
 
 NeoBundleLocal ~/.vim/bundle
 
@@ -929,7 +932,7 @@ augroup MyAutoCmd
   autocmd FileType * if (&readonly || !&modifiable) && !hasmapto('q', 'n')
         \ | nnoremap <buffer><silent> q :<C-u>call <sid>smart_close()<CR>| endif
 
-  autocmd FileType gitcommit setlocal nofoldenable
+  autocmd FileType gitcommit,qfreplace setlocal nofoldenable
 
   autocmd FileType ref nnoremap <buffer> <TAB> <C-w>w
 
@@ -2215,6 +2218,23 @@ function! bundle.hooks.on_source(bundle)
   AlterCommand w[rite] Write
 endfunction
 "}}}
+
+" switch.vim{{{
+" http://www.vimninjas.com/2012/09/12/switch/
+let g:variable_style_switch_definitions = [
+\   {
+\     'f': {
+\       'foo': 'bar'
+\     },
+\
+\     'b': {
+\       'bar': 'foo'
+\     },
+\   }
+\ ]
+" nnoremap <silent> + :call switch#Switch(g:variable_style_switch_definitions)<CR>
+nnoremap <silent> ! :Switch<cr>
+"}}}
 "}}}
 
 "---------------------------------------------------------------------------
@@ -2953,7 +2973,7 @@ function! s:git_pull_all()
       \ glob(v:val.'/*/*/*.vim') != '' ||
       \ glob(v:val.'/*/*/*/*.vim') != ''")
     lcd `=dir`
-    redraw
+    redraw!
 
     echo printf('%d/%d git pull in %s', cnt, max, dir)
 
@@ -2961,8 +2981,6 @@ function! s:git_pull_all()
     if vimproc#get_last_status()
       echohl WarningMsg | echomsg output | echohl None
     endif
-
-    echo ''
 
     let cnt += 1
   endfor
