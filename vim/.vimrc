@@ -417,6 +417,9 @@ NeoBundleLazy 'HybridText', { 'autoload' : {
 NeoBundleLazy 'AndrewRadev/switch.vim', { 'autoload' : {
       \ 'commands' : 'Switch',
       \ }}
+NeoBundleLazy 'kana/vim-niceblock', { 'autoload' : {
+      \ 'mappings' : ['<Plug>(niceblock-I)', '<Plug>(niceblock-A)']
+      \ }}
 
 NeoBundleLocal ~/.vim/bundle
 
@@ -1551,7 +1554,7 @@ nnoremap <silent><expr> [Tag]p  &filetype == 'help' ?
 nnoremap <silent> <C-h>  :<C-u>Unite -buffer-name=help help<CR>
 
 " Execute help by cursor keyword.
-nnoremap <silent> g<C-h>  :<C-u>UniteWithInput help<CR>
+nnoremap <silent> g<C-h>  :<C-u>UniteWithCursorWord help<CR>
 
 " Search.
 nnoremap <expr><silent> /  <SID>smart_search_expr(
@@ -1565,6 +1568,10 @@ nnoremap <silent><expr> ? <SID>smart_search_expr('?',
 nnoremap <silent><expr> * <SID>smart_search_expr(
       \ ":\<C-u>UniteWithCursorWord -buffer-name=search line/fast\<CR>",
       \ ":\<C-u>UniteWithCursorWord -buffer-name=search line\<CR>")
+nnoremap [Alt]/       /
+nnoremap [Alt]?       ?
+cnoremap <expr><silent><C-g>        (getcmdtype() == '/') ?
+      \ "\<ESC>:Unite -buffer-name=search line -input=".getcmdline()."\<CR>" : "\<C-g>"
 
 function! s:smart_search_expr(expr1, expr2)
   return line('$') > 5000 ?  a:expr1 : a:expr2
@@ -1574,6 +1581,75 @@ nnoremap <silent> n
       \ :<C-u>UniteResume search -no-start-insert<CR>
 
 let g:unite_source_history_yank_enable = 1
+
+" For unite-alias.
+let g:unite_source_alias_aliases = {}
+let g:unite_source_alias_aliases.test = {
+      \ 'source' : 'file_rec',
+      \ 'args'   : '~/',
+      \ }
+let g:unite_source_alias_aliases.line_migemo = {
+      \ 'source' : 'line',
+      \ }
+
+" For unite-menu.
+let g:unite_source_menu_menus = {}
+
+let g:unite_source_menu_menus.enc = {
+      \     'description' : 'Open with a specific character code again.',
+      \ }
+let g:unite_source_menu_menus.enc.command_candidates = [
+      \       ['utf8', 'Utf8'],
+      \       ['iso2022jp', 'Iso2022jp'],
+      \       ['cp932', 'Cp932'],
+      \       ['euc', 'Euc'],
+      \       ['utf16', 'Utf16'],
+      \       ['utf16-be', 'Utf16be'],
+      \       ['jis', 'Jis'],
+      \       ['sjis', 'Sjis'],
+      \       ['unicode', 'Unicode'],
+      \     ]
+nnoremap <silent> ;e :<C-u>Unite menu:enc<CR>
+
+let g:unite_source_menu_menus.fenc = {
+      \     'description' : 'Change file fenc option.',
+      \ }
+let g:unite_source_menu_menus.fenc.command_candidates = [
+      \       ['utf8', 'WUtf8'],
+      \       ['iso2022jp', 'WIso2022jp'],
+      \       ['cp932', 'WCp932'],
+      \       ['euc', 'WEuc'],
+      \       ['utf16', 'WUtf16'],
+      \       ['utf16-be', 'WUtf16be'],
+      \       ['jis', 'WJis'],
+      \       ['sjis', 'WSjis'],
+      \       ['unicode', 'WUnicode'],
+      \     ]
+nnoremap <silent> ;f :<C-u>Unite menu:fenc<CR>
+
+let g:unite_source_menu_menus.ff = {
+      \     'description' : 'Change file format option.',
+      \ }
+let g:unite_source_menu_menus.ff.command_candidates = {
+      \       'unix'   : 'WUnix',
+      \       'dos'    : 'WDos',
+      \       'mac'    : 'WMac',
+      \     }
+nnoremap <silent> ;w :<C-u>Unite menu:ff<CR>
+
+let g:unite_source_menu_menus.unite = {
+      \     'description' : 'Start unite sources',
+      \ }
+let g:unite_source_menu_menus.unite.command_candidates = {
+      \       'history'    : 'Unite history/command',
+      \       'quickfix'   : 'Unite qflist -no-quit',
+      \       'resume'     : 'Unite -buffer-name=resume resume',
+      \       'directory'  : 'Unite -buffer-name=files '.
+      \             '-default-action=lcd directory_mru',
+      \       'mapping'    : 'Unite mapping',
+      \       'message'    : 'Unite output:message',
+      \     }
+nnoremap <silent> ;u :<C-u>Unite menu:unite -resume<CR>
 
 let bundle = neobundle#get('unite.vim')
 function! bundle.hooks.on_source(bundle)
@@ -1675,40 +1751,6 @@ function! bundle.hooks.on_source(bundle)
           \ empty(unite#mappings#get_current_filters()) ? ['sorter_reverse'] : [])
   endfunction"}}}
 
-  " Original source."{{{
-  let source = {
-        \ 'name' : 'buffer_lines',
-        \ 'description' : 'candidates from current buffer lines',
-        \ 'action_table' : {},
-        \ 'max_candidates' : 30,
-        \ 'hooks' : {},
-        \ }
-  call unite#define_source(source)
-
-  function! source.hooks.on_init(args, context) "{{{
-    let a:context.source__lines = getbufline(bufnr('%'), 1, '$')
-    let a:context.source__bufname = bufname('%')
-  endfunction"}}}
-  function! source.gather_candidates(args, context) "{{{
-    let candidates = []
-    let linenr = 1
-    for line in a:context.source__lines
-      call add(candidates, {
-            \ 'word' : line,
-            \ 'kind' : 'jump_list',
-            \ 'action__line' : linenr,
-            \ 'action__path' : a:context.source__bufname,
-            \ })
-
-      let linenr += 1
-    endfor
-
-    return candidates
-  endfunction"}}}
-
-  unlet source
-  "}}}
-
   " Variables.
   let g:unite_enable_split_vertically = 0
   let g:unite_winheight = 20
@@ -1740,75 +1782,6 @@ function! bundle.hooks.on_source(bundle)
     " let g:unite_source_grep_default_opts = '--no-heading --no-color -a'
     " let g:unite_source_grep_recursive_opt = ''
   endif
-
-  " For unite-alias.
-  let g:unite_source_alias_aliases = {}
-  let g:unite_source_alias_aliases.test = {
-        \ 'source' : 'file_rec',
-        \ 'args'   : '~/',
-        \ }
-  let g:unite_source_alias_aliases.line_migemo = {
-        \ 'source' : 'line',
-        \ }
-
-  " For unite-menu.
-  let g:unite_source_menu_menus = {}
-
-  let g:unite_source_menu_menus.enc = {
-        \     'description' : 'Open with a specific character code again.',
-        \ }
-  let g:unite_source_menu_menus.enc.command_candidates = [
-        \       ['utf8', 'Utf8'],
-        \       ['iso2022jp', 'Iso2022jp'],
-        \       ['cp932', 'Cp932'],
-        \       ['euc', 'Euc'],
-        \       ['utf16', 'Utf16'],
-        \       ['utf16-be', 'Utf16be'],
-        \       ['jis', 'Jis'],
-        \       ['sjis', 'Sjis'],
-        \       ['unicode', 'Unicode'],
-        \     ]
-  nnoremap <silent> ;e :<C-u>Unite menu:enc<CR>
-
-  let g:unite_source_menu_menus.fenc = {
-        \     'description' : 'Change file fenc option.',
-        \ }
-  let g:unite_source_menu_menus.fenc.command_candidates = [
-        \       ['utf8', 'WUtf8'],
-        \       ['iso2022jp', 'WIso2022jp'],
-        \       ['cp932', 'WCp932'],
-        \       ['euc', 'WEuc'],
-        \       ['utf16', 'WUtf16'],
-        \       ['utf16-be', 'WUtf16be'],
-        \       ['jis', 'WJis'],
-        \       ['sjis', 'WSjis'],
-        \       ['unicode', 'WUnicode'],
-        \     ]
-  nnoremap <silent> ;f :<C-u>Unite menu:fenc<CR>
-
-  let g:unite_source_menu_menus.ff = {
-        \     'description' : 'Change file format option.',
-        \ }
-  let g:unite_source_menu_menus.ff.command_candidates = {
-        \       'unix'      : 'WUnix',
-        \       'dos' : 'WDos',
-        \       'mac'    : 'WMac',
-        \     }
-  nnoremap <silent> ;w :<C-u>Unite menu:ff<CR>
-
-  let g:unite_source_menu_menus.unite = {
-        \     'description' : 'Start unite sources',
-        \ }
-  let g:unite_source_menu_menus.unite.command_candidates = {
-        \       'history'      : 'Unite history/command',
-        \       'quickfix' : 'Unite qflist -no-quit',
-        \       'resume'    : 'Unite -buffer-name=resume resume',
-        \       'directory'    : 'Unite -buffer-name=files '.
-        \             '-default-action=lcd directory_mru',
-        \       'mapping'    : 'Unite mapping',
-        \       'message'    : 'Unite output:message',
-        \     }
-  nnoremap <silent> ;u :<C-u>Unite menu:unite -resume<CR>
 
   let g:unite_build_error_icon    = $DOTVIM . '/signs/err.'
         \ . (s:is_windows ? 'bmp' : 'png')
@@ -1843,8 +1816,6 @@ xmap <silent> B <Plug>CamelCaseMotion_b
 let bundle = neobundle#get('vim-smartchr')
 function! bundle.hooks.on_source(bundle)
   inoremap <expr> , smartchr#one_of(', ', ',')
-
-  inoremap <expr> ? smartchr#one_of('?', '? ')
 
   " Smart =.
   inoremap <expr> =
@@ -1914,12 +1885,10 @@ function! bundle.hooks.on_source(bundle)
 
   " ref-lynx.
   if s:is_windows
-    let s:lynx = 'C:/lynx/lynx.exe'
-    let s:cfg  = 'C:/lynx/lynx.cfg'
+    let lynx = 'C:/lynx/lynx.exe'
+    let cfg  = 'C:/lynx/lynx.cfg'
     let g:ref_lynx_cmd = s:lynx.' -cfg='.s:cfg.' -dump -nonumbers %s'
     let g:ref_alc_cmd = s:lynx.' -cfg='.s:cfg.' -dump %s'
-    unlet s:lynx
-    unlet s:cfg
   endif
 
   let g:ref_lynx_use_cache = 1
@@ -2110,10 +2079,6 @@ endfunction"}}}
 function! s:lingr_looms_my_settings() "{{{
   nmap <buffer> l <Plug>(lingr-rooms-select-room)
 endfunction"}}}
-
-if !s:is_windows
-  command! Suicide call system('kill -KILL ' . getpid())
-endif
 "}}}
 
 " surround.vim"{{{
@@ -2256,6 +2221,11 @@ let g:variable_style_switch_definitions = [
 " nnoremap <silent> + :call switch#Switch(g:variable_style_switch_definitions)<CR>
 nnoremap <silent> ! :Switch<cr>
 "}}}
+
+" vim-niceblock
+" Improved visual selection.
+xmap I  <Plug>(niceblock-I)
+xmap A  <Plug>(niceblock-A)
 "}}}
 
 "---------------------------------------------------------------------------
@@ -2309,7 +2279,7 @@ function! s:camelcase_delete(is_reverse)
   endif
   let &l:virtualedit = save_ve
 
-  let pattern = '\d\+\|\u\+\ze\%(\u\l\|\d\)\|' . 
+  let pattern = '\d\+\|\u\+\ze\%(\u\l\|\d\)\|' .
         \'\u\l\+\|\%(\a\|\d\)\+\ze_\|\%(\k\@!\S\)\+' .
         \'\|\%(_\@!\k\)\+\>\|[_]\|\s\+'
 
@@ -2321,7 +2291,8 @@ function! s:camelcase_delete(is_reverse)
 
   let del = a:is_reverse ? "\<Del>" : "\<BS>"
 
-  return (pumvisible() ? neocomplcache#smart_close_popup() : '') . repeat(del, cur_cnt)
+  return (pumvisible() ?
+        \ neocomplcache#smart_close_popup() : '') . repeat(del, cur_cnt)
 endfunction
 "}}}
 
@@ -2445,7 +2416,7 @@ function! s:cd_buffer_dir() "{{{
 endfunction"}}}
 
 " Delete windows ^M codes.
-nnoremap <silent> [Space]<C-m> mmHmt:<C-u>%s/<C-v><CR>$//ge<CR>'tzt'm
+nnoremap <silent> [Space]<C-m> mmHmt:<C-u>%s/\r$//ge<CR>'tzt'm
 
 " Delete spaces before newline.
 nnoremap <silent> [Space]ss mmHmt:<C-u>%s/<Space>$//ge<CR>`tzt`m
@@ -2669,10 +2640,10 @@ endfunction
 "}}}
 
 " Smart home and smart end."{{{
-nnoremap <silent> gh  :<C-u>call SmartHome("n")<CR>
-nnoremap <silent> gl  :<C-u>call SmartEnd("n")<CR>
-xnoremap <silent> gh  <ESC>:<C-u>call SmartHome("v")<CR>
-xnoremap <silent> gl  <ESC>:<C-u>call SmartEnd("v")<CR>
+nnoremap <silent> gh  :<C-u>call SmartHome('n')<CR>
+nnoremap <silent> gl  :<C-u>call SmartEnd('n')<CR>
+xnoremap <silent> gh  <ESC>:<C-u>call SmartHome('v')<CR>
+xnoremap <silent> gl  <ESC>:<C-u>call SmartEnd('v')<CR>
 " Smart home function"{{{
 function! SmartHome(mode)
   let curcol = col('.')
@@ -2861,7 +2832,7 @@ noremap <expr> zz (winline() == (winheight(0)+1)/ 2) ?
       \ 'zt' : (winline() == 1)? 'zb' : 'zz'
 
 " Capitalize.
-nnoremap gu <ESC>gUiw`]
+nnoremap gu gUiw`]
 inoremap <C-q> <ESC>gUiw`]a
 
 " Clear highlight.
@@ -2873,21 +2844,6 @@ xmap <Leader>h <Plug>(operator-html-escape)
 
 " Easily macro.
 nnoremap @@ @a
-
-" Improved visual selection.{{{
-" http://labs.timedia.co.jp/2012/10/vim-more-useful-blockwise-insertion.html
-xnoremap <expr> I  <SID>force_blockwise_visual('I')
-xnoremap <expr> A  <SID>force_blockwise_visual('A')
-
-function! s:force_blockwise_visual(next_key) "{{{
-  if mode() ==# 'v'
-    return "\<C-v>" . a:next_key
-  elseif mode() ==# 'V'
-    return "\<C-v>0o$" . a:next_key
-  else  " mode() ==# "\<C-v>"
-    return a:next_key
-  endif
-endfunction"}}}
 "}}}
 
 " Improved increment.
@@ -3097,8 +3053,8 @@ else
           " Show filename on screen statusline.
           " But invalid 'another' screen buffer.
           autocmd BufEnter * if $WINDOW != 0 &&
-                \ bufname("") !~ "[A-Za-z0-9\]*://"
-                \   | silent! exe '!echo -n "kv:%:t\\"' | endif
+                \ bufname('') !~ '[[:alnum:]]*://'
+                \   | silent! exe '!echo -n "\ekv:%:t\e\\"' | endif
           " When 'mouse' isn't empty, Vim will freeze. Why?
           autocmd VimLeave * :set mouse=
         augroup END
