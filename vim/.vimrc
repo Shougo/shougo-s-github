@@ -992,6 +992,17 @@ let g:java_highlight_functions=1
 let g:SimpleJsIndenter_BriefMode = 1
 let g:SimpleJsIndenter_CaseIndentLevel = -1
 
+" Vim script
+" augroup: a
+" function: f
+" lua: l
+" perl: p
+" ruby: r
+" python: P
+" tcl: t
+" mzscheme: m
+let g:vimsyn_folding = 'af'
+
 " Syntax highlight for user commands.
 augroup syntax-highlight-extends
   autocmd!
@@ -1342,7 +1353,8 @@ function! bundle.hooks.on_source(bundle)
           \ -default-action=lcd -input=$$args directory_mru')
 
     call vimshell#hook#add('chpwd', 'my_chpwd', s:vimshell_hooks.chpwd)
-    call vimshell#hook#add('emptycmd', 'my_emptycmd', s:vimshell_hooks.emptycmd)
+    " call vimshell#hook#add('emptycmd', 'my_emptycmd', s:vimshell_hooks.emptycmd)
+    call vimshell#hook#add('notfound', 'my_notfound', s:vimshell_hooks.notfound)
     call vimshell#hook#add('preprompt', 'my_preprompt', s:vimshell_hooks.preprompt)
     call vimshell#hook#add('preexec', 'my_preexec', s:vimshell_hooks.preexec)
     " call vimshell#hook#set('preexec', [s:SID_PREFIX() . 'vimshell_hooks_preexec'])
@@ -1411,6 +1423,9 @@ function! bundle.hooks.on_source(bundle)
   endfunction
   function! s:vimshell_hooks.emptycmd(cmdline, context)
     call vimshell#set_prompt_command('ls')
+    return 'ls'
+  endfunction
+  function! s:vimshell_hooks.notfound(cmdline, context)
     return 'ls'
   endfunction
   function! s:vimshell_hooks.preprompt(args, context)
