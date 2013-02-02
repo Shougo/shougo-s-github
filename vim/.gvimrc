@@ -218,3 +218,4 @@ set guicursor+=a:blinkon0
 " Others::
 "
 
+" vim: foldmethod=marker

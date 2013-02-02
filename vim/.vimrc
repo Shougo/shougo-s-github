@@ -947,6 +947,7 @@ augroup MyAutoCmd
   autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
   autocmd FileType python setlocal foldmethod=indent
+  autocmd FileType vim setlocal foldmethod=syntax
 
   " Update filetype.
   autocmd BufWritePost *
@@ -3125,3 +3126,5 @@ if !has('vim_starting')
 endif
 
 set secure
+
+" vim: foldmethod=marker
