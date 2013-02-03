@@ -134,6 +134,13 @@ call neobundle#config('neocomplcache', {
       \   'insert' : 1,
       \ }})
 
+NeoBundle 'Shougo/neocomplcache-rsense'
+call neobundle#config('neocomplcache-rsense', {
+      \ 'lazy' : 1,
+      \ 'depends' : 'Shougo/neocomplcache',
+      \ 'autoload' : { 'filetypes' : 'ruby' }
+      \ })
+
 NeoBundle 'Shougo/neosnippet'
 call neobundle#config('neosnippet', {
       \ 'lazy' : 1,
@@ -954,7 +961,7 @@ augroup MyAutoCmd
   autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
   autocmd FileType python setlocal foldmethod=indent
-  autocmd FileType vim setlocal foldmethod=syntax
+  " autocmd FileType vim setlocal foldmethod=syntax
 
   " Update filetype.
   autocmd BufWritePost *
