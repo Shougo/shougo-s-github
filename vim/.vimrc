@@ -117,8 +117,8 @@ NeoBundleLazy 'basyura/TweetVim', { 'depends' :
       \ 'autoload' : { 'commands' : 'TweetVimHomeTimeline' }}
       " \ ['basyura/twibill.vim', 'tyru/open-browser.vim', 'yomi322/neco-tweetvim'] }
 " NeoBundleLazy 'c9s/perlomni.vim'
-NeoBundleLazy 'choplin/unite-vim_hacks'
-NeoBundleLazy 'liquidz/vimfiler-sendto'
+" NeoBundleLazy 'choplin/unite-vim_hacks'
+" NeoBundleLazy 'liquidz/vimfiler-sendto'
 
 NeoBundle 'Shougo/echodoc'
 call neobundle#config('echodoc', {
@@ -429,17 +429,6 @@ NeoBundleLazy 'kana/vim-niceblock', { 'autoload' : {
       \ }}
 
 NeoBundleLocal ~/.vim/bundle
-
-" NeoBundle 'taichouchou2/alpaca_complete.git'
-
-" NeoBundle 'https://raw.github.com/m2ym/rsense/master/etc/rsense.vim',
-"       \ {'script_type' : 'plugin'}
-" NeoBundle 'taichouchou2/vim-rsense'
-
-" Test.
-" NeoBundleLazy 'tpope/vim-fugitive'
-" NeoBundleLazy 'masudaK/vim-python'
-" NeoBundleLazy 'klen/python-mode'
 "}}}
 
 " Disable menu.vim
@@ -1040,6 +1029,9 @@ function! s:set_syntax_of_user_defined_commands()
   execute 'syntax keyword vimCommand ' . command_names
 endfunction
 
+" Clear modeline highlight.
+autocmd MyAutoCmd VimEnter * highlight ModeMsg guifg=bg guibg=bg
+
 "}}}
 
 "---------------------------------------------------------------------------
@@ -1372,7 +1364,7 @@ function! bundle.hooks.on_source(bundle)
 
     " Auto jump.
     call vimshell#set_alias('j', ':Unite -buffer-name=files
-          \ -default-action=lcd -input=$$args directory_mru')
+          \ -default-action=lcd -no-split -input=$$args directory_mru')
 
     call vimshell#hook#add('chpwd', 'my_chpwd', s:vimshell_hooks.chpwd)
     " call vimshell#hook#add('emptycmd', 'my_emptycmd', s:vimshell_hooks.emptycmd)
@@ -1513,7 +1505,7 @@ nnoremap <silent> ;w
 nnoremap <silent> <C-k>
       \ :<C-u>Unite change jump<CR>
 nnoremap <silent> ;g
-      \ :<C-u>Unite grep -buffer-name=search -no-quit -resume<CR>
+      \ :<C-u>Unite grep -buffer-name=search -auto-preview -no-quit -resume<CR>
 nnoremap <silent> ;r
       \ :<C-u>Unite -buffer-name=register register history/yank<CR>
 inoremap <silent><expr> <C-z>
@@ -1566,15 +1558,15 @@ nnoremap <silent> g<C-h>  :<C-u>UniteWithCursorWord help<CR>
 " Search.
 nnoremap <expr><silent> /  <SID>smart_search_expr(
       \ ":\<C-u>Unite -buffer-name=search -no-split -start-insert line/fast\<CR>",
-      \ ":\<C-u>Unite -buffer-name=search -start-insert line\<CR>")
+      \ ":\<C-u>Unite -buffer-name=search -auto-preview -start-insert line\<CR>")
 nnoremap <expr> g/  <SID>smart_search_expr('g/',
-      \ ":\<C-u>Unite -buffer-name=search -start-insert line_migemo\<CR>")
+      \ ":\<C-u>Unite -buffer-name=search -auto-preview -start-insert line_migemo\<CR>")
 nnoremap [Alt]/  g/
 nnoremap <silent><expr> ? <SID>smart_search_expr('?',
       \ ":\<C-u>Unite mapping\<CR>")
 nnoremap <silent><expr> * <SID>smart_search_expr(
       \ ":\<C-u>UniteWithCursorWord -buffer-name=search line/fast\<CR>",
-      \ ":\<C-u>UniteWithCursorWord -buffer-name=search line\<CR>")
+      \ ":\<C-u>UniteWithCursorWord -auto-preview -buffer-name=search line\<CR>")
 nnoremap [Alt]/       /
 nnoremap [Alt]?       ?
 cnoremap <expr><silent><C-g>        (getcmdtype() == '/') ?
@@ -1669,6 +1661,8 @@ function! bundle.hooks.on_source(bundle)
 
   " migemo.
   call unite#custom_source('line_migemo', 'matchers', 'matcher_migemo')
+
+  call unite#custom_source('file_rec', 'sorters', 'sorter_reverse')
 
   " Custom filters."{{{
   " call unite#custom_source('file,buffer,file_rec', 'matchers', 'matcher_fuzzy')
@@ -1874,7 +1868,7 @@ let g:changelog_username = "Shougo "
 "}}}
 
 " quickrun.vim"{{{
-nmap <silent> [Space]r <Plug>(quickrun-op)
+nmap <silent> <Leader>r <Plug>(quickrun)
 "}}}
 
 " python.vim
@@ -2567,6 +2561,9 @@ xnoremap [Alt]   <Nop>
 nmap    e  [Alt]
 xmap    e  [Alt]
 
+nnoremap    [Alt]e   e
+xnoremap    [Alt]e   e
+
 " Indent paste.
 nnoremap <silent> [Alt]p o<Esc>pm``[=`]``^
 xnoremap <silent> [Alt]p o<Esc>pm``[=`]``^
@@ -2576,8 +2573,8 @@ xnoremap <silent> [Alt]P O<Esc>Pm``[=`]``^
 nnoremap <silent> [Alt]o o<Space><BS><ESC>
 nnoremap <silent> [Alt]O O<Space><BS><ESC>
 " Yank to end line.
-nmap [Alt]y y$
-nmap Y y$
+nnoremap [Alt]y y$
+nnoremap Y y$
 nnoremap x "_x
 
 " Useless commands
@@ -3065,14 +3062,13 @@ else
           " When 'mouse' isn't empty, Vim will freeze. Why?
           autocmd VimLeave * :set mouse=
         augroup END
-
-        " For Vim inside screen.
-        set ttymouse=xterm2
       endif
 
       " For prevent bug.
       autocmd MyAutoCmd VimLeave * set term=screen
       "}}}
+
+      set ttymouse=xterm2
     endif
 
     if has('gui')
@@ -3106,6 +3102,19 @@ else
     endif
   endif
   "}}}
+endif
+
+" Using the mouse on a terminal.
+if has('mouse')
+  set mouse=a
+  if has('mouse_sgr')
+    set ttymouse=sgr
+  elseif v:version > 703 || v:version is 703 && has('patch632')
+    " I couldn't use has('mouse_sgr') :-(
+    set ttymouse=sgr
+  else
+    set ttymouse=xterm2
+  endif
 endif
 "}}}
 
