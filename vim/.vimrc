@@ -227,6 +227,13 @@ call neobundle#config('vital.vim', {
       \ 'autoload' : {
       \     'commands' : ['Vitalize'],
       \ }})
+NeoBundle 'Shougo/junkfile.vim'
+call neobundle#config('junkfile.vim', {
+      \ 'lazy' : 1,
+      \ 'autoload' : {
+      \   'commands' : 'JunkfileOpen',
+      \   'unite_sources' : ['junkfile', 'junkfile/new'],
+      \ }})
 
 NeoBundle 'hrsh7th/vim-versions'
 call neobundle#config('hrsh7th/vim-versions', {
@@ -428,6 +435,10 @@ NeoBundleLazy 'AndrewRadev/switch.vim', { 'autoload' : {
 NeoBundleLazy 'kana/vim-niceblock', { 'autoload' : {
       \ 'mappings' : ['<Plug>(niceblock-I)', '<Plug>(niceblock-A)']
       \ }}
+
+if has('conceal')
+  NeoBundle 'Yggdroot/indentLine'
+endif
 
 NeoBundleLocal ~/.vim/bundle
 "}}}
@@ -2554,7 +2565,8 @@ endfunction
 "}}}
 
 " JunkFile
-nnoremap <silent> [Window]e  :<C-u>JunkFile<CR>
+" nnoremap <silent> [Window]e  :<C-u>JunkfileOpen<CR>
+nnoremap <silent> [Window]e  :<C-u>Unite junkfile/new junkfile -start-insert<CR>
 "}}}
 
 " e: Change basic commands "{{{
@@ -2906,20 +2918,6 @@ command! DiffOrig vert new | setlocal bt=nofile | r # | 0d_ | diffthis | wincmd 
 " Disable diff mode.
 command! -nargs=0 Undiff setlocal nodiff noscrollbind wrap
 
-" Open junk file."{{{
-command! -nargs=0 JunkFile call s:open_junk_file()
-function! s:open_junk_file()
-  let junk_dir = $HOME . '/.vim_junk'. strftime('/%Y/%m')
-  if !isdirectory(junk_dir)
-    call mkdir(junk_dir, 'p')
-  endif
-
-  let filename = input('Junk Code: ', junk_dir.strftime('/%Y-%m-%d-%H%M%S.'))
-  if filename != ''
-    execute 'edit ' . filename
-  endif
-endfunction"}}}
-
 " :HighlightWith {filetype} ['a 'b]  XXX: Don't work in some case."{{{
 command! -nargs=+ -range=% HighlightWith <line1>,<line2>call s:highlight_with(<q-args>)
 " xnoremap [Space]h q:HighlightWith<Space>
@@ -3137,6 +3135,10 @@ let t:cwd = getcwd()
 
 if !has('vim_starting')
   call neobundle#call_hook('on_source')
+
+  if exists(':IndentLinesReset')
+    IndentLinesReset
+  endif
 endif
 
 set secure
