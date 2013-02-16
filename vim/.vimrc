@@ -178,7 +178,8 @@ call neobundle#config('vimfiler', {
       \                    'complete' : 'customlist,vimfiler#complete' },
       \                  'VimFilerExplorer',
       \                  'Edit', 'Read', 'Source', 'Write'],
-      \    'mappings' : ['<Plug>(vimfiler_switch)']
+      \    'mappings' : ['<Plug>(vimfiler_switch)'],
+      \    'explorer' : 1,
       \ }
       \ })
 " NeoBundle 'Shougo/vimfiler', 'ver.1.50'
@@ -460,13 +461,14 @@ set encoding=utf-8
 
 " Setting of terminal encoding."{{{
 if !has('gui_running')
-  if &term ==# 'win32'
+  if &term ==# 'win32' &&
+        \ (v:version < 703 || (v:version == 703 && has('patch814')))
     " Setting when use the non-GUI Japanese console.
 
     " Garbled unless set this.
     set termencoding=cp932
-    " Japanese input changes itself unless set this.
-    " Be careful because the automatic recognition of the character code is not possible!
+    " Japanese input changes itself unless set this.  Be careful because the
+    " automatic recognition of the character code is not possible!
     set encoding=japan
   else
     if $ENV_ACCESS ==# 'linux'
@@ -529,7 +531,8 @@ endif
 
 " When do not include Japanese, use encoding for fileencoding.
 function! s:ReCheck_FENC() "{{{
-  if &fileencoding =~# 'iso-2022-jp' && search("[^\x01-\x7e]", 'n') == 0
+  if &fileencoding =~# 'iso-2022-jp' &&
+        \ search("[^\x01-\x7e]", 'n', 100, 100) == 0
     let &fileencoding=&encoding
   endif
 endfunction"}}}
