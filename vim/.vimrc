@@ -147,6 +147,7 @@ call neobundle#config('neosnippet', {
       \ 'autoload' : {
       \   'insert' : 1,
       \   'filetypes' : 'snippet',
+      \   'unite_sources' : ['snippet', 'neosnippet/user', 'neosnippet/runtime'],
       \ }})
 " NeoBundle 'git@github.com:Shougo/neocomplcache-snippets-complete.git'
 
@@ -434,6 +435,18 @@ NeoBundleLazy 'AndrewRadev/switch.vim', { 'autoload' : {
       \ }}
 NeoBundleLazy 'kana/vim-niceblock', { 'autoload' : {
       \ 'mappings' : ['<Plug>(niceblock-I)', '<Plug>(niceblock-A)']
+      \ }}
+NeoBundleLazy 'aharisu/vim-gdev', { 'autoload' : {
+      \ 'filetypes' : ['scheme'],
+      \ }}
+NeoBundleLazy 'vim-jp/cpp-vim', { 'autoload' : {
+      \ 'filetypes' : ['cpp'],
+      \ }}
+NeoBundleLazy 'thinca/vim-ft-diff_fold', { 'autoload' : {
+      \ 'filetypes' : ['diff']
+      \ }}
+NeoBundleLazy 'thinca/vim-ft-markdown_fold', { 'autoload' : {
+      \ 'filetypes' : ['markdown']
       \ }}
 
 if has('conceal')
@@ -787,11 +800,13 @@ set title
 " Title length.
 set titlelen=95
 " Title string.
-let &titlestring="%{(&filetype ==# 'lingr-messages' && lingr#unread_count() > 0 )?"
-      \ . " '('.lingr#unread_count().')' : ''}%{expand('%:p:.:~')}%(%m%r%w%)"
-      \ . " \ %<\(%{SnipMid(fnamemodify(&filetype ==# 'vimfiler' ?"
-      \ . "substitute(b:vimfiler.current_dir, '.\\zs/$', '', '') : getcwd(), ':~'),"
-      \ . "80-len(expand('%:p:.')),'...')}\) - VIM"
+let &titlestring="
+      \ %{(&filetype ==# 'lingr-messages' && lingr#unread_count() > 0 )?
+      \ '('.lingr#unread_count().')' : ''}%{expand('%:p:.:~')}%(%m%r%w%)
+      \ %<\(%{".s:SID_PREFIX()."strwidthpart(
+      \ fnamemodify(&filetype ==# 'vimfiler' ?
+      \ substitute(b:vimfiler.current_dir, '.\\zs/$', '', '') : getcwd(), ':~'),
+      \ &columns-len(expand('%:p:.:~')))}\) - VIM"
 
 " Set tabline.
 function! s:my_tabline()  "{{{
@@ -826,7 +841,7 @@ set showtabline=2
 " Set statusline.
 let &statusline="%{winnr('$')>1?'['.winnr().'/'.winnr('$')"
       \ . ".(winnr('#')==winnr()?'#':'').']':''}\ "
-      \ . "%{expand('%:p:.')}"
+      \ . "%{expand('%:t:.')}"
       \ . "%{".s:SID_PREFIX()."get_twitter_len()}"
       \ . "\ %=%m%y%{'['.(&fenc!=''?&fenc:&enc).','.&ff.']'}"
       \ . "%{printf(' %5d/%d',line('.'),line('$'))}"
@@ -895,7 +910,7 @@ set cmdwinheight=5
 set noequalalways
 
 " Adjust window size of preview and help.
-set previewheight=10
+set previewheight=8
 set helpheight=12
 
 " Don't redraw while macro executing.
@@ -1103,6 +1118,7 @@ function! bundle.hooks.on_source(bundle)
   if !exists('g:neocomplcache_force_omni_patterns')
     let g:neocomplcache_force_omni_patterns = {}
   endif
+  let g:neocomplcache_enable_auto_close_preview = 1
 
   " For clang_complete.
   let g:neocomplcache_force_overwrite_completefunc = 1
@@ -1295,6 +1311,9 @@ function! bundle.hooks.on_source(bundle)
 endfunction
 
 unlet bundle
+
+nnoremap <silent> [Window]f              :<C-u>Unite neosnippet/user neosnippet/runtime<CR>
+
 "}}}
 
 " echodoc.vim"{{{
@@ -1576,8 +1595,8 @@ nnoremap <expr><silent> /  <SID>smart_search_expr(
 nnoremap <expr> g/  <SID>smart_search_expr('g/',
       \ ":\<C-u>Unite -buffer-name=search -auto-preview -start-insert line_migemo\<CR>")
 nnoremap [Alt]/  g/
-nnoremap <silent><expr> ? <SID>smart_search_expr('?',
-      \ ":\<C-u>Unite mapping\<CR>")
+nnoremap <silent> ?
+      \ :<C-u>Unite -buffer-name=search -auto-preview -start-insert line:backward<CR>
 nnoremap <silent><expr> * <SID>smart_search_expr(
       \ ":\<C-u>UniteWithCursorWord -buffer-name=search line/fast\<CR>",
       \ ":\<C-u>UniteWithCursorWord -auto-preview -buffer-name=search line\<CR>")
@@ -2101,7 +2120,7 @@ let g:surround_no_mappings = 1
 autocmd MyAutoCmd FileType * call s:define_surround_keymappings()
 
 function! s:define_surround_keymappings()
-  if !&modifiable
+  if !&l:modifiable
     silent! nunmap <buffer> ds
     silent! nunmap <buffer> cs
     silent! nunmap <buffer> ys
@@ -2138,10 +2157,22 @@ unlet bundle
 "}}}
 
 " caw.vim"{{{
-nmap gc <Plug>(caw:prefix)
-xmap gc <Plug>(caw:prefix)
-nmap gcc <Plug>(caw:i:toggle)
-xmap gcc <Plug>(caw:i:toggle)
+autocmd MyAutoCmd FileType * call s:init_caw()
+function! s:init_caw()
+  if !&l:modifiable
+    silent! nunmap <buffer> gc
+    silent! xunmap <buffer> gc
+    silent! nunmap <buffer> gcc
+    silent! xunmap <buffer> gcc
+
+    return
+  endif
+
+  nmap <buffer> gc <Plug>(caw:prefix)
+  xmap <buffer> gc <Plug>(caw:prefix)
+  nmap <buffer> gcc <Plug>(caw:i:toggle)
+  xmap <buffer> gcc <Plug>(caw:i:toggle)
+endfunction
 "}}}
 
 " autodate.vim"{{{
@@ -2567,6 +2598,8 @@ endfunction
 " JunkFile
 " nnoremap <silent> [Window]e  :<C-u>JunkfileOpen<CR>
 nnoremap <silent> [Window]e  :<C-u>Unite junkfile/new junkfile -start-insert<CR>
+command! -nargs=0 JunkfileDiary call junkfile#open_immediately(
+      \ strftime('%Y-%m-%d.md'))
 "}}}
 
 " e: Change basic commands "{{{
@@ -2976,20 +3009,86 @@ endfunction
 "---------------------------------------------------------------------------
 " Functions:"{{{
 "
+function! s:strchars(str)
+  return len(substitute(a:str, '.', 'x', 'g'))
+endfunction
 
-function! SnipMid(str, len, mask) "{{{
-  if a:len >= len(a:str)
-    return a:str
-  elseif a:len <= len(a:mask)
-    return a:mask
+function! s:strwidthpart(str, width)
+  if a:width <= 0
+    return ''
   endif
+  let ret = a:str
+  let width = s:wcswidth(a:str)
+  while width > a:width
+    let char = matchstr(ret, '.$')
+    let ret = ret[: -1 - len(char)]
+    let width -= s:wcswidth(char)
+  endwhile
 
-  let len_head = (a:len - len(a:mask)) / 2
-  let len_tail = a:len - len(a:mask) - len_head
+  return ret
+endfunction
+function! s:strwidthpart_reverse(str, width)
+  if a:width <= 0
+    return ''
+  endif
+  let ret = a:str
+  let width = s:wcswidth(a:str)
+  while width > a:width
+    let char = matchstr(ret, '^.')
+    let ret = ret[len(char) :]
+    let width -= s:wcswidth(char)
+  endwhile
 
-  return (len_head > 0 ? a:str[: len_head - 1] : '')
-        \ . a:mask . (len_tail > 0 ? a:str[-len_tail :] : '')
-endfunction"}}}
+  return ret
+endfunction
+
+if v:version >= 703
+  " Use builtin function.
+  function! s:wcswidth(str)
+    return strwidth(a:str)
+  endfunction
+else
+  function! s:wcswidth(str)
+    if a:str =~# '^[\x00-\x7f]*$'
+      return strlen(a:str)
+    end
+
+    let mx_first = '^\(.\)'
+    let str = a:str
+    let width = 0
+    while 1
+      let ucs = char2nr(substitute(str, mx_first, '\1', ''))
+      if ucs == 0
+        break
+      endif
+      let width += s:_wcwidth(ucs)
+      let str = substitute(str, mx_first, '', '')
+    endwhile
+    return width
+  endfunction
+
+  " UTF-8 only.
+  function! s:_wcwidth(ucs)
+    let ucs = a:ucs
+    if (ucs >= 0x1100
+          \  && (ucs <= 0x115f
+          \  || ucs == 0x2329
+          \  || ucs == 0x232a
+          \  || (ucs >= 0x2e80 && ucs <= 0xa4cf
+          \      && ucs != 0x303f)
+          \  || (ucs >= 0xac00 && ucs <= 0xd7a3)
+          \  || (ucs >= 0xf900 && ucs <= 0xfaff)
+          \  || (ucs >= 0xfe30 && ucs <= 0xfe6f)
+          \  || (ucs >= 0xff00 && ucs <= 0xff60)
+          \  || (ucs >= 0xffe0 && ucs <= 0xffe6)
+          \  || (ucs >= 0x20000 && ucs <= 0x2fffd)
+          \  || (ucs >= 0x30000 && ucs <= 0x3fffd)
+          \  ))
+      return 2
+    endif
+    return 1
+  endfunction
+endif
 "}}}
 
 "---------------------------------------------------------------------------
