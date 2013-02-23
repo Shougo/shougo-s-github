@@ -183,10 +183,16 @@ call neobundle#config('vimfiler', {
       \ 'lazy' : 1,
       \ 'depends' : 'Shougo/unite.vim',
       \ 'autoload' : {
-      \    'commands' : [{ 'name' : 'VimFiler',
+      \    'commands' : [
+      \                  { 'name' : 'VimFiler',
       \                    'complete' : 'customlist,vimfiler#complete' },
-      \                  'VimFilerExplorer',
-      \                  'Edit', 'Read', 'Source', 'Write'],
+      \                  { 'name' : 'VimFilerExplorer',
+      \                    'complete' : 'customlist,vimfiler#complete' },
+      \                  { 'name' : 'Edit',
+      \                    'complete' : 'customlist,vimfiler#complete' },
+      \                  { 'name' : 'Write',
+      \                    'complete' : 'customlist,vimfiler#complete' },
+      \                  'Read', 'Source'],
       \    'mappings' : ['<Plug>(vimfiler_switch)'],
       \    'explorer' : 1,
       \ }
@@ -383,7 +389,6 @@ NeoBundleLazy 'ujihisa/unite-colorscheme', { 'autoload' : {
 NeoBundleLazy 'ujihisa/unite-locate', { 'autoload' : {
       \ 'unite_sources' : 'locate',
       \ }}
-NeoBundleLazy 'ujihisa/vimshell-ssh'
 NeoBundle 'vim-jp/vimdoc-ja.git'
 " NeoBundleLazy 'vim-scripts/netrw.vim', { 'autoload' : {
       " \ 'commands' : 'Explore',
