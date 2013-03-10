@@ -134,7 +134,7 @@ call neobundle#config('echodoc', {
       \   'insert' : 1,
       \ }})
 
-NeoBundle 'Shougo/neocomplcache', '', 'default'
+NeoBundle 'Shougo/neocomplcache', 'ver.8', 'default'
 call neobundle#config('neocomplcache', {
       \ 'lazy' : 1,
       \ 'autoload' : {
@@ -444,9 +444,6 @@ NeoBundleLazy 'matchit.zip', { 'autoload' : {
       \ }}
 
 " NeoBundle 'perl-mauke.vim'
-NeoBundleLazy 'DirDiff.vim', { 'autoload' : {
-      \ 'commands' : 'DirDiff'
-      \ }}
 NeoBundleLazy 'rhysd/clever-f.vim', { 'autoload' : {
       \ 'mappings' : 'f',
       \ }}
@@ -1341,6 +1338,7 @@ function! bundle.hooks.on_source(bundle)
   inoremap <expr><C-l>     neocomplcache#complete_common_string()
 
   " let g:snippets_dir = '~/.vim/snippets/,~/.vim/bundle/snipmate/snippets/'
+  let g:neosnippet#snippets_directory = '~/.vim/snippets'
 endfunction
 
 unlet bundle
@@ -1624,19 +1622,19 @@ nnoremap <silent> g<C-h>  :<C-u>UniteWithCursorWord help<CR>
 " Search.
 nnoremap <expr><silent> /  <SID>smart_search_expr(
       \ ":\<C-u>Unite -buffer-name=search -no-split -start-insert line/fast\<CR>",
-      \ ":\<C-u>Unite -buffer-name=search -auto-preview -start-insert line\<CR>")
+      \ ":\<C-u>Unite -buffer-name=search -no-split -auto-preview -start-insert line\<CR>")
 nnoremap <expr> g/  <SID>smart_search_expr('g/',
       \ ":\<C-u>Unite -buffer-name=search -auto-preview -start-insert line_migemo\<CR>")
 nnoremap [Alt]/  g/
 nnoremap <silent> ?
-      \ :<C-u>Unite -buffer-name=search -auto-preview -start-insert line:backward<CR>
+      \ :<C-u>Unite -buffer-name=search -no-split -auto-preview -start-insert line:backward<CR>
 nnoremap <silent><expr> * <SID>smart_search_expr(
-      \ ":\<C-u>UniteWithCursorWord -buffer-name=search line/fast\<CR>",
-      \ ":\<C-u>UniteWithCursorWord -auto-preview -buffer-name=search line\<CR>")
+      \ ":\<C-u>UniteWithCursorWord -no-split -buffer-name=search line/fast\<CR>",
+      \ ":\<C-u>UniteWithCursorWord -no-split -auto-preview -buffer-name=search line\<CR>")
 nnoremap [Alt]/       /
 nnoremap [Alt]?       ?
 cnoremap <expr><silent><C-g>        (getcmdtype() == '/') ?
-      \ "\<ESC>:Unite -buffer-name=search line -input=".getcmdline()."\<CR>" : "\<C-g>"
+      \ "\<ESC>:Unite -buffer-name=search -no-split line -input=".getcmdline()."\<CR>" : "\<C-g>"
 
 function! s:smart_search_expr(expr1, expr2)
   return line('$') > 5000 ?  a:expr1 : a:expr2
