@@ -429,6 +429,18 @@ NeoBundleLazy 'davidhalter/jedi-vim', {
 NeoBundleLazy 'vim-jp/autofmt', { 'autoload' : {
       \ 'mappings' : [['x', 'gq']],
       \ }}
+NeoBundleLazy 'deton/jasegment.vim', { 'autoload' : {
+      \ 'mappings' : [['n', '<Plug>JaSegmentMoveNE'],
+      \               ['n', '<Plug>JaSegmentMoveNW'],
+      \               ['n', '<Plug>JaSegmentMoveNB'],
+      \               ['o', '<Plug>JaSegmentMoveOE'],
+      \               ['o', '<Plug>JaSegmentMoveOW'],
+      \               ['o', '<Plug>JaSegmentMoveOB'],
+      \               ['x', '<Plug>JaSegmentMoveVE'],
+      \               ['x', '<Plug>JaSegmentMoveVW'],
+      \               ['x', '<Plug>JaSegmentMoveVB'],
+      \ ],
+      \ }}
 
 " From vim.org
 NeoBundleLazy 'godlygeek/csapprox', { 'terminal' : 1 }
@@ -1871,10 +1883,12 @@ omap <Leader>ge  <Plug>(smartword-ge)
 "}}}
 
 " camlcasemotion.vim"{{{
-nmap <silent> W <Plug>CamelCaseMotion_w
-xmap <silent> W <Plug>CamelCaseMotion_w
-nmap <silent> B <Plug>CamelCaseMotion_b
-xmap <silent> B <Plug>CamelCaseMotion_b
+nmap <silent> [Alt]w <Plug>CamelCaseMotion_w
+xmap <silent> [Alt]w <Plug>CamelCaseMotion_w
+omap <silent> [Alt]w <Plug>CamelCaseMotion_w
+nmap <silent> [Alt]b <Plug>CamelCaseMotion_b
+xmap <silent> [Alt]b <Plug>CamelCaseMotion_b
+omap <silent> [Alt]b <Plug>CamelCaseMotion_b
 ""}}}
 
 " smartchr.vim"{{{
@@ -2041,6 +2055,11 @@ function! bundle.hooks.on_source(bundle)
       nnoremap <silent><buffer><expr> /  line('$') > 10000 ?  'g/' :
             \ ":\<C-u>Unite -buffer-name=search -start-insert line_migemo\<CR>"
     endif
+
+    " One key file operation.
+    " nmap <buffer> c <Plug>(vimfiler_mark_current_line)<Plug>(vimfiler_copy_file)
+    " nmap <buffer> m <Plug>(vimfiler_mark_current_line)<Plug>(vimfiler_move_file)
+    " nmap <buffer> d <Plug>(vimfiler_mark_current_line)<Plug>(vimfiler_delete_file)
   endfunction"}}}
 endfunction
 
