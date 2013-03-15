@@ -581,7 +581,8 @@ if !exists('did_encoding_settings') && has('iconv')
     let &fileencodings = &fileencodings . ',' . 'utf-8'
     let &fileencodings = &fileencodings . ',' . s:enc_euc
   endif
-  let &fileencodings = &fileencodings . ',' . &encoding
+  let s:fileencodings = &fileencodings . ',' . &encoding
+  let &fileencodings = 'ucs-bom'
 
   unlet s:enc_euc
   unlet s:enc_jis
@@ -597,9 +598,16 @@ endif
 
 " When do not include Japanese, use encoding for fileencoding.
 function! s:ReCheck_FENC() "{{{
-  if &fileencoding =~# 'iso-2022-jp' &&
-        \ search("[^\x01-\x7e]", 'n', 100, 100) == 0
-    let &fileencoding=&encoding
+  let is_multi_byte = search("[^\x01-\x7e]", 'n', 100, 100)
+  if &fileencoding =~# 'iso-2022-jp' && !is_multi_byte
+    let &fileencoding = &encoding
+  elseif is_multi_byte
+    let &fileencodings = s:fileencodings
+    try
+      silent edit
+    finally
+      let &fileencodings = 'ucs-bom'
+    endtry
   endif
 endfunction"}}}
 
