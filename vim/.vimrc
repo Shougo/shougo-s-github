@@ -2986,7 +2986,7 @@ function! s:add_numbers(num)
 endfunction
 
 " Syntax check.
-nnoremap [Window]y
+nnoremap <silent> [Window]y
       \ :<C-u>echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')<CR>
 "}}}
 
