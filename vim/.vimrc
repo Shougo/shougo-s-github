@@ -490,6 +490,10 @@ NeoBundleLazy 'thinca/vim-ft-diff_fold', { 'autoload' : {
 NeoBundleLazy 'thinca/vim-ft-markdown_fold', { 'autoload' : {
       \ 'filetypes' : ['markdown']
       \ }}
+NeoBundleLazy 'teramako/jscomplete-vim', {
+      \ 'autoload' : {
+      \   'filetypes' : ['javascript']
+      \ }}
 
 if has('conceal')
   NeoBundle 'Yggdroot/indentLine'
@@ -1021,7 +1025,7 @@ augroup MyAutoCmd
   autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
   autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
   "autocmd FileType java setlocal omnifunc=javacomplete#Complete
-  " autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+  autocmd FileType javascript setlocal omnifunc=
   " autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
   " autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
   "autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
