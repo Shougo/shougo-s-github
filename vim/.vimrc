@@ -370,9 +370,7 @@ NeoBundleLazy 'tyru/restart.vim', {
       \  'commands' : 'Restart'
       \ }}
 " NeoBundle 'tyru/skk.vim'
-NeoBundleLazy 'tyru/vim-altercmd', { 'autoload' : {
-      \ 'mappings' : ':'
-      \ }}
+NeoBundleLazy 'tyru/vim-altercmd'
 NeoBundleLazy 'tyru/winmove.vim', { 'autoload' : {
       \ 'gui' : 1,
       \ 'mappings' : [
@@ -2986,6 +2984,10 @@ function! s:add_numbers(num)
     call setline('.', new_line)
   endif
 endfunction
+
+" Syntax check.
+nnoremap [Window]y
+      \ :<C-u>echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')<CR>
 "}}}
 
 "---------------------------------------------------------------------------
