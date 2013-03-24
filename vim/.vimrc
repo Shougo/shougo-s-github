@@ -497,6 +497,11 @@ if has('conceal')
   NeoBundle 'Yggdroot/indentLine'
 endif
 
+NeoBundleLazy 'itchyny/thumbnail.vim', {
+      \ 'autoload' : {
+      \   'commands' : 'Thumbnail'
+      \ }}
+
 NeoBundleLocal ~/.vim/bundle
 "}}}
 
@@ -1518,7 +1523,7 @@ function! bundle.hooks.on_source(bundle)
     return 'ls'
   endfunction
   function! s:vimshell_hooks.notfound(cmdline, context)
-    return 'ls'
+    return ''
   endfunction
   function! s:vimshell_hooks.preprompt(args, context)
     " call vimshell#execute('echo "preprompt"')
@@ -1850,16 +1855,21 @@ function! bundle.hooks.on_source(bundle)
     let g:unite_marked_icon = '✗'
   endif
 
-  if executable('jvgrep')
+  if executable('ag')
+    " Use ag in unite grep source.
+    let g:unite_source_grep_command = 'ag'
+    let g:unite_source_grep_default_opts = '--nocolor --nogroup --column'
+    let g:unite_source_grep_recursive_opt = ''
+  elseif executable('jvgrep')
     " For jvgrep.
     let g:unite_source_grep_command = 'jvgrep'
     let g:unite_source_grep_default_opts = '--exclude ''\.(git|svn|hg|bzr)'''
     let g:unite_source_grep_recursive_opt = '-R'
   elseif executable('ack-grep')
     " For ack.
-    " let g:unite_source_grep_command = 'ack-grep'
-    " let g:unite_source_grep_default_opts = '--no-heading --no-color -a'
-    " let g:unite_source_grep_recursive_opt = ''
+    let g:unite_source_grep_command = 'ack-grep'
+    let g:unite_source_grep_default_opts = '--no-heading --no-color -a'
+    let g:unite_source_grep_recursive_opt = ''
   endif
 
   let g:unite_build_error_icon    = $DOTVIM . '/signs/err.'
@@ -2568,6 +2578,7 @@ nnoremap <silent> [Window]v  :<C-u>vsplit<CR>
 nnoremap <silent> [Window]c  :<C-u>call <sid>smart_close()<CR>
 nnoremap <silent> -  :<C-u>call <SID>smart_close()<CR>
 nnoremap <silent> [Window]o  :<C-u>only<CR>
+nnoremap <silent> [Window]b  :<C-u>Thumbnail<CR>
 
 " A .vimrc snippet that allows you to move around windows beyond tabs
 nnoremap <silent> <Tab> :call <SID>NextWindow()<CR>
