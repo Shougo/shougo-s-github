@@ -503,53 +503,14 @@ done;
 # others
 ######################################################################
 
-echo $TERM | grep screen > /tmp/screen-test
-if [ -s /tmp/screen-test ]; then
-        # 実行中のプログラムを表示する（screenを使用中の時のみ）
-        # ただし、suspend用のウインドウはタイトルを変化させない
-        preexec() {
-                if [ $WINDOW -ne 0 ]; then
-                        # see [zsh-workers:13180]
-                        # http://www.zsh.org/mla/workers/2000/msg03993.html
-                        emulate -L zsh
-                        local -a cmd; cmd=(${(z)2})
-                        echo -n "k$cmd[1]:t\\"
-                else
-                        echo -n "kanother\\"
-                fi
-        }
-        precmd() {
-                if [ $WINDOW -eq 0 ]; then
-                        echo -n "kanother\\"
-                elif [ $PWD = $HOME ]; then
-                        echo -n "k[~]\\"
-                else
-                        echo -n "k[`basename $PWD`]\\"
-                fi
-
-                # For vcs_info.
-                #psvar=()
-                #LANG=en_US.UTF-8 vcs_info
-                #[[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
-        }
-
-        # C-l s alphaとすれば、指定した1文字がプレフィックスであるようなタイトルをサーチ
-        # 見つからなかった場合は次のウィンドウへ進む。
-        screen -X bind s command -c prefix
-        screen -X bind -c prefix ^a command
-        for i in a b c d e f g h i j k l m n o p q r s t u v w x y z ; do 
-                screen -X bind -c prefix $i eval "next" "next" "prev" "select $i"
-        done
-else
-        # ターミナルのタイトルに「ユーザ@ホスト:カレントディレクトリ」を表示させる
-        case "${TERM}" in
-                kterm*|xterm*|vt100)
-                        precmd() {
-                                echo -ne "\033]0;${USER}@${HOST%%.*}:${PWD}\007"
-                        }
-                        ;;
-        esac
-fi
+# ターミナルのタイトルに「ユーザ@ホスト:カレントディレクトリ」を表示させる
+case "${TERM}" in
+        kterm*|xterm*|vt100)
+                precmd() {
+                        echo -ne "\033]0;${USER}@${HOST%%.*}:${PWD}\007"
+                }
+                ;;
+esac
 
 # zshの履歴を共有する設定
 HISTFILE=$HOME/.zsh-history         # 履歴の保存先
