@@ -106,6 +106,7 @@ call neobundle#rc(expand('~/.bundle'))
 " neobundle.vim"{{{
 NeoBundleFetch 'Shougo/neobundle.vim'
 
+" NeoBundle 'tpope/vim-surround', {
 NeoBundle 'anyakichi/vim-surround', {
       \ 'autoload' : {
       \   'mappings' : [
