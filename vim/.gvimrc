@@ -1,6 +1,7 @@
 "---------------------------------------------------------------------------
 " Fonts:"{{{
 "
+
 if has('win32') || has('win64')
   " For Windows.
 
@@ -139,6 +140,7 @@ set mousehide
 
 " Paste.
 nnoremap <RightMouse> "+p
+xnoremap <RightMouse> "+p
 inoremap <RightMouse> <C-r><C-o>+
 cnoremap <RightMouse> <C-r>+
 "}}}
@@ -218,3 +220,4 @@ set guicursor+=a:blinkon0
 " Others::
 "
 
+" vim: foldmethod=marker

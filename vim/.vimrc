@@ -72,6 +72,8 @@ if filereadable(expand('~/.secret_vimrc'))
   execute 'source' expand('~/.secret_vimrc')
 endif
 
+let s:neobundle_dir = expand('~/.bundle')
+
 if has('vim_starting') "{{{
   " Set runtimepath.
   if s:is_windows
@@ -85,7 +87,12 @@ if has('vim_starting') "{{{
   if finddir('neobundle.vim', '.;') != ''
     execute 'set runtimepath+=' . finddir('neobundle.vim', '.;')
   elseif &runtimepath !~ '/neobundle.vim'
-    execute 'set runtimepath+=' . expand('~/.bundle/neobundle.vim')
+    if !isdirectory(s:neobundle_dir.'/neobundle.vim')
+      execute '!git clone git://github.com/Shougo/neobundle.vim.git'
+            \ s:neobundle_dir.'/neobundle.vim'
+    endif
+
+    execute 'set runtimepath+=' . s:neobundle_dir.'/neobundle.vim'
   endif
 
   if findfile('vimrc_local.vim', '.;') != ''
@@ -98,13 +105,13 @@ endif
 
 let g:neobundle#enable_tail_path = 1
 let g:neobundle#default_options = {
-      \ '_' : { 'overwrite' : 0 },
+      \ 'default' : { 'overwrite' : 0 },
       \ }
 
-call neobundle#rc(expand('~/.bundle'))
+call neobundle#rc(s:neobundle_dir)
 
 " neobundle.vim"{{{
-NeoBundleFetch 'Shougo/neobundle.vim'
+NeoBundleFetch 'Shougo/neobundle.vim', '', 'default'
 
 " NeoBundle 'tpope/vim-surround', {
 NeoBundle 'anyakichi/vim-surround', {
@@ -118,34 +125,43 @@ NeoBundleLazy 'basyura/TweetVim', { 'depends' :
       \ 'autoload' : { 'commands' : 'TweetVimHomeTimeline' }}
       " \ ['basyura/twibill.vim', 'tyru/open-browser.vim', 'yomi322/neco-tweetvim'] }
 " NeoBundleLazy 'c9s/perlomni.vim'
-NeoBundleLazy 'choplin/unite-vim_hacks'
-NeoBundleLazy 'liquidz/vimfiler-sendto'
+" NeoBundleLazy 'choplin/unite-vim_hacks'
+" NeoBundleLazy 'liquidz/vimfiler-sendto'
 
-NeoBundle 'Shougo/echodoc'
+NeoBundle 'Shougo/echodoc', '', 'default'
 call neobundle#config('echodoc', {
       \ 'lazy' : 1,
       \ 'autoload' : {
       \   'insert' : 1,
       \ }})
 
-NeoBundle 'Shougo/neocomplcache'
+NeoBundle 'Shougo/neocomplcache', 'ver.8', 'default'
 call neobundle#config('neocomplcache', {
       \ 'lazy' : 1,
       \ 'autoload' : {
       \   'insert' : 1,
       \ }})
 
-NeoBundle 'Shougo/neosnippet'
+NeoBundle 'Shougo/neocomplcache-rsense', '', 'default'
+call neobundle#config('neocomplcache-rsense', {
+      \ 'lazy' : 1,
+      \ 'depends' : 'Shougo/neocomplcache',
+      \ 'autoload' : { 'filetypes' : 'ruby' }
+      \ })
+
+NeoBundle 'Shougo/neosnippet', '', 'default'
 call neobundle#config('neosnippet', {
       \ 'lazy' : 1,
       \ 'autoload' : {
       \   'insert' : 1,
       \   'filetypes' : 'snippet',
+      \   'unite_sources' : ['snippet', 'neosnippet/user', 'neosnippet/runtime'],
       \ }})
 " NeoBundle 'git@github.com:Shougo/neocomplcache-snippets-complete.git'
 
-NeoBundle 'Shougo/neobundle-vim-scripts'
-NeoBundle 'Shougo/unite.vim',
+NeoBundle 'Shougo/neobundle-vim-scripts', '', 'default'
+
+NeoBundle 'Shougo/unite.vim', '', 'default'
 call neobundle#config('unite.vim',{
       \ 'lazy' : 1,
       \ 'autoload' : {
@@ -153,41 +169,46 @@ call neobundle#config('unite.vim',{
       \                   'complete' : 'customlist,unite#complete_source'},
       \                 'UniteWithCursorWord', 'UniteWithInput']
       \ }})
-NeoBundle 'Shougo/unite-build'
-NeoBundle 'Shougo/unite-ssh'
+NeoBundle 'Shougo/unite-build', '', 'default'
+NeoBundle 'Shougo/unite-ssh', '', 'default'
 NeoBundleLazy 'ujihisa/vimshell-ssh', { 'autoload' : {
       \ 'filetypes' : 'vimshell',
       \ }}
-NeoBundle 'Shougo/unite-sudo'
+NeoBundle 'Shougo/unite-sudo', '', 'default'
 NeoBundleLazy 'Shougo/vim-vcs', {
       \ 'depends' : 'thinca/vim-openbuf',
       \ 'autoload' : {'commands' : 'Vcs'},
       \   }
-NeoBundle 'Shougo/vimfiler'
+NeoBundle 'Shougo/vimfiler', '', 'default'
 call neobundle#config('vimfiler', {
       \ 'lazy' : 1,
       \ 'depends' : 'Shougo/unite.vim',
       \ 'autoload' : {
-      \    'commands' : [{ 'name' : 'VimFiler',
+      \    'commands' : [
+      \                  { 'name' : 'VimFiler',
       \                    'complete' : 'customlist,vimfiler#complete' },
-      \                  'VimFilerExplorer',
-      \                  'Edit', 'Read', 'Source', 'Write'],
-      \    'mappings' : ['<Plug>(vimfiler_switch)']
+      \                  { 'name' : 'VimFilerExplorer',
+      \                    'complete' : 'customlist,vimfiler#complete' },
+      \                  { 'name' : 'Edit',
+      \                    'complete' : 'customlist,vimfiler#complete' },
+      \                  { 'name' : 'Write',
+      \                    'complete' : 'customlist,vimfiler#complete' },
+      \                  'Read', 'Source'],
+      \    'mappings' : ['<Plug>(vimfiler_switch)'],
+      \    'explorer' : 1,
       \ }
       \ })
-" NeoBundle 'Shougo/vimfiler', 'ver.1.50'
-NeoBundle 'Shougo/vimproc', {
+NeoBundle 'Shougo/vimproc', '', 'default'
+call neobundle#config('vimproc', {
       \ 'build' : {
       \     'windows' : 'make -f make_mingw32.mak',
       \     'cygwin' : 'make -f make_cygwin.mak',
       \     'mac' : 'make -f make_mac.mak',
       \     'unix' : 'make -f make_unix.mak',
       \    },
-      \ }
-" NeoBundleLazy 'Shougo/vim-ft-vim_fold',
-"       \  { 'autoload' : { 'filetypes' : 'vim' }}
+      \ })
 
-NeoBundle 'Shougo/vimshell'
+NeoBundle 'Shougo/vimshell', '', 'default'
 call neobundle#config('vimshell', {
       \ 'lazy' : 1,
       \ 'autoload' : {
@@ -201,35 +222,48 @@ NeoBundleLazy 'yomi322/vim-gitcomplete', { 'autoload' : {
       \ 'filetype' : 'vimshell'
       \ }}
 
-NeoBundle 'Shougo/vinarise',
+NeoBundle 'Shougo/vinarise', '', 'default'
 call neobundle#config('vinarise', {
       \ 'lazy' : 1,
       \ 'autoload' : {
       \   'commands' : 'Vinarise',
       \ }})
 
-NeoBundle 'Shougo/vesting'
+NeoBundle 'Shougo/vesting', '', 'default'
 call neobundle#config('vesting', {
       \ 'lazy' : 1,
       \ 'autoload' : {
       \   'commands' : 'Unite',
       \ }})
-NeoBundle 'vim-jp/vital.vim'
+NeoBundle 'vim-jp/vital.vim', '', 'default'
 call neobundle#config('vital.vim', {
       \ 'lazy' : 1,
       \ 'autoload' : {
       \     'commands' : ['Vitalize'],
       \ }})
+NeoBundle 'Shougo/junkfile.vim', '', 'default'
+call neobundle#config('junkfile.vim', {
+      \ 'lazy' : 1,
+      \ 'autoload' : {
+      \   'commands' : 'JunkfileOpen',
+      \   'unite_sources' : ['junkfile', 'junkfile/new'],
+      \ }})
 
-NeoBundle 'hrsh7th/vim-versions'
-call neobundle#config('hrsh7th/vim-versions', {
+NeoBundle 'hrsh7th/vim-versions', '', 'default'
+call neobundle#config('vim-versions', {
       \ 'lazy' : 1,
       \ 'autoload' : {
       \   'commands' : 'UniteVersions'},
       \ })
 
 " NeoBundle 'h1mesuke/unite-outline'
-NeoBundle 'Shougo/unite-outline'
+NeoBundle 'Shougo/unite-outline', '', 'default'
+call neobundle#config('unite-outline', {
+      \ 'lazy' : 1,
+      \ 'autoload' : {
+      \   'unite_sources' : 'outline'},
+      \ })
+
 NeoBundleLazy 'hail2u/vim-css3-syntax'
 NeoBundleLazy 'kana/vim-smartchr', { 'autoload' : {
       \ 'insert' : 1,
@@ -261,10 +295,8 @@ NeoBundleLazy 'kien/ctrlp.vim'
 NeoBundleLazy 'Shougo/foldCC',
       \  { 'autoload' : { 'filetypes' : 'vim' }}
 NeoBundleLazy 'mattn/wwwrenderer-vim'
-NeoBundle 'mattn/webapi-vim'
+NeoBundleLazy 'mattn/webapi-vim'
 " NeoBundle 'basyura/webapi-vim'
-" NeoBundle 'pocket7878/presen-vim',
-" \ { 'depends' : 'pocket7878/curses-vim'}
 NeoBundleLazy 'rson/vim-conque', { 'autoload' : {
       \ 'commands' : 'ConqueTerm'
       \ }}
@@ -280,9 +312,11 @@ NeoBundleLazy 'thinca/vim-fontzoom', {
       \   ['n', '<Plug>(fontzoom-larger)'],
       \   ['n', '<Plug>(fontzoom-smaller)']]
       \ }}
-NeoBundle 'ujihisa/unite-font', {
+NeoBundleLazy 'ujihisa/unite-font', {
       \ 'gui' : 1,
-      \ }
+      \ 'autoload' : {
+      \  'unite_sources' : 'font'
+      \ }}
 NeoBundleLazy 'thinca/vim-prettyprint', { 'autoload' : {
       \ 'commands' : 'PP'
       \ }}
@@ -299,7 +333,9 @@ NeoBundleLazy 'thinca/vim-scouter', { 'autoload' : {
 NeoBundleLazy 'thinca/vim-ref', { 'autoload' : {
       \ 'commands' : 'Ref'
       \ }}
-NeoBundle 'thinca/vim-unite-history'
+NeoBundleLazy 'thinca/vim-unite-history', { 'autoload' : {
+      \ 'unite_sources' : ['history/command', 'history/search']
+      \ }}
 NeoBundleLazy 'vim-ruby/vim-ruby', { 'autoload' : {
       \ 'mappings' : '<Plug>(ref-keyword)',
       \ 'filetypes' : 'ruby'
@@ -312,8 +348,12 @@ if has('gui_running') && !s:is_windows
   NeoBundleDisable lingr-vim
 endif
 
-NeoBundle 'Shougo/unite-help'
-NeoBundle 'tsukkee/unite-tag'
+NeoBundleLazy 'Shougo/unite-help', { 'autoload' : {
+      \ 'unite_sources' : 'help'
+      \ }}
+NeoBundleLazy 'tsukkee/unite-tag', { 'autoload' : {
+      \ 'unite_sources' : 'tag'
+      \ }}
 NeoBundleLazy 'tyru/caw.vim', { 'autoload' : {
       \ 'mappings' : [
       \   '<Plug>(caw:prefix)', '<Plug>(caw:i:toggle)']
@@ -331,9 +371,7 @@ NeoBundleLazy 'tyru/restart.vim', {
       \  'commands' : 'Restart'
       \ }}
 " NeoBundle 'tyru/skk.vim'
-NeoBundleLazy 'tyru/vim-altercmd', { 'autoload' : {
-      \ 'mappings' : ':'
-      \ }}
+NeoBundleLazy 'tyru/vim-altercmd'
 NeoBundleLazy 'tyru/winmove.vim', { 'autoload' : {
       \ 'gui' : 1,
       \ 'mappings' : [
@@ -344,9 +382,12 @@ NeoBundleLazy 'ujihisa/neco-ghc', { 'autoload' : {
       \ 'filetypes' : 'haskell'
       \ }}
 NeoBundle 'ujihisa/neco-look'
-NeoBundleLazy 'ujihisa/unite-colorscheme'
-NeoBundleLazy 'ujihisa/unite-locate'
-NeoBundleLazy 'ujihisa/vimshell-ssh'
+NeoBundleLazy 'ujihisa/unite-colorscheme', { 'autoload' : {
+      \ 'unite_sources' : 'colorscheme',
+      \ }}
+NeoBundleLazy 'ujihisa/unite-locate', { 'autoload' : {
+      \ 'unite_sources' : 'locate',
+      \ }}
 NeoBundle 'vim-jp/vimdoc-ja.git'
 " NeoBundleLazy 'vim-scripts/netrw.vim', { 'autoload' : {
       " \ 'commands' : 'Explore',
@@ -355,10 +396,16 @@ NeoBundle 'vim-jp/vimdoc-ja.git'
 NeoBundleLazy 'yuratomo/w3m.vim', { 'autoload' : {
       \ 'commands' : 'W3m',
       \ }}
-NeoBundle 'pasela/unite-webcolorname'
+NeoBundleLazy 'pasela/unite-webcolorname', { 'autoload' : {
+      \ 'unite_sources' : 'webcolorname',
+      \ }}
 " NeoBundle 'hrsh7th/vim-unite-vcs'
-NeoBundle 'osyo-manga/unite-quickfix'
-NeoBundle 'osyo-manga/unite-filetype'
+NeoBundleLazy 'osyo-manga/unite-quickfix', { 'autoload' : {
+      \ 'unite_sources' : 'quickfix',
+      \ }}
+NeoBundleLazy 'osyo-manga/unite-filetype', { 'autoload' : {
+      \ 'unite_sources' : 'filetype',
+      \ }}
 "NeoBundle 'taglist.vim'
 NeoBundleLazy 'rbtnn/hexript.vim'
 NeoBundleLazy 'tpope/vim-endwise'
@@ -381,6 +428,18 @@ NeoBundleLazy 'davidhalter/jedi-vim', {
 NeoBundleLazy 'vim-jp/autofmt', { 'autoload' : {
       \ 'mappings' : [['x', 'gq']],
       \ }}
+NeoBundleLazy 'deton/jasegment.vim', { 'autoload' : {
+      \ 'mappings' : [['n', '<Plug>JaSegmentMoveNE'],
+      \               ['n', '<Plug>JaSegmentMoveNW'],
+      \               ['n', '<Plug>JaSegmentMoveNB'],
+      \               ['o', '<Plug>JaSegmentMoveOE'],
+      \               ['o', '<Plug>JaSegmentMoveOW'],
+      \               ['o', '<Plug>JaSegmentMoveOB'],
+      \               ['x', '<Plug>JaSegmentMoveVE'],
+      \               ['x', '<Plug>JaSegmentMoveVW'],
+      \               ['x', '<Plug>JaSegmentMoveVB'],
+      \ ],
+      \ }}
 
 " From vim.org
 NeoBundleLazy 'godlygeek/csapprox', { 'terminal' : 1 }
@@ -392,12 +451,10 @@ NeoBundleLazy 'autodate.vim', { 'autoload' : {
       \ 'filetypes' : 'vim',
       \ }}
 NeoBundleLazy 'matchit.zip', { 'autoload' : {
-      \ 'mappings' : '%',
+      \ 'filetypes' : 'vim',
       \ }}
+
 " NeoBundle 'perl-mauke.vim'
-NeoBundleLazy 'DirDiff.vim', { 'autoload' : {
-      \ 'commands' : 'DirDiff'
-      \ }}
 NeoBundleLazy 'rhysd/clever-f.vim', { 'autoload' : {
       \ 'mappings' : 'f',
       \ }}
@@ -414,19 +471,39 @@ NeoBundleLazy 'bkad/CamelCaseMotion', { 'autoload' : {
 NeoBundleLazy 'HybridText', { 'autoload' : {
       \ 'filetypes' : 'hybrid',
       \ }}
+NeoBundleLazy 'AndrewRadev/switch.vim', { 'autoload' : {
+      \ 'commands' : 'Switch',
+      \ }}
+NeoBundleLazy 'kana/vim-niceblock', { 'autoload' : {
+      \ 'mappings' : ['<Plug>(niceblock-I)', '<Plug>(niceblock-A)']
+      \ }}
+NeoBundleLazy 'aharisu/vim-gdev', { 'autoload' : {
+      \ 'filetypes' : ['scheme'],
+      \ }}
+NeoBundleLazy 'vim-jp/cpp-vim', { 'autoload' : {
+      \ 'filetypes' : ['cpp'],
+      \ }}
+NeoBundleLazy 'thinca/vim-ft-diff_fold', { 'autoload' : {
+      \ 'filetypes' : ['diff']
+      \ }}
+NeoBundleLazy 'thinca/vim-ft-markdown_fold', { 'autoload' : {
+      \ 'filetypes' : ['markdown']
+      \ }}
+NeoBundleLazy 'teramako/jscomplete-vim', {
+      \ 'autoload' : {
+      \   'filetypes' : ['javascript']
+      \ }}
+
+if has('conceal')
+  NeoBundle 'Yggdroot/indentLine'
+endif
+
+NeoBundleLazy 'itchyny/thumbnail.vim', {
+      \ 'autoload' : {
+      \   'commands' : 'Thumbnail'
+      \ }}
 
 NeoBundleLocal ~/.vim/bundle
-
-" NeoBundle 'taichouchou2/alpaca_complete.git'
-
-" NeoBundle 'https://raw.github.com/m2ym/rsense/master/etc/rsense.vim',
-"       \ {'script_type' : 'plugin'}
-" NeoBundle 'taichouchou2/vim-rsense'
-
-" Test.
-" NeoBundleLazy 'tpope/vim-fugitive'
-" NeoBundleLazy 'masudaK/vim-python'
-" NeoBundleLazy 'klen/python-mode'
 "}}}
 
 " Disable menu.vim
@@ -458,13 +535,14 @@ set encoding=utf-8
 
 " Setting of terminal encoding."{{{
 if !has('gui_running')
-  if &term ==# 'win32'
+  if &term ==# 'win32' &&
+        \ (v:version < 703 || (v:version == 703 && has('patch814')))
     " Setting when use the non-GUI Japanese console.
 
     " Garbled unless set this.
     set termencoding=cp932
-    " Japanese input changes itself unless set this.
-    " Be careful because the automatic recognition of the character code is not possible!
+    " Japanese input changes itself unless set this.  Be careful because the
+    " automatic recognition of the character code is not possible!
     set encoding=japan
   else
     if $ENV_ACCESS ==# 'linux'
@@ -522,13 +600,14 @@ endif
 
 if has('kaoriya')
   " For Kaoriya only.
-  "set fileencodings=guess
+  set fileencodings=guess
 endif
 
 " When do not include Japanese, use encoding for fileencoding.
 function! s:ReCheck_FENC() "{{{
-  if &fileencoding =~# 'iso-2022-jp' && search("[^\x01-\x7e]", 'n') == 0
-    let &fileencoding=&encoding
+  let is_multi_byte = search("[^\x01-\x7e]", 'n', 100, 100)
+  if &fileencoding =~# 'iso-2022-jp' && !is_multi_byte
+    let &fileencoding = &encoding
   endif
 endfunction"}}}
 
@@ -771,11 +850,13 @@ set title
 " Title length.
 set titlelen=95
 " Title string.
-let &titlestring="%{(&filetype ==# 'lingr-messages' && lingr#unread_count() > 0 )?"
-      \ . " '('.lingr#unread_count().')' : ''}%{expand('%:p:.:~')}%(%m%r%w%)"
-      \ . " \ %<\(%{SnipMid(fnamemodify(&filetype ==# 'vimfiler' ?"
-      \ . "substitute(b:vimfiler.current_dir, '.\\zs/$', '', '') : getcwd(), ':~'),"
-      \ . "80-len(expand('%:p:.')),'...')}\) - VIM"
+let &titlestring="
+      \ %{(&filetype ==# 'lingr-messages' && lingr#unread_count() > 0 )?
+      \ '('.lingr#unread_count().')' : ''}%{expand('%:p:.:~')}%(%m%r%w%)
+      \ %<\(%{".s:SID_PREFIX()."strwidthpart(
+      \ fnamemodify(&filetype ==# 'vimfiler' ?
+      \ substitute(b:vimfiler.current_dir, '.\\zs/$', '', '') : getcwd(), ':~'),
+      \ &columns-len(expand('%:p:.:~')))}\) - VIM"
 
 " Set tabline.
 function! s:my_tabline()  "{{{
@@ -810,7 +891,7 @@ set showtabline=2
 " Set statusline.
 let &statusline="%{winnr('$')>1?'['.winnr().'/'.winnr('$')"
       \ . ".(winnr('#')==winnr()?'#':'').']':''}\ "
-      \ . "%{expand('%:p:.')}"
+      \ . "%{expand('%:t:.')}"
       \ . "%{".s:SID_PREFIX()."get_twitter_len()}"
       \ . "\ %=%m%y%{'['.(&fenc!=''?&fenc:&enc).','.&ff.']'}"
       \ . "%{printf(' %5d/%d',line('.'),line('$'))}"
@@ -879,7 +960,7 @@ set cmdwinheight=5
 set noequalalways
 
 " Adjust window size of preview and help.
-set previewheight=10
+set previewheight=8
 set helpheight=12
 
 " Don't redraw while macro executing.
@@ -930,7 +1011,7 @@ augroup MyAutoCmd
   autocmd FileType * if (&readonly || !&modifiable) && !hasmapto('q', 'n')
         \ | nnoremap <buffer><silent> q :<C-u>call <sid>smart_close()<CR>| endif
 
-  autocmd FileType gitcommit setlocal nofoldenable
+  autocmd FileType gitcommit,qfreplace setlocal nofoldenable
 
   autocmd FileType ref nnoremap <buffer> <TAB> <C-w>w
 
@@ -940,7 +1021,7 @@ augroup MyAutoCmd
   autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
   autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
   "autocmd FileType java setlocal omnifunc=javacomplete#Complete
-  " autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+  autocmd FileType javascript setlocal omnifunc=
   " autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
   " autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
   "autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
@@ -948,6 +1029,7 @@ augroup MyAutoCmd
   autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
   autocmd FileType python setlocal foldmethod=indent
+  " autocmd FileType vim setlocal foldmethod=syntax
 
   " Update filetype.
   autocmd BufWritePost *
@@ -995,6 +1077,17 @@ let g:java_highlight_functions=1
 let g:SimpleJsIndenter_BriefMode = 1
 let g:SimpleJsIndenter_CaseIndentLevel = -1
 
+" Vim script
+" augroup: a
+" function: f
+" lua: l
+" perl: p
+" ruby: r
+" python: P
+" tcl: t
+" mzscheme: m
+let g:vimsyn_folding = 'af'
+
 " Syntax highlight for user commands.
 augroup syntax-highlight-extends
   autocmd!
@@ -1014,6 +1107,9 @@ function! s:set_syntax_of_user_defined_commands()
 
   execute 'syntax keyword vimCommand ' . command_names
 endfunction
+
+" Clear modeline highlight.
+autocmd MyAutoCmd VimEnter * highlight ModeMsg guifg=bg guibg=bg
 
 "}}}
 
@@ -1072,6 +1168,7 @@ function! bundle.hooks.on_source(bundle)
   if !exists('g:neocomplcache_force_omni_patterns')
     let g:neocomplcache_force_omni_patterns = {}
   endif
+  let g:neocomplcache_enable_auto_close_preview = 1
 
   " For clang_complete.
   let g:neocomplcache_force_overwrite_completefunc = 1
@@ -1238,6 +1335,8 @@ function! CompleteFiles(findstart, base)
 
   return { 'words' : list, 'refresh' : 'always' }
 endfunction
+
+unlet bundle
 "}}}
 
 " neosnippet.vim"{{{
@@ -1259,7 +1358,13 @@ function! bundle.hooks.on_source(bundle)
   inoremap <expr><C-l>     neocomplcache#complete_common_string()
 
   " let g:snippets_dir = '~/.vim/snippets/,~/.vim/bundle/snipmate/snippets/'
+  let g:neosnippet#snippets_directory = '~/.vim/snippets'
 endfunction
+
+unlet bundle
+
+nnoremap <silent> [Window]f              :<C-u>Unite neosnippet/user neosnippet/runtime<CR>
+
 "}}}
 
 " echodoc.vim"{{{
@@ -1267,6 +1372,7 @@ let bundle = neobundle#get('echodoc')
 function! bundle.hooks.on_source(bundle)
   let g:echodoc_enable_at_startup = 1
 endfunction
+unlet bundle
 "}}}
 
 " vimshell.vim"{{{
@@ -1342,10 +1448,11 @@ function! bundle.hooks.on_source(bundle)
 
     " Auto jump.
     call vimshell#set_alias('j', ':Unite -buffer-name=files
-          \ -default-action=lcd -input=$$args directory_mru')
+          \ -default-action=lcd -no-split -input=$$args directory_mru')
 
     call vimshell#hook#add('chpwd', 'my_chpwd', s:vimshell_hooks.chpwd)
-    call vimshell#hook#add('emptycmd', 'my_emptycmd', s:vimshell_hooks.emptycmd)
+    " call vimshell#hook#add('emptycmd', 'my_emptycmd', s:vimshell_hooks.emptycmd)
+    call vimshell#hook#add('notfound', 'my_notfound', s:vimshell_hooks.notfound)
     call vimshell#hook#add('preprompt', 'my_preprompt', s:vimshell_hooks.preprompt)
     call vimshell#hook#add('preexec', 'my_preexec', s:vimshell_hooks.preexec)
     " call vimshell#hook#set('preexec', [s:SID_PREFIX() . 'vimshell_hooks_preexec'])
@@ -1416,6 +1523,9 @@ function! bundle.hooks.on_source(bundle)
     call vimshell#set_prompt_command('ls')
     return 'ls'
   endfunction
+  function! s:vimshell_hooks.notfound(cmdline, context)
+    return ''
+  endfunction
   function! s:vimshell_hooks.preprompt(args, context)
     " call vimshell#execute('echo "preprompt"')
   endfunction
@@ -1434,6 +1544,8 @@ function! bundle.hooks.on_source(bundle)
     return a:input
   endfunction
 endfunction
+
+unlet bundle
 "}}}
 
 " netrw.vim"{{{
@@ -1477,7 +1589,7 @@ nnoremap <silent> ;w
 nnoremap <silent> <C-k>
       \ :<C-u>Unite change jump<CR>
 nnoremap <silent> ;g
-      \ :<C-u>Unite grep -buffer-name=search -no-quit -resume<CR>
+      \ :<C-u>Unite grep -buffer-name=search -auto-preview -no-quit -resume<CR>
 nnoremap <silent> ;r
       \ :<C-u>Unite -buffer-name=register register history/yank<CR>
 inoremap <silent><expr> <C-z>
@@ -1525,20 +1637,24 @@ nnoremap <silent><expr> [Tag]p  &filetype == 'help' ?
 nnoremap <silent> <C-h>  :<C-u>Unite -buffer-name=help help<CR>
 
 " Execute help by cursor keyword.
-nnoremap <silent> g<C-h>  :<C-u>UniteWithInput help<CR>
+nnoremap <silent> g<C-h>  :<C-u>UniteWithCursorWord help<CR>
 
 " Search.
 nnoremap <expr><silent> /  <SID>smart_search_expr(
       \ ":\<C-u>Unite -buffer-name=search -no-split -start-insert line/fast\<CR>",
-      \ ":\<C-u>Unite -buffer-name=search -start-insert line\<CR>")
+      \ ":\<C-u>Unite -buffer-name=search -no-split -auto-preview -start-insert line\<CR>")
 nnoremap <expr> g/  <SID>smart_search_expr('g/',
-      \ ":\<C-u>Unite -buffer-name=search -start-insert line_migemo\<CR>")
+      \ ":\<C-u>Unite -buffer-name=search -auto-preview -start-insert line_migemo\<CR>")
 nnoremap [Alt]/  g/
-nnoremap <silent><expr> ? <SID>smart_search_expr('?',
-      \ ":\<C-u>Unite mapping\<CR>")
+nnoremap <silent> ?
+      \ :<C-u>Unite -buffer-name=search -no-split -auto-preview -start-insert line:backward<CR>
 nnoremap <silent><expr> * <SID>smart_search_expr(
-      \ ":\<C-u>UniteWithCursorWord -buffer-name=search line/fast\<CR>",
-      \ ":\<C-u>UniteWithCursorWord -buffer-name=search line\<CR>")
+      \ ":\<C-u>UniteWithCursorWord -no-split -buffer-name=search line/fast\<CR>",
+      \ ":\<C-u>UniteWithCursorWord -no-split -auto-preview -buffer-name=search line\<CR>")
+nnoremap [Alt]/       /
+nnoremap [Alt]?       ?
+cnoremap <expr><silent><C-g>        (getcmdtype() == '/') ?
+      \ "\<ESC>:Unite -buffer-name=search -no-split line -input=".getcmdline()."\<CR>" : "\<C-g>"
 
 function! s:smart_search_expr(expr1, expr2)
   return line('$') > 5000 ?  a:expr1 : a:expr2
@@ -1548,6 +1664,75 @@ nnoremap <silent> n
       \ :<C-u>UniteResume search -no-start-insert<CR>
 
 let g:unite_source_history_yank_enable = 1
+
+" For unite-alias.
+let g:unite_source_alias_aliases = {}
+let g:unite_source_alias_aliases.test = {
+      \ 'source' : 'file_rec',
+      \ 'args'   : '~/',
+      \ }
+let g:unite_source_alias_aliases.line_migemo = {
+      \ 'source' : 'line',
+      \ }
+
+" For unite-menu.
+let g:unite_source_menu_menus = {}
+
+let g:unite_source_menu_menus.enc = {
+      \     'description' : 'Open with a specific character code again.',
+      \ }
+let g:unite_source_menu_menus.enc.command_candidates = [
+      \       ['utf8', 'Utf8'],
+      \       ['iso2022jp', 'Iso2022jp'],
+      \       ['cp932', 'Cp932'],
+      \       ['euc', 'Euc'],
+      \       ['utf16', 'Utf16'],
+      \       ['utf16-be', 'Utf16be'],
+      \       ['jis', 'Jis'],
+      \       ['sjis', 'Sjis'],
+      \       ['unicode', 'Unicode'],
+      \     ]
+nnoremap <silent> ;e :<C-u>Unite menu:enc<CR>
+
+let g:unite_source_menu_menus.fenc = {
+      \     'description' : 'Change file fenc option.',
+      \ }
+let g:unite_source_menu_menus.fenc.command_candidates = [
+      \       ['utf8', 'WUtf8'],
+      \       ['iso2022jp', 'WIso2022jp'],
+      \       ['cp932', 'WCp932'],
+      \       ['euc', 'WEuc'],
+      \       ['utf16', 'WUtf16'],
+      \       ['utf16-be', 'WUtf16be'],
+      \       ['jis', 'WJis'],
+      \       ['sjis', 'WSjis'],
+      \       ['unicode', 'WUnicode'],
+      \     ]
+nnoremap <silent> ;f :<C-u>Unite menu:fenc<CR>
+
+let g:unite_source_menu_menus.ff = {
+      \     'description' : 'Change file format option.',
+      \ }
+let g:unite_source_menu_menus.ff.command_candidates = {
+      \       'unix'   : 'WUnix',
+      \       'dos'    : 'WDos',
+      \       'mac'    : 'WMac',
+      \     }
+nnoremap <silent> ;w :<C-u>Unite menu:ff<CR>
+
+let g:unite_source_menu_menus.unite = {
+      \     'description' : 'Start unite sources',
+      \ }
+let g:unite_source_menu_menus.unite.command_candidates = {
+      \       'history'    : 'Unite history/command',
+      \       'quickfix'   : 'Unite qflist -no-quit',
+      \       'resume'     : 'Unite -buffer-name=resume resume',
+      \       'directory'  : 'Unite -buffer-name=files '.
+      \             '-default-action=lcd directory_mru',
+      \       'mapping'    : 'Unite mapping',
+      \       'message'    : 'Unite output:message',
+      \     }
+nnoremap <silent> ;u :<C-u>Unite menu:unite -resume<CR>
 
 let bundle = neobundle#get('unite.vim')
 function! bundle.hooks.on_source(bundle)
@@ -1560,6 +1745,8 @@ function! bundle.hooks.on_source(bundle)
 
   " migemo.
   call unite#custom_source('line_migemo', 'matchers', 'matcher_migemo')
+
+  call unite#custom_source('file_rec', 'sorters', 'sorter_reverse')
 
   " Custom filters."{{{
   " call unite#custom_source('file,buffer,file_rec', 'matchers', 'matcher_fuzzy')
@@ -1649,40 +1836,6 @@ function! bundle.hooks.on_source(bundle)
           \ empty(unite#mappings#get_current_filters()) ? ['sorter_reverse'] : [])
   endfunction"}}}
 
-  " Original source."{{{
-  let source = {
-        \ 'name' : 'buffer_lines',
-        \ 'description' : 'candidates from current buffer lines',
-        \ 'action_table' : {},
-        \ 'max_candidates' : 30,
-        \ 'hooks' : {},
-        \ }
-  call unite#define_source(source)
-
-  function! source.hooks.on_init(args, context) "{{{
-    let a:context.source__lines = getbufline(bufnr('%'), 1, '$')
-    let a:context.source__bufname = bufname('%')
-  endfunction"}}}
-  function! source.gather_candidates(args, context) "{{{
-    let candidates = []
-    let linenr = 1
-    for line in a:context.source__lines
-      call add(candidates, {
-            \ 'word' : line,
-            \ 'kind' : 'jump_list',
-            \ 'action__line' : linenr,
-            \ 'action__path' : a:context.source__bufname,
-            \ })
-
-      let linenr += 1
-    endfor
-
-    return candidates
-  endfunction"}}}
-
-  unlet source
-  "}}}
-
   " Variables.
   let g:unite_enable_split_vertically = 0
   let g:unite_winheight = 20
@@ -1703,92 +1856,30 @@ function! bundle.hooks.on_source(bundle)
     let g:unite_marked_icon = '✗'
   endif
 
-  if executable('jvgrep')
+  if executable('ag')
+    " Use ag in unite grep source.
+    let g:unite_source_grep_command = 'ag'
+    let g:unite_source_grep_default_opts = '--nocolor --nogroup --column'
+    let g:unite_source_grep_recursive_opt = ''
+  elseif executable('jvgrep')
     " For jvgrep.
     let g:unite_source_grep_command = 'jvgrep'
     let g:unite_source_grep_default_opts = '--exclude ''\.(git|svn|hg|bzr)'''
     let g:unite_source_grep_recursive_opt = '-R'
   elseif executable('ack-grep')
     " For ack.
-    " let g:unite_source_grep_command = 'ack-grep'
-    " let g:unite_source_grep_default_opts = '--no-heading --no-color -a'
-    " let g:unite_source_grep_recursive_opt = ''
+    let g:unite_source_grep_command = 'ack-grep'
+    let g:unite_source_grep_default_opts = '--no-heading --no-color -a'
+    let g:unite_source_grep_recursive_opt = ''
   endif
-
-  " For unite-alias.
-  let g:unite_source_alias_aliases = {}
-  let g:unite_source_alias_aliases.test = {
-        \ 'source' : 'file_rec',
-        \ 'args'   : '~/',
-        \ }
-  let g:unite_source_alias_aliases.line_migemo = {
-        \ 'source' : 'line',
-        \ }
-
-  " For unite-menu.
-  let g:unite_source_menu_menus = {}
-
-  let g:unite_source_menu_menus.enc = {
-        \     'description' : 'Open with a specific character code again.',
-        \ }
-  let g:unite_source_menu_menus.enc.command_candidates = [
-        \       ['utf8', 'Utf8'],
-        \       ['iso2022jp', 'Iso2022jp'],
-        \       ['cp932', 'Cp932'],
-        \       ['euc', 'Euc'],
-        \       ['utf16', 'Utf16'],
-        \       ['utf16-be', 'Utf16be'],
-        \       ['jis', 'Jis'],
-        \       ['sjis', 'Sjis'],
-        \       ['unicode', 'Unicode'],
-        \     ]
-  nnoremap <silent> ;e :<C-u>Unite menu:enc<CR>
-
-  let g:unite_source_menu_menus.fenc = {
-        \     'description' : 'Change file fenc option.',
-        \ }
-  let g:unite_source_menu_menus.fenc.command_candidates = [
-        \       ['utf8', 'WUtf8'],
-        \       ['iso2022jp', 'WIso2022jp'],
-        \       ['cp932', 'WCp932'],
-        \       ['euc', 'WEuc'],
-        \       ['utf16', 'WUtf16'],
-        \       ['utf16-be', 'WUtf16be'],
-        \       ['jis', 'WJis'],
-        \       ['sjis', 'WSjis'],
-        \       ['unicode', 'WUnicode'],
-        \     ]
-  nnoremap <silent> ;f :<C-u>Unite menu:fenc<CR>
-
-  let g:unite_source_menu_menus.ff = {
-        \     'description' : 'Change file format option.',
-        \ }
-  let g:unite_source_menu_menus.ff.command_candidates = {
-        \       'unix'      : 'WUnix',
-        \       'dos' : 'WDos',
-        \       'mac'    : 'WMac',
-        \     }
-  nnoremap <silent> ;w :<C-u>Unite menu:ff<CR>
-
-  let g:unite_source_menu_menus.unite = {
-        \     'description' : 'Start unite sources',
-        \ }
-  let g:unite_source_menu_menus.unite.command_candidates = {
-        \       'history'      : 'Unite history/command',
-        \       'quickfix' : 'Unite qflist -no-quit',
-        \       'resume'    : 'Unite -buffer-name=resume resume',
-        \       'directory'    : 'Unite -buffer-name=files '.
-        \             '-default-action=lcd directory_mru',
-        \       'mapping'    : 'Unite mapping',
-        \       'message'    : 'Unite output:message',
-        \     }
-  nnoremap <silent> ;u :<C-u>Unite menu:unite -resume<CR>
 
   let g:unite_build_error_icon    = $DOTVIM . '/signs/err.'
         \ . (s:is_windows ? 'bmp' : 'png')
   let g:unite_build_warning_icon  = $DOTVIM . '/signs/warn.'
         \ . (s:is_windows ? 'bmp' : 'png')
 endfunction
+
+unlet bundle
 "}}}
 
 " smartword.vim"{{{
@@ -1805,18 +1896,18 @@ omap <Leader>ge  <Plug>(smartword-ge)
 "}}}
 
 " camlcasemotion.vim"{{{
-nmap <silent> W <Plug>CamelCaseMotion_w
-xmap <silent> W <Plug>CamelCaseMotion_w
-nmap <silent> B <Plug>CamelCaseMotion_b
-xmap <silent> B <Plug>CamelCaseMotion_b
+nmap <silent> [Alt]w <Plug>CamelCaseMotion_w
+xmap <silent> [Alt]w <Plug>CamelCaseMotion_w
+omap <silent> [Alt]w <Plug>CamelCaseMotion_w
+nmap <silent> [Alt]b <Plug>CamelCaseMotion_b
+xmap <silent> [Alt]b <Plug>CamelCaseMotion_b
+omap <silent> [Alt]b <Plug>CamelCaseMotion_b
 ""}}}
 
 " smartchr.vim"{{{
 let bundle = neobundle#get('vim-smartchr')
 function! bundle.hooks.on_source(bundle)
   inoremap <expr> , smartchr#one_of(', ', ',')
-
-  inoremap <expr> ? smartchr#one_of('?', '? ')
 
   " Smart =.
   inoremap <expr> =
@@ -1849,6 +1940,8 @@ function! bundle.hooks.on_source(bundle)
           \| inoremap <buffer> <expr> < smartchr#loop('<', '<%', '<%=')
   augroup END
 endfunction
+
+unlet bundle
 "}}}
 
 " smarttill.vim"{{{
@@ -1866,7 +1959,7 @@ let g:changelog_username = "Shougo "
 "}}}
 
 " quickrun.vim"{{{
-nmap <silent> [Space]r <Plug>(quickrun-op)
+nmap <silent> <Leader>r <Plug>(quickrun)
 "}}}
 
 " python.vim
@@ -1884,12 +1977,10 @@ function! bundle.hooks.on_source(bundle)
 
   " ref-lynx.
   if s:is_windows
-    let s:lynx = 'C:/lynx/lynx.exe'
-    let s:cfg  = 'C:/lynx/lynx.cfg'
+    let lynx = 'C:/lynx/lynx.exe'
+    let cfg  = 'C:/lynx/lynx.cfg'
     let g:ref_lynx_cmd = s:lynx.' -cfg='.s:cfg.' -dump -nonumbers %s'
     let g:ref_alc_cmd = s:lynx.' -cfg='.s:cfg.' -dump %s'
-    unlet s:lynx
-    unlet s:cfg
   endif
 
   let g:ref_lynx_use_cache = 1
@@ -1903,6 +1994,8 @@ function! bundle.hooks.on_source(bundle)
     nmap <buffer> [Tag]p  <Plug>(ref-back)
   endfunction"}}}
 endfunction
+
+unlet bundle
 "}}}
 
 " vimfiler.vim"{{{
@@ -1975,8 +2068,15 @@ function! bundle.hooks.on_source(bundle)
       nnoremap <silent><buffer><expr> /  line('$') > 10000 ?  'g/' :
             \ ":\<C-u>Unite -buffer-name=search -start-insert line_migemo\<CR>"
     endif
+
+    " One key file operation.
+    " nmap <buffer> c <Plug>(vimfiler_mark_current_line)<Plug>(vimfiler_copy_file)
+    " nmap <buffer> m <Plug>(vimfiler_mark_current_line)<Plug>(vimfiler_move_file)
+    " nmap <buffer> d <Plug>(vimfiler_mark_current_line)<Plug>(vimfiler_delete_file)
   endfunction"}}}
 endfunction
+
+unlet bundle
 "}}}
 
 " eskk.vim"{{{
@@ -2043,6 +2143,8 @@ function! bundle.hooks.on_source(bundle)
     unlet t
   endfunction "}}}
 endfunction
+
+unlet bundle
 "}}}
 
 " lingr-vim"{{{
@@ -2074,10 +2176,6 @@ endfunction"}}}
 function! s:lingr_looms_my_settings() "{{{
   nmap <buffer> l <Plug>(lingr-rooms-select-room)
 endfunction"}}}
-
-if !s:is_windows
-  command! Suicide call system('kill -KILL ' . getpid())
-endif
 "}}}
 
 " surround.vim"{{{
@@ -2085,7 +2183,7 @@ let g:surround_no_mappings = 1
 autocmd MyAutoCmd FileType * call s:define_surround_keymappings()
 
 function! s:define_surround_keymappings()
-  if !&modifiable
+  if !&l:modifiable
     silent! nunmap <buffer> ds
     silent! nunmap <buffer> cs
     silent! nunmap <buffer> ys
@@ -2117,13 +2215,27 @@ function! bundle.hooks.on_source(bundle)
     endif
   endfunction
 endfunction
+
+unlet bundle
 "}}}
 
 " caw.vim"{{{
-nmap gc <Plug>(caw:prefix)
-xmap gc <Plug>(caw:prefix)
-nmap gcc <Plug>(caw:i:toggle)
-xmap gcc <Plug>(caw:i:toggle)
+autocmd MyAutoCmd FileType * call s:init_caw()
+function! s:init_caw()
+  if !&l:modifiable
+    silent! nunmap <buffer> gc
+    silent! xunmap <buffer> gc
+    silent! nunmap <buffer> gcc
+    silent! xunmap <buffer> gcc
+
+    return
+  endif
+
+  nmap <buffer> gc <Plug>(caw:prefix)
+  xmap <buffer> gc <Plug>(caw:prefix)
+  nmap <buffer> gcc <Plug>(caw:i:toggle)
+  xmap <buffer> gcc <Plug>(caw:i:toggle)
+endfunction
 "}}}
 
 " autodate.vim"{{{
@@ -2199,7 +2311,30 @@ function! bundle.hooks.on_source(bundle)
   AlterCommand <cmdwin> w[rite] Write
   AlterCommand w[rite] Write
 endfunction
+unlet bundle
 "}}}
+
+" switch.vim{{{
+" http://www.vimninjas.com/2012/09/12/switch/
+let g:variable_style_switch_definitions = [
+\   {
+\     'f': {
+\       'foo': 'bar'
+\     },
+\
+\     'b': {
+\       'bar': 'foo'
+\     },
+\   }
+\ ]
+" nnoremap <silent> + :call switch#Switch(g:variable_style_switch_definitions)<CR>
+nnoremap <silent> ! :Switch<cr>
+"}}}
+
+" vim-niceblock
+" Improved visual selection.
+xmap I  <Plug>(niceblock-I)
+xmap A  <Plug>(niceblock-A)
 "}}}
 
 "---------------------------------------------------------------------------
@@ -2253,7 +2388,7 @@ function! s:camelcase_delete(is_reverse)
   endif
   let &l:virtualedit = save_ve
 
-  let pattern = '\d\+\|\u\+\ze\%(\u\l\|\d\)\|' . 
+  let pattern = '\d\+\|\u\+\ze\%(\u\l\|\d\)\|' .
         \'\u\l\+\|\%(\a\|\d\)\+\ze_\|\%(\k\@!\S\)\+' .
         \'\|\%(_\@!\k\)\+\>\|[_]\|\s\+'
 
@@ -2265,7 +2400,8 @@ function! s:camelcase_delete(is_reverse)
 
   let del = a:is_reverse ? "\<Del>" : "\<BS>"
 
-  return (pumvisible() ? neocomplcache#smart_close_popup() : '') . repeat(del, cur_cnt)
+  return (pumvisible() ?
+        \ neocomplcache#smart_close_popup() : '') . repeat(del, cur_cnt)
 endfunction
 "}}}
 
@@ -2389,7 +2525,7 @@ function! s:cd_buffer_dir() "{{{
 endfunction"}}}
 
 " Delete windows ^M codes.
-nnoremap <silent> [Space]<C-m> mmHmt:<C-u>%s/<C-v><CR>$//ge<CR>'tzt'm
+nnoremap <silent> [Space]<C-m> mmHmt:<C-u>%s/\r$//ge<CR>'tzt'm
 
 " Delete spaces before newline.
 nnoremap <silent> [Space]ss mmHmt:<C-u>%s/<Space>$//ge<CR>`tzt`m
@@ -2443,6 +2579,7 @@ nnoremap <silent> [Window]v  :<C-u>vsplit<CR>
 nnoremap <silent> [Window]c  :<C-u>call <sid>smart_close()<CR>
 nnoremap <silent> -  :<C-u>call <SID>smart_close()<CR>
 nnoremap <silent> [Window]o  :<C-u>only<CR>
+nnoremap <silent> [Window]b  :<C-u>Thumbnail<CR>
 
 " A .vimrc snippet that allows you to move around windows beyond tabs
 nnoremap <silent> <Tab> :call <SID>NextWindow()<CR>
@@ -2523,7 +2660,10 @@ endfunction
 "}}}
 
 " JunkFile
-nnoremap <silent> [Window]e  :<C-u>JunkFile<CR>
+" nnoremap <silent> [Window]e  :<C-u>JunkfileOpen<CR>
+nnoremap <silent> [Window]e  :<C-u>Unite junkfile/new junkfile -start-insert<CR>
+command! -nargs=0 JunkfileDiary call junkfile#open_immediately(
+      \ strftime('%Y-%m-%d.md'))
 "}}}
 
 " e: Change basic commands "{{{
@@ -2532,6 +2672,9 @@ nnoremap [Alt]   <Nop>
 xnoremap [Alt]   <Nop>
 nmap    e  [Alt]
 xmap    e  [Alt]
+
+nnoremap    [Alt]e   e
+xnoremap    [Alt]e   e
 
 " Indent paste.
 nnoremap <silent> [Alt]p o<Esc>pm``[=`]``^
@@ -2542,8 +2685,8 @@ xnoremap <silent> [Alt]P O<Esc>Pm``[=`]``^
 nnoremap <silent> [Alt]o o<Space><BS><ESC>
 nnoremap <silent> [Alt]O O<Space><BS><ESC>
 " Yank to end line.
-nmap [Alt]y y$
-nmap Y y$
+nnoremap [Alt]y y$
+nnoremap Y y$
 nnoremap x "_x
 
 " Useless commands
@@ -2613,10 +2756,10 @@ endfunction
 "}}}
 
 " Smart home and smart end."{{{
-nnoremap <silent> gh  :<C-u>call SmartHome("n")<CR>
-nnoremap <silent> gl  :<C-u>call SmartEnd("n")<CR>
-xnoremap <silent> gh  <ESC>:<C-u>call SmartHome("v")<CR>
-xnoremap <silent> gl  <ESC>:<C-u>call SmartEnd("v")<CR>
+nnoremap <silent> gh  :<C-u>call SmartHome('n')<CR>
+nnoremap <silent> gl  :<C-u>call SmartEnd('n')<CR>
+xnoremap <silent> gh  <ESC>:<C-u>call SmartHome('v')<CR>
+xnoremap <silent> gl  <ESC>:<C-u>call SmartEnd('v')<CR>
 " Smart home function"{{{
 function! SmartHome(mode)
   let curcol = col('.')
@@ -2805,7 +2948,7 @@ noremap <expr> zz (winline() == (winheight(0)+1)/ 2) ?
       \ 'zt' : (winline() == 1)? 'zb' : 'zz'
 
 " Capitalize.
-nnoremap gu <ESC>gUiw`]
+nnoremap gu gUiw`]
 inoremap <C-q> <ESC>gUiw`]a
 
 " Clear highlight.
@@ -2817,21 +2960,6 @@ xmap <Leader>h <Plug>(operator-html-escape)
 
 " Easily macro.
 nnoremap @@ @a
-
-" Improved visual selection.{{{
-" http://labs.timedia.co.jp/2012/10/vim-more-useful-blockwise-insertion.html
-xnoremap <expr> I  <SID>force_blockwise_visual('I')
-xnoremap <expr> A  <SID>force_blockwise_visual('A')
-
-function! s:force_blockwise_visual(next_key) "{{{
-  if mode() ==# 'v'
-    return "\<C-v>" . a:next_key
-  elseif mode() ==# 'V'
-    return "\<C-v>0o$" . a:next_key
-  else  " mode() ==# "\<C-v>"
-    return a:next_key
-  endif
-endfunction"}}}
 "}}}
 
 " Improved increment.
@@ -2860,6 +2988,10 @@ function! s:add_numbers(num)
     call setline('.', new_line)
   endif
 endfunction
+
+" Syntax check.
+nnoremap <silent> [Window]y
+      \ :<C-u>echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')<CR>
 "}}}
 
 "---------------------------------------------------------------------------
@@ -2886,20 +3018,6 @@ command! -nargs=1 -complete=file Diff vertical diffsplit <args>
 command! DiffOrig vert new | setlocal bt=nofile | r # | 0d_ | diffthis | wincmd p | diffthis
 " Disable diff mode.
 command! -nargs=0 Undiff setlocal nodiff noscrollbind wrap
-
-" Open junk file."{{{
-command! -nargs=0 JunkFile call s:open_junk_file()
-function! s:open_junk_file()
-  let junk_dir = $HOME . '/.vim_junk'. strftime('/%Y/%m')
-  if !isdirectory(junk_dir)
-    call mkdir(junk_dir, 'p')
-  endif
-
-  let filename = input('Junk Code: ', junk_dir.strftime('/%Y-%m-%d-%H%M%S.'))
-  if filename != ''
-    execute 'edit ' . filename
-  endif
-endfunction"}}}
 
 " :HighlightWith {filetype} ['a 'b]  XXX: Don't work in some case."{{{
 command! -nargs=+ -range=% HighlightWith <line1>,<line2>call s:highlight_with(<q-args>)
@@ -2938,7 +3056,7 @@ function! s:git_pull_all()
       \ glob(v:val.'/*/*/*.vim') != '' ||
       \ glob(v:val.'/*/*/*/*.vim') != ''")
     lcd `=dir`
-    redraw
+    redraw!
 
     echo printf('%d/%d git pull in %s', cnt, max, dir)
 
@@ -2946,8 +3064,6 @@ function! s:git_pull_all()
     if vimproc#get_last_status()
       echohl WarningMsg | echomsg output | echohl None
     endif
-
-    echo ''
 
     let cnt += 1
   endfor
@@ -2961,20 +3077,86 @@ endfunction
 "---------------------------------------------------------------------------
 " Functions:"{{{
 "
+function! s:strchars(str)
+  return len(substitute(a:str, '.', 'x', 'g'))
+endfunction
 
-function! SnipMid(str, len, mask) "{{{
-  if a:len >= len(a:str)
-    return a:str
-  elseif a:len <= len(a:mask)
-    return a:mask
+function! s:strwidthpart(str, width)
+  if a:width <= 0
+    return ''
   endif
+  let ret = a:str
+  let width = s:wcswidth(a:str)
+  while width > a:width
+    let char = matchstr(ret, '.$')
+    let ret = ret[: -1 - len(char)]
+    let width -= s:wcswidth(char)
+  endwhile
 
-  let len_head = (a:len - len(a:mask)) / 2
-  let len_tail = a:len - len(a:mask) - len_head
+  return ret
+endfunction
+function! s:strwidthpart_reverse(str, width)
+  if a:width <= 0
+    return ''
+  endif
+  let ret = a:str
+  let width = s:wcswidth(a:str)
+  while width > a:width
+    let char = matchstr(ret, '^.')
+    let ret = ret[len(char) :]
+    let width -= s:wcswidth(char)
+  endwhile
 
-  return (len_head > 0 ? a:str[: len_head - 1] : '')
-        \ . a:mask . (len_tail > 0 ? a:str[-len_tail :] : '')
-endfunction"}}}
+  return ret
+endfunction
+
+if v:version >= 703
+  " Use builtin function.
+  function! s:wcswidth(str)
+    return strwidth(a:str)
+  endfunction
+else
+  function! s:wcswidth(str)
+    if a:str =~# '^[\x00-\x7f]*$'
+      return strlen(a:str)
+    end
+
+    let mx_first = '^\(.\)'
+    let str = a:str
+    let width = 0
+    while 1
+      let ucs = char2nr(substitute(str, mx_first, '\1', ''))
+      if ucs == 0
+        break
+      endif
+      let width += s:_wcwidth(ucs)
+      let str = substitute(str, mx_first, '', '')
+    endwhile
+    return width
+  endfunction
+
+  " UTF-8 only.
+  function! s:_wcwidth(ucs)
+    let ucs = a:ucs
+    if (ucs >= 0x1100
+          \  && (ucs <= 0x115f
+          \  || ucs == 0x2329
+          \  || ucs == 0x232a
+          \  || (ucs >= 0x2e80 && ucs <= 0xa4cf
+          \      && ucs != 0x303f)
+          \  || (ucs >= 0xac00 && ucs <= 0xd7a3)
+          \  || (ucs >= 0xf900 && ucs <= 0xfaff)
+          \  || (ucs >= 0xfe30 && ucs <= 0xfe6f)
+          \  || (ucs >= 0xff00 && ucs <= 0xff60)
+          \  || (ucs >= 0xffe0 && ucs <= 0xffe6)
+          \  || (ucs >= 0x20000 && ucs <= 0x2fffd)
+          \  || (ucs >= 0x30000 && ucs <= 0x3fffd)
+          \  ))
+      return 2
+    endif
+    return 1
+  endfunction
+endif
 "}}}
 
 "---------------------------------------------------------------------------
@@ -3043,19 +3225,18 @@ else
           " Show filename on screen statusline.
           " But invalid 'another' screen buffer.
           autocmd BufEnter * if $WINDOW != 0 &&
-                \ bufname("") !~ "[A-Za-z0-9\]*://"
-                \   | silent! exe '!echo -n "kv:%:t\\"' | endif
+                \ bufname('') !~ '[[:alnum:]]*://'
+                \   | silent! exe '!echo -n "\ekv:%:t\e\\"' | endif
           " When 'mouse' isn't empty, Vim will freeze. Why?
           autocmd VimLeave * :set mouse=
         augroup END
-
-        " For Vim inside screen.
-        set ttymouse=xterm2
       endif
 
       " For prevent bug.
       autocmd MyAutoCmd VimLeave * set term=screen
       "}}}
+
+      set ttymouse=xterm2
     endif
 
     if has('gui')
@@ -3090,6 +3271,19 @@ else
   endif
   "}}}
 endif
+
+" Using the mouse on a terminal.
+if has('mouse')
+  set mouse=a
+  if has('mouse_sgr')
+    set ttymouse=sgr
+  elseif v:version > 703 || v:version is 703 && has('patch632')
+    " I couldn't use has('mouse_sgr') :-(
+    set ttymouse=sgr
+  else
+    set ttymouse=xterm2
+  endif
+endif
 "}}}
 
 "---------------------------------------------------------------------------
@@ -3108,6 +3302,12 @@ let t:cwd = getcwd()
 
 if !has('vim_starting')
   call neobundle#call_hook('on_source')
+
+  if exists(':IndentLinesReset')
+    IndentLinesReset
+  endif
 endif
 
 set secure
+
+" vim: foldmethod=marker
