@@ -2975,7 +2975,7 @@ function! s:add_numbers(num)
   if prev_num != ''
     let next_num = matchstr(next_line, '^\d\+')
     let new_line = prev_line[: -len(prev_num)-1] .
-          \ printf('%0'.len(prev_num).'d',
+          \ printf('%0'.len(prev_num.next_num).'d',
           \    max([0, prev_num . next_num + a:num])) . next_line[len(next_num):]
   else
     let new_line = prev_line . substitute(next_line, '\d\+',
