@@ -84,8 +84,9 @@ if has('vim_starting') "{{{
   endif
 
   " Load neobundle.
-  if isdirectory('neobundle.vim') ||
-        \ finddir('neobundle.vim', '.;') != ''
+  if isdirectory('neobundle.vim')
+    set runtimepath+=neobundle.vim
+  elseif finddir('neobundle.vim', '.;') != ''
     execute 'set runtimepath+=' . finddir('neobundle.vim', '.;')
   elseif &runtimepath !~ '/neobundle.vim'
     if !isdirectory(s:neobundle_dir.'/neobundle.vim')
