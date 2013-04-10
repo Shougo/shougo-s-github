@@ -84,18 +84,21 @@ if has('vim_starting') "{{{
   endif
 
   " Load neobundle.
-  if finddir('neobundle.vim', '.;') != ''
+  if isdirectory('neobundle.vim') ||
+        \ finddir('neobundle.vim', '.;') != ''
     execute 'set runtimepath+=' . finddir('neobundle.vim', '.;')
   elseif &runtimepath !~ '/neobundle.vim'
     if !isdirectory(s:neobundle_dir.'/neobundle.vim')
-      execute '!git clone git://github.com/Shougo/neobundle.vim.git'
+      execute printf('!git clone %s://github.com/Shougo/neobundle.vim.git',
+            \ (exists('$http_proxy') ? 'https' : 'git'))
             \ s:neobundle_dir.'/neobundle.vim'
     endif
 
     execute 'set runtimepath+=' . s:neobundle_dir.'/neobundle.vim'
   endif
 
-  if findfile('vimrc_local.vim', '.;') != ''
+  if filereadable('vimrc_local.vim') ||
+        \ findfile('vimrc_local.vim', '.;') != ''
     " Load develop version.
     call neobundle#local(fnamemodify(
           \ findfile('vimrc_local.vim', '.;'), ':h'), { 'resettable' : 0 })
@@ -135,7 +138,7 @@ call neobundle#config('echodoc', {
       \   'insert' : 1,
       \ }})
 
-NeoBundle 'Shougo/neocomplcache', 'ver.8', 'default'
+NeoBundle 'Shougo/neocomplcache', '', 'default'
 call neobundle#config('neocomplcache', {
       \ 'lazy' : 1,
       \ 'autoload' : {
@@ -409,11 +412,6 @@ NeoBundleLazy 'osyo-manga/unite-filetype', { 'autoload' : {
 "NeoBundle 'taglist.vim'
 NeoBundleLazy 'rbtnn/hexript.vim'
 NeoBundleLazy 'tpope/vim-endwise'
-NeoBundleLazy 'Rip-Rip/clang_complete', {
-      \ 'autoload' : {
-      \     'filetypes' : ['c', 'cpp'],
-      \    },
-      \ }
 NeoBundleLazy 'kana/vim-tabpagecd'
 NeoBundleLazy 'rhysd/accelerated-jk', { 'autoload' : {
       \ 'mappings' : ['<Plug>(accelerated_jk_gj)',
@@ -748,7 +746,6 @@ set foldenable
 " set foldmethod=expr
 set foldmethod=marker
 " Show folding level.
-set foldcolumn=3
 set foldcolumn=3
 set fillchars=vert:\|
 set commentstring=%s
@@ -2284,11 +2281,13 @@ let g:restart_save_window_values = 0
 nnoremap <silent> [Space]re  :<C-u>Restart<CR>
 "}}}
 
-" accelerated-jk
-nmap <silent>j <Plug>(accelerated_jk_gj)
-nmap gj j
-nmap <silent>k <Plug>(accelerated_jk_gk)
-nmap gk k
+if neobundle#is_installed('accelerated-jk')
+  " accelerated-jk
+  nmap <silent>j <Plug>(accelerated_jk_gj)
+  nmap gj j
+  nmap <silent>k <Plug>(accelerated_jk_gk)
+  nmap gk k
+endif
 
 " tabpagecd
 autocmd MyAutoCmd TabEnter * NeoBundleSource vim-tabpagecd
@@ -2976,7 +2975,7 @@ function! s:add_numbers(num)
   if prev_num != ''
     let next_num = matchstr(next_line, '^\d\+')
     let new_line = prev_line[: -len(prev_num)-1] .
-          \ printf('%0'.len(prev_num.next_num).'d',
+          \ printf('%0'.len(prev_num . next_num).'d',
           \    max([0, prev_num . next_num + a:num])) . next_line[len(next_num):]
   else
     let new_line = prev_line . substitute(next_line, '\d\+',
