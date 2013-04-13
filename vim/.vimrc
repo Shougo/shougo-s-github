@@ -351,6 +351,10 @@ NeoBundleLazy 'tsukkee/lingr-vim', { 'autoload' : {
 if has('gui_running') && !s:is_windows
   NeoBundleDisable lingr-vim
 endif
+NeoBundleLazy 'basyura/J6uil.vim.git', { 'autoload' : {
+      \ 'commands' : 'J6uil',
+      \ 'depends' : 'mattn/webapi-vim',
+      \ }}
 
 NeoBundleLazy 'Shougo/unite-help', { 'autoload' : {
       \ 'unite_sources' : 'help'
@@ -1771,15 +1775,6 @@ function! bundle.hooks.on_source(bundle)
 
     call unite#custom_default_action('versions/git/status', 'commit')
 
-    let g:unite_quick_match_table = {
-          \ 'a' : 1, 's' : 2, 'd' : 3, 'f' : 4, 'g' : 5,
-          \ 'h' : 6, 'k' : 7, 'l' : 8, ';' : 9,
-          \ 'q' : 10, 'w' : 11, 'e' : 12, 'r' : 13, 't' : 14,
-          \ 'y' : 15, 'u' : 16, 'i' : 17, 'o' : 18, 'p' : 19,
-          \ '1' : 20, '2' : 21, '3' : 22, '4' : 23, '5' : 24,
-          \ '6' : 25, '7' : 26, '8' : 27, '9' : 28, '0' : 29,
-          \}
-
     " call unite#custom_default_action('directory', 'cd')
 
     " Custom actions."{{{
@@ -2174,6 +2169,15 @@ endfunction"}}}
 function! s:lingr_looms_my_settings() "{{{
   nmap <buffer> l <Plug>(lingr-rooms-select-room)
 endfunction"}}}
+"}}}
+
+" j6uil.vim"{{{
+let g:J6uil_display_offline  = 0
+let g:J6uil_display_online   = 0
+let g:J6uil_echo_presence    = 1
+let g:J6uil_display_icon     = 0
+let g:J6uil_display_interval = 0
+let g:J6uil_updatetime       = 1000
 "}}}
 
 " surround.vim"{{{
