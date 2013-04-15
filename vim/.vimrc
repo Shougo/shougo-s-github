@@ -351,10 +351,12 @@ NeoBundleLazy 'tsukkee/lingr-vim', { 'autoload' : {
 if has('gui_running') && !s:is_windows
   NeoBundleDisable lingr-vim
 endif
-NeoBundleLazy 'basyura/J6uil.vim.git', { 'autoload' : {
-      \ 'commands' : 'J6uil',
+NeoBundleLazy 'basyura/J6uil.vim.git', {
+      \ 'autoload' : {
+      \   'commands' : 'J6uil',
+      \ },
       \ 'depends' : 'mattn/webapi-vim',
-      \ }}
+      \ }
 
 NeoBundleLazy 'Shougo/unite-help', { 'autoload' : {
       \ 'unite_sources' : 'help'
