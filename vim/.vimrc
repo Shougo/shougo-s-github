@@ -234,11 +234,6 @@ call neobundle#config('vinarise', {
       \ }})
 
 NeoBundle 'Shougo/vesting', '', 'default'
-call neobundle#config('vesting', {
-      \ 'lazy' : 1,
-      \ 'autoload' : {
-      \   'commands' : 'Unite',
-      \ }})
 NeoBundle 'vim-jp/vital.vim', '', 'default'
 call neobundle#config('vital.vim', {
       \ 'lazy' : 1,
