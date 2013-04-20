@@ -493,6 +493,10 @@ NeoBundleLazy 'teramako/jscomplete-vim', {
       \ 'autoload' : {
       \   'filetypes' : ['javascript']
       \ }}
+NeoBundleLazy 'thinca/vim-ft-help_fold', {
+      \ 'autoload' : {
+      \   'filetypes' : ['help']
+      \ }}
 
 if has('conceal')
   NeoBundle 'Yggdroot/indentLine'
