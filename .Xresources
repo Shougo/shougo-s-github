@@ -1,0 +1,27 @@
+URxvt.geometry: 120x35
+URxvt.font: xft:Ubuntu Mono:pixelsize=18,style=regular
+URxvt.imFont: -*-medium-r-*-16-*
+URxvt.preeditType: OffTheSpot
+URxvt.lineSpace: 1
+URxvt.scrollBar: false
+URxvt.foreground: white
+URxvt.background: #003322
+URxvt.cursorColor: #FF0000
+URxvt.cursorColor2: #000000
+!URxvt.color0:
+URxvt.color1: #CE4E4E
+URxvt.color2: #409090
+URxvt.color3: #CD9829
+URxvt.color4: #6E6EAF
+URxvt.color5: #C090D0
+URxvt.color6: #99CCE6
+!URxvt.color7:
+!URxvt.color8:
+URxvt.color9: #E68686
+URxvt.color10: #66CC66
+URxvt.color11: #F0AD6B
+URxvt.color12: #808BED
+URxvt.color13: #CC6FCC
+URxvt.color14: #5ACCCC
+!URxvt.color15:
+URxvt.saveLines: 1024

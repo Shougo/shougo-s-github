@@ -978,7 +978,7 @@ if v:version >= 703
   " For conceal.
   set conceallevel=2 concealcursor=iv
 
-  set colorcolumn=85
+  set colorcolumn=79
 endif
 
 " View setting.
@@ -1392,6 +1392,7 @@ function! bundle.hooks.on_source(bundle)
   " let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
   let g:vimshell_right_prompt = 'vcs#info("(%s)-[%b]%p", "(%s)-[%b|%a]%p")'
   let g:vimshell_prompt = '% '
+  " let g:vimshell_prompt = "(U'w'){ "
   "let g:vimshell_environment_term = 'xterm'
   let g:vimshell_split_command = ''
   let g:vimshell_enable_transient_user_prompt = 1
