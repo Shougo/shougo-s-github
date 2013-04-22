@@ -420,11 +420,6 @@ NeoBundleLazy 'rhysd/accelerated-jk', { 'autoload' : {
       \               '<Plug>(accelerated_jk_gk)'],
       \ }}
 " NeoBundle 'gmarik/vundle'
-NeoBundleLazy 'davidhalter/jedi-vim', {
-      \ 'autoload' : {
-      \     'filetypes' : ['python', 'python3'],
-      \    },
-      \ }
 NeoBundleLazy 'vim-jp/autofmt', { 'autoload' : {
       \ 'mappings' : [['x', 'gq']],
       \ }}
@@ -1026,7 +1021,7 @@ augroup MyAutoCmd
   "autocmd FileType java setlocal omnifunc=javacomplete#Complete
   autocmd FileType javascript setlocal omnifunc=
   " autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
-  " autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+  autocmd FileType python setlocal omnifunc=python3complete#Complete
   "autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
   "autocmd FileType sql setlocal omnifunc=sqlcomplete#Complete
   autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
@@ -3066,7 +3061,7 @@ function! s:git_pull_all()
 
     echo printf('%d/%d git pull in %s', cnt, max, dir)
 
-    let output = vimproc#system('git pull')
+    let output = vimproc#system('git pull --rebase')
     if vimproc#get_last_status()
       echohl WarningMsg | echomsg output | echohl None
     endif
