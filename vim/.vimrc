@@ -1595,7 +1595,8 @@ inoremap <silent><expr> <C-z>
       \ unite#start_complete('register', { 'input': unite#get_cur_text() })
 
 " <C-t>: Tab pages
-nnoremap <silent> <C-t>       :<C-u>Unite tab<CR>
+nnoremap <silent><expr> <C-t>
+      \ ":\<C-u>Unite -select=".(tabpagenr()-1)." tab\<CR>"
 
 " <C-w>: Windows operation
 nnoremap <silent> <C-w>       :<C-u>Unite window<CR>
