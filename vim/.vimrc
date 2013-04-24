@@ -868,8 +868,12 @@ function! s:my_tabline()  "{{{
     let mod = getbufvar(bufnr, '&modified') ? '!' : ' '
 
     " Use gettabvar().
-    let title = exists('*gettabvar') && gettabvar(i, 'title') != '' ?
-          \ gettabvar(i, 'title') : fnamemodify(bufname(bufnr), ':t')
+    let title =
+          \ !exists('*gettabvar') ?
+          \      fnamemodify(bufname(bufnr), ':t') :
+          \ gettabvar(i, 'title') != '' ?
+          \      gettabvar(i, 'title') :
+          \      fnamemodify(gettabvar(i, 'cwd'), ':t')
 
     let title = '[' . title . ']'
 
