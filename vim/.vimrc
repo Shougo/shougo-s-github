@@ -450,9 +450,6 @@ NeoBundleLazy 'matchit.zip', { 'autoload' : {
       \ }}
 
 " NeoBundle 'perl-mauke.vim'
-NeoBundleLazy 'rhysd/clever-f.vim', { 'autoload' : {
-      \ 'mappings' : 'f',
-      \ }}
 NeoBundleLazy 'jiangmiao/simple-javascript-indenter', { 'autoload' : {
       \ 'filetypes' : 'javascript',
       \ }}
@@ -1004,7 +1001,7 @@ augroup MyAutoCmd
         \ | source <afile> | echo 'source ' . bufname('%') | endif
 
   " Manage long Rakefile easily
-  autocmd BufNewfile,BufRead Rakefile foldmethod=syntax foldnestmax=1
+  autocmd BufNewfile,BufRead Rakefile set foldmethod=syntax foldnestmax=1
 
   " Close help and git window by pressing q.
   autocmd FileType help,git-status,git-log,qf,
