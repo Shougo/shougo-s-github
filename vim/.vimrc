@@ -1849,6 +1849,10 @@ function! bundle.hooks.on_source(bundle)
   else
     " Like Textmate icons.
     let g:unite_marked_icon = '✗'
+
+    " Prompt choices.
+    "let g:unite_prompt = '❫ '
+    let g:unite_prompt = '» '
   endif
 
   if executable('ag')
