@@ -1022,7 +1022,11 @@ augroup MyAutoCmd
   "autocmd FileType java setlocal omnifunc=javacomplete#Complete
   autocmd FileType javascript setlocal omnifunc=
   " autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
-  autocmd FileType python setlocal omnifunc=python3complete#Complete
+  if has('python3')
+    autocmd FileType python setlocal omnifunc=python3complete#Complete
+  else
+    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+  endif
   "autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
   "autocmd FileType sql setlocal omnifunc=sqlcomplete#Complete
   autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
@@ -1049,7 +1053,7 @@ augroup MyAutoCmd
 augroup END
 
 " PHP
-let g:php_folding = 1
+let g:php_folding = 0
 
 " Python
 let g:python_highlight_all = 1
@@ -1180,10 +1184,10 @@ function! bundle.hooks.on_source(bundle)
   let g:clang_use_library   = 1
 
   " For jedi-vim.
-  let g:jedi#auto_initialization = 1
-  let g:jedi#popup_on_dot = 0
-  let g:jedi#rename_command = '<leader>R'
-  let g:neocomplcache_force_omni_patterns.python = '[^. \t]\.\w*'
+  " let g:jedi#auto_initialization = 1
+  " let g:jedi#popup_on_dot = 0
+  " let g:jedi#rename_command = '<leader>R'
+  " let g:neocomplcache_force_omni_patterns.python = '[^. \t]\.\w*'
 
   " Define dictionary.
   let g:neocomplcache_dictionary_filetype_lists = {
