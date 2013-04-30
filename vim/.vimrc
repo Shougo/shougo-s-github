@@ -1647,15 +1647,15 @@ nnoremap <silent> g<C-h>  :<C-u>UniteWithCursorWord help<CR>
 " Search.
 nnoremap <expr><silent> /  <SID>smart_search_expr(
       \ ":\<C-u>Unite -buffer-name=search -no-split -start-insert line/fast\<CR>",
-      \ ":\<C-u>Unite -buffer-name=search -no-split -auto-preview -start-insert line\<CR>")
+      \ ":\<C-u>Unite -buffer-name=search -auto-highlight -start-insert line\<CR>")
 nnoremap <expr> g/  <SID>smart_search_expr('g/',
       \ ":\<C-u>Unite -buffer-name=search -auto-preview -start-insert line_migemo\<CR>")
 nnoremap [Alt]/  g/
 nnoremap <silent> ?
-      \ :<C-u>Unite -buffer-name=search -no-split -auto-preview -start-insert line:backward<CR>
+      \ :<C-u>Unite -buffer-name=search -auto-highlight -start-insert line:backward<CR>
 nnoremap <silent><expr> * <SID>smart_search_expr(
       \ ":\<C-u>UniteWithCursorWord -no-split -buffer-name=search line/fast\<CR>",
-      \ ":\<C-u>UniteWithCursorWord -no-split -auto-preview -buffer-name=search line\<CR>")
+      \ ":\<C-u>UniteWithCursorWord -auto-highlight -buffer-name=search line\<CR>")
 nnoremap [Alt]/       /
 nnoremap [Alt]?       ?
 cnoremap <expr><silent><C-g>        (getcmdtype() == '/') ?
