@@ -890,7 +890,7 @@ set showtabline=2
 " Set statusline.
 let &statusline="%{winnr('$')>1?'['.winnr().'/'.winnr('$')"
       \ . ".(winnr('#')==winnr()?'#':'').']':''}\ "
-      \ . "%{expand('%:t:.')}"
+      \ . "%{(&previewwindow?'[preview] ':'').expand('%:t:.')}"
       \ . "%{".s:SID_PREFIX()."get_twitter_len()}"
       \ . "\ %=%m%y%{'['.(&fenc!=''?&fenc:&enc).','.&ff.']'}"
       \ . "%{printf(' %5d/%d',line('.'),line('$'))}"
@@ -3002,7 +3002,8 @@ endfunction
 
 " Syntax check.
 nnoremap <silent> [Window]y
-      \ :<C-u>echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')<CR>
+      \ :<C-u>echo map(synstack(line('.'), col('.')),
+      \     'synIDattr(v:val, "name")')<CR>
 "}}}
 
 "---------------------------------------------------------------------------
