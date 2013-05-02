@@ -1150,18 +1150,12 @@ function! bundle.hooks.on_source(bundle)
   let g:neocomplcache_enable_prefetch = 0
   let g:neocomplcache_skip_auto_completion_time = '0.6'
 
-  if !exists('g:neocomplcache_wildcard_characters')
-    let g:neocomplcache_wildcard_characters = {}
-  endif
-  let g:neocomplcache_wildcard_characters._ = '-'
-
   " For auto select.
   let g:neocomplcache_enable_auto_select = 1
 
   let g:neocomplcache_enable_auto_delimiter = 1
   "let g:neocomplcache_disable_caching_buffer_name_pattern = '[\[*]\%(unite\)[\]*]'
   let g:neocomplcache_disable_auto_select_buffer_name_pattern = '\[Command Line\]'
-  " let g:neocomplcache_lock_buffer_name_pattern = '\.txt'
   "let g:neocomplcache_disable_auto_complete = 0
   let g:neocomplcache_max_list = 100
   let g:neocomplcache_force_overwrite_completefunc = 1
@@ -1244,21 +1238,9 @@ function! bundle.hooks.on_source(bundle)
         \ 'VimFiler' : 'vimfiler#complete',
         \ 'Vinarise' : 'vinarise#complete',
         \}
-  if !exists('g:neocomplcache_source_completion_length')
-    let g:neocomplcache_source_completion_length = {
-          \ 'look' : 4,
-          \ }
-  endif
+  call neocomplcache#custom_source('look', 'min_pattern_length', 4)
 
   " Test."{{{
-  "let g:neocomplcache_auto_completion_start_length = 1
-  "let g:neocomplcache_plugin_completion_length = {
-  "\ 'snippets_complete' : 1,
-  "\ 'buffer_complete' : 2,
-  "\ 'syntax_complete' : 2,
-  "\ 'tags_complete' : 3,
-  "\ 'vim_complete' : 4,
-  "\ }
   let g:neocomplcache_source_disable = {
         \ 'tags_complete' : 1,
         \}
@@ -1678,6 +1660,14 @@ let g:unite_source_alias_aliases.test = {
       \ }
 let g:unite_source_alias_aliases.line_migemo = {
       \ 'source' : 'line',
+      \ }
+let g:unite_source_alias_aliases.message = {
+      \ 'source' : 'output',
+      \ 'args'   : 'message',
+      \ }
+let g:unite_source_alias_aliases.mes = {
+      \ 'source' : 'output',
+      \ 'args'   : 'message',
       \ }
 
 " For unite-menu.
