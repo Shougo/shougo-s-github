@@ -498,6 +498,12 @@ NeoBundleLazy 'itchyny/thumbnail.vim', {
       \ 'autoload' : {
       \   'commands' : 'Thumbnail'
       \ }}
+NeoBundleLazy 'mopp/unite-battle_editors.git', {
+      \ 'autoload' : {
+      \   'unite_sources' : 'battle_editors'
+      \ },
+      \ 'depends' : 'mattn/webapi-vim',
+      \}
 
 NeoBundleLocal ~/.vim/bundle
 "}}}
@@ -1382,6 +1388,7 @@ function! bundle.hooks.on_source(bundle)
   "let g:vimshell_environment_term = 'xterm'
   let g:vimshell_split_command = ''
   let g:vimshell_enable_transient_user_prompt = 1
+  let g:vimshell_force_overwrite_statusline = 1
 
   autocmd MyAutoCmd FileType vimshell call s:vimshell_settings()
   function! s:vimshell_settings()
