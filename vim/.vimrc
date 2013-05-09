@@ -1752,6 +1752,9 @@ function! bundle.hooks.on_source(bundle)
 
   " Custom filters."{{{
   " call unite#custom_source('file,buffer,file_rec', 'matchers', 'matcher_fuzzy')
+  call unite#custom_source(
+        \ 'buffer,file_rec/async,file_rec,file_mru', 'matchers',
+        \ ['converter_relative_abbr', 'converter_tail', 'matcher_default'])
   call unite#filters#sorter_default#use(['sorter_rank'])
   "}}}
 
