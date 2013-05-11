@@ -470,24 +470,24 @@ NeoBundleLazy 'kana/vim-niceblock', { 'autoload' : {
       \ 'mappings' : ['<Plug>(niceblock-I)', '<Plug>(niceblock-A)']
       \ }}
 NeoBundleLazy 'aharisu/vim-gdev', { 'autoload' : {
-      \ 'filetypes' : ['scheme'],
+      \ 'filetypes' : 'scheme',
       \ }}
 NeoBundleLazy 'vim-jp/cpp-vim', { 'autoload' : {
-      \ 'filetypes' : ['cpp'],
+      \ 'filetypes' : 'cpp',
       \ }}
 NeoBundleLazy 'thinca/vim-ft-diff_fold', { 'autoload' : {
-      \ 'filetypes' : ['diff']
+      \ 'filetypes' : 'diff'
       \ }}
 NeoBundleLazy 'thinca/vim-ft-markdown_fold', { 'autoload' : {
-      \ 'filetypes' : ['markdown']
+      \ 'filetypes' : 'markdown'
       \ }}
 NeoBundleLazy 'teramako/jscomplete-vim', {
       \ 'autoload' : {
-      \   'filetypes' : ['javascript']
+      \   'filetypes' : 'javascript'
       \ }}
 NeoBundleLazy 'thinca/vim-ft-help_fold', {
       \ 'autoload' : {
-      \   'filetypes' : ['help']
+      \   'filetypes' : 'help'
       \ }}
 
 if has('conceal')
@@ -504,6 +504,10 @@ NeoBundleLazy 'mopp/unite-battle_editors.git', {
       \ },
       \ 'depends' : 'mattn/webapi-vim',
       \}
+" NeoBundleLazy 'xolox/vim-lua-ftplugin', {
+"       \ 'autoload' : {
+"       \   'filetypes' : 'lua',
+"       \ }}
 
 NeoBundleLocal ~/.vim/bundle
 "}}}
@@ -1161,13 +1165,16 @@ function! bundle.hooks.on_source(bundle)
   let g:neocomplcache_enable_auto_select = 1
 
   let g:neocomplcache_enable_auto_delimiter = 1
-  "let g:neocomplcache_disable_caching_buffer_name_pattern = '[\[*]\%(unite\)[\]*]'
-  let g:neocomplcache_disable_auto_select_buffer_name_pattern = '\[Command Line\]'
+  let g:neocomplcache_disable_auto_select_buffer_name_pattern =
+        \ '\[Command Line\]'
   "let g:neocomplcache_disable_auto_complete = 0
   let g:neocomplcache_max_list = 100
   let g:neocomplcache_force_overwrite_completefunc = 1
   if !exists('g:neocomplcache_omni_patterns')
     let g:neocomplcache_omni_patterns = {}
+  endif
+  if !exists('g:neocomplcache_omni_functions')
+    let g:neocomplcache_omni_functions = {}
   endif
   if !exists('g:neocomplcache_force_omni_patterns')
     let g:neocomplcache_force_omni_patterns = {}
@@ -1189,6 +1196,16 @@ function! bundle.hooks.on_source(bundle)
   " let g:jedi#popup_on_dot = 0
   " let g:jedi#rename_command = '<leader>R'
   " let g:neocomplcache_force_omni_patterns.python = '[^. \t]\.\w*'
+
+  " For vim-lua-ftplugin.
+  " Note: It is broken..
+  " let g:lua_check_syntax = 0
+  " let g:lua_complete_omni = 1
+
+  " let g:neocomplcache_omni_functions.lua =
+        " \ 'xolox#lua#omnifunc'
+  " let g:neocomplcache_force_omni_patterns.lua =
+        " \ '\w\+[.:]\|require\s*(\?["'']\w*'
 
   " Define dictionary.
   let g:neocomplcache_dictionary_filetype_lists = {
