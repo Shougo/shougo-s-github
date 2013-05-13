@@ -504,10 +504,10 @@ NeoBundleLazy 'mopp/unite-battle_editors.git', {
       \ },
       \ 'depends' : 'mattn/webapi-vim',
       \}
-" NeoBundleLazy 'xolox/vim-lua-ftplugin', {
-"       \ 'autoload' : {
-"       \   'filetypes' : 'lua',
-"       \ }}
+NeoBundleLazy 'xolox/vim-lua-ftplugin', {
+      \ 'autoload' : {
+      \   'filetypes' : 'lua',
+      \ }}
 
 NeoBundleLocal ~/.vim/bundle
 "}}}
@@ -1199,11 +1199,15 @@ function! bundle.hooks.on_source(bundle)
 
   " For vim-lua-ftplugin.
   " Note: It is broken..
-  " let g:lua_check_syntax = 0
-  " let g:lua_complete_omni = 1
+  let g:lua_check_syntax = 0
+  let g:lua_complete_omni = 1
+  let g:lua_check_syntax = 0
+  let g:lua_complete_dynamic = 0
 
-  " let g:neocomplcache_omni_functions.lua =
-        " \ 'xolox#lua#omnifunc'
+  let g:neocomplcache_omni_functions.lua =
+        \ 'xolox#lua#omnifunc'
+  let g:neocomplcache_omni_patterns.lua =
+        \ '\w\+[.:]\|require\s*(\?["'']\w*'
   " let g:neocomplcache_force_omni_patterns.lua =
         " \ '\w\+[.:]\|require\s*(\?["'']\w*'
 
