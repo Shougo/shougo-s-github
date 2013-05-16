@@ -296,7 +296,7 @@ NeoBundleLazy 'Shougo/foldCC',
 NeoBundleLazy 'mattn/wwwrenderer-vim'
 NeoBundleLazy 'mattn/webapi-vim'
 " NeoBundle 'basyura/webapi-vim'
-NeoBundleLazy 'rson/vim-conque', { 'autoload' : {
+NeoBundleLazy 'add20/vim-conque', { 'autoload' : {
       \ 'commands' : 'ConqueTerm'
       \ }}
 NeoBundleLazy 'sjl/gundo.vim', { 'autoload' : {
