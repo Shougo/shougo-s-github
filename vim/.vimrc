@@ -1209,7 +1209,7 @@ function! bundle.hooks.on_source(bundle)
   let g:neocomplcache_omni_patterns.lua =
         \ '\w\+[.:]\|require\s*(\?["'']\w*'
   " let g:neocomplcache_force_omni_patterns.lua =
-        " \ '\w\+[.:]\|require\s*(\?["'']\w*'
+  "       \ '\w\+[.:]\|require\s*(\?["'']\w*'
 
   " Define dictionary.
   let g:neocomplcache_dictionary_filetype_lists = {
@@ -1656,17 +1656,15 @@ nnoremap <silent> <C-h>  :<C-u>Unite -buffer-name=help help<CR>
 nnoremap <silent> g<C-h>  :<C-u>UniteWithCursorWord help<CR>
 
 " Search.
-nnoremap <expr><silent> /  <SID>smart_search_expr(
-      \ ":\<C-u>Unite -buffer-name=search -no-split -start-insert line/fast\<CR>",
-      \ ":\<C-u>Unite -buffer-name=search -auto-highlight -start-insert line\<CR>")
+nnoremap <silent> /
+      \ :<C-u>Unite -buffer-name=search -no-split -start-insert line<CR>
 nnoremap <expr> g/  <SID>smart_search_expr('g/',
       \ ":\<C-u>Unite -buffer-name=search -auto-preview -start-insert line_migemo\<CR>")
 nnoremap [Alt]/  g/
 nnoremap <silent> ?
       \ :<C-u>Unite -buffer-name=search -auto-highlight -start-insert line:backward<CR>
-nnoremap <silent><expr> * <SID>smart_search_expr(
-      \ ":\<C-u>UniteWithCursorWord -no-split -buffer-name=search line/fast\<CR>",
-      \ ":\<C-u>UniteWithCursorWord -auto-highlight -buffer-name=search line\<CR>")
+nnoremap <silent> *
+      \ :<C-u>UniteWithCursorWord -no-split -buffer-name=search line<CR>
 nnoremap [Alt]/       /
 nnoremap [Alt]?       ?
 cnoremap <expr><silent><C-g>        (getcmdtype() == '/') ?
