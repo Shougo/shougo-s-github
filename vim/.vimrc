@@ -1297,7 +1297,7 @@ function! bundle.hooks.on_source(bundle)
   inoremap <expr><C-p>  pumvisible() ? "\<C-p>" : "\<C-p>\<C-n>"
   inoremap <expr>'  pumvisible() ? neocomplcache#close_popup() : "'"
 
-  inoremap <expr><C-x><C-f>  neocomplcache#manual_filename_complete()
+  inoremap <expr><C-x><C-f>  neocomplcache#start_manual_complete('filename_complete')
 
   imap <C-s>  <Plug>(neocomplcache_start_unite_snippet)
 
@@ -1381,9 +1381,9 @@ nnoremap <silent> [Window]f              :<C-u>Unite neosnippet/user neosnippet/
 "}}}
 
 " echodoc.vim"{{{
+let g:echodoc_enable_at_startup = 1
 let bundle = neobundle#get('echodoc')
 function! bundle.hooks.on_source(bundle)
-  let g:echodoc_enable_at_startup = 1
 endfunction
 unlet bundle
 "}}}
