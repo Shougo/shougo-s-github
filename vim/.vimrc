@@ -2542,7 +2542,7 @@ nnoremap <silent> [Space]rg
 "}}}
 
 " Useful save mappings.
-nnoremap <Leader><Leader> :<C-u>update<CR>
+nnoremap <silent> <Leader><Leader> :<C-u>update<CR>
 
 " Change current directory.
 nnoremap <silent> [Space]cd :<C-u>call <SID>cd_buffer_dir()<CR>
