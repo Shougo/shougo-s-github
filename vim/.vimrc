@@ -508,6 +508,10 @@ NeoBundleLazy 'xolox/vim-lua-ftplugin', {
       \ 'autoload' : {
       \   'filetypes' : 'lua',
       \ }}
+NeoBundleLazy 'elzr/vim-json', {
+      \ 'autoload' : {
+      \   'filetypes' : 'json',
+      \ }}
 
 NeoBundleLocal ~/.vim/bundle
 "}}}
@@ -1381,9 +1385,9 @@ nnoremap <silent> [Window]f              :<C-u>Unite neosnippet/user neosnippet/
 "}}}
 
 " echodoc.vim"{{{
-let g:echodoc_enable_at_startup = 1
 let bundle = neobundle#get('echodoc')
 function! bundle.hooks.on_source(bundle)
+  let g:echodoc_enable_at_startup = 1
 endfunction
 unlet bundle
 "}}}
