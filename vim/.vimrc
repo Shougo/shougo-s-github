@@ -1641,12 +1641,13 @@ nmap    t [Tag]
 " nnoremap [Tag]t  <C-]>
 nnoremap <silent><expr> [Tag]t  &filetype == 'help' ?  "\<C-]>" :
       \ ":\<C-u>UniteWithCursorWord -buffer-name=tag tag tag/include\<CR>"
-" Jump next.
-nnoremap <silent> [Tag]n  :<C-u>tag<CR>
-" Jump previous.
-" nnoremap <silent> [Tag]p  :<C-u>pop<CR>
 nnoremap <silent><expr> [Tag]p  &filetype == 'help' ?
       \ ":\<C-u>pop\<CR>" : ":\<C-u>Unite jump\<CR>"
+
+" Tab jump
+for n in range(1, 9)
+  execute 'nnoremap <silent> [Tag]'.n  ':<C-u>tabnext'.n.'<CR>'
+endfor
 "}}}
 
 " Execute help.
