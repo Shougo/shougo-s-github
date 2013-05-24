@@ -9,7 +9,7 @@ set nocompatible
 
 if exists('&regexpengine')
   " Use old regexp engine.
-  set regexpengine=1
+  " set regexpengine=1
 endif
 
 let s:is_windows = has('win16') || has('win32') || has('win64')
@@ -490,6 +490,12 @@ NeoBundleLazy 'teramako/jscomplete-vim', {
       \ 'autoload' : {
       \   'filetypes' : 'javascript'
       \ }}
+
+NeoBundleLazy 'myhere/vim-nodejs-complete', {
+      \ 'autoload' : {
+      \   'filetypes' : 'javascript'
+      \ }}
+
 NeoBundleLazy 'thinca/vim-ft-help_fold', {
       \ 'autoload' : {
       \   'filetypes' : 'help'
@@ -1040,7 +1046,6 @@ augroup MyAutoCmd
   autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
   autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
   "autocmd FileType java setlocal omnifunc=javacomplete#Complete
-  autocmd FileType javascript setlocal omnifunc=
   " autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
   if has('python3')
     autocmd FileType python setlocal omnifunc=python3complete#Complete
@@ -1219,6 +1224,15 @@ function! bundle.hooks.on_source(bundle)
         \ '\w\+[.:]\|require\s*(\?["'']\w*'
   " let g:neocomplcache_force_omni_patterns.lua =
   "       \ '\w\+[.:]\|require\s*(\?["'']\w*'
+
+  " For vim-nodejs-complete.
+  let g:neocomplcache_omni_functions.javascript =
+        \ 'nodejscomplete#CompleteJS'
+  let g:nodejs_complete_config = {
+        \  'js_compl_fn': 'jscomplete#CompleteJS',
+        \  'max_node_compl_len': 15
+        \}
+  let g:neocomplcache_omni_patterns.javascript = '\h\w*\|[^. \t]\.\w*'
 
   " Define dictionary.
   let g:neocomplcache_dictionary_filetype_lists = {
@@ -1706,6 +1720,10 @@ let g:unite_source_alias_aliases.mes = {
       \ 'source' : 'output',
       \ 'args'   : 'message',
       \ }
+let g:unite_source_alias_aliases.scriptnames = {
+      \ 'source' : 'output',
+      \ 'args'   : 'scriptnames',
+      \ }
 
 " For unite-menu.
 let g:unite_source_menu_menus = {}
@@ -1763,6 +1781,7 @@ let g:unite_source_menu_menus.unite.command_candidates = {
       \             '-default-action=lcd directory_mru',
       \       'mapping'    : 'Unite mapping',
       \       'message'    : 'Unite output:message',
+      \       'scriptnames': 'Unite output:scriptnames',
       \     }
 nnoremap <silent> ;u :<C-u>Unite menu:unite -resume<CR>
 
