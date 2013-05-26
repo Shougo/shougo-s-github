@@ -961,6 +961,9 @@ set complete=.
 "set complete=.,w,b,i,t
 " Set popup menu max height.
 set pumheight=20
+if exists('&completeselect')
+  set completeselect=1
+endif
 
 " Report changes.
 set report=0
@@ -1157,6 +1160,7 @@ function! bundle.hooks.on_source(bundle)
   let g:neocomplcache_enable_underbar_completion = 0
   " Use fuzzy completion.
   let g:neocomplcache_enable_fuzzy_completion = 1
+
   " Set minimum syntax keyword length.
   let g:neocomplcache_min_syntax_length = 3
   " Set auto completion length.
