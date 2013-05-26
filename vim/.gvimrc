@@ -2,6 +2,8 @@
 " Fonts:"{{{
 "
 
+set ambiwidth=double
+
 if has('win32') || has('win64')
   " For Windows.
 
