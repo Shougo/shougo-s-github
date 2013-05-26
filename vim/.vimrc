@@ -638,8 +638,6 @@ autocmd MyAutoCmd BufReadPost * call s:ReCheck_FENC()
 set fileformat=unix
 " Automatic recognition of a new line cord.
 set fileformats=unix,dos,mac
-" A fullwidth character is displayed in vim properly.
-set ambiwidth=double
 
 " Command group opening with a specific character code again."{{{
 " In particular effective when I am garbled in a terminal.
@@ -2762,7 +2760,7 @@ nnoremap [Alt],  ,
 
 " The prefix key.
 nnoremap [Quickfix]   <Nop>
-nmap    q  [Quickfix]
+nmap    F  [Quickfix]
 " Disable Ex-mode.
 nnoremap Q  q
 
