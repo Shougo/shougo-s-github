@@ -862,8 +862,10 @@ set whichwrap+=h,l,<,>,[,],b,s,~
 set laststatus=2
 " Height of command line.
 set cmdheight=2
-" Show command on statusline.
-set showcmd
+" Not show command on statusline.
+set noshowcmd
+" Not show mode.
+set noshowmode
 " Show title.
 set title
 " Title length.
@@ -1148,7 +1150,7 @@ autocmd MyAutoCmd VimEnter * highlight ModeMsg guifg=bg guibg=bg
 
 " neocomplcache.vim"{{{
 " Use neocomplcache.
-let g:neocomplcache_enable_at_startup = 1
+let g:neocomplcache_enable_at_startup = 0
 
 let bundle = neobundle#get('neocomplcache')
 function! bundle.hooks.on_source(bundle)
@@ -1277,6 +1279,11 @@ function! bundle.hooks.on_source(bundle)
 
   " Set $RSENSE_HOME path.
   let g:neocomplcache#sources#rsense#home_directory = '/opt/rsense'
+
+  if !exists('g:neocomplcache_disabled_sources_list')
+    let g:neocomplcache_disabled_sources_list = {}
+  endif
+  let g:neocomplcache_disabled_sources_list._ = ['tags_complete']
 
   let g:neocomplcache_vim_completefuncs = {
         \ 'Ref' : 'ref#complete',
