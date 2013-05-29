@@ -7,6 +7,9 @@
 " Enable no Vi compatible commands.
 set nocompatible
 
+" Note: Skip initialization for vim-tiny or vim-small.
+if !1 | finish | endif
+
 if exists('&regexpengine')
   " Use old regexp engine.
   " set regexpengine=1
@@ -1861,10 +1864,9 @@ function! bundle.hooks.on_source(bundle)
   call unite#custom_source('file_rec', 'sorters', 'sorter_reverse')
 
   " Custom filters."{{{
-  " call unite#custom_source('file,buffer,file_rec', 'matchers', 'matcher_fuzzy')
   call unite#custom_source(
         \ 'buffer,file_rec/async,file_rec,file_mru', 'matchers',
-        \ ['converter_tail', 'matcher_default'])
+        \ ['converter_tail', 'matcher_fuzzy'])
   call unite#custom_source(
         \ 'file_rec/async,file_rec,file_mru', 'converters',
         \ ['converter_file_directory'])
