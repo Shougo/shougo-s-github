@@ -144,7 +144,6 @@ set mousehide
 nnoremap <RightMouse> "+p
 xnoremap <RightMouse> "+p
 nnoremap <RightMouse> <C-r><C-o>+
-inoremap <LeftMouse>  <ESC>
 cnoremap <RightMouse> <C-r>+
 "}}}
 

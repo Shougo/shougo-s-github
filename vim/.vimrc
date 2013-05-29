@@ -1148,6 +1148,131 @@ autocmd MyAutoCmd VimEnter * highlight ModeMsg guifg=bg guibg=bg
 " Plugin:"{{{
 "
 
+" neocomplete.vim"{{{
+" Use neocomplete.
+let g:neocomplete_enable_at_startup = 0
+
+let bundle = neobundle#get('neocomplete.vim')
+function! bundle.hooks.on_source(bundle)
+  " Use smartcase.
+  let g:neocomplete_enable_smart_case = 0
+  " Use fuzzy completion.
+  let g:neocomplete_enable_fuzzy_completion = 1
+
+  " Set minimum syntax keyword length.
+  let g:neocomplete_min_syntax_length = 3
+  " Set auto completion length.
+  let g:neocomplete_auto_completion_start_length = 2
+  " Set manual completion length.
+  let g:neocomplete_manual_completion_start_length = 0
+  " Set minimum keyword length.
+  let g:neocomplete_min_keyword_length = 3
+
+  " For auto select.
+  let g:neocomplete_enable_auto_select = 1
+
+  let g:neocomplete_enable_auto_delimiter = 1
+  let g:neocomplete_disable_auto_select_buffer_name_pattern =
+        \ '\[Command Line\]'
+  let g:neocomplete_max_list = 100
+  let g:neocomplete_force_overwrite_completefunc = 1
+  if !exists('g:neocomplete_omni_patterns')
+    let g:neocomplete_omni_patterns = {}
+  endif
+  if !exists('g:neocomplete_omni_functions')
+    let g:neocomplete_omni_functions = {}
+  endif
+  if !exists('g:neocomplete_force_omni_patterns')
+    let g:neocomplete_force_omni_patterns = {}
+  endif
+  let g:neocomplete_enable_auto_close_preview = 1
+  " let g:neocomplete_force_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+  let g:neocomplete_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+
+  " Define keyword pattern.
+  if !exists('g:neocomplete_keyword_patterns')
+    let g:neocomplete_keyword_patterns = {}
+  endif
+  " let g:neocomplete_keyword_patterns.default = '\h\w*'
+  let g:neocomplete_keyword_patterns['default'] = '[0-9a-zA-Z:#_]\+'
+  let g:neocomplete_keyword_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+
+  let g:neocomplete_caching_limit_file_size = 500000
+
+  let g:neocomplete_vim_completefuncs = {
+        \ 'Ref' : 'ref#complete',
+        \ 'Unite' : 'unite#complete_source',
+        \ 'VimShellExecute' :
+        \      'vimshell#vimshell_execute_complete',
+        \ 'VimShellInteractive' :
+        \      'vimshell#vimshell_execute_complete',
+        \ 'VimShellTerminal' :
+        \      'vimshell#vimshell_execute_complete',
+        \ 'VimShell' : 'vimshell#complete',
+        \ 'VimFiler' : 'vimfiler#complete',
+        \ 'Vinarise' : 'vinarise#complete',
+        \}
+  call neocomplete#custom_source('look', 'min_pattern_length', 4)
+
+  " Test."{{{
+  let g:neocomplete_source_disable = {
+        \ 'tags_complete' : 1,
+        \}
+  "}}}
+
+  " mappings."{{{
+  " <C-f>, <C-b>: page move.
+  inoremap <expr><C-f>  pumvisible() ? "\<PageDown>" : "\<Right>"
+  inoremap <expr><C-b>  pumvisible() ? "\<PageUp>"   : "\<Left>"
+  " <C-y>: paste.
+  inoremap <expr><C-y>  pumvisible() ? neocomplete#close_popup() :  "\<C-r>\""
+  " <C-e>: close popup.
+  inoremap <expr><C-e>  pumvisible() ? neocomplete#cancel_popup() : "\<End>"
+  " <C-k>: unite completion.
+  imap <C-k>  <Plug>(neocomplete_start_unite_complete)
+  " - unite quick match.
+  " imap <expr> -  pumvisible() ?
+  "       \ "\<Plug>(neocomplete_start_unite_quick_match)" : '-'
+  inoremap <expr> O  &filetype == 'vim' ? "\<C-x>\<C-v>" : "\<C-x>\<C-o>"
+  " <C-h>, <BS>: close popup and delete backword char.
+  inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+  inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+  " <C-n>: neocomplete.
+  inoremap <expr><C-n>  pumvisible() ? "\<C-n>" : "\<C-x>\<C-u>\<C-p>\<Down>"
+  " <C-p>: keyword completion.
+  inoremap <expr><C-p>  pumvisible() ? "\<C-p>" : "\<C-p>\<C-n>"
+  inoremap <expr>'  pumvisible() ? neocomplete#close_popup() : "'"
+
+  inoremap <expr><C-x><C-f>  neocomplete#start_manual_complete('filename_complete')
+
+  imap <C-s>  <Plug>(neocomplete_start_unite_snippet)
+
+  " <CR>: close popup and save indent.
+  inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+  function! s:my_cr_function()
+    return neocomplete#smart_close_popup() . "\<CR>"
+  endfunction
+
+  " <TAB>: completion.
+  inoremap <expr><TAB>  pumvisible() ? "\<C-n>" :
+        \ <SID>check_back_space() ? "\<TAB>" :
+        \ neocomplete#start_manual_complete()
+  function! s:check_back_space() "{{{
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+  endfunction"}}}
+  " <S-TAB>: completion back.
+  inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<C-h>"
+
+  " For cursor moving in insert mode(Not recommended)
+  inoremap <expr><Left>  neocomplete#close_popup() . "\<Left>"
+  inoremap <expr><Right> neocomplete#close_popup() . "\<Right>"
+  inoremap <expr><Up>    neocomplete#close_popup() . "\<Up>"
+  inoremap <expr><Down>  neocomplete#close_popup() . "\<Down>"
+  "}}}
+endfunction
+"}}}
+
 " neocomplcache.vim"{{{
 " Use neocomplcache.
 let g:neocomplcache_enable_at_startup = 0
@@ -1161,7 +1286,7 @@ function! bundle.hooks.on_source(bundle)
   " Use underbar completion.
   let g:neocomplcache_enable_underbar_completion = 0
   " Use fuzzy completion.
-  let g:neocomplcache_enable_fuzzy_completion = 1
+  let g:neocomplcache_enable_fuzzy_completion = 0
 
   " Set minimum syntax keyword length.
   let g:neocomplcache_min_syntax_length = 3
@@ -1198,6 +1323,8 @@ function! bundle.hooks.on_source(bundle)
     let g:neocomplcache_force_omni_patterns = {}
   endif
   let g:neocomplcache_enable_auto_close_preview = 1
+  " let g:neocomplcache_force_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+  let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 
   " For clang_complete.
   let g:neocomplcache_force_overwrite_completefunc = 1
@@ -1209,48 +1336,6 @@ function! bundle.hooks.on_source(bundle)
   let g:clang_auto_select = 0
   let g:clang_use_library   = 1
 
-  " For jedi-vim.
-  " let g:jedi#auto_initialization = 1
-  " let g:jedi#popup_on_dot = 0
-  " let g:jedi#rename_command = '<leader>R'
-  " let g:neocomplcache_force_omni_patterns.python = '[^. \t]\.\w*'
-
-  " For vim-lua-ftplugin.
-  " Note: It is broken..
-  let g:lua_check_syntax = 0
-  let g:lua_complete_omni = 1
-  let g:lua_check_syntax = 0
-  let g:lua_complete_dynamic = 0
-
-  let g:neocomplcache_omni_functions.lua =
-        \ 'xolox#lua#omnifunc'
-  let g:neocomplcache_omni_patterns.lua =
-        \ '\w\+[.:]\|require\s*(\?["'']\w*'
-  " let g:neocomplcache_force_omni_patterns.lua =
-  "       \ '\w\+[.:]\|require\s*(\?["'']\w*'
-
-  " For vim-nodejs-complete.
-  let g:neocomplcache_omni_functions.javascript =
-        \ 'nodejscomplete#CompleteJS'
-  let g:nodejs_complete_config = {
-        \  'js_compl_fn': 'jscomplete#CompleteJS',
-        \  'max_node_compl_len': 15
-        \}
-  let g:neocomplcache_omni_patterns.javascript = '\h\w*\|[^. \t]\.\w*'
-
-  " Define dictionary.
-  let g:neocomplcache_dictionary_filetype_lists = {
-        \ 'default' : '',
-        \ 'scheme' : expand('~/.gosh_completions'),
-        \ 'scala' : expand('$DOTVIM/dict/scala.dict'),
-        \ 'ruby' : expand('$DOTVIM/dict/ruby.dict'),
-        \ 'int-termtter' : expand('~/.vimshell/int-history/int-termtter'),
-        \ }
-
-  let g:neocomplcache_omni_functions = {
-        \ 'ruby' : 'rubycomplete#Complete',
-        \ }
-
   " Define keyword pattern.
   if !exists('g:neocomplcache_keyword_patterns')
     let g:neocomplcache_keyword_patterns = {}
@@ -1258,32 +1343,6 @@ function! bundle.hooks.on_source(bundle)
   " let g:neocomplcache_keyword_patterns.default = '\h\w*'
   let g:neocomplcache_keyword_patterns['default'] = '[0-9a-zA-Z:#_]\+'
   let g:neocomplcache_keyword_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-
-  if !exists('g:neocomplcache_omni_patterns')
-    let g:neocomplcache_omni_patterns = {}
-  endif
-  " let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-  " let g:neocomplcache_force_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-  let g:neocomplcache_omni_patterns.php = '[^. *\t]\.\w*\|\h\w*::'
-  let g:neocomplcache_omni_patterns.mail = '^\s*\w\+'
-  let g:neocomplcache_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-  let g:neocomplcache_caching_limit_file_size = 500000
-
-  if !exists('g:neocomplcache_same_filetype_lists')
-    let g:neocomplcache_same_filetype_lists = {}
-  endif
-  "let g:neocomplcache_same_filetype_lists.perl = 'ref'
-
-  " let g:neocomplcache_source_look_dictionary_path = $HOME . '/words'
-  let g:neocomplcache_source_look_dictionary_path = ''
-
-  " Set $RSENSE_HOME path.
-  let g:neocomplcache#sources#rsense#home_directory = '/opt/rsense'
-
-  if !exists('g:neocomplcache_disabled_sources_list')
-    let g:neocomplcache_disabled_sources_list = {}
-  endif
-  let g:neocomplcache_disabled_sources_list._ = ['tags_complete']
 
   let g:neocomplcache_vim_completefuncs = {
         \ 'Ref' : 'ref#complete',
@@ -1298,13 +1357,6 @@ function! bundle.hooks.on_source(bundle)
         \ 'VimFiler' : 'vimfiler#complete',
         \ 'Vinarise' : 'vinarise#complete',
         \}
-  call neocomplcache#custom_source('look', 'min_pattern_length', 4)
-
-  " Test."{{{
-  let g:neocomplcache_source_disable = {
-        \ 'tags_complete' : 1,
-        \}
-  "}}}
 
   " mappings."{{{
   " <C-f>, <C-b>: page move.
