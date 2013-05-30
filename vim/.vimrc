@@ -1233,9 +1233,6 @@ function! bundle.hooks.on_source(bundle)
   inoremap <expr><C-e>  pumvisible() ? neocomplete#cancel_popup() : "\<End>"
   " <C-k>: unite completion.
   imap <C-k>  <Plug>(neocomplete_start_unite_complete)
-  " - unite quick match.
-  " imap <expr> -  pumvisible() ?
-  "       \ "\<Plug>(neocomplete_start_unite_quick_match)" : '-'
   inoremap <expr> O  &filetype == 'vim' ? "\<C-x>\<C-v>" : "\<C-x>\<C-o>"
   " <C-h>, <BS>: close popup and delete backword char.
   inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
@@ -1249,6 +1246,9 @@ function! bundle.hooks.on_source(bundle)
   inoremap <expr><C-x><C-f>  neocomplete#start_manual_complete('filename_complete')
 
   imap <C-s>  <Plug>(neocomplete_start_unite_snippet)
+
+  inoremap <expr><C-g>     neocomplete#undo_completion()
+  inoremap <expr><C-l>     neocomplete#complete_common_string()
 
   " <CR>: close popup and save indent.
   inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
@@ -1360,57 +1360,6 @@ function! bundle.hooks.on_source(bundle)
         \ 'VimFiler' : 'vimfiler#complete',
         \ 'Vinarise' : 'vinarise#complete',
         \}
-
-  " mappings."{{{
-  " <C-f>, <C-b>: page move.
-  inoremap <expr><C-f>  pumvisible() ? "\<PageDown>" : "\<Right>"
-  inoremap <expr><C-b>  pumvisible() ? "\<PageUp>"   : "\<Left>"
-  " <C-y>: paste.
-  inoremap <expr><C-y>  pumvisible() ? neocomplcache#close_popup() :  "\<C-r>\""
-  " <C-e>: close popup.
-  inoremap <expr><C-e>  pumvisible() ? neocomplcache#cancel_popup() : "\<End>"
-  " <C-k>: unite completion.
-  imap <C-k>  <Plug>(neocomplcache_start_unite_complete)
-  " - unite quick match.
-  " imap <expr> -  pumvisible() ?
-  "       \ "\<Plug>(neocomplcache_start_unite_quick_match)" : '-'
-  inoremap <expr> O  &filetype == 'vim' ? "\<C-x>\<C-v>" : "\<C-x>\<C-o>"
-  " <C-h>, <BS>: close popup and delete backword char.
-  inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-  inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
-  " <C-n>: neocomplcache.
-  inoremap <expr><C-n>  pumvisible() ? "\<C-n>" : "\<C-x>\<C-u>\<C-p>\<Down>"
-  " <C-p>: keyword completion.
-  inoremap <expr><C-p>  pumvisible() ? "\<C-p>" : "\<C-p>\<C-n>"
-  inoremap <expr>'  pumvisible() ? neocomplcache#close_popup() : "'"
-
-  inoremap <expr><C-x><C-f>  neocomplcache#start_manual_complete('filename_complete')
-
-  imap <C-s>  <Plug>(neocomplcache_start_unite_snippet)
-
-  " <CR>: close popup and save indent.
-  inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-  function! s:my_cr_function()
-    return neocomplcache#smart_close_popup() . "\<CR>"
-  endfunction
-
-  " <TAB>: completion.
-  inoremap <expr><TAB>  pumvisible() ? "\<C-n>" :
-        \ <SID>check_back_space() ? "\<TAB>" :
-        \ neocomplcache#start_manual_complete()
-  function! s:check_back_space() "{{{
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~ '\s'
-  endfunction"}}}
-  " <S-TAB>: completion back.
-  inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<C-h>"
-
-  " For cursor moving in insert mode(Not recommended)
-  inoremap <expr><Left>  neocomplcache#close_popup() . "\<Left>"
-  inoremap <expr><Right> neocomplcache#close_popup() . "\<Right>"
-  inoremap <expr><Up>    neocomplcache#close_popup() . "\<Up>"
-  inoremap <expr><Down>  neocomplcache#close_popup() . "\<Down>"
-  "}}}
 endfunction
 
 function! CompleteFiles(findstart, base)
@@ -1453,9 +1402,6 @@ function! bundle.hooks.on_source(bundle)
   xmap <silent>U     <Plug>(neosnippet_expand_target)
 
   let g:neosnippet#enable_snipmate_compatibility = 1
-
-  inoremap <expr><C-g>     neocomplcache#undo_completion()
-  inoremap <expr><C-l>     neocomplcache#complete_common_string()
 
   " let g:snippets_dir = '~/.vim/snippets/,~/.vim/bundle/snipmate/snippets/'
   let g:neosnippet#snippets_directory = '~/.vim/snippets'
@@ -1865,31 +1811,24 @@ function! bundle.hooks.on_source(bundle)
 
   " Custom filters."{{{
   call unite#custom_source(
-        \ 'buffer,file_rec/async,file_rec,file_mru', 'matchers',
+        \ 'buffer,file_rec/async,file_mru', 'matchers',
         \ ['converter_tail', 'matcher_fuzzy'])
   call unite#custom_source(
-        \ 'file_rec/async,file_rec,file_mru', 'converters',
+        \ 'file_rec', 'matchers', ['matcher_fuzzy'])
+  call unite#custom_source(
+        \ 'file_rec/async,file_mru', 'converters',
         \ ['converter_file_directory'])
   call unite#filters#sorter_default#use(['sorter_rank'])
   "}}}
 
   function! s:unite_my_settings() "{{{
     " Directory partial match.
-    " call unite#set_substitute_pattern('files',
-    "      \'\%([~.*]\+\)\@<!/', '*/*', 100)
-    " call unite#set_substitute_pattern('files', '^\\',
-    "      \ substitute(substitute($HOME, '\\', '/', 'g'), ' ', '\\ ', 'g') . '/*', -100)
-    " Test.
-    " call unite#set_substitute_pattern('files', '^\.v/',
-    "      \ unite#util#substitute_path_separator($HOME).'/.vim/', 1000)
     call unite#set_substitute_pattern('files', '^\.v/',
           \ [expand('~/.vim/'), unite#util#substitute_path_separator($HOME)
           \ . '/.bundle/*/'], 1000)
-    call unite#set_substitute_pattern('files', '\.', '*.', 1000)
     call unite#custom_alias('file', 'h', 'left')
     call unite#custom_default_action('directory', 'narrow')
     " call unite#custom_default_action('file', 'my_tabopen')
-    call unite#set_substitute_pattern('file', '[^~.]\zs/', '*/*', 20)
 
     call unite#custom_default_action('versions/git/status', 'commit')
 
