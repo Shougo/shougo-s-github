@@ -966,9 +966,6 @@ set complete=.
 "set complete=.,w,b,i,t
 " Set popup menu max height.
 set pumheight=20
-if exists('&completeselect')
-  set completeselect=1
-endif
 
 " Report changes.
 set report=0
@@ -1157,6 +1154,8 @@ let g:neocomplete_enable_at_startup = 0
 
 let bundle = neobundle#get('neocomplete.vim')
 function! bundle.hooks.on_source(bundle)
+  let g:neocomplete#enable_complete_select = 1
+
   " Use smartcase.
   let g:neocomplete_enable_smart_case = 0
   " Use fuzzy completion.
