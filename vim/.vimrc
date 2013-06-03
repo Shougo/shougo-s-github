@@ -527,6 +527,11 @@ NeoBundleLazy 'elzr/vim-json', {
       \   'filetypes' : 'json',
       \ }}
 
+NeoBundleLazy 'mopp/rogue.vim', {
+      \ 'autoload' : {
+      \   'commands' : 'RogueStart'
+      \ }}
+
 NeoBundleLocal ~/.vim/bundle
 "}}}
 
@@ -1150,58 +1155,56 @@ autocmd MyAutoCmd VimEnter * highlight ModeMsg guifg=bg guibg=bg
 
 " neocomplete.vim"{{{
 " Use neocomplete.
-let g:neocomplete_enable_at_startup = 0
+let g:neocomplete#enable_at_startup = 0
 
 let bundle = neobundle#get('neocomplete.vim')
 function! bundle.hooks.on_source(bundle)
   let g:neocomplete#enable_complete_select = 1
 
   " Use smartcase.
-  let g:neocomplete_enable_smart_case = 0
+  let g:neocomplete#enable_smart_case = 0
   " Use fuzzy completion.
-  let g:neocomplete_enable_fuzzy_completion = 1
+  let g:neocomplete#enable_fuzzy_completion = 1
 
   " Set minimum syntax keyword length.
-  let g:neocomplete_min_syntax_length = 3
+  let g:neocomplete#sources#syntax#min_keyword_length = 3
   " Set auto completion length.
-  let g:neocomplete_auto_completion_start_length = 2
+  let g:neocomplete#auto_completion_start_length = 2
   " Set manual completion length.
-  let g:neocomplete_manual_completion_start_length = 0
+  let g:neocomplete#manual_completion_start_length = 0
   " Set minimum keyword length.
-  let g:neocomplete_min_keyword_length = 3
+  let g:neocomplete#min_keyword_length = 3
 
   " For auto select.
-  let g:neocomplete_enable_auto_select = 1
+  let g:neocomplete#enable_auto_select = 1
 
-  let g:neocomplete_enable_auto_delimiter = 1
-  let g:neocomplete_disable_auto_select_buffer_name_pattern =
+  let g:neocomplete#enable_auto_delimiter = 1
+  let g:neocomplete#disable_auto_select_buffer_name_pattern =
         \ '\[Command Line\]'
-  let g:neocomplete_max_list = 100
-  let g:neocomplete_force_overwrite_completefunc = 1
-  if !exists('g:neocomplete_omni_patterns')
-    let g:neocomplete_omni_patterns = {}
+  let g:neocomplete#max_list = 100
+  let g:neocomplete#force_overwrite_completefunc = 1
+  if !exists('g:neocomplete#sources#omni#input_patterns')
+    let g:neocomplete#sources#omni#input_patterns = {}
   endif
-  if !exists('g:neocomplete_omni_functions')
-    let g:neocomplete_omni_functions = {}
+  if !exists('g:neocomplete#sources#omni#functions')
+    let g:neocomplete#sources#omni#functions = {}
   endif
-  if !exists('g:neocomplete_force_omni_patterns')
-    let g:neocomplete_force_omni_patterns = {}
+  if !exists('g:neocomplete#force_omni_input_patterns')
+    let g:neocomplete#force_omni_input_patterns = {}
   endif
-  let g:neocomplete_enable_auto_close_preview = 1
-  " let g:neocomplete_force_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-  let g:neocomplete_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+  let g:neocomplete#enable_auto_close_preview = 1
+
+  " let g:neocomplete#force_omni_input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+  let g:neocomplete#sources#omni#input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 
   " Define keyword pattern.
-  if !exists('g:neocomplete_keyword_patterns')
-    let g:neocomplete_keyword_patterns = {}
+  if !exists('g:neocomplete#keyword_patterns')
+    let g:neocomplete#keyword_patterns = {}
   endif
-  " let g:neocomplete_keyword_patterns.default = '\h\w*'
-  let g:neocomplete_keyword_patterns['default'] = '[0-9a-zA-Z:#_]\+'
-  let g:neocomplete_keyword_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+  let g:neocomplete#keyword_patterns._ = '[0-9a-zA-Z:#_]\+'
+  let g:neocomplete#keyword_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 
-  let g:neocomplete_caching_limit_file_size = 500000
-
-  let g:neocomplete_vim_completefuncs = {
+  let g:neocomplete#sources#vim#complete_functions = {
         \ 'Ref' : 'ref#complete',
         \ 'Unite' : 'unite#complete_source',
         \ 'VimShellExecute' :
@@ -1215,12 +1218,6 @@ function! bundle.hooks.on_source(bundle)
         \ 'Vinarise' : 'vinarise#complete',
         \}
   call neocomplete#custom_source('look', 'min_pattern_length', 4)
-
-  " Test."{{{
-  let g:neocomplete_source_disable = {
-        \ 'tags_complete' : 1,
-        \}
-  "}}}
 
   " mappings."{{{
   " <C-f>, <C-b>: page move.
