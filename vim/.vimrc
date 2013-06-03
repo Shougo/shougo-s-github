@@ -3363,9 +3363,9 @@ set helplang& helplang=en,ja
 let t:cwd = getcwd()
 "}}}
 
-if !has('vim_starting')
-  call neobundle#call_hook('on_source')
+call neobundle#call_hook('on_source')
 
+if !has('vim_starting')
   if exists(':IndentLinesReset')
     IndentLinesReset
   endif
