@@ -151,7 +151,7 @@ NeoBundle 'Shougo/neocomplcache', '', 'default'
 call neobundle#config('neocomplcache', {
       \ 'lazy' : 1,
       \ 'autoload' : {
-      \   'insert' : 1,
+      \   'commands' : 'NeoComplCacheEnable',
       \ }})
 
 NeoBundle 'Shougo/neocomplcache-rsense', '', 'default'
@@ -1155,7 +1155,7 @@ autocmd MyAutoCmd VimEnter * highlight ModeMsg guifg=bg guibg=bg
 
 " neocomplete.vim"{{{
 " Use neocomplete.
-let g:neocomplete#enable_at_startup = 0
+let g:neocomplete#enable_at_startup = 1
 
 let bundle = neobundle#get('neocomplete.vim')
 function! bundle.hooks.on_source(bundle)
@@ -1177,6 +1177,10 @@ function! bundle.hooks.on_source(bundle)
 
   " For auto select.
   let g:neocomplete#enable_auto_select = 1
+  if g:neocomplete#enable_auto_select
+    set completeopt-=noselect
+    set completeopt+=noinsert
+  endif
 
   let g:neocomplete#enable_auto_delimiter = 1
   let g:neocomplete#disable_auto_select_buffer_name_pattern =
@@ -1217,7 +1221,7 @@ function! bundle.hooks.on_source(bundle)
         \ 'VimFiler' : 'vimfiler#complete',
         \ 'Vinarise' : 'vinarise#complete',
         \}
-  call neocomplete#custom_source('look', 'min_pattern_length', 4)
+  call neocomplete#custom#source('look', 'min_pattern_length', 4)
 
   " mappings."{{{
   " <C-f>, <C-b>: page move.
