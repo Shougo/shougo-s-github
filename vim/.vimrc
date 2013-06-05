@@ -1486,6 +1486,7 @@ function! bundle.hooks.on_source(bundle)
     nnoremap <silent><buffer> <C-j>
           \ <C-u>:Unite -buffer-name=files -default-action=lcd directory_mru<CR>
 
+    call vimshell#altercmd#define('u', 'cdup')
     call vimshell#altercmd#define('g', 'git')
     call vimshell#altercmd#define('i', 'iexe')
     call vimshell#altercmd#define('t', 'texe')
@@ -1497,6 +1498,8 @@ function! bundle.hooks.on_source(bundle)
     " Auto jump.
     call vimshell#set_alias('j', ':Unite -buffer-name=files
           \ -default-action=lcd -no-split -input=$$args directory_mru')
+
+    call vimshell#set_alias('up', 'cdup')
 
     call vimshell#hook#add('chpwd', 'my_chpwd', s:vimshell_hooks.chpwd)
     " call vimshell#hook#add('emptycmd', 'my_emptycmd', s:vimshell_hooks.emptycmd)
