@@ -494,10 +494,12 @@ NeoBundleLazy 'teramako/jscomplete-vim', {
       \   'filetypes' : 'javascript'
       \ }}
 
-NeoBundleLazy 'myhere/vim-nodejs-complete', {
-      \ 'autoload' : {
-      \   'filetypes' : 'javascript'
-      \ }}
+if has('python')
+  NeoBundleLazy 'marijnh/tern_for_vim', {
+        \ 'autoload' : {
+        \   'filetypes' : 'javascript'
+        \ }}
+endif
 
 NeoBundleLazy 'thinca/vim-ft-help_fold', {
       \ 'autoload' : {
