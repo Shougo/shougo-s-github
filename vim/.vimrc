@@ -1161,8 +1161,6 @@ let g:neocomplete#enable_at_startup = 1
 
 let bundle = neobundle#get('neocomplete.vim')
 function! bundle.hooks.on_source(bundle)
-  let g:neocomplete#enable_complete_select = 1
-
   " Use smartcase.
   let g:neocomplete#enable_smart_case = 0
   " Use fuzzy completion.
@@ -1178,8 +1176,10 @@ function! bundle.hooks.on_source(bundle)
   let g:neocomplete#min_keyword_length = 3
 
   " For auto select.
+  let g:neocomplete#enable_complete_select = 1
   let g:neocomplete#enable_auto_select = 1
-  if g:neocomplete#enable_auto_select
+  let g:neocomplete#enable_refresh_always = 0
+  if g:neocomplete#enable_complete_select
     set completeopt-=noselect
     set completeopt+=noinsert
   endif
