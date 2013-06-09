@@ -285,12 +285,6 @@ NeoBundleLazy 'kana/vim-smarttill', { 'autoload' : {
       \ 'mappings' : [
       \   '<Plug>(smarttill-t)', '<Plug>(smarttill-T)']
       \ }}
-" NeoBundleLazy 'kana/vim-fakeclip', { 'autoload' : {
-"       \ 'mappings' : [
-"       \   ['nv', '<Plug>(fakeclip-y)'], ['nv', '<Plug>(fakeclip-Y)'],
-"       \   ['nv', '<Plug>(fakeclip-p)'], ['nv', '<Plug>(fakeclip-P)'],
-"       \   ['nv', '<Plug>(fakeclip-gp)']]
-"       \ }}
 NeoBundleLazy 'kana/vim-operator-user'
 NeoBundleLazy 'kana/vim-operator-replace', {
       \ 'depends' : 'vim-operator-user',
@@ -312,8 +306,6 @@ NeoBundleLazy 'add20/vim-conque', { 'autoload' : {
 NeoBundleLazy 'sjl/gundo.vim', { 'autoload' : {
       \ 'commands' : 'GundoToggle'
       \ }}
-" NeoBundle 't9md/vim-textmanip'
-" NeoBundle 't9md/vim-quickhl'
 NeoBundleLazy 'thinca/vim-fontzoom', {
       \ 'gui' : 1,
       \ 'autoload' : {
@@ -497,10 +489,10 @@ NeoBundleLazy 'teramako/jscomplete-vim', {
       \ }}
 
 if has('python')
-  NeoBundleLazy 'marijnh/tern_for_vim', {
-        \ 'autoload' : {
-        \   'filetypes' : 'javascript'
-        \ }}
+  " NeoBundleLazy 'marijnh/tern_for_vim', {
+  "       \ 'autoload' : {
+  "       \   'filetypes' : 'javascript'
+  "       \ }}
 endif
 
 NeoBundleLazy 'thinca/vim-ft-help_fold', {
@@ -529,11 +521,6 @@ NeoBundleLazy 'xolox/vim-lua-ftplugin', {
 NeoBundleLazy 'elzr/vim-json', {
       \ 'autoload' : {
       \   'filetypes' : 'json',
-      \ }}
-
-NeoBundleLazy 'mopp/rogue.vim', {
-      \ 'autoload' : {
-      \   'commands' : 'RogueStart'
       \ }}
 
 NeoBundleLocal ~/.vim/bundle
