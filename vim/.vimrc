@@ -4,8 +4,10 @@
 " Initialize:"{{{
 "
 
-" Enable no Vi compatible commands.
-set nocompatible
+if !&compatible
+  " Enable no Vi compatible commands.
+  set nocompatible
+endif
 
 " Note: Skip initialization for vim-tiny or vim-small.
 if !1 | finish | endif
@@ -999,7 +1001,7 @@ set previewheight=8
 set helpheight=12
 
 " Don't redraw while macro executing.
-set lazyredraw
+"set lazyredraw
 
 " When a line is long, do not omit it in @.
 set display=lastline
