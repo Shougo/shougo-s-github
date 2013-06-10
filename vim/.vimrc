@@ -1151,7 +1151,7 @@ let g:neocomplete#enable_at_startup = 1
 let bundle = neobundle#get('neocomplete.vim')
 function! bundle.hooks.on_source(bundle)
   " Use smartcase.
-  let g:neocomplete#enable_smart_case = 0
+  let g:neocomplete#enable_smart_case = 1
   " Use fuzzy completion.
   let g:neocomplete#enable_fuzzy_completion = 1
 
