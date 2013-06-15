@@ -342,12 +342,14 @@ NeoBundleLazy 'vim-ruby/vim-ruby', { 'autoload' : {
       \ 'filetypes' : 'ruby'
       \ }}
 
-NeoBundleLazy 'basyura/J6uil.vim.git', {
+NeoBundleLazy 'Shougo/J6uil.vim.git', '', 'default'
+call neobundle#config('J6uil.vim', {
+      \ 'lazy' : 1,
       \ 'autoload' : {
       \   'commands' : 'J6uil',
       \ },
       \ 'depends' : 'mattn/webapi-vim',
-      \ }
+      \ })
 
 NeoBundleLazy 'Shougo/unite-help', { 'autoload' : {
       \ 'unite_sources' : 'help'
@@ -2193,14 +2195,15 @@ unlet bundle
 " j6uil.vim"{{{
 let bundle = neobundle#get('J6uil.vim')
 function! bundle.hooks.on_source(bundle)
+  let g:J6uil_no_default_keymappings = 1
   let g:J6uil_display_offline  = 0
   let g:J6uil_display_online   = 0
   let g:J6uil_echo_presence    = 1
   let g:J6uil_display_icon     = 1
   let g:J6uil_display_interval = 0
   let g:J6uil_updatetime       = 1000
+  let g:J6uil_align_message    = 0
 
-  autocmd MyAutoCmd FileType J6uil nunmap <buffer> s
   autocmd MyAutoCmd FileType J6uil nmap <buffer> o <Plug>(J6uil_open_say_buffer)
 endfunction
 "}}}
