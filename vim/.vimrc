@@ -156,6 +156,13 @@ call neobundle#config('neocomplcache', {
       \   'commands' : 'NeoComplCacheEnable',
       \ }})
 
+NeoBundle 'Shougo/neocomplete.vim', '', 'default'
+call neobundle#config('neocomplete.vim', {
+      \ 'lazy' : 1,
+      \ 'autoload' : {
+      \   'insert' : 1,
+      \ }})
+
 NeoBundle 'Shougo/neocomplcache-rsense', '', 'default'
 call neobundle#config('neocomplcache-rsense', {
       \ 'lazy' : 1,
