@@ -342,12 +342,6 @@ NeoBundleLazy 'vim-ruby/vim-ruby', { 'autoload' : {
       \ 'filetypes' : 'ruby'
       \ }}
 
-NeoBundleLazy 'tsukkee/lingr-vim', { 'autoload' : {
-      \ 'commands' : 'LingrLaunch'
-      \ }}
-if has('gui_running') && !s:is_windows
-  NeoBundleDisable lingr-vim
-endif
 NeoBundleLazy 'basyura/J6uil.vim.git', {
       \ 'autoload' : {
       \   'commands' : 'J6uil',
@@ -871,8 +865,7 @@ set title
 set titlelen=95
 " Title string.
 let &titlestring="
-      \ %{(&filetype ==# 'lingr-messages' && lingr#unread_count() > 0 )?
-      \ '('.lingr#unread_count().')' : ''}%{expand('%:p:.:~')}%(%m%r%w%)
+      \ %{expand('%:p:.:~')}%(%m%r%w%)
       \ %<\(%{".s:SID_PREFIX()."strwidthpart(
       \ fnamemodify(&filetype ==# 'vimfiler' ?
       \ substitute(b:vimfiler.current_dir, '.\\zs/$', '', '') : getcwd(), ':~'),
@@ -1029,7 +1022,7 @@ augroup MyAutoCmd
   autocmd BufNewfile,BufRead Rakefile set foldmethod=syntax foldnestmax=1
 
   " Close help and git window by pressing q.
-  autocmd FileType help,git-status,git-log,qf,
+  autocmd FileType help,git-status,git-log,qf,J6uil_say,
         \gitcommit,quickrun,qfreplace,ref,vcs-commit,vcs-status
         \ nnoremap <buffer><silent> q :<C-u>call <sid>smart_close()<CR>
   autocmd FileType * if (&readonly || !&modifiable) && !hasmapto('q', 'n')
@@ -2197,44 +2190,19 @@ endfunction
 unlet bundle
 "}}}
 
-" lingr-vim"{{{
-let g:lingr_vim_sidebar_width = 30
-
-" Keymappings.
-autocmd MyAutoCmd FileType lingr-messages call s:lingr_messages_my_settings()
-autocmd MyAutoCmd FileType lingr-say call s:lingr_say_my_settings()
-autocmd MyAutoCmd FileType lingr-rooms call s:lingr_looms_my_settings()
-
-function! s:lingr_messages_my_settings() "{{{
-  nmap <buffer> o <Plug>(lingr-messages-show-say-buffer)
-  nunmap <buffer> s
-
-  if s:is_windows
-    " Dirty shellslash hack.
-    set noshellslash
-
-    augroup MyAutoCmd
-      autocmd WinEnter,BufWinEnter <buffer> set noshellslash
-      autocmd WinLeave,BufWinLeave <buffer> set shellslash
-    augroup END
-  endif
-endfunction"}}}
-function! s:lingr_say_my_settings() "{{{
-  imap <buffer> <CR> <Plug>(lingr-say-insert-mode-say)
-  nmap <buffer> q <Plug>(lingr-say-close)
-endfunction"}}}
-function! s:lingr_looms_my_settings() "{{{
-  nmap <buffer> l <Plug>(lingr-rooms-select-room)
-endfunction"}}}
-"}}}
-
 " j6uil.vim"{{{
-let g:J6uil_display_offline  = 0
-let g:J6uil_display_online   = 0
-let g:J6uil_echo_presence    = 1
-let g:J6uil_display_icon     = 0
-let g:J6uil_display_interval = 0
-let g:J6uil_updatetime       = 1000
+let bundle = neobundle#get('J6uil.vim')
+function! bundle.hooks.on_source(bundle)
+  let g:J6uil_display_offline  = 0
+  let g:J6uil_display_online   = 0
+  let g:J6uil_echo_presence    = 1
+  let g:J6uil_display_icon     = 1
+  let g:J6uil_display_interval = 0
+  let g:J6uil_updatetime       = 1000
+
+  autocmd MyAutoCmd FileType J6uil nunmap <buffer> s
+  autocmd MyAutoCmd FileType J6uil nmap <buffer> o <Plug>(J6uil_open_say_buffer)
+endfunction
 "}}}
 
 " surround.vim"{{{
