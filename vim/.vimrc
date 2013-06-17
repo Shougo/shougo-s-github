@@ -2211,7 +2211,13 @@ function! bundle.hooks.on_source(bundle)
   let g:J6uil_updatetime       = 1000
   let g:J6uil_align_message    = 0
 
-  autocmd MyAutoCmd FileType J6uil nmap <buffer> o <Plug>(J6uil_open_say_buffer)
+  autocmd MyAutoCmd FileType J6uil call s:j6uil_settings()
+
+  function! s:j6uil_settings()
+    nmap <buffer> o <Plug>(J6uil_open_say_buffer)
+    nmap <silent> <buffer> <CR> <Plug>(J6uil_action_enter)
+    NeoCompleteBufferMakeCache
+  endfunction
 endfunction
 "}}}
 
