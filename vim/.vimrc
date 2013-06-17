@@ -178,7 +178,6 @@ call neobundle#config('neosnippet', {
       \   'filetypes' : 'snippet',
       \   'unite_sources' : ['snippet', 'neosnippet/user', 'neosnippet/runtime'],
       \ }})
-" NeoBundle 'git@github.com:Shougo/neocomplcache-snippets-complete.git'
 
 NeoBundle 'Shougo/neobundle-vim-scripts', '', 'default'
 
@@ -3088,36 +3087,6 @@ function! s:highlight_with(args) range
         \             c, a:firstline, a:lastline, c)
   let b:highlight_count = c + 1
 endfunction"}}}
-
-" For git update in current directory.
-command! GitPullAll call s:git_pull_all()
-function! s:git_pull_all()
-  let current_dir = getcwd()
-  let cnt = 1
-  let dirs = map(split(glob('*/.git'), '\n'), 'fnamemodify(v:val, ":p:h:h")')
-  let max = len(dirs)
-
-  for dir in filter(dirs, "
-      \ glob(v:val.'/*/*.vim') != '' ||
-      \ glob(v:val.'/*/*/*.vim') != '' ||
-      \ glob(v:val.'/*/*/*/*.vim') != ''")
-    lcd `=dir`
-    redraw!
-
-    echo printf('%d/%d git pull in %s', cnt, max, dir)
-
-    let output = vimproc#system('git pull --rebase')
-    if vimproc#get_last_status()
-      echohl WarningMsg | echomsg output | echohl None
-    endif
-
-    let cnt += 1
-  endfor
-
-  echo 'Done!'
-
-  lcd `=current_dir`
-endfunction
 "}}}
 
 "---------------------------------------------------------------------------
