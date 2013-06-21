@@ -497,6 +497,7 @@ if has('python')
   "       \ }}
 endif
 
+
 NeoBundleLazy 'thinca/vim-ft-help_fold', {
       \ 'autoload' : {
       \   'filetypes' : 'help'
@@ -523,6 +524,12 @@ NeoBundleLazy 'xolox/vim-lua-ftplugin', {
 NeoBundleLazy 'elzr/vim-json', {
       \ 'autoload' : {
       \   'filetypes' : 'json',
+      \ }}
+
+NeoBundleLazy 'rbtnn/vimconsole.vim', {
+      \ 'depends' : 'thinca/vim-prettyprint',
+      \ 'autoload' : {
+      \   'commands' : 'VimConsoleOpen'
       \ }}
 
 NeoBundleLocal ~/.vim/bundle
@@ -1030,7 +1037,7 @@ augroup MyAutoCmd
   autocmd BufNewfile,BufRead Rakefile set foldmethod=syntax foldnestmax=1
 
   " Close help and git window by pressing q.
-  autocmd FileType help,git-status,git-log,qf,J6uil_say,
+  autocmd FileType help,git-status,git-log,qf,J6uil_say,vimconsole,
         \gitcommit,quickrun,qfreplace,ref,vcs-commit,vcs-status
         \ nnoremap <buffer><silent> q :<C-u>call <sid>smart_close()<CR>
   autocmd FileType * if (&readonly || !&modifiable) && !hasmapto('q', 'n')
@@ -2379,6 +2386,15 @@ nnoremap <silent> ! :Switch<cr>
 " Improved visual selection.
 xmap I  <Plug>(niceblock-I)
 xmap A  <Plug>(niceblock-A)
+
+" vimconsole.vim"{{{
+let bundle = neobundle#get('vimconsole.vim')
+function! bundle.hooks.on_source(bundle)
+  let g:vimconsole#auto_redraw = 1
+endfunction
+
+unlet bundle
+"}}}
 "}}}
 
 "---------------------------------------------------------------------------
@@ -3215,7 +3231,7 @@ if s:is_windows
   "}}}
 else
   " For Linux"{{{
-  if exists('$WINDIR')
+  if exists('$WINDIR') || !executable('zsh')
     " Cygwin.
 
     " Use bash.
