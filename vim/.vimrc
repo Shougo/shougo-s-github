@@ -1181,6 +1181,11 @@ function! bundle.hooks.on_source(bundle)
     set completeopt+=noinsert
   endif
 
+  let g:neocomplete#sources#dictionary#dictionaries = {
+        \ 'default' : '',
+        \ 'vimshell' : $HOME.'/.vimshell/command-history',
+        \ }
+
   let g:neocomplete#enable_auto_delimiter = 1
   let g:neocomplete#disable_auto_select_buffer_name_pattern =
         \ '\[Command Line\]'
