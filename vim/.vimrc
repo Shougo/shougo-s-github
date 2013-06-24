@@ -157,11 +157,11 @@ call neobundle#config('neocomplcache', {
       \ }})
 
 NeoBundle 'Shougo/neocomplete.vim', '', 'default'
-call neobundle#config('neocomplete.vim', {
-      \ 'lazy' : 1,
-      \ 'autoload' : {
-      \   'insert' : 1,
-      \ }})
+" call neobundle#config('neocomplete.vim', {
+"       \ 'lazy' : 1,
+"       \ 'autoload' : {
+"       \   'insert' : 1,
+"       \ }})
 
 NeoBundle 'Shougo/neocomplcache-rsense', '', 'default'
 call neobundle#config('neocomplcache-rsense', {
@@ -1251,7 +1251,7 @@ function! bundle.hooks.on_source(bundle)
         \ "\<Plug>(neocomplete_start_unite_quick_match)" : '`'
 
   inoremap <expr><C-x><C-f>
-        \ neocomplete#start_manual_complete('filename_complete')
+        \ neocomplete#start_manual_complete('file')
 
   inoremap <expr><C-g>     neocomplete#undo_completion()
   inoremap <expr><C-l>     neocomplete#complete_common_string()
@@ -1490,6 +1490,7 @@ function! bundle.hooks.on_source(bundle)
     imap <buffer><BS>  <Plug>(vimshell_another_delete_backward_char)
     imap <buffer><C-h>  <Plug>(vimshell_another_delete_backward_char)
     imap <buffer><C-k>  <Plug>(vimshell_zsh_complete)
+    imap <buffer><C-g>  <Plug>(vimshell_history_neocomplete)
 
     nnoremap <silent><buffer> <C-j>
           \ <C-u>:Unite -buffer-name=files -default-action=lcd directory_mru<CR>
@@ -2222,6 +2223,8 @@ function! bundle.hooks.on_source(bundle)
   let g:J6uil_updatetime       = 1000
   let g:J6uil_align_message    = 0
 
+  NeoBundleDisable neocomplcache
+
   autocmd MyAutoCmd FileType J6uil call s:j6uil_settings()
 
   function! s:j6uil_settings()
@@ -2393,6 +2396,7 @@ xmap I  <Plug>(niceblock-I)
 xmap A  <Plug>(niceblock-A)
 
 " vimconsole.vim"{{{
+nnoremap <Leader>v        :<C-u>VimConsoleOpen<CR>
 let bundle = neobundle#get('vimconsole.vim')
 function! bundle.hooks.on_source(bundle)
   let g:vimconsole#auto_redraw = 1
