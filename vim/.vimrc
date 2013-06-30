@@ -1900,7 +1900,6 @@ function! bundle.hooks.on_source(bundle)
   let g:unite_winheight = 20
   let g:unite_enable_start_insert = 0
   let g:unite_enable_short_source_names = 1
-  let g:unite_enable_auto_narrow = 1
 
   let g:unite_cursor_line_highlight = 'TabLineSel'
   " let g:unite_abbr_highlight = 'TabLine'
