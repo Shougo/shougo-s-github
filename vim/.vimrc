@@ -381,12 +381,15 @@ NeoBundleLazy 'tyru/restart.vim', {
       \ }}
 " NeoBundle 'tyru/skk.vim'
 NeoBundleLazy 'tyru/vim-altercmd'
+" NeoBundleLazy 'tyru/winmove.vim', { 'autoload' : {
 NeoBundleLazy 'tyru/winmove.vim', { 'autoload' : {
       \ 'gui' : 1,
       \ 'mappings' : [
-      \   ['n', '<Plug>(winmove-up)'], ['n', '<Plug>(winmove-down)'],
-      \   ['n', '<Plug>(winmove-left)'] , ['n', '<Plug>(winmove-right)']],
-      \ }}
+      \   ['n', '<Plug>(winmove-up)', '<Plug>(winmove-down)',
+      \         '<Plug>(winmove-left)', '<Plug>(winmove-right)']],
+      \ },
+      \ 'augroup' : 'winmove',
+      \ }
 NeoBundleLazy 'ujihisa/neco-ghc', { 'autoload' : {
       \ 'filetypes' : 'haskell'
       \ }}
@@ -2403,6 +2406,13 @@ function! bundle.hooks.on_source(bundle)
 endfunction
 
 unlet bundle
+"}}}
+
+" winmove.vim"{{{
+nmap <Up>      <Plug>(winmove-up)
+nmap <Down>    <Plug>(winmove-down)
+nmap <Left>    <Plug>(winmove-left)
+nmap <Right>   <Plug>(winmove-right)
 "}}}
 "}}}
 
