@@ -291,7 +291,10 @@ NeoBundleLazy 'kana/vim-smarttill', { 'autoload' : {
       \ 'mappings' : [
       \   '<Plug>(smarttill-t)', '<Plug>(smarttill-T)']
       \ }}
-NeoBundleLazy 'kana/vim-operator-user'
+NeoBundle 'kana/vim-operator-user', {
+      \ 'autoload' : {
+      \   'functions' : 'operator#user#define',
+      \ }}
 NeoBundleLazy 'kana/vim-operator-replace', {
       \ 'depends' : 'vim-operator-user',
       \ 'autoload' : {
@@ -533,6 +536,12 @@ NeoBundleLazy 'rbtnn/vimconsole.vim', {
       \ 'depends' : 'thinca/vim-prettyprint',
       \ 'autoload' : {
       \   'commands' : 'VimConsoleOpen'
+      \ }}
+
+NeoBundleLazy 'tyru/open-browser.vim', {
+      \ 'autoload' : {
+      \   'commands' : ['OpenBrowserSearch', 'OpenBrowser'],
+      \   'functions' : 'openbrowser#open',
       \ }}
 
 NeoBundleLocal ~/.vim/bundle
@@ -3072,6 +3081,35 @@ endfunction
 nnoremap <silent> [Window]y
       \ :<C-u>echo map(synstack(line('.'), col('.')),
       \     'synIDattr(v:val, "name")')<CR>
+
+" Open github URI.
+call operator#user#define('open-neobundlepath', 'OpenNeoBundlePath')
+nmap gz <Plug>(operator-open-neobundlepath)
+xmap gz <Plug>(operator-open-neobundlepath)
+function! OpenNeoBundlePath(motion_wise) "{{{
+  if line("'[") != line("']")
+    return
+  endif
+  let start = col("'[") - 1
+  let end = col("']")
+  let sel = strpart(getline('.'), start, end - start)
+  let sel = substitute(sel,
+        \'^\%(github\|gh\|git@github\.com\):\(.\+\)',
+        \ 'https://github.com/\1', '')
+  let sel = substitute(sel,
+        \'^\%(bitbucket\|bb\):\(.\+\)', 'https://bitbucket.org/\1', '')
+  let sel = substitute(sel,
+        \'^gist:\(.\+\)', 'https://gist.github.com/\1', '')
+  let sel = substitute(sel,
+        \'^git://', 'https://', '')
+  if sel =~ '^https\?://'
+    call openbrowser#open(sel)
+  elseif sel =~ '/'
+    call openbrowser#open('https://github.com/'.sel)
+  else
+    call openbrowser#open('https://github.com/vim-scripts/'.sel)
+  endif
+endfunction "}}}
 "}}}
 
 "---------------------------------------------------------------------------
