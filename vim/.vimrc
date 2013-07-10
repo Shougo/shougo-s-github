@@ -1124,6 +1124,11 @@ let g:java_highlight_functions=1
 let g:SimpleJsIndenter_BriefMode = 1
 let g:SimpleJsIndenter_CaseIndentLevel = -1
 
+" Go
+if $GOROOT != ''
+  set rtp+=$GOROOT/misc/vim
+endif
+
 " Vim script
 " augroup: a
 " function: f
@@ -1214,15 +1219,15 @@ function! bundle.hooks.on_source(bundle)
   endif
   let g:neocomplete#enable_auto_close_preview = 1
 
-  " let g:neocomplete#force_omni_input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-  let g:neocomplete#sources#omni#input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+  " let g:neocomplete#force_omni_input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::\w*'
+  let g:neocomplete#sources#omni#input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::\w*'
 
   " Define keyword pattern.
   if !exists('g:neocomplete#keyword_patterns')
     let g:neocomplete#keyword_patterns = {}
   endif
   let g:neocomplete#keyword_patterns._ = '[0-9a-zA-Z:#_]\+'
-  let g:neocomplete#keyword_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+  let g:neocomplete#keyword_patterns.perl = '\h\w*->\h\w*\|\h\w*::\w*'
 
   let g:neocomplete#sources#vim#complete_functions = {
         \ 'Ref' : 'ref#complete',
