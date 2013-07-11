@@ -803,7 +803,7 @@ endif
 " Use vimgrep.
 "set grepprg=internal
 " Use grep.
-set grepprg=grep\ -nH
+set grepprg=grep\ -inH
 
 " Exclude = from isfilename.
 set isfname-==
