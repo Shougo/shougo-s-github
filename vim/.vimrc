@@ -544,6 +544,8 @@ NeoBundleLazy 'tyru/open-browser.vim', {
       \   'functions' : 'openbrowser#open',
       \ }}
 
+" NeoBundle 'tpope/vim-fugitive'
+
 NeoBundleLocal ~/.vim/bundle
 "}}}
 
@@ -2080,7 +2082,7 @@ unlet bundle
 
 " vimfiler.vim"{{{
 "nmap    [Space]v   <Plug>(vimfiler_switch)
-nnoremap <silent>   [Space]v   :<C-u>VimFiler<CR>
+nnoremap <silent>   [Space]v   :<C-u>VimFiler -find<CR>
 nnoremap    [Space]ff   :<C-u>VimFilerExplorer<CR>
 
 let bundle = neobundle#get('vimfiler')
