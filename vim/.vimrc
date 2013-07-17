@@ -1830,23 +1830,23 @@ let bundle = neobundle#get('unite.vim')
 function! bundle.hooks.on_source(bundle)
   autocmd MyAutoCmd FileType unite call s:unite_my_settings()
 
-  call unite#set_profile('action', 'context', {'start_insert' : 1})
+  call unite#custom#profile('action', 'context', {'start_insert' : 1})
 
   " Set "-no-quit" automatically in grep unite source.
-  call unite#set_profile('source/grep', 'context', {'no_quit' : 1})
+  call unite#custom#profile('source/grep', 'context', {'no_quit' : 1})
 
   " migemo.
-  call unite#custom_source('line_migemo', 'matchers', 'matcher_migemo')
+  call unite#custom#source('line_migemo', 'matchers', 'matcher_migemo')
 
-  call unite#custom_source('file_rec', 'sorters', 'sorter_reverse')
+  call unite#custom#source('file_rec', 'sorters', 'sorter_reverse')
 
   " Custom filters."{{{
-  call unite#custom_source(
+  call unite#custom#source(
         \ 'buffer,file_rec/async,file_mru', 'matchers',
         \ ['converter_tail', 'matcher_fuzzy'])
-  call unite#custom_source(
+  call unite#custom#source(
         \ 'file,file_rec', 'matchers', ['matcher_fuzzy'])
-  call unite#custom_source(
+  call unite#custom#source(
         \ 'file_rec/async,file_mru', 'converters',
         \ ['converter_file_directory'])
   call unite#filters#sorter_default#use(['sorter_rank'])
@@ -1854,13 +1854,13 @@ function! bundle.hooks.on_source(bundle)
 
   function! s:unite_my_settings() "{{{
     " Directory partial match.
-    call unite#custom_alias('file', 'h', 'left')
-    call unite#custom_default_action('directory', 'narrow')
-    " call unite#custom_default_action('file', 'my_tabopen')
+    call unite#custom#alias('file', 'h', 'left')
+    call unite#custom#default_action('directory', 'narrow')
+    " call unite#custom#default_action('file', 'my_tabopen')
 
-    call unite#custom_default_action('versions/git/status', 'commit')
+    call unite#custom#default_action('versions/git/status', 'commit')
 
-    " call unite#custom_default_action('directory', 'cd')
+    " call unite#custom#default_action('directory', 'cd')
 
     " Custom actions."{{{
     let my_tabopen = {
@@ -1874,7 +1874,7 @@ function! bundle.hooks.on_source(bundle)
             \ a:candidates[0].word : fnamemodify(a:candidates[0].word, ':p:h')
       execute g:unite_kind_openable_lcd_command '`=dir`'
     endfunction"}}}
-    call unite#custom_action('file,buffer', 'tabopen', my_tabopen)
+    call unite#custom#action('file,buffer', 'tabopen', my_tabopen)
     unlet my_tabopen
     "}}}
 
