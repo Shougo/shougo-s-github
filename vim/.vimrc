@@ -838,9 +838,6 @@ if v:version >= 703
   let &undodir=&directory
 endif
 
-" Set tags file.
-" Don't search tags file in current directory. And search upward.
-set tags& tags-=tags tags+=./tags;
 if v:version < 703 || (v:version == 7.3 && !has('patch336'))
   " Vim's bug.
   set notagbsearch
