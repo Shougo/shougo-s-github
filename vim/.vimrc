@@ -558,6 +558,8 @@ let g:loaded_getscriptPlugin = 1
 " Disable netrw.vim
 let g:loaded_netrwPlugin = 1
 
+let g:loaded_matchparen = 0
+
 filetype plugin indent on
 
 " Enable syntax color.
