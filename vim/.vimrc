@@ -1103,7 +1103,7 @@ augroup MyAutoCmd
   \ |   filetype detect
   \ | endif
 
-  autocmd BufEnter,BufNewFile * if bufname('%') != '' && &filetype == ''
+  autocmd BufRead,BufNewFile * if bufname('%') != '' && &filetype == ''
         \ | setlocal ft=hybrid | endif
 
   " Improved include pattern.
