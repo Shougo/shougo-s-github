@@ -1857,10 +1857,10 @@ function! bundle.hooks.on_source(bundle)
 
   " Custom filters."{{{
   call unite#custom#source(
-        \ 'buffer,file_rec/async,file_mru', 'matchers',
+        \ 'buffer,file_rec,file_rec/async,file_mru', 'matchers',
         \ ['converter_tail', 'matcher_fuzzy'])
   call unite#custom#source(
-        \ 'file,file_rec', 'matchers',
+        \ 'file', 'matchers',
         \ ['matcher_fuzzy', 'matcher_hide_hidden_files'])
   call unite#custom#source(
         \ 'file_rec/async,file_mru', 'converters',
