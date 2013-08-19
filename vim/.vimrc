@@ -1178,7 +1178,8 @@ function! s:set_syntax_of_user_defined_commands()
 endfunction
 
 " Clear modeline highlight.
-autocmd MyAutoCmd VimEnter * highlight ModeMsg guifg=bg guibg=bg
+autocmd MyAutoCmd VimEnter *
+      \ highlight ModeMsg guifg=bg guibg=bg | highlight WarningMsg guifg=bg
 
 "}}}
 
