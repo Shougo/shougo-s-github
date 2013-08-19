@@ -1859,6 +1859,7 @@ function! bundle.hooks.on_source(bundle)
   call unite#custom#source(
         \ 'buffer,file_rec,file_rec/async,file_mru', 'matchers',
         \ ['converter_tail', 'matcher_fuzzy'])
+        " \ ['matcher_fuzzy'])
   call unite#custom#source(
         \ 'file', 'matchers',
         \ ['matcher_fuzzy', 'matcher_hide_hidden_files'])
