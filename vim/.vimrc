@@ -134,7 +134,7 @@ NeoBundleLazy 'basyura/TweetVim', { 'depends' :
 
 " NeoBundle 'Shougo/echodoc'
 
-NeoBundle 'Shougo/neocomplcache'
+" NeoBundle 'Shougo/neocomplcache'
 
 NeoBundle 'Shougo/neocomplete.vim'
 
@@ -1247,6 +1247,8 @@ function! bundle.hooks.on_source(bundle)
   let g:neocomplete#keyword_patterns._ = '[0-9a-zA-Z:#_]\+'
   let g:neocomplete#keyword_patterns.perl = '\h\w*->\h\w*\|\h\w*::\w*'
 
+  let g:neocomplete#ignore_source_files = ['tag.vim']
+
   let g:neocomplete#sources#vim#complete_functions = {
         \ 'Ref' : 'ref#complete',
         \ 'Unite' : 'unite#complete_source',
@@ -1321,8 +1323,8 @@ endfunction
 " Use neocomplcache.
 let g:neocomplcache_enable_at_startup = 0
 
-let bundle = neobundle#get('neocomplcache')
-function! bundle.hooks.on_source(bundle)
+let hooks = neobundle#get_hooks('neocomplcache')
+function! hooks.on_source(bundle)
   " Use smartcase.
   let g:neocomplcache_enable_smart_case = 0
   " Use camel case completion.
@@ -1845,6 +1847,8 @@ nnoremap <silent> ;u :<C-u>Unite menu:unite -resume<CR>
 let bundle = neobundle#get('unite.vim')
 function! bundle.hooks.on_source(bundle)
   autocmd MyAutoCmd FileType unite call s:unite_my_settings()
+
+  let g:unite_ignore_source_files = ['function.vim', 'command.vim']
 
   call unite#custom#profile('action', 'context', {'start_insert' : 1})
 
