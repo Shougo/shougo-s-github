@@ -343,9 +343,15 @@ NeoBundleLazy 'repeat.vim', { 'autoload' : {
 NeoBundleLazy 'autodate.vim', { 'autoload' : {
       \ 'filetypes' : 'vim',
       \ }}
+
 NeoBundleLazy 'matchit.zip', { 'autoload' : {
-      \ 'filetypes' : 'vim',
+      \ 'mappings' : ['%', 'g%']
       \ }}
+let bundle = neobundle#get('matchit.zip')
+function! bundle.hooks.on_post_source(bundle)
+  silent! execute 'doautocmd Filetype' &filetype
+endfunction
+
 
 " NeoBundle 'perl-mauke.vim'
 NeoBundleLazy 'jiangmiao/simple-javascript-indenter', { 'autoload' : {
