@@ -438,6 +438,10 @@ NeoBundleLazy 'tyru/open-browser.vim', {
       \   'functions' : 'openbrowser#open',
       \ }}
 
+NeoBundleLazy 'csv.vim', {
+    \ 'autoload' : { 'filetypes' : 'csv' }
+    \ }
+
 if filereadable('vimrc_local.vim') ||
       \ findfile('vimrc_local.vim', '.;') != ''
   " Load develop version.
@@ -1185,7 +1189,7 @@ endfunction
 
 " Clear modeline highlight.
 autocmd MyAutoCmd VimEnter *
-      \ highlight ModeMsg guifg=bg guibg=bg | highlight WarningMsg guifg=bg
+      \ highlight ModeMsg guifg=bg guibg=bg
 
 "}}}
 
