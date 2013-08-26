@@ -464,11 +464,11 @@ call neobundle#config('neocomplcache', {
       \ 'autoload' : {
       \   'commands' : 'NeoComplCacheEnable',
       \ }})
-" call neobundle#config('neocomplete.vim', {
-"       \ 'lazy' : 1,
-"       \ 'autoload' : {
-"       \   'insert' : 1,
-"       \ }})
+call neobundle#config('neocomplete.vim', {
+      \ 'lazy' : 1,
+      \ 'autoload' : {
+      \   'insert' : 1,
+      \ }})
 call neobundle#config('neocomplcache-rsense', {
       \ 'lazy' : 1,
       \ 'depends' : 'Shougo/neocomplcache',
