@@ -1112,8 +1112,8 @@ augroup MyAutoCmd
   \ |   filetype detect
   \ | endif
 
-  autocmd BufRead,BufNewFile * if bufname('%') != '' && &filetype == ''
-        \ | setlocal ft=hybrid | endif
+  "autocmd BufRead,BufNewFile * if bufname('%') != '' && &filetype == ''
+  "      \ | setlocal ft=hybrid | endif
 
   " Improved include pattern.
   autocmd FileType html
