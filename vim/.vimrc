@@ -437,8 +437,13 @@ NeoBundleLazy 'tyru/open-browser.vim', {
       \ }}
 
 NeoBundleLazy 'csv.vim', {
-    \ 'autoload' : { 'filetypes' : 'csv' }
-    \ }
+      \ 'autoload' : { 'filetypes' : 'csv' }
+      \ }
+
+NeoBundleLazy 'kana/vim-filetype-haskell', {
+      \ 'autoload' : {
+      \   'filetypes' : 'haskell',
+      \ }}
 
 if filereadable('vimrc_local.vim') ||
       \ findfile('vimrc_local.vim', '.;') != ''
