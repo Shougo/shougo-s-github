@@ -468,6 +468,7 @@ call neobundle#config('neocomplete.vim', {
       \ 'lazy' : 1,
       \ 'autoload' : {
       \   'insert' : 1,
+      \   'commands' : 'NeoCompleteBufferMakeCache',
       \ }})
 call neobundle#config('neocomplcache-rsense', {
       \ 'lazy' : 1,
