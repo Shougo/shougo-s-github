@@ -180,11 +180,11 @@ NeoBundleLazy 'kana/vim-smartchr', { 'autoload' : {
       \ }}
 NeoBundleLazy 'kana/vim-smartword', { 'autoload' : {
       \ 'mappings' : [
-      \   '<Plug>(smartword-w)', '<Plug>(smartword-b)', '<Plug>(smartword-ge)']
+      \   '<Plug>(smartword-']
       \ }}
 NeoBundleLazy 'kana/vim-smarttill', { 'autoload' : {
       \ 'mappings' : [
-      \   '<Plug>(smarttill-t)', '<Plug>(smarttill-T)']
+      \   '<Plug>(smarttill-']
       \ }}
 NeoBundle 'kana/vim-operator-user', {
       \ 'autoload' : {
@@ -242,7 +242,7 @@ NeoBundleLazy 'thinca/vim-unite-history', { 'autoload' : {
       \ 'unite_sources' : ['history/command', 'history/search']
       \ }}
 NeoBundleLazy 'vim-ruby/vim-ruby', { 'autoload' : {
-      \ 'mappings' : '<Plug>(ref-keyword)',
+      \ 'mappings' : '<Plug>(ref-',
       \ 'filetypes' : 'ruby'
       \ }}
 
@@ -259,10 +259,10 @@ NeoBundleLazy 'tyru/caw.vim', { 'autoload' : {
       \   '<Plug>(caw:prefix)', '<Plug>(caw:i:toggle)']
       \ }}
 NeoBundleLazy 'tyru/eskk.vim', { 'autoload' : {
-      \ 'mappings' : [['i', '<Plug>(eskk:toggle)']],
+      \ 'mappings' : [['i', '<Plug>(eskk:']],
       \ }}
 NeoBundleLazy 'tyru/open-browser.vim', { 'autoload' : {
-      \ 'mappings' : '<Plug>(open-browser-wwwsearch)',
+      \ 'mappings' : '<Plug>(open-browser-',
       \ }}
 NeoBundleLazy 'tyru/operator-html-escape.vim'
 NeoBundleLazy 'tyru/restart.vim', {
@@ -314,8 +314,7 @@ NeoBundleLazy 'rbtnn/hexript.vim'
 NeoBundleLazy 'tpope/vim-endwise'
 NeoBundleLazy 'kana/vim-tabpagecd'
 NeoBundleLazy 'rhysd/accelerated-jk', { 'autoload' : {
-      \ 'mappings' : ['<Plug>(accelerated_jk_gj)',
-      \               '<Plug>(accelerated_jk_gk)'],
+      \ 'mappings' : '<Plug>(accelerated_jk_',
       \ }}
 " NeoBundle 'gmarik/vundle'
 NeoBundleLazy 'vim-jp/autofmt', { 'autoload' : {
@@ -361,8 +360,7 @@ NeoBundleLazy 'jelera/vim-javascript-syntax', { 'autoload' : {
       \ 'filetypes' : 'javascript',
       \ }}
 NeoBundleLazy 'bkad/CamelCaseMotion', { 'autoload' : {
-      \ 'mappings' : ['<Plug>CamelCaseMotion_w',
-      \               '<Plug>CamelCaseMotion_b'],
+      \ 'mappings' : '<Plug>CamelCaseMotion_',
       \ }}
 NeoBundleLazy 'HybridText', { 'autoload' : {
       \ 'filetypes' : 'hybrid',
@@ -371,7 +369,7 @@ NeoBundleLazy 'AndrewRadev/switch.vim', { 'autoload' : {
       \ 'commands' : 'Switch',
       \ }}
 NeoBundleLazy 'kana/vim-niceblock', { 'autoload' : {
-      \ 'mappings' : ['<Plug>(niceblock-I)', '<Plug>(niceblock-A)']
+      \ 'mappings' : '<Plug>(niceblock-'
       \ }}
 NeoBundleLazy 'aharisu/vim-gdev', { 'autoload' : {
       \ 'filetypes' : 'scheme',
@@ -503,7 +501,7 @@ call neobundle#config('vimfiler', {
       \                  { 'name' : 'Write',
       \                    'complete' : 'customlist,vimfiler#complete' },
       \                  'Read', 'Source'],
-      \    'mappings' : ['<Plug>(vimfiler_switch)'],
+      \    'mappings' : '<Plug>(vimfiler_',
       \    'explorer' : 1,
       \ }
       \ })
@@ -522,7 +520,7 @@ call neobundle#config('vimshell', {
       \                   'complete' : 'customlist,vimshell#complete'},
       \                 'VimShellExecute', 'VimShellInteractive',
       \                 'VimShellTerminal', 'VimShellPop'],
-      \   'mappings' : ['<Plug>(vimshell_switch)']
+      \   'mappings' : '<Plug>(vimshell_'
       \ }})
 call neobundle#config('vinarise', {
       \ 'lazy' : 1,
