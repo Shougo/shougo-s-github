@@ -1956,7 +1956,7 @@ function! bundle.hooks.on_source(bundle)
   let g:unite_cursor_line_highlight = 'TabLineSel'
   " let g:unite_abbr_highlight = 'TabLine'
   " let g:unite_source_file_mru_time_format = ''
-  let g:unite_source_file_mru_filename_format = ':~:.'
+  let g:unite_source_file_mru_filename_format = ''
   let g:unite_source_file_mru_limit = 300
   " let g:unite_source_directory_mru_time_format = ''
   let g:unite_source_directory_mru_limit = 300
@@ -2577,11 +2577,11 @@ function! s:init_cmdwin()
 
   nnoremap <buffer><silent> q :<C-u>quit<CR>
   nnoremap <buffer><silent> <TAB> :<C-u>quit<CR>
-  inoremap <buffer><expr><CR> neocomplcache#close_popup()."\<CR>"
+  inoremap <buffer><expr><CR> neocomplete#close_popup()."\<CR>"
   inoremap <buffer><expr><C-h> col('.') == 1 ?
-        \ "\<ESC>:quit\<CR>" : neocomplcache#cancel_popup()."\<C-h>"
+        \ "\<ESC>:quit\<CR>" : neocomplete#cancel_popup()."\<C-h>"
   inoremap <buffer><expr><BS> col('.') == 1 ?
-        \ "\<ESC>:quit\<CR>" : neocomplcache#cancel_popup()."\<C-h>"
+        \ "\<ESC>:quit\<CR>" : neocomplete#cancel_popup()."\<C-h>"
 
   " Completion.
   inoremap <buffer><expr><TAB>  pumvisible() ?
