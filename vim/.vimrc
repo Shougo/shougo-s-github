@@ -2828,13 +2828,12 @@ nnoremap [Alt];  ;
 nnoremap [Alt],  ,
 "}}}
 
-" q: Quickfix  "{{{
-
-" The prefix key.
-nnoremap [Quickfix]   <Nop>
-nmap    F  [Quickfix]
 " Disable Ex-mode.
 nnoremap Q  q
+
+" q: Quickfix  "{{{
+" The prefix key.
+nnoremap [Quickfix]   <Nop>
 
 " Toggle quickfix window.
 nnoremap <silent> [Quickfix]<Space>
@@ -3156,6 +3155,10 @@ function! OpenNeoBundlePath(motion_wise) "{{{
     call openbrowser#open('https://github.com/vim-scripts/'.sel)
   endif
 endfunction "}}}
+
+" Search.
+nnoremap ;n  ;
+nnoremap ;m  ,
 "}}}
 
 "---------------------------------------------------------------------------
