@@ -138,15 +138,19 @@ NeoBundleLazy 'basyura/TweetVim', { 'depends' :
 
 NeoBundle 'Shougo/neocomplete.vim'
 
-NeoBundle 'Shougo/neocomplcache-rsense'
+NeoBundleLazy 'Shougo/neocomplcache-rsense'
 
 NeoBundle 'Shougo/neosnippet'
 
 NeoBundle 'Shougo/neobundle-vim-scripts'
 
 NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/unite-build'
-NeoBundle 'Shougo/unite-ssh'
+NeoBundleLazy 'Shougo/unite-build', { 'autoload' : {
+      \ 'unite_sources' : 'build',
+      \ }}
+NeoBundleLazy 'Shougo/unite-ssh', { 'autoload' : {
+      \ 'filetypes' : 'vimfiler',
+      \ }}
 NeoBundleLazy 'ujihisa/vimshell-ssh', { 'autoload' : {
       \ 'filetypes' : 'vimshell',
       \ }}
@@ -165,9 +169,11 @@ NeoBundleLazy 'yomi322/vim-gitcomplete', { 'autoload' : {
 
 NeoBundle 'Shougo/vinarise'
 
-NeoBundle 'Shougo/vesting'
+NeoBundleLazy 'Shougo/vesting', { 'autoload' : {
+      \ 'unite_sources' : 'vesting'
+      \ }}
 NeoBundle 'vim-jp/vital.vim'
-NeoBundle 'Shougo/junkfile.vim'
+NeoBundleLazy 'Shougo/junkfile.vim'
 
 NeoBundle 'hrsh7th/vim-versions'
 
@@ -291,7 +297,9 @@ NeoBundleLazy 'ujihisa/unite-colorscheme', { 'autoload' : {
 NeoBundleLazy 'ujihisa/unite-locate', { 'autoload' : {
       \ 'unite_sources' : 'locate',
       \ }}
-NeoBundle 'vim-jp/vimdoc-ja.git'
+NeoBundleLazy 'vim-jp/vimdoc-ja', { 'autoload' : {
+      \ 'filetype' : 'help',
+      \ }}
 " NeoBundleLazy 'vim-scripts/netrw.vim', { 'autoload' : {
       " \ 'commands' : 'Explore',
       " \ }}
@@ -312,7 +320,9 @@ NeoBundleLazy 'osyo-manga/unite-filetype', { 'autoload' : {
 "NeoBundle 'taglist.vim'
 NeoBundleLazy 'rbtnn/hexript.vim'
 NeoBundleLazy 'tpope/vim-endwise'
-NeoBundleLazy 'kana/vim-tabpagecd'
+NeoBundleLazy 'kana/vim-tabpagecd', { 'autoload' : {
+      \ 'unite_sources' : 'tab'
+      \ }}
 NeoBundleLazy 'rhysd/accelerated-jk', { 'autoload' : {
       \ 'mappings' : '<Plug>(accelerated_jk_',
       \ }}
@@ -2406,9 +2416,6 @@ if neobundle#is_installed('accelerated-jk')
   nmap <silent>k <Plug>(accelerated_jk_gk)
   nmap gk k
 endif
-
-" tabpagecd
-autocmd MyAutoCmd TabEnter * NeoBundleSource vim-tabpagecd
 
 " altercmd.vim{{{
 let bundle = neobundle#get('vim-altercmd')
