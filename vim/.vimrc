@@ -1268,7 +1268,7 @@ function! bundle.hooks.on_source(bundle)
   if !exists('g:neocomplete#keyword_patterns')
     let g:neocomplete#keyword_patterns = {}
   endif
-  let g:neocomplete#keyword_patterns._ = '[0-9a-zA-Z:#_]\+'
+  let g:neocomplete#keyword_patterns._ = '\h\w*'
   let g:neocomplete#keyword_patterns.perl = '\h\w*->\h\w*\|\h\w*::\w*'
 
   let g:neocomplete#ignore_source_files = ['tag.vim']
