@@ -167,7 +167,7 @@ NeoBundleLazy 'yomi322/vim-gitcomplete', { 'autoload' : {
       \ 'filetype' : 'vimshell'
       \ }}
 
-NeoBundle 'Shougo/vinarise'
+NeoBundleLazy 'Shougo/vinarise.vim'
 
 NeoBundleLazy 'Shougo/vesting', { 'autoload' : {
       \ 'unite_sources' : 'vesting'
@@ -537,7 +537,7 @@ call neobundle#config('vimshell', {
       \                 'VimShellTerminal', 'VimShellPop'],
       \   'mappings' : '<Plug>(vimshell_'
       \ }})
-call neobundle#config('vinarise', {
+call neobundle#config('vinarise.vim', {
       \ 'lazy' : 1,
       \ 'autoload' : {
       \   'commands' : 'Vinarise',
