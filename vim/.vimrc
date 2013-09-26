@@ -2286,7 +2286,7 @@ function! bundle.hooks.on_source(bundle)
   let g:J6uil_updatetime       = 1000
   let g:J6uil_align_message    = 0
 
-  NeoBundleDisable neocomplcache
+  silent! delcommand NeoComplCacheCachingBuffer
 
   autocmd MyAutoCmd FileType J6uil call s:j6uil_settings()
 
