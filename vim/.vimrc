@@ -4,7 +4,7 @@
 " Initialize:"{{{
 "
 
-if !&compatible
+if has('vim_starting') && !&compatible
   " Enable no Vi compatible commands.
   set nocompatible
 endif
@@ -23,6 +23,9 @@ let s:is_mac = !s:is_windows && !s:is_cygwin
       \ && (has('mac') || has('macunix') || has('gui_macvim') ||
       \   (!executable('xdg-open') &&
       \     system('uname') =~? '^darwin'))
+let s:is_sudo = $SUDO_USER != '' && $USER !=# $SUDO_USER
+      \ && $HOME !=# expand('~'.$USER)
+      \ && $HOME ==# expand('~'.$SUDO_USER)
 
 " Use English interface.
 if s:is_windows
@@ -472,11 +475,9 @@ call neobundle#config('echodoc', {
       \ 'autoload' : {
       \   'insert' : 1,
       \ }})
-call neobundle#config('neocomplcache', {
-      \ 'lazy' : 1,
-      \ 'autoload' : {
-      \   'commands' : 'NeoComplCacheEnable',
-      \ }})
+
+NeoBundleDisable neocomplcache.vim
+
 call neobundle#config('neocomplete.vim', {
       \ 'lazy' : 1,
       \ 'autoload' : {
@@ -2244,11 +2245,11 @@ function! bundle.hooks.on_source(bundle)
   autocmd MyAutoCmd User eskk-initialize-post
         \ EskkMap -remap jj <Plug>(eskk:disable)<Esc>
 
-  "let g:eskk#dictionary = {
-  "\   'path': expand('~/.skk-eskk-jisyo'),
-  "\   'sorted': 0,
-  "\   'encoding': 'utf-8',
-  "\}
+  " let g:eskk#dictionary = {
+  " \   'path': expand('~/.skk-eskk-jisyo'),
+  " \   'sorted': 0,
+  " \   'encoding': 'utf-8',
+  " \}
   " Use /bin/sh -c "VTE_CJK_WIDTH=1 gnome-terminal --disable-factory"
   " instead of this settings.
   "if &encoding == 'utf-8' && !has('gui_running')
