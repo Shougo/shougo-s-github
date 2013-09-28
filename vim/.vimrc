@@ -1304,9 +1304,6 @@ function! bundle.hooks.on_source(bundle)
   inoremap <expr><C-p>  pumvisible() ? "\<C-p>" : "\<C-p>\<C-n>"
   inoremap <expr>'  pumvisible() ? neocomplete#close_popup() : "'"
 
-  imap <expr> `  pumvisible() ?
-        \ "\<Plug>(neocomplete_start_unite_quick_match)" : '`'
-
   inoremap <expr><C-x><C-f>
         \ neocomplete#start_manual_complete('file')
 
@@ -1423,8 +1420,6 @@ function! hooks.on_source(bundle)
         \ 'VimFiler' : 'vimfiler#complete',
         \ 'Vinarise' : 'vinarise#complete',
         \}
-  imap <expr> `  pumvisible() ?
-        \ "\<Plug>(neocomplcache_start_unite_quick_match)" : '`'
 endfunction
 
 function! CompleteFiles(findstart, base)
