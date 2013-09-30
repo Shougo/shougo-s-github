@@ -444,10 +444,6 @@ NeoBundleLazy 'tyru/open-browser.vim', {
       \   'functions' : 'openbrowser#open',
       \ }}
 
-NeoBundleLazy 'csv.vim', {
-      \ 'autoload' : { 'filetypes' : 'csv' }
-      \ }
-
 NeoBundleLazy 'kana/vim-filetype-haskell', {
       \ 'autoload' : {
       \   'filetypes' : 'haskell',
