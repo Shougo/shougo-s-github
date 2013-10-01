@@ -453,7 +453,7 @@ if filereadable('vimrc_local.vim') ||
       \ findfile('vimrc_local.vim', '.;') != ''
   " Load develop version.
   call neobundle#local(fnamemodify(
-        \ findfile('vimrc_local.vim', '.;'), ':h'), {})
+        \ findfile('vimrc_local.vim', '.;'), ':h'))
 endif
 
 " NeoBundle 'tpope/vim-fugitive'
