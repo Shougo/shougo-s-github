@@ -251,7 +251,7 @@ NeoBundleLazy 'vim-ruby/vim-ruby', { 'autoload' : {
       \ 'filetypes' : 'ruby'
       \ }}
 
-NeoBundleLazy 'Shougo/J6uil.vim.git'
+NeoBundleLazy 'basyura/J6uil.vim.git'
 
 NeoBundleLazy 'Shougo/unite-help', { 'autoload' : {
       \ 'unite_sources' : 'help'
@@ -559,7 +559,10 @@ call neobundle#config('unite-outline', {
 call neobundle#config('J6uil.vim', {
       \ 'lazy' : 1,
       \ 'autoload' : {
-      \   'commands' : 'J6uil',
+      \   'commands' : {
+      \      'name' : 'J6uil',
+      \      'complete' : 'custom,J6uil#complete#room'},
+      \   'function_prefix' : 'J6uil',
       \ },
       \ 'depends' : 'mattn/webapi-vim',
       \ })
