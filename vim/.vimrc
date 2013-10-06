@@ -533,7 +533,9 @@ call neobundle#config('vimshell', {
 call neobundle#config('vinarise.vim', {
       \ 'lazy' : 1,
       \ 'autoload' : {
-      \   'commands' : 'Vinarise',
+      \   'commands' : [{
+      \     'name' : 'Vinarise', 'complete' : 'file'
+      \   }]
       \ }})
 call neobundle#config('vital.vim', {
       \ 'lazy' : 1,
@@ -563,6 +565,7 @@ call neobundle#config('J6uil.vim', {
       \      'name' : 'J6uil',
       \      'complete' : 'custom,J6uil#complete#room'},
       \   'function_prefix' : 'J6uil',
+      \   'unite_sources' : 'J6uil/rooms',
       \ },
       \ 'depends' : 'mattn/webapi-vim',
       \ })
@@ -1701,7 +1704,7 @@ nnoremap <silent> ;w
 nnoremap <silent> <C-k>
       \ :<C-u>Unite change jump<CR>
 nnoremap <silent> ;g
-      \ :<C-u>Unite grep -buffer-name=search -auto-preview -no-quit -resume<CR>
+      \ :<C-u>Unite grep -buffer-name=search -auto-preview -no-quit -no-empty -resume<CR>
 nnoremap <silent> ;r
       \ :<C-u>Unite -buffer-name=register register history/yank<CR>
 inoremap <silent><expr> <C-z>
