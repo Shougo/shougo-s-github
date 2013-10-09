@@ -115,13 +115,13 @@ call neobundle#rc(s:neobundle_dir)
 " neobundle.vim"{{{
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-" NeoBundle 'tpope/vim-surround', {
 NeoBundle 'anyakichi/vim-surround', {
       \ 'autoload' : {
       \   'mappings' : [
       \     ['n', '<Plug>Dsurround'], ['n', '<Plug>Csurround'],
       \     ['n', '<Plug>Ysurround'], ['n', '<Plug>YSurround']
       \ ]}}
+" NeoBundle 'rhysd/vim-operator-surround'
 NeoBundleLazy 'basyura/TweetVim', { 'depends' :
       \ ['basyura/twibill.vim', 'tyru/open-browser.vim'],
       \ 'autoload' : { 'commands' : 'TweetVimHomeTimeline' }}
@@ -1952,6 +1952,11 @@ function! bundle.hooks.on_source(bundle)
     nnoremap <silent><buffer><expr> cd     unite#do_action('lcd')
     nnoremap <buffer><expr> S      unite#mappings#set_current_filters(
           \ empty(unite#mappings#get_current_filters()) ? ['sorter_reverse'] : [])
+
+    nnoremap <silent><buffer><expr> p
+          \ empty(filter(range(1, winnr('$')),
+          \ 'getwinvar(v:val, "&previewwindow") != 0')) ?
+          \ unite#do_action('preview') : ":\<C-u>pclose!\<CR>"
   endfunction"}}}
 
   " Variables.
