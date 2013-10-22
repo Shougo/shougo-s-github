@@ -449,6 +449,10 @@ NeoBundleLazy 'kana/vim-filetype-haskell', {
       \ 'autoload' : {
       \   'filetypes' : 'haskell',
       \ }}
+NeoBundleLazy 'JesseKPhillips/d.vim', {
+      \ 'autoload' : {
+      \   'filetypes' : 'd',
+      \ }}
 
 if filereadable('vimrc_local.vim') ||
       \ findfile('vimrc_local.vim', '.;') != ''
