@@ -453,6 +453,12 @@ NeoBundleLazy 'JesseKPhillips/d.vim', {
       \ 'autoload' : {
       \   'filetypes' : 'd',
       \ }}
+NeoBundleLazy 'osyo-manga/vim-marching', {
+      \ 'autoload' : {
+      \   'filetypes' : ['c', 'cpp']
+      \ },
+      \ 'depends' : ['osyo-manga/vim-reunions', 'Shougo/vimproc'],
+      \}
 
 if filereadable('vimrc_local.vim') ||
       \ findfile('vimrc_local.vim', '.;') != ''
@@ -1341,6 +1347,23 @@ function! bundle.hooks.on_source(bundle)
   inoremap <expr><Down>  neocomplete#close_popup() . "\<Down>"
   "}}}
 endfunction
+"}}}
+
+" vim-marching"{{{
+let s:hooks = neobundle#get_hooks('vim-marching')
+function! s:hooks.on_source(bundle)
+  let g:marching_clang_command_option = '-std=c++1y'
+  let g:marching_include_paths = split(glob('/usr/include/c++/*'), '\n')
+
+  let g:marching_enable_neocomplete = 1
+  if !exists('g:neocomplete#force_omni_input_patterns')
+    let g:neocomplete#force_omni_input_patterns = {}
+  endif
+
+  let g:neocomplete#force_omni_input_patterns.cpp =
+        \ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
+endfunction
+unlet s:hooks
 "}}}
 
 " neocomplcache.vim"{{{
@@ -3453,12 +3476,6 @@ let t:cwd = getcwd()
 "}}}
 
 call neobundle#call_hook('on_source')
-
-if !has('vim_starting')
-  if exists(':IndentLinesReset')
-    IndentLinesReset
-  endif
-endif
 
 set secure
 
