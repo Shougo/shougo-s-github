@@ -121,7 +121,7 @@ NeoBundle 'anyakichi/vim-surround', {
       \     ['n', '<Plug>Dsurround'], ['n', '<Plug>Csurround'],
       \     ['n', '<Plug>Ysurround'], ['n', '<Plug>YSurround']
       \ ]}}
-" NeoBundle 'rhysd/vim-operator-surround'
+NeoBundle 'rhysd/vim-operator-surround'
 NeoBundleLazy 'basyura/TweetVim', { 'depends' :
       \ ['basyura/twibill.vim', 'tyru/open-browser.vim'],
       \ 'autoload' : { 'commands' : 'TweetVimHomeTimeline' }}
@@ -391,10 +391,6 @@ NeoBundleLazy 'thinca/vim-ft-diff_fold', { 'autoload' : {
       \ }}
 NeoBundleLazy 'thinca/vim-ft-markdown_fold', { 'autoload' : {
       \ 'filetypes' : 'markdown'
-      \ }}
-NeoBundleLazy 'teramako/jscomplete-vim', {
-      \ 'autoload' : {
-      \   'filetypes' : 'javascript'
       \ }}
 
 if has('python')
@@ -1785,7 +1781,7 @@ nnoremap <silent> g<C-h>  :<C-u>UniteWithCursorWord help<CR>
 
 " Search.
 nnoremap <silent> /
-      \ :<C-u>Unite -buffer-name=search -no-split -start-insert line<CR>
+      \ :<C-u>Unite -buffer-name=search -no-split -start-insert line:forward<CR>
 nnoremap <expr> g/  <SID>smart_search_expr('g/',
       \ ":\<C-u>Unite -buffer-name=search -auto-preview -start-insert line_migemo\<CR>")
 nnoremap [Alt]/  g/
@@ -2331,7 +2327,7 @@ endfunction
 
 " surround.vim"{{{
 let g:surround_no_mappings = 1
-autocmd MyAutoCmd FileType * call s:define_surround_keymappings()
+" autocmd MyAutoCmd FileType * call s:define_surround_keymappings()
 
 function! s:define_surround_keymappings()
   if !&l:modifiable
@@ -2346,6 +2342,10 @@ function! s:define_surround_keymappings()
     nmap <buffer>         yS   <Plug>YSurround
   endif
 endfunction
+
+map <silent>sa <Plug>(operator-surround-append)
+map <silent>sd <Plug>(operator-surround-delete)
+map <silent>sr <Plug>(operator-surround-replace)
 "}}}
 
 " qfreplace.vim
