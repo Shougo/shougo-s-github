@@ -1966,7 +1966,7 @@ function! bundle.hooks.on_source(bundle)
     nmap <buffer> <C-e>     <Plug>(unite_narrowing_input_history)
 
     let unite = unite#get_current_unite()
-    if unite.buffer_name =~# '^search'
+    if unite.profile_name ==# '^search'
       nnoremap <silent><buffer><expr> r     unite#do_action('replace')
     else
       nnoremap <silent><buffer><expr> r     unite#do_action('rename')
