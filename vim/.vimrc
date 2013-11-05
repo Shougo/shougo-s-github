@@ -1781,7 +1781,7 @@ nnoremap <silent> g<C-h>  :<C-u>UniteWithCursorWord help<CR>
 
 " Search.
 nnoremap <silent> /
-      \ :<C-u>Unite -buffer-name=search -no-split -start-insert line:forward<CR>
+      \ :<C-u>Unite -buffer-name=search -no-split -start-insert line:forward:wrap<CR>
 nnoremap <expr> g/  <SID>smart_search_expr('g/',
       \ ":\<C-u>Unite -buffer-name=search -auto-preview -start-insert line_migemo\<CR>")
 nnoremap [Alt]/  g/
