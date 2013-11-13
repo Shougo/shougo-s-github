@@ -1349,8 +1349,11 @@ endfunction
 let s:hooks = neobundle#get_hooks('vim-marching')
 function! s:hooks.on_source(bundle)
   let g:marching_clang_command_option = '-std=c++1y'
-  let g:marching_include_paths = split(glob('/usr/include/c++/*'), '\n') +
-        \ split(glob('/usr/include/*/c++/*'), '\n')
+  let g:marching_include_paths = filter(
+        \ split(glob('/usr/include/c++/*'), '\n') +
+        \ split(glob('/usr/include/*/c++/*'), '\n') +
+        \ split(glob('/usr/include/*/'), '\n'),
+        \ 'isdirectory(v:val)')
 
   let g:marching_enable_neocomplete = 1
   if !exists('g:neocomplete#force_omni_input_patterns')
