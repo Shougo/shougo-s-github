@@ -183,14 +183,6 @@ NeoBundleLazy 'hail2u/vim-css3-syntax'
 NeoBundleLazy 'kana/vim-smartchr', { 'autoload' : {
       \ 'insert' : 1,
       \ }}
-NeoBundleLazy 'kana/vim-smartword', { 'autoload' : {
-      \ 'mappings' : [
-      \   '<Plug>(smartword-']
-      \ }}
-NeoBundleLazy 'kana/vim-smarttill', { 'autoload' : {
-      \ 'mappings' : [
-      \   '<Plug>(smarttill-']
-      \ }}
 NeoBundle 'kana/vim-operator-user', {
       \ 'autoload' : {
       \   'functions' : 'operator#user#define',
@@ -455,6 +447,10 @@ NeoBundleLazy 'osyo-manga/vim-marching', {
       \ },
       \ 'depends' : ['osyo-manga/vim-reunions', 'Shougo/vimproc'],
       \}
+NeoBundleLazy 't9md/vim-smalls', {
+      \ 'autoload' : {
+      \ 'mappings' : ['<Plug>(smalls)', '<Plug>(smalls-)']
+      \ }}
 
 if filereadable('vimrc_local.vim') ||
       \ findfile('vimrc_local.vim', '.;') != ''
@@ -2038,19 +2034,6 @@ endfunction
 unlet bundle
 "}}}
 
-" smartword.vim"{{{
-" Replace w and others with smartword-mappings
-nmap w  <Plug>(smartword-w)
-nmap b  <Plug>(smartword-b)
-nmap ge  <Plug>(smartword-ge)
-xmap w  <Plug>(smartword-w)
-xmap b  <Plug>(smartword-b)
-" Operator pending mode.
-omap <Leader>w  <Plug>(smartword-w)
-omap <Leader>b  <Plug>(smartword-b)
-omap <Leader>ge  <Plug>(smartword-ge)
-"}}}
-
 " camlcasemotion.vim"{{{
 nmap <silent> [Alt]w <Plug>CamelCaseMotion_w
 xmap <silent> [Alt]w <Plug>CamelCaseMotion_w
@@ -2100,14 +2083,6 @@ endfunction
 unlet bundle
 "}}}
 
-" smarttill.vim"{{{
-xmap q  <Plug>(smarttill-t)
-xmap Q  <Plug>(smarttill-T)
-" Operator pending mode.
-omap q  <Plug>(smarttill-t)
-omap Q  <Plug>(smarttill-T)
-"}}}
-
 " changelog.vim"{{{
 autocmd MyAutoCmd BufNewFile,BufRead *.changelog setf changelog
 let g:changelog_timeformat = "%Y-%m-%d"
@@ -2154,87 +2129,86 @@ endfunction
 unlet bundle
 "}}}
 
-" vimfiler.vim"{{{
-"nmap    [Space]v   <Plug>(vimfiler_switch)
-nnoremap <silent>   [Space]v   :<C-u>VimFiler -find<CR>
-nnoremap    [Space]ff   :<C-u>VimFilerExplorer<CR>
+if neobundle#tap('vimfiler') "{{{
+  "nmap    [Space]v   <Plug>(vimfiler_switch)
+  nnoremap <silent>   [Space]v   :<C-u>VimFiler -find<CR>
+  nnoremap    [Space]ff   :<C-u>VimFilerExplorer<CR>
 
-let bundle = neobundle#get('vimfiler')
-function! bundle.hooks.on_source(bundle)
-  let g:vimfiler_enable_clipboard = 0
-  let g:vimfiler_safe_mode_by_default = 0
+  function! neobundle#tapped.hooks.on_source(bundle)
+    let g:vimfiler_enable_clipboard = 0
+    let g:vimfiler_safe_mode_by_default = 0
 
-  let g:vimfiler_as_default_explorer = 1
-  let g:vimfiler_detect_drives = s:is_windows ? [
-        \ 'C:/', 'D:/', 'E:/', 'F:/', 'G:/', 'H:/', 'I:/',
-        \ 'J:/', 'K:/', 'L:/', 'M:/', 'N:/'] :
-        \ split(glob('/mnt/*'), '\n') + split(glob('/media/*'), '\n') +
-        \ split(glob('/Users/*'), '\n')
+    let g:vimfiler_as_default_explorer = 1
+    let g:vimfiler_detect_drives = s:is_windows ? [
+          \ 'C:/', 'D:/', 'E:/', 'F:/', 'G:/', 'H:/', 'I:/',
+          \ 'J:/', 'K:/', 'L:/', 'M:/', 'N:/'] :
+          \ split(glob('/mnt/*'), '\n') + split(glob('/media/*'), '\n') +
+          \ split(glob('/Users/*'), '\n')
 
-  " %p : full path
-  " %d : current directory
-  " %f : filename
-  " %F : filename removed extensions
-  " %* : filenames
-  " %# : filenames fullpath
-  let g:vimfiler_sendto = {
-        \ 'unzip' : 'unzip %f',
-        \ 'zip' : 'zip -r %F.zip %*',
-        \ 'Inkscape' : 'inkspace',
-        \ 'GIMP' : 'gimp %*',
-        \ 'gedit' : 'gedit',
-        \ }
+    " %p : full path
+    " %d : current directory
+    " %f : filename
+    " %F : filename removed extensions
+    " %* : filenames
+    " %# : filenames fullpath
+    let g:vimfiler_sendto = {
+          \ 'unzip' : 'unzip %f',
+          \ 'zip' : 'zip -r %F.zip %*',
+          \ 'Inkscape' : 'inkspace',
+          \ 'GIMP' : 'gimp %*',
+          \ 'gedit' : 'gedit',
+          \ }
 
-  if s:is_windows
-    " Use trashbox.
-    let g:unite_kind_file_use_trashbox = 1
-  else
-    " Like Textmate icons.
-    let g:vimfiler_tree_leaf_icon = ' '
-    let g:vimfiler_tree_opened_icon = '▾'
-    let g:vimfiler_tree_closed_icon = '▸'
-    let g:vimfiler_file_icon = ' '
-    let g:vimfiler_readonly_file_icon = '✗'
-    let g:vimfiler_marked_file_icon = '✓'
-  endif
-  " let g:vimfiler_readonly_file_icon = '[O]'
-
-  let g:vimfiler_quick_look_command =
-        \ s:is_windows ? 'maComfort.exe -ql' :
-        \ s:is_mac ? 'qlmanage -p' : 'gloobus-preview'
-
-  autocmd MyAutoCmd FileType vimfiler call s:vimfiler_my_settings()
-  function! s:vimfiler_my_settings() "{{{
-    call vimfiler#set_execute_file('vim', ['vim', 'notepad'])
-    call vimfiler#set_execute_file('txt', 'vim')
-
-    " Overwrite settings.
-    nnoremap <silent><buffer> J
-          \ <C-u>:Unite -buffer-name=files -default-action=lcd directory_mru<CR>
-    " Call sendto.
-    " nnoremap <buffer> - <C-u>:Unite sendto<CR>
-    " setlocal cursorline
-
-    nmap <buffer> O <Plug>(vimfiler_sync_with_another_vimfiler)
-    nnoremap <silent><buffer><expr> gy vimfiler#do_action('tabopen')
-    nmap <buffer> p <Plug>(vimfiler_quick_look)
-    nmap <buffer> <Tab> <Plug>(vimfiler_switch_to_other_window)
-
-    " Migemo search.
-    if !empty(unite#get_filters('matcher_migemo'))
-      nnoremap <silent><buffer><expr> /  line('$') > 10000 ?  'g/' :
-            \ ":\<C-u>Unite -buffer-name=search -start-insert line_migemo\<CR>"
+    if s:is_windows
+      " Use trashbox.
+      let g:unite_kind_file_use_trashbox = 1
+    else
+      " Like Textmate icons.
+      let g:vimfiler_tree_leaf_icon = ' '
+      let g:vimfiler_tree_opened_icon = '▾'
+      let g:vimfiler_tree_closed_icon = '▸'
+      let g:vimfiler_file_icon = ' '
+      let g:vimfiler_readonly_file_icon = '✗'
+      let g:vimfiler_marked_file_icon = '✓'
     endif
+    " let g:vimfiler_readonly_file_icon = '[O]'
 
-    " One key file operation.
-    " nmap <buffer> c <Plug>(vimfiler_mark_current_line)<Plug>(vimfiler_copy_file)
-    " nmap <buffer> m <Plug>(vimfiler_mark_current_line)<Plug>(vimfiler_move_file)
-    " nmap <buffer> d <Plug>(vimfiler_mark_current_line)<Plug>(vimfiler_delete_file)
-  endfunction"}}}
-endfunction
+    let g:vimfiler_quick_look_command =
+          \ s:is_windows ? 'maComfort.exe -ql' :
+          \ s:is_mac ? 'qlmanage -p' : 'gloobus-preview'
 
-unlet bundle
-"}}}
+    autocmd MyAutoCmd FileType vimfiler call s:vimfiler_my_settings()
+    function! s:vimfiler_my_settings() "{{{
+      call vimfiler#set_execute_file('vim', ['vim', 'notepad'])
+      call vimfiler#set_execute_file('txt', 'vim')
+
+      " Overwrite settings.
+      nnoremap <silent><buffer> J
+            \ <C-u>:Unite -buffer-name=files -default-action=lcd directory_mru<CR>
+      " Call sendto.
+      " nnoremap <buffer> - <C-u>:Unite sendto<CR>
+      " setlocal cursorline
+
+      nmap <buffer> O <Plug>(vimfiler_sync_with_another_vimfiler)
+      nnoremap <silent><buffer><expr> gy vimfiler#do_action('tabopen')
+      nmap <buffer> p <Plug>(vimfiler_quick_look)
+      nmap <buffer> <Tab> <Plug>(vimfiler_switch_to_other_window)
+
+      " Migemo search.
+      if !empty(unite#get_filters('matcher_migemo'))
+        nnoremap <silent><buffer><expr> /  line('$') > 10000 ?  'g/' :
+              \ ":\<C-u>Unite -buffer-name=search -start-insert line_migemo\<CR>"
+      endif
+
+      " One key file operation.
+      " nmap <buffer> c <Plug>(vimfiler_mark_current_line)<Plug>(vimfiler_copy_file)
+      " nmap <buffer> m <Plug>(vimfiler_mark_current_line)<Plug>(vimfiler_move_file)
+      " nmap <buffer> d <Plug>(vimfiler_mark_current_line)<Plug>(vimfiler_delete_file)
+    endfunction"}}}
+  endfunction
+
+  call neobundle#untap()
+endif "}}}
 
 " eskk.vim"{{{
 imap <C-j>     <Plug>(eskk:toggle)
@@ -2355,24 +2329,23 @@ map <silent>sr <Plug>(operator-surround-replace)
 " qfreplace.vim
 autocmd MyAutoCmd FileType qf nnoremap <buffer> r :<C-u>Qfreplace<CR>
 
-" open-browser.vim"{{{
-nmap gs <Plug>(open-browser-wwwsearch)
+if neobundle#tap('open-browser.vim') "{{{
+  nmap gs <Plug>(open-browser-wwwsearch)
 
-let bundle = neobundle#get('open-browser.vim')
-function! bundle.hooks.on_source(bundle)
-  nnoremap <Plug>(open-browser-wwwsearch)
-        \ :<C-u>call <SID>www_search()<CR>
-  function! s:www_search()
-    let search_word = input('Please input search word: ', '',
-          \ 'customlist,wwwsearch#cmd_Wwwsearch_complete')
-    if search_word != ''
-      execute 'OpenBrowserSearch' escape(search_word, '"')
-    endif
+  function! neobundle#tapped.hooks.on_source(bundle)
+    nnoremap <Plug>(open-browser-wwwsearch)
+          \ :<C-u>call <SID>www_search()<CR>
+    function! s:www_search()
+      let search_word = input('Please input search word: ', '',
+            \ 'customlist,wwwsearch#cmd_Wwwsearch_complete')
+      if search_word != ''
+        execute 'OpenBrowserSearch' escape(search_word, '"')
+      endif
+    endfunction
   endfunction
-endfunction
 
-unlet bundle
-"}}}
+  call neobundle#untap()
+endif "}}}
 
 " caw.vim"{{{
 autocmd MyAutoCmd FileType * call s:init_caw()
@@ -2439,34 +2412,35 @@ let g:restart_save_window_values = 0
 nnoremap <silent> [Space]re  :<C-u>Restart<CR>
 "}}}
 
-if neobundle#is_installed('accelerated-jk')
-  " accelerated-jk
+if neobundle#tap('accelerated-jk') "{{{
   nmap <silent>j <Plug>(accelerated_jk_gj)
   nmap gj j
   nmap <silent>k <Plug>(accelerated_jk_gk)
   nmap gk k
-endif
 
-" altercmd.vim{{{
-let bundle = neobundle#get('vim-altercmd')
-function! bundle.hooks.on_source(bundle)
-  call altercmd#load()
+  call neobundle#untap()
+endif "}}}
 
-  AlterCommand <cmdwin> u[nite] Unite
-  AlterCommand u[nite] Unite
-  AlterCommand <cmdwin> u[nite] Unite
-  AlterCommand u[nite] Unite
-  AlterCommand <cmdwin> e[dit] Edit
-  AlterCommand e[dit] Edit
-  AlterCommand <cmdwin> r[ead] Read
-  AlterCommand r[ead] Read
-  AlterCommand <cmdwin> s[ource] Source
-  AlterCommand s[ource] Source
-  AlterCommand <cmdwin> w[rite] Write
-  AlterCommand w[rite] Write
-endfunction
-unlet bundle
-"}}}
+if neobundle#tap('vim-altercmd') "{{{
+  function! neobundle#tapped.hooks.on_source(bundle)
+    call altercmd#load()
+
+    AlterCommand <cmdwin> u[nite] Unite
+    AlterCommand u[nite] Unite
+    AlterCommand <cmdwin> u[nite] Unite
+    AlterCommand u[nite] Unite
+    AlterCommand <cmdwin> e[dit] Edit
+    AlterCommand e[dit] Edit
+    AlterCommand <cmdwin> r[ead] Read
+    AlterCommand r[ead] Read
+    AlterCommand <cmdwin> s[ource] Source
+    AlterCommand s[ource] Source
+    AlterCommand <cmdwin> w[rite] Write
+    AlterCommand w[rite] Write
+  endfunction
+
+  call neobundle#untap()
+endif "}}}
 
 " switch.vim{{{
 " http://www.vimninjas.com/2012/09/12/switch/
@@ -2506,6 +2480,13 @@ nmap <Down>    <Plug>(winmove-down)
 nmap <Left>    <Plug>(winmove-left)
 nmap <Right>   <Plug>(winmove-right)
 "}}}
+
+if neobundle#tap('vim-smalls')
+  nmap S <Plug>(smalls)
+  nmap [Alt]s <Plug>(smalls-forward)
+
+  call neobundle#untap()
+endif
 "}}}
 
 "---------------------------------------------------------------------------
