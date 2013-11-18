@@ -387,7 +387,10 @@ NeoBundleLazy 'thinca/vim-ft-markdown_fold', { 'autoload' : {
 
 if has('python')
   " NeoBundleLazy 'marijnh/tern_for_vim', {
+  "       \ 'external_commands' : 'npm',
+  "       \ 'build' : 'npm install',
   "       \ 'autoload' : {
+  "       \   'functions': ['tern#Complete', 'tern#Enable'],
   "       \   'filetypes' : 'javascript'
   "       \ }}
 endif
