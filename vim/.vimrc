@@ -138,7 +138,7 @@ NeoBundle 'Shougo/neocomplete.vim'
 
 NeoBundleLazy 'Shougo/neocomplcache-rsense'
 
-NeoBundle 'Shougo/neosnippet'
+NeoBundleLazy 'Shougo/neosnippet.vim'
 
 NeoBundle 'Shougo/neobundle-vim-scripts'
 
@@ -483,7 +483,7 @@ call neobundle#config('neocomplcache-rsense', {
       \ 'depends' : 'Shougo/neocomplcache',
       \ 'autoload' : { 'filetypes' : 'ruby' }
       \ })
-call neobundle#config('neosnippet', {
+call neobundle#config('neosnippet.vim', {
       \ 'lazy' : 1,
       \ 'autoload' : {
       \   'insert' : 1,
@@ -1475,7 +1475,7 @@ unlet bundle
 "}}}
 
 " neosnippet.vim"{{{
-let bundle = neobundle#get('neosnippet')
+let bundle = neobundle#get('neosnippet.vim')
 function! bundle.hooks.on_source(bundle)
   imap <silent>L     <Plug>(neosnippet_jump_or_expand)
   smap <silent>L     <Plug>(neosnippet_jump_or_expand)
@@ -1487,7 +1487,7 @@ function! bundle.hooks.on_source(bundle)
   xmap <silent>o     <Plug>(neosnippet_register_oneshot_snippet)
   xmap <silent>U     <Plug>(neosnippet_expand_target)
 
-  let g:neosnippet#enable_snipmate_compatibility = 1
+  " let g:neosnippet#enable_snipmate_compatibility = 1
 
   " let g:snippets_dir = '~/.vim/snippets/,~/.vim/bundle/snipmate/snippets/'
   let g:neosnippet#snippets_directory = '~/.vim/snippets'
@@ -2483,7 +2483,6 @@ nmap <Right>   <Plug>(winmove-right)
 
 if neobundle#tap('vim-smalls')
   nmap S <Plug>(smalls)
-  nmap [Alt]s <Plug>(smalls-forward)
 
   call neobundle#untap()
 endif
