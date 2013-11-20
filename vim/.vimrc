@@ -1019,6 +1019,8 @@ set wildoptions=tagfile
 
 " Enable spell check.
 set spelllang=en_us
+" Enable CJK support.
+set spelllang+=cjk
 
 " Completion setting.
 set completeopt=menuone
