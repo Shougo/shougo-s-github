@@ -2513,7 +2513,9 @@ nnoremap < <<
 xnoremap > >gv
 xnoremap < <gv
 
-xnoremap <silent> y "*y:let [@+,@"]=[@*,@*]<CR>
+if has('clipboard')
+  xnoremap <silent> y "*y:let [@+,@"]=[@*,@*]<CR>
+endif
 "}}}
 
 " Insert mode keymappings: "{{{
