@@ -113,10 +113,6 @@ endif
 " Input Japanese:"{{{
 " For Linux
 if (has('multi_byte_ime') || has('xim')) && has('GUI_GTK')
-  " To use ATOK X3.
-  "let $GTK_IM_MODULE='xim'
-  "set imactivatekey=S-space
-
   " Disable uim when use skk.vim.
   " let &imdisable=1
 
@@ -124,9 +120,8 @@ if (has('multi_byte_ime') || has('xim')) && has('GUI_GTK')
   "let $GTK_IM_MODULE='uim-anthy'
   "set imactivatekey=C-space
 
-  " To use ibus-mozc.
-  " let $GTK_IM_MODULE='xim'
-  " set imactivatekey=S-space
+  " To use ibus-mozc/fcitx.
+  let $GTK_IM_MODULE='xim'
 endif
 "}}}
 
