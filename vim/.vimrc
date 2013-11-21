@@ -196,7 +196,7 @@ NeoBundleLazy 'kana/vim-operator-replace', {
 NeoBundleLazy 'kana/vim-textobj-user'
 " NeoBundleLazy 'kana/vim-wwwsearch'
 NeoBundleLazy 'kien/ctrlp.vim'
-NeoBundleLazy 'Shougo/foldCC',
+NeoBundleLazy 'LeafCage/foldCC',
       \  { 'autoload' : { 'filetypes' : 'vim' }}
 NeoBundleLazy 'mattn/wwwrenderer-vim'
 NeoBundleLazy 'mattn/webapi-vim'
