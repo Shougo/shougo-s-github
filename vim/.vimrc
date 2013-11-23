@@ -174,8 +174,6 @@ NeoBundleLazy 'Shougo/vesting', { 'autoload' : {
 NeoBundle 'vim-jp/vital.vim'
 NeoBundleLazy 'Shougo/junkfile.vim'
 
-NeoBundle 'hrsh7th/vim-versions'
-
 " NeoBundle 'h1mesuke/unite-outline'
 NeoBundle 'Shougo/unite-outline'
 
@@ -558,11 +556,6 @@ call neobundle#config('junkfile.vim', {
       \   'commands' : 'JunkfileOpen',
       \   'unite_sources' : ['junkfile', 'junkfile/new'],
       \ }})
-call neobundle#config('vim-versions', {
-      \ 'lazy' : 1,
-      \ 'autoload' : {
-      \   'commands' : 'UniteVersions'},
-      \ })
 call neobundle#config('unite-outline', {
       \ 'lazy' : 1,
       \ 'autoload' : {
@@ -1710,10 +1703,6 @@ set browsedir=current
 let g:vinarise_enable_auto_detect = 1
 "}}}
 
-" vim-versions{{{
-nnoremap <silent> [Space]gs :<C-u>UniteVersions status:!<CR>
-"}}}
-
 " unite.vim"{{{
 " The prefix key.
 nnoremap    [unite]   <Nop>
@@ -2496,6 +2485,13 @@ nmap <Right>   <Plug>(winmove-right)
 
 if neobundle#tap('vim-smalls')
   nmap S <Plug>(smalls)
+
+  call neobundle#untap()
+endif
+
+if neobundle#tap('vim-vcs')
+  nnoremap <silent> [Space]gs  :<C-u>Vcs status<CR>
+  nnoremap <silent> [Space]gc  :<C-u>Vcs commit<CR>
 
   call neobundle#untap()
 endif
