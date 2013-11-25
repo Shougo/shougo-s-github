@@ -121,7 +121,7 @@ if (has('multi_byte_ime') || has('xim')) && has('GUI_GTK')
   "set imactivatekey=C-space
 
   " To use ibus-mozc/fcitx.
-  let $GTK_IM_MODULE='xim'
+  "let $GTK_IM_MODULE='xim'
 endif
 "}}}
 
