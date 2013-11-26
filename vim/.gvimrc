@@ -114,7 +114,7 @@ endif
 " For Linux
 if (has('multi_byte_ime') || has('xim')) && has('GUI_GTK')
   " Disable uim when use skk.vim.
-  " let &imdisable=1
+  let &imdisable=1
 
   " To use uim-anthy.
   "let $GTK_IM_MODULE='uim-anthy'
