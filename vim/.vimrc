@@ -384,6 +384,11 @@ NeoBundleLazy 'thinca/vim-ft-diff_fold', { 'autoload' : {
 NeoBundleLazy 'thinca/vim-ft-markdown_fold', { 'autoload' : {
       \ 'filetypes' : 'markdown'
       \ }}
+NeoBundleLazy 'nsf/gocode', {
+      \ 'rtp' : 'vim',
+      \ 'autoload' : {
+      \   'filetypes' : 'go',
+      \ }}
 
 if has('python')
   " NeoBundleLazy 'marijnh/tern_for_vim', {
@@ -1269,6 +1274,9 @@ function! bundle.hooks.on_source(bundle)
 
   " let g:neocomplete#force_omni_input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::\w*'
   let g:neocomplete#sources#omni#input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::\w*'
+
+  let g:neocomplete#sources#omni#functions.go =
+        \ 'gocomplete#Complete'
 
   " Define keyword pattern.
   if !exists('g:neocomplete#keyword_patterns')
