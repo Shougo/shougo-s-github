@@ -1110,7 +1110,7 @@ augroup MyAutoCmd
   autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
   autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
   "autocmd FileType java setlocal omnifunc=javacomplete#Complete
-  " autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
+  autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
   if has('python3')
     autocmd FileType python setlocal omnifunc=python3complete#Complete
   else
@@ -1270,6 +1270,9 @@ function! bundle.hooks.on_source(bundle)
 
   let g:neocomplete#sources#omni#functions.go =
         \ 'gocomplete#Complete'
+
+  let g:neocomplete#sources#omni#input_patterns.php =
+  \'\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
 
   " Define keyword pattern.
   if !exists('g:neocomplete#keyword_patterns')
