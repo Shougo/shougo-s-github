@@ -1239,10 +1239,6 @@ function! bundle.hooks.on_source(bundle)
   let g:neocomplete#enable_complete_select = 1
   let g:neocomplete#enable_auto_select = 1
   let g:neocomplete#enable_refresh_always = 0
-  if g:neocomplete#enable_complete_select
-    set completeopt-=noselect
-    set completeopt+=noinsert
-  endif
 
   let g:neocomplete#sources#dictionary#dictionaries = {
         \ 'default' : '',
