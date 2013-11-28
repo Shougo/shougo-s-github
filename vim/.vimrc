@@ -1207,7 +1207,8 @@ endfunction
 
 " Clear modeline highlight.
 autocmd MyAutoCmd VimEnter *
-      \ highlight ModeMsg guifg=bg guibg=bg
+      \ highlight ModeMsg guifg=bg guibg=bg |
+      \ highlight Question guifg=bg guibg=bg
 
 "}}}
 
