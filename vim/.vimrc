@@ -1237,7 +1237,7 @@ function! bundle.hooks.on_source(bundle)
   let g:neocomplete#min_keyword_length = 3
 
   " For auto select.
-  let g:neocomplete#enable_complete_select = 1
+  " let g:neocomplete#enable_complete_select = 1
   let g:neocomplete#enable_auto_select = 1
   let g:neocomplete#enable_refresh_always = 0
 
