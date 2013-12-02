@@ -130,12 +130,6 @@ else
                 # For test
                 # PROMPT="%{$fg[green]%}%B%~$%b%{${reset_color}%} "
         fi
-
-        # vcs_infoを使う
-        #autoload -Uz vcs_info
-        #zstyle ':vcs_info:*' formats '(%s)-[%b]'
-        #zstyle ':vcs_info:*' actionformats '(%s)-[%b|%a]'
-        #RPROMPT="%{[33m%}[%~]%{[m%} %1(v|%F{green}%1v%f|)"
 fi
 
 if [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] ; then
@@ -341,9 +335,6 @@ fi
 # 前に行ったディレクトリに移る
 alias gd='dirs -v; echo -n "select number: "; read newdir; cd -"$newdir"'
 
-# grep 行数, 再帰的, ファイル名表示, 行数表示, バイナリファイルは処理しない
-alias grep='grep -i -r -H -n -I'
-
 # development
 alias py='python'
 alias rb='ruby'
@@ -405,13 +396,6 @@ autoload run-help
 # C-xhをrun-helpにする。
 bindkey "^xh" run-help
 
-# コマンドの予測入力を有効にする
-#autoload -U predict-on
-#zle -N predict-on
-#zle -N predict-off
-#bindkey "^xp" predict-on
-#bindkey "^x^p" predict-off
-
 # C-] で一つ前のコマンドの最後の単語を挿入。
 autoload smart-insert-last-word
 zle -N insert-last-word smart-insert-last-word
@@ -434,38 +418,6 @@ abbreviations=(
 #####################################################################
 # functions
 ######################################################################
-
-# ファイルの削除にrmを使わずゴミ箱を使う
-TRASHDIR=~/.trash
-del () {
-        local path
-        for path in "$@"; do
-                # ignore any arguments
-                if [[ "$path" = -* ]]; then
-                        echo "del doesn't understand any arguments. Should use /bin/rm."
-                        return
-                else
-                        # create trash if necessary
-                        if [ ! -d $TRASHDIR ]; then
-                                /bin/mkdir -p $TRASHDIR
-                        fi
-
-                        local dst=${path##*/}
-                        # append the time if necessary
-                        while [ -e $TRASHDIR"/$dst" ]; do
-                                dst="$dst "$(date +%H-%M-%S)
-                        done
-                        /bin/mv "$path" $TRASHDIR/"$dst"
-                fi
-        done
-}
-# 危険なのでrmは使わない
-alias rm="del"
-
-# ゴミ箱を空にする
-alias trash-look="ls -al $TRASHDIR/ 2> /dev/null"
-alias trash-clean="/bin/rm -R -f $TRASHDIR/*"
-alias clean=trash-clean
 
 # lessの代わりにvimをlessとして利用する。
 # syntax highlightも有効なので便利。
@@ -531,14 +483,6 @@ alias zln='zmv -L'
 alias mmv='noglob zmv -W'
 alias mcp='mmv -C'
 alias mln='mmv -L'
-
-# for z.sh
-# ディレクトリ移動履歴を取る
-_Z_CMD=j
-source ~/.zsh/z.sh
-precmd() {
-  _z --add "$(pwd -P)"
-}
 
 ## Python virtualenvwrapper
 export WORKON_HOME=$HOME/.virtualenvs
