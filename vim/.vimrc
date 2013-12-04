@@ -74,6 +74,7 @@ endfunction
 " Set augroup.
 augroup MyAutoCmd
   autocmd!
+  autocmd FileType * call s:my_on_filetype()
 augroup END
 
 if filereadable(expand('~/.secret_vimrc'))
@@ -447,12 +448,12 @@ NeoBundleLazy 'JesseKPhillips/d.vim', {
       \ 'autoload' : {
       \   'filetypes' : 'd',
       \ }}
-NeoBundleLazy 'osyo-manga/vim-marching', {
-      \ 'autoload' : {
-      \   'filetypes' : ['c', 'cpp']
-      \ },
-      \ 'depends' : ['osyo-manga/vim-reunions', 'Shougo/vimproc'],
-      \}
+" NeoBundleLazy 'osyo-manga/vim-marching', {
+"       \ 'autoload' : {
+"       \   'filetypes' : ['c', 'cpp']
+"       \ },
+"       \ 'depends' : ['osyo-manga/vim-reunions', 'Shougo/vimproc'],
+"       \}
 NeoBundleLazy 't9md/vim-smalls', {
       \ 'autoload' : {
       \ 'mappings' : ['<Plug>(smalls)', '<Plug>(smalls-)']
@@ -781,12 +782,6 @@ else
   set clipboard& clipboard+=unnamed
 endif
 
-" Disable auto wrap.
-autocmd MyAutoCmd FileType *
-      \ if &l:textwidth != 70 && &filetype !=# 'help' |
-      \    setlocal textwidth=0 |
-      \ endif
-
 " Enable backspace delete indent and newline.
 set backspace=indent,eol,start
 
@@ -823,10 +818,6 @@ set commentstring=%s
 if exists('*FoldCCtext')
   " Use FoldCCtext().
   set foldtext=FoldCCtext()
-  autocmd MyAutoCmd FileType *
-        \               if &filetype !=# 'help'
-        \             |   setlocal foldtext=FoldCCtext()
-        \             | endif
 endif
 
 " Use vimgrep.
@@ -1060,10 +1051,6 @@ set display=lastline
 " Display an invisible letter with hex format.
 "set display+=uhex
 
-" Disable automatically insert comment.
-autocmd MyAutoCmd FileType *
-      \ setl formatoptions-=ro | setl formatoptions+=mM
-
 if v:version >= 703
   " For conceal.
   set conceallevel=2 concealcursor=iv
@@ -1097,8 +1084,6 @@ augroup MyAutoCmd
   autocmd FileType help,git-status,git-log,qf,J6uil_say,vimconsole,
         \gitcommit,quickrun,qfreplace,ref,vcs-commit,vcs-status
         \ nnoremap <buffer><silent> q :<C-u>call <sid>smart_close()<CR>
-  autocmd FileType * if (&readonly || !&modifiable) && !hasmapto('q', 'n')
-        \ | nnoremap <buffer><silent> q :<C-u>call <sid>smart_close()<CR>| endif
 
   autocmd FileType gitcommit,qfreplace setlocal nofoldenable
 
@@ -1130,15 +1115,14 @@ augroup MyAutoCmd
   \ |   filetype detect
   \ | endif
 
-  "autocmd BufRead,BufNewFile * if bufname('%') != '' && &filetype == ''
-  "      \ | setlocal ft=hybrid | endif
-
   " Improved include pattern.
   autocmd FileType html
         \ setlocal includeexpr=substitute(v:fname,'^\\/','','') |
         \ setlocal path+=./;/
   autocmd FileType php setlocal path+=/usr/local/share/pear
   autocmd FileType apache setlocal path+=./;/
+
+  autocmd Syntax * syntax sync minlines=20
 augroup END
 
 " PHP
@@ -1209,7 +1193,6 @@ endfunction
 autocmd MyAutoCmd VimEnter *
       \ highlight ModeMsg guifg=bg guibg=bg |
       \ highlight Question guifg=bg guibg=bg
-
 "}}}
 
 "---------------------------------------------------------------------------
@@ -3322,6 +3305,25 @@ else
     return 1
   endfunction
 endif
+
+function! s:my_on_filetype() "{{{
+  if (&readonly || !&modifiable) && !hasmapto('q', 'n')
+    nnoremap <buffer><silent> q :<C-u>call <sid>smart_close()<CR>
+  endif
+
+  " Disable automatically insert comment.
+  setl formatoptions-=ro | setl formatoptions+=mM
+
+  " Disable auto wrap.
+  if &l:textwidth != 70 && &filetype !=# 'help'
+    setlocal textwidth=0
+  endif
+
+  " Use FoldCCtext().
+  if &filetype !=# 'help'
+    setlocal foldtext=FoldCCtext()
+  endif
+endfunction "}}}
 "}}}
 
 "---------------------------------------------------------------------------
