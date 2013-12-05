@@ -405,10 +405,6 @@ NeoBundleLazy 'thinca/vim-ft-help_fold', {
       \   'filetypes' : 'help'
       \ }}
 
-if has('conceal')
-  NeoBundle 'Yggdroot/indentLine'
-endif
-
 NeoBundleLazy 'itchyny/thumbnail.vim', {
       \ 'autoload' : {
       \   'commands' : 'Thumbnail'
