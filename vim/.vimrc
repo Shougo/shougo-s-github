@@ -71,6 +71,25 @@ function! s:set_default(var, val)
   endif
 endfunction
 
+function! s:split_rtp(...) "{{{
+  let rtp = a:0 ? a:1 : &runtimepath
+  if type(rtp) == type([])
+    return rtp
+  endif
+
+  if rtp !~ '\\'
+    return split(rtp, ',')
+  endif
+
+  let split = split(rtp, '\\\@<!\%(\\\\\)*\zs,')
+  return map(split,'substitute(v:val, ''\\\([\\,]\)'', "\\1", "g")')
+endfunction"}}}
+
+function! s:join_rtp(list, runtimepath, rtp) "{{{
+  return (a:runtimepath !~ '\\' && a:rtp !~ ',') ?
+        \ join(a:list, ',') : join(map(copy(a:list), 's:escape(v:val)'), ',')
+endfunction"}}}
+
 " Set augroup.
 augroup MyAutoCmd
   autocmd!
@@ -91,23 +110,23 @@ if has('vim_starting') "{{{
           \ expand('$VIM/runtime'),
           \ expand('~/.vim/after')], ',')
   endif
+
+  " Load neobundle.
+  if isdirectory('neobundle.vim')
+    set runtimepath^=neobundle.vim
+  elseif finddir('neobundle.vim', '.;') != ''
+    execute 'set runtimepath^=' . finddir('neobundle.vim', '.;')
+  elseif &runtimepath !~ '/neobundle.vim'
+    if !isdirectory(s:neobundle_dir.'/neobundle.vim')
+      execute printf('!git clone %s://github.com/Shougo/neobundle.vim.git',
+            \ (exists('$http_proxy') ? 'https' : 'git'))
+            \ s:neobundle_dir.'/neobundle.vim'
+    endif
+
+    execute 'set runtimepath^=' . s:neobundle_dir.'/neobundle.vim'
+  endif
 endif
 "}}}
-
-" Load neobundle.
-if isdirectory('neobundle.vim')
-  set runtimepath^=neobundle.vim
-elseif finddir('neobundle.vim', '.;') != ''
-  execute 'set runtimepath^=' . finddir('neobundle.vim', '.;')
-elseif &runtimepath !~ '/neobundle.vim'
-  if !isdirectory(s:neobundle_dir.'/neobundle.vim')
-    execute printf('!git clone %s://github.com/Shougo/neobundle.vim.git',
-          \ (exists('$http_proxy') ? 'https' : 'git'))
-          \ s:neobundle_dir.'/neobundle.vim'
-  endif
-
-  execute 'set runtimepath^=' . s:neobundle_dir.'/neobundle.vim'
-endif
 
 call neobundle#rc(s:neobundle_dir)
 
@@ -578,7 +597,9 @@ if has('gui_running')
   set guioptions=Mc
 endif
 " Disable GetLatestVimPlugin.vim
-let g:loaded_getscriptPlugin = 1
+if !&verbose
+  let g:loaded_getscriptPlugin = 1
+endif
 " Disable netrw.vim
 let g:loaded_netrwPlugin = 1
 
@@ -1004,10 +1025,12 @@ set showfulltag
 " Can supplement a tag in a command-line.
 set wildoptions=tagfile
 
-" Enable spell check.
-set spelllang=en_us
-" Enable CJK support.
-set spelllang+=cjk
+if !&verbose
+  " Enable spell check.
+  set spelllang=en_us
+  " Enable CJK support.
+  set spelllang+=cjk
+endif
 
 " Completion setting.
 set completeopt=menuone
