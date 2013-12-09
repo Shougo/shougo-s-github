@@ -109,8 +109,6 @@ elseif &runtimepath !~ '/neobundle.vim'
   execute 'set runtimepath^=' . s:neobundle_dir.'/neobundle.vim'
 endif
 
-let g:neobundle#enable_tail_path = 1
-
 call neobundle#rc(s:neobundle_dir)
 
 " neobundle.vim"{{{
@@ -454,6 +452,10 @@ NeoBundleLazy 't9md/vim-smalls', {
       \ 'autoload' : {
       \ 'mappings' : ['<Plug>(smalls)', '<Plug>(smalls-)']
       \ }}
+
+
+NeoBundleLazy 'LeafCage/cmdlineplus.vim', {
+      \ 'autoload': {'mappings': [['c', '<Plug>(cmdlineplus-']]}}
 
 if filereadable('vimrc_local.vim') ||
       \ findfile('vimrc_local.vim', '.;') != ''
@@ -2203,8 +2205,6 @@ function! bundle.hooks.on_source(bundle)
         \}
   " Disable skk.vim
   let g:plugin_skk_disable = 1
-
-  let g:eskk#disable = 0
 
   let g:eskk#debug = 0
 
