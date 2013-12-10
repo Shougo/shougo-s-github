@@ -472,9 +472,10 @@ NeoBundleLazy 't9md/vim-smalls', {
       \ 'mappings' : ['<Plug>(smalls)', '<Plug>(smalls-)']
       \ }}
 
-
 NeoBundleLazy 'LeafCage/cmdlineplus.vim', {
       \ 'autoload': {'mappings': [['c', '<Plug>(cmdlineplus-']]}}
+
+NeoBundleLazy 'Shougo/javacomplete'
 
 if filereadable('vimrc_local.vim') ||
       \ findfile('vimrc_local.vim', '.;') != ''
@@ -590,6 +591,16 @@ call neobundle#config('J6uil.vim', {
       \ },
       \ 'depends' : 'mattn/webapi-vim',
       \ })
+call neobundle#config('javacomplete', {
+      \ 'build': {
+      \       'cygwin': 'javac autoload/Reflection.java',
+      \       'mac': 'javac autoload/Reflection.java',
+      \       'unix': 'javac autoload/Reflection.java',
+      \   },
+      \ 'autoload' : {
+      \   'filetypes' : 'java',
+      \ }
+      \})
 "}}}
 
 " Disable menu.vim
@@ -1115,7 +1126,7 @@ augroup MyAutoCmd
   " autocmd FileType c setlocal omnifunc=ccomplete#Complete
   autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
   autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-  "autocmd FileType java setlocal omnifunc=javacomplete#Complete
+  autocmd FileType java setlocal omnifunc=javacomplete#Complete
   autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
   if has('python3')
     autocmd FileType python setlocal omnifunc=python3complete#Complete
