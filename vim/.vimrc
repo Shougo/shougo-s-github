@@ -133,13 +133,10 @@ call neobundle#rc(s:neobundle_dir)
 " neobundle.vim"{{{
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-NeoBundle 'anyakichi/vim-surround', {
+NeoBundle 'rhysd/vim-operator-surround', {
       \ 'autoload' : {
-      \   'mappings' : [
-      \     ['n', '<Plug>Dsurround'], ['n', '<Plug>Csurround'],
-      \     ['n', '<Plug>Ysurround'], ['n', '<Plug>YSurround']
-      \ ]}}
-NeoBundle 'rhysd/vim-operator-surround'
+      \   'mappings' : '<Plug>(operator-surround',
+      \ }}
 NeoBundleLazy 'basyura/TweetVim', { 'depends' :
       \ ['basyura/twibill.vim', 'tyru/open-browser.vim'],
       \ 'autoload' : { 'commands' : 'TweetVimHomeTimeline' }}
@@ -2321,23 +2318,6 @@ endfunction
 "}}}
 
 " surround.vim"{{{
-let g:surround_no_mappings = 1
-" autocmd MyAutoCmd FileType * call s:define_surround_keymappings()
-
-function! s:define_surround_keymappings()
-  if !&l:modifiable
-    silent! nunmap <buffer> ds
-    silent! nunmap <buffer> cs
-    silent! nunmap <buffer> ys
-    silent! nunmap <buffer> yS
-  else
-    nmap <buffer>         ds   <Plug>Dsurround
-    nmap <buffer>         cs   <Plug>Csurround
-    nmap <buffer>         ys   <Plug>Ysurround
-    nmap <buffer>         yS   <Plug>YSurround
-  endif
-endfunction
-
 map <silent>sa <Plug>(operator-surround-append)
 map <silent>sd <Plug>(operator-surround-delete)
 map <silent>sr <Plug>(operator-surround-replace)
