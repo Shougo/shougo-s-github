@@ -453,6 +453,15 @@ NeoBundleLazy 'chikatoike/concealedyank.vim', {
       \   'mappings' : [['x', '<Plug>(operator-concealedyank)']]
       \ }
 
+
+NeoBundleLazy 'osyo-manga/vim-over', { 'autoload' : {
+      \ 'commands' : ['OverCommandLine']
+      \ }}
+
+if exists(':OverCommandLine')
+  xnoremap :s :OverCommandLine<CR>
+endif
+
 if filereadable('vimrc_local.vim') ||
       \ findfile('vimrc_local.vim', '.;') != ''
   " Load develop version.
@@ -530,6 +539,7 @@ call neobundle#config('vimshell', {
       \   'commands' : [{ 'name' : 'VimShell',
       \                   'complete' : 'customlist,vimshell#complete'},
       \                 'VimShellExecute', 'VimShellInteractive',
+      \                 'VimShellCreate',
       \                 'VimShellTerminal', 'VimShellPop'],
       \   'mappings' : '<Plug>(vimshell_'
       \ }})
@@ -1897,13 +1907,10 @@ function! bundle.hooks.on_source(bundle)
   " migemo.
   call unite#custom#source('line_migemo', 'matchers', 'matcher_migemo')
 
-  call unite#custom#source('file_rec', 'sorters', 'sorter_reverse')
-
   " Custom filters."{{{
   call unite#custom#source(
         \ 'buffer,file_rec,file_rec/async,file_mru', 'matchers',
-        \ ['converter_tail', 'matcher_fuzzy'])
-        " \ ['matcher_fuzzy'])
+        \ ['matcher_fuzzy'])
   call unite#custom#source(
         \ 'file', 'matchers',
         \ ['matcher_fuzzy', 'matcher_hide_hidden_files'])
