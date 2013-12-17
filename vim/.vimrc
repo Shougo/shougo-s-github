@@ -449,6 +449,10 @@ NeoBundleLazy 'sophacles/vim-processing', {
 
 NeoBundleLazy 'Shougo/javacomplete'
 
+NeoBundleLazy 'chikatoike/concealedyank.vim', {
+      \   'mappings' : [['x', '<Plug>(operator-concealedyank)']]
+      \ }
+
 if filereadable('vimrc_local.vim') ||
       \ findfile('vimrc_local.vim', '.;') != ''
   " Load develop version.
@@ -1227,7 +1231,7 @@ function! bundle.hooks.on_source(bundle)
   let g:neocomplete#min_keyword_length = 3
 
   " For auto select.
-  " let g:neocomplete#enable_complete_select = 1
+  let g:neocomplete#enable_complete_select = 1
   let g:neocomplete#enable_auto_select = 1
   let g:neocomplete#enable_refresh_always = 0
 
@@ -1565,6 +1569,8 @@ function! bundle.hooks.on_source(bundle)
     imap <buffer><C-h>  <Plug>(vimshell_another_delete_backward_char)
     imap <buffer><C-k>  <Plug>(vimshell_zsh_complete)
     imap <buffer><C-g>  <Plug>(vimshell_history_neocomplete)
+
+    xmap y <Plug>(operator-concealedyank)
 
     nnoremap <silent><buffer> <C-j>
           \ <C-u>:Unite -buffer-name=files -default-action=lcd directory_mru<CR>
@@ -2294,9 +2300,9 @@ endfunction
 "}}}
 
 " surround.vim"{{{
-map <silent>sa <Plug>(operator-surround-append)
-map <silent>sd <Plug>(operator-surround-delete)
-map <silent>sr <Plug>(operator-surround-replace)
+nmap <silent>sa <Plug>(operator-surround-append)
+nmap <silent>sd <Plug>(operator-surround-delete)
+nmap <silent>sr <Plug>(operator-surround-replace)
 "}}}
 
 " qfreplace.vim
@@ -2458,6 +2464,10 @@ if neobundle#tap('vim-smalls')
   nmap S <Plug>(smalls)
 
   call neobundle#untap()
+endif
+
+if neobundle#tap('concealedyank.vim')
+  xmap Y <Plug>(operator-concealedyank)
 endif
 
 if neobundle#tap('vim-vcs')
