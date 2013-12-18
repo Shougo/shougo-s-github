@@ -3170,6 +3170,8 @@ endfunction "}}}
 " Search.
 nnoremap ;n  ;
 nnoremap ;m  ,
+
+nnoremap <silent> q :<C-u>call <sid>smart_close()<CR>
 "}}}
 
 "---------------------------------------------------------------------------
@@ -3307,11 +3309,6 @@ else
 endif
 
 function! s:my_on_filetype() "{{{
-  if (&readonly || !&modifiable || &buftype =~# 'nofile\|acwrite')
-        \ && maparg('q', 'n') == ''
-    nnoremap <buffer><silent> q :<C-u>call <sid>smart_close()<CR>
-  endif
-
   " Disable automatically insert comment.
   setl formatoptions-=ro | setl formatoptions+=mM
 
