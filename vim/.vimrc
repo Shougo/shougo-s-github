@@ -93,7 +93,7 @@ endfunction"}}}
 " Set augroup.
 augroup MyAutoCmd
   autocmd!
-  autocmd FileType * call s:my_on_filetype()
+  autocmd FileType,Syntax * call s:my_on_filetype()
 augroup END
 
 if filereadable(expand('~/.secret_vimrc'))
@@ -1098,11 +1098,6 @@ augroup MyAutoCmd
 
   " Manage long Rakefile easily
   autocmd BufNewfile,BufRead Rakefile set foldmethod=syntax foldnestmax=1
-
-  " Close help and git window by pressing q.
-  autocmd FileType help,git-status,git-log,qf,J6uil_say,vimconsole,
-        \gitcommit,quickrun,qfreplace,ref,vcs-commit,vcs-status
-        \ nnoremap <buffer><silent> q :<C-u>call <sid>smart_close()<CR>
 
   autocmd FileType gitcommit,qfreplace setlocal nofoldenable
 
@@ -3312,7 +3307,8 @@ else
 endif
 
 function! s:my_on_filetype() "{{{
-  if (&readonly || !&modifiable) && !hasmapto('q', 'n')
+  if (&readonly || !&modifiable || &buftype =~# 'nofile\|acwrite')
+        \ && maparg('q', 'n') == ''
     nnoremap <buffer><silent> q :<C-u>call <sid>smart_close()<CR>
   endif
 
