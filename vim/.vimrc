@@ -259,7 +259,7 @@ NeoBundleLazy 'Shougo/unite-help', {
       \ 'unite_sources' : 'help'
       \ }
 NeoBundleLazy 'tsukkee/unite-tag', {
-      \ 'unite_sources' : 'tag'
+      \ 'unite_sources' : ['tag', 'tag/include', 'tag/file']
       \ }
 NeoBundleLazy 'tyru/caw.vim', {
       \ 'mappings' : [
@@ -1269,6 +1269,9 @@ function! bundle.hooks.on_source(bundle)
 
   let g:neocomplete#sources#omni#input_patterns.php =
   \'\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+
+  " Disable omni auto completion for Java.
+  let g:neocomplete#sources#omni#input_patterns.java = ''
 
   " Define keyword pattern.
   if !exists('g:neocomplete#keyword_patterns')
