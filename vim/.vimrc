@@ -1578,7 +1578,7 @@ function! bundle.hooks.on_source(bundle)
     imap <buffer><C-k>  <Plug>(vimshell_zsh_complete)
     imap <buffer><C-g>  <Plug>(vimshell_history_neocomplete)
 
-    xmap y <Plug>(operator-concealedyank)
+    xmap <buffer> y <Plug>(operator-concealedyank)
 
     nnoremap <silent><buffer> <C-j>
           \ <C-u>:Unite -buffer-name=files -default-action=lcd directory_mru<CR>
