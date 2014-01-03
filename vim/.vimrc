@@ -301,7 +301,7 @@ NeoBundleLazy 'ujihisa/unite-locate', {
 NeoBundleLazy 'vim-jp/vimdoc-ja', {
       \ 'filetype' : 'help',
       \ }
-" NeoBundleLazy 'vim-scripts/netrw.vim', {
+" NeoBundleLazy 'eignn/netrw.vim', {
       " \ 'commands' : 'Explore',
       " \ }
 " NeoBundleLazy 'Markdown'
@@ -498,7 +498,8 @@ call neobundle#config('neosnippet.vim', {
       \ 'autoload' : {
       \   'insert' : 1,
       \   'filetypes' : 'snippet',
-      \   'unite_sources' : ['snippet', 'neosnippet/user', 'neosnippet/runtime'],
+      \   'unite_sources' : [
+      \      'neosnippet', 'neosnippet/user', 'neosnippet/runtime'],
       \ }})
 call neobundle#config('unite.vim',{
       \ 'lazy' : 1,
@@ -513,6 +514,8 @@ call neobundle#config('vimfiler', {
       \ 'autoload' : {
       \    'commands' : [
       \                  { 'name' : 'VimFiler',
+      \                    'complete' : 'customlist,vimfiler#complete' },
+      \                  { 'name' : 'VimFilerTab',
       \                    'complete' : 'customlist,vimfiler#complete' },
       \                  { 'name' : 'VimFilerExplorer',
       \                    'complete' : 'customlist,vimfiler#complete' },
@@ -2299,6 +2302,7 @@ function! bundle.hooks.on_source(bundle)
     setlocal wrap
     nmap <buffer> o <Plug>(J6uil_open_say_buffer)
     nmap <silent> <buffer> <CR> <Plug>(J6uil_action_enter)
+    call neocomplete#initialize()
     NeoCompleteBufferMakeCache
   endfunction
 endfunction
