@@ -136,13 +136,6 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundle 'rhysd/vim-operator-surround', {
       \   'mappings' : '<Plug>(operator-surround',
       \ }
-NeoBundleLazy 'basyura/TweetVim', { 'depends' :
-      \ ['basyura/twibill.vim', 'tyru/open-browser.vim'],
-      \ 'autoload' : { 'commands' : 'TweetVimHomeTimeline' }}
-      " \ ['basyura/twibill.vim', 'tyru/open-browser.vim', 'yomi322/neco-tweetvim'] }
-" NeoBundleLazy 'c9s/perlomni.vim'
-" NeoBundleLazy 'choplin/unite-vim_hacks'
-" NeoBundleLazy 'liquidz/vimfiler-sendto'
 
 NeoBundle 'Shougo/echodoc.vim'
 
@@ -209,7 +202,6 @@ NeoBundleLazy 'kana/vim-textobj-user'
 NeoBundleLazy 'kien/ctrlp.vim'
 NeoBundleLazy 'LeafCage/foldCC', {
       \ 'filetypes' : 'vim' }
-NeoBundleLazy 'mattn/wwwrenderer-vim'
 NeoBundleLazy 'mattn/webapi-vim'
 " NeoBundle 'basyura/webapi-vim'
 NeoBundleLazy 'add20/vim-conque', {
@@ -225,10 +217,6 @@ NeoBundleLazy 'thinca/vim-fontzoom', {
       \   ['n', '<Plug>(fontzoom-larger)'],
       \   ['n', '<Plug>(fontzoom-smaller)']]
       \ }}
-NeoBundleLazy 'ujihisa/unite-font', {
-      \ 'gui' : 1,
-      \ 'unite_sources' : 'font'
-      \ }
 NeoBundleLazy 'thinca/vim-prettyprint', {
       \ 'commands' : 'PP'
       \ }
@@ -253,7 +241,7 @@ NeoBundleLazy 'vim-ruby/vim-ruby', {
       \ 'filetypes' : 'ruby'
       \ }
 
-NeoBundleLazy 'basyura/J6uil.vim.git'
+NeoBundleLazy 'basyura/J6uil.vim'
 
 NeoBundleLazy 'Shougo/unite-help', {
       \ 'unite_sources' : 'help'
@@ -271,15 +259,12 @@ NeoBundleLazy 'tyru/eskk.vim', {
 NeoBundleLazy 'tyru/open-browser.vim', {
       \ 'mappings' : '<Plug>(open-browser-',
       \ }
-NeoBundleLazy 'tyru/operator-html-escape.vim'
 NeoBundleLazy 'tyru/restart.vim', {
       \ 'gui' : 1,
       \ 'autoload' : {
       \  'commands' : 'Restart'
       \ }}
 " NeoBundle 'tyru/skk.vim'
-NeoBundleLazy 'tyru/vim-altercmd'
-" NeoBundleLazy 'tyru/winmove.vim', { 'autoload' : {
 NeoBundleLazy 'tyru/winmove.vim', { 'autoload' : {
       \ 'mappings' : [
       \   ['n', '<Plug>(winmove-up)', '<Plug>(winmove-down)',
@@ -295,21 +280,14 @@ NeoBundle 'ujihisa/neco-look'
 NeoBundleLazy 'ujihisa/unite-colorscheme', {
       \ 'unite_sources' : 'colorscheme',
       \ }
-NeoBundleLazy 'ujihisa/unite-locate', {
-      \ 'unite_sources' : 'locate',
-      \ }
 NeoBundleLazy 'vim-jp/vimdoc-ja', {
       \ 'filetype' : 'help',
       \ }
 " NeoBundleLazy 'eignn/netrw.vim', {
       " \ 'commands' : 'Explore',
       " \ }
-" NeoBundleLazy 'Markdown'
 NeoBundleLazy 'yuratomo/w3m.vim', {
       \ 'commands' : 'W3m',
-      \ }
-NeoBundleLazy 'pasela/unite-webcolorname', {
-      \ 'unite_sources' : 'webcolorname',
       \ }
 " NeoBundle 'hrsh7th/vim-unite-vcs'
 NeoBundleLazy 'osyo-manga/unite-quickfix', {
@@ -318,9 +296,7 @@ NeoBundleLazy 'osyo-manga/unite-quickfix', {
 NeoBundleLazy 'osyo-manga/unite-filetype', {
       \ 'unite_sources' : 'filetype',
       \ }
-"NeoBundle 'taglist.vim'
 NeoBundleLazy 'rbtnn/hexript.vim'
-NeoBundleLazy 'tpope/vim-endwise'
 NeoBundleLazy 'kana/vim-tabpagecd', {
       \ 'unite_sources' : 'tab'
       \ }
@@ -351,7 +327,6 @@ function! bundle.hooks.on_post_source(bundle)
 endfunction
 
 
-" NeoBundle 'perl-mauke.vim'
 NeoBundleLazy 'jiangmiao/simple-javascript-indenter', {
       \ 'filetypes' : 'javascript',
       \ }
@@ -360,15 +335,6 @@ NeoBundleLazy 'jelera/vim-javascript-syntax', {
       \ }
 NeoBundleLazy 'bkad/CamelCaseMotion', {
       \ 'mappings' : '<Plug>CamelCaseMotion_',
-      \ }
-NeoBundleLazy 'HybridText', {
-      \ 'filetypes' : 'hybrid',
-      \ }
-NeoBundleLazy 'AndrewRadev/switch.vim', {
-      \ 'commands' : 'Switch',
-      \ }
-NeoBundleLazy 'kana/vim-niceblock', {
-      \ 'mappings' : '<Plug>(niceblock-'
       \ }
 NeoBundleLazy 'aharisu/vim-gdev', {
       \ 'filetypes' : 'scheme',
@@ -402,25 +368,12 @@ NeoBundleLazy 'thinca/vim-ft-help_fold', {
       \ 'filetypes' : 'help'
       \ }
 
-NeoBundleLazy 'itchyny/thumbnail.vim', {
-      \ 'commands' : 'Thumbnail'
-      \ }
-NeoBundleLazy 'mopp/unite-battle_editors.git', {
-      \ 'unite_sources' : 'battle_editors',
-      \ 'depends' : 'mattn/webapi-vim',
-      \}
 NeoBundleLazy 'xolox/vim-lua-ftplugin', {
       \   'filetypes' : 'lua',
       \ }
 NeoBundleLazy 'elzr/vim-json', {
       \   'filetypes' : 'json',
       \ }
-
-NeoBundleLazy 'rbtnn/vimconsole.vim', {
-      \ 'depends' : 'thinca/vim-prettyprint',
-      \ 'autoload' : {
-      \   'commands' : 'VimConsoleOpen'
-      \ }}
 
 NeoBundleLazy 'tyru/open-browser.vim', {
       \   'commands' : ['OpenBrowserSearch', 'OpenBrowser'],
@@ -441,8 +394,8 @@ NeoBundleLazy 't9md/vim-smalls', {
       \ 'mappings' : ['<Plug>(smalls)', '<Plug>(smalls-)']
       \ }
 
-NeoBundleLazy 'LeafCage/cmdlineplus.vim', {
-      \ 'mappings': [['c', '<Plug>(cmdlineplus-']]}
+" NeoBundleLazy 'LeafCage/cmdlineplus.vim', {
+"       \ 'mappings': [['c', '<Plug>(cmdlineplus-']]}
 
 NeoBundleLazy 'sophacles/vim-processing', {
       \ 'filename_patterns': '\.pde$'}
@@ -2409,27 +2362,6 @@ if neobundle#tap('accelerated-jk') "{{{
   call neobundle#untap()
 endif "}}}
 
-if neobundle#tap('vim-altercmd') "{{{
-  function! neobundle#tapped.hooks.on_source(bundle)
-    call altercmd#load()
-
-    AlterCommand <cmdwin> u[nite] Unite
-    AlterCommand u[nite] Unite
-    AlterCommand <cmdwin> u[nite] Unite
-    AlterCommand u[nite] Unite
-    AlterCommand <cmdwin> e[dit] Edit
-    AlterCommand e[dit] Edit
-    AlterCommand <cmdwin> r[ead] Read
-    AlterCommand r[ead] Read
-    AlterCommand <cmdwin> s[ource] Source
-    AlterCommand s[ource] Source
-    AlterCommand <cmdwin> w[rite] Write
-    AlterCommand w[rite] Write
-  endfunction
-
-  call neobundle#untap()
-endif "}}}
-
 " switch.vim{{{
 " http://www.vimninjas.com/2012/09/12/switch/
 let g:variable_style_switch_definitions = [
@@ -2591,8 +2523,6 @@ autocmd MyAutoCmd CmdwinEnter * call s:init_cmdwin()
 autocmd MyAutoCmd CmdwinLeave * let g:neocomplcache_enable_auto_select = 1
 
 function! s:init_cmdwin()
-  NeoBundleSource vim-altercmd
-
   let g:neocomplcache_enable_auto_select = 0
   let b:neocomplcache_sources_list = ['vim_complete']
 
