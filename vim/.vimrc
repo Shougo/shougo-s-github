@@ -2384,16 +2384,6 @@ nnoremap <silent> ! :Switch<cr>
 xmap I  <Plug>(niceblock-I)
 xmap A  <Plug>(niceblock-A)
 
-" vimconsole.vim"{{{
-nnoremap <Leader>v        :<C-u>VimConsoleOpen<CR>
-let bundle = neobundle#get('vimconsole.vim')
-function! bundle.hooks.on_source(bundle)
-  let g:vimconsole#auto_redraw = 1
-endfunction
-
-unlet bundle
-"}}}
-
 " winmove.vim"{{{
 nmap <Up>      <Plug>(winmove-up)
 nmap <Down>    <Plug>(winmove-down)
