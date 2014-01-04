@@ -303,6 +303,7 @@ NeoBundleLazy 'kana/vim-tabpagecd', {
 NeoBundleLazy 'rhysd/accelerated-jk', {
       \ 'mappings' : '<Plug>(accelerated_jk_',
       \ }
+
 " NeoBundle 'gmarik/vundle'
 NeoBundleLazy 'vim-jp/autofmt', {
       \ 'mappings' : [['x', 'gq']],
@@ -1914,15 +1915,15 @@ function! bundle.hooks.on_source(bundle)
     nmap <buffer> cd     <Plug>(unite_quick_match_default_action)
     nmap <buffer> <C-z>     <Plug>(unite_toggle_transpose_window)
     imap <buffer> <C-z>     <Plug>(unite_toggle_transpose_window)
-    imap <buffer> <C-y>     <Plug>(unite_narrowing_path)
-    nmap <buffer> <C-y>     <Plug>(unite_narrowing_path)
+    " imap <buffer> <C-y>     <Plug>(unite_narrowing_path)
+    " nmap <buffer> <C-y>     <Plug>(unite_narrowing_path)
     nmap <buffer> <C-j>     <Plug>(unite_toggle_auto_preview)
     " nmap <buffer> <C-r>     <Plug>(unite_narrowing_input_history)
     " imap <buffer> <C-r>     <Plug>(unite_narrowing_input_history)
     nmap <silent><buffer> <Tab>     :call <SID>NextWindow()<CR>
     nnoremap <silent><buffer><expr> l
           \ unite#smart_map('l', unite#do_action('default'))
-    nmap <buffer> <C-e>     <Plug>(unite_narrowing_input_history)
+    " nmap <buffer> <C-e>     <Plug>(unite_narrowing_input_history)
 
     let unite = unite#get_current_unite()
     if unite.profile_name ==# '^search'
