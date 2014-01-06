@@ -136,6 +136,9 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundle 'rhysd/vim-operator-surround', {
       \   'mappings' : '<Plug>(operator-surround',
       \ }
+NeoBundle 'kana/vim-niceblock', {
+      \   'mappings' : '<Plug>(niceblock-',
+      \ }
 
 NeoBundle 'Shougo/echodoc.vim'
 
