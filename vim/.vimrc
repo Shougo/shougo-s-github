@@ -1165,12 +1165,12 @@ function! s:set_syntax_of_user_defined_commands()
   execute 'syntax keyword vimCommand ' . command_names
 endfunction
 
-" Do not display "Pattern not found" messages during YouCompleteMe completion
+" Do not display completion messages
 " Patch: https://groups.google.com/forum/#!topic/vim_dev/WeBBjkXE8H8
 set noshowmode
 try
   set shortmess+=c
-catch /E539: Illegal character/
+catch /^Vim\%((\a\+)\)\=:E539: Illegal character/
   autocmd MyAutoCmd VimEnter *
         \ highlight ModeMsg guifg=bg guibg=bg |
         \ highlight Question guifg=bg guibg=bg
@@ -1714,13 +1714,13 @@ nnoremap <silent><expr> <C-t>
 if s:is_windows
   nnoremap <silent> [Window]s
         \ :<C-u>Unite -buffer-name=files -no-split -multi-line
-        \ jump_point file_point buffer_tab
-        \ file_rec:! file file/new file_mru<CR>
+        \ jump_point file_point buffer_tab file_mru
+        \ file_rec:! file file/new<CR>
 else
   nnoremap <silent> [Window]s
         \ :<C-u>Unite -buffer-name=files -no-split -multi-line
-        \ jump_point file_point buffer_tab
-        \ file_rec/async:! file file/new file_mru<CR>
+        \ jump_point file_point buffer_tab file_mru
+        \ file_rec/async:! file file/new<CR>
 endif
 nnoremap <silent> [Window]w
       \ :<C-u>Unite window<CR>
@@ -1872,8 +1872,11 @@ function! bundle.hooks.on_source(bundle)
 
   " Custom filters."{{{
   call unite#custom#source(
-        \ 'buffer,file_rec,file_rec/async,file_mru', 'matchers',
+        \ 'buffer,file_rec,file_rec/async', 'matchers',
         \ ['matcher_fuzzy'])
+  call unite#custom#source(
+        \ 'file_mru', 'matchers',
+        \ ['matcher_project_files', 'matcher_fuzzy'])
   call unite#custom#source(
         \ 'file', 'matchers',
         \ ['matcher_fuzzy', 'matcher_hide_hidden_files'])
