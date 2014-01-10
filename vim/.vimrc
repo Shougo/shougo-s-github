@@ -227,6 +227,7 @@ NeoBundleLazy 'thinca/vim-qfreplace', {
       \ 'filetypes' : ['unite', 'quickfix'],
       \ }
 NeoBundleLazy 'thinca/vim-quickrun', {
+      \ 'commands' : 'QuickRun',
       \ 'mappings' : [
       \   ['nxo', '<Plug>(quickrun)']],
       \ }
@@ -410,6 +411,9 @@ NeoBundleLazy 'chikatoike/concealedyank.vim', {
       \   'mappings' : [['x', '<Plug>(operator-concealedyank)']]
       \ }
 
+NeoBundleLazy 't9md/vim-choosewin', {
+      \   'mappings' : '<Plug>(choosewin)'
+      \ }
 
 NeoBundleLazy 'osyo-manga/vim-over', { 'autoload' : {
       \ 'commands' : ['OverCommandLine']
@@ -895,8 +899,6 @@ set laststatus=2
 set cmdheight=2
 " Not show command on statusline.
 set noshowcmd
-" Not show mode.
-set noshowmode
 " Show title.
 set title
 " Title length.
@@ -1163,10 +1165,16 @@ function! s:set_syntax_of_user_defined_commands()
   execute 'syntax keyword vimCommand ' . command_names
 endfunction
 
-" Clear modeline highlight.
-autocmd MyAutoCmd VimEnter *
-      \ highlight ModeMsg guifg=bg guibg=bg |
-      \ highlight Question guifg=bg guibg=bg
+" Do not display "Pattern not found" messages during YouCompleteMe completion
+" Patch: https://groups.google.com/forum/#!topic/vim_dev/WeBBjkXE8H8
+set noshowmode
+try
+  set shortmess+=c
+catch /E539: Illegal character/
+  autocmd MyAutoCmd VimEnter *
+        \ highlight ModeMsg guifg=bg guibg=bg |
+        \ highlight Question guifg=bg guibg=bg
+endtry
 "}}}
 
 "---------------------------------------------------------------------------
@@ -1225,7 +1233,7 @@ function! bundle.hooks.on_source(bundle)
   let g:neocomplete#sources#omni#input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::\w*'
 
   let g:neocomplete#sources#omni#functions.go =
-        \ 'gocomplete#Complete'
+        \ 'go#complete#Complete'
 
   let g:neocomplete#sources#omni#input_patterns.php =
   \'\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
@@ -1702,9 +1710,6 @@ inoremap <silent><expr> <C-z>
 " <C-t>: Tab pages
 nnoremap <silent><expr> <C-t>
       \ ":\<C-u>Unite -select=".(tabpagenr()-1)." tab\<CR>"
-
-" <C-w>: Windows operation
-nnoremap <silent> <C-w>       :<C-u>Unite window<CR>
 
 if s:is_windows
   nnoremap <silent> [Window]s
@@ -2411,6 +2416,13 @@ if neobundle#tap('vim-vcs')
 
   call neobundle#untap()
 endif
+
+if neobundle#tap('vim-choosewin')
+  nmap <C-w>  <Plug>(choosewin)
+  let g:choosewin_overlay_enable = 1
+  let g:choosewin_overlay_clear_multibyte = 1
+  let g:choosewin_blink_on_land = 0
+endif
 "}}}
 
 "---------------------------------------------------------------------------
@@ -2719,7 +2731,6 @@ function! s:split_nicely()
 endfunction
 "}}}
 " Delete current buffer."{{{
-nnoremap <silent> [Window]d  :<C-u>call <SID>CustomBufferDelete(0)<CR>
 " Force delete current buffer.
 nnoremap <silent> [Window]D  :<C-u>call <SID>CustomBufferDelete(1)<CR>
 function! s:CustomBufferDelete(is_force)
