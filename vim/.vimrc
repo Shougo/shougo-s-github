@@ -456,6 +456,7 @@ call neobundle#config('neocomplcache-rsense', {
       \ })
 call neobundle#config('neosnippet.vim', {
       \ 'lazy' : 1,
+      \ 'depends' : 'Shougo/neosnippet-snippets',
       \ 'autoload' : {
       \   'insert' : 1,
       \   'filetypes' : 'snippet',
@@ -1207,6 +1208,7 @@ function! bundle.hooks.on_source(bundle)
   let g:neocomplete#enable_complete_select = 1
   let g:neocomplete#enable_auto_select = 1
   let g:neocomplete#enable_refresh_always = 0
+  let g:neocomplete#enable_cursor_hold_i = 0
 
   let g:neocomplete#sources#dictionary#dictionaries = {
         \ 'default' : '',
@@ -2262,13 +2264,22 @@ function! bundle.hooks.on_source(bundle)
   silent! delcommand NeoComplCacheCachingBuffer
 
   autocmd MyAutoCmd FileType J6uil call s:j6uil_settings()
+  autocmd MyAutoCmd FileType J6uil_say call s:j6uil_say_settings()
 
   function! s:j6uil_settings()
     setlocal wrap
+    setlocal nofoldenable
+    setlocal foldcolumn=0
     nmap <buffer> o <Plug>(J6uil_open_say_buffer)
     nmap <silent> <buffer> <CR> <Plug>(J6uil_action_enter)
     call neocomplete#initialize()
     NeoCompleteBufferMakeCache
+  endfunction
+
+  function! s:j6uil_say_settings()
+    setlocal wrap
+    setlocal nofoldenable
+    setlocal foldcolumn=0
   endfunction
 endfunction
 "}}}
@@ -3265,6 +3276,15 @@ function! s:my_on_filetype() "{{{
   " Use FoldCCtext().
   if &filetype !=# 'help'
     setlocal foldtext=FoldCCtext()
+  endif
+
+  if !&l:modifiable
+    setlocal nofoldenable
+    setlocal foldcolumn=0
+
+    if v:version >= 703
+      setlocal colorcolumn=
+    endif
   endif
 endfunction "}}}
 "}}}
