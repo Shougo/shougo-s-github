@@ -160,6 +160,10 @@ NeoBundleLazy 'Shougo/unite-ssh', {
       \ 'filetypes' : 'vimfiler',
       \ 'unite_sources' : 'ssh',
       \ }
+NeoBundleLazy 'majkinetor/unite-cmdmatch' , {
+      \ 'depends':  'Shougo/unite.vim',
+      \ 'mappings' : [['c', '<Plug>(unite_cmdmatch_complete)']] }
+
 NeoBundleLazy 'ujihisa/vimshell-ssh', {
       \ 'filetypes' : 'vimshell',
       \ }
@@ -950,14 +954,8 @@ set showtabline=2
 let &statusline="%{winnr('$')>1?'['.winnr().'/'.winnr('$')"
       \ . ".(winnr('#')==winnr()?'#':'').']':''}\ "
       \ . "%{(&previewwindow?'[preview] ':'').expand('%:t:.')}"
-      \ . "%{".s:SID_PREFIX()."get_twitter_len()}"
       \ . "\ %=%m%y%{'['.(&fenc!=''?&fenc:&enc).','.&ff.']'}"
       \ . "%{printf(' %5d/%d',line('.'),line('$'))}"
-
-function! s:get_twitter_len()
-  return &filetype !=# 'int-earthquake' || mode() !=# 'i' ? '' :
-        \ '(rest:' . (140 - len(substitute(vimshell#get_cur_text(),'.','x','g'))) . ')'
-endfunction
 
 " Turn down a long line appointed in 'breakat'
 set linebreak
@@ -2529,6 +2527,8 @@ cnoremap <C-k> <C-\>e getcmdpos() == 1 ?
       \ '' : getcmdline()[:getcmdpos()-2]<CR>
 " <C-y>: paste.
 cnoremap <C-y>          <C-r>*
+
+cmap <C-o>          <Plug>(unite_cmdmatch_complete)
 "}}}
 
 " Command line buffer."{{{
@@ -3367,6 +3367,22 @@ else
       "}}}
 
       set ttymouse=xterm2
+    endif
+
+    if &term =~# 'xterm'
+      let &t_ti .= "\e[?2004h"
+      let &t_te .= "\e[?2004l"
+      let &pastetoggle = "\e[201~"
+
+      function XTermPasteBegin(ret)
+        set paste
+        return a:ret
+      endfunction
+
+      noremap <special> <expr> <Esc>[200~ XTermPasteBegin('0i')
+      inoremap <special> <expr> <Esc>[200~ XTermPasteBegin('')
+      cnoremap <special> <Esc>[200~ <nop>
+      cnoremap <special> <Esc>[201~ <nop>
     endif
 
     if has('gui')
