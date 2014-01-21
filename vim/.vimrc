@@ -419,14 +419,6 @@ NeoBundleLazy 't9md/vim-choosewin', {
       \   'mappings' : '<Plug>(choosewin)'
       \ }
 
-NeoBundleLazy 'osyo-manga/vim-over', { 'autoload' : {
-      \ 'commands' : ['OverCommandLine']
-      \ }}
-
-if exists(':OverCommandLine')
-  xnoremap :s :OverCommandLine<CR>
-endif
-
 if filereadable('vimrc_local.vim') ||
       \ findfile('vimrc_local.vim', '.;') != ''
   " Load develop version.
@@ -933,15 +925,16 @@ function! s:my_tabline()  "{{{
           \      fnamemodify(bufname(bufnr), ':t') :
           \ gettabvar(i, 'title') != '' ?
           \      gettabvar(i, 'title') :
-          \      fnamemodify(gettabvar(i, 'cwd'), ':t')
+          \      fnamemodify((i == tabpagenr() ?
+          \       getcwd() : gettabvar(i, 'cwd')), ':t')
 
     let title = '[' . title . ']'
 
     let s .= '%'.i.'T'
     let s .= '%#' . (i == tabpagenr() ? 'TabLineSel' : 'TabLine') . '#'
-    let s .= no . ':' . title
+    let s .= title
     let s .= mod
-    let s .= '%#TabLineFill# '
+    let s .= '%#TabLineFill#'
   endfor
 
   let s .= '%#TabLineFill#%T%=%#TabLine#'
@@ -955,7 +948,7 @@ let &statusline="%{winnr('$')>1?'['.winnr().'/'.winnr('$')"
       \ . ".(winnr('#')==winnr()?'#':'').']':''}\ "
       \ . "%{(&previewwindow?'[preview] ':'').expand('%:t:.')}"
       \ . "\ %=%m%y%{'['.(&fenc!=''?&fenc:&enc).','.&ff.']'}"
-      \ . "%{printf(' %5d/%d',line('.'),line('$'))}"
+      \ . "%{printf(' %4d/%d',line('.'),line('$'))}"
 
 " Turn down a long line appointed in 'breakat'
 set linebreak
@@ -1732,9 +1725,9 @@ nnoremap <silent> [Space]b
 nnoremap    [Tag]   <Nop>
 nmap    t [Tag]
 " Jump.
-" nnoremap [Tag]t  <C-]>
-nnoremap <silent><expr> [Tag]t  &filetype == 'help' ?  "\<C-]>" :
-      \ ":\<C-u>UniteWithCursorWord -buffer-name=tag tag tag/include\<CR>"
+" nnoremap [Tag]t  g<C-]>
+nnoremap <silent><expr> [Tag]t  &filetype == 'help' ?  "g\<C-]>" :
+      \ ":\<C-u>UniteWithCursorWord -buffer-name=tag -immediately tag tag/include\<CR>"
 nnoremap <silent><expr> [Tag]p  &filetype == 'help' ?
       \ ":\<C-u>pop\<CR>" : ":\<C-u>Unite jump\<CR>"
 
