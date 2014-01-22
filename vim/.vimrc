@@ -339,6 +339,9 @@ NeoBundleLazy 'jiangmiao/simple-javascript-indenter', {
 NeoBundleLazy 'jelera/vim-javascript-syntax', {
       \ 'filetypes' : 'javascript',
       \ }
+NeoBundleLazy 'hynek/vim-python-pep8-indent', {
+      \ 'filetypes' : 'python',
+      \ }
 NeoBundleLazy 'bkad/CamelCaseMotion', {
       \ 'mappings' : '<Plug>CamelCaseMotion_',
       \ }
@@ -1703,12 +1706,12 @@ nnoremap <silent><expr> <C-t>
 
 if s:is_windows
   nnoremap <silent> [Window]s
-        \ :<C-u>Unite -buffer-name=files -no-split -multi-line
+        \ :<C-u>Unite -buffer-name=files -no-split -multi-line -unique
         \ jump_point file_point buffer_tab file_mru
         \ file_rec:! file file/new<CR>
 else
   nnoremap <silent> [Window]s
-        \ :<C-u>Unite -buffer-name=files -no-split -multi-line
+        \ :<C-u>Unite -buffer-name=files -no-split -multi-line -unique
         \ jump_point file_point buffer_tab file_mru
         \ file_rec/async:! file file/new<CR>
 endif
@@ -1867,9 +1870,9 @@ function! bundle.hooks.on_source(bundle)
   call unite#custom#source(
         \ 'file_mru', 'matchers',
         \ ['matcher_project_files', 'matcher_fuzzy'])
-  call unite#custom#source(
-        \ 'file', 'matchers',
-        \ ['matcher_fuzzy', 'matcher_hide_hidden_files'])
+  " call unite#custom#source(
+  "       \ 'file', 'matchers',
+  "       \ ['matcher_fuzzy', 'matcher_hide_hidden_files'])
   call unite#custom#source(
         \ 'file_rec/async,file_mru', 'converters',
         \ ['converter_file_directory'])
