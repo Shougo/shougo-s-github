@@ -214,9 +214,6 @@ NeoBundleLazy 'mattn/webapi-vim'
 NeoBundleLazy 'add20/vim-conque', {
       \ 'commands' : 'ConqueTerm'
       \ }
-NeoBundleLazy 'sjl/gundo.vim', {
-      \ 'commands' : 'GundoToggle'
-      \ }
 NeoBundleLazy 'thinca/vim-fontzoom', {
       \ 'gui' : 1,
       \ 'autoload' : {
@@ -1999,12 +1996,12 @@ unlet bundle
 "}}}
 
 " camlcasemotion.vim"{{{
-nmap <silent> [Alt]w <Plug>CamelCaseMotion_w
-xmap <silent> [Alt]w <Plug>CamelCaseMotion_w
-omap <silent> [Alt]w <Plug>CamelCaseMotion_w
-nmap <silent> [Alt]b <Plug>CamelCaseMotion_b
-xmap <silent> [Alt]b <Plug>CamelCaseMotion_b
-omap <silent> [Alt]b <Plug>CamelCaseMotion_b
+nmap <silent> W <Plug>CamelCaseMotion_w
+xmap <silent> W <Plug>CamelCaseMotion_w
+omap <silent> W <Plug>CamelCaseMotion_w
+nmap <silent> B <Plug>CamelCaseMotion_b
+xmap <silent> B <Plug>CamelCaseMotion_b
+omap <silent> B <Plug>CamelCaseMotion_b
 ""}}}
 
 " smartchr.vim"{{{
@@ -2335,22 +2332,6 @@ let g:ConqueTerm_PyVersion = 3
 nmap + <Plug>(fontzoom-larger)
 nmap _ <Plug>(fontzoom-smaller)
 "}}}
-
-" Gundo.vim
-nnoremap U      :<C-u>GundoToggle<CR>
-
-" TweetVim
-" Start TweetVim.
-nnoremap <silent> [unite]w :<C-u>Unite tweetvim<CR>
-autocmd MyAutoCmd FileType tweetvim call s:tweetvim_my_settings()
-function! s:tweetvim_my_settings() "{{{
-  " Open say buffer.
-  nnoremap <silent><buffer> o :TweetVimSay<CR>
-  nnoremap <silent><buffer> q :close<CR>
-  nmap <silent><buffer> j <Plug>(accelerated_jk_gj)
-endfunction"}}}
-
-let g:tweetvim_display_separator = 0
 
 " Operator-replace.
 nmap R <Plug>(operator-replace)
@@ -2764,8 +2745,10 @@ command! -nargs=0 JunkfileDiary call junkfile#open_immediately(
 " The prefix key.
 nnoremap [Alt]   <Nop>
 xnoremap [Alt]   <Nop>
+onoremap [Alt]   <Nop>
 nmap    e  [Alt]
 xmap    e  [Alt]
+omap    e  [Alt]
 
 nnoremap    [Alt]e   e
 xnoremap    [Alt]e   e
