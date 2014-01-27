@@ -377,9 +377,6 @@ NeoBundleLazy 'thinca/vim-ft-help_fold', {
       \ 'filetypes' : 'help'
       \ }
 
-NeoBundleLazy 'xolox/vim-lua-ftplugin', {
-      \   'filetypes' : 'lua',
-      \ }
 NeoBundleLazy 'elzr/vim-json', {
       \   'filetypes' : 'json',
       \ }
@@ -961,6 +958,7 @@ set shortmess=aTI
 " Don't create backup.
 set nowritebackup
 set nobackup
+set noswapfile
 set backupdir-=.
 
 " Disable bell.
@@ -1359,7 +1357,7 @@ function! hooks.on_source(bundle)
   let g:neocomplcache_enable_cursor_hold_i = 0
   let g:neocomplcache_cursor_hold_i_time = 300
   let g:neocomplcache_enable_insert_char_pre = 0
-  let g:neocomplcache_enable_prefetch = 0
+  let g:neocomplcache_enable_prefetch = 1
   let g:neocomplcache_skip_auto_completion_time = '0.6'
 
   " For auto select.
@@ -1976,6 +1974,10 @@ function! bundle.hooks.on_source(bundle)
     let g:unite_source_grep_default_opts =
           \ '--line-numbers --nocolor --nogroup --hidden --ignore ' .
           \  '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'''
+    let g:unite_source_grep_recursive_opt = ''
+  elseif executable('pt')
+    let g:unite_source_grep_command = 'pt'
+    let g:unite_source_grep_default_opts = '--nogroup --nocolor'
     let g:unite_source_grep_recursive_opt = ''
   elseif executable('jvgrep')
     " For jvgrep.
@@ -3325,35 +3327,14 @@ else
   " For non GVim.
   if !has('gui_running')
     " Enable 256 color terminal.
-    if !exists('$TMUX')
-      set t_Co=256
-
-      " For screen."{{{
-      if &term =~ '^screen'
-        augroup MyAutoCmd
-          " Show filename on screen statusline.
-          " But invalid 'another' screen buffer.
-          autocmd BufEnter * if $WINDOW != 0 &&
-                \ bufname('') !~ '[[:alnum:]]*://'
-                \   | silent! exe '!echo -n "\ekv:%:t\e\\"' | endif
-          " When 'mouse' isn't empty, Vim will freeze. Why?
-          autocmd VimLeave * :set mouse=
-        augroup END
-      endif
-
-      " For prevent bug.
-      autocmd MyAutoCmd VimLeave * set term=screen
-      "}}}
-
-      set ttymouse=xterm2
-    endif
+    set t_Co=256
 
     if &term =~# 'xterm'
       let &t_ti .= "\e[?2004h"
       let &t_te .= "\e[?2004l"
       let &pastetoggle = "\e[201~"
 
-      function XTermPasteBegin(ret)
+      function! XTermPasteBegin(ret)
         set paste
         return a:ret
       endfunction
@@ -3397,31 +3378,23 @@ else
   "}}}
 endif
 
-" Don't use mouse in terminal.
-if !has('gui_running') && has('mouse')
-  set mouse=
-endif
-
 " Using the mouse on a terminal.
-" if has('mouse')
-"   set mouse=a
-"   if has('mouse_sgr')
-"     set ttymouse=sgr
-"   elseif v:version > 703 || v:version is 703 && has('patch632')
-"     " I couldn't use has('mouse_sgr') :-(
-"     set ttymouse=sgr
-"   else
-"     set ttymouse=xterm2
-"   endif
-" endif
+if has('mouse')
+  set mouse=a
+  if has('mouse_sgr')
+    set ttymouse=sgr
+  elseif v:version > 703 || v:version is 703 && has('patch632')
+    " I couldn't use has('mouse_sgr') :-(
+    set ttymouse=sgr
+  else
+    set ttymouse=xterm2
+  endif
+endif
 "}}}
 
 "---------------------------------------------------------------------------
 " Others:"{{{
 "
-
-" Enable mouse support.
-set mouse=a
 
 " If true Vim master, use English help file.
 set helplang& helplang=en,ja
