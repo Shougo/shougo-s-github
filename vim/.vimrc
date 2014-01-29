@@ -1255,6 +1255,7 @@ function! bundle.hooks.on_source(bundle)
         \ 'Vinarise' : 'vinarise#complete',
         \}
   call neocomplete#custom#source('look', 'min_pattern_length', 4)
+  " call neocomplete#custom#source('_', 'sorters', [])
 
   " mappings."{{{
   " <C-f>, <C-b>: page move.
@@ -1691,8 +1692,8 @@ nnoremap <silent> ;w
       \ buffer file_mru bookmark file<CR>
 nnoremap <silent> <C-k>
       \ :<C-u>Unite change jump<CR>
-nnoremap <silent> ;g
-      \ :<C-u>Unite grep -buffer-name=search -auto-preview -no-quit -no-empty -resume<CR>
+nnoremap <silent><expr> ;g
+      \ ":\<C-u>Unite grep -buffer-name=grep%".tabpagenr()." -auto-preview -no-quit -no-empty -resume\<CR>"
 nnoremap <silent> ;r
       \ :<C-u>Unite -buffer-name=register register history/yank<CR>
 inoremap <silent><expr> <C-z>
@@ -1713,6 +1714,10 @@ else
         \ jump_point file_point buffer_tab file_mru
         \ file_rec/async:! file file/new<CR>
 endif
+
+nnoremap <silent> [Window]f
+      \ :<C-u>Unite <CR>
+
 nnoremap <silent> [Window]w
       \ :<C-u>Unite window<CR>
 nnoremap <silent> [Space]b
@@ -1742,15 +1747,15 @@ nnoremap <silent> <C-h>  :<C-u>Unite -buffer-name=help help<CR>
 nnoremap <silent> g<C-h>  :<C-u>UniteWithCursorWord help<CR>
 
 " Search.
-nnoremap <silent> /
-      \ :<C-u>Unite -buffer-name=search -no-split -start-insert line:forward:wrap<CR>
+nnoremap <silent><expr> /
+      \ ":\<C-u>Unite -buffer-name=search%".bufnr('%')." -no-split -start-insert line:forward:wrap\<CR>"
 nnoremap <expr> g/  <SID>smart_search_expr('g/',
       \ ":\<C-u>Unite -buffer-name=search -auto-preview -start-insert line_migemo\<CR>")
 nnoremap [Alt]/  g/
-nnoremap <silent> ?
-      \ :<C-u>Unite -buffer-name=search -auto-highlight -start-insert line:backward<CR>
-nnoremap <silent> *
-      \ :<C-u>UniteWithCursorWord -no-split -buffer-name=search line<CR>
+nnoremap <silent><expr> ?
+      \ ":\<C-u>Unite -buffer-name=search%".bufnr('%')." -no-split -start-insert line:backward\<CR>"
+nnoremap <silent><expr> *
+      \ ":\<C-u>UniteWithCursorWord -no-split -buffer-name=search%".bufnr()." line\<CR>"
 nnoremap [Alt]/       /
 nnoremap [Alt]?       ?
 cnoremap <expr><silent><C-g>        (getcmdtype() == '/') ?
@@ -1760,8 +1765,8 @@ function! s:smart_search_expr(expr1, expr2)
   return line('$') > 5000 ?  a:expr1 : a:expr2
 endfunction
 
-nnoremap <silent> n
-      \ :<C-u>UniteResume search -no-start-insert<CR>
+nnoremap <silent><expr> n
+      \ ":\<C-u>UniteResume search%".bufnr('%')." -no-start-insert\<CR>"
 
 let g:unite_source_history_yank_enable = 1
 
@@ -1771,9 +1776,7 @@ let g:unite_source_alias_aliases.test = {
       \ 'source' : 'file_rec',
       \ 'args'   : '~/',
       \ }
-let g:unite_source_alias_aliases.line_migemo = {
-      \ 'source' : 'line',
-      \ }
+let g:unite_source_alias_aliases.line_migemo = 'line'
 let g:unite_source_alias_aliases.message = {
       \ 'source' : 'output',
       \ 'args'   : 'message',
