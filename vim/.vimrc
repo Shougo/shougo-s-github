@@ -1462,9 +1462,6 @@ function! bundle.hooks.on_source(bundle)
 endfunction
 
 unlet bundle
-
-nnoremap <silent> [Window]f              :<C-u>Unite neosnippet/user neosnippet/runtime<CR>
-
 "}}}
 
 " echodoc.vim"{{{
@@ -1674,30 +1671,22 @@ xnoremap    [unite]   <Nop>
 nmap    ;u [unite]
 xmap    ;u [unite]
 
-nnoremap [unite]u  q:Unite<Space>
-" nnoremap <silent> :  :<C-u>Unite history/command command<CR>
 nnoremap <expr><silent> ;b  <SID>unite_build()
 function! s:unite_build()
   return ":\<C-u>Unite -buffer-name=build". tabpagenr() ." -no-quit build\<CR>"
 endfunction
 nnoremap <silent> ;o
       \ :<C-u>Unite outline -start-insert -resume<CR>
-nnoremap  [unite]f  :<C-u>Unite source<CR>
 nnoremap <silent> ;t
       \ :<C-u>UniteWithCursorWord -buffer-name=tag tag tag/include<CR>
 xnoremap <silent> ;r
       \ d:<C-u>Unite -buffer-name=register register history/yank<CR>
-nnoremap <silent> ;w
-      \ :<C-u>UniteWithCursorWord -buffer-name=register
-      \ buffer file_mru bookmark file<CR>
 nnoremap <silent> <C-k>
       \ :<C-u>Unite change jump<CR>
 nnoremap <silent><expr> ;g
       \ ":\<C-u>Unite grep -buffer-name=grep%".tabpagenr()." -auto-preview -no-quit -no-empty -resume\<CR>"
 nnoremap <silent> ;r
       \ :<C-u>Unite -buffer-name=register register history/yank<CR>
-inoremap <silent><expr> <C-z>
-      \ unite#start_complete('register', { 'input': unite#get_cur_text() })
 
 " <C-t>: Tab pages
 nnoremap <silent><expr> <C-t>
@@ -1751,15 +1740,14 @@ nnoremap <silent><expr> /
       \ ":\<C-u>Unite -buffer-name=search%".bufnr('%')." -no-split -start-insert line:forward:wrap\<CR>"
 nnoremap <expr> g/  <SID>smart_search_expr('g/',
       \ ":\<C-u>Unite -buffer-name=search -auto-preview -start-insert line_migemo\<CR>")
-nnoremap [Alt]/  g/
 nnoremap <silent><expr> ?
       \ ":\<C-u>Unite -buffer-name=search%".bufnr('%')." -no-split -start-insert line:backward\<CR>"
 nnoremap <silent><expr> *
-      \ ":\<C-u>UniteWithCursorWord -no-split -buffer-name=search%".bufnr()." line\<CR>"
+      \ ":\<C-u>UniteWithCursorWord -no-split -buffer-name=search%".bufnr('%')." line:forward:wrap\<CR>"
 nnoremap [Alt]/       /
 nnoremap [Alt]?       ?
 cnoremap <expr><silent><C-g>        (getcmdtype() == '/') ?
-      \ "\<ESC>:Unite -buffer-name=search -no-split line -input=".getcmdline()."\<CR>" : "\<C-g>"
+      \ "\<ESC>:Unite -buffer-name=search -no-split line:forward:wrap -input=".getcmdline()."\<CR>" : "\<C-g>"
 
 function! s:smart_search_expr(expr1, expr2)
   return line('$') > 5000 ?  a:expr1 : a:expr2
@@ -1807,7 +1795,6 @@ let g:unite_source_menu_menus.enc.command_candidates = [
       \       ['sjis', 'Sjis'],
       \       ['unicode', 'Unicode'],
       \     ]
-nnoremap <silent> ;e :<C-u>Unite menu:enc<CR>
 
 let g:unite_source_menu_menus.fenc = {
       \     'description' : 'Change file fenc option.',
@@ -1823,7 +1810,6 @@ let g:unite_source_menu_menus.fenc.command_candidates = [
       \       ['sjis', 'WSjis'],
       \       ['unicode', 'WUnicode'],
       \     ]
-nnoremap <silent> ;f :<C-u>Unite menu:fenc<CR>
 
 let g:unite_source_menu_menus.ff = {
       \     'description' : 'Change file format option.',
@@ -1833,7 +1819,6 @@ let g:unite_source_menu_menus.ff.command_candidates = {
       \       'dos'    : 'WDos',
       \       'mac'    : 'WMac',
       \     }
-nnoremap <silent> ;w :<C-u>Unite menu:ff<CR>
 
 let g:unite_source_menu_menus.unite = {
       \     'description' : 'Start unite sources',
@@ -1848,7 +1833,6 @@ let g:unite_source_menu_menus.unite.command_candidates = {
       \       'message'    : 'Unite output:message',
       \       'scriptnames': 'Unite output:scriptnames',
       \     }
-nnoremap <silent> ;u :<C-u>Unite menu:unite -resume<CR>
 
 let bundle = neobundle#get('unite.vim')
 function! bundle.hooks.on_source(bundle)
