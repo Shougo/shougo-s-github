@@ -153,12 +153,9 @@ NeoBundleLazy 'Shougo/neosnippet.vim'
 NeoBundle 'Shougo/neobundle-vim-scripts'
 
 NeoBundle 'Shougo/unite.vim'
-NeoBundleLazy 'Shougo/unite-build', {
-      \ 'unite_sources' : 'build',
-      \ }
+NeoBundleLazy 'Shougo/unite-build'
 NeoBundleLazy 'Shougo/unite-ssh', {
       \ 'filetypes' : 'vimfiler',
-      \ 'unite_sources' : 'ssh',
       \ }
 NeoBundleLazy 'majkinetor/unite-cmdmatch' , {
       \ 'depends':  'Shougo/unite.vim',
@@ -236,7 +233,8 @@ NeoBundleLazy 'thinca/vim-scouter', {
       \ 'commands' : 'Scouter'
       \ }
 NeoBundleLazy 'thinca/vim-ref', {
-      \ 'commands' : 'Ref'
+      \ 'commands' : 'Ref',
+      \ 'unite_sources' : 'ref',
       \ }
 NeoBundleLazy 'thinca/vim-unite-history', {
       \ 'unite_sources' : ['history/command', 'history/search']
@@ -248,9 +246,7 @@ NeoBundleLazy 'vim-ruby/vim-ruby', {
 
 NeoBundleLazy 'basyura/J6uil.vim'
 
-NeoBundleLazy 'Shougo/unite-help', {
-      \ 'unite_sources' : 'help'
-      \ }
+NeoBundleLazy 'Shougo/unite-help'
 NeoBundleLazy 'tsukkee/unite-tag', {
       \ 'unite_sources' : ['tag', 'tag/include', 'tag/file']
       \ }
@@ -282,9 +278,7 @@ NeoBundleLazy 'ujihisa/neco-ghc', {
       \ 'filetypes' : 'haskell'
       \ }
 NeoBundle 'ujihisa/neco-look'
-NeoBundleLazy 'ujihisa/unite-colorscheme', {
-      \ 'unite_sources' : 'colorscheme',
-      \ }
+NeoBundleLazy 'ujihisa/unite-colorscheme'
 NeoBundleLazy 'vim-jp/vimdoc-ja', {
       \ 'filetype' : 'help',
       \ }
@@ -295,12 +289,8 @@ NeoBundleLazy 'yuratomo/w3m.vim', {
       \ 'commands' : 'W3m',
       \ }
 " NeoBundle 'hrsh7th/vim-unite-vcs'
-NeoBundleLazy 'osyo-manga/unite-quickfix', {
-      \ 'unite_sources' : 'quickfix',
-      \ }
-NeoBundleLazy 'osyo-manga/unite-filetype', {
-      \ 'unite_sources' : 'filetype',
-      \ }
+NeoBundleLazy 'osyo-manga/unite-quickfix'
+NeoBundleLazy 'osyo-manga/unite-filetype'
 NeoBundleLazy 'rbtnn/hexript.vim'
 NeoBundleLazy 'kana/vim-tabpagecd', {
       \ 'unite_sources' : 'tab'
@@ -313,6 +303,8 @@ NeoBundleLazy 'rhysd/accelerated-jk', {
 NeoBundleLazy 'vim-jp/autofmt', {
       \ 'mappings' : [['x', 'gq']],
       \ }
+
+NeoBundleLazy 'supermomonga/unite-kawaii-calc'
 
 " From vim.org
 NeoBundleLazy 'godlygeek/csapprox', { 'terminal' : 1 }
@@ -521,8 +513,6 @@ call neobundle#config('junkfile.vim', {
       \ }})
 call neobundle#config('unite-outline', {
       \ 'lazy' : 1,
-      \ 'autoload' : {
-      \   'unite_sources' : 'outline'},
       \ })
 call neobundle#config('J6uil.vim', {
       \ 'lazy' : 1,
@@ -1195,6 +1185,14 @@ function! bundle.hooks.on_source(bundle)
 
   " For auto select.
   let g:neocomplete#enable_complete_select = 1
+  try
+    let completeopt_save = &completeopt
+    set completeopt+=noinsert,noselect
+  catch
+    let g:neocomplete#enable_complete_select = 0
+  finally
+    let &completeopt = completeopt_save
+  endtry
   let g:neocomplete#enable_auto_select = 1
   let g:neocomplete#enable_refresh_always = 0
   let g:neocomplete#enable_cursor_hold_i = 0
@@ -1765,6 +1763,9 @@ let g:unite_source_alias_aliases.test = {
       \ 'args'   : '~/',
       \ }
 let g:unite_source_alias_aliases.line_migemo = 'line'
+let g:unite_source_alias_aliases.calc = 'kawaii-calc'
+let g:unite_source_alias_aliases.l = 'launcher'
+let g:unite_source_alias_aliases.kill = 'process'
 let g:unite_source_alias_aliases.message = {
       \ 'source' : 'output',
       \ 'args'   : 'message',
@@ -2280,8 +2281,7 @@ if neobundle#tap('open-browser.vim') "{{{
     nnoremap <Plug>(open-browser-wwwsearch)
           \ :<C-u>call <SID>www_search()<CR>
     function! s:www_search()
-      let search_word = input('Please input search word: ', '',
-            \ 'customlist,wwwsearch#cmd_Wwwsearch_complete')
+      let search_word = input('Please input search word: ')
       if search_word != ''
         execute 'OpenBrowserSearch' escape(search_word, '"')
       endif
