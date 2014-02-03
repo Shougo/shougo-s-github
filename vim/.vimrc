@@ -153,6 +153,9 @@ NeoBundleLazy 'Shougo/neosnippet.vim'
 NeoBundle 'Shougo/neobundle-vim-scripts'
 
 NeoBundle 'Shougo/unite.vim'
+" NeoBundle "Shougo/unite.vim", {
+"       \ "rev" : "ver.6"
+" \}
 NeoBundleLazy 'Shougo/unite-build'
 NeoBundleLazy 'Shougo/unite-ssh', {
       \ 'filetypes' : 'vimfiler',
@@ -2523,6 +2526,10 @@ function! s:init_cmdwin()
   " Completion.
   inoremap <buffer><expr><TAB>  pumvisible() ?
         \ "\<C-n>" : <SID>check_back_space() ? "\<TAB>" : "\<C-x>\<C-u>\<C-p>"
+
+  " Remove history lines.
+  silent execute printf("1,%ddelete _", min([&history - 20, line("$") - 20]))
+  call cursor(line('$'), 0)
 
   startinsert!
 endfunction"}}}
