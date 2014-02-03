@@ -84,7 +84,7 @@ else
 endif
 
 " Save the setting of window.
-let g:save_window_file = expand('~/.vimwinpos')
+let g:save_window_file = expand('~/.cache/vimwinpos')
 augroup SaveWindow
   autocmd!
   autocmd VimLeavePre * call s:save_window()

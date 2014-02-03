@@ -59,6 +59,10 @@ if !exists($MYGVIMRC)
   let $MYGVIMRC = expand('~/.gvimrc')
 endif
 
+if !isdirectory(expand('~/.cache'))
+  call mkdir(expand('~/.cache'), 'p')
+endif
+
 " Anywhere SID.
 function! s:SID_PREFIX()
   return matchstr(expand('<sfile>'), '<SNR>\d\+_\zeSID_PREFIX$')
@@ -1023,7 +1027,7 @@ if v:version >= 703
 endif
 
 " View setting.
-set viewdir=~/.vim/view viewoptions-=options viewoptions+=slash,unix
+set viewdir=~/.cache/vim_view viewoptions-=options viewoptions+=slash,unix
 "}}}
 
 "---------------------------------------------------------------------------
@@ -2056,6 +2060,7 @@ let python_highlight_all = 1
 " ref.vim"{{{
 let bundle = neobundle#get('vim-ref')
 function! bundle.hooks.on_source(bundle)
+  let g:ref_cache_dir = expand('~/.cache/ref')
   let g:ref_use_vimproc = 1
   if s:is_windows
     let g:ref_refe_encoding = 'cp932'
@@ -2172,8 +2177,10 @@ imap <C-j>     <Plug>(eskk:toggle)
 
 let bundle = neobundle#get('eskk.vim')
 function! bundle.hooks.on_source(bundle)
+  let g:eskk#directory = expand('~/.cache/eskk')
+
   let g:eskk#large_dictionary = {
-        \   'path': expand('~/SKK-JISYO.L'),
+        \   'path': expand('~/.cache/SKK-JISYO.L'),
         \   'sorted': 1,
         \   'encoding': 'euc-jp',
         \}
@@ -2199,11 +2206,11 @@ function! bundle.hooks.on_source(bundle)
   autocmd MyAutoCmd User eskk-initialize-post
         \ EskkMap -remap jj <Plug>(eskk:disable)<Esc>
 
-  " let g:eskk#dictionary = {
-  " \   'path': expand('~/.skk-eskk-jisyo'),
-  " \   'sorted': 0,
-  " \   'encoding': 'utf-8',
-  " \}
+  let g:eskk#dictionary = {
+  \   'path': expand('~/cache/skk-jisyo'),
+  \   'sorted': 0,
+  \   'encoding': 'utf-8',
+  \}
   " Use /bin/sh -c "VTE_CJK_WIDTH=1 gnome-terminal --disable-factory"
   " instead of this settings.
   "if &encoding == 'utf-8' && !has('gui_running')
@@ -2236,6 +2243,7 @@ unlet bundle
 " j6uil.vim"{{{
 let bundle = neobundle#get('J6uil.vim')
 function! bundle.hooks.on_source(bundle)
+  let g:J6uil_config_dir = expand('~/.cache/J6uil')
   let g:J6uil_no_default_keymappings = 1
   let g:J6uil_display_offline  = 0
   let g:J6uil_display_online   = 0
