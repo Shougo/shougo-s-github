@@ -56,7 +56,7 @@ let $DOTVIM = expand('~/.vim')
 
 " Because a value is not set in $MYGVIMRC with the console, set it.
 if !exists($MYGVIMRC)
-  let $MYGVIMRC = expand('~/.gvimrc')
+  let $MYGVIMRC = expand('~/.vim/gvimrc')
 endif
 
 if !isdirectory(expand('~/.cache'))
@@ -806,10 +806,10 @@ if !has('gui_running') && !s:is_windows
         \ call s:set_syntax_of_user_defined_commands() |
         \ echo "source $MYVIMRC"
 else
-  autocmd MyAutoCmd BufWritePost .vimrc source $MYVIMRC |
+  autocmd MyAutoCmd BufWritePost .vimrc,vimrc source $MYVIMRC |
         \ call s:set_syntax_of_user_defined_commands() |
         \ if has('gui_running') | source $MYGVIMRC | echo "source $MYVIMRC"
-  autocmd MyAutoCmd BufWritePost .gvimrc
+  autocmd MyAutoCmd BufWritePost .gvimrc,gvimrc
         \ if has('gui_running') | source $MYGVIMRC | echo "source $MYGVIMRC"
 endif
 
@@ -2207,7 +2207,7 @@ function! bundle.hooks.on_source(bundle)
         \ EskkMap -remap jj <Plug>(eskk:disable)<Esc>
 
   let g:eskk#dictionary = {
-  \   'path': expand('~/cache/skk-jisyo'),
+  \   'path': expand('~/.cache/skk-jisyo'),
   \   'sorted': 0,
   \   'encoding': 'utf-8',
   \}
