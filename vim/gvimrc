@@ -134,12 +134,6 @@ set mousemodel=extend
 set nomousefocus
 " Hide mouse pointer on insert mode.
 set mousehide
-
-" Paste.
-nnoremap <RightMouse> "+p
-xnoremap <RightMouse> "+p
-nnoremap <RightMouse> <C-r><C-o>+
-cnoremap <RightMouse> <C-r>+
 "}}}
 
 "---------------------------------------------------------------------------

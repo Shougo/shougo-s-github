@@ -104,7 +104,7 @@ if filereadable(expand('~/.secret_vimrc'))
   execute 'source' expand('~/.secret_vimrc')
 endif
 
-let s:neobundle_dir = expand('~/.bundle')
+let s:neobundle_dir = expand('~/.cache/neobundle')
 
 if has('vim_starting') "{{{
   " Set runtimepath.
@@ -616,23 +616,25 @@ if !exists('did_encoding_settings') && has('iconv')
   " Build encodings.
   let &fileencodings = 'ucs-bom'
   if &encoding !=# 'utf-8'
-    let &fileencodings = &fileencodings . ',' . 'ucs-2le'
-    let &fileencodings = &fileencodings . ',' . 'ucs-2'
+    let &fileencodings .= ',' . 'ucs-2le'
+    let &fileencodings .= ',' . 'ucs-2'
   endif
-  let &fileencodings = &fileencodings . ',' . s:enc_jis
+  let &fileencodings .= ',' . 'utf-8'
+  let &fileencodings .= ',' . s:enc_jis
 
   if &encoding ==# 'utf-8'
-    let &fileencodings = &fileencodings . ',' . s:enc_euc
-    let &fileencodings = &fileencodings . ',' . 'cp932'
+    let &fileencodings = ',' . s:enc_euc
+    let &fileencodings = ',' . 'cp932'
   elseif &encoding =~# '^euc-\%(jp\|jisx0213\)$'
     let &encoding = s:enc_euc
-    let &fileencodings = &fileencodings . ',' . 'utf-8'
-    let &fileencodings = &fileencodings . ',' . 'cp932'
+    let &fileencodings = ',' . 'cp932'
+    let &fileencodings = ',' . &encoding
   else  " cp932
-    let &fileencodings = &fileencodings . ',' . 'utf-8'
-    let &fileencodings = &fileencodings . ',' . s:enc_euc
+    let &fileencodings = ',' . 'utf-8'
+    let &fileencodings = ',' . s:enc_euc
+    let &fileencodings = ',' . &encoding
   endif
-  let &fileencodings = &fileencodings . ',' . &encoding
+  let &fileencodings = ',' . 'cp20932'
 
   unlet s:enc_euc
   unlet s:enc_jis
@@ -966,7 +968,7 @@ set novisualbell
 set nowildmenu
 set wildmode=list:longest,full
 " Increase history amount.
-set history=200
+set history=1000
 " Display all the information of the tag by the supplement of the Insert mode.
 set showfulltag
 " Can supplement a tag in a command-line.
@@ -1660,7 +1662,6 @@ unlet bundle
 
 " netrw.vim"{{{
 let g:netrw_list_hide= '*.swp'
-nnoremap <silent> <BS> :<C-u>Explore<CR>
 " Change default directory.
 set browsedir=current
 "}}}
@@ -1742,17 +1743,17 @@ nnoremap <silent> g<C-h>  :<C-u>UniteWithCursorWord help<CR>
 
 " Search.
 nnoremap <silent><expr> /
-      \ ":\<C-u>Unite -buffer-name=search%".bufnr('%')." -no-split -start-insert line:forward:wrap\<CR>"
+      \ ":\<C-u>Unite -buffer-name=search%".bufnr('%')." -start-insert line:forward:wrap\<CR>"
 nnoremap <expr> g/  <SID>smart_search_expr('g/',
-      \ ":\<C-u>Unite -buffer-name=search -auto-preview -start-insert line_migemo\<CR>")
+      \ ":\<C-u>Unite -buffer-name=search -start-insert line_migemo\<CR>")
 nnoremap <silent><expr> ?
-      \ ":\<C-u>Unite -buffer-name=search%".bufnr('%')." -no-split -start-insert line:backward\<CR>"
+      \ ":\<C-u>Unite -buffer-name=search%".bufnr('%')." -start-insert line:backward\<CR>"
 nnoremap <silent><expr> *
-      \ ":\<C-u>UniteWithCursorWord -no-split -buffer-name=search%".bufnr('%')." line:forward:wrap\<CR>"
+      \ ":\<C-u>UniteWithCursorWord -buffer-name=search%".bufnr('%')." line:forward:wrap\<CR>"
 nnoremap [Alt]/       /
 nnoremap [Alt]?       ?
 cnoremap <expr><silent><C-g>        (getcmdtype() == '/') ?
-      \ "\<ESC>:Unite -buffer-name=search -no-split line:forward:wrap -input=".getcmdline()."\<CR>" : "\<C-g>"
+      \ "\<ESC>:Unite -buffer-name=search line:forward:wrap -input=".getcmdline()."\<CR>" : "\<C-g>"
 
 function! s:smart_search_expr(expr1, expr2)
   return line('$') > 5000 ?  a:expr1 : a:expr2
@@ -2671,6 +2672,8 @@ nnoremap <silent> <S-Tab> :call <SID>PreviousWindowOrTab()<CR>
 function! s:smart_close()
   if winnr('$') != 1
     close
+  else
+    call s:alternate_buffer()
   endif
 endfunction
 
@@ -2731,7 +2734,7 @@ nnoremap <silent> [Window]D  :<C-u>call <SID>CustomBufferDelete(1)<CR>
 function! s:CustomBufferDelete(is_force)
   let current = bufnr('%')
 
-  call unite#util#alternate_buffer()
+  call s:alternate_buffer()
 
   if a:is_force
     silent! execute 'bdelete! ' . current
@@ -2740,6 +2743,40 @@ function! s:CustomBufferDelete(is_force)
   endif
 endfunction
 "}}}
+function! s:alternate_buffer() "{{{
+  let listed_buffer_len = len(filter(range(1, bufnr('$')),
+        \ 's:buflisted(v:val) && getbufvar(v:val, "&filetype") !=# "unite"'))
+  if listed_buffer_len <= 1
+    enew
+    return
+  endif
+
+  let cnt = 0
+  let pos = 1
+  let current = 0
+  while pos <= bufnr('$')
+    if s:buflisted(pos)
+      if pos == bufnr('%')
+        let current = cnt
+      endif
+
+      let cnt += 1
+    endif
+
+    let pos += 1
+  endwhile
+
+  if current > cnt / 2
+    bprevious
+  else
+    bnext
+  endif
+endfunction"}}}
+function! s:buflisted(bufnr) "{{{
+  return exists('t:unite_buffer_dictionary') ?
+        \ has_key(t:unite_buffer_dictionary, a:bufnr) && buflisted(a:bufnr) :
+        \ buflisted(a:bufnr)
+endfunction"}}}
 
 " JunkFile
 " nnoremap <silent> [Window]e  :<C-u>JunkfileOpen<CR>
@@ -3345,6 +3382,13 @@ else
       inoremap <special> <expr> <Esc>[200~ XTermPasteBegin('')
       cnoremap <special> <Esc>[200~ <nop>
       cnoremap <special> <Esc>[201~ <nop>
+
+      " Optimize vertical split.
+      " Note: Newest terminal is needed.
+      " let &t_ti .= "\e[?6;69h"
+      " let &t_te .= "\e7\e[?6;69l\e8"
+      " let &t_CV = "\e[%i%p1%d;%p2%ds"
+      " let &t_CS = "y"
     endif
 
     if has('gui')
@@ -3383,14 +3427,18 @@ endif
 " Using the mouse on a terminal.
 if has('mouse')
   set mouse=a
-  if has('mouse_sgr')
-    set ttymouse=sgr
-  elseif v:version > 703 || v:version is 703 && has('patch632')
-    " I couldn't use has('mouse_sgr') :-(
+  if has('mouse_sgr') || v:version > 703 ||
+        \ v:version == 703 && has('patch632')
     set ttymouse=sgr
   else
     set ttymouse=xterm2
   endif
+
+  " Paste.
+  nnoremap <RightMouse> "+p
+  xnoremap <RightMouse> "+p
+  inoremap <RightMouse> <C-r><C-o>+
+  cnoremap <RightMouse> <C-r>+
 endif
 "}}}
 
