@@ -2,9 +2,7 @@
 export EDITOR=vim
 export FCEDIT=vim
 export PAGER=less
-export LESS='-RQM' # R = print control sequences
-                   # Q = quiet
-                   # M = % prompt
+export LESS='-RQM'
 export GZIP='-v9N'
 export SHELL=zsh
 export PATH="$HOME/bin:/usr/local/bin"
