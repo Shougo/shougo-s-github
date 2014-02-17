@@ -167,6 +167,7 @@ NeoBundleLazy 'Shougo/unite-ssh', {
 NeoBundleLazy 'majkinetor/unite-cmdmatch' , {
       \ 'depends':  'Shougo/unite.vim',
       \ 'mappings' : [['c', '<Plug>(unite_cmdmatch_complete)']] }
+NeoBundle 'Shougo/neomru.vim'
 
 NeoBundleLazy 'ujihisa/vimshell-ssh', {
       \ 'filetypes' : 'vimshell',
@@ -1087,7 +1088,7 @@ augroup MyAutoCmd
   autocmd FileType php setlocal path+=/usr/local/share/pear
   autocmd FileType apache setlocal path+=./;/
 
-  autocmd Syntax * syntax sync minlines=20
+  autocmd Syntax * syntax sync minlines=100
 augroup END
 
 " PHP
@@ -1545,7 +1546,7 @@ function! bundle.hooks.on_source(bundle)
     xmap <buffer> y <Plug>(operator-concealedyank)
 
     nnoremap <silent><buffer> <C-j>
-          \ <C-u>:Unite -buffer-name=files -default-action=lcd directory_mru<CR>
+          \ :<C-u>Unite -buffer-name=files -default-action=lcd directory_mru<CR>
 
     call vimshell#altercmd#define('u', 'cdup')
     call vimshell#altercmd#define('g', 'git')
