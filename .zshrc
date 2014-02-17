@@ -2,30 +2,21 @@
 # environment
 #####################################################################
 
-# 環境変数の設定
 export EDITOR=vim
-export LANG=ja_JP.UTF-8
-# ATOKを使うために必要
-export GTK_IM_MODULE=iiimf
+export LANG=en_US.UTF-8
 
-# umaskは022が良いらしい。
+# Better umask
 umask 022
 
-# 単語の区切りとみなさない記号を指定する
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
-# コアを吐かせるときはコメントを解除
+# Print core files?
 #unlimit
 #limit core 0
 #limit -s
-# コアファイルを吐かないようにする
 #limit coredumpsize  0
 
-# ~/.zshrc.mineファイルの内容を読み込んで実行する
-# .zshrc.mineには実験的な設定を書き込む。
-[ -f ~/.zshrc.mine ] && source ~/.zshrc.mine
-
-# lessのオプションを環境変数で指定する
+# improved less option
 export LESS='--tabs=4 --no-init --LONG-PROMPT --ignore-case --quit-if-one-screen --RAW-CONTROL-CHARS'
 
 # Disable CapsLock key.
@@ -35,13 +26,12 @@ export LESS='--tabs=4 --no-init --LONG-PROMPT --ignore-case --quit-if-one-screen
 # completions
 #####################################################################
 
-# 補完を有効にする
-# .zsh/compフォルダがあれば、ユーザ補完関数も読み込む
+# Enable completions
 if [ -d ~/.zsh/comp ]; then
         fpath=(~/.zsh/comp $fpath)
         autoload -U ~/.zsh/comp/*(:t)
 
-        # 補完関数のリロード（デバッグ用）
+        # Reload complete functions
         r() {
                 local f
                 f=(~/.zsh/comp/*(.))
@@ -56,18 +46,16 @@ zstyle ':completion:*:descriptions' format '%d'
 zstyle ':completion:*:options' verbose yes
 zstyle ':completion:*:values' verbose yes
 zstyle ':completion:*:options' prefix-needed yes
-# 一部のコマンドライン定義は、展開時に時間のかかる処理を行う
-# apt-get, dpkg (Debian), rpm (Redhat), urpmi (Mandrake), perlの-Mオプション, 
-# bogofilter (zsh 4.2.1以降), fink, mac_apps (MacOS X)(zsh 4.2.2以降)
+# Use cache completion
+# apt-get, dpkg (Debian), rpm (Redhat), urpmi (Mandrake), perl -M,
+# bogofilter (zsh 4.2.1 >=), fink, mac_apps...
 zstyle ':completion:*' use-cache true
-# 補完候補を ←↓↑→ で選択 (補完候補が色分け表示される)
 zstyle ':completion:*:default' menu select=1
-# 補完の時に大文字小文字を区別しない (但し、大文字を打った場合は小文字に変換しない)
 zstyle ':completion:*' matcher-list \
         '' \
         'm:{a-z}={A-Z}' \
         'l:|=* r:|[.,_-]=* r:|=* m:{a-z}={A-Z}'
-# sudo cmd で補完したいけど補完が効かない…、という場合
+# sudo completions
 zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin \
         /usr/sbin /usr/bin /sbin /bin /usr/X11R6/bin
 zstyle ':completion:*' menu select
@@ -77,31 +65,26 @@ zstyle ':completion:*' completer _oldlist _complete _match _ignored \
 
 autoload -U compinit; compinit -d ~/.zcompdump
 
-# 独自の補完関数
+# Original complete functions
 compdef '_files -g "*.hs"' runhaskell
-# manの補完関数をw3mmanにも適用させる
 compdef _man w3mman
-# TeXの補完関数をplatexにも適用させる
 compdef _tex platex
 
-# カレントディレクトリ中にサブディレクトリが無い場合に cd が検索するディレクトリのリスト
+# cd search path
 cdpath=($HOME)
-# zsh関数のサーチパス
-#fpath=($fpath ~/zsh/.zfunc)
 
 #####################################################################
 # colors
 #####################################################################
 
 if [ $TERM = "dumb" ]; then
-        # GVimから実行する場合、色分けは無効
+        # Disable colors in GVim
         alias ls="ls -F --show-control-chars"
         alias la='ls -aF --show-control-chars'
         alias ll='ls -lF --show-control-chars'
         alias l.='ls -dF .[a-zA-Z]*'
 else
-        # zsh補完候補一覧をカラー表示する
-        # lsもカラーにして、それと整合性を取る
+        # Color settings for zsh complete candidates
         alias ls='ls -F --show-control-chars --color=always'
         alias la='ls -aF --show-control-chars --color=always'
         alias ll='ls -lF --show-control-chars --color=always'
@@ -111,12 +94,12 @@ else
         zstyle ':completion:*' list-colors 'di=;34;1' 'ln=;35;1' 'so=;32;1' 'ex=31;1' 'bd=46;34' 'cd=43;34'
 fi
 
-#prompt の色指定を簡便に … $fg[blue] で可能になる.
+# use prompt colors feature
 autoload -U colors
 colors
 
 if [ $TERM = "dumb" ]; then
-        # GVimから実行する場合、色分けできないのでシンプルなプロンプトにする
+        # Use simple prompt in GVim
         PROMPT='%n%# '
 else
         PROMPT='%{[$[31+$RANDOM % 7]m%}%U%B%n%#'"%b%{[m%}%u "
@@ -141,122 +124,98 @@ if [ $UID = "0" ]; then
     PROMPT2="%B%{^[[31m%}%_#%{^[[m%}%b "
 fi
 
-# 複数行入力時のプロンプト
+# Multi line prompt
 PROMPT2="%_%% "
-# 入力ミス確認時のプロンプト
+# Spell miss prompt
 SPROMPT="correct> %R -> %r [n,y,a,e]? "
 
-
-# sudo cmd で補完したいけど補完が効かない……、という場合に有効
-zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin \
-        /usr/sbin /usr/bin /sbin /bin /usr/X11R6/bin
 
 #####################################################################
 # options
 ######################################################################
 #{{{
-# サスペンド中のプロセスと同じコマンド名を実行した場合はリジュームする
 setopt auto_resume
-# C-dを押してもログアウトしない
+# Ignore <C-d> logout
 setopt ignore_eof
-# ビープ音を鳴らさないようにする
+# Disable beeps
 setopt no_beep
-# {a-c} を a b c に展開する機能を使えるようにする
+# {a-c} -> a b c
 setopt brace_ccl
-# コマンドのスペルチェックをする
+# Enable spellcheck
 setopt correct
-# 入力したコマンドすべてに対してスペルチェックをする
-#setopt correct_all
-# =command を command のパス名に展開する
+# Enable "=command" feature
 setopt equals
-# C-s/C-q によるフロー制御を使わないようにする
+# Disable flow control
 setopt no_flow_control
-# 直前と同じコマンドラインはヒストリに追加しない
+# Ignore dups
 setopt hist_ignore_dups
-# コマンド行の余分な空白を詰めてヒストリに入れる
+# Reduce spaces
 setopt hist_reduce_blanks
-# コマンドラインの先頭がスペースで始まる場合ヒストリに追加しない
+# Ignore add history if space
 setopt hist_ignore_space
-# 履歴を :開始時刻:経過時間:コマンド の形で保存する。
+# Save time stamp
 setopt extended_history
 # ヒストリを呼び出してから実行する間に一旦編集可能を止める
 unsetopt hist_verify
-# 補完時にヒストリを自動的に展開
+# Expand history
 setopt hist_expand
-# 内部コマンド jobs の出力をデフォルトで jobs -l にする
+# Better jobs
 setopt long_list_jobs
-# コマンドラインの引数で --prefix=/usr などの = 以降でも補完できる
+# Enable completion in "--option=arg"
 setopt magic_equal_subst
-# ファイル名の展開でディレクトリにマッチした場合末尾に / を付加する
+# Add "/" if completes directory
 setopt mark_dirs
-# 補完候補が複数ある時、一覧表示 (auto_list) せず、すぐに最初の候補を補完する
-# vimshell 上で邪魔なので無効化。
+# Disable menu complete for vimshell
 setopt no_menu_complete
-# 補完候補の表示を水平方向にする
 setopt list_rows_first
-# TABでグロブを展開する
+# Expand globs when completion
 setopt glob_complete
-# 複数のリダイレクトやパイプなど、必要に応じて tee や cat の機能が使われる
+# Enable multi io redirection
 setopt multios
-# コマンド名に / が含まれているとき PATH 中のサブディレクトリを探す
+# Can search subdirectory in $PATH
 setopt path_dirs
-# 8 ビット目を通すようになり、日本語のファイル名などを見れるようになる
+# For multi byte
 setopt print_eightbit
-# 戻り値が 0 以外の場合終了コードを表示する
+# Print exit value if return code is non-zero
 setopt print_exit_value
-# ディレクトリスタックに同じディレクトリを追加しないようになる
 setopt pushd_ignore_dups
-# pushd,popdの度にディレクトリスタックの中身を表示しない
 setopt pushd_silent
-# for, repeat, select, if, function などで簡略文法が使えるようになる
+# Short statements in for, repeat, select, if, function
 setopt short_loops
-# history (fc -l) コマンドをヒストリリストから取り除く。
+# Ignore history (fc -l) command in history
 setopt hist_no_store
-# コピペの時rpromptを非表示する
 setopt transient_rprompt
-# 改行のない出力をプロンプトで上書きするのを防ぐ
 unsetopt promptcr
-# サスペンド中のプロセスと同じコマンド名を実行した場合はリジューム
-setopt auto_resume
-# 各コマンドが実行されるときにパスをハッシュに入れる
 setopt hash_cmds
-# 数字を数値と解釈してソートする
 setopt numeric_glob_sort
-# コマンド入力中にコメントを入れる
+# Enable comment string
 setopt interactive_comments
-# ファイルの一括削除時に１０秒間停止する
+# Improve rm *
 setopt rm_star_wait
-# 拡張グロブ指定（^, #など）を有効にする
+# Enable extended glob
 setopt extended_glob
-# 未定義変数の使用禁止
-# これをやるとエラーになるスクリプトが多数
+# Note: It is a lot of errors in script
 # setopt no_unset
-# 環境変数をプロンプトに展開する
+# Prompt substitution
 setopt prompt_subst
 if [[ ${VIMSHELL_TERM:-""} != "" ]]; then
-        # カーソル位置は保持したままファイル名一覧を順次その場で表示
         setopt no_always_last_prompt
 else
         setopt always_last_prompt
 fi
-# ^Iで補完可能な一覧を表示する(補完候補が複数ある時に、一覧表示)
+# List completion
 setopt auto_list
-# ディレクトリ名の補完で末尾の / を自動的に付加し、次の補完に備える
 setopt auto_param_slash
-# カッコの対応などを自動的に補完
 setopt auto_param_keys
-# 補完候補一覧でファイルの種別を識別マーク表示 (訳注:ls -F の記号)
+# List like "ls -F"
 setopt list_types
-# コンパクトに補完リストを表示
+# Compact completion
 setopt list_packed
-# ディレクトリ名で移動
 setopt auto_cd
-# 普通に cd するときにもディレクトリスタックにそのディレクトリを入れる
 setopt auto_pushd
 setopt pushd_minus
-# ディレクトリスタックに重複する物は古い方を削除
 setopt pushd_ignore_dups
-# 補完される前にオリジナルのコマンドまで展開してチェックされる 
+# Check original command in alias completion
 setopt complete_aliases
 # }}}
 
@@ -278,7 +237,7 @@ alias -g U=' --help | head'
 alias -g W="| wc"
 # }}}
 
-# 拡張子毎にコマンドを自動実行# {{{
+# Suffix aliases {{{
 alias -s zip=zipinfo
 alias -s tgz=gzcat
 alias -s gz=gzcat
@@ -303,27 +262,21 @@ alias -s m4a=amarok
 alias -s ogg=amarok
 # }}}
 
-# pushd, popd, cd ..を簡単にする
-alias pd=pushd
-alias po="popd"
-alias ..='cd ..'
-
-# lvできちんと表示されるようにする
+# Improve lv
 alias lv='lv -c -T8192'
 
-# mv, cp, mkdirなど、新しくファイルを作成するコマンドではファイル名生成を行わない
+# Better mv, cp, mkdir
 alias mv='nocorrect mv'
 alias cp='nocorrect cp'
 alias mkdir='nocorrect mkdir'
 
-# コンソールモードのemacsを256色対応で起動する
+# emacs no window
 alias emacsnw="env TERM=xterm-256color emacs -nw"
 
-# これでemacsclientをしたときにemacsを起動していなかったとしても、
-# 自動的に起動してくれる。
+# Automatic exec emacs
 alias emacsclient="emacsclient -a emacs"
 
-# rlwrapを使用するaliasを定義する。
+# Use rlwrap commands
 if [ -x '/usr/bin/rlwrap' -o  -x '/usr/local/bin/rlwrap' ]; then
         alias irb='rlwrap irb'
         alias ghci='rlwrap ghci'
@@ -332,7 +285,7 @@ if [ -x '/usr/bin/rlwrap' -o  -x '/usr/local/bin/rlwrap' ]; then
         alias gosh="rlwrap -b '(){}[],#\";| ' gosh"
 fi
 
-# 前に行ったディレクトリに移る
+# Move to previous directory
 alias gd='dirs -v; echo -n "select number: "; read newdir; cd -"$newdir"'
 
 # development
@@ -341,67 +294,43 @@ alias rb='ruby'
 alias gdb='gdb -silent'
 alias gpp='g++'
 
-# du, dfを使いやすくする
+# Improve du, df
 alias du="du -h"
 alias df="df -h"
 
-# odを自動的に16進表記にする
+# Improve od for hexdump
 alias od='od -Ax -tx1z'
-# 16進ダンプのエイリアスも定義する
 alias hexdump='hexdump -C'
 alias hexd=hexdump
 
-# whereの置き換え
+# Better where
 alias where="command -v"
 
+# Better jobs
 alias j="jobs -l"
 
-# sshで接続後scrrを打つとリモートでscreenを呼び出す
-# scrrを再度打つとローカルに戻ることができる。次回ssh接続時にscrrと打てば作業の続きができる。
 alias scrr='screen -U -D -RR'
-# s vim **/*.pyのように頭にsをつけてコマンドを打つと、別のスクリーンで開く
-#alias s='screen -U'
 
 #####################################################################
 # keybinds
 ######################################################################
 
-# emacsのキーバインドにする
+# emacs keybinds
 bindkey -e
-# viのキーバインドはこちら
-#bindkey -v
-# vi のキーバインドでも初期状態をコマンドモードにする
-#zle-line-init() { zle -K vicmd; } ; zle -N zle-line-init
-# 文字の途中でカーソルの右を無視して補完
-bindkey '^t' expand-or-complete-prefix
 
-# 履歴検索機能のショートカット設定
+# vi keybinds
+#bindkey -v
+#zle-line-init() { zle -K vicmd; } ; zle -N zle-line-init
+
+# History completion
 autoload history-search-end
 zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
-# コマンド履歴の検索機能はC-pとC-nに割り当てる
-# 引数も検索に利用しつつ、カーソル位置は行末にする。
 bindkey "^p" history-beginning-search-backward-end
 bindkey "^n" history-beginning-search-forward-end
 
-# C-xC-wでリージョンをカットできるようにする
-bindkey "^x^w" kill-region
-
-# bashと同様に、C-uでカーソル位置から行頭までの文字を消す
+# Like bash
 bindkey "^u" backward-kill-line
-
-# コマンド入力中にマニュアルを表示できるrun-help(ESC-H)を有効にする
-[ -n "`alias run-help`" ] && unalias run-help
-autoload run-help
-# C-xhをrun-helpにする。
-bindkey "^xh" run-help
-
-# C-] で一つ前のコマンドの最後の単語を挿入。
-autoload smart-insert-last-word
-zle -N insert-last-word smart-insert-last-word
-zstyle :insert-last-word match \
-        '*([^[:space:]][[:alpha:]/\\]|[[:alpha:]/\\][^[:space:]])*'
-bindkey '^]' insert-last-word
 
 typeset -A abbreviations
 abbreviations=(
@@ -419,34 +348,24 @@ abbreviations=(
 # functions
 ######################################################################
 
-# lessの代わりにvimをlessとして利用する。
-# syntax highlightも有効なので便利。
-vless () {
-        if test $# = 0; then
-                vim --cmd 'let no_plugin_maps = 1' -c 'runtime! macros/less.vim' -
-        else
-                vim --cmd 'let no_plugin_maps = 1' -c 'runtime! macros/less.vim' "$@"
-        fi
-}
-
-# 環境変数を簡単に設定する
+# Set environment variables easily
 setenv () { export $1="$@[2,-1]" }
 
 #-------------------------------------------------------
-# history
-function history-all { history -E 1 } # 全履歴の一覧を出力する
+# Print all histories
+function history-all { history -E 1 }
 
 #-------------------------------------------------------
-# 引数のファイルを euc-LF や sjis-CR+LF に変換
+# File encode conversion
 function euc() {
 for i in $@; do;
-        nkf -e -Lu $i >! /tmp/euc.$$ # -Lu :改行を LF にする
+        nkf -e -Lu $i >! /tmp/euc.$$ # -Lu : New line is LF
         mv -f /tmp/euc.$$ $i
 done;
 }
 function sjis() {
 for i in $@; do;
-        nkf -s -Lw $i >! /tmp/euc.$$ # -Lu :改行を CR+LF にする
+        nkf -s -Lw $i >! /tmp/euc.$$ # -Lw : New line is CRLF
         mv -f /tmp/euc.$$ $i
 done;
 }
@@ -455,7 +374,7 @@ done;
 # others
 ######################################################################
 
-# ターミナルのタイトルに「ユーザ@ホスト:カレントディレクトリ」を表示させる
+# Improve terminal title
 case "${TERM}" in
         kterm*|xterm*|vt100)
                 precmd() {
@@ -464,33 +383,13 @@ case "${TERM}" in
                 ;;
 esac
 
-# zshの履歴を共有する設定
-HISTFILE=$HOME/.zsh-history         # 履歴の保存先
-HISTSIZE=10000                      # メモリに展開する履歴の数
-SAVEHIST=50000                      # 保存する履歴の数
-setopt inc_append_history           # 複数のzshで実行したコマンドをヒストリに保存する
-setopt share_history                # 同一ホストで動いているzshで履歴 を共有
+# Share zsh histories
+HISTFILE=$HOME/.zsh-history
+HISTSIZE=10000
+SAVEHIST=50000
+setopt inc_append_history
+setopt share_history
 
-# 数学関数（sin(), cos(), tan(), exp()など）を有効にする
+# Enable math functions
 zmodload zsh/mathfunc
 
-# パターンを利用したファイル移動コマンドzmvを有効にする
-autoload -U zmv
-# コピーとリンクに使う派生コマンドも定義する
-alias zcp='zmv -C'
-alias zln='zmv -L'
-# ワイルドカードの省略入力を有効にする
-alias mmv='noglob zmv -W'
-alias mcp='mmv -C'
-alias mln='mmv -L'
-
-## Python virtualenvwrapper
-export WORKON_HOME=$HOME/.virtualenvs
-
-if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
-  source /usr/local/bin/virtualenvwrapper.sh
-fi
-
-## Python pip -> virtualenv only
-export PIP_REQUIRE_VIRTUALENV=true
-export PIP_RESPECT_VIRTUALENV=true
