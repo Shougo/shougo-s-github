@@ -2,19 +2,8 @@
 " FILE: candy.vim
 " Maintainer: Tiza
 " Changed: Shougo Matsushita
-" Last Change: 14 Jul 2011.
-"     version: 2.3
+" Last Change: 17 Feb 2014.
 " This color scheme uses a dark background.
-"-----------------------------------------------------------------------------
-" ChangeLog: "{{{
-"   2.4:
-"     - Improved cursor line.
-"     - Improved tabline.
-"
-"   2.3:
-"     - Documentation revised.
-"     - Changed diff color.
-""}}}
 "=============================================================================
 
 set background=dark
