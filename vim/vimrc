@@ -75,25 +75,6 @@ function! s:set_default(var, val)
   endif
 endfunction
 
-function! s:split_rtp(...) "{{{
-  let rtp = a:0 ? a:1 : &runtimepath
-  if type(rtp) == type([])
-    return rtp
-  endif
-
-  if rtp !~ '\\'
-    return split(rtp, ',')
-  endif
-
-  let split = split(rtp, '\\\@<!\%(\\\\\)*\zs,')
-  return map(split,'substitute(v:val, ''\\\([\\,]\)'', "\\1", "g")')
-endfunction"}}}
-
-function! s:join_rtp(list, runtimepath, rtp) "{{{
-  return (a:runtimepath !~ '\\' && a:rtp !~ ',') ?
-        \ join(a:list, ',') : join(map(copy(a:list), 's:escape(v:val)'), ',')
-endfunction"}}}
-
 " Set augroup.
 augroup MyAutoCmd
   autocmd!
@@ -146,7 +127,7 @@ NeoBundle 'kana/vim-niceblock', {
 
 NeoBundle 'Shougo/echodoc.vim'
 
-" NeoBundle 'Shougo/neocomplcache'
+" NeoBundle 'Shougo/neocomplcache.vim'
 
 NeoBundle 'Shougo/neocomplete.vim'
 
@@ -428,25 +409,13 @@ endif
 NeoBundleLocal ~/.vim/bundle
 
 " NeoBundle configurations.
-call neobundle#config('echodoc.vim', {
+" NeoBundleDisable neocomplcache.vim
+
+call neobundle#config(['echodoc.vim', 'neocomplete.vim'], {
       \ 'lazy' : 1,
       \ 'autoload' : {
       \   'insert' : 1,
       \ }})
-
-NeoBundleDisable neocomplcache.vim
-
-call neobundle#config('neocomplete.vim', {
-      \ 'lazy' : 1,
-      \ 'autoload' : {
-      \   'insert' : 1,
-      \   'commands' : 'NeoCompleteBufferMakeCache',
-      \ }})
-call neobundle#config('neocomplcache-rsense', {
-      \ 'lazy' : 1,
-      \ 'depends' : 'Shougo/neocomplcache',
-      \ 'autoload' : { 'filetypes' : 'ruby' }
-      \ })
 call neobundle#config('neosnippet.vim', {
       \ 'lazy' : 1,
       \ 'depends' : 'Shougo/neosnippet-snippets',
@@ -804,17 +773,11 @@ set grepprg=grep\ -inH
 set isfname-==
 
 " Reload .vimrc and .gvimrc automatically.
-if !has('gui_running') && !s:is_windows
-  autocmd MyAutoCmd BufWritePost .vimrc nested source $MYVIMRC |
-        \ call s:set_syntax_of_user_defined_commands() |
-        \ echo "source $MYVIMRC"
-else
-  autocmd MyAutoCmd BufWritePost .vimrc,vimrc source $MYVIMRC |
-        \ call s:set_syntax_of_user_defined_commands() |
-        \ if has('gui_running') | source $MYGVIMRC | echo "source $MYVIMRC"
-  autocmd MyAutoCmd BufWritePost .gvimrc,gvimrc
-        \ if has('gui_running') | source $MYGVIMRC | echo "source $MYGVIMRC"
-endif
+autocmd MyAutoCmd BufWritePost .vimrc,vimrc source $MYVIMRC |
+      \ call s:set_syntax_of_user_defined_commands() |
+      \ if has('gui_running') | source $MYGVIMRC | echo "source $MYVIMRC"
+autocmd MyAutoCmd BufWritePost .gvimrc,gvimrc
+      \ if has('gui_running') | source $MYGVIMRC | echo "source $MYGVIMRC"
 
 " Keymapping timeout.
 set timeout timeoutlen=3000 ttimeoutlen=100
@@ -1015,7 +978,8 @@ set previewheight=8
 set helpheight=12
 
 " Don't redraw while macro executing.
-"set lazyredraw
+set lazyredraw
+set ttyfast
 
 " When a line is long, do not omit it in @.
 set display=lastline
@@ -1121,7 +1085,7 @@ let g:SimpleJsIndenter_CaseIndentLevel = -1
 
 " Go
 if $GOROOT != ''
-  set rtp+=$GOROOT/misc/vim
+  set runtimepath+=$GOROOT/misc/vim
 endif
 
 " Vim script
@@ -3181,7 +3145,7 @@ function! s:highlight_with(args) range
   endif
   let c = get(b:, 'highlight_count', 0)
   let ft = matchstr(a:args, '^\w\+')
-  if globpath(&rtp, 'syntax/' . ft . '.vim') == ''
+  if globpath(&runtimepath, 'syntax/' . ft . '.vim') == ''
     return
   endif
   unlet! b:current_syntax
