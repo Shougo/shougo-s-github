@@ -589,22 +589,21 @@ if !exists('did_encoding_settings') && has('iconv')
     let &fileencodings .= ',' . 'ucs-2le'
     let &fileencodings .= ',' . 'ucs-2'
   endif
-  let &fileencodings .= ',' . 'utf-8'
   let &fileencodings .= ',' . s:enc_jis
+  let &fileencodings .= ',' . 'utf-8'
 
   if &encoding ==# 'utf-8'
-    let &fileencodings = ',' . s:enc_euc
-    let &fileencodings = ',' . 'cp932'
+    let &fileencodings .= ',' . s:enc_euc
+    let &fileencodings .= ',' . 'cp932'
   elseif &encoding =~# '^euc-\%(jp\|jisx0213\)$'
     let &encoding = s:enc_euc
-    let &fileencodings = ',' . 'cp932'
-    let &fileencodings = ',' . &encoding
+    let &fileencodings .= ',' . 'cp932'
+    let &fileencodings .= ',' . &encoding
   else  " cp932
-    let &fileencodings = ',' . 'utf-8'
-    let &fileencodings = ',' . s:enc_euc
-    let &fileencodings = ',' . &encoding
+    let &fileencodings .= ',' . s:enc_euc
+    let &fileencodings .= ',' . &encoding
   endif
-  let &fileencodings = ',' . 'cp20932'
+  let &fileencodings .= ',' . 'cp20932'
 
   unlet s:enc_euc
   unlet s:enc_jis
@@ -1520,6 +1519,7 @@ function! bundle.hooks.on_source(bundle)
     call vimshell#set_alias('gvim', 'gexe gvim')
     call vimshell#set_galias('L', 'ls -l')
     call vimshell#set_galias('time', 'exe time -p')
+    call vimshell#set_alias('.', 'source')
 
     " Auto jump.
     call vimshell#set_alias('j', ':Unite -buffer-name=files
