@@ -3131,30 +3131,6 @@ command! -nargs=1 -complete=file Diff vertical diffsplit <args>
 command! DiffOrig vert new | setlocal bt=nofile | r # | 0d_ | diffthis | wincmd p | diffthis
 " Disable diff mode.
 command! -nargs=0 Undiff setlocal nodiff noscrollbind wrap
-
-" :HighlightWith {filetype} ['a 'b]  XXX: Don't work in some case."{{{
-command! -nargs=+ -range=% HighlightWith <line1>,<line2>call s:highlight_with(<q-args>)
-" xnoremap [Space]h q:HighlightWith<Space>
-
-function! s:highlight_with(args) range
-  if a:firstline == 1 && a:lastline == line('$')
-    return
-  endif
-  let c = get(b:, 'highlight_count', 0)
-  let ft = matchstr(a:args, '^\w\+')
-  if globpath(&runtimepath, 'syntax/' . ft . '.vim') == ''
-    return
-  endif
-  unlet! b:current_syntax
-  let save_isk= &l:isk  " For scheme.
-  execute printf('syntax include @highlightWith%d syntax/%s.vim',
-        \              c, ft)
-  let &l:isk= save_isk
-  execute printf('syntax region highlightWith%d start=/\%%%dl/ end=/\%%%dl$/ '
-        \            . 'contains=@highlightWith%d',
-        \             c, a:firstline, a:lastline, c)
-  let b:highlight_count = c + 1
-endfunction"}}}
 "}}}
 
 "---------------------------------------------------------------------------
