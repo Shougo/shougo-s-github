@@ -3,7 +3,7 @@
 "
 
 " Use <C-Space>.
-map <C-Space>  <C-@>
+nmap <C-Space>  <C-@>
 cmap <C-Space>  <C-@>
 
 " Visual mode keymappings: "{{{
