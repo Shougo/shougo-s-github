@@ -24,9 +24,6 @@ NeoBundleLazy 'Shougo/neosnippet.vim'
 NeoBundle 'Shougo/neobundle-vim-scripts'
 
 NeoBundle 'Shougo/unite.vim'
-" NeoBundle "Shougo/unite.vim", {
-"       \ "rev" : "ver.6"
-" \}
 NeoBundleLazy 'Shougo/unite-build'
 NeoBundleLazy 'Shougo/unite-ssh', {
       \ 'filetypes' : 'vimfiler',
@@ -282,6 +279,8 @@ NeoBundleLazy 'chikatoike/concealedyank.vim', {
 NeoBundleLazy 't9md/vim-choosewin', {
       \   'mappings' : '<Plug>(choosewin)'
       \ }
+
+NeoBundle 'gcmt/wildfire.vim'
 
 if filereadable('vimrc_local.vim') ||
       \ findfile('vimrc_local.vim', '.;') != ''

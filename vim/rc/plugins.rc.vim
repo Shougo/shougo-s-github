@@ -485,3 +485,10 @@ if neobundle#tap('vim-choosewin')
   let g:choosewin_overlay_clear_multibyte = 1
   let g:choosewin_blink_on_land = 0
 endif
+
+" wildfire
+let g:wildfire_water_map = '<S-Enter>'
+if !exists('g:wildfire_objects')
+  let g:wildfire_objects = ["i'", 'i"', 'i)', 'i]', 'i}', 'ip', 'it', 'i>']
+endif
+
