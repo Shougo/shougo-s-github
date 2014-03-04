@@ -489,6 +489,10 @@ endif
 " wildfire
 let g:wildfire_water_map = '<S-Enter>'
 if !exists('g:wildfire_objects')
-  let g:wildfire_objects = ["i'", 'i"', 'i)', 'i]', 'i}', 'ip', 'it', 'i>']
+  let g:wildfire_objects = [
+        \ 'i''', 'i"', 'i)', 'a)', 'i]', 'a]',
+        \ 'i}', 'a}', 'i>', 'a>', 'ip', 'it',
+        \ 'at'
+        \]
 endif
 
