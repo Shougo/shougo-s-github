@@ -41,10 +41,10 @@ NeoBundleLazy 'Shougo/vim-vcs', {
       \ 'depends' : 'thinca/vim-openbuf',
       \ 'autoload' : {'commands' : 'Vcs'},
       \ }
-NeoBundle 'Shougo/vimfiler'
-NeoBundle 'Shougo/vimproc'
+NeoBundle 'Shougo/vimfiler.vim'
+NeoBundle 'Shougo/vimproc.vim'
 
-NeoBundle 'Shougo/vimshell'
+NeoBundle 'Shougo/vimshell.vim'
 NeoBundleLazy 'yomi322/vim-gitcomplete', {
       \ 'filetype' : 'vimshell'
       \ }
@@ -181,7 +181,7 @@ NeoBundleLazy 'supermomonga/unite-kawaii-calc'
 " From vim.org
 NeoBundleLazy 'godlygeek/csapprox', { 'terminal' : 1 }
 NeoBundleLazy 'thinca/vim-guicolorscheme', { 'terminal' : 1 }
-NeoBundleLazy 'repeat.vim', {
+NeoBundleLazy 'tpope/vim-repeat', {
       \ 'mappings' : '.',
       \ }
 NeoBundleLazy 'autodate.vim', {
@@ -317,7 +317,7 @@ call neobundle#config('unite.vim',{
       \                   'complete' : 'customlist,unite#complete_source'},
       \                 'UniteWithCursorWord', 'UniteWithInput']
       \ }})
-call neobundle#config('vimfiler', {
+call neobundle#config('vimfiler.vim', {
       \ 'lazy' : 1,
       \ 'depends' : 'Shougo/unite.vim',
       \ 'autoload' : {

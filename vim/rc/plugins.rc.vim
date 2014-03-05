@@ -234,7 +234,7 @@ endfunction
 unlet bundle
 "}}}
 
-if neobundle#tap('vimfiler') "{{{
+if neobundle#tap('vimfiler.vim') "{{{
   "nmap    [Space]v   <Plug>(vimfiler_switch)
   nnoremap <silent>   [Space]v   :<C-u>VimFiler -find<CR>
   nnoremap    [Space]ff   :<C-u>VimFilerExplorer<CR>
