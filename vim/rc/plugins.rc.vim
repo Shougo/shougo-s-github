@@ -487,7 +487,10 @@ if neobundle#tap('vim-choosewin')
 endif
 
 " wildfire
-let g:wildfire_water_map = '<S-Enter>'
+nmap <Enter>      <Plug>(wildfire-fuel)
+vmap <Enter>      <Plug>(wildfire-fuel)
+vmap <S-Enter>    <Plug>(wildfire-water)
+
 if !exists('g:wildfire_objects')
   let g:wildfire_objects = [
         \ 'i''', 'i"', 'i)', 'a)', 'i]', 'a]',

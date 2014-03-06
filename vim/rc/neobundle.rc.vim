@@ -280,7 +280,9 @@ NeoBundleLazy 't9md/vim-choosewin', {
       \   'mappings' : '<Plug>(choosewin)'
       \ }
 
-NeoBundle 'gcmt/wildfire.vim'
+NeoBundleLazy 'gcmt/wildfire.vim', {
+      \ 'mappings' : '<Plug>(wildfire-'
+      \ }
 
 if filereadable('vimrc_local.vim') ||
       \ findfile('vimrc_local.vim', '.;') != ''
