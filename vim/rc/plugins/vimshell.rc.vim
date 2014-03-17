@@ -13,6 +13,10 @@ let g:vimshell_split_command = ''
 let g:vimshell_enable_transient_user_prompt = 1
 let g:vimshell_force_overwrite_statusline = 1
 
+" let g:vimshell_prompt_expr =
+"     \ 'escape($USER . ":". fnamemodify(getcwd(), ":~")."%", "\\[]()?! ")." "'
+" let g:vimshell_prompt_pattern = '^\f\+:\%(\f\|\\.\)\+% '
+
 autocmd MyAutoCmd FileType vimshell call s:vimshell_settings()
 function! s:vimshell_settings()
   if IsWindows()

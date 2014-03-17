@@ -82,6 +82,9 @@ if has('vim_starting') "{{{
 endif
 "}}}
 
+let g:neobundle#default_options = {}
+" let g:neobundle#default_options._ = { 'verbose' : 1, 'focus' : 1 }
+
 call neobundle#rc(s:neobundle_dir)
 
 " Disable menu.vim

@@ -32,7 +32,24 @@ endfunction
 
 call s:source_rc('init.rc.vim')
 
-call s:source_rc('neobundle.rc.vim')
+if neobundle#has_cache()
+  NeoBundleLoadCache
+else
+  call s:source_rc('neobundle.rc.vim')
+  NeoBundleSaveCache
+endif
+
+if filereadable('vimrc_local.vim') ||
+      \ findfile('vimrc_local.vim', '.;') != ''
+  " Load develop version.
+  call neobundle#local(fnamemodify(
+        \ findfile('vimrc_local.vim', '.;'), ':h'))
+endif
+
+NeoBundleLocal ~/.vim/bundle
+
+" NeoBundle configurations.
+" NeoBundleDisable neocomplcache.vim
 
 filetype plugin indent on
 

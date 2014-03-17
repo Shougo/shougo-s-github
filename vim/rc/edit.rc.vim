@@ -72,7 +72,8 @@ set grepprg=grep\ -inH
 set isfname-==
 
 " Reload .vimrc and .gvimrc automatically.
-autocmd MyAutoCmd BufWritePost .vimrc,vimrc,*.rc.vim source $MYVIMRC |
+autocmd MyAutoCmd BufWritePost .vimrc,vimrc,*.rc.vim
+      \ NeoBundleClearCache | source $MYVIMRC |
       \ if has('gui_running') | source $MYGVIMRC | echo "source $MYVIMRC"
 autocmd MyAutoCmd BufWritePost .gvimrc,gvimrc
       \ if has('gui_running') | source $MYGVIMRC | echo "source $MYGVIMRC"

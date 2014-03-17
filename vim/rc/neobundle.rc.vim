@@ -11,19 +11,35 @@ NeoBundle 'kana/vim-niceblock', {
       \   'mappings' : '<Plug>(niceblock-',
       \ }
 
-NeoBundle 'Shougo/echodoc.vim'
+NeoBundleLazy 'Shougo/echodoc.vim', {
+      \ 'insert' : 1
+      \ }
 
-" NeoBundle 'Shougo/neocomplcache.vim'
+" NeoBundle 'Shougo/neocomplcache.vim', {
+      \ 'insert' : 1
+      \ }
 
-NeoBundle 'Shougo/neocomplete.vim'
+NeoBundleLazy 'Shougo/neocomplete.vim', {
+      \ 'insert' : 1
+      \ }
 
 NeoBundleLazy 'Shougo/neocomplcache-rsense'
 
-NeoBundleLazy 'Shougo/neosnippet.vim'
+NeoBundleLazy 'Shougo/neosnippet.vim', {
+      \ 'depends' : 'Shougo/neosnippet-snippets',
+      \ 'insert' : 1,
+      \ 'filetypes' : 'snippet',
+      \ 'unite_sources' : [
+      \    'neosnippet', 'neosnippet/user', 'neosnippet/runtime'],
+      \ }
 
 NeoBundle 'Shougo/neobundle-vim-scripts'
 
-NeoBundle 'Shougo/unite.vim'
+NeoBundleLazy 'Shougo/unite.vim', {
+      \ 'commands' : [{ 'name' : 'Unite',
+      \                 'complete' : 'customlist,unite#complete_source'},
+      \                 'UniteWithCursorWord', 'UniteWithInput']
+      \ }
 NeoBundleLazy 'Shougo/unite-build'
 NeoBundleLazy 'Shougo/unite-ssh', {
       \ 'filetypes' : 'vimfiler',
@@ -41,24 +57,62 @@ NeoBundleLazy 'Shougo/vim-vcs', {
       \ 'depends' : 'thinca/vim-openbuf',
       \ 'autoload' : {'commands' : 'Vcs'},
       \ }
-NeoBundle 'Shougo/vimfiler.vim'
-NeoBundle 'Shougo/vimproc.vim'
+NeoBundleLazy 'Shougo/vimfiler.vim', {
+      \ 'depends' : 'Shougo/unite.vim',
+      \ 'commands' : [
+      \         { 'name' : 'VimFiler',
+      \           'complete' : 'customlist,vimfiler#complete' },
+      \         { 'name' : 'VimFilerTab',
+      \           'complete' : 'customlist,vimfiler#complete' },
+      \         { 'name' : 'VimFilerExplorer',
+      \           'complete' : 'customlist,vimfiler#complete' },
+      \         { 'name' : 'Edit',
+      \           'complete' : 'customlist,vimfiler#complete' },
+      \         { 'name' : 'Write',
+      \           'complete' : 'customlist,vimfiler#complete' },
+      \         'Read', 'Source'],
+      \ 'mappings' : '<Plug>(vimfiler_',
+      \ 'explorer' : 1,
+      \ }
+NeoBundle 'Shougo/vimproc.vim', {
+      \ 'build' : {
+      \     'windows' : 'make -f make_mingw32.mak',
+      \     'cygwin' : 'make -f make_cygwin.mak',
+      \     'mac' : 'make -f make_mac.mak',
+      \     'unix' : 'make -f make_unix.mak',
+      \    }
+      \ }
 
-NeoBundle 'Shougo/vimshell.vim'
+NeoBundleLazy 'Shougo/vimshell.vim', {
+      \ 'commands' : [{ 'name' : 'VimShell',
+      \                 'complete' : 'customlist,vimshell#complete'},
+      \               'VimShellExecute', 'VimShellInteractive',
+      \               'VimShellCreate',
+      \               'VimShellTerminal', 'VimShellPop'],
+      \ 'mappings' : '<Plug>(vimshell_'
+      \ }
 NeoBundleLazy 'yomi322/vim-gitcomplete', {
       \ 'filetype' : 'vimshell'
       \ }
 
-NeoBundleLazy 'Shougo/vinarise.vim'
+NeoBundleLazy 'Shougo/vinarise.vim', {
+      \ 'commands' : [{
+      \   'name' : 'Vinarise', 'complete' : 'file'
+      \ }]
+      \ }
 
 NeoBundleLazy 'Shougo/vesting', {
       \ 'unite_sources' : 'vesting'
       \ }
-NeoBundle 'vim-jp/vital.vim'
-NeoBundleLazy 'Shougo/junkfile.vim'
+NeoBundleLazy 'vim-jp/vital.vim', {
+      \     'commands' : 'Vitalize',
+      \ }
+NeoBundleLazy 'Shougo/junkfile.vim', {
+      \ 'commands' : 'JunkfileOpen',
+      \ 'unite_sources' : ['junkfile', 'junkfile/new'],
+      \ }
 
-" NeoBundle 'h1mesuke/unite-outline'
-NeoBundle 'Shougo/unite-outline'
+NeoBundleLazy 'Shougo/unite-outline'
 
 NeoBundleLazy 'hail2u/vim-css3-syntax'
 NeoBundleLazy 'kana/vim-smartchr', {
@@ -74,6 +128,7 @@ NeoBundleLazy 'kana/vim-operator-replace', {
       \     ['nx', '<Plug>(operator-replace)']]
       \ }}
 NeoBundleLazy 'kana/vim-textobj-user'
+
 " NeoBundleLazy 'kana/vim-wwwsearch'
 NeoBundleLazy 'kien/ctrlp.vim'
 NeoBundleLazy 'LeafCage/foldCC', {
@@ -116,15 +171,25 @@ NeoBundleLazy 'vim-ruby/vim-ruby', {
       \ 'filetypes' : 'ruby'
       \ }
 
-NeoBundleLazy 'basyura/J6uil.vim'
+NeoBundleLazy 'basyura/J6uil.vim', {
+      \ 'lazy' : 1,
+      \ 'autoload' : {
+      \   'commands' : {
+      \      'name' : 'J6uil',
+      \      'complete' : 'custom,J6uil#complete#room'},
+      \   'function_prefix' : 'J6uil',
+      \   'unite_sources' : 'J6uil/rooms',
+      \ },
+      \ 'depends' : 'mattn/webapi-vim',
+      \ }
 
 NeoBundleLazy 'Shougo/unite-help'
 NeoBundleLazy 'tsukkee/unite-tag', {
       \ 'unite_sources' : ['tag', 'tag/include', 'tag/file']
       \ }
 NeoBundleLazy 'tyru/caw.vim', {
-      \ 'mappings' : [
-      \   '<Plug>(caw:prefix)', '<Plug>(caw:i:toggle)']
+      \ 'mappings' : [['nxo',
+      \   '<Plug>(caw:prefix)', '<Plug>(caw:i:toggle)']]
       \ }
 NeoBundleLazy 'tyru/eskk.vim', {
       \ 'mappings' : [['i', '<Plug>(eskk:']],
@@ -138,18 +203,18 @@ NeoBundleLazy 'tyru/restart.vim', {
       \  'commands' : 'Restart'
       \ }}
 " NeoBundle 'tyru/skk.vim'
-NeoBundleLazy 'tyru/winmove.vim', { 'autoload' : {
-      \ 'mappings' : [
-      \   ['n', '<Plug>(winmove-up)', '<Plug>(winmove-down)',
-      \         '<Plug>(winmove-left)', '<Plug>(winmove-right)']],
-      \ },
+NeoBundleLazy 'tyru/winmove.vim', {
+      \ 'mappings' : [['nxo',
+      \   '<Plug>(winmove-up)', '<Plug>(winmove-down)',
+      \         '<Plug>(winmove-left)', '<Plug>(winmove-right)'
+      \ ]],
       \ 'gui' : 1,
       \ 'augroup' : 'winmove',
       \ }
 NeoBundleLazy 'ujihisa/neco-ghc', {
       \ 'filetypes' : 'haskell'
       \ }
-NeoBundle 'ujihisa/neco-look'
+NeoBundleLazy 'ujihisa/neco-look'
 NeoBundleLazy 'ujihisa/unite-colorscheme'
 NeoBundleLazy 'vim-jp/vimdoc-ja', {
       \ 'filetype' : 'help',
@@ -160,7 +225,6 @@ NeoBundleLazy 'vim-jp/vimdoc-ja', {
 NeoBundleLazy 'yuratomo/w3m.vim', {
       \ 'commands' : 'W3m',
       \ }
-" NeoBundle 'hrsh7th/vim-unite-vcs'
 NeoBundleLazy 'osyo-manga/unite-quickfix'
 NeoBundleLazy 'osyo-manga/unite-filetype'
 NeoBundleLazy 'rbtnn/hexript.vim'
@@ -189,7 +253,7 @@ NeoBundleLazy 'autodate.vim', {
       \ }
 
 NeoBundleLazy 'matchit.zip', {
-      \ 'mappings' : ['%', 'g%']
+      \ 'mappings' : [['nxo', '%', 'g%']]
       \ }
 let bundle = neobundle#get('matchit.zip')
 function! bundle.hooks.on_post_source(bundle)
@@ -270,7 +334,16 @@ NeoBundleLazy 't9md/vim-smalls', {
 NeoBundleLazy 'sophacles/vim-processing', {
       \ 'filename_patterns': '\.pde$'}
 
-NeoBundleLazy 'Shougo/javacomplete'
+NeoBundleLazy 'Shougo/javacomplete', {
+      \ 'build': {
+      \       'cygwin': 'javac autoload/Reflection.java',
+      \       'mac': 'javac autoload/Reflection.java',
+      \       'unix': 'javac autoload/Reflection.java',
+      \   },
+      \ 'autoload' : {
+      \   'filetypes' : 'java',
+      \ }
+      \}
 
 NeoBundleLazy 'chikatoike/concealedyank.vim', {
       \   'mappings' : [['x', '<Plug>(operator-concealedyank)']]
@@ -283,121 +356,4 @@ NeoBundleLazy 't9md/vim-choosewin', {
 NeoBundleLazy 'gcmt/wildfire.vim', {
       \ 'mappings' : '<Plug>(wildfire-'
       \ }
-
-if filereadable('vimrc_local.vim') ||
-      \ findfile('vimrc_local.vim', '.;') != ''
-  " Load develop version.
-  call neobundle#local(fnamemodify(
-        \ findfile('vimrc_local.vim', '.;'), ':h'))
-endif
-
-" NeoBundle 'tpope/vim-fugitive'
-
-NeoBundleLocal ~/.vim/bundle
-
-" NeoBundle configurations.
-" NeoBundleDisable neocomplcache.vim
-
-call neobundle#config(['echodoc.vim', 'neocomplete.vim'], {
-      \ 'lazy' : 1,
-      \ 'autoload' : {
-      \   'insert' : 1,
-      \ }})
-call neobundle#config('neosnippet.vim', {
-      \ 'lazy' : 1,
-      \ 'depends' : 'Shougo/neosnippet-snippets',
-      \ 'autoload' : {
-      \   'insert' : 1,
-      \   'filetypes' : 'snippet',
-      \   'unite_sources' : [
-      \      'neosnippet', 'neosnippet/user', 'neosnippet/runtime'],
-      \ }})
-call neobundle#config('unite.vim',{
-      \ 'lazy' : 1,
-      \ 'autoload' : {
-      \   'commands' : [{ 'name' : 'Unite',
-      \                   'complete' : 'customlist,unite#complete_source'},
-      \                 'UniteWithCursorWord', 'UniteWithInput']
-      \ }})
-call neobundle#config('vimfiler.vim', {
-      \ 'lazy' : 1,
-      \ 'depends' : 'Shougo/unite.vim',
-      \ 'autoload' : {
-      \    'commands' : [
-      \                  { 'name' : 'VimFiler',
-      \                    'complete' : 'customlist,vimfiler#complete' },
-      \                  { 'name' : 'VimFilerTab',
-      \                    'complete' : 'customlist,vimfiler#complete' },
-      \                  { 'name' : 'VimFilerExplorer',
-      \                    'complete' : 'customlist,vimfiler#complete' },
-      \                  { 'name' : 'Edit',
-      \                    'complete' : 'customlist,vimfiler#complete' },
-      \                  { 'name' : 'Write',
-      \                    'complete' : 'customlist,vimfiler#complete' },
-      \                  'Read', 'Source'],
-      \    'mappings' : '<Plug>(vimfiler_',
-      \    'explorer' : 1,
-      \ }
-      \ })
-call neobundle#config('vimproc', {
-      \ 'build' : {
-      \     'windows' : 'make -f make_mingw32.mak',
-      \     'cygwin' : 'make -f make_cygwin.mak',
-      \     'mac' : 'make -f make_mac.mak',
-      \     'unix' : 'make -f make_unix.mak',
-      \    },
-      \ })
-call neobundle#config('vimshell', {
-      \ 'lazy' : 1,
-      \ 'autoload' : {
-      \   'commands' : [{ 'name' : 'VimShell',
-      \                   'complete' : 'customlist,vimshell#complete'},
-      \                 'VimShellExecute', 'VimShellInteractive',
-      \                 'VimShellCreate',
-      \                 'VimShellTerminal', 'VimShellPop'],
-      \   'mappings' : '<Plug>(vimshell_'
-      \ }})
-call neobundle#config('vinarise.vim', {
-      \ 'lazy' : 1,
-      \ 'autoload' : {
-      \   'commands' : [{
-      \     'name' : 'Vinarise', 'complete' : 'file'
-      \   }]
-      \ }})
-call neobundle#config('vital.vim', {
-      \ 'lazy' : 1,
-      \ 'autoload' : {
-      \     'commands' : ['Vitalize'],
-      \ }})
-call neobundle#config('junkfile.vim', {
-      \ 'lazy' : 1,
-      \ 'autoload' : {
-      \   'commands' : 'JunkfileOpen',
-      \   'unite_sources' : ['junkfile', 'junkfile/new'],
-      \ }})
-call neobundle#config('unite-outline', {
-      \ 'lazy' : 1,
-      \ })
-call neobundle#config('J6uil.vim', {
-      \ 'lazy' : 1,
-      \ 'autoload' : {
-      \   'commands' : {
-      \      'name' : 'J6uil',
-      \      'complete' : 'custom,J6uil#complete#room'},
-      \   'function_prefix' : 'J6uil',
-      \   'unite_sources' : 'J6uil/rooms',
-      \ },
-      \ 'depends' : 'mattn/webapi-vim',
-      \ })
-call neobundle#config('javacomplete', {
-      \ 'lazy' : 1,
-      \ 'build': {
-      \       'cygwin': 'javac autoload/Reflection.java',
-      \       'mac': 'javac autoload/Reflection.java',
-      \       'unix': 'javac autoload/Reflection.java',
-      \   },
-      \ 'autoload' : {
-      \   'filetypes' : 'java',
-      \ }
-      \})
 
