@@ -44,9 +44,6 @@ NeoBundleLazy 'Shougo/unite-build'
 NeoBundleLazy 'Shougo/unite-ssh', {
       \ 'filetypes' : 'vimfiler',
       \ }
-NeoBundleLazy 'majkinetor/unite-cmdmatch' , {
-      \ 'depends':  'Shougo/unite.vim',
-      \ 'mappings' : [['c', '<Plug>(unite_cmdmatch_complete)']] }
 NeoBundle 'Shougo/neomru.vim'
 
 NeoBundleLazy 'ujihisa/vimshell-ssh', {

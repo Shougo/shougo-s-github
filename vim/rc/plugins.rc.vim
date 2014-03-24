@@ -207,8 +207,6 @@ function! bundle.hooks.on_source(bundle)
   let g:ref_use_vimproc = 1
   if IsWindows()
     let g:ref_refe_encoding = 'cp932'
-  else
-    let g:ref_refe_encoding = 'euc-jp'
   endif
 
   " ref-lynx.
