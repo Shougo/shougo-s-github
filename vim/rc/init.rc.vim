@@ -41,8 +41,10 @@ if !exists($MYGVIMRC)
   let $MYGVIMRC = expand('~/.vim/gvimrc')
 endif
 
-if !isdirectory(expand('~/.cache'))
-  call mkdir(expand('~/.cache'), 'p')
+let $CACHE = expand('~/.cache')
+
+if !isdirectory(expand($CACHE))
+  call mkdir(expand($CACHE), 'p')
 endif
 
 " Set augroup.
@@ -54,7 +56,7 @@ if filereadable(expand('~/.secret_vimrc'))
   execute 'source' expand('~/.secret_vimrc')
 endif
 
-let s:neobundle_dir = expand('~/.cache/neobundle')
+let s:neobundle_dir = expand('$CACHE/neobundle')
 
 if has('vim_starting') "{{{
   " Set runtimepath.

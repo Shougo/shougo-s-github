@@ -206,7 +206,7 @@ let python_highlight_all = 1
 " ref.vim"{{{
 let bundle = neobundle#get('vim-ref')
 function! bundle.hooks.on_source(bundle)
-  let g:ref_cache_dir = expand('~/.cache/ref')
+  let g:ref_cache_dir = expand('$CACHE/ref')
   let g:ref_use_vimproc = 1
   if IsWindows()
     let g:ref_refe_encoding = 'cp932'
@@ -251,10 +251,10 @@ imap <C-j>     <Plug>(eskk:toggle)
 
 let bundle = neobundle#get('eskk.vim')
 function! bundle.hooks.on_source(bundle)
-  let g:eskk#directory = expand('~/.cache/eskk')
+  let g:eskk#directory = expand('$CACHE/eskk')
 
   let g:eskk#large_dictionary = {
-        \   'path': expand('~/.cache/SKK-JISYO.L'),
+        \   'path': expand('$CACHE/SKK-JISYO.L'),
         \   'sorted': 1,
         \   'encoding': 'euc-jp',
         \}
@@ -281,7 +281,7 @@ function! bundle.hooks.on_source(bundle)
         \ EskkMap -remap jj <Plug>(eskk:disable)<Esc>
 
   let g:eskk#dictionary = {
-  \   'path': expand('~/.cache/skk-jisyo'),
+  \   'path': expand('$CACHE/skk-jisyo'),
   \   'sorted': 0,
   \   'encoding': 'utf-8',
   \}
@@ -317,7 +317,7 @@ unlet bundle
 " j6uil.vim"{{{
 let bundle = neobundle#get('J6uil.vim')
 function! bundle.hooks.on_source(bundle)
-  let g:J6uil_config_dir = expand('~/.cache/J6uil')
+  let g:J6uil_config_dir = expand('$CACHE/J6uil')
   let g:J6uil_no_default_keymappings = 1
   let g:J6uil_display_offline  = 0
   let g:J6uil_display_online   = 0

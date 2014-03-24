@@ -157,7 +157,7 @@ set display=lastline
 "set display+=uhex
 
 " View setting.
-set viewdir=~/.cache/vim_view viewoptions-=options viewoptions+=slash,unix
+set viewdir=$CACHE/vim_view viewoptions-=options viewoptions+=slash,unix
 
 function! s:strwidthpart(str, width) "{{{
   if a:width <= 0

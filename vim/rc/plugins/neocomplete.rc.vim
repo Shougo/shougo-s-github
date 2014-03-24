@@ -34,7 +34,7 @@ let g:neocomplete#enable_cursor_hold_i = 0
 
 let g:neocomplete#sources#dictionary#dictionaries = {
       \ 'default' : '',
-      \ 'vimshell' : $HOME.'/.cache/vimshell/command-history',
+      \ 'vimshell' : $CACHE.'/vimshell/command-history',
       \ }
 
 let g:neocomplete#enable_auto_delimiter = 1

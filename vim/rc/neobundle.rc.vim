@@ -20,13 +20,14 @@ NeoBundleLazy 'Shougo/echodoc.vim', {
       \ }
 
 NeoBundleLazy 'Shougo/neocomplete.vim', {
+      \ 'depends' : 'Shougo/context_filetype.vim',
       \ 'insert' : 1
       \ }
 
 NeoBundleLazy 'Shougo/neocomplcache-rsense'
 
 NeoBundleLazy 'Shougo/neosnippet.vim', {
-      \ 'depends' : 'Shougo/neosnippet-snippets',
+      \ 'depends' : ['Shougo/neosnippet-snippets', 'Shougo/context_filetype.vim'],
       \ 'insert' : 1,
       \ 'filetypes' : 'snippet',
       \ 'unite_sources' : [
