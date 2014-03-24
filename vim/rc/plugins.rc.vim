@@ -117,6 +117,9 @@ if neobundle#tap('unite.vim') "{{{
           \ file_rec/async:! file file/new<CR>
   endif
 
+  nnoremap <expr><silent> [Window]r  ":\<C-u>Unite -start-insert ref/".ref#detect()."\<CR>"
+  nnoremap <silent> [Window]<Space>  :<C-u>Unite -buffer-name=files file_rec:~/.vim/rc<CR>
+
   nnoremap <silent> [Window]f
         \ :<C-u>Unite <CR>
 

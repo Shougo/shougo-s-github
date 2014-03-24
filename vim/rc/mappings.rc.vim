@@ -247,7 +247,6 @@ nnoremap <silent> [Window]c  :<C-u>call <sid>smart_close()<CR>
 nnoremap <silent> -  :<C-u>call <SID>smart_close()<CR>
 nnoremap <silent> [Window]o  :<C-u>only<CR>
 nnoremap <silent> [Window]b  :<C-u>Thumbnail<CR>
-nnoremap <silent> [Window]<Space>  :<C-u>Unite -buffer-name=files file_rec:~/.vim/rc<CR>
 
 " A .vimrc snippet that allows you to move around windows beyond tabs
 nnoremap <silent> <Tab> :call <SID>NextWindow()<CR>
