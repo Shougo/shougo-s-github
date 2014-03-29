@@ -1,6 +1,5 @@
 " Vim color file
 " Maintainer:   Jonathan Filip <jfilip1024@gmail.com>
-" Last Modified: Mon Apr 19, 2010  10:24AM
 " Version: 3.5
 "
 " GUI / 256 color terminal

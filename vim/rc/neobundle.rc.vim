@@ -16,8 +16,8 @@ NeoBundleLazy 'Shougo/echodoc.vim', {
       \ }
 
 " NeoBundle 'Shougo/neocomplcache.vim', {
-      \ 'insert' : 1
-      \ }
+      " \ 'insert' : 1
+      " \ }
 
 NeoBundleLazy 'Shougo/neocomplete.vim', {
       \ 'depends' : 'Shougo/context_filetype.vim',
@@ -245,9 +245,6 @@ NeoBundleLazy 'godlygeek/csapprox', { 'terminal' : 1 }
 NeoBundleLazy 'thinca/vim-guicolorscheme', { 'terminal' : 1 }
 NeoBundleLazy 'tpope/vim-repeat', {
       \ 'mappings' : '.',
-      \ }
-NeoBundleLazy 'autodate.vim', {
-      \ 'filetypes' : 'vim',
       \ }
 
 NeoBundleLazy 'matchit.zip', {

@@ -119,6 +119,7 @@ if neobundle#tap('unite.vim') "{{{
 
   nnoremap <expr><silent> [Window]r  ":\<C-u>Unite -start-insert ref/".ref#detect()."\<CR>"
   nnoremap <silent> [Window]<Space>  :<C-u>Unite -buffer-name=files file_rec:~/.vim/rc<CR>
+  nnoremap <silent> [Window]n  :<C-u>Unite -default-action=lcd neobundle:!<CR>
 
   nnoremap <silent> [Window]f
         \ :<C-u>Unite <CR>
@@ -393,11 +394,6 @@ function! s:init_caw()
   nmap <buffer> gcc <Plug>(caw:i:toggle)
   xmap <buffer> gcc <Plug>(caw:i:toggle)
 endfunction
-"}}}
-
-" autodate.vim"{{{
-let autodate_format = '%d %3m %Y'
-let autodate_keyword_pre = 'Last \%(Change\|Modified\):'
 "}}}
 
 " Conque.vim"{{{

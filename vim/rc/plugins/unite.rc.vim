@@ -168,6 +168,7 @@ function! s:unite_my_settings() "{{{
     nnoremap <silent><buffer><expr> r     unite#do_action('rename')
   endif
 
+  nnoremap <silent><buffer><expr> s     unite#do_action('start')
   nnoremap <silent><buffer><expr> cd     unite#do_action('lcd')
   nnoremap <buffer><expr> S      unite#mappings#set_current_filters(
         \ empty(unite#mappings#get_current_filters()) ? ['sorter_reverse'] : [])
