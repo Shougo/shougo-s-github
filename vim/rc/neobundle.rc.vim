@@ -4,10 +4,10 @@
 
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-NeoBundle 'rhysd/vim-operator-surround', {
+NeoBundleLazy 'rhysd/vim-operator-surround', {
       \   'mappings' : '<Plug>(operator-surround',
       \ }
-NeoBundle 'kana/vim-niceblock', {
+NeoBundleLazy 'kana/vim-niceblock', {
       \   'mappings' : '<Plug>(niceblock-',
       \ }
 
@@ -250,11 +250,6 @@ NeoBundleLazy 'tpope/vim-repeat', {
 NeoBundleLazy 'matchit.zip', {
       \ 'mappings' : [['nxo', '%', 'g%']]
       \ }
-let bundle = neobundle#get('matchit.zip')
-function! bundle.hooks.on_post_source(bundle)
-  silent! execute 'doautocmd Filetype' &filetype
-endfunction
-
 
 NeoBundleLazy 'jiangmiao/simple-javascript-indenter', {
       \ 'filetypes' : 'javascript',
@@ -348,7 +343,7 @@ NeoBundleLazy 't9md/vim-choosewin', {
       \   'mappings' : '<Plug>(choosewin)'
       \ }
 
-NeoBundleLazy 'gcmt/wildfire.vim', {
-      \ 'mappings' : '<Plug>(wildfire-'
+NeoBundleLazy 'fatih/vim-go', {
+      \ 'filetypes' : 'go',
       \ }
 

@@ -4,54 +4,48 @@
 
 if neobundle#tap('neocomplete.vim') "{{{
   let g:neocomplete#enable_at_startup = 1
-  let neobundle#tapped.hooks.on_source =
+  let neobundle#hooks.on_source =
         \ '~/.vim/rc/plugins/neocomplete.rc.vim'
 
   call neobundle#untap()
 endif "}}}
 
-" vim-marching"{{{
-let s:hooks = neobundle#get_hooks('vim-marching')
-function! s:hooks.on_source(bundle)
-  let g:marching_clang_command_option = '-std=c++1y'
-  let g:marching_include_paths = filter(
-        \ split(glob('/usr/include/c++/*'), '\n') +
-        \ split(glob('/usr/include/*/c++/*'), '\n') +
-        \ split(glob('/usr/include/*/'), '\n'),
-        \ 'isdirectory(v:val)')
+if neobundle#tap('vim-marching') "{{{
+  function! neobundle#hooks.on_source(bundle)
+    let g:marching_clang_command_option = '-std=c++1y'
+    let g:marching_include_paths = filter(
+          \ split(glob('/usr/include/c++/*'), '\n') +
+          \ split(glob('/usr/include/*/c++/*'), '\n') +
+          \ split(glob('/usr/include/*/'), '\n'),
+          \ 'isdirectory(v:val)')
 
-  let g:marching_enable_neocomplete = 1
-  if !exists('g:neocomplete#force_omni_input_patterns')
-    let g:neocomplete#force_omni_input_patterns = {}
-  endif
+    let g:marching_enable_neocomplete = 1
+    if !exists('g:neocomplete#force_omni_input_patterns')
+      let g:neocomplete#force_omni_input_patterns = {}
+    endif
 
-  let g:neocomplete#force_omni_input_patterns.cpp =
-        \ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
-endfunction
-unlet s:hooks
-"}}}
+    let g:neocomplete#force_omni_input_patterns.cpp =
+          \ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
+  endfunction
+endif "}}}
 
 if neobundle#tap('neocomplcache.vim') "{{{
   let g:neocomplcache_enable_at_startup = 0
-  let neobundle#tapped.hooks.on_source =
+  let neobundle#hooks.on_source =
         \ '~/.vim/rc/plugins/neocomplcache.rc.vim'
 
   call neobundle#untap()
 endif "}}}
 
 if neobundle#tap('neosnippet.vim') "{{{
-  let neobundle#tapped.hooks.on_source =
+  let neobundle#hooks.on_source =
         \ '~/.vim/rc/plugins/neosnippet.rc.vim'
 
   call neobundle#untap()
 endif "}}}
 
 " echodoc.vim"{{{
-let bundle = neobundle#get('echodoc.vim')
-function! bundle.hooks.on_source(bundle)
-  let g:echodoc_enable_at_startup = 1
-endfunction
-unlet bundle
+let g:echodoc_enable_at_startup = 1
 "}}}
 
 if neobundle#tap('vimshell.vim') "{{{
@@ -61,7 +55,7 @@ if neobundle#tap('vimshell.vim') "{{{
   nnoremap [Space]i  q:VimShellInteractive<Space>
   nnoremap [Space]t  q:VimShellTerminal<Space>
 
-  let neobundle#tapped.hooks.on_source =
+  let neobundle#hooks.on_source =
         \ '~/.vim/rc/plugins/vimshell.rc.vim'
 
   call neobundle#untap()
@@ -97,7 +91,7 @@ if neobundle#tap('unite.vim') "{{{
   nnoremap <silent> <C-k>
         \ :<C-u>Unite change jump<CR>
   nnoremap <silent><expr> ;g
-        \ ":\<C-u>Unite grep -buffer-name=grep%".tabpagenr()." -auto-preview -no-quit -no-empty -resume\<CR>"
+        \ ":\<C-u>Unite grep -buffer-name=grep%".tabpagenr()." -auto-preview -no-split -no-empty -resume\<CR>"
   nnoremap <silent> ;r
         \ :<C-u>Unite -buffer-name=register register history/yank<CR>
 
@@ -168,7 +162,7 @@ if neobundle#tap('unite.vim') "{{{
   nnoremap <silent><expr> n
         \ ":\<C-u>UniteResume search%".bufnr('%')." -no-start-insert\<CR>"
 
-  let neobundle#tapped.hooks.on_source =
+  let neobundle#hooks.on_source =
         \ '~/.vim/rc/plugins/unite.rc.vim'
 
   call neobundle#untap()
@@ -185,7 +179,7 @@ omap <silent> B <Plug>CamelCaseMotion_b
 
 if neobundle#tap('vim-smartchr') "{{{
   let g:neocomplete#enable_at_startup = 1
-  let neobundle#tapped.hooks.on_source =
+  let neobundle#hooks.on_source =
         \ '~/.vim/rc/plugins/smartchr.rc.vim'
 
   call neobundle#untap()
@@ -204,152 +198,145 @@ nmap <silent> <Leader>r <Plug>(quickrun)
 " python.vim
 let python_highlight_all = 1
 
-" ref.vim"{{{
-let bundle = neobundle#get('vim-ref')
-function! bundle.hooks.on_source(bundle)
-  let g:ref_cache_dir = expand('$CACHE/ref')
-  let g:ref_use_vimproc = 1
-  if IsWindows()
-    let g:ref_refe_encoding = 'cp932'
-  endif
+if neobundle#tap('vim-ref') "{{{
+  function! neobundle#hooks.on_source(bundle)
+    let g:ref_cache_dir = expand('$CACHE/ref')
+    let g:ref_use_vimproc = 1
+    if IsWindows()
+      let g:ref_refe_encoding = 'cp932'
+    endif
 
-  " ref-lynx.
-  if IsWindows()
-    let lynx = 'C:/lynx/lynx.exe'
-    let cfg  = 'C:/lynx/lynx.cfg'
-    let g:ref_lynx_cmd = s:lynx.' -cfg='.s:cfg.' -dump -nonumbers %s'
-    let g:ref_alc_cmd = s:lynx.' -cfg='.s:cfg.' -dump %s'
-  endif
+    " ref-lynx.
+    if IsWindows()
+      let lynx = 'C:/lynx/lynx.exe'
+      let cfg  = 'C:/lynx/lynx.cfg'
+      let g:ref_lynx_cmd = s:lynx.' -cfg='.s:cfg.' -dump -nonumbers %s'
+      let g:ref_alc_cmd = s:lynx.' -cfg='.s:cfg.' -dump %s'
+    endif
 
-  let g:ref_lynx_use_cache = 1
-  let g:ref_lynx_start_linenumber = 0 " Skip.
-  let g:ref_lynx_hide_url_number = 0
+    let g:ref_lynx_use_cache = 1
+    let g:ref_lynx_start_linenumber = 0 " Skip.
+    let g:ref_lynx_hide_url_number = 0
 
-  autocmd MyAutoCmd FileType ref call s:ref_my_settings()
-  function! s:ref_my_settings() "{{{
-    " Overwrite settings.
-    nmap <buffer> [Tag]t  <Plug>(ref-keyword)
-    nmap <buffer> [Tag]p  <Plug>(ref-back)
-  endfunction"}}}
-endfunction
-
-unlet bundle
-"}}}
+    autocmd MyAutoCmd FileType ref call s:ref_my_settings()
+    function! s:ref_my_settings() "{{{
+      " Overwrite settings.
+      nmap <buffer> [Tag]t  <Plug>(ref-keyword)
+      nmap <buffer> [Tag]p  <Plug>(ref-back)
+    endfunction"}}}
+  endfunction
+endif"}}}
 
 if neobundle#tap('vimfiler.vim') "{{{
   "nmap    [Space]v   <Plug>(vimfiler_switch)
   nnoremap <silent>   [Space]v   :<C-u>VimFiler -find<CR>
   nnoremap    [Space]ff   :<C-u>VimFilerExplorer<CR>
 
-  let neobundle#tapped.hooks.on_source =
+  let neobundle#hooks.on_source =
         \ '~/.vim/rc/plugins/vimfiler.rc.vim'
 
   call neobundle#untap()
 endif "}}}
 
-" eskk.vim"{{{
-imap <C-j>     <Plug>(eskk:toggle)
+if neobundle#tap('eskk.vim') "{{{
+  imap <C-j>     <Plug>(eskk:toggle)
 
-let bundle = neobundle#get('eskk.vim')
-function! bundle.hooks.on_source(bundle)
-  let g:eskk#directory = expand('$CACHE/eskk')
+  function! neobundle#hooks.on_source(bundle)
+    let g:eskk#directory = expand('$CACHE/eskk')
 
-  let g:eskk#large_dictionary = {
-        \   'path': expand('$CACHE/SKK-JISYO.L'),
-        \   'sorted': 1,
-        \   'encoding': 'euc-jp',
-        \}
-  " Disable skk.vim
-  let g:plugin_skk_disable = 1
+    let g:eskk#large_dictionary = {
+          \   'path': expand('$CACHE/SKK-JISYO.L'),
+          \   'sorted': 1,
+          \   'encoding': 'euc-jp',
+          \}
+    " Disable skk.vim
+    let g:plugin_skk_disable = 1
 
-  let g:eskk#debug = 0
+    let g:eskk#debug = 0
 
-  " Don't keep state.
-  let g:eskk#keep_state = 0
+    " Don't keep state.
+    let g:eskk#keep_state = 0
 
-  let g:eskk#show_annotation = 1
-  let g:eskk#rom_input_style = 'msime'
-  let g:eskk#egg_like_newline = 1
-  let g:eskk#egg_like_newline_completion = 1
+    let g:eskk#show_annotation = 1
+    let g:eskk#rom_input_style = 'msime'
+    let g:eskk#egg_like_newline = 1
+    let g:eskk#egg_like_newline_completion = 1
 
-  " Disable mapping.
-  "let g:eskk#map_normal_keys = 0
+    " Disable mapping.
+    "let g:eskk#map_normal_keys = 0
 
-  " Toggle debug.
-  nnoremap <silent> [Space]ed  :<C-u>call ToggleVariable('g:eskk#debug')<CR>
+    " Toggle debug.
+    nnoremap <silent> [Space]ed  :<C-u>call ToggleVariable('g:eskk#debug')<CR>
 
-  autocmd MyAutoCmd User eskk-initialize-post
-        \ EskkMap -remap jj <Plug>(eskk:disable)<Esc>
+    autocmd MyAutoCmd User eskk-initialize-post
+          \ EskkMap -remap jj <Plug>(eskk:disable)<Esc>
 
-  let g:eskk#dictionary = {
-  \   'path': expand('$CACHE/skk-jisyo'),
-  \   'sorted': 0,
-  \   'encoding': 'utf-8',
-  \}
-  " Use /bin/sh -c "VTE_CJK_WIDTH=1 gnome-terminal --disable-factory"
-  " instead of this settings.
-  "if &encoding == 'utf-8' && !has('gui_running')
-  " GNOME Terminal only.
+    let g:eskk#dictionary = {
+          \   'path': expand('$CACHE/skk-jisyo'),
+          \   'sorted': 0,
+          \   'encoding': 'utf-8',
+          \}
+    " Use /bin/sh -c "VTE_CJK_WIDTH=1 gnome-terminal --disable-factory"
+    " instead of this settings.
+    "if &encoding == 'utf-8' && !has('gui_running')
+    " GNOME Terminal only.
 
-  " Use <> instead of ▽.
-  "let g:eskk#marker_henkan = '<>'
-  " Use >> instead of ▼.
-  "let g:eskk#marker_henkan_select = '>>'
-  "endif
+    " Use <> instead of ▽.
+    "let g:eskk#marker_henkan = '<>'
+    " Use >> instead of ▼.
+    "let g:eskk#marker_henkan_select = '>>'
+    "endif
 
-  " Define table.
-  autocmd MyAutoCmd User eskk-initialize-pre call s:eskk_initial_pre()
-  function! s:eskk_initial_pre() "{{{
-    let t = eskk#table#new('rom_to_hira*', 'rom_to_hira')
-    call t.add_map('z ', '　')
-    call t.add_map('~', '〜')
-    call t.add_map('zc', '©')
-    call t.add_map('zr', '®')
-    call t.add_map('z9', '（')
-    call t.add_map('z0', '）')
-    call eskk#register_mode_table('hira', t)
-    unlet t
-  endfunction "}}}
-endfunction
-
-unlet bundle
-"}}}
-
-" j6uil.vim"{{{
-let bundle = neobundle#get('J6uil.vim')
-function! bundle.hooks.on_source(bundle)
-  let g:J6uil_config_dir = expand('$CACHE/J6uil')
-  let g:J6uil_no_default_keymappings = 1
-  let g:J6uil_display_offline  = 0
-  let g:J6uil_display_online   = 0
-  let g:J6uil_echo_presence    = 1
-  let g:J6uil_display_icon     = 1
-  let g:J6uil_display_interval = 0
-  let g:J6uil_updatetime       = 1000
-  let g:J6uil_align_message    = 0
-
-  silent! delcommand NeoComplCacheCachingBuffer
-
-  autocmd MyAutoCmd FileType J6uil call s:j6uil_settings()
-  autocmd MyAutoCmd FileType J6uil_say call s:j6uil_say_settings()
-
-  function! s:j6uil_settings()
-    setlocal wrap
-    setlocal nofoldenable
-    setlocal foldcolumn=0
-    nmap <buffer> o <Plug>(J6uil_open_say_buffer)
-    nmap <silent> <buffer> <CR> <Plug>(J6uil_action_enter)
-    call neocomplete#initialize()
-    NeoCompleteBufferMakeCache
+    " Define table.
+    autocmd MyAutoCmd User eskk-initialize-pre call s:eskk_initial_pre()
+    function! s:eskk_initial_pre() "{{{
+      let t = eskk#table#new('rom_to_hira*', 'rom_to_hira')
+      call t.add_map('z ', '　')
+      call t.add_map('~', '〜')
+      call t.add_map('zc', '©')
+      call t.add_map('zr', '®')
+      call t.add_map('z9', '（')
+      call t.add_map('z0', '）')
+      call eskk#register_mode_table('hira', t)
+      unlet t
+    endfunction "}}}
   endfunction
+endif "}}}
 
-  function! s:j6uil_say_settings()
-    setlocal wrap
-    setlocal nofoldenable
-    setlocal foldcolumn=0
+if neobundle#tap('J6uil.vim') "{{{
+  function! neobundle#hooks.on_source(bundle)
+    let g:J6uil_config_dir = expand('$CACHE/J6uil')
+    let g:J6uil_no_default_keymappings = 1
+    let g:J6uil_display_offline  = 0
+    let g:J6uil_display_online   = 0
+    let g:J6uil_echo_presence    = 1
+    let g:J6uil_display_icon     = 1
+    let g:J6uil_display_interval = 0
+    let g:J6uil_updatetime       = 1000
+    let g:J6uil_align_message    = 0
+
+    silent! delcommand NeoComplCacheCachingBuffer
+
+    autocmd MyAutoCmd FileType J6uil call s:j6uil_settings()
+    autocmd MyAutoCmd FileType J6uil_say call s:j6uil_say_settings()
+
+    function! s:j6uil_settings()
+      setlocal wrap
+      setlocal nofoldenable
+      setlocal foldcolumn=0
+      nmap <buffer> o <Plug>(J6uil_open_say_buffer)
+      nmap <silent> <buffer> <CR> <Plug>(J6uil_action_enter)
+      call neocomplete#initialize()
+      NeoCompleteBufferMakeCache
+    endfunction
+
+    function! s:j6uil_say_settings()
+      setlocal wrap
+      setlocal nofoldenable
+      setlocal foldcolumn=0
+    endfunction
   endfunction
-endfunction
-"}}}
+endif "}}}
 
 " surround.vim"{{{
 nmap <silent>sa <Plug>(operator-surround-append)
@@ -363,7 +350,7 @@ autocmd MyAutoCmd FileType qf nnoremap <buffer> r :<C-u>Qfreplace<CR>
 if neobundle#tap('open-browser.vim') "{{{
   nmap gs <Plug>(open-browser-wwwsearch)
 
-  function! neobundle#tapped.hooks.on_source(bundle)
+  function! neobundle#hooks.on_source(bundle)
     nnoremap <Plug>(open-browser-wwwsearch)
           \ :<C-u>call <SID>www_search()<CR>
     function! s:www_search()
@@ -459,40 +446,32 @@ nmap <Left>    <Plug>(winmove-left)
 nmap <Right>   <Plug>(winmove-right)
 "}}}
 
-if neobundle#tap('vim-smalls')
+if neobundle#tap('vim-smalls') "{{{
   nmap S <Plug>(smalls)
 
   call neobundle#untap()
-endif
+endif "}}}
 
-if neobundle#tap('concealedyank.vim')
+if neobundle#tap('concealedyank.vim') "{{{
   xmap Y <Plug>(operator-concealedyank)
-endif
+endif "}}}
 
-if neobundle#tap('vim-vcs')
+if neobundle#tap('vim-vcs') "{{{
   nnoremap <silent> [Space]gs  :<C-u>Vcs status<CR>
   nnoremap <silent> [Space]gc  :<C-u>Vcs commit<CR>
 
   call neobundle#untap()
-endif
+endif "}}}
 
-if neobundle#tap('vim-choosewin')
+if neobundle#tap('vim-choosewin') "{{{
   nmap <C-w>  <Plug>(choosewin)
   let g:choosewin_overlay_enable = 1
   let g:choosewin_overlay_clear_multibyte = 1
   let g:choosewin_blink_on_land = 0
-endif
+endif "}}}
 
-" wildfire
-nmap <Enter>      <Plug>(wildfire-fuel)
-vmap <Enter>      <Plug>(wildfire-fuel)
-vmap <S-Enter>    <Plug>(wildfire-water)
-
-if !exists('g:wildfire_objects')
-  let g:wildfire_objects = [
-        \ 'i''', 'i"', 'i)', 'a)', 'i]', 'a]',
-        \ 'i}', 'a}', 'i>', 'a>', 'ip', 'it',
-        \ 'at'
-        \]
-endif
-
+if neobundle#tap('matchit.zip') "{{{
+  function! neobundle#hooks.on_post_source(bundle)
+    silent! execute 'doautocmd Filetype' &filetype
+  endfunction
+endif "}}}

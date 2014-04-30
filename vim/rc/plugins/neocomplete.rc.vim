@@ -123,7 +123,9 @@ function! s:my_cr_function()
 endfunction
 
 " <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" :
+inoremap <expr><TAB>  neocomplete#mappings#complete_common_string() != '' ?
+      \   neocomplete#mappings#complete_common_string() :
+      \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ neocomplete#start_manual_complete()
 function! s:check_back_space() "{{{

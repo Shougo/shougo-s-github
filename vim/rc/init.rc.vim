@@ -87,8 +87,6 @@ endif
 let g:neobundle#default_options = {}
 " let g:neobundle#default_options._ = { 'verbose' : 1, 'focus' : 1 }
 
-call neobundle#rc(s:neobundle_dir)
-
 " Disable menu.vim
 if has('gui_running')
   set guioptions=Mc

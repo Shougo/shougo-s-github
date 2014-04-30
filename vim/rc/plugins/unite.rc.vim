@@ -98,7 +98,7 @@ call unite#custom#source('line_migemo', 'matchers', 'matcher_migemo')
 " Custom filters."{{{
 call unite#custom#source(
       \ 'buffer,file_rec,file_rec/async', 'matchers',
-      \ ['matcher_fuzzy'])
+      \ ['converter_relative_word', 'matcher_fuzzy'])
 call unite#custom#source(
       \ 'file_mru', 'matchers',
       \ ['matcher_project_files', 'matcher_fuzzy'])

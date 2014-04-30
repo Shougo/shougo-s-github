@@ -32,6 +32,9 @@ endfunction
 
 call s:source_rc('init.rc.vim')
 
+" call neobundle#rc(expand('$CACHE/neobundle'))
+call neobundle#begin(expand('$CACHE/neobundle'))
+
 if neobundle#has_cache()
   NeoBundleLoadCache
 else
@@ -50,6 +53,8 @@ NeoBundleLocal ~/.vim/bundle
 
 " NeoBundle configurations.
 " NeoBundleDisable neocomplcache.vim
+
+call neobundle#end()
 
 filetype plugin indent on
 
