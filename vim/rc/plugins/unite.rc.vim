@@ -145,9 +145,6 @@ function! s:unite_my_settings() "{{{
   imap <buffer> <C-w>     <Plug>(unite_delete_backward_path)
   imap <buffer> '     <Plug>(unite_quick_match_default_action)
   nmap <buffer> '     <Plug>(unite_quick_match_default_action)
-  imap <buffer><expr> x
-        \ unite#smart_map('x', "\<Plug>(unite_quick_match_choose_action)")
-  nmap <buffer> x     <Plug>(unite_quick_match_choose_action)
   nmap <buffer> cd     <Plug>(unite_quick_match_default_action)
   nmap <buffer> <C-z>     <Plug>(unite_toggle_transpose_window)
   imap <buffer> <C-z>     <Plug>(unite_toggle_transpose_window)
@@ -168,7 +165,7 @@ function! s:unite_my_settings() "{{{
     nnoremap <silent><buffer><expr> r     unite#do_action('rename')
   endif
 
-  nnoremap <silent><buffer><expr> s     unite#do_action('start')
+  nnoremap <silent><buffer><expr> x     unite#do_action('start')
   nnoremap <silent><buffer><expr> cd     unite#do_action('lcd')
   nnoremap <buffer><expr> S      unite#mappings#set_current_filters(
         \ empty(unite#mappings#get_current_filters()) ? ['sorter_reverse'] : [])

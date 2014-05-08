@@ -123,7 +123,7 @@ function! s:my_cr_function()
 endfunction
 
 " <TAB>: completion.
-inoremap <expr><TAB>  neocomplete#mappings#complete_common_string() != '' ?
+inoremap <silent><expr><TAB>  neocomplete#mappings#complete_common_string() != '' ?
       \   neocomplete#mappings#complete_common_string() :
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :

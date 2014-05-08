@@ -125,7 +125,7 @@ endfunction"}}}
 
 function! s:my_on_filetype() "{{{
   " Disable automatically insert comment.
-  setl formatoptions-=ro | setl formatoptions+=mM
+  setl formatoptions-=ro | setl formatoptions+=mMBl
 
   " Disable auto wrap.
   if &l:textwidth != 70 && &filetype !=# 'help'
