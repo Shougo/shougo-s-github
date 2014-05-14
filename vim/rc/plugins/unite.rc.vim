@@ -97,7 +97,7 @@ call unite#custom#source('line_migemo', 'matchers', 'matcher_migemo')
 
 " Custom filters."{{{
 call unite#custom#source(
-      \ 'buffer,file_rec,file_rec/async', 'matchers',
+      \ 'buffer,file_rec,file_rec/async,file_rec/git', 'matchers',
       \ ['converter_relative_word', 'matcher_fuzzy'])
 call unite#custom#source(
       \ 'file_mru', 'matchers',
@@ -106,7 +106,7 @@ call unite#custom#source(
 "       \ 'file', 'matchers',
 "       \ ['matcher_fuzzy', 'matcher_hide_hidden_files'])
 call unite#custom#source(
-      \ 'file_rec/async,file_mru', 'converters',
+      \ 'file_rec,file_rec/async,file_rec/git,file_mru', 'converters',
       \ ['converter_file_directory'])
 call unite#filters#sorter_default#use(['sorter_rank'])
 "}}}

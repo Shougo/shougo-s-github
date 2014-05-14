@@ -99,17 +99,10 @@ if neobundle#tap('unite.vim') "{{{
   nnoremap <silent><expr> <C-t>
         \ ":\<C-u>Unite -select=".(tabpagenr()-1)." tab\<CR>"
 
-  if IsWindows()
-    nnoremap <silent> [Window]s
-          \ :<C-u>Unite -buffer-name=files -no-split -multi-line -unique
-          \ jump_point file_point buffer_tab file_mru
-          \ file_rec:! file file/new<CR>
-  else
-    nnoremap <silent> [Window]s
-          \ :<C-u>Unite -buffer-name=files -no-split -multi-line -unique
-          \ jump_point file_point buffer_tab file_mru
-          \ file_rec/async:! file file/new<CR>
-  endif
+  nnoremap <silent> [Window]s
+        \ :<C-u>Unite -buffer-name=files -no-split -multi-line -unique
+        \ jump_point file_point buffer_tab file_mru
+        \ file_rec/git file file/new<CR>
 
   nnoremap <expr><silent> [Window]r  ":\<C-u>Unite -start-insert ref/".ref#detect()."\<CR>"
   nnoremap <silent> [Window]<Space>  :<C-u>Unite -buffer-name=files file_rec:~/.vim/rc<CR>
