@@ -42,8 +42,9 @@ NeoBundleLazy 'Shougo/unite.vim', {
       \                 'UniteWithCursorWord', 'UniteWithInput']
       \ }
 NeoBundleLazy 'Shougo/unite-build'
-NeoBundleLazy 'Shougo/unite-ssh', {
+NeoBundleLazy 'Shougo/neossh.vim', {
       \ 'filetypes' : 'vimfiler',
+      \ 'sources' : 'ssh',
       \ }
 NeoBundle 'Shougo/neomru.vim'
 

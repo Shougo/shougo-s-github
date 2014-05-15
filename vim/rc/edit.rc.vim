@@ -73,10 +73,10 @@ set isfname-==
 
 " Reload .vimrc and .gvimrc automatically.
 autocmd MyAutoCmd BufWritePost .vimrc,vimrc,*.rc.vim
-      \ NeoBundleClearCache | source $MYVIMRC |
-      \ if has('gui_running') | source $MYGVIMRC | echo "source $MYVIMRC"
+      \ NeoBundleClearCache | silent source $MYVIMRC |
+      \ if has('gui_running') | silent source $MYGVIMRC
 autocmd MyAutoCmd BufWritePost .gvimrc,gvimrc
-      \ if has('gui_running') | source $MYGVIMRC | echo "source $MYGVIMRC"
+      \ if has('gui_running') | silent source $MYGVIMRC
 
 " Keymapping timeout.
 set timeout timeoutlen=3000 ttimeoutlen=100
