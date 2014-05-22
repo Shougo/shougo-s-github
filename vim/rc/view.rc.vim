@@ -108,6 +108,9 @@ set showfulltag
 " Can supplement a tag in a command-line.
 set wildoptions=tagfile
 
+" Disable menu
+let g:did_install_default_menus = 1
+
 if !&verbose
   " Enable spell check.
   set spelllang=en_us
