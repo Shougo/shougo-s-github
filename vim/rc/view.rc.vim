@@ -71,7 +71,7 @@ function! s:my_tabline()  "{{{
   return s
 endfunction "}}}
 let &tabline = '%!'. s:SID_PREFIX() . 'my_tabline()'
-set showtabline=2
+set showtabline=0
 
 " Set statusline.
 let &statusline="%{winnr('$')>1?'['.winnr().'/'.winnr('$')"

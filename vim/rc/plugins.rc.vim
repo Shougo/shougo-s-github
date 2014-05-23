@@ -97,7 +97,7 @@ if neobundle#tap('unite.vim') "{{{
 
   " <C-t>: Tab pages
   nnoremap <silent><expr> <C-t>
-        \ ":\<C-u>Unite -select=".(tabpagenr()-1)." tab\<CR>"
+        \ ":\<C-u>Unite -auto-resize -select=".(tabpagenr()-1)." tab\<CR>"
 
   nnoremap <silent> [Window]s
         \ :<C-u>Unite -buffer-name=files -no-split -multi-line -unique

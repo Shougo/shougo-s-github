@@ -54,7 +54,7 @@ set foldenable
 " set foldmethod=expr
 set foldmethod=marker
 " Show folding level.
-set foldcolumn=3
+set foldcolumn=1
 set fillchars=vert:\|
 set commentstring=%s
 

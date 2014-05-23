@@ -30,9 +30,8 @@ highlight Question     gui=BOLD guifg=#e8e800 guibg=#2c2c2c
 
 " Split area
 highlight StatusLine   gui=BOLD guifg=#151505 guibg=#c8c8d8
-"highlight StatusLineNC gui=NONE guifg=#808090 guibg=#c8c8d8
 highlight StatusLineNC gui=REVERSE guifg=#151505 guibg=#c8c8d8
-highlight VertSplit    gui=NONE guifg=#606080 guibg=#c8c8d8
+highlight VertSplit    gui=NONE guifg=#606080 guibg=#2c2c2c
 highlight WildMenu     gui=NONE guifg=#252525 guibg=#a0a0ff
 
 " Diff
@@ -49,7 +48,7 @@ highlight CursorIM     gui=NONE guifg=NONE guibg=#bb00aa
 
 " Fold
 highlight Folded       gui=NONE guifg=#40f0f0 guibg=#106090
-highlight FoldColumn   gui=NONE guifg=#40c0ff guibg=#10406c
+highlight FoldColumn   gui=NONE guifg=#40c0ff guibg=#2c2c2c
 
 " Other
 highlight Directory    gui=NONE guifg=#40f0d0 guibg=#2c2c2c
