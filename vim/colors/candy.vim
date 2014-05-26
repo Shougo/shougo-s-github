@@ -2,7 +2,6 @@
 " FILE: candy.vim
 " Maintainer: Tiza
 "             Shougo Matsushita
-" Last Change: 17 Feb 2014.
 " This color scheme uses a dark background.
 "=============================================================================
 
@@ -15,7 +14,7 @@ endif
 
 let colors_name = 'candy'
 
-highlight Normal       guifg=#dfdfdf guibg=#2c2c2c
+highlight Normal       gui=NONE guifg=#dfdfdf guibg=#2c2c2c
 
 " Search
 highlight IncSearch    gui=UNDERLINE guifg=#80ffff guibg=#0060c0
@@ -57,6 +56,8 @@ highlight NonText      gui=BOLD guifg=#4080ff guibg=#2c2c2c
 highlight SpecialKey   gui=BOLD guifg=#8080ff guibg=#2c2c2c
 highlight Title        gui=BOLD guifg=#f0f0f8 guibg=#2c2c2c
 highlight Visual       gui=NONE guifg=#e0e0f0 guibg=#707080
+highlight ColorColumn  gui=NONE guifg=NONE    guibg=#444444
+highlight SignColumn   gui=NONE guifg=NONE    guibg=#2c2c2c
 
 " Syntax group
 highlight Comment      gui=NONE guifg=#c7c7f9 guibg=#2c2c2c
@@ -70,7 +71,6 @@ highlight Statement    gui=NONE guifg=#ffa0ff guibg=#2c2c2c
 highlight Todo         gui=BOLD,UNDERLINE guifg=#ffa0a0 guibg=#2c2c2c
 highlight Type         gui=NONE guifg=#ffc864 guibg=#2c2c2c
 highlight Underlined   gui=UNDERLINE guifg=#f0f0f8 guibg=#2c2c2c
-highlight ColorColumn  gui=NONE guifg=NONE guibg=#444444
 
 " HTML
 highlight htmlLink                 gui=UNDERLINE
