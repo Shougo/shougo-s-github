@@ -103,6 +103,20 @@ endif
 " mzscheme: m
 let g:vimsyn_folding = 'af'
 
+" http://mattn.kaoriya.net/software/vim/20140523124903.htm
+let g:markdown_fenced_languages = [
+      \  'coffee',
+      \  'css',
+      \  'erb=eruby',
+      \  'javascript',
+      \  'js=javascript',
+      \  'json=javascript',
+      \  'ruby',
+      \  'sass',
+      \  'xml',
+      \  'vim',
+      \]
+
 " Syntax highlight for user commands.
 augroup syntax-highlight-extends
   autocmd!
