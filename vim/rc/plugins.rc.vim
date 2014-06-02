@@ -100,7 +100,7 @@ if neobundle#tap('unite.vim') "{{{
         \ ":\<C-u>Unite -auto-resize -select=".(tabpagenr()-1)." tab\<CR>"
 
   nnoremap <silent> [Window]s
-        \ :<C-u>Unite -buffer-name=files -no-split -multi-line -unique
+        \ :<C-u>Unite -buffer-name=files -no-split -multi-line -unique -silent
         \ jump_point file_point buffer_tab file_mru
         \ file_rec/git file file/new<CR>
 
