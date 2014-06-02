@@ -101,7 +101,7 @@ if neobundle#tap('unite.vim') "{{{
 
   nnoremap <silent> [Window]s
         \ :<C-u>Unite -buffer-name=files -no-split -multi-line -unique -silent
-        \ jump_point file_point buffer_tab file_mru
+        \ jump_point file_point buffer_tab:- file_mru
         \ file_rec/git file file/new<CR>
 
   nnoremap <expr><silent> [Window]r  ":\<C-u>Unite -start-insert ref/".ref#detect()."\<CR>"
