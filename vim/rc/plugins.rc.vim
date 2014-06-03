@@ -468,3 +468,7 @@ if neobundle#tap('matchit.zip') "{{{
     silent! execute 'doautocmd Filetype' &filetype
   endfunction
 endif "}}}
+
+" vim-fullscreen
+nmap <C-CR> <Plug>(fullscreen-toggle)
+
