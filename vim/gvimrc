@@ -149,48 +149,8 @@ set guioptions-=rL
 " Not guitablabel.
 set guioptions-=e
 
-" fullscreen
-"-----------------------------------------------------------
-nnoremap <silent> <F11> :<C-u>call <SID>toggle_full_secreen()<CR>
-function! s:toggle_full_secreen()
-  if &guioptions =~# 'C'
-    set guioptions-=C
-    if exists('s:go_temp')
-      if s:go_temp =~# 'm'
-        set guioptions+=m
-      endif
-      if s:go_temp =~# 'T'
-        set guioptions+=T
-      endif
-    endif
-    if has('win32') || has('win64')
-      simalt ~r
-    endif
-
-    let [&lines, &columns] = [s:lines_save, s:columns_save]
-  else
-    let s:go_temp = &guioptions
-    set guioptions+=C
-    set guioptions-=m
-    set guioptions-=T
-    if has('win32') || has('win64')
-      simalt ~x
-    endif
-
-    let [s:lines_save, s:columns_save] = [&lines, &columns]
-
-    set columns=999
-    set lines=999
-  endif
-endfunction
-
 " Confirm without window.
 set guioptions+=c
-
-if has('kaoriya')
-  " For Kaoriya only.
-  "set guioptions+=C
-endif
 "}}}
 
 "---------------------------------------------------------------------------
