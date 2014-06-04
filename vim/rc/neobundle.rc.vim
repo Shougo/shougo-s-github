@@ -350,9 +350,6 @@ NeoBundleLazy 'fatih/vim-go', {
 
 NeoBundleLazy 'lambdalisue/vim-fullscreen', {
         \ 'gui': 1,
-        \ 'build': {
-        \   'unix': 'sudo apt-get install wmctrl'
-        \ },
         \ 'autoload': {
         \   'commands': [
         \     'FullscreenStart',
