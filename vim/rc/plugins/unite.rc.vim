@@ -139,16 +139,15 @@ function! s:unite_my_settings() "{{{
 
   " Overwrite settings.
   imap <buffer>  <BS>      <Plug>(unite_delete_backward_path)
-  imap <buffer>  jj      <Plug>(unite_insert_leave)
-  imap <buffer><expr> j unite#smart_map('j', '')
-  imap <buffer> <TAB>   <Plug>(unite_select_next_line)
-  imap <buffer> <C-w>     <Plug>(unite_delete_backward_path)
-  imap <buffer> '     <Plug>(unite_quick_match_default_action)
-  nmap <buffer> '     <Plug>(unite_quick_match_default_action)
-  nmap <buffer> cd     <Plug>(unite_quick_match_default_action)
-  nmap <buffer> <C-z>     <Plug>(unite_toggle_transpose_window)
-  imap <buffer> <C-z>     <Plug>(unite_toggle_transpose_window)
-  nmap <buffer> <C-j>     <Plug>(unite_toggle_auto_preview)
+  imap <buffer>  jj        <Plug>(unite_insert_leave)
+  imap <buffer>  <Tab>     <Plug>(unite_complete)
+  imap <buffer> <C-w>      <Plug>(unite_delete_backward_path)
+  imap <buffer> '          <Plug>(unite_quick_match_default_action)
+  nmap <buffer> '          <Plug>(unite_quick_match_default_action)
+  nmap <buffer> cd         <Plug>(unite_quick_match_default_action)
+  nmap <buffer> <C-z>      <Plug>(unite_toggle_transpose_window)
+  imap <buffer> <C-z>      <Plug>(unite_toggle_transpose_window)
+  nmap <buffer> <C-j>      <Plug>(unite_toggle_auto_preview)
   nnoremap <silent><buffer> <Tab>     <C-w>w
   nnoremap <silent><buffer><expr> l
         \ unite#smart_map('l', unite#do_action('default'))
