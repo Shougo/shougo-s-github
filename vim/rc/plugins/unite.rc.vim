@@ -148,15 +148,10 @@ function! s:unite_my_settings() "{{{
   nmap <buffer> cd     <Plug>(unite_quick_match_default_action)
   nmap <buffer> <C-z>     <Plug>(unite_toggle_transpose_window)
   imap <buffer> <C-z>     <Plug>(unite_toggle_transpose_window)
-  " imap <buffer> <C-y>     <Plug>(unite_narrowing_path)
-  " nmap <buffer> <C-y>     <Plug>(unite_narrowing_path)
   nmap <buffer> <C-j>     <Plug>(unite_toggle_auto_preview)
-  " nmap <buffer> <C-r>     <Plug>(unite_narrowing_input_history)
-  " imap <buffer> <C-r>     <Plug>(unite_narrowing_input_history)
   nnoremap <silent><buffer> <Tab>     <C-w>w
   nnoremap <silent><buffer><expr> l
         \ unite#smart_map('l', unite#do_action('default'))
-  " nmap <buffer> <C-e>     <Plug>(unite_narrowing_input_history)
 
   let unite = unite#get_current_unite()
   if unite.profile_name ==# '^search'
@@ -166,6 +161,7 @@ function! s:unite_my_settings() "{{{
   endif
 
   nnoremap <silent><buffer><expr> cd     unite#do_action('lcd')
+  nnoremap <silent><buffer><expr> x     unite#do_action('start')
   nnoremap <buffer><expr> S      unite#mappings#set_current_filters(
         \ empty(unite#mappings#get_current_filters()) ? ['sorter_reverse'] : [])
 
