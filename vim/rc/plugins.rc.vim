@@ -155,6 +155,8 @@ if neobundle#tap('unite.vim') "{{{
   nnoremap <silent><expr> n
         \ ":\<C-u>UniteResume search%".bufnr('%')." -no-start-insert\<CR>"
 
+  nnoremap <silent> <C-w>  :<C-u>Unite -auto-resize window/gui<CR>
+
   let neobundle#hooks.on_source =
         \ '~/.vim/rc/plugins/unite.rc.vim'
 
@@ -457,7 +459,7 @@ if neobundle#tap('vim-vcs') "{{{
 endif "}}}
 
 if neobundle#tap('vim-choosewin') "{{{
-  nmap <C-w>  <Plug>(choosewin)
+  nmap g<C-w>  <Plug>(choosewin)
   let g:choosewin_overlay_enable = 1
   let g:choosewin_overlay_clear_multibyte = 1
   let g:choosewin_blink_on_land = 0
