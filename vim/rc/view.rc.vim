@@ -32,7 +32,7 @@ set title
 set titlelen=95
 " Title string.
 let &titlestring="
-      \ %{expand('%:p:.:~')}%(%m%r%w%)
+      \ %{expand('%:p:~:.')}%(%m%r%w%)
       \ %<\(%{".s:SID_PREFIX()."strwidthpart(
       \ fnamemodify(&filetype ==# 'vimfiler' ?
       \ substitute(b:vimfiler.current_dir, '.\\zs/$', '', '') : getcwd(), ':~'),
@@ -76,8 +76,9 @@ set showtabline=0
 " Set statusline.
 let &statusline="%{winnr('$')>1?'['.winnr().'/'.winnr('$')"
       \ . ".(winnr('#')==winnr()?'#':'').']':''}\ "
-      \ . "%{(&previewwindow?'[preview] ':'').expand('%:t:.')}"
-      \ . "\ %=%m%y%{'['.(&fenc!=''?&fenc:&enc).','.&ff.']'}"
+      \ . "%{(&previewwindow?'[preview] ':'').expand('%:t')}"
+      \ . "\ %=%m%{'['.(&filetype!=''?&filetype.',':'')"
+      \ . ".(&fenc!=''?&fenc:&enc).','.&ff.']'}"
       \ . "%{printf(' %4d/%d',line('.'),line('$'))}"
 
 " Turn down a long line appointed in 'breakat'
