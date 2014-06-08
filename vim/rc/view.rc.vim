@@ -77,9 +77,10 @@ set showtabline=0
 let &statusline="%{winnr('$')>1?'['.winnr().'/'.winnr('$')"
       \ . ".(winnr('#')==winnr()?'#':'').']':''}\ "
       \ . "%{(&previewwindow?'[preview] ':'').expand('%:t')}"
-      \ . "\ %=%m%{'['.(&filetype!=''?&filetype.',':'')"
-      \ . ".(&fenc!=''?&fenc:&enc).','.&ff.']'}"
-      \ . "%{printf(' %4d/%d',line('.'),line('$'))}"
+      \ . "\ %=%{(winnr('$')==1 || winnr('#')!=winnr()) ?
+      \ '['.(&filetype!=''?&filetype.',':'')"
+      \ . ".(&fenc!=''?&fenc:&enc).','.&ff.']' : ''}"
+      \ . "%m%{printf(' %4d/%d',line('.'),line('$'))}"
 
 " Turn down a long line appointed in 'breakat'
 set linebreak
