@@ -82,16 +82,20 @@ endif
 let g:neobundle#default_options = {}
 " let g:neobundle#default_options._ = { 'verbose' : 1, 'focus' : 1 }
 
+"---------------------------------------------------------------------------
+" Disable default plugins
+
 " Disable menu.vim
 if has('gui_running')
   set guioptions=Mc
 endif
+
 " Disable GetLatestVimPlugin.vim
 if !&verbose
   let g:loaded_getscriptPlugin = 1
 endif
-" Disable netrw.vim
+
 let g:loaded_netrwPlugin = 1
-
-let g:loaded_matchparen = 0
-
+let g:loaded_matchparen = 1
+let g:loaded_2html_plugin = 1
+let g:loaded_vimballPlugin = 1
