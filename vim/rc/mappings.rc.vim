@@ -162,15 +162,9 @@ nnoremap [Space]sy
 
 " Easily edit .vimrc and .gvimrc "{{{
 nnoremap <silent> [Space]ev  :<C-u>edit $MYVIMRC<CR>
-nnoremap <silent> [Space]eg  :<C-u>edit $MYGVIMRC<CR>
 " Load .gvimrc after .vimrc edited at GVim.
 nnoremap <silent> [Space]rv :<C-u>source $MYVIMRC \|
-      \ if has('gui_running') \|
-      \   source $MYGVIMRC \|
-      \ endif \| echo "source $MYVIMRC"<CR>
-nnoremap <silent> [Space]rg
-      \ :<C-u>source $MYGVIMRC \|
-      \ echo "source $MYGVIMRC"<CR>
+      \ echo "source $MYVIMRC"<CR>
 "}}}
 
 " Useful save mappings.

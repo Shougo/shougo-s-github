@@ -36,11 +36,6 @@ if IsWindows()
   set shellslash
 endif
 
-" Because a value is not set in $MYGVIMRC with the console, set it.
-if !exists($MYGVIMRC)
-  let $MYGVIMRC = expand('~/.vim/gvimrc')
-endif
-
 let $CACHE = expand('~/.cache')
 
 if !isdirectory(expand($CACHE))

@@ -67,11 +67,13 @@ NeoBundleCheck
 "---------------------------------------------------------------------------
 " Encoding:
 "
+
 call s:source_rc('encoding.rc.vim')
 
 "---------------------------------------------------------------------------
 " Search:
 "
+
 " Ignore the case of normal letters.
 set ignorecase
 " If the search pattern contains upper case characters, override ignorecase option.
@@ -88,31 +90,37 @@ set wrapscan
 "---------------------------------------------------------------------------
 " Edit:
 "
+
 call s:source_rc('edit.rc.vim')
 
 "---------------------------------------------------------------------------
 " View:
 "
+
 call s:source_rc('view.rc.vim')
 
 "---------------------------------------------------------------------------
 " FileType:
 "
+
 call s:source_rc('filetype.rc.vim')
 
 "---------------------------------------------------------------------------
 " Plugin:
 "
+
 call s:source_rc('plugins.rc.vim')
 
 "---------------------------------------------------------------------------
-" Key-mappings:
+" Mappings:
 "
+
 call s:source_rc('mappings.rc.vim')
 
 "---------------------------------------------------------------------------
 " Commands:
 "
+
 " Display diff with the file.
 command! -nargs=1 -complete=file Diff vertical diffsplit <args>
 " Display diff from last save.
@@ -121,8 +129,9 @@ command! DiffOrig vert new | setlocal bt=nofile | r # | 0d_ | diffthis | wincmd 
 command! -nargs=0 Undiff setlocal nodiff noscrollbind wrap
 
 "---------------------------------------------------------------------------
-" Platform depends:
+" Platform:
 "
+
 if s:is_windows
   call s:source_rc('windows.rc.vim')
 else
@@ -144,6 +153,14 @@ if has('mouse')
   xnoremap <RightMouse> "+p
   inoremap <RightMouse> <C-r><C-o>+
   cnoremap <RightMouse> <C-r>+
+endif
+
+"---------------------------------------------------------------------------
+" GUI:
+"
+
+if has('gui_running')
+  call s:source_rc('gui.rc.vim')
 endif
 
 "---------------------------------------------------------------------------

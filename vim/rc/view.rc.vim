@@ -230,3 +230,4 @@ function! s:_wcwidth(ucs)
   endif
   return 1
 endfunction
+"}}}

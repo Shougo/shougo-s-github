@@ -1,7 +1,9 @@
 "---------------------------------------------------------------------------
-" Fonts:"{{{
+" GUI:
 "
 
+"---------------------------------------------------------------------------
+" Fonts: "{{{
 set ambiwidth=double
 
 if has('win32') || has('win64')
@@ -58,8 +60,7 @@ else
   " For Linux.
   set guifontwide=VL\ Gothic\ 11
   set guifont=Courier\ 10\ Pitch\ 11
-endif
-"}}}
+endif"}}}
 
 "---------------------------------------------------------------------------
 " Window:"{{{
@@ -81,26 +82,6 @@ else
   set columns=151
   " Height of window.
   set lines=41
-endif
-
-if $CACHE != ''
-  " Save the setting of window.
-  let g:save_window_file = expand('$CACHE/vimwinpos')
-  augroup SaveWindow
-    autocmd!
-    autocmd VimLeavePre * call s:save_window()
-    autocmd GUIEnter * if filereadable(g:save_window_file)
-          \ | execute 'source' g:save_window_file
-          \ | endif
-    function! s:save_window()
-      let options = [
-            \ 'set columns=' . &columns,
-            \ 'set lines=' . &lines,
-            \ 'winpos ' . getwinposx() . ' ' . getwinposy(),
-            \ ]
-      call writefile(options, g:save_window_file)
-    endfunction
-  augroup END
 endif
 
 " Don't override colorscheme.
@@ -163,13 +144,5 @@ set nohlsearch
 set guicursor&
 set guicursor+=a:blinkon0
 "}}}
-
-"---------------------------------------------------------------------------
-" Platform depends:"{{{
-"}}}
-
-"---------------------------------------------------------------------------
-" Others::
-"
 
 " vim: foldmethod=marker

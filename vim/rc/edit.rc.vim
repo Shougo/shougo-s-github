@@ -71,12 +71,9 @@ set grepprg=grep\ -inH
 " Exclude = from isfilename.
 set isfname-==
 
-" Reload .vimrc and .gvimrc automatically.
+" Reload .vimrc automatically.
 autocmd MyAutoCmd BufWritePost .vimrc,vimrc,*.rc.vim
-      \ NeoBundleClearCache | silent source $MYVIMRC |
-      \ if has('gui_running') | silent source $MYGVIMRC
-autocmd MyAutoCmd BufWritePost .gvimrc,gvimrc
-      \ if has('gui_running') | silent source $MYGVIMRC
+      \ NeoBundleClearCache | silent source $MYVIMRC
 
 " Keymapping timeout.
 set timeout timeoutlen=3000 ttimeoutlen=100
