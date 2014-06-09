@@ -273,9 +273,9 @@ NeoBundleLazy 'vim-jp/cpp-vim', {
 NeoBundleLazy 'thinca/vim-ft-diff_fold', {
       \ 'filetypes' : 'diff'
       \ }
-NeoBundleLazy 'thinca/vim-ft-markdown_fold', {
-      \ 'filetypes' : 'markdown'
-      \ }
+" NeoBundleLazy 'thinca/vim-ft-markdown_fold', {
+"       \ 'filetypes' : 'markdown'
+"       \ }
 NeoBundleLazy 'nsf/gocode', {
       \ 'rtp' : 'vim',
       \ 'filetypes' : 'go',
@@ -349,14 +349,18 @@ NeoBundleLazy 'fatih/vim-go', {
       \ }
 
 NeoBundleLazy 'lambdalisue/vim-fullscreen', {
-        \ 'gui': 1,
-        \ 'autoload': {
-        \   'commands': [
-        \     'FullscreenStart',
-        \     'FullscreenStop',
-        \     'FullscreenToggle',
-        \   ],
-        \   'mappings': '<Plug>(fullscreen-',
-        \ },
-        \ }
+      \ 'gui': 1,
+      \ 'autoload': {
+      \   'commands': [
+      \     'FullscreenStart',
+      \     'FullscreenStop',
+      \     'FullscreenToggle',
+      \   ],
+      \   'mappings': '<Plug>(fullscreen-',
+      \ },
+      \ }
+
+NeoBundleLazy 'plasticboy/vim-markdown', {
+      \ 'filetypes' : 'mkd'
+      \ }
 
