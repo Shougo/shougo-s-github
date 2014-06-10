@@ -87,10 +87,14 @@ autocmd MyAutoCmd FileType unite call s:unite_my_settings()
 
 let g:unite_ignore_source_files = ['function.vim', 'command.vim']
 
-call unite#custom#profile('action', 'context', {'start_insert' : 1})
+call unite#custom#profile('action', 'context', {
+      \ 'start_insert' : 1
+      \ })
 
 " Set "-no-quit" automatically in grep unite source.
-call unite#custom#profile('source/grep', 'context', {'no_quit' : 1})
+call unite#custom#profile('source/grep', 'context', {
+      \ 'no_quit' : 1
+      \ })
 
 " migemo.
 call unite#custom#source('line_migemo', 'matchers', 'matcher_migemo')
@@ -170,13 +174,13 @@ function! s:unite_my_settings() "{{{
         \ unite#do_action('preview') : ":\<C-u>pclose!\<CR>"
 endfunction"}}}
 
-" Variables.
-let g:unite_enable_split_vertically = 0
-let g:unite_winheight = 20
-let g:unite_enable_start_insert = 0
-let g:unite_enable_short_source_names = 1
+" Default configuration.
+let default_context = {
+      \ 'vertical' : 0,
+      \ 'cursor_line_highlight' : 'TabLineSel',
+      \ }
 
-let g:unite_cursor_line_highlight = 'TabLineSel'
+let g:unite_enable_short_source_names = 1
 " let g:unite_abbr_highlight = 'TabLine'
 
 if IsWindows()
@@ -186,8 +190,10 @@ else
 
   " Prompt choices.
   "let g:unite_prompt = '❫ '
-  let g:unite_prompt = '» '
+  let default_context.prompt = '» '
 endif
+
+call unite#custom#profile('default', 'context', default_context)
 
 if executable('ag')
   " Use ag in unite grep source.
@@ -216,3 +222,5 @@ let g:unite_build_error_icon    = '~/.vim/signs/err.'
       \ . (IsWindows() ? 'bmp' : 'png')
 let g:unite_build_warning_icon  = '~/.vim/signs/warn.'
       \ . (IsWindows() ? 'bmp' : 'png')
+
+let g:unite_source_rec_max_cache_files = -1
