@@ -164,7 +164,7 @@ function! s:unite_my_settings() "{{{
   endif
 
   nnoremap <silent><buffer><expr> cd     unite#do_action('lcd')
-  nnoremap <silent><buffer><expr> x     unite#do_action('start')
+  nnoremap <silent><buffer><expr> !     unite#do_action('start')
   nnoremap <buffer><expr> S      unite#mappings#set_current_filters(
         \ empty(unite#mappings#get_current_filters()) ? ['sorter_reverse'] : [])
 
@@ -178,18 +178,17 @@ endfunction"}}}
 let default_context = {
       \ 'vertical' : 0,
       \ 'cursor_line_highlight' : 'TabLineSel',
+      \ 'short_source_names' : 1,
       \ }
 
-let g:unite_enable_short_source_names = 1
 " let g:unite_abbr_highlight = 'TabLine'
 
 if IsWindows()
 else
   " Like Textmate icons.
-  let g:unite_marked_icon = '✗'
+  let default_context.marked_icon = '✗'
 
   " Prompt choices.
-  "let g:unite_prompt = '❫ '
   let default_context.prompt = '» '
 endif
 
