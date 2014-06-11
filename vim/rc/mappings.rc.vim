@@ -638,7 +638,7 @@ nnoremap gu gUiw`]
 inoremap <C-q> <ESC>gUiw`]a
 
 " Clear highlight.
-nnoremap <ESC><ESC> :nohlsearch<CR>
+nnoremap <ESC><ESC> :nohlsearch<CR>:match<CR>
 
 " operator-html-escape.vim
 nmap <Leader>h <Plug>(operator-html-escape)
