@@ -83,7 +83,7 @@ if neobundle#tap('unite.vim') "{{{
     return ":\<C-u>Unite -buffer-name=build". tabpagenr() ." -no-quit build\<CR>"
   endfunction
   nnoremap <silent> ;o
-        \ :<C-u>Unite outline -start-insert -resume<CR>
+        \ :<C-u>Unite outline -no-start-insert -resume<CR>
   nnoremap <silent> ;t
         \ :<C-u>UniteWithCursorWord -buffer-name=tag tag tag/include<CR>
   xnoremap <silent> ;r
@@ -256,6 +256,7 @@ if neobundle#tap('eskk.vim') "{{{
     let g:eskk#rom_input_style = 'msime'
     let g:eskk#egg_like_newline = 1
     let g:eskk#egg_like_newline_completion = 1
+    let g:eskk#tab_select_completion = 1
 
     " Disable mapping.
     "let g:eskk#map_normal_keys = 0
