@@ -4,9 +4,6 @@
 
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-NeoBundleLazy 'rhysd/vim-operator-surround', {
-      \   'mappings' : '<Plug>(operator-surround',
-      \ }
 NeoBundleLazy 'kana/vim-niceblock', {
       \   'mappings' : '<Plug>(niceblock-',
       \ }
@@ -115,16 +112,6 @@ NeoBundleLazy 'hail2u/vim-css3-syntax'
 NeoBundleLazy 'kana/vim-smartchr', {
       \ 'insert' : 1,
       \ }
-NeoBundle 'kana/vim-operator-user', {
-      \   'functions' : 'operator#user#define',
-      \ }
-NeoBundleLazy 'kana/vim-operator-replace', {
-      \ 'depends' : 'vim-operator-user',
-      \ 'autoload' : {
-      \   'mappings' : [
-      \     ['nx', '<Plug>(operator-replace)']]
-      \ }}
-NeoBundleLazy 'kana/vim-textobj-user'
 
 NeoBundleLazy 'kien/ctrlp.vim'
 NeoBundleLazy 'LeafCage/foldCC', {
@@ -290,9 +277,6 @@ NeoBundleLazy 'kana/vim-filetype-haskell', {
 NeoBundleLazy 'JesseKPhillips/d.vim', {
       \   'filetypes' : 'd',
       \ }
-NeoBundleLazy 'chikatoike/concealedyank.vim', {
-      \   'mappings' : [['x', '<Plug>(operator-concealedyank)']]
-      \ }
 
 NeoBundleLazy 't9md/vim-choosewin', {
       \   'mappings' : '<Plug>(choosewin)'
@@ -327,3 +311,31 @@ NeoBundleLazy 'todesking/ruby_hl_lvar.vim', {
 NeoBundleLazy 'syngan/vim-vimlint', {
     \ 'depends' : 'ynkdir/vim-vimlparser',
     \ }
+
+" Operators
+NeoBundleLazy 'kana/vim-operator-user', {
+      \   'functions' : 'operator#user#define',
+      \ }
+NeoBundleLazy 'kana/vim-operator-replace', {
+      \ 'depends' : 'vim-operator-user',
+      \ 'autoload' : {
+      \   'mappings' : [
+      \     ['nx', '<Plug>(operator-replace)']]
+      \ }}
+NeoBundleLazy 'rhysd/vim-operator-surround', {
+      \ 'depends' : 'vim-operator-user',
+      \   'mappings' : '<Plug>(operator-surround',
+      \ }
+NeoBundleLazy 'chikatoike/concealedyank.vim', {
+      \   'mappings' : [['x', '<Plug>(operator-concealedyank)']]
+      \ }
+
+" Textobjs
+NeoBundleLazy 'kana/vim-textobj-user'
+NeoBundleLazy 'osyo-manga/vim-textobj-multiblock', {
+      \ 'depends' : 'vim-textobj-user',
+      \ 'autoload' : {
+      \   'mappings' : [
+      \     ['ox', '<Plug>(textobj-multiblock-']]
+      \ }}
+

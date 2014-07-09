@@ -309,14 +309,12 @@ if neobundle#tap('caw.vim') "{{{
       silent! xunmap <buffer> gc
       silent! nunmap <buffer> gcc
       silent! xunmap <buffer> gcc
-
-      return
+    else
+      nmap <buffer> gc <Plug>(caw:prefix)
+      xmap <buffer> gc <Plug>(caw:prefix)
+      nmap <buffer> gcc <Plug>(caw:i:toggle)
+      xmap <buffer> gcc <Plug>(caw:i:toggle)
     endif
-
-    nmap <buffer> gc <Plug>(caw:prefix)
-    xmap <buffer> gc <Plug>(caw:prefix)
-    nmap <buffer> gcc <Plug>(caw:i:toggle)
-    xmap <buffer> gcc <Plug>(caw:i:toggle)
   endfunction
 
   call neobundle#untap()
@@ -416,3 +414,11 @@ if neobundle#tap('vim-lint') "{{{
   call neobundle#untap()
 endif "}}}
 
+if neobundle#tap('vim-textobj-user') "{{{
+  omap ab <Plug>(textobj-multiblock-a)
+  omap ib <Plug>(textobj-multiblock-i)
+  xmap ab <Plug>(textobj-multiblock-a)
+  xmap ib <Plug>(textobj-multiblock-i)
+
+  call neobundle#untap()
+endif "}}}
