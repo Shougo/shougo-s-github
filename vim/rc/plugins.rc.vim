@@ -2,31 +2,27 @@
 " Plugin:
 "
 
+" changelog.vim"{{{
+autocmd MyAutoCmd BufNewFile,BufRead *.changelog setf changelog
+let g:changelog_timeformat = "%Y-%m-%d"
+let g:changelog_username = "Shougo "
+"}}}
+
+" python.vim
+let python_highlight_all = 1
+
+" netrw.vim"{{{
+let g:netrw_list_hide= '*.swp'
+" Change default directory.
+set browsedir=current
+"}}}
+
 if neobundle#tap('neocomplete.vim') "{{{
   let g:neocomplete#enable_at_startup = 1
   let neobundle#hooks.on_source =
         \ '~/.vim/rc/plugins/neocomplete.rc.vim'
 
   call neobundle#untap()
-endif "}}}
-
-if neobundle#tap('vim-marching') "{{{
-  function! neobundle#hooks.on_source(bundle)
-    let g:marching_clang_command_option = '-std=c++1y'
-    let g:marching_include_paths = filter(
-          \ split(glob('/usr/include/c++/*'), '\n') +
-          \ split(glob('/usr/include/*/c++/*'), '\n') +
-          \ split(glob('/usr/include/*/'), '\n'),
-          \ 'isdirectory(v:val)')
-
-    let g:marching_enable_neocomplete = 1
-    if !exists('g:neocomplete#force_omni_input_patterns')
-      let g:neocomplete#force_omni_input_patterns = {}
-    endif
-
-    let g:neocomplete#force_omni_input_patterns.cpp =
-          \ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
-  endfunction
 endif "}}}
 
 if neobundle#tap('neocomplcache.vim') "{{{
@@ -44,9 +40,11 @@ if neobundle#tap('neosnippet.vim') "{{{
   call neobundle#untap()
 endif "}}}
 
-" echodoc.vim"{{{
-let g:echodoc_enable_at_startup = 1
-"}}}
+if neobundle#tap('echodoc.vim') "{{{
+  let g:echodoc_enable_at_startup = 1
+
+  call neobundle#untap()
+endif "}}}
 
 if neobundle#tap('vimshell.vim') "{{{
   " <C-Space>: switch to vimshell.
@@ -61,15 +59,11 @@ if neobundle#tap('vimshell.vim') "{{{
   call neobundle#untap()
 endif "}}}
 
-" netrw.vim"{{{
-let g:netrw_list_hide= '*.swp'
-" Change default directory.
-set browsedir=current
-"}}}
+if neobundle#tap('vinarise.vim') "{{{
+  let g:vinarise_enable_auto_detect = 1
 
-" vinarise.vim"{{{
-let g:vinarise_enable_auto_detect = 1
-"}}}
+  call neobundle#untap()
+endif "}}}
 
 if neobundle#tap('unite.vim') "{{{
   " The prefix key.
@@ -163,14 +157,16 @@ if neobundle#tap('unite.vim') "{{{
   call neobundle#untap()
 endif "}}}
 
-" camlcasemotion.vim"{{{
-nmap <silent> W <Plug>CamelCaseMotion_w
-xmap <silent> W <Plug>CamelCaseMotion_w
-omap <silent> W <Plug>CamelCaseMotion_w
-nmap <silent> B <Plug>CamelCaseMotion_b
-xmap <silent> B <Plug>CamelCaseMotion_b
-omap <silent> B <Plug>CamelCaseMotion_b
-""}}}
+if neobundle#tap('camlcasemotion.vim') "{{{
+  nmap <silent> W <Plug>CamelCaseMotion_w
+  xmap <silent> W <Plug>CamelCaseMotion_w
+  omap <silent> W <Plug>CamelCaseMotion_w
+  nmap <silent> B <Plug>CamelCaseMotion_b
+  xmap <silent> B <Plug>CamelCaseMotion_b
+  omap <silent> B <Plug>CamelCaseMotion_b
+
+  call neobundle#untap()
+endif "}}}
 
 if neobundle#tap('vim-smartchr') "{{{
   let g:neocomplete#enable_at_startup = 1
@@ -180,18 +176,11 @@ if neobundle#tap('vim-smartchr') "{{{
   call neobundle#untap()
 endif "}}}
 
-" changelog.vim"{{{
-autocmd MyAutoCmd BufNewFile,BufRead *.changelog setf changelog
-let g:changelog_timeformat = "%Y-%m-%d"
-let g:changelog_username = "Shougo "
-"}}}
+if neobundle#tap('quickrun.vim') "{{{
+  nmap <silent> <Leader>r <Plug>(quickrun)
 
-" quickrun.vim"{{{
-nmap <silent> <Leader>r <Plug>(quickrun)
-"}}}
-
-" python.vim
-let python_highlight_all = 1
+  call neobundle#untap()
+endif "}}}
 
 if neobundle#tap('vim-ref') "{{{
   function! neobundle#hooks.on_source(bundle)
@@ -220,6 +209,8 @@ if neobundle#tap('vim-ref') "{{{
       nmap <buffer> [Tag]p  <Plug>(ref-back)
     endfunction"}}}
   endfunction
+
+  call neobundle#untap()
 endif"}}}
 
 if neobundle#tap('vimfiler.vim') "{{{
@@ -236,67 +227,10 @@ endif "}}}
 if neobundle#tap('eskk.vim') "{{{
   imap <C-j>     <Plug>(eskk:toggle)
 
-  function! neobundle#hooks.on_source(bundle)
-    let g:eskk#directory = expand('$CACHE/eskk')
+  let neobundle#hooks.on_source =
+        \ '~/.vim/rc/plugins/eskk.rc.vim'
 
-    let g:eskk#large_dictionary = {
-          \   'path': expand('$CACHE/SKK-JISYO.L'),
-          \   'sorted': 1,
-          \   'encoding': 'euc-jp',
-          \}
-    " Disable skk.vim
-    let g:plugin_skk_disable = 1
-
-    let g:eskk#debug = 0
-
-    " Don't keep state.
-    let g:eskk#keep_state = 0
-
-    let g:eskk#show_annotation = 1
-    let g:eskk#rom_input_style = 'msime'
-    let g:eskk#egg_like_newline = 1
-    let g:eskk#egg_like_newline_completion = 1
-    let g:eskk#tab_select_completion = 1
-
-    " Disable mapping.
-    "let g:eskk#map_normal_keys = 0
-
-    " Toggle debug.
-    nnoremap <silent> [Space]ed  :<C-u>call ToggleVariable('g:eskk#debug')<CR>
-
-    autocmd MyAutoCmd User eskk-initialize-post
-          \ EskkMap -remap jj <Plug>(eskk:disable)<Esc>
-
-    let g:eskk#dictionary = {
-          \   'path': expand('$CACHE/skk-jisyo'),
-          \   'sorted': 0,
-          \   'encoding': 'utf-8',
-          \}
-    " Use /bin/sh -c "VTE_CJK_WIDTH=1 gnome-terminal --disable-factory"
-    " instead of this settings.
-    "if &encoding == 'utf-8' && !has('gui_running')
-    " GNOME Terminal only.
-
-    " Use <> instead of ▽.
-    "let g:eskk#marker_henkan = '<>'
-    " Use >> instead of ▼.
-    "let g:eskk#marker_henkan_select = '>>'
-    "endif
-
-    " Define table.
-    autocmd MyAutoCmd User eskk-initialize-pre call s:eskk_initial_pre()
-    function! s:eskk_initial_pre() "{{{
-      let t = eskk#table#new('rom_to_hira*', 'rom_to_hira')
-      call t.add_map('z ', '　')
-      call t.add_map('~', '〜')
-      call t.add_map('zc', '©')
-      call t.add_map('zr', '®')
-      call t.add_map('z9', '（')
-      call t.add_map('z0', '）')
-      call eskk#register_mode_table('hira', t)
-      unlet t
-    endfunction "}}}
-  endfunction
+  call neobundle#untap()
 endif "}}}
 
 if neobundle#tap('J6uil.vim') "{{{
@@ -332,16 +266,23 @@ if neobundle#tap('J6uil.vim') "{{{
       setlocal foldcolumn=0
     endfunction
   endfunction
+
+  call neobundle#untap()
 endif "}}}
 
-" surround.vim"{{{
-nmap <silent>sa <Plug>(operator-surround-append)
-nmap <silent>sd <Plug>(operator-surround-delete)
-nmap <silent>sr <Plug>(operator-surround-replace)
-"}}}
+if neobundle#tap('vim-operator-surround') "{{{
+  nmap <silent>sa <Plug>(operator-surround-append)a
+  nmap <silent>sd <Plug>(operator-surround-delete)a
+  nmap <silent>sr <Plug>(operator-surround-replace)a
 
-" qfreplace.vim
-autocmd MyAutoCmd FileType qf nnoremap <buffer> r :<C-u>Qfreplace<CR>
+  call neobundle#untap()
+endif "}}}
+
+if neobundle#tap('qfreplace.vim') "{{{
+  autocmd MyAutoCmd FileType qf nnoremap <buffer> r :<C-u>Qfreplace<CR>
+
+  call neobundle#untap()
+endif "}}}
 
 if neobundle#tap('open-browser.vim') "{{{
   nmap gs <Plug>(open-browser-wwwsearch)
@@ -360,49 +301,26 @@ if neobundle#tap('open-browser.vim') "{{{
   call neobundle#untap()
 endif "}}}
 
-" caw.vim"{{{
-autocmd MyAutoCmd FileType * call s:init_caw()
-function! s:init_caw()
-  if !&l:modifiable
-    silent! nunmap <buffer> gc
-    silent! xunmap <buffer> gc
-    silent! nunmap <buffer> gcc
-    silent! xunmap <buffer> gcc
+if neobundle#tap('caw.vim') "{{{
+  autocmd MyAutoCmd FileType * call s:init_caw()
+  function! s:init_caw()
+    if !&l:modifiable
+      silent! nunmap <buffer> gc
+      silent! xunmap <buffer> gc
+      silent! nunmap <buffer> gcc
+      silent! xunmap <buffer> gcc
 
-    return
-  endif
+      return
+    endif
 
-  nmap <buffer> gc <Plug>(caw:prefix)
-  xmap <buffer> gc <Plug>(caw:prefix)
-  nmap <buffer> gcc <Plug>(caw:i:toggle)
-  xmap <buffer> gcc <Plug>(caw:i:toggle)
-endfunction
-"}}}
+    nmap <buffer> gc <Plug>(caw:prefix)
+    xmap <buffer> gc <Plug>(caw:prefix)
+    nmap <buffer> gcc <Plug>(caw:i:toggle)
+    xmap <buffer> gcc <Plug>(caw:i:toggle)
+  endfunction
 
-" Conque.vim"{{{
-let g:ConqueTerm_EscKey = '<Esc>'
-let g:ConqueTerm_PyVersion = 3
-"}}}
-
-" fontzoom.vim"{{{
-nmap + <Plug>(fontzoom-larger)
-nmap _ <Plug>(fontzoom-smaller)
-"}}}
-
-" Operator-replace.
-nmap R <Plug>(operator-replace)
-xmap R <Plug>(operator-replace)
-xmap p <Plug>(operator-replace)
-
-" Taglist.
-let Tlist_Show_One_File = 1
-let Tlist_Use_Right_Window = 1
-let Tlist_Exit_OnlyWindow = 1
-
-" restart.vim {{{
-let g:restart_save_window_values = 0
-nnoremap <silent> [Space]re  :<C-u>Restart<CR>
-"}}}
+  call neobundle#untap()
+endif "}}}
 
 if neobundle#tap('accelerated-jk') "{{{
   nmap <silent>j <Plug>(accelerated_jk_gj)
@@ -413,43 +331,10 @@ if neobundle#tap('accelerated-jk') "{{{
   call neobundle#untap()
 endif "}}}
 
-" switch.vim{{{
-" http://www.vimninjas.com/2012/09/12/switch/
-let g:variable_style_switch_definitions = [
-\   {
-\     'f': {
-\       'foo': 'bar'
-\     },
-\
-\     'b': {
-\       'bar': 'foo'
-\     },
-\   }
-\ ]
-" nnoremap <silent> + :call switch#Switch(g:variable_style_switch_definitions)<CR>
-nnoremap <silent> ! :Switch<cr>
-"}}}
-
-" vim-niceblock
-" Improved visual selection.
-xmap I  <Plug>(niceblock-I)
-xmap A  <Plug>(niceblock-A)
-
-" winmove.vim"{{{
-nmap <Up>      <Plug>(winmove-up)
-nmap <Down>    <Plug>(winmove-down)
-nmap <Left>    <Plug>(winmove-left)
-nmap <Right>   <Plug>(winmove-right)
-"}}}
-
-if neobundle#tap('vim-smalls') "{{{
-  nmap S <Plug>(smalls)
-
-  call neobundle#untap()
-endif "}}}
-
 if neobundle#tap('concealedyank.vim') "{{{
   xmap Y <Plug>(operator-concealedyank)
+
+  call neobundle#untap()
 endif "}}}
 
 if neobundle#tap('vim-vcs') "{{{
@@ -464,14 +349,70 @@ if neobundle#tap('vim-choosewin') "{{{
   let g:choosewin_overlay_enable = 1
   let g:choosewin_overlay_clear_multibyte = 1
   let g:choosewin_blink_on_land = 0
+
+  call neobundle#untap()
 endif "}}}
 
 if neobundle#tap('matchit.zip') "{{{
   function! neobundle#hooks.on_post_source(bundle)
     silent! execute 'doautocmd Filetype' &filetype
   endfunction
+
+  call neobundle#untap()
 endif "}}}
 
-" vim-fullscreen
-nmap <C-CR> <Plug>(fullscreen-toggle)
+if neobundle#tap('vim-conque') "{{{
+  let g:ConqueTerm_EscKey = '<Esc>'
+  let g:ConqueTerm_PyVersion = 3
+
+  call neobundle#untap()
+endif "}}}
+
+if neobundle#tap('fontzoom.vim') "{{{
+  nmap + <Plug>(fontzoom-larger)
+  nmap _ <Plug>(fontzoom-smaller)
+
+  call neobundle#untap()
+endif "}}}
+
+if neobundle#tap('vim-operator-replace') "{{{
+  xmap p <Plug>(operator-replace)
+
+  call neobundle#untap()
+endif "}}}
+
+if neobundle#tap('restart.vim') "{{{
+  let g:restart_save_window_values = 0
+  nnoremap <silent> [Space]re  :<C-u>Restart<CR>
+
+  call neobundle#untap()
+endif "}}}
+
+if neobundle#tap('vim-niceblock') "{{{
+  xmap I  <Plug>(niceblock-I)
+  xmap A  <Plug>(niceblock-A)
+
+  call neobundle#untap()
+endif "}}}
+
+if neobundle#tap('winmove.vim') "{{{
+  nmap <Up>      <Plug>(winmove-up)
+  nmap <Down>    <Plug>(winmove-down)
+  nmap <Left>    <Plug>(winmove-left)
+  nmap <Right>   <Plug>(winmove-right)
+
+  call neobundle#untap()
+endif "}}}
+
+if neobundle#tap('vim-fullscreen') "{{{
+  nmap <C-CR> <Plug>(fullscreen-toggle)
+
+  call neobundle#untap()
+endif "}}}
+
+if neobundle#tap('vim-lint') "{{{
+  let g:vimlint#config = { 'EVL103' : 1 }
+
+  call neobundle#untap()
+endif "}}}
 

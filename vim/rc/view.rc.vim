@@ -16,10 +16,6 @@ if IsWindows()
 else
   set listchars=tab:▸\ ,trail:-,extends:»,precedes:«,nbsp:%
 endif
-" Do not wrap long line.
-set nowrap
-" Wrap conditions.
-set whichwrap+=h,l,<,>,[,],b,s,~
 " Always display statusline.
 set laststatus=2
 " Height of command line.
@@ -84,8 +80,16 @@ let &statusline="%{winnr('$')>1?'['.winnr().'/'.winnr('$')"
 
 " Turn down a long line appointed in 'breakat'
 set linebreak
-set showbreak=>\
+set showbreak=\
 set breakat=\ \	;:,!?
+" Wrap conditions.
+set whichwrap+=h,l,<,>,[,],b,s,~
+if exists('+breakindent')
+  set breakindent
+  set wrap
+else
+  set nowrap
+endif
 
 " Do not display greetings message at the time of Vim start.
 set shortmess=aTI

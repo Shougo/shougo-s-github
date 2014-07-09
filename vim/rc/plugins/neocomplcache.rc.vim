@@ -23,7 +23,7 @@ let g:neocomplcache_min_keyword_length = 3
 "       \ v:version == 703 && has('patch289')
 let g:neocomplcache_enable_cursor_hold_i = 0
 let g:neocomplcache_cursor_hold_i_time = 300
-let g:neocomplcache_enable_insert_char_pre = 0
+let g:neocomplcache_enable_insert_char_pre = 1
 let g:neocomplcache_enable_prefetch = 1
 let g:neocomplcache_skip_auto_completion_time = '0.6'
 

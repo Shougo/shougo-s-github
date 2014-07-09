@@ -56,7 +56,7 @@ augroup MyAutoCmd
   autocmd FileType php setlocal path+=/usr/local/share/pear
   autocmd FileType apache setlocal path+=./;/
 
-  autocmd Syntax * syntax sync minlines=100
+  " autocmd Syntax * syntax sync minlines=100
 augroup END
 
 " PHP

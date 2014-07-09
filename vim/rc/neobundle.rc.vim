@@ -24,8 +24,6 @@ NeoBundleLazy 'Shougo/neocomplete.vim', {
       \ 'insert' : 1
       \ }
 
-NeoBundleLazy 'Shougo/neocomplcache-rsense'
-
 NeoBundleLazy 'Shougo/neosnippet.vim', {
       \ 'depends' : ['Shougo/neosnippet-snippets', 'Shougo/context_filetype.vim'],
       \ 'insert' : 1,
@@ -128,12 +126,10 @@ NeoBundleLazy 'kana/vim-operator-replace', {
       \ }}
 NeoBundleLazy 'kana/vim-textobj-user'
 
-" NeoBundleLazy 'kana/vim-wwwsearch'
 NeoBundleLazy 'kien/ctrlp.vim'
 NeoBundleLazy 'LeafCage/foldCC', {
       \ 'filetypes' : 'vim' }
 NeoBundleLazy 'mattn/webapi-vim'
-" NeoBundle 'basyura/webapi-vim'
 NeoBundleLazy 'add20/vim-conque', {
       \ 'commands' : 'ConqueTerm'
       \ }
@@ -201,7 +197,6 @@ NeoBundleLazy 'tyru/restart.vim', {
       \ 'autoload' : {
       \  'commands' : 'Restart'
       \ }}
-" NeoBundle 'tyru/skk.vim'
 NeoBundleLazy 'tyru/winmove.vim', {
       \ 'mappings' : [['nxo',
       \   '<Plug>(winmove-up)', '<Plug>(winmove-down)',
@@ -221,9 +216,6 @@ NeoBundleLazy 'vim-jp/vimdoc-ja', {
 " NeoBundleLazy 'eignn/netrw.vim', {
       " \ 'commands' : 'Explore',
       " \ }
-NeoBundleLazy 'yuratomo/w3m.vim', {
-      \ 'commands' : 'W3m',
-      \ }
 NeoBundleLazy 'osyo-manga/unite-quickfix'
 NeoBundleLazy 'osyo-manga/unite-filetype'
 NeoBundleLazy 'rbtnn/hexript.vim'
@@ -234,14 +226,12 @@ NeoBundleLazy 'rhysd/accelerated-jk', {
       \ 'mappings' : '<Plug>(accelerated_jk_',
       \ }
 
-" NeoBundle 'gmarik/vundle'
 NeoBundleLazy 'vim-jp/autofmt', {
       \ 'mappings' : [['x', 'gq']],
       \ }
 
 NeoBundleLazy 'supermomonga/unite-kawaii-calc'
 
-" From vim.org
 NeoBundleLazy 'godlygeek/csapprox', { 'terminal' : 1 }
 NeoBundleLazy 'thinca/vim-guicolorscheme', { 'terminal' : 1 }
 NeoBundleLazy 'tpope/vim-repeat', {
@@ -281,17 +271,6 @@ NeoBundleLazy 'nsf/gocode', {
       \ 'filetypes' : 'go',
       \ }
 
-if has('python')
-  " NeoBundleLazy 'marijnh/tern_for_vim', {
-  "       \ 'external_commands' : 'npm',
-  "       \ 'build' : 'npm install',
-  "       \ 'autoload' : {
-  "       \   'functions': ['tern#Complete', 'tern#Enable'],
-  "       \   'filetypes' : 'javascript'
-  "       \ }}
-endif
-
-
 NeoBundleLazy 'thinca/vim-ft-help_fold', {
       \ 'filetypes' : 'help'
       \ }
@@ -311,31 +290,6 @@ NeoBundleLazy 'kana/vim-filetype-haskell', {
 NeoBundleLazy 'JesseKPhillips/d.vim', {
       \   'filetypes' : 'd',
       \ }
-" NeoBundleLazy 'osyo-manga/vim-marching', {
-"       \ 'filetypes' : ['c', 'cpp']
-"       \ 'depends' : ['osyo-manga/vim-reunions', 'Shougo/vimproc'],
-"       \}
-NeoBundleLazy 't9md/vim-smalls', {
-      \ 'mappings' : ['<Plug>(smalls)', '<Plug>(smalls-)']
-      \ }
-
-" NeoBundleLazy 'LeafCage/cmdlineplus.vim', {
-"       \ 'mappings': [['c', '<Plug>(cmdlineplus-']]}
-
-NeoBundleLazy 'sophacles/vim-processing', {
-      \ 'filename_patterns': '\.pde$'}
-
-NeoBundleLazy 'Shougo/javacomplete', {
-      \ 'build': {
-      \       'cygwin': 'javac autoload/Reflection.java',
-      \       'mac': 'javac autoload/Reflection.java',
-      \       'unix': 'javac autoload/Reflection.java',
-      \   },
-      \ 'autoload' : {
-      \   'filetypes' : 'java',
-      \ }
-      \}
-
 NeoBundleLazy 'chikatoike/concealedyank.vim', {
       \   'mappings' : [['x', '<Plug>(operator-concealedyank)']]
       \ }
@@ -364,3 +318,12 @@ NeoBundleLazy 'plasticboy/vim-markdown', {
       \ 'filetypes' : 'mkd'
       \ }
 
+NeoBundleLazy 'todesking/ruby_hl_lvar.vim', {
+      \   'autoload': {
+      \     'filetypes': ['ruby']
+      \   }
+      \ }
+
+NeoBundleLazy 'syngan/vim-vimlint', {
+    \ 'depends' : 'ynkdir/vim-vimlparser',
+    \ }

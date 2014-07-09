@@ -198,22 +198,22 @@ if executable('ag')
   " Use ag in unite grep source.
   let g:unite_source_grep_command = 'ag'
   let g:unite_source_grep_default_opts =
-        \ '--line-numbers --nocolor --nogroup --hidden --ignore ' .
+        \ '-i --line-numbers --nocolor --nogroup --hidden --ignore ' .
         \  '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'''
   let g:unite_source_grep_recursive_opt = ''
 elseif executable('pt')
   let g:unite_source_grep_command = 'pt'
-  let g:unite_source_grep_default_opts = '--nogroup --nocolor'
+  let g:unite_source_grep_default_opts = '-i --nogroup --nocolor'
   let g:unite_source_grep_recursive_opt = ''
 elseif executable('jvgrep')
   " For jvgrep.
   let g:unite_source_grep_command = 'jvgrep'
-  let g:unite_source_grep_default_opts = '--exclude ''\.(git|svn|hg|bzr)'''
+  let g:unite_source_grep_default_opts = '-i --exclude ''\.(git|svn|hg|bzr)'''
   let g:unite_source_grep_recursive_opt = '-R'
 elseif executable('ack-grep')
   " For ack.
   let g:unite_source_grep_command = 'ack-grep'
-  let g:unite_source_grep_default_opts = '--no-heading --no-color -a'
+  let g:unite_source_grep_default_opts = '-i --no-heading --no-color -a'
   let g:unite_source_grep_recursive_opt = ''
 endif
 
@@ -223,3 +223,4 @@ let g:unite_build_warning_icon  = '~/.vim/signs/warn.'
       \ . (IsWindows() ? 'bmp' : 'png')
 
 let g:unite_source_rec_max_cache_files = -1
+
