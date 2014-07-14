@@ -192,7 +192,7 @@ nnoremap <silent> [Space]<C-m> mmHmt:<C-u>%s/\r$//ge<CR>'tzt'm
 nnoremap <silent> [Space]ss mmHmt:<C-u>%s/<Space>$//ge<CR>`tzt`m
 
 " Easily syntax change.
-nnoremap <silent> [Space]ft :<C-u>Unite -start-insert filetype<CR>
+nnoremap <silent> [Space]ft :<C-u>Unite -start-insert filetype filetype/new<CR>
 
 " Exchange gj and gk to j and k. "{{{
 command! -nargs=? -bar -bang ToggleGJK call s:ToggleGJK()

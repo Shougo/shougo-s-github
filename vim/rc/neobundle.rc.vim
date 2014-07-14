@@ -339,3 +339,7 @@ NeoBundleLazy 'osyo-manga/vim-textobj-multiblock', {
       \     ['ox', '<Plug>(textobj-multiblock-']]
       \ }}
 
+NeoBundleLazy 'plasticboy/vim-markdown', {
+      \ 'filetypes' : 'mkd'
+      \ }
+

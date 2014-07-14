@@ -105,7 +105,7 @@ call unite#custom#source(
       \ ['converter_relative_word', 'matcher_fuzzy'])
 call unite#custom#source(
       \ 'file_mru', 'matchers',
-      \ ['matcher_project_files', 'matcher_fuzzy'])
+      \ ['matcher_project_files', 'matcher_fuzzy', 'matcher_hide_hidden_files'])
 " call unite#custom#source(
 "       \ 'file', 'matchers',
 "       \ ['matcher_fuzzy', 'matcher_hide_hidden_files'])
@@ -145,7 +145,6 @@ function! s:unite_my_settings() "{{{
   imap <buffer>  <BS>      <Plug>(unite_delete_backward_path)
   imap <buffer>  jj        <Plug>(unite_insert_leave)
   imap <buffer>  <Tab>     <Plug>(unite_complete)
-  imap <buffer> <C-w>      <Plug>(unite_delete_backward_path)
   imap <buffer> '          <Plug>(unite_quick_match_default_action)
   nmap <buffer> '          <Plug>(unite_quick_match_default_action)
   nmap <buffer> cd         <Plug>(unite_quick_match_default_action)

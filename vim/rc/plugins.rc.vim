@@ -157,7 +157,7 @@ if neobundle#tap('unite.vim') "{{{
   call neobundle#untap()
 endif "}}}
 
-if neobundle#tap('camlcasemotion.vim') "{{{
+if neobundle#tap('CamelCaseMotion') "{{{
   nmap <silent> W <Plug>CamelCaseMotion_w
   xmap <silent> W <Plug>CamelCaseMotion_w
   omap <silent> W <Plug>CamelCaseMotion_w
@@ -408,8 +408,9 @@ if neobundle#tap('vim-fullscreen') "{{{
   call neobundle#untap()
 endif "}}}
 
-if neobundle#tap('vim-lint') "{{{
-  let g:vimlint#config = { 'EVL103' : 1 }
+if neobundle#tap('vim-vimlint') "{{{
+  let g:vimlint#config = { 'EVL103' : 1  }
+  let g:vimlint#config.EVL102 = { 'l:_' : 1 }
 
   call neobundle#untap()
 endif "}}}
