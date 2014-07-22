@@ -2,6 +2,8 @@
 " neocomplete.vim
 "
 
+let g:neocomplete#disable_auto_complete = 0
+
 " Use smartcase.
 let g:neocomplete#enable_smart_case = 1
 let g:neocomplete#enable_camel_case = 1

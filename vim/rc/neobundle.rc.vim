@@ -343,3 +343,6 @@ NeoBundleLazy 'plasticboy/vim-markdown', {
       \ 'filetypes' : 'mkd'
       \ }
 
+NeoBundleLazy 'saihoooooooo/glowshi-ft.vim', {
+      \ 'mappings' : '<Plug>(glowshi-ft-'
+      \ }

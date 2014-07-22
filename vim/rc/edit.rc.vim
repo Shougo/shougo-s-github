@@ -73,7 +73,7 @@ set isfname-==
 
 " Reload .vimrc automatically.
 autocmd MyAutoCmd BufWritePost .vimrc,vimrc,*.rc.vim
-      \ NeoBundleClearCache | silent source $MYVIMRC
+      \ NeoBundleClearCache | source $MYVIMRC
 
 " Keymapping timeout.
 set timeout timeoutlen=3000 ttimeoutlen=100

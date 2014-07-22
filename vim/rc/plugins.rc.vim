@@ -423,3 +423,13 @@ if neobundle#tap('vim-textobj-user') "{{{
 
   call neobundle#untap()
 endif "}}}
+
+if neobundle#tap('glowshi-ft.vim') "{{{
+  let g:glowshi_ft_no_default_key_mappings = 1
+  map f <Plug>(glowshi-ft-f)
+  map F <Plug>(glowshi-ft-F)
+
+  let g:glowshi_ft_timeoutlen = 1000
+
+  call neobundle#untap()
+endif "}}}
