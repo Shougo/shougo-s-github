@@ -250,9 +250,6 @@ NeoBundleLazy 'vim-jp/cpp-vim', {
 NeoBundleLazy 'thinca/vim-ft-diff_fold', {
       \ 'filetypes' : 'diff'
       \ }
-" NeoBundleLazy 'thinca/vim-ft-markdown_fold', {
-"       \ 'filetypes' : 'markdown'
-"       \ }
 NeoBundleLazy 'nsf/gocode', {
       \ 'rtp' : 'vim',
       \ 'filetypes' : 'go',
@@ -298,10 +295,6 @@ NeoBundleLazy 'lambdalisue/vim-fullscreen', {
       \ },
       \ }
 
-NeoBundleLazy 'plasticboy/vim-markdown', {
-      \ 'filetypes' : 'mkd'
-      \ }
-
 NeoBundleLazy 'todesking/ruby_hl_lvar.vim', {
       \   'autoload': {
       \     'filetypes': ['ruby']
@@ -339,10 +332,19 @@ NeoBundleLazy 'osyo-manga/vim-textobj-multiblock', {
       \     ['ox', '<Plug>(textobj-multiblock-']]
       \ }}
 
-NeoBundleLazy 'plasticboy/vim-markdown', {
-      \ 'filetypes' : 'mkd'
-      \ }
-
 NeoBundleLazy 'saihoooooooo/glowshi-ft.vim', {
       \ 'mappings' : '<Plug>(glowshi-ft-'
+      \ }
+
+NeoBundleLazy 'Rykka/riv.vim', {
+      \ 'filetypes' : 'rst'
+      \ }
+
+NeoBundleLazy 'rcmdnk/vim-markdown', {
+      \ 'filetypes' : 'markdown'
+      \ }
+
+NeoBundleLazy 'kannokanno/previm', {
+      \ 'filetypes' : 'markdown',
+      \ 'depends' : 'tyru/open-browser.vim',
       \ }

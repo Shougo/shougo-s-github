@@ -37,35 +37,6 @@ inoremap <C-u>  <C-g>u<C-u>
 if has('gui_running')
   inoremap <ESC> <ESC>
 endif
-
-" H, D: delete camlcasemotion.
-inoremap <expr>H           <SID>camelcase_delete(0)
-inoremap <expr>D           <SID>camelcase_delete(1)
-function! s:camelcase_delete(is_reverse)
-  let save_ve = &l:virtualedit
-  setlocal virtualedit=all
-  if a:is_reverse
-    let cur_text = getline('.')[virtcol('.')-1 : ]
-  else
-    let cur_text = getline('.')[: virtcol('.')-2]
-  endif
-  let &l:virtualedit = save_ve
-
-  let pattern = '\d\+\|\u\+\ze\%(\u\l\|\d\)\|' .
-        \'\u\l\+\|\%(\a\|\d\)\+\ze_\|\%(\k\@!\S\)\+' .
-        \'\|\%(_\@!\k\)\+\>\|[_]\|\s\+'
-
-  if a:is_reverse
-    let cur_cnt = len(matchstr(cur_text, '^\%('.pattern.'\)'))
-  else
-    let cur_cnt = len(matchstr(cur_text, '\%('.pattern.'\)$'))
-  endif
-
-  let del = a:is_reverse ? "\<Del>" : "\<BS>"
-
-  return (pumvisible() ?
-        \ neocomplcache#smart_close_popup() : '') . repeat(del, cur_cnt)
-endfunction
 "}}}
 
 " Command-line mode keymappings:"{{{
@@ -88,8 +59,6 @@ cnoremap <C-k> <C-\>e getcmdpos() == 1 ?
       \ '' : getcmdline()[:getcmdpos()-2]<CR>
 " <C-y>: paste.
 cnoremap <C-y>          <C-r>*
-
-cmap <C-o>          <Plug>(unite_cmdmatch_complete)
 "}}}
 
 " Command line buffer."{{{
@@ -148,17 +117,11 @@ nnoremap <silent> [Space]cl
 " Set autoread.
 nnoremap [Space]ar
       \ :<C-u>setlocal autoread<CR>
-" Output encoding information.
-nnoremap <silent> [Space]en
-      \ :<C-u>setlocal encoding? termencoding? fenc? fencs?<CR>
 " Set spell check.
 nnoremap [Space]sp
       \ :<C-u>call ToggleOption('spell')<CR>
 nnoremap [Space]w
       \ :<C-u>call ToggleOption('wrap')<CR>
-" Echo syntax name.
-nnoremap [Space]sy
-      \ :<C-u>echo synIDattr(synID(line('.'), col('.'), 1), "name")<CR>
 
 " Easily edit .vimrc and .gvimrc "{{{
 nnoremap <silent> [Space]ev  :<C-u>edit $MYVIMRC<CR>
@@ -184,12 +147,6 @@ function! s:cd_buffer_dir() "{{{
 
   cd `=dir`
 endfunction"}}}
-
-" Delete windows ^M codes.
-nnoremap <silent> [Space]<C-m> mmHmt:<C-u>%s/\r$//ge<CR>'tzt'm
-
-" Delete spaces before newline.
-nnoremap <silent> [Space]ss mmHmt:<C-u>%s/<Space>$//ge<CR>`tzt`m
 
 " Easily syntax change.
 nnoremap <silent> [Space]ft :<C-u>Unite -start-insert filetype filetype/new<CR>
@@ -229,6 +186,21 @@ nnoremap <silent> [Space]t2 :<C-u>setl shiftwidth=2 softtabstop=2<CR>
 nnoremap <silent> [Space]t4 :<C-u>setl shiftwidth=4 softtabstop=4<CR>
 nnoremap <silent> [Space]t8 :<C-u>setl shiftwidth=8 softtabstop=8<CR>
 "}}}
+
+" Toggle options. "{{{
+function! ToggleOption(option_name)
+  execute 'setlocal' a:option_name.'!'
+  execute 'setlocal' a:option_name.'?'
+endfunction  "}}}
+" Toggle variables. "{{{
+function! ToggleVariable(variable_name)
+  if eval(a:variable_name)
+    execute 'let' a:variable_name.' = 0'
+  else
+    execute 'let' a:variable_name.' = 1'
+  endif
+  echo printf('%s = %s', a:variable_name, eval(a:variable_name))
+endfunction  "}}}
 "}}}
 
 " s: Windows and buffers(High priority) "{{{
@@ -237,10 +209,10 @@ nnoremap    [Window]   <Nop>
 nmap    s [Window]
 nnoremap <silent> [Window]p  :<C-u>call <SID>split_nicely()<CR>
 nnoremap <silent> [Window]v  :<C-u>vsplit<CR>
-nnoremap <silent> [Window]c  :<C-u>call <sid>smart_close()<CR>
+nnoremap <silent> [Window]c  :<C-u>call <SID>smart_close()<CR>
 nnoremap <silent> -  :<C-u>call <SID>smart_close()<CR>
 nnoremap <silent> [Window]o  :<C-u>only<CR>
-nnoremap <silent> [Window]b  :<C-u>Thumbnail<CR>
+nnoremap <silent> q :<C-u>call <SID>smart_close()<CR>
 
 " A .vimrc snippet that allows you to move around windows beyond tabs
 nnoremap <silent> <Tab> :call <SID>NextWindow()<CR>
@@ -343,12 +315,6 @@ function! s:buflisted(bufnr) "{{{
         \ has_key(t:unite_buffer_dictionary, a:bufnr) && buflisted(a:bufnr) :
         \ buflisted(a:bufnr)
 endfunction"}}}
-
-" JunkFile
-" nnoremap <silent> [Window]e  :<C-u>JunkfileOpen<CR>
-nnoremap <silent> [Window]e  :<C-u>Unite junkfile/new junkfile -start-insert<CR>
-command! -nargs=0 JunkfileDiary call junkfile#open_immediately(
-      \ strftime('%Y-%m-%d.md'))
 "}}}
 
 " e: Change basic commands "{{{
@@ -375,10 +341,6 @@ nnoremap <silent> [Alt]O O<Space><BS><ESC>
 nnoremap [Alt]y y$
 nnoremap Y y$
 nnoremap x "_x
-
-" Useless commands
-nnoremap [Alt];  ;
-nnoremap [Alt],  ,
 "}}}
 
 " Disable Ex-mode.
@@ -503,14 +465,6 @@ function! SmartEnd(mode)
 endfunction "}}}
 "}}}
 
-" Jump to a line and the line of before and after of the same indent."{{{
-" Useful for Python.
-nnoremap <silent> g{ :<C-u>call search('^' .
-      \ matchstr(getline(line('.') + 1), '\(\s*\)') .'\S', 'b')<CR>^
-nnoremap <silent> g} :<C-u>call search('^' .
-      \ matchstr(getline(line('.')), '\(\s*\)') .'\S')<CR>^
-"}}}
-
 " Select rectangle.
 xnoremap r <C-v>
 " Select until end of current line in visual mode.
@@ -536,16 +490,8 @@ nnoremap <expr> l foldclosed(line('.')) != -1 ? 'zo0' : 'l'
 xnoremap <expr> l foldclosed(line('.')) != -1 ? 'zogv0' : 'l'
 noremap [Space]j zj
 noremap [Space]k zk
-noremap [Space]h zc
-noremap [Space]l zo
-noremap [Space]a za
-noremap [Space]m zM
-noremap [Space]i zMzv
-noremap [Space]rr zR
-noremap [Space]f zf
-noremap [Space]d zd
-noremap [Space]u :<C-u>Unite outline:foldings<CR>
-noremap [Space]gg :<C-u>echo FoldCCnavi()<CR>
+noremap zu :<C-u>Unite outline:foldings<CR>
+noremap zz za
 "}}}
 
 " Substitute.
@@ -635,17 +581,9 @@ noremap <expr> zz (winline() == (winheight(0)+1)/ 2) ?
 
 " Capitalize.
 nnoremap gu gUiw`]
-inoremap <C-q> <ESC>gUiw`]a
 
 " Clear highlight.
 nnoremap <ESC><ESC> :nohlsearch<CR>:match<CR>
-
-" operator-html-escape.vim
-nmap <Leader>h <Plug>(operator-html-escape)
-xmap <Leader>h <Plug>(operator-html-escape)
-
-" Easily macro.
-nnoremap @@ @a
 "}}}
 
 " Improved increment.
@@ -675,58 +613,7 @@ function! s:add_numbers(num)
   endif
 endfunction
 
-" Syntax check.
-nnoremap <silent> [Window]y
-      \ :<C-u>echo map(synstack(line('.'), col('.')),
-      \     'synIDattr(v:val, "name")')<CR>
-
-" Open github URI.
-call operator#user#define('open-neobundlepath', 'OpenNeoBundlePath')
-nmap gz <Plug>(operator-open-neobundlepath)
-xmap gz <Plug>(operator-open-neobundlepath)
-function! OpenNeoBundlePath(motion_wise) "{{{
-  if line("'[") != line("']")
-    return
-  endif
-  let start = col("'[") - 1
-  let end = col("']")
-  let sel = strpart(getline('.'), start, end - start)
-  let sel = substitute(sel,
-        \'^\%(github\|gh\|git@github\.com\):\(.\+\)',
-        \ 'https://github.com/\1', '')
-  let sel = substitute(sel,
-        \'^\%(bitbucket\|bb\):\(.\+\)', 'https://bitbucket.org/\1', '')
-  let sel = substitute(sel,
-        \'^gist:\(.\+\)', 'https://gist.github.com/\1', '')
-  let sel = substitute(sel,
-        \'^git://', 'https://', '')
-  if sel =~ '^https\?://'
-    call openbrowser#open(sel)
-  elseif sel =~ '/'
-    call openbrowser#open('https://github.com/'.sel)
-  else
-    call openbrowser#open('https://github.com/vim-scripts/'.sel)
-  endif
-endfunction "}}}
-
 " Search.
 nnoremap ;n  ;
 nnoremap ;m  ,
-
-nnoremap <silent> q :<C-u>call <sid>smart_close()<CR>
-
-" Toggle options. "{{{
-function! ToggleOption(option_name)
-  execute 'setlocal' a:option_name.'!'
-  execute 'setlocal' a:option_name.'?'
-endfunction  "}}}
-" Toggle variables. "{{{
-function! ToggleVariable(variable_name)
-  if eval(a:variable_name)
-    execute 'let' a:variable_name.' = 0'
-  else
-    execute 'let' a:variable_name.' = 1'
-  endif
-  echo printf('%s = %s', a:variable_name, eval(a:variable_name))
-endfunction  "}}}
 

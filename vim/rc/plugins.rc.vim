@@ -433,3 +433,9 @@ if neobundle#tap('glowshi-ft.vim') "{{{
 
   call neobundle#untap()
 endif "}}}
+
+if neobundle#tap('junkfile.vim') "{{{
+  nnoremap <silent> [Window]e  :<C-u>Unite junkfile/new junkfile -start-insert<CR>
+
+  call neobundle#untap()
+endif "}}}
