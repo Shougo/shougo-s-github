@@ -142,10 +142,11 @@ function! s:cd_buffer_dir() "{{{
   elseif filetype ==# 'vimshell'
     let dir = getbufvar(bufnr('%'), 'vimshell').save_dir
   else
-    let dir = isdirectory(bufname('%')) ? bufname('%') : fnamemodify(bufname('%'), ':p:h')
+    let dir = isdirectory(bufname('%')) ?
+          \ bufname('%') : fnamemodify(bufname('%'), ':p:h')
   endif
 
-  cd `=dir`
+  execute 'lcd' fnameescape(dir)
 endfunction"}}}
 
 " Easily syntax change.

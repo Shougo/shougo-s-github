@@ -345,6 +345,6 @@ NeoBundleLazy 'rcmdnk/vim-markdown', {
       \ }
 
 NeoBundleLazy 'kannokanno/previm', {
-      \ 'filetypes' : 'markdown',
+      \ 'filetypes' : ['markdown', 'rst'],
       \ 'depends' : 'tyru/open-browser.vim',
       \ }
