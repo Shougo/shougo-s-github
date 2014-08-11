@@ -113,7 +113,7 @@ NeoBundleLazy 'kana/vim-smartchr', {
       \ 'insert' : 1,
       \ }
 
-NeoBundleLazy 'kien/ctrlp.vim'
+NeoBundleLazy 'ctrlpvim/ctrlp.vim'
 NeoBundleLazy 'LeafCage/foldCC', {
       \ 'filetypes' : 'vim' }
 NeoBundleLazy 'mattn/webapi-vim'
