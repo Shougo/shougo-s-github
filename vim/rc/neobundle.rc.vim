@@ -103,7 +103,7 @@ NeoBundleLazy 'vim-jp/vital.vim', {
       \ }
 NeoBundleLazy 'Shougo/junkfile.vim', {
       \ 'commands' : 'JunkfileOpen',
-      \ 'unite_sources' : ['junkfile', 'junkfile/new'],
+      \ 'unite_sources' : 'junkfile',
       \ }
 
 NeoBundleLazy 'Shougo/unite-outline'
@@ -145,9 +145,7 @@ NeoBundleLazy 'thinca/vim-ref', {
       \ 'commands' : 'Ref',
       \ 'unite_sources' : 'ref',
       \ }
-NeoBundleLazy 'thinca/vim-unite-history', {
-      \ 'unite_sources' : ['history/command', 'history/search']
-      \ }
+NeoBundleLazy 'thinca/vim-unite-history'
 NeoBundleLazy 'vim-ruby/vim-ruby', {
       \ 'mappings' : '<Plug>(ref-',
       \ 'filetypes' : 'ruby'
@@ -160,15 +158,13 @@ NeoBundleLazy 'basyura/J6uil.vim', {
       \      'name' : 'J6uil',
       \      'complete' : 'custom,J6uil#complete#room'},
       \   'function_prefix' : 'J6uil',
-      \   'unite_sources' : 'J6uil/rooms',
+      \   'unite_sources' : 'J6uil',
       \ },
       \ 'depends' : 'mattn/webapi-vim',
       \ }
 
 NeoBundleLazy 'Shougo/unite-help'
-NeoBundleLazy 'tsukkee/unite-tag', {
-      \ 'unite_sources' : ['tag', 'tag/include', 'tag/file']
-      \ }
+NeoBundleLazy 'tsukkee/unite-tag'
 NeoBundleLazy 'tyru/caw.vim', {
       \ 'mappings' : [['nxo',
       \   '<Plug>(caw:prefix)', '<Plug>(caw:i:toggle)']]
@@ -347,4 +343,14 @@ NeoBundleLazy 'rcmdnk/vim-markdown', {
 NeoBundleLazy 'kannokanno/previm', {
       \ 'filetypes' : ['markdown', 'rst'],
       \ 'depends' : 'tyru/open-browser.vim',
+      \ }
+
+NeoBundleLazy 'Kocha/vim-unite-tig'
+
+NeoBundleLazy 'Shougo/javacomplete', {
+      \ 'filetypes' : 'java',
+      \ }
+
+NeoBundleLazy 'cohama/agit.vim', {
+      \ 'commands' : 'Agit',
       \ }

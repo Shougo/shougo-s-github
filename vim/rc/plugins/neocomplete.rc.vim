@@ -68,7 +68,7 @@ let g:neocomplete#sources#omni#input_patterns.php =
       \'\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
 
 " Disable omni auto completion for Java.
-let g:neocomplete#sources#omni#input_patterns.java = ''
+" let g:neocomplete#sources#omni#input_patterns.java = ''
 
 " Define keyword pattern.
 if !exists('g:neocomplete#keyword_patterns')
