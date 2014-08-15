@@ -5,7 +5,7 @@
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 NeoBundleLazy 'kana/vim-niceblock', {
-      \   'mappings' : '<Plug>(niceblock-',
+      \   'mappings' : '<Plug>',
       \ }
 
 NeoBundleLazy 'Shougo/echodoc.vim', {
@@ -65,7 +65,7 @@ NeoBundleLazy 'Shougo/vimfiler.vim', {
       \         { 'name' : 'Write',
       \           'complete' : 'customlist,vimfiler#complete' },
       \         'Read', 'Source'],
-      \ 'mappings' : '<Plug>(vimfiler_',
+      \ 'mappings' : '<Plug>',
       \ 'explorer' : 1,
       \ }
 NeoBundle 'Shougo/vimproc.vim', {
@@ -83,7 +83,7 @@ NeoBundleLazy 'Shougo/vimshell.vim', {
       \               'VimShellExecute', 'VimShellInteractive',
       \               'VimShellCreate',
       \               'VimShellTerminal', 'VimShellPop'],
-      \ 'mappings' : '<Plug>(vimshell_'
+      \ 'mappings' : '<Plug>'
       \ }
 NeoBundleLazy 'yomi322/vim-gitcomplete', {
       \ 'filetype' : 'vimshell'
@@ -123,9 +123,7 @@ NeoBundleLazy 'add20/vim-conque', {
 NeoBundleLazy 'thinca/vim-fontzoom', {
       \ 'gui' : 1,
       \ 'autoload' : {
-      \  'mappings' : [
-      \   ['n', '<Plug>(fontzoom-larger)'],
-      \   ['n', '<Plug>(fontzoom-smaller)']]
+      \  'mappings' : '<Plug>'
       \ }}
 NeoBundleLazy 'thinca/vim-prettyprint', {
       \ 'commands' : 'PP'
@@ -135,8 +133,7 @@ NeoBundleLazy 'thinca/vim-qfreplace', {
       \ }
 NeoBundleLazy 'thinca/vim-quickrun', {
       \ 'commands' : 'QuickRun',
-      \ 'mappings' : [
-      \   ['nxo', '<Plug>(quickrun)']],
+      \ 'mappings' : '<Plug>'
       \ }
 NeoBundleLazy 'thinca/vim-scouter', {
       \ 'commands' : 'Scouter'
@@ -147,7 +144,7 @@ NeoBundleLazy 'thinca/vim-ref', {
       \ }
 NeoBundleLazy 'thinca/vim-unite-history'
 NeoBundleLazy 'vim-ruby/vim-ruby', {
-      \ 'mappings' : '<Plug>(ref-',
+      \ 'mappings' : '<Plug>',
       \ 'filetypes' : 'ruby'
       \ }
 
@@ -166,14 +163,13 @@ NeoBundleLazy 'basyura/J6uil.vim', {
 NeoBundleLazy 'Shougo/unite-help'
 NeoBundleLazy 'tsukkee/unite-tag'
 NeoBundleLazy 'tyru/caw.vim', {
-      \ 'mappings' : [['nxo',
-      \   '<Plug>(caw:prefix)', '<Plug>(caw:i:toggle)']]
+      \ 'mappings' : '<Plug>'
       \ }
 NeoBundleLazy 'tyru/eskk.vim', {
-      \ 'mappings' : [['i', '<Plug>(eskk:']],
+      \ 'mappings' : [['i', '<Plug>']],
       \ }
 NeoBundleLazy 'tyru/open-browser.vim', {
-      \ 'mappings' : '<Plug>(open-browser-',
+      \ 'mappings' : '<Plug>',
       \ }
 NeoBundleLazy 'tyru/restart.vim', {
       \ 'gui' : 1,
@@ -181,10 +177,7 @@ NeoBundleLazy 'tyru/restart.vim', {
       \  'commands' : 'Restart'
       \ }}
 NeoBundleLazy 'tyru/winmove.vim', {
-      \ 'mappings' : [['nxo',
-      \   '<Plug>(winmove-up)', '<Plug>(winmove-down)',
-      \         '<Plug>(winmove-left)', '<Plug>(winmove-right)'
-      \ ]],
+      \ 'mappings' : '<Plug>',
       \ 'gui' : 1,
       \ 'augroup' : 'winmove',
       \ }
@@ -235,7 +228,7 @@ NeoBundleLazy 'hynek/vim-python-pep8-indent', {
       \ 'filetypes' : 'python',
       \ }
 NeoBundleLazy 'bkad/CamelCaseMotion', {
-      \ 'mappings' : '<Plug>CamelCaseMotion_',
+      \ 'mappings' : '<Plug>',
       \ }
 NeoBundleLazy 'aharisu/vim-gdev', {
       \ 'filetypes' : 'scheme',
@@ -272,7 +265,7 @@ NeoBundleLazy 'JesseKPhillips/d.vim', {
       \ }
 
 NeoBundleLazy 't9md/vim-choosewin', {
-      \   'mappings' : '<Plug>(choosewin)'
+      \   'mappings' : '<Plug>'
       \ }
 
 NeoBundleLazy 'fatih/vim-go', {
@@ -287,7 +280,7 @@ NeoBundleLazy 'lambdalisue/vim-fullscreen', {
       \     'FullscreenStop',
       \     'FullscreenToggle',
       \   ],
-      \   'mappings': '<Plug>(fullscreen-',
+      \   'mappings': '<Plug>',
       \ },
       \ }
 
@@ -313,7 +306,7 @@ NeoBundleLazy 'kana/vim-operator-replace', {
       \ }}
 NeoBundleLazy 'rhysd/vim-operator-surround', {
       \ 'depends' : 'vim-operator-user',
-      \   'mappings' : '<Plug>(operator-surround',
+      \   'mappings' : '<Plug>',
       \ }
 NeoBundleLazy 'chikatoike/concealedyank.vim', {
       \   'mappings' : [['x', '<Plug>(operator-concealedyank)']]
@@ -325,11 +318,11 @@ NeoBundleLazy 'osyo-manga/vim-textobj-multiblock', {
       \ 'depends' : 'vim-textobj-user',
       \ 'autoload' : {
       \   'mappings' : [
-      \     ['ox', '<Plug>(textobj-multiblock-']]
+      \     ['ox', '<Plug>']]
       \ }}
 
 NeoBundleLazy 'saihoooooooo/glowshi-ft.vim', {
-      \ 'mappings' : '<Plug>(glowshi-ft-'
+      \ 'mappings' : '<Plug>'
       \ }
 
 NeoBundleLazy 'Rykka/riv.vim', {
@@ -351,6 +344,6 @@ NeoBundleLazy 'Shougo/javacomplete', {
       \ 'filetypes' : 'java',
       \ }
 
-NeoBundleLazy 'cohama/agit.vim', {
-      \ 'commands' : 'Agit',
+NeoBundleLazy 'osyo-manga/vim-jplus', {
+      \ 'mappings' : '<Plug>'
       \ }

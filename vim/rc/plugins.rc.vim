@@ -72,10 +72,10 @@ if neobundle#tap('unite.vim') "{{{
   nmap    ;u [unite]
   xmap    ;u [unite]
 
-  nnoremap <expr><silent> ;b  <SID>unite_build()
-  function! s:unite_build()
-    return ":\<C-u>Unite -buffer-name=build". tabpagenr() ." -no-quit build\<CR>"
-  endfunction
+  nnoremap <expr><silent> ;b
+        \ ":\<C-u>Unite -buffer-name=build". tabpagenr() ." -no-quit build\<CR>"
+  nnoremap <expr><silent> ;t
+        \ ":\<C-u>Unite -buffer-name=test". tabpagenr() ." -no-quit build::test\<CR>"
   nnoremap <silent> ;o
         \ :<C-u>Unite outline -no-start-insert -resume<CR>
   nnoremap <silent> ;t
@@ -435,6 +435,13 @@ endif "}}}
 
 if neobundle#tap('junkfile.vim') "{{{
   nnoremap <silent> [Window]e  :<C-u>Unite junkfile/new junkfile -start-insert<CR>
+
+  call neobundle#untap()
+endif "}}}
+
+if neobundle#tap('vim-jplus') "{{{
+  nmap J <Plug>(jplus)
+  vmap J <Plug>(jplus)
 
   call neobundle#untap()
 endif "}}}
