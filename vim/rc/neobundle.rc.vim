@@ -33,8 +33,7 @@ NeoBundle 'Shougo/neobundle-vim-scripts'
 
 NeoBundleLazy 'Shougo/unite.vim', {
       \ 'commands' : [{ 'name' : 'Unite',
-      \                 'complete' : 'customlist,unite#complete_source'},
-      \                 'UniteWithCursorWord', 'UniteWithInput']
+      \                 'complete' : 'customlist,unite#complete_source'}]
       \ }
 NeoBundleLazy 'Shougo/unite-build'
 NeoBundleLazy 'Shougo/neossh.vim', {
@@ -49,16 +48,11 @@ NeoBundleLazy 'ujihisa/vimshell-ssh', {
 NeoBundle 'Shougo/unite-sudo'
 NeoBundleLazy 'Shougo/vim-vcs', {
       \ 'depends' : 'thinca/vim-openbuf',
-      \ 'autoload' : {'commands' : 'Vcs'},
       \ }
 NeoBundleLazy 'Shougo/vimfiler.vim', {
       \ 'depends' : 'Shougo/unite.vim',
       \ 'commands' : [
       \         { 'name' : 'VimFiler',
-      \           'complete' : 'customlist,vimfiler#complete' },
-      \         { 'name' : 'VimFilerTab',
-      \           'complete' : 'customlist,vimfiler#complete' },
-      \         { 'name' : 'VimFilerExplorer',
       \           'complete' : 'customlist,vimfiler#complete' },
       \         { 'name' : 'Edit',
       \           'complete' : 'customlist,vimfiler#complete' },
@@ -80,9 +74,7 @@ NeoBundle 'Shougo/vimproc.vim', {
 NeoBundleLazy 'Shougo/vimshell.vim', {
       \ 'commands' : [{ 'name' : 'VimShell',
       \                 'complete' : 'customlist,vimshell#complete'},
-      \               'VimShellExecute', 'VimShellInteractive',
-      \               'VimShellCreate',
-      \               'VimShellTerminal', 'VimShellPop'],
+      \               ],
       \ 'mappings' : '<Plug>'
       \ }
 NeoBundleLazy 'yomi322/vim-gitcomplete', {
@@ -102,7 +94,6 @@ NeoBundleLazy 'vim-jp/vital.vim', {
       \     'commands' : 'Vitalize',
       \ }
 NeoBundleLazy 'Shougo/junkfile.vim', {
-      \ 'commands' : 'JunkfileOpen',
       \ 'unite_sources' : 'junkfile',
       \ }
 
@@ -117,9 +108,7 @@ NeoBundleLazy 'ctrlpvim/ctrlp.vim'
 NeoBundleLazy 'LeafCage/foldCC', {
       \ 'filetypes' : 'vim' }
 NeoBundleLazy 'mattn/webapi-vim'
-NeoBundleLazy 'add20/vim-conque', {
-      \ 'commands' : 'ConqueTerm'
-      \ }
+NeoBundleLazy 'add20/vim-conque'
 NeoBundleLazy 'thinca/vim-fontzoom', {
       \ 'gui' : 1,
       \ 'autoload' : {
@@ -132,14 +121,10 @@ NeoBundleLazy 'thinca/vim-qfreplace', {
       \ 'filetypes' : ['unite', 'quickfix'],
       \ }
 NeoBundleLazy 'thinca/vim-quickrun', {
-      \ 'commands' : 'QuickRun',
       \ 'mappings' : '<Plug>'
       \ }
-NeoBundleLazy 'thinca/vim-scouter', {
-      \ 'commands' : 'Scouter'
-      \ }
+NeoBundleLazy 'thinca/vim-scouter'
 NeoBundleLazy 'thinca/vim-ref', {
-      \ 'commands' : 'Ref',
       \ 'unite_sources' : 'ref',
       \ }
 NeoBundleLazy 'thinca/vim-unite-history'
@@ -173,9 +158,7 @@ NeoBundleLazy 'tyru/open-browser.vim', {
       \ }
 NeoBundleLazy 'tyru/restart.vim', {
       \ 'gui' : 1,
-      \ 'autoload' : {
-      \  'commands' : 'Restart'
-      \ }}
+      \ }
 NeoBundleLazy 'tyru/winmove.vim', {
       \ 'mappings' : '<Plug>',
       \ 'gui' : 1,
@@ -253,7 +236,6 @@ NeoBundleLazy 'elzr/vim-json', {
       \ }
 
 NeoBundleLazy 'tyru/open-browser.vim', {
-      \   'commands' : ['OpenBrowserSearch', 'OpenBrowser'],
       \   'functions' : 'openbrowser#open',
       \ }
 
@@ -274,14 +256,7 @@ NeoBundleLazy 'fatih/vim-go', {
 
 NeoBundleLazy 'lambdalisue/vim-fullscreen', {
       \ 'gui': 1,
-      \ 'autoload': {
-      \   'commands': [
-      \     'FullscreenStart',
-      \     'FullscreenStop',
-      \     'FullscreenToggle',
-      \   ],
-      \   'mappings': '<Plug>',
-      \ },
+      \ 'mappings': '<Plug>',
       \ }
 
 NeoBundleLazy 'todesking/ruby_hl_lvar.vim', {
