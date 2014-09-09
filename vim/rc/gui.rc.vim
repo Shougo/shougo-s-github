@@ -26,6 +26,11 @@ if has('win32') || has('win64')
   " Number of pixel lines inserted between characters.
   set linespace=2
 
+  if has('patch-7.4.394')
+    " Use DirectWrite
+    set renderoptions=type:directx,gammma:2.2,mode:3
+  endif
+
   " Toggle font setting.
   function! FontToggle()
     if &guifont=~ '^VL Gothic:'

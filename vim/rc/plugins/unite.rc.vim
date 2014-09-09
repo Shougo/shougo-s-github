@@ -102,7 +102,8 @@ call unite#custom#source('line_migemo', 'matchers', 'matcher_migemo')
 " Custom filters."{{{
 call unite#custom#source(
       \ 'buffer,file_rec,file_rec/async,file_rec/git', 'matchers',
-      \ ['converter_relative_word', 'matcher_fuzzy'])
+      \ ['converter_relative_word', 'matcher_fuzzy',
+      \  'matcher_project_ignore_files'])
 call unite#custom#source(
       \ 'file_mru', 'matchers',
       \ ['matcher_project_files', 'matcher_fuzzy', 'matcher_hide_hidden_files'])
@@ -113,6 +114,7 @@ call unite#custom#source(
       \ 'file_rec,file_rec/async,file_rec/git,file_mru', 'converters',
       \ ['converter_file_directory'])
 call unite#filters#sorter_default#use(['sorter_rank'])
+" call unite#filters#sorter_default#use(['sorter_length'])
 "}}}
 
 function! s:unite_my_settings() "{{{
@@ -187,7 +189,7 @@ if executable('ag')
   let g:unite_source_grep_recursive_opt = ''
 elseif executable('pt')
   let g:unite_source_grep_command = 'pt'
-  let g:unite_source_grep_default_opts = '-i --nogroup --nocolor'
+  let g:unite_source_grep_default_opts = '--nogroup --nocolor'
   let g:unite_source_grep_recursive_opt = ''
 elseif executable('jvgrep')
   " For jvgrep.
@@ -208,3 +210,20 @@ let g:unite_build_warning_icon  = '~/.vim/signs/warn.'
 
 let g:unite_source_rec_max_cache_files = -1
 
+" My custom split action
+let s:my_split = {'is_selectable': 1}
+function! s:my_split.func(candidate)
+  let split_action = 'vsplit'
+  if winwidth(winnr('#')) <= 2 * (&tw ? &tw : 80)
+    let split_action = 'split'
+  endif
+  call unite#take_action(split_action, a:candidate)
+endfunction
+call unite#custom_action('openable', 'context_split', s:my_split)
+unlet s:my_split
+
+nnoremap <silent> <Leader>st :NeoCompleteIncludeMakeCache<CR>
+            \ :UniteWithCursorWord -immediately -sync
+            \ -default-action=context_split tag/include<CR>
+nnoremap <silent> [Space]n  :<C-u>UniteNext<CR>
+nnoremap <silent> [Space]p  :<C-u>UnitePrevious<CR>

@@ -52,11 +52,7 @@ NeoBundleLazy 'Shougo/vim-vcs', {
 NeoBundleLazy 'Shougo/vimfiler.vim', {
       \ 'depends' : 'Shougo/unite.vim',
       \ 'commands' : [
-      \         { 'name' : 'VimFiler',
-      \           'complete' : 'customlist,vimfiler#complete' },
-      \         { 'name' : 'Edit',
-      \           'complete' : 'customlist,vimfiler#complete' },
-      \         { 'name' : 'Write',
+      \         { 'name' : ['VimFiler', 'Edit', 'Write'],
       \           'complete' : 'customlist,vimfiler#complete' },
       \         'Read', 'Source'],
       \ 'mappings' : '<Plug>',
@@ -64,7 +60,7 @@ NeoBundleLazy 'Shougo/vimfiler.vim', {
       \ }
 NeoBundle 'Shougo/vimproc.vim', {
       \ 'build' : {
-      \     'windows' : 'make -f make_mingw32.mak',
+      \     'windows' : 'tools\\update-dll-mingw',
       \     'cygwin' : 'make -f make_cygwin.mak',
       \     'mac' : 'make -f make_mac.mak',
       \     'unix' : 'make -f make_unix.mak',
@@ -321,4 +317,10 @@ NeoBundleLazy 'Shougo/javacomplete', {
 
 NeoBundleLazy 'osyo-manga/vim-jplus', {
       \ 'mappings' : '<Plug>'
+      \ }
+
+NeoBundleLazy 'osyo-manga/unite-vimpatches'
+
+NeoBundleLazy 'katono/rogue.vim', {
+      \ 'commands' : 'Rogue'
       \ }

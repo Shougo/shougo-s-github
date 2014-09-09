@@ -106,7 +106,7 @@ xnoremap  [Space]   <Nop>
 " Toggle relativenumber.
 nnoremap <silent> [Space].
       \ :<C-u>call ToggleOption('relativenumber')<CR>
-nnoremap <silent> [Space]p
+nnoremap <silent> [Space]m
       \ :<C-u>call ToggleOption('paste')<CR>:set mouse=<CR>
 " Toggle highlight.
 nnoremap <silent> [Space]/
@@ -617,4 +617,15 @@ endfunction
 " Search.
 nnoremap ;n  ;
 nnoremap ;m  ,
+
+" Read pdf
+if executable('pdftotext')
+  command! -complete=file -nargs=1 Pdf call s:read_pdf(<q-args>)
+  function! s:read_pdf(file)
+    enew
+    execute 'read !pdftotext -nopgbrk -layout' a:file '-'
+    setlocal nomodifiable
+    setlocal nomodified
+  endfunction
+endif
 

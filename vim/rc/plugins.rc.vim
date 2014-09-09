@@ -100,7 +100,7 @@ if neobundle#tap('unite.vim') "{{{
 
   nnoremap <expr><silent> [Window]r  ":\<C-u>Unite -start-insert ref/".ref#detect()."\<CR>"
   nnoremap <silent> [Window]<Space>  :<C-u>Unite -buffer-name=files file_rec:~/.vim/rc<CR>
-  nnoremap <silent> [Window]n  :<C-u>Unite -default-action=lcd neobundle:!<CR>
+  nnoremap <silent> [Window]n  :<C-u>Unite -start-insert -default-action=lcd neobundle:!<CR>
 
   nnoremap <silent> [Window]f
         \ :<C-u>Unite <CR>
@@ -273,6 +273,7 @@ if neobundle#tap('vim-operator-surround') "{{{
   nmap <silent>sa <Plug>(operator-surround-append)a
   nmap <silent>sd <Plug>(operator-surround-delete)a
   nmap <silent>sr <Plug>(operator-surround-replace)a
+  nmap <silent>sc <Plug>(operator-surround-replace)a
 
   call neobundle#untap()
 endif "}}}

@@ -34,6 +34,9 @@ let g:neocomplete#enable_auto_select = 0
 let g:neocomplete#enable_refresh_always = 0
 let g:neocomplete#enable_cursor_hold_i = 0
 
+" Test.
+let g:neocomplete#enable_omni_fallback = 1
+
 let g:neocomplete#sources#dictionary#dictionaries = {
       \ 'default' : '',
       \ 'vimshell' : $CACHE.'/vimshell/command-history',
