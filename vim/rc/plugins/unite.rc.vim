@@ -85,15 +85,10 @@ let g:unite_source_alias_aliases.scriptnames = {
 
 autocmd MyAutoCmd FileType unite call s:unite_my_settings()
 
-let g:unite_ignore_source_files = ['function.vim', 'command.vim']
+let g:unite_ignore_source_files = []
 
 call unite#custom#profile('action', 'context', {
       \ 'start_insert' : 1
-      \ })
-
-" Set "-no-quit" automatically in grep unite source.
-call unite#custom#profile('source/grep', 'context', {
-      \ 'no_quit' : 1
       \ })
 
 " migemo.
@@ -225,5 +220,5 @@ unlet s:my_split
 nnoremap <silent> <Leader>st :NeoCompleteIncludeMakeCache<CR>
             \ :UniteWithCursorWord -immediately -sync
             \ -default-action=context_split tag/include<CR>
-nnoremap <silent> [Space]n  :<C-u>UniteNext<CR>
-nnoremap <silent> [Space]p  :<C-u>UnitePrevious<CR>
+nnoremap <silent> [Space]n  :UniteNext<CR>
+nnoremap <silent> [Space]p  :UnitePrevious<CR>

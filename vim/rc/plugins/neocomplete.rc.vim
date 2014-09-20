@@ -132,8 +132,7 @@ function! s:my_cr_function()
 endfunction
 
 " <TAB>: completion.
-inoremap <silent><expr><TAB>  neocomplete#mappings#complete_common_string() != '' ?
-      \   neocomplete#mappings#complete_common_string() :
+inoremap <silent><expr><TAB>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ neocomplete#start_manual_complete()
@@ -150,3 +149,6 @@ inoremap <expr><Right> neocomplete#close_popup() . "\<Right>"
 inoremap <expr><Up>    neocomplete#close_popup() . "\<Up>"
 inoremap <expr><Down>  neocomplete#close_popup() . "\<Down>"
 "}}}
+
+
+let g:neocomplete#fallback_mappings = ["\<C-x>\<C-o>", "\<C-x>\<C-n>"]

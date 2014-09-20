@@ -9,6 +9,11 @@
 " Note: Skip initialization for vim-tiny or vim-small.
 if !1 | finish | endif
 
+if has('nvim')
+  runtime! plugin/python_setup.vim
+  set unnamedclip
+endif
+
 function! s:source_rc(path)
   execute 'source' fnameescape(expand('~/.vim/rc/' . a:path))
 endfunction

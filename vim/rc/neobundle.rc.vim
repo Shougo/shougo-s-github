@@ -154,6 +154,7 @@ NeoBundleLazy 'tyru/open-browser.vim', {
       \ }
 NeoBundleLazy 'tyru/restart.vim', {
       \ 'gui' : 1,
+      \ 'commands' : 'Restart',
       \ }
 NeoBundleLazy 'tyru/winmove.vim', {
       \ 'mappings' : '<Plug>',
@@ -324,3 +325,12 @@ NeoBundleLazy 'osyo-manga/unite-vimpatches'
 NeoBundleLazy 'katono/rogue.vim', {
       \ 'commands' : 'Rogue'
       \ }
+
+NeoBundle 'Yggdroot/indentLine'
+
+NeoBundleLazy 'junegunn/vim-easy-align', {
+      \ 'mappings' : '<Plug>(EasyAlign)',
+      \}
+
+NeoBundleLazy 'sorah/unite-ghq'
+

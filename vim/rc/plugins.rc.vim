@@ -101,6 +101,7 @@ if neobundle#tap('unite.vim') "{{{
   nnoremap <expr><silent> [Window]r  ":\<C-u>Unite -start-insert ref/".ref#detect()."\<CR>"
   nnoremap <silent> [Window]<Space>  :<C-u>Unite -buffer-name=files file_rec:~/.vim/rc<CR>
   nnoremap <silent> [Window]n  :<C-u>Unite -start-insert -default-action=lcd neobundle:!<CR>
+  nnoremap <silent> [Window]g  :<C-u>Unite -start-insert ghq<CR>
 
   nnoremap <silent> [Window]f
         \ :<C-u>Unite <CR>
@@ -446,3 +447,17 @@ if neobundle#tap('vim-jplus') "{{{
 
   call neobundle#untap()
 endif "}}}
+
+if neobundle#tap('indentLine') "{{{
+  let g:indentLine_faster = 1
+  nmap <silent><Leader>i :<C-u>IndentLinesToggle<CR>
+endif "}}}
+
+if neobundle#tap('vim-easy-align') "{{{
+  " Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
+  xmap <Enter> <Plug>(EasyAlign)
+
+  " Start interactive EasyAlign for a motion/text object (e.g. <Leader>aip)
+  nmap <Leader>a <Plug>(EasyAlign)
+endif "}}}
+
