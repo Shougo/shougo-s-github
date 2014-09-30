@@ -461,3 +461,13 @@ if neobundle#tap('vim-easy-align') "{{{
   nmap <Leader>a <Plug>(EasyAlign)
 endif "}}}
 
+if neobundle#tap('vim-themis') "{{{
+  " Set to $PATH.
+  let s:bin = neobundle#get('vim-themis').rtp . 'bin'
+  let $PATH = neobundle#util#join_envpath(
+        \ neobundle#util#uniq(insert(
+        \    neobundle#util#split_envpath($PATH), s:bin)), $PATH, s:bin)
+  let $THEMIS_HOME = neobundle#get('vim-themis').rtp
+  unlet s:bin
+endif "}}}
+

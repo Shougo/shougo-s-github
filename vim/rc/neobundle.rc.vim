@@ -41,6 +41,7 @@ NeoBundleLazy 'Shougo/neossh.vim', {
       \ 'sources' : 'ssh',
       \ }
 NeoBundle 'Shougo/neomru.vim'
+NeoBundle 'Shougo/tabpagebuffer.vim'
 
 NeoBundleLazy 'ujihisa/vimshell-ssh', {
       \ 'filetypes' : 'vimshell',
@@ -333,4 +334,12 @@ NeoBundleLazy 'junegunn/vim-easy-align', {
       \}
 
 NeoBundleLazy 'sorah/unite-ghq'
+
+NeoBundleLazy 'thinca/vim-themis', {
+      \ 'filetypes' : 'vim',
+      \}
+
+NeoBundleLazy 'osyo-manga/vim-monster', {
+      \ 'filetypes' : 'ruby',
+      \ }
 

@@ -148,11 +148,6 @@ function! s:unite_my_settings() "{{{
   nnoremap <silent><buffer><expr> !     unite#do_action('start')
   nnoremap <buffer><expr> S      unite#mappings#set_current_filters(
         \ empty(unite#mappings#get_current_filters()) ? ['sorter_reverse'] : [])
-
-  nnoremap <silent><buffer><expr> p
-        \ empty(filter(range(1, winnr('$')),
-        \ 'getwinvar(v:val, "&previewwindow") != 0')) ?
-        \ unite#do_action('preview') : ":\<C-u>pclose!\<CR>"
 endfunction"}}}
 
 " Default configuration.
@@ -222,3 +217,4 @@ nnoremap <silent> <Leader>st :NeoCompleteIncludeMakeCache<CR>
             \ -default-action=context_split tag/include<CR>
 nnoremap <silent> [Space]n  :UniteNext<CR>
 nnoremap <silent> [Space]p  :UnitePrevious<CR>
+

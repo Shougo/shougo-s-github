@@ -11,11 +11,11 @@ call vimfiler#custom#profile('default', 'context', {
       \ })
 
 let g:vimfiler_as_default_explorer = 1
-let g:vimfiler_detect_drives = IsWindows() ? [
-      \ 'C:/', 'D:/', 'E:/', 'F:/', 'G:/', 'H:/', 'I:/',
-      \ 'J:/', 'K:/', 'L:/', 'M:/', 'N:/'] :
-      \ split(glob('/mnt/*'), '\n') + split(glob('/media/*'), '\n') +
-      \ split(glob('/Users/*'), '\n')
+if IsWindows()
+  let g:vimfiler_detect_drives = [
+        \ 'C:/', 'D:/', 'E:/', 'F:/', 'G:/', 'H:/', 'I:/',
+        \ 'J:/', 'K:/', 'L:/', 'M:/', 'N:/']
+endif
 
 " %p : full path
 " %d : current directory
