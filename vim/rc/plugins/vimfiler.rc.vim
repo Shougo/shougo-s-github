@@ -61,7 +61,6 @@ function! s:vimfiler_my_settings() "{{{
   " nnoremap <buffer> - <C-u>:Unite sendto<CR>
   " setlocal cursorline
 
-  nmap <buffer> O <Plug>(vimfiler_sync_with_another_vimfiler)
   nnoremap <silent><buffer><expr> gy vimfiler#do_action('tabopen')
   nmap <buffer> p <Plug>(vimfiler_quick_look)
   nmap <buffer> <Tab> <Plug>(vimfiler_switch_to_other_window)

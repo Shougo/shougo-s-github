@@ -84,9 +84,6 @@ NeoBundleLazy 'Shougo/vinarise.vim', {
       \ }]
       \ }
 
-NeoBundleLazy 'Shougo/vesting', {
-      \ 'unite_sources' : 'vesting'
-      \ }
 NeoBundleLazy 'vim-jp/vital.vim', {
       \     'commands' : 'Vitalize',
       \ }
@@ -175,7 +172,6 @@ NeoBundleLazy 'vim-jp/vimdoc-ja', {
       " \ }
 NeoBundleLazy 'osyo-manga/unite-quickfix'
 NeoBundleLazy 'osyo-manga/unite-filetype'
-NeoBundleLazy 'rbtnn/hexript.vim'
 NeoBundleLazy 'kana/vim-tabpagecd', {
       \ 'unite_sources' : 'tab'
       \ }

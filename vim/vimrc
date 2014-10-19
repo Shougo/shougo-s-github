@@ -59,6 +59,8 @@ NeoBundleLocal ~/.vim/bundle
 " NeoBundle configurations.
 " NeoBundleDisable neocomplcache.vim
 
+call s:source_rc('plugins.rc.vim')
+
 call neobundle#end()
 
 filetype plugin indent on
@@ -109,12 +111,6 @@ call s:source_rc('view.rc.vim')
 "
 
 call s:source_rc('filetype.rc.vim')
-
-"---------------------------------------------------------------------------
-" Plugin:
-"
-
-call s:source_rc('plugins.rc.vim')
 
 "---------------------------------------------------------------------------
 " Mappings:
@@ -177,8 +173,6 @@ set helplang& helplang=en,ja
 
 " Default home directory.
 let t:cwd = getcwd()
-
-call neobundle#call_hook('on_source')
 
 set secure
 

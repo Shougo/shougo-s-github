@@ -100,7 +100,7 @@ if neobundle#tap('unite.vim') "{{{
 
   nnoremap <expr><silent> [Window]r  ":\<C-u>Unite -start-insert ref/".ref#detect()."\<CR>"
   nnoremap <silent> [Window]<Space>  :<C-u>Unite -buffer-name=files file_rec:~/.vim/rc<CR>
-  nnoremap <silent> [Window]n  :<C-u>Unite -start-insert -default-action=lcd neobundle:!<CR>
+  nnoremap <silent> [Window]n  :<C-u>Unite -start-insert -default-action=lcd neobundle<CR>
   nnoremap <silent> [Window]g  :<C-u>Unite -start-insert ghq<CR>
 
   nnoremap <silent> [Window]f

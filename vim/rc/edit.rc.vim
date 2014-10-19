@@ -128,3 +128,9 @@ endfunction
 
 " Use autofmt.
 set formatexpr=autofmt#japanese#formatexpr()
+
+" Use blowfish2
+" https://dgl.cx/2014/10/vim-blowfish
+if has('cryptv')
+  set cryptmethod=blowfish2
+endif
