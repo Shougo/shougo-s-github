@@ -102,6 +102,7 @@ if neobundle#tap('unite.vim') "{{{
   nnoremap <silent> [Window]<Space>  :<C-u>Unite -buffer-name=files file_rec:~/.vim/rc<CR>
   nnoremap <silent> [Window]n  :<C-u>Unite -start-insert -default-action=lcd neobundle<CR>
   nnoremap <silent> [Window]g  :<C-u>Unite -start-insert ghq<CR>
+  nnoremap <silent> [Window]t  :<C-u>Unite -start-insert tig<CR>
 
   nnoremap <silent> [Window]f
         \ :<C-u>Unite <CR>
@@ -367,7 +368,7 @@ if neobundle#tap('vim-conque') "{{{
   call neobundle#untap()
 endif "}}}
 
-if neobundle#tap('fontzoom.vim') "{{{
+if neobundle#tap('vim-fontzoom') "{{{
   nmap + <Plug>(fontzoom-larger)
   nmap _ <Plug>(fontzoom-smaller)
 

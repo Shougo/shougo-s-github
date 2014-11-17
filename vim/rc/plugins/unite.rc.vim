@@ -101,7 +101,8 @@ call unite#custom#source(
       \  'matcher_project_ignore_files'])
 call unite#custom#source(
       \ 'file_mru', 'matchers',
-      \ ['matcher_project_files', 'matcher_fuzzy', 'matcher_hide_hidden_files'])
+      \ ['matcher_project_files', 'matcher_fuzzy',
+      \  'matcher_hide_hidden_files', 'matcher_hide_current_file'])
 " call unite#custom#source(
 "       \ 'file', 'matchers',
 "       \ ['matcher_fuzzy', 'matcher_hide_hidden_files'])

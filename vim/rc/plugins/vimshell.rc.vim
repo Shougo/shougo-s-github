@@ -75,6 +75,9 @@ function! s:vimshell_settings()
   call vimshell#set_alias('j', ':Unite -buffer-name=files
         \ -default-action=lcd -no-split -input=$$args directory_mru')
 
+  " Console.
+  call vimshell#set_alias('con', 'lilyterm -d `=b:vimshell.current_dir`')
+
   call vimshell#set_alias('up', 'cdup')
 
   call vimshell#hook#add('chpwd', 'my_chpwd', s:vimshell_hooks.chpwd)

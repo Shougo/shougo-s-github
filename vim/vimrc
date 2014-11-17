@@ -40,12 +40,25 @@ call s:source_rc('init.rc.vim')
 " call neobundle#rc(expand('$CACHE/neobundle'))
 call neobundle#begin(expand('$CACHE/neobundle'))
 
-if neobundle#has_cache()
-  NeoBundleLoadCache
-else
-  call s:source_rc('neobundle.rc.vim')
+" if neobundle#has_cache()
+"   NeoBundleLoadCache
+" else
+  NeoBundleFetch 'Shougo/neobundle.vim'
+
+  NeoBundle 'Shougo/vimproc.vim', {
+        \ 'build' : {
+        \     'windows' : 'tools\\update-dll-mingw',
+        \     'cygwin' : 'make -f make_cygwin.mak',
+        \     'mac' : 'make -f make_mac.mak',
+        \     'unix' : 'make -f make_unix.mak',
+        \    }
+        \ }
+
+  call neobundle#load_toml(
+        \ '~/.vim/rc/neobundle.toml', {'lazy' : 1})
+  " call s:source_rc('neobundle.rc.vim')
   NeoBundleSaveCache
-endif
+" endif
 
 if filereadable('vimrc_local.vim') ||
       \ findfile('vimrc_local.vim', '.;') != ''
@@ -68,8 +81,10 @@ filetype plugin indent on
 " Enable syntax color.
 syntax enable
 
-" Installation check.
-NeoBundleCheck
+if !has('vim_starting')
+  " Installation check.
+  NeoBundleCheck
+endif
 
 "---------------------------------------------------------------------------
 " Encoding:

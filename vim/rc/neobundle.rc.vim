@@ -2,7 +2,17 @@
 " NeoBundle:
 "
 
-NeoBundleFetch 'Shougo/neobundle.vim'
+NeoBundleLazy 'Shougo/tabpagebuffer.vim', {
+      \ 'filetypes' : 'all'
+      \ }
+NeoBundleLazy 'Shougo/neomru.vim', {
+      \ 'filetypes' : 'all'
+      \ }
+NeoBundleLazy 'Yggdroot/indentLine', {
+      \ 'filetypes' : 'all'
+      \ }
+
+NeoBundleLazy 'Shougo/unite-sudo'
 
 NeoBundleLazy 'kana/vim-niceblock', {
       \   'mappings' : '<Plug>',
@@ -29,24 +39,20 @@ NeoBundleLazy 'Shougo/neosnippet.vim', {
       \    'neosnippet', 'neosnippet/user', 'neosnippet/runtime'],
       \ }
 
-NeoBundle 'Shougo/neobundle-vim-scripts'
-
 NeoBundleLazy 'Shougo/unite.vim', {
       \ 'commands' : [{ 'name' : 'Unite',
-      \                 'complete' : 'customlist,unite#complete_source'}]
+      \                 'complete' : 'customlist,unite#complete_source'}],
+      \ 'depends' : 'Shougo/neomru.vim',
       \ }
 NeoBundleLazy 'Shougo/unite-build'
 NeoBundleLazy 'Shougo/neossh.vim', {
       \ 'filetypes' : 'vimfiler',
       \ 'sources' : 'ssh',
       \ }
-NeoBundle 'Shougo/neomru.vim'
-NeoBundle 'Shougo/tabpagebuffer.vim'
 
 NeoBundleLazy 'ujihisa/vimshell-ssh', {
       \ 'filetypes' : 'vimshell',
       \ }
-NeoBundle 'Shougo/unite-sudo'
 NeoBundleLazy 'Shougo/vim-vcs', {
       \ 'depends' : 'thinca/vim-openbuf',
       \ }
@@ -58,14 +64,6 @@ NeoBundleLazy 'Shougo/vimfiler.vim', {
       \         'Read', 'Source'],
       \ 'mappings' : '<Plug>',
       \ 'explorer' : 1,
-      \ }
-NeoBundle 'Shougo/vimproc.vim', {
-      \ 'build' : {
-      \     'windows' : 'tools\\update-dll-mingw',
-      \     'cygwin' : 'make -f make_cygwin.mak',
-      \     'mac' : 'make -f make_mac.mak',
-      \     'unix' : 'make -f make_unix.mak',
-      \    }
       \ }
 
 NeoBundleLazy 'Shougo/vimshell.vim', {
@@ -299,11 +297,11 @@ NeoBundleLazy 'Rykka/riv.vim', {
       \ }
 
 NeoBundleLazy 'rcmdnk/vim-markdown', {
-      \ 'filetypes' : 'markdown'
+      \ 'filetypes' : ['markdown', 'mkd']
       \ }
 
 NeoBundleLazy 'kannokanno/previm', {
-      \ 'filetypes' : ['markdown', 'rst'],
+      \ 'filetypes' : ['markdown', 'rst', 'mkd'],
       \ 'depends' : 'tyru/open-browser.vim',
       \ }
 
@@ -323,8 +321,6 @@ NeoBundleLazy 'katono/rogue.vim', {
       \ 'commands' : 'Rogue'
       \ }
 
-NeoBundle 'Yggdroot/indentLine'
-
 NeoBundleLazy 'junegunn/vim-easy-align', {
       \ 'mappings' : '<Plug>(EasyAlign)',
       \}
@@ -339,3 +335,6 @@ NeoBundleLazy 'osyo-manga/vim-monster', {
       \ 'filetypes' : 'ruby',
       \ }
 
+NeoBundleLazy 'cespare/vim-toml', {
+      \ 'filetypes' : 'toml'
+      \ }
