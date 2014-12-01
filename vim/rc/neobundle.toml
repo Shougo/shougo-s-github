@@ -210,9 +210,9 @@ repository = 'ujihisa/unite-colorscheme'
 repository = 'vim-jp/vimdoc-ja'
 filetypes = 'help'
 
-[[plugins]]
-repository = 'eignn/netrw.vim'
-commands = 'Explore'
+#[[plugins]]
+#repository = 'eignn/netrw.vim'
+#commands = 'Explore'
 
 [[plugins]]
 repository = 'osyo-manga/unite-quickfix'
@@ -347,11 +347,6 @@ mappings = [['x', '<Plug>(operator-concealedyank)']]
 # Textobjs
 [[plugins]]
 repository = 'kana/vim-textobj-user'
-
-[[plugins]]
-repository = 'osyo-manga/vim-textobj-multiblock'
-depends = 'vim-textobj-user'
-mappings = [['ox', '<Plug>']]
 
 [[plugins]]
 repository = 'osyo-manga/vim-textobj-multiblock'

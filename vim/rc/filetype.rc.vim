@@ -157,6 +157,7 @@ function! s:my_on_filetype() "{{{
   if !&l:modifiable
     setlocal nofoldenable
     setlocal foldcolumn=0
+    IndentLinesDisable
 
     if v:version >= 703
       setlocal colorcolumn=

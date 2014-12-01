@@ -40,9 +40,9 @@ call s:source_rc('init.rc.vim')
 " call neobundle#rc(expand('$CACHE/neobundle'))
 call neobundle#begin(expand('$CACHE/neobundle'))
 
-" if neobundle#has_cache()
-"   NeoBundleLoadCache
-" else
+if neobundle#has_cache()
+  NeoBundleLoadCache
+else
   NeoBundleFetch 'Shougo/neobundle.vim'
 
   NeoBundle 'Shougo/vimproc.vim', {
@@ -58,7 +58,7 @@ call neobundle#begin(expand('$CACHE/neobundle'))
         \ '~/.vim/rc/neobundle.toml', {'lazy' : 1})
   " call s:source_rc('neobundle.rc.vim')
   NeoBundleSaveCache
-" endif
+endif
 
 if filereadable('vimrc_local.vim') ||
       \ findfile('vimrc_local.vim', '.;') != ''
