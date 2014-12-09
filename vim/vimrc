@@ -9,6 +9,10 @@
 " Note: Skip initialization for vim-tiny or vim-small.
 if !1 | finish | endif
 
+if &compatible
+  set nocompatible
+endif
+
 if has('nvim')
   runtime! plugin/python_setup.vim
   set unnamedclip

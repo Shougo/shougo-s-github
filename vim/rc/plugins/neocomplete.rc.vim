@@ -111,19 +111,19 @@ inoremap <expr><C-e>  pumvisible() ? neocomplete#cancel_popup() : "\<End>"
 " <C-k>: unite completion.
 imap <C-k>  <Plug>(neocomplete_start_unite_complete)
 " <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr> <C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr> <BS> neocomplete#smart_close_popup()."\<C-h>"
 " <C-n>: neocomplete.
-inoremap <expr><C-n>  pumvisible() ? "\<C-n>" : "\<C-x>\<C-u>\<C-p>\<Down>"
+inoremap <expr> <C-n>  pumvisible() ? "\<C-n>" : "\<C-x>\<C-u>\<C-p>\<Down>"
 " <C-p>: keyword completion.
-inoremap <expr><C-p>  pumvisible() ? "\<C-p>" : "\<C-p>\<C-n>"
-inoremap <expr>'  pumvisible() ? neocomplete#close_popup() : "'"
+inoremap <expr> <C-p>  pumvisible() ? "\<C-p>" : "\<C-p>\<C-n>"
+inoremap <expr> '  pumvisible() ? neocomplete#close_popup() : "'"
 
-inoremap <expr><C-x><C-f>
+inoremap <silent><expr> <C-x><C-f>
       \ neocomplete#start_manual_complete('file')
 
-inoremap <expr><C-g>     neocomplete#undo_completion()
-inoremap <expr><C-l>     neocomplete#complete_common_string()
+inoremap <expr> <C-g>     neocomplete#undo_completion()
+inoremap <expr> <C-l>     neocomplete#complete_common_string()
 
 " <CR>: close popup and save indent.
 inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
@@ -132,7 +132,7 @@ function! s:my_cr_function()
 endfunction
 
 " <TAB>: completion.
-inoremap <silent><expr><TAB>
+inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ neocomplete#start_manual_complete()
@@ -149,6 +149,5 @@ inoremap <expr><Right> neocomplete#close_popup() . "\<Right>"
 inoremap <expr><Up>    neocomplete#close_popup() . "\<Up>"
 inoremap <expr><Down>  neocomplete#close_popup() . "\<Down>"
 "}}}
-
 
 let g:neocomplete#fallback_mappings = ["\<C-x>\<C-o>", "\<C-x>\<C-n>"]

@@ -6,9 +6,9 @@ filetypes = 'all'
 repository = 'Shougo/neomru.vim'
 filetypes = 'all'
 
-[[plugins]]
-repository = 'Yggdroot/indentLine'
-filetypes = 'all'
+#[[plugins]]
+#repository = 'Yggdroot/indentLine'
+#filetypes = 'all'
 
 [[plugins]]
 repository = 'Shougo/unite-sudo'
@@ -121,9 +121,6 @@ filetypes = 'vim'
 
 [[plugins]]
 repository = 'mattn/webapi-vim'
-
-[[plugins]]
-repository = 'add20/vim-conque'
 
 [[plugins]]
 repository = 'thinca/vim-fontzoom'
@@ -363,7 +360,7 @@ filetypes = 'rst'
 
 [[plugins]]
 repository = 'rcmdnk/vim-markdown'
-filetypes = ['markdown, mkd']
+filetypes = ['markdown', 'mkd']
 
 [[plugins]]
 repository = 'kannokanno/previm'

@@ -90,6 +90,9 @@ let g:java_highlight_functions=1
 let g:SimpleJsIndenter_BriefMode = 1
 let g:SimpleJsIndenter_CaseIndentLevel = -1
 
+" Markdown
+let g:markdown_fenced_languages = []
+
 " Go
 if $GOROOT != ''
   set runtimepath+=$GOROOT/misc/vim
@@ -157,7 +160,7 @@ function! s:my_on_filetype() "{{{
   if !&l:modifiable
     setlocal nofoldenable
     setlocal foldcolumn=0
-    IndentLinesDisable
+    silent! IndentLinesDisable
 
     if v:version >= 703
       setlocal colorcolumn=
