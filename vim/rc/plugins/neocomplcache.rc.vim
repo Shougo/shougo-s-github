@@ -63,9 +63,9 @@ let g:clang_use_library   = 1
 if !exists('g:neocomplcache_keyword_patterns')
   let g:neocomplcache_keyword_patterns = {}
 endif
-" let g:neocomplcache_keyword_patterns.default = '\h\w*'
 let g:neocomplcache_keyword_patterns['default'] = '[0-9a-zA-Z:#_]\+'
 let g:neocomplcache_keyword_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+let g:neocomplete#enable_multibyte_completion = 1
 
 let g:neocomplcache_vim_completefuncs = {
       \ 'Ref' : 'ref#complete',

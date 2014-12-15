@@ -6,7 +6,7 @@
 set autoindent smartindent
 
 augroup MyAutoCmd
-  autocmd FileType,Syntax * call s:my_on_filetype()
+  autocmd FileType,Syntax,BufEnter,BufWinEnter * call s:my_on_filetype()
 
   " Enable gauche syntax.
   autocmd FileType scheme nested let b:is_gauche=1 | setlocal lispwords=define |

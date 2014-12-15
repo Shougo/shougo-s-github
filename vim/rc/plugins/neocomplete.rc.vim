@@ -30,7 +30,7 @@ catch
 finally
   let &completeopt = completeopt_save
 endtry
-let g:neocomplete#enable_auto_select = 0
+let g:neocomplete#enable_auto_select = 1
 let g:neocomplete#enable_refresh_always = 0
 let g:neocomplete#enable_cursor_hold_i = 0
 
