@@ -51,7 +51,7 @@ highlight FoldColumn   gui=NONE guifg=#40c0ff guibg=#2c2c2c
 
 " Other
 highlight Directory    gui=NONE guifg=#40f0d0 guibg=#2c2c2c
-highlight LineNr       gui=NONE guifg=#c0c0c0 guibg=#2c2c2c
+highlight LineNr       gui=NONE guifg=#a0b0c0 guibg=#2c2c2c
 highlight NonText      gui=BOLD guifg=#4080ff guibg=#2c2c2c
 highlight SpecialKey   gui=BOLD guifg=#8080ff guibg=#2c2c2c
 highlight Title        gui=BOLD guifg=#f0f0f8 guibg=#2c2c2c

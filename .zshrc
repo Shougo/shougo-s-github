@@ -73,6 +73,8 @@ compdef _tex platex
 # cd search path
 cdpath=($HOME)
 
+zstyle ':completion:*:processes' command "ps -u $USER -o pid,stat,%cpu,%mem,cputime,command"
+
 #####################################################################
 # colors
 #####################################################################
