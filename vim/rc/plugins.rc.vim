@@ -149,7 +149,8 @@ if neobundle#tap('unite.vim') "{{{
   endfunction
 
   nnoremap <silent><expr> n
-        \ ":\<C-u>UniteResume search%".bufnr('%')." -no-start-insert\<CR>"
+        \ ":\<C-u>UniteResume search%".bufnr('%')."
+        \  -no-start-insert -force-redraw\<CR>"
 
   nnoremap <silent> <C-w>  :<C-u>Unite -auto-resize window/gui<CR>
 

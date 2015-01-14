@@ -199,6 +199,7 @@ filetypes = 'haskell'
 
 [[plugins]]
 repository = 'ujihisa/neco-look'
+insert = 1
 
 [[plugins]]
 repository = 'ujihisa/unite-colorscheme'

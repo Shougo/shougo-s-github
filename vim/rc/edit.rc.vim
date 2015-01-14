@@ -32,7 +32,7 @@ set backspace=indent,eol,start
 set showmatch
 " Highlight when CursorMoved.
 set cpoptions-=m
-set matchtime=3
+set matchtime=1
 " Highlight <>.
 set matchpairs+=<:>
 

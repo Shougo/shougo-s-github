@@ -154,7 +154,6 @@ endfunction"}}}
 " Default configuration.
 let default_context = {
       \ 'vertical' : 0,
-      \ 'cursor_line_highlight' : 'TabLineSel',
       \ 'short_source_names' : 1,
       \ }
 
@@ -162,9 +161,6 @@ let default_context = {
 
 if IsWindows()
 else
-  " Like Textmate icons.
-  let default_context.marked_icon = '✗'
-
   " Prompt choices.
   let default_context.prompt = '» '
 endif
