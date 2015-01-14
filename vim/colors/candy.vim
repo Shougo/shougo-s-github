@@ -40,8 +40,8 @@ highlight DiffDelete   gui=NONE guifg=#a0d0ff guibg=#0020a0
 highlight DiffAdd      gui=NONE guifg=#a0d0ff guibg=#0020a0
 
 " Cursor
-highlight Cursor       gui=NONE guifg=#00ffff guibg=#008070
-highlight CursorLine   gui=NONE guifg=NONE    guibg=#555555
+highlight Cursor       gui=NONE guifg=NONE guibg=#606060
+highlight CursorLine   gui=NONE guifg=NONE guibg=#444444
 highlight lCursor      gui=NONE guifg=NONE guibg=#80403f
 highlight CursorIM     gui=NONE guifg=NONE guibg=#bb00aa
 
