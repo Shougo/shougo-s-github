@@ -162,7 +162,7 @@ let default_context = {
 if IsWindows()
 else
   " Prompt choices.
-  let default_context.prompt = '» '
+  " let default_context.prompt = '» '
 endif
 
 call unite#custom#profile('default', 'context', default_context)
