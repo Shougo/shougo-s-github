@@ -173,3 +173,9 @@ function! s:vimshell_hooks.input(input, context)
   " echomsg 'input'
   return a:input
 endfunction
+
+
+if !exists('g:vimshell_interactive_interpreter_commands')
+    let g:vimshell_interactive_interpreter_commands = {}
+endif
+let g:vimshell_interactive_interpreter_commands.python = 'ipython'
