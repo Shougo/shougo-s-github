@@ -66,6 +66,8 @@ if filereadable('vimrc_local.vim') ||
         \ findfile('vimrc_local.vim', '.;'), ':h'))
 endif
 
+NeoBundleDisable neoinclude.vim
+
 NeoBundleLocal ~/.vim/bundle
 
 " NeoBundle configurations.

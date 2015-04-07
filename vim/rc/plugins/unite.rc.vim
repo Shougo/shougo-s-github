@@ -137,6 +137,8 @@ function! s:unite_my_settings() "{{{
   nnoremap <silent><buffer> <Tab>     <C-w>w
   nnoremap <silent><buffer><expr> l
         \ unite#smart_map('l', unite#do_action('default'))
+  nnoremap <silent><buffer><expr> P
+        \ unite#smart_map('P', unite#do_action('insert'))
 
   let unite = unite#get_current_unite()
   if unite.profile_name ==# '^search'
