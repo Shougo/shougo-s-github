@@ -397,3 +397,7 @@ filetypes = 'ruby'
 repository = 'cespare/vim-toml'
 filetypes = 'toml'
 
+[[plugins]]
+repository = 'lambdalisue/vim-gita'
+commands = 'Gita'
+

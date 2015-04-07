@@ -2,12 +2,11 @@
 " vimshell.vim
 "
 
-" let g:vimshell_user_prompt = "3\ngetcwd()"
 let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
-" let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
-let g:vimshell_right_prompt = 'vcs#info("(%s)-[%b]%p", "(%s)-[%b|%a]%p")'
+" let g:vimshell_right_prompt = 'vcs#info("(%s)-[%b]%p", "(%s)-[%b|%a]%p")'
+let g:vimshell_right_prompt =
+      \ 'gita#statusline#format("%{|/}ln%lb%{ <> |}rn%{/|}rb")'
 let g:vimshell_prompt = '% '
-" let g:vimshell_prompt = "(U'w'){ "
 "let g:vimshell_environment_term = 'xterm'
 let g:vimshell_split_command = ''
 let g:vimshell_enable_transient_user_prompt = 1

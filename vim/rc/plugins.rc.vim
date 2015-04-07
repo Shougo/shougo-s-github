@@ -338,9 +338,9 @@ if neobundle#tap('concealedyank.vim') "{{{
   call neobundle#untap()
 endif "}}}
 
-if neobundle#tap('vim-vcs') "{{{
-  nnoremap <silent> [Space]gs  :<C-u>Vcs status<CR>
-  nnoremap <silent> [Space]gc  :<C-u>Vcs commit<CR>
+if neobundle#tap('vim-gita') "{{{
+  nnoremap <silent> [Space]gs  :<C-u>Gita status<CR>
+  nnoremap <silent> [Space]gc  :<C-u>Gita commit<CR>
 
   call neobundle#untap()
 endif "}}}
