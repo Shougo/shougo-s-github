@@ -50,12 +50,8 @@ repository = 'Shougo/unite-build'
 
 [[plugins]]
 repository = 'Shougo/neossh.vim'
-filetypes = 'vimfiler'
+filetypes = ['vimfiler', 'vimshell']
 sources = 'ssh'
-
-[[plugins]]
-repository = 'Shougo/neossh.vim'
-filetypes = 'vimshell'
 
 [[plugins]]
 repository = 'ujihisa/vimshell-ssh'
