@@ -72,10 +72,10 @@ if neobundle#tap('unite.vim') "{{{
   nmap    ;u [unite]
   xmap    ;u [unite]
 
-  nnoremap <expr><silent> ;b
-        \ ":\<C-u>Unite -buffer-name=build". tabpagenr() ." -no-quit build\<CR>"
-  nnoremap <expr><silent> ;t
-        \ ":\<C-u>Unite -buffer-name=test". tabpagenr() ." -no-quit build::test\<CR>"
+  nnoremap <silent> ;b
+        \ :<C-u>Unite -buffer-name=build`tabpagenr()` -no-quit build<CR>
+  nnoremap <silent> ;t
+        \ :<C-u>Unite -buffer-name=test`tabpagenr()` -no-quit build::test<CR>
   nnoremap <silent> ;o
         \ :<C-u>Unite outline -no-start-insert -resume<CR>
   nnoremap <silent> ;t
@@ -84,21 +84,21 @@ if neobundle#tap('unite.vim') "{{{
         \ d:<C-u>Unite -buffer-name=register -default-action=append register history/yank<CR>
   nnoremap <silent> <C-k>
         \ :<C-u>Unite change jump<CR>
-  nnoremap <silent><expr> ;g
-        \ ":\<C-u>Unite grep -buffer-name=grep%".tabpagenr()." -auto-preview -no-split -no-empty -resume\<CR>"
+  nnoremap <silent> ;g
+        \ :<C-u>Unite grep -buffer-name=grep`tabpagenr()` -auto-preview -no-split -no-empty -resume<CR>
   nnoremap <silent> ;r
         \ :<C-u>Unite -buffer-name=register -default-action=append register history/yank<CR>
 
   " <C-t>: Tab pages
-  nnoremap <silent><expr> <C-t>
-        \ ":\<C-u>Unite -auto-resize -select=".(tabpagenr()-1)." tab\<CR>"
+  nnoremap <silent> <C-t>
+        \ :<C-u>Unite -auto-resize -select=`tabpagenr()-1` tab<CR>
 
   nnoremap <silent> [Window]s
         \ :<C-u>Unite -buffer-name=files -no-split -multi-line -unique -silent
         \ jump_point file_point file_mru
         \ file_rec/git buffer_tab:- file file/new<CR>
 
-  nnoremap <expr><silent> [Window]r  ":\<C-u>Unite -start-insert ref/".ref#detect()."\<CR>"
+  nnoremap <silent> [Window]r  :<C-u>Unite -start-insert ref/`ref#detect()`<CR>
   nnoremap <silent> [Window]<Space>  :<C-u>Unite -buffer-name=files file_rec:~/.vim/rc<CR>
   nnoremap <silent> [Window]n  :<C-u>Unite -start-insert -default-action=lcd neobundle<CR>
   nnoremap <silent> [Window]g  :<C-u>Unite -start-insert ghq<CR>
@@ -131,26 +131,18 @@ if neobundle#tap('unite.vim') "{{{
   nnoremap <silent> g<C-h>  :<C-u>UniteWithCursorWord help<CR>
 
   " Search.
-  nnoremap <silent><expr> /
-        \ ":\<C-u>Unite -buffer-name=search%".bufnr('%')." -start-insert line:forward:wrap\<CR>"
-  nnoremap <expr> g/  <SID>smart_search_expr('g/',
-        \ ":\<C-u>Unite -buffer-name=search -start-insert line_migemo\<CR>")
-  nnoremap <silent><expr> ?
-        \ ":\<C-u>Unite -buffer-name=search%".bufnr('%')." -start-insert line:backward\<CR>"
-  nnoremap <silent><expr> *
-        \ ":\<C-u>UniteWithCursorWord -buffer-name=search%".bufnr('%')." line:forward:wrap\<CR>"
+  nnoremap <silent> /
+        \ :<C-u>Unite -buffer-name=search%`bufnr('%')` -start-insert line:forward:wrap<CR>
+  nnoremap <silent> ?
+        \ :<C-u>Unite -buffer-name=search%`bufnr('%')` -start-insert line:backward<CR>
+  nnoremap <silent> *
+        \ :<C-u>UniteWithCursorWord -buffer-name=search%`bufnr('%')` line:forward:wrap<CR>
   nnoremap [Alt]/       /
   nnoremap [Alt]?       ?
-  cnoremap <expr><silent><C-g>        (getcmdtype() == '/') ?
-        \ "\<ESC>:Unite -buffer-name=search line:forward:wrap -input=".getcmdline()."\<CR>" : "\<C-g>"
 
-  function! s:smart_search_expr(expr1, expr2)
-    return line('$') > 5000 ?  a:expr1 : a:expr2
-  endfunction
-
-  nnoremap <silent><expr> n
-        \ ":\<C-u>UniteResume search%".bufnr('%')."
-        \  -no-start-insert -force-redraw\<CR>"
+  nnoremap <silent> n
+        \ :<C-u>UniteResume search%`bufnr('%')`
+        \  -no-start-insert -force-redraw<CR>
 
   nnoremap <silent> <C-w>  :<C-u>Unite -auto-resize window/gui<CR>
 
@@ -341,6 +333,7 @@ endif "}}}
 if neobundle#tap('vim-gita') "{{{
   nnoremap <silent> [Space]gs  :<C-u>Gita status<CR>
   nnoremap <silent> [Space]gc  :<C-u>Gita commit<CR>
+  nnoremap <silent> [Space]gd  :<C-u>Gita diff<CR>
 
   call neobundle#untap()
 endif "}}}

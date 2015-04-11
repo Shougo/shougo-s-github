@@ -68,7 +68,7 @@ mappings = '<Plug>'
 explorer = 1
 
   [plugins.commands]
-  name = ['VimFiler', 'Edit', 'Write']
+  name = ['VimFiler']
   complete = 'customlist,vimfiler#complete'
 
 [[plugins]]
