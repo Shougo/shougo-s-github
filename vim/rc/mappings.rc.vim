@@ -631,3 +631,17 @@ if executable('pdftotext')
   endfunction
 endif
 
+" Replace word under cursor (which should be a GitHub username)
+" with some user info ("Full Name <email@address>").
+" If info cout not be found, "Not found" is inserted.
+function! <SID>InsertGitHubUserInfo()
+    let user = expand('<cWORD>')
+    " final slice is to remove ending newline
+    let info = system('github_user_info ' . user . ' 2> /dev/null')[:-2]
+    if v:shell_error
+        let info = 'Not found'
+    endif
+    execute "normal! diWa" . info . "\<esc>"
+endfunction
+
+nnoremap <silent> <leader>gu :call <SID>InsertGitHubUserInfo()<cr>
