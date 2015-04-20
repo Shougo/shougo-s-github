@@ -238,10 +238,6 @@ repository = 'thinca/vim-guicolorscheme'
 terminal = 1
 
 [[plugins]]
-repository = 'tpope/vim-repeat'
-mappings = '.'
-
-[[plugins]]
 repository = 'matchit.zip'
 mappings = [['nxo', '%', 'g%']]
 

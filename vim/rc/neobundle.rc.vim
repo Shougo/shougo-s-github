@@ -53,9 +53,6 @@ NeoBundleLazy 'Shougo/neossh.vim', {
 NeoBundleLazy 'ujihisa/vimshell-ssh', {
       \ 'filetypes' : 'vimshell',
       \ }
-NeoBundleLazy 'Shougo/vim-vcs', {
-      \ 'depends' : 'thinca/vim-openbuf',
-      \ }
 NeoBundleLazy 'Shougo/vimfiler.vim', {
       \ 'depends' : 'Shougo/unite.vim',
       \ 'commands' : [
@@ -181,8 +178,6 @@ NeoBundleLazy 'vim-jp/autofmt', {
       \ 'mappings' : [['x', 'gq']],
       \ }
 
-NeoBundleLazy 'supermomonga/unite-kawaii-calc'
-
 NeoBundleLazy 'godlygeek/csapprox', { 'terminal' : 1 }
 NeoBundleLazy 'thinca/vim-guicolorscheme', { 'terminal' : 1 }
 NeoBundleLazy 'tpope/vim-repeat', {
@@ -256,10 +251,6 @@ NeoBundleLazy 'todesking/ruby_hl_lvar.vim', {
       \     'filetypes': ['ruby']
       \   }
       \ }
-
-NeoBundleLazy 'syngan/vim-vimlint', {
-    \ 'depends' : 'ynkdir/vim-vimlparser',
-    \ }
 
 " Operators
 NeoBundleLazy 'kana/vim-operator-user', {

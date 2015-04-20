@@ -404,13 +404,6 @@ if neobundle#tap('vim-fullscreen') "{{{
   call neobundle#untap()
 endif "}}}
 
-if neobundle#tap('vim-vimlint') "{{{
-  let g:vimlint#config = { 'EVL103' : 1  }
-  let g:vimlint#config.EVL102 = { 'l:_' : 1 }
-
-  call neobundle#untap()
-endif "}}}
-
 if neobundle#tap('vim-textobj-user') "{{{
   omap ab <Plug>(textobj-multiblock-a)
   omap ib <Plug>(textobj-multiblock-i)
