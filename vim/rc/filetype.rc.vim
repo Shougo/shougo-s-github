@@ -30,7 +30,13 @@ augroup MyAutoCmd
   autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
   autocmd FileType java setlocal omnifunc=javacomplete#Complete
   autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
-  autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+  autocmd FileType python
+        \ if has('python') |
+        \   setlocal omnifunc=pythoncomplete#Complete
+        \ endif |
+        \ if has('python3') |
+        \   setlocal omnifunc=python3complete#Complete
+        \ endif
   "autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
   "autocmd FileType sql setlocal omnifunc=sqlcomplete#Complete
   autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags

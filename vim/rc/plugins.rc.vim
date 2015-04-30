@@ -18,7 +18,7 @@ set browsedir=current
 "}}}
 
 if neobundle#tap('neocomplete.vim') "{{{
-  let g:neocomplete#enable_at_startup = 1
+  let g:neocomplete#enable_at_startup = has('lua')
   let neobundle#hooks.on_source =
         \ '~/.vim/rc/plugins/neocomplete.rc.vim'
 
