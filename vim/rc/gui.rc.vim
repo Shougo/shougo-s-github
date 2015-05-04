@@ -63,8 +63,8 @@ elseif has('mac')
   set guifont=Osaka－等幅:h14
 else
   " For Linux.
-  set guifontwide=VL\ Gothic\ 11
-  set guifont=Courier\ 10\ Pitch\ 11
+  set guifontwide=VL\ Gothic\ 13
+  set guifont=Courier\ 10\ Pitch\ 13
 endif"}}}
 
 "---------------------------------------------------------------------------
@@ -84,7 +84,7 @@ if has('win32') || has('win64')
   nnoremap TT     :<C-u>TransparencyToggle<CR>
 else
   " Width of window.
-  set columns=151
+  set columns=170
   " Height of window.
   set lines=41
 endif
