@@ -151,6 +151,7 @@ function! s:unite_my_settings() "{{{
   nnoremap <silent><buffer><expr> !     unite#do_action('start')
   nnoremap <buffer><expr> S      unite#mappings#set_current_filters(
         \ empty(unite#mappings#get_current_filters()) ? ['sorter_reverse'] : [])
+  nmap <buffer> x     <Plug>(unite_quick_match_jump)
 endfunction"}}}
 
 " Default configuration.
