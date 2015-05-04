@@ -64,7 +64,7 @@ elseif has('mac')
 else
   " For Linux.
   set guifontwide=VL\ Gothic\ 13
-  set guifont=Courier\ 10\ Pitch\ 13
+  set guifont=Courier\ 10\ Pitch\ 13.5
 endif"}}}
 
 "---------------------------------------------------------------------------
@@ -86,7 +86,7 @@ else
   " Width of window.
   set columns=170
   " Height of window.
-  set lines=41
+  set lines=45
 endif
 
 " Don't override colorscheme.

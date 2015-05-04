@@ -5,7 +5,7 @@ export PAGER=less
 export LESS='-RQM'
 export GZIP='-v9N'
 export SHELL=zsh
-export PATH="$HOME/bin:/usr/local/bin"
+export PATH="$HOME/bin:/usr/local/bin:$PATH"
 
 #---- SVN -----------------#
 export SVN_EDITOR="vim"
