@@ -96,7 +96,8 @@ if neobundle#tap('unite.vim') "{{{
   nnoremap <silent> [Window]s
         \ :<C-u>Unite -buffer-name=files -no-split -multi-line -unique -silent
         \ jump_point file_point file_mru
-        \ file_rec/git buffer_tab:- file file/new<CR>
+        \ `finddir('.git', ';') != '' ? 'file_rec/git' : 'file_rec/async'`
+        \ buffer_tab:- file file/new<CR>
 
   nnoremap <silent> [Window]r  :<C-u>Unite -start-insert ref/`ref#detect()`<CR>
   nnoremap <silent> [Window]<Space>  :<C-u>Unite -buffer-name=files file_rec:~/.vim/rc<CR>

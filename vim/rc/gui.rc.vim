@@ -115,7 +115,8 @@ endif
 "---------------------------------------------------------------------------
 " Mouse:"{{{
 "
-set mousemodel=extend
+set mouse=
+set mousemodel=
 
 " Don't focus the window when the mouse pointer is moved.
 set nomousefocus
