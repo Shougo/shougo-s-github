@@ -2,6 +2,8 @@
 " unite.vim
 "
 
+let g:unite_enable_auto_select = 0
+
 " For unite-menu.
 let g:unite_source_menu_menus = {}
 

@@ -4,11 +4,11 @@
 
 let g:eskk#directory = expand('$CACHE/eskk')
 
-let g:eskk#large_dictionary = {
-      \   'path': expand('$CACHE/SKK-JISYO.L'),
-      \   'sorted': 1,
-      \   'encoding': 'euc-jp',
-      \}
+" let g:eskk#large_dictionary = {
+"       \   'path': '/usr/share/skk/SKK-JISYO.L',
+"       \   'sorted': 1,
+"       \   'encoding': 'euc-jp',
+"       \}
 
 " Server test
 let g:eskk#server = {
