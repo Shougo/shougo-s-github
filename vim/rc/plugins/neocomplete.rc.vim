@@ -33,11 +33,7 @@ finally
   let &completeopt = completeopt_save
 endtry
 let g:neocomplete#enable_auto_select = 1
-let g:neocomplete#enable_refresh_always = 0
 let g:neocomplete#enable_cursor_hold_i = 0
-
-" Test.
-let g:neocomplete#enable_omni_fallback = 1
 
 let g:neocomplete#sources#dictionary#dictionaries = {
       \ 'default' : '',
@@ -51,7 +47,6 @@ let g:neocomplete#enable_auto_delimiter = 1
 let g:neocomplete#disable_auto_select_buffer_name_pattern =
       \ '\[Command Line\]'
 let g:neocomplete#max_list = 100
-let g:neocomplete#force_overwrite_completefunc = 1
 if !exists('g:neocomplete#sources#omni#input_patterns')
   let g:neocomplete#sources#omni#input_patterns = {}
 endif
@@ -113,8 +108,6 @@ inoremap <expr><C-b>  pumvisible() ? "\<PageUp>"   : "\<Left>"
 inoremap <expr><C-y>  pumvisible() ? neocomplete#close_popup() :  "\<C-r>\""
 " <C-e>: close popup.
 inoremap <expr><C-e>  pumvisible() ? neocomplete#cancel_popup() : "\<End>"
-" <C-k>: unite completion.
-imap <C-k>  <Plug>(neocomplete_start_unite_complete)
 " <C-h>, <BS>: close popup and delete backword char.
 inoremap <expr> <C-h> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr> <BS> neocomplete#smart_close_popup()."\<C-h>"
