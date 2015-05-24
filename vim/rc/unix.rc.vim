@@ -79,3 +79,21 @@ if &term =~ "xterm"
   let &t_SI = "\<Esc>]12;lightgreen\x7"
   let &t_EI = "\<Esc>]12;white\x7"
 endif
+
+" Using the mouse on a terminal.
+if has('mouse')
+  set mouse=a
+  if has('mouse_sgr') || v:version > 703 ||
+        \ v:version == 703 && has('patch632')
+    set ttymouse=sgr
+  else
+    set ttymouse=xterm2
+  endif
+
+  " Paste.
+  nnoremap <RightMouse> "+p
+  xnoremap <RightMouse> "+p
+  inoremap <RightMouse> <C-r><C-o>+
+  cnoremap <RightMouse> <C-r>+
+endif
+
