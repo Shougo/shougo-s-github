@@ -7,7 +7,7 @@
 "
 
 " Note: Skip initialization for vim-tiny or vim-small.
-if !1 | finish | endif
+if 0 | endif
 
 if &compatible
   set nocompatible
@@ -152,29 +152,12 @@ else
   call s:source_rc('unix.rc.vim')
 endif
 
-" Using the mouse on a terminal.
-if has('mouse')
-  set mouse=a
-  if has('mouse_sgr') || v:version > 703 ||
-        \ v:version == 703 && has('patch632')
-    set ttymouse=sgr
-  else
-    set ttymouse=xterm2
-  endif
-
-  " Paste.
-  nnoremap <RightMouse> "+p
-  xnoremap <RightMouse> "+p
-  inoremap <RightMouse> <C-r><C-o>+
-  cnoremap <RightMouse> <C-r>+
-endif
-
-"---------------------------------------------------------------------------
-" GUI:
-"
-
 if has('gui_running')
   call s:source_rc('gui.rc.vim')
+endif
+
+if has('nvim')
+  call s:source_rc('neovim.rc.vim')
 endif
 
 "---------------------------------------------------------------------------

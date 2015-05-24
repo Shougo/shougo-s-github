@@ -17,8 +17,15 @@ let g:netrw_list_hide= '*.swp'
 set browsedir=current
 "}}}
 
-if neobundle#tap('neocomplete.vim') "{{{
-  let g:neocomplete#enable_at_startup = has('lua')
+if neobundle#tap('deoplete.nvim') && has('nvim') "{{{
+  let neobundle#hooks.on_source =
+        \ '~/.vim/rc/plugins/deoplete.rc.vim'
+
+  call neobundle#untap()
+endif "}}}
+
+if neobundle#tap('neocomplete.vim') && has('lua') "{{{
+  let g:neocomplete#enable_at_startup = 1
   let neobundle#hooks.on_source =
         \ '~/.vim/rc/plugins/neocomplete.rc.vim'
 
