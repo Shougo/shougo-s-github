@@ -227,6 +227,7 @@ endif "}}}
 
 if neobundle#tap('eskk.vim') "{{{
   imap <C-j>     <Plug>(eskk:toggle)
+  cmap <C-j>     <Plug>(eskk:toggle)
 
   let neobundle#hooks.on_source =
         \ '~/.vim/rc/plugins/eskk.rc.vim'

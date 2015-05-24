@@ -172,11 +172,12 @@ mappings = '<Plug>'
 
 [[plugins]]
 repository = 'tyru/eskk.vim'
-mappings = [['i', '<Plug>']]
+mappings = [['i', '<Plug>'], ['c', '<Plug>']]
 
 [[plugins]]
 repository = 'tyru/open-browser.vim'
 mappings = '<Plug>'
+commands = ['OpenBrowser', 'OpenBrowserSearch']
 
 [[plugins]]
 repository = 'tyru/restart.vim'
