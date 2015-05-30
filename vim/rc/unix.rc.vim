@@ -81,7 +81,7 @@ if &term =~ "xterm"
 endif
 
 " Using the mouse on a terminal.
-if has('mouse')
+if has('mouse') && !has('nvim')
   set mouse=a
   if has('mouse_sgr') || v:version > 703 ||
         \ v:version == 703 && has('patch632')

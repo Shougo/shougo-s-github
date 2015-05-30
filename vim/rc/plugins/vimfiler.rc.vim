@@ -75,10 +75,5 @@ function! s:vimfiler_my_settings() "{{{
   " nmap <buffer> c <Plug>(vimfiler_mark_current_line)<Plug>(vimfiler_copy_file)
   " nmap <buffer> m <Plug>(vimfiler_mark_current_line)<Plug>(vimfiler_move_file)
   " nmap <buffer> d <Plug>(vimfiler_mark_current_line)<Plug>(vimfiler_delete_file)
-
-  nnoremap <silent><buffer><expr> v
-        \ vimfiler#do_switch_action('vsplit')
-  nnoremap <silent><buffer><expr> s
-        \ vimfiler#do_switch_action('split')
 endfunction"}}}
 

@@ -464,6 +464,10 @@ if neobundle#tap('vim-themis') "{{{
         \ neobundle#util#uniq(insert(
         \    neobundle#util#split_envpath($PATH), s:bin)), $PATH, s:bin)
   let $THEMIS_HOME = neobundle#get('vim-themis').rtp
+  let $THEMIS_VIM = printf('%s/%s',
+        \ fnamemodify(exepath(v:progpath), ':h'),
+        \ (has('nvim') ? 'nvim' : 'vim'))
+
   unlet s:bin
 endif "}}}
 
