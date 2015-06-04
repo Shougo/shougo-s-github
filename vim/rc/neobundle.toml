@@ -398,3 +398,9 @@ filetypes = 'toml'
 repository = 'lambdalisue/vim-gita'
 commands = 'Gita'
 
+[[plugins]]
+repository = 'lambdalisue/vim-gista'
+commands = 'Gista'
+mappings = '<Plug>(gista-'
+unite_sources = 'gista'
+

@@ -32,10 +32,10 @@ augroup MyAutoCmd
   autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
   autocmd FileType python
         \ if has('python') |
-        \   setlocal omnifunc=pythoncomplete#Complete
+        \   setlocal omnifunc=pythoncomplete#Complete |
         \ endif |
         \ if has('python3') |
-        \   setlocal omnifunc=python3complete#Complete
+        \   setlocal omnifunc=python3complete#Complete |
         \ endif
   "autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
   "autocmd FileType sql setlocal omnifunc=sqlcomplete#Complete

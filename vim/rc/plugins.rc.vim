@@ -447,6 +447,8 @@ endif "}}}
 if neobundle#tap('indentLine') "{{{
   let g:indentLine_faster = 1
   nmap <silent><Leader>i :<C-u>IndentLinesToggle<CR>
+
+  call neobundle#untap()
 endif "}}}
 
 if neobundle#tap('vim-easy-align') "{{{
@@ -455,6 +457,8 @@ if neobundle#tap('vim-easy-align') "{{{
 
   " Start interactive EasyAlign for a motion/text object (e.g. <Leader>aip)
   nmap <Leader>a <Plug>(EasyAlign)
+
+  call neobundle#untap()
 endif "}}}
 
 if neobundle#tap('vim-themis') "{{{
@@ -469,5 +473,12 @@ if neobundle#tap('vim-themis') "{{{
         \ (has('nvim') ? 'nvim' : 'vim'))
 
   unlet s:bin
+
+  call neobundle#untap()
 endif "}}}
 
+if neobundle#tap('vim-gista') "{{{
+  let g:gista#github_user = 'Shougo'
+
+  call neobundle#untap()
+endif "}}}
