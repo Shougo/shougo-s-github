@@ -18,6 +18,7 @@ set browsedir=current
 "}}}
 
 if neobundle#tap('deoplete.nvim') && has('nvim') "{{{
+  let g:deoplete#enable_at_startup = 1
   let neobundle#hooks.on_source =
         \ '~/.vim/rc/plugins/deoplete.rc.vim'
 
