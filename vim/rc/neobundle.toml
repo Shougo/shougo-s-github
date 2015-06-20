@@ -409,3 +409,7 @@ commands = 'Gista'
 mappings = '<Plug>(gista-'
 unite_sources = 'gista'
 
+[[plugins]]
+repository = 'davidhalter/jedi-vim'
+filetypes = 'python'
+

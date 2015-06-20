@@ -483,3 +483,11 @@ if neobundle#tap('vim-gista') "{{{
 
   call neobundle#untap()
 endif "}}}
+
+if neobundle#tap('jedi-vim') "{{{
+  autocmd MyAutoCmd FileType python setlocal omnifunc=jedi#completions
+  let g:jedi#completions_enabled = 0
+  let g:jedi#auto_vim_configuration = 0
+
+  call neobundle#untap()
+endif "}}}
