@@ -118,12 +118,12 @@ else
 fi
 
 if [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] ; then
-        PROMPT="%{^[[37m%}${HOST%%.*} ${PROMPT}"
+        PROMPT="%{[37m%}${HOST%%.*} ${PROMPT}"
 fi
 
 if [ $UID = "0" ]; then
-    PROMPT="%B%{^[[31m%}%/#%{^[[m%}%b "
-    PROMPT2="%B%{^[[31m%}%_#%{^[[m%}%b "
+    PROMPT="%B%{[31m%}%/#%{^[[m%}%b "
+    PROMPT2="%B%{[31m%}%_#%{^[[m%}%b "
 fi
 
 # Multi line prompt
