@@ -226,7 +226,7 @@ unite_sources = 'tab'
 
 [[plugins]]
 repository = 'rhysd/accelerated-jk'
-mappings = '<Plug>(accelerated'
+mappings = '<Plug>'
 
 [[plugins]]
 repository = 'vim-jp/autofmt'
@@ -415,5 +415,5 @@ filetypes = 'vim'
 
 [[plugins]]
 repository = 'terryma/vim-expand-region'
-mappings = [['x', '<Plug>(expand']]
+mappings = [['x', '<Plug>']]
 
