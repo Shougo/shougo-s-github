@@ -62,7 +62,7 @@ if filereadable('vimrc_local.vim') ||
   " Load develop version.
   call neobundle#local(fnamemodify(
         \ findfile('vimrc_local.vim', '.;'), ':h'),
-        \ {}, ['vim*', 'unite-*', '*.vim', '*.nvim'])
+        \ {}, ['vim*', 'unite-*', 'neco-*', '*.vim', '*.nvim'])
 endif
 
 NeoBundleDisable neoinclude.vim

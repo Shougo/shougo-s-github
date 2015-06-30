@@ -226,7 +226,7 @@ unite_sources = 'tab'
 
 [[plugins]]
 repository = 'rhysd/accelerated-jk'
-mappings = '<Plug>(accelerated_jk_'
+mappings = '<Plug>(accelerated'
 
 [[plugins]]
 repository = 'vim-jp/autofmt'
@@ -329,7 +329,7 @@ functions = 'operator#user#define'
 [[plugins]]
 repository = 'kana/vim-operator-replace'
 depends = 'vim-operator-user'
-mappings = [['nx', '<Plug>(operator-replace)']]
+mappings = [['nx', '<Plug>']]
 
 [[plugins]]
 repository = 'rhysd/vim-operator-surround'
@@ -381,10 +381,6 @@ repository = 'katono/rogue.vim'
 commands = 'Rogue'
 
 [[plugins]]
-repository = 'junegunn/vim-easy-align'
-mappings = '<Plug>(EasyAlign)'
-
-[[plugins]]
 repository = 'sorah/unite-ghq'
 
 [[plugins]]
@@ -406,10 +402,18 @@ commands = 'Gita'
 [[plugins]]
 repository = 'lambdalisue/vim-gista'
 commands = 'Gista'
-mappings = '<Plug>(gista-'
+mappings = '<Plug>'
 unite_sources = 'gista'
 
 [[plugins]]
 repository = 'davidhalter/jedi-vim'
 filetypes = 'python'
+
+[[plugins]]
+repository = 'Shougo/neco-vim'
+filetypes = 'vim'
+
+[[plugins]]
+repository = 'terryma/vim-expand-region'
+mappings = [['x', '<Plug>(expand']]
 

@@ -452,16 +452,6 @@ if neobundle#tap('indentLine') "{{{
   call neobundle#untap()
 endif "}}}
 
-if neobundle#tap('vim-easy-align') "{{{
-  " Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
-  xmap <Enter> <Plug>(EasyAlign)
-
-  " Start interactive EasyAlign for a motion/text object (e.g. <Leader>aip)
-  nmap <Leader>a <Plug>(EasyAlign)
-
-  call neobundle#untap()
-endif "}}}
-
 if neobundle#tap('vim-themis') "{{{
   " Set to $PATH.
   let s:bin = neobundle#get('vim-themis').rtp . 'bin'
@@ -488,6 +478,13 @@ if neobundle#tap('jedi-vim') "{{{
   autocmd MyAutoCmd FileType python setlocal omnifunc=jedi#completions
   let g:jedi#completions_enabled = 0
   let g:jedi#auto_vim_configuration = 0
+
+  call neobundle#untap()
+endif "}}}
+
+if neobundle#tap('vim-expand-region') "{{{
+  xmap v <Plug>(expand_region_expand)
+  xmap <C-v> <Plug>(expand_region_shrink)
 
   call neobundle#untap()
 endif "}}}

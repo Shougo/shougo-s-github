@@ -470,8 +470,6 @@ endfunction "}}}
 
 " Select rectangle.
 xnoremap r <C-v>
-" Select until end of current line in visual mode.
-xnoremap v $h
 
 " Paste next line.
 nnoremap <silent> gp o<ESC>p^
