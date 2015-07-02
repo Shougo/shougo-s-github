@@ -417,3 +417,14 @@ filetypes = 'vim'
 repository = 'terryma/vim-expand-region'
 mappings = [['x', '<Plug>']]
 
+[[plugins]]
+repository = 'phildawes/racer'
+filetypes = 'rust'
+
+[[plugins]]
+repository = 'rust-lang/rust.vim'
+filetypes = 'rust'
+
+[[plugins]]
+repository = 'rhysd/rust-doc.vim'
+filetypes = 'rust'

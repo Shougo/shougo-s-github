@@ -179,7 +179,7 @@ if neobundle#tap('vim-smartchr') "{{{
   call neobundle#untap()
 endif "}}}
 
-if neobundle#tap('quickrun.vim') "{{{
+if neobundle#tap('vim-quickrun') "{{{
   nmap <silent> <Leader>r <Plug>(quickrun)
 
   call neobundle#untap()
@@ -485,6 +485,12 @@ endif "}}}
 if neobundle#tap('vim-expand-region') "{{{
   xmap v <Plug>(expand_region_expand)
   xmap <C-v> <Plug>(expand_region_shrink)
+
+  call neobundle#untap()
+endif "}}}
+
+if neobundle#tap('racer') "{{{
+  let $RUST_SRC_PATH = expand('~/src/rust/src')
 
   call neobundle#untap()
 endif "}}}
