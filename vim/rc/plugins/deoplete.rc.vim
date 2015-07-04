@@ -2,6 +2,8 @@
 " deoplete.nvim
 "
 
+set completeopt+=noinsert
+
 " <TAB>: completion.
 imap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
@@ -22,3 +24,4 @@ inoremap <expr><C-e>  deoplete#mappings#cancel_popup()
 inoremap <expr><C-h> deolete#mappings#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> deoplete#mappings#smart_close_popup()."\<C-h>"
 
+inoremap <expr> '  pumvisible() ? deoplete#mappings#close_popup() : "'"
