@@ -22,16 +22,6 @@ let g:neocomplete#manual_completion_start_length = 0
 " Set minimum keyword length.
 let g:neocomplete#min_keyword_length = 3
 
-" For auto select.
-let g:neocomplete#enable_complete_select = 1
-try
-  let completeopt_save = &completeopt
-  set completeopt+=noinsert,noselect
-catch
-  let g:neocomplete#enable_complete_select = 0
-finally
-  let &completeopt = completeopt_save
-endtry
 let g:neocomplete#enable_auto_select = 1
 let g:neocomplete#enable_cursor_hold_i = 0
 
