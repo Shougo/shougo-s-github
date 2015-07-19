@@ -86,7 +86,7 @@ else
   " Width of window.
   set columns=170
   " Height of window.
-  set lines=45
+  set lines=40
 endif
 
 " Don't override colorscheme.
