@@ -65,10 +65,7 @@ if filereadable('vimrc_local.vim') ||
         \ {}, ['vim*', 'unite-*', 'neco-*', '*.vim', '*.nvim'])
 endif
 
-NeoBundleDisable neoinclude.vim
-
 " NeoBundle configurations.
-" NeoBundleDisable neocomplcache.vim
 
 call s:source_rc('plugins.rc.vim')
 

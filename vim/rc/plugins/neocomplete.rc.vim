@@ -72,7 +72,7 @@ let g:neocomplete#keyword_patterns.perl = '\h\w*->\h\w*\|\h\w*::\w*'
 let g:neocomplete#keyword_patterns.rst =
       \ '\$\$\?\w*\|[[:alpha:]_.\\/~-][[:alnum:]_.\\/~-]*\|\d\+\%(\.\d\+\)\+'
 
-let g:neocomplete#ignore_source_files = ['tag.vim']
+let g:neocomplete#ignore_source_files = []
 
 let g:neocomplete#sources#vim#complete_functions = {
       \ 'Ref' : 'ref#complete',

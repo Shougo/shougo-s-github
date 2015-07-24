@@ -414,6 +414,10 @@ repository = 'Shougo/neco-vim'
 filetypes = 'vim'
 
 [[plugins]]
+repository = 'Shougo/neoinclude.vim'
+insert = 1
+
+[[plugins]]
 repository = 'terryma/vim-expand-region'
 mappings = [['x', '<Plug>']]
 
