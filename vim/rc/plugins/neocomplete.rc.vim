@@ -13,8 +13,6 @@ let g:neocomplete#enable_camel_case = 1
 " Use fuzzy completion.
 let g:neocomplete#enable_fuzzy_completion = 1
 
-" Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 3
 " Set auto completion length.
 let g:neocomplete#auto_completion_start_length = 2
 " Set manual completion length.
