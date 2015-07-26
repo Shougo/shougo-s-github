@@ -412,6 +412,7 @@ filetypes = 'python'
 [[plugins]]
 repository = 'Shougo/neco-vim'
 filetypes = 'vim'
+insert = 1
 
 [[plugins]]
 repository = 'Shougo/neoinclude.vim'
@@ -432,3 +433,9 @@ filetypes = 'rust'
 [[plugins]]
 repository = 'rhysd/rust-doc.vim'
 filetypes = 'rust'
+
+[[plugins]]
+repository = 'Shougo/neco-syntax'
+depends = 'Shougo/neocomplete.vim'
+insert = 1
+
