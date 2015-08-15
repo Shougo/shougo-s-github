@@ -77,3 +77,4 @@ function! s:vimfiler_my_settings() "{{{
   " nmap <buffer> d <Plug>(vimfiler_mark_current_line)<Plug>(vimfiler_delete_file)
 endfunction"}}}
 
+let g:vimfiler_ignore_filters = ['matcher_ignore_files']

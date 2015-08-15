@@ -157,7 +157,6 @@ filetypes = 'ruby'
 
 [[plugins]]
 repository = 'basyura/J6uil.vim'
-function_prefix = 'J6uil'
 unite_sources = 'J6uil'
 depends = 'mattn/webapi-vim'
 
@@ -290,7 +289,6 @@ filetypes = 'json'
 
 [[plugins]]
 repository = 'tyru/open-browser.vim'
-functions = 'openbrowser#open'
 
 [[plugins]]
 repository = 'kana/vim-filetype-haskell'
@@ -324,7 +322,6 @@ depends = 'ynkdir/vim-vimlparser'
 # Operators
 [[plugins]]
 repository = 'kana/vim-operator-user'
-functions = 'operator#user#define'
 
 [[plugins]]
 repository = 'kana/vim-operator-replace'
@@ -436,6 +433,5 @@ filetypes = 'rust'
 
 [[plugins]]
 repository = 'Shougo/neco-syntax'
-depends = 'Shougo/neocomplete.vim'
 insert = 1
 

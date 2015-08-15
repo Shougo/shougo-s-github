@@ -116,8 +116,8 @@ if neobundle#tap('unite.vim') "{{{
   nnoremap <silent> [Window]f
         \ :<C-u>Unite <CR>
 
-  nnoremap <silent> [Window]w
-        \ :<C-u>Unite window<CR>
+  nnoremap <silent> <C-w>
+        \ :<C-u>Unite window:all:no-current<CR>
   nnoremap <silent> [Space]b
         \ :<C-u>UniteBookmarkAdd<CR>
 
@@ -152,8 +152,6 @@ if neobundle#tap('unite.vim') "{{{
   nnoremap <silent> n
         \ :<C-u>UniteResume search%`bufnr('%')`
         \  -no-start-insert -force-redraw<CR>
-
-  nnoremap <silent> <C-w>  :<C-u>Unite -auto-resize window/gui<CR>
 
   let neobundle#hooks.on_source =
         \ '~/.vim/rc/plugins/unite.rc.vim'
