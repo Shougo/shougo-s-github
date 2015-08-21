@@ -229,7 +229,6 @@ mappings = '<Plug>'
 
 [[plugins]]
 repository = 'vim-jp/autofmt'
-mappings = [['x', 'gq']]
 
 [[plugins]]
 repository = 'supermomonga/unite-kawaii-calc'
