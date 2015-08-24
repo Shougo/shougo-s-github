@@ -151,8 +151,14 @@ function! s:unite_my_settings() "{{{
 
   nnoremap <silent><buffer><expr> cd     unite#do_action('lcd')
   nnoremap <silent><buffer><expr> !     unite#do_action('start')
-  nnoremap <buffer><expr> S      unite#mappings#set_current_sorters(
-        \ empty(unite#mappings#get_current_sorters()) ? ['sorter_reverse'] : [])
+  nnoremap <buffer><expr> S
+        \ unite#mappings#set_current_sorters(
+        \  empty(unite#mappings#get_current_sorters()) ?
+        \   ['sorter_reverse'] : [])
+  nnoremap <buffer><expr> cof
+        \ unite#mappings#set_current_matchers(
+        \ empty(unite#mappings#get_current_matchers()) ?
+        \ ['matcher_fuzzy'] : [])
   nmap <buffer> x     <Plug>(unite_quick_match_jump)
 endfunction"}}}
 
@@ -176,7 +182,7 @@ if executable('ag')
   " Use ag in unite grep source.
   let g:unite_source_grep_command = 'ag'
   let g:unite_source_grep_default_opts =
-        \ '-i --line-numbers --nocolor --nogroup --hidden --ignore ' .
+        \ '-i --vimgrep --hidden --ignore ' .
         \  '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'''
   let g:unite_source_grep_recursive_opt = ''
 elseif executable('pt')
