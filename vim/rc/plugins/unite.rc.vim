@@ -194,12 +194,14 @@ elseif executable('jvgrep')
   let g:unite_source_grep_command = 'jvgrep'
   let g:unite_source_grep_default_opts = '-i --exclude ''\.(git|svn|hg|bzr)'''
   let g:unite_source_grep_recursive_opt = '-R'
-elseif executable('ack-grep')
-  " For ack.
-  let g:unite_source_grep_command = 'ack-grep'
-  let g:unite_source_grep_default_opts = '-i --no-heading --no-color -a'
-  let g:unite_source_grep_recursive_opt = ''
 endif
+
+" if executable('ack')
+"   " For ack.
+"   let g:unite_source_grep_command = 'ack'
+"   let g:unite_source_grep_default_opts = '-i --no-heading --no-color -k -H'
+"   let g:unite_source_grep_recursive_opt = ''
+" endif
 
 " let g:unite_source_rec_async_command = 'pt --nogroup --nocolor -S -g .'
 " let g:unite_source_rec_async_command = 'ag --follow --nocolor --nogroup --hidden -g ""'

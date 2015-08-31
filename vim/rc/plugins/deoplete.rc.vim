@@ -25,3 +25,4 @@ inoremap <expr><C-h> deolete#mappings#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> deoplete#mappings#smart_close_popup()."\<C-h>"
 
 inoremap <expr> '  pumvisible() ? deoplete#mappings#close_popup() : "'"
+

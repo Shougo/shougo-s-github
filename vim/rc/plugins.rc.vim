@@ -477,7 +477,7 @@ if neobundle#tap('jedi-vim') "{{{
         \ if has('python') || has('python3') |
         \   setlocal omnifunc=jedi#completions |
         \ else |
-        \   setlocal omnifunc=
+        \   setlocal omnifunc= |
         \ endif
   let g:jedi#completions_enabled = 0
   let g:jedi#auto_vim_configuration = 0
