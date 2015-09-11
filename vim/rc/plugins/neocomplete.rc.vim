@@ -4,8 +4,6 @@
 
 let g:neocomplete#disable_auto_complete = 0
 
-let g:neocomplete#enable_insert_char_pre = 0
-
 " Use smartcase.
 let g:neocomplete#enable_smart_case = 1
 let g:neocomplete#enable_camel_case = 1

@@ -107,11 +107,16 @@ if neobundle#tap('unite.vim') "{{{
         \ `finddir('.git', ';') != '' ? 'file_rec/git' : 'file_rec/async'`
         \ buffer_tab:- file file/new<CR>
 
-  nnoremap <silent> [Window]r  :<C-u>Unite -start-insert ref/`ref#detect()`<CR>
-  nnoremap <silent> [Window]<Space>  :<C-u>Unite -buffer-name=files file_rec:~/.vim/rc<CR>
-  nnoremap <silent> [Window]n  :<C-u>Unite -start-insert -default-action=lcd neobundle<CR>
-  nnoremap <silent> [Window]g  :<C-u>Unite -start-insert ghq<CR>
-  nnoremap <silent> [Window]t  :<C-u>Unite -start-insert tig<CR>
+  nnoremap <silent> [Window]r
+        \ :<C-u>Unite -start-insert ref/`ref#detect()`<CR>
+  nnoremap <silent> [Window]<Space>
+        \ :<C-u>Unite -buffer-name=files -path=~/.vim/rc file_rec<CR>
+  nnoremap <silent> [Window]n
+        \ :<C-u>Unite -start-insert -default-action=lcd neobundle<CR>
+  nnoremap <silent> [Window]g
+        \ :<C-u>Unite -start-insert ghq<CR>
+  nnoremap <silent> [Window]t
+        \ :<C-u>Unite -start-insert tig<CR>
 
   nnoremap <silent> [Window]f
         \ :<C-u>Unite <CR>

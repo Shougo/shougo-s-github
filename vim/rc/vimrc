@@ -33,32 +33,23 @@ endfunction
 
 call s:source_rc('init.rc.vim')
 
-" call neobundle#rc(expand('$CACHE/neobundle'))
 call neobundle#begin(expand('$CACHE/neobundle'))
 
 if neobundle#load_cache()
   NeoBundleFetch 'Shougo/neobundle.vim'
 
-  NeoBundle 'Shougo/vimproc.vim', {
-        \ 'build' : {
-        \     'windows' : 'tools\\update-dll-mingw',
-        \     'cygwin' : 'make -f make_cygwin.mak',
-        \     'mac' : 'make -f make_mac.mak',
-        \     'unix' : 'make -f make_unix.mak',
-        \    }
-        \ }
-
   call neobundle#load_toml(
-        \ '~/.vim/rc/neobundle.toml', {'lazy' : 1})
-  " call s:source_rc('neobundle.rc.vim')
+        \ '~/.vim/rc/neobundle.toml')
+  call neobundle#load_toml(
+        \ '~/.vim/rc/neobundlelazy.toml', {'lazy' : 1})
+
   NeoBundleSaveCache
 endif
 
-if filereadable('vimrc_local.vim') ||
-      \ findfile('vimrc_local.vim', '.;') !=# ''
+let s:vimrc_local = findfile('vimrc_local.vim', '.;')
+if s:vimrc_local !=# ''
   " Load develop version.
-  call neobundle#local(fnamemodify(
-        \ findfile('vimrc_local.vim', '.;'), ':h'),
+  call neobundle#local(fnamemodify(s:vimrc_local, ':h'),
         \ {}, ['vim*', 'unite-*', 'neco-*', '*.vim', '*.nvim'])
 endif
 
@@ -90,7 +81,8 @@ call s:source_rc('encoding.rc.vim')
 
 " Ignore the case of normal letters.
 set ignorecase
-" If the search pattern contains upper case characters, override ignorecase option.
+" If the search pattern contains upper case characters, override ignorecase
+" option.
 set smartcase
 
 " Enable incremental search.
@@ -131,8 +123,6 @@ call s:source_rc('mappings.rc.vim')
 
 " Display diff with the file.
 command! -nargs=1 -complete=file Diff vertical diffsplit <args>
-" Display diff from last save.
-command! DiffOrig vert new | setlocal bt=nofile | r # | 0d_ | diffthis | wincmd p | diffthis
 " Disable diff mode.
 command! -nargs=0 Undiff setlocal nodiff noscrollbind wrap
 

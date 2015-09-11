@@ -1,0 +1,436 @@
+[[plugins]]
+repository = 'Shougo/tabpagebuffer.vim'
+filetypes = 'all'
+
+[[plugins]]
+repository = 'Shougo/neomru.vim'
+filetypes = 'all'
+
+#[[plugins]]
+#repository = 'Yggdroot/indentLine'
+#filetypes = 'all'
+
+[[plugins]]
+repository = 'Shougo/unite-sudo'
+
+[[plugins]]
+repository = 'kana/vim-niceblock'
+mappings = '<Plug>'
+
+[[plugins]]
+repository = 'Shougo/echodoc.vim'
+insert = 1
+
+#[[plugins]]
+#repository = 'Shougo/neocomplcache.vim'
+#insert = 1
+
+[[plugins]]
+repository = 'Shougo/neocomplete.vim'
+depends = 'Shougo/context_filetype.vim'
+insert = 1
+
+[[plugins]]
+repository = 'Shougo/deoplete.nvim'
+depends = 'Shougo/context_filetype.vim'
+insert = 1
+
+[[plugins]]
+repository = 'Shougo/neosnippet.vim'
+depends = ['Shougo/neosnippet-snippets', 'Shougo/context_filetype.vim']
+insert = 1
+filetypes = 'snippet'
+unite_sources = ['neosnippet', 'neosnippet/user', 'neosnippet/runtime']
+
+[[plugins]]
+repository = 'Shougo/unite.vim'
+depends = 'Shougo/neomru.vim'
+
+  [plugins.commands]
+  name = 'Unite'
+  complete = 'customlist,unite#complete_source'
+
+[[plugins]]
+repository = 'Shougo/unite-build'
+
+[[plugins]]
+repository = 'Shougo/neossh.vim'
+filetypes = ['vimfiler', 'vimshell']
+sources = 'ssh'
+
+[[plugins]]
+repository = 'ujihisa/vimshell-ssh'
+filetypes = 'vimshell'
+
+[[plugins]]
+repository = 'Shougo/vim-vcs'
+depends = 'thinca/vim-openbuf'
+
+[[plugins]]
+repository = 'Shougo/vimfiler.vim'
+depends = 'Shougo/unite.vim'
+mappings = '<Plug>'
+explorer = 1
+
+  [plugins.commands]
+  name = ['VimFiler']
+  complete = 'customlist,vimfiler#complete'
+
+[[plugins]]
+repository = 'Shougo/vimshell.vim'
+mappings = '<Plug>'
+
+  [plugins.commands]
+  name = 'VimShell'
+  complete = 'customlist,vimshell#complete'
+
+[[plugins]]
+repository = 'yomi322/vim-gitcomplete'
+filetypes = 'vimshell'
+
+[[plugins]]
+repository = 'Shougo/vinarise.vim'
+
+  [plugins.commands]
+  name = 'Vinarise'
+  complete = 'file'
+
+[[plugins]]
+repository = 'vim-jp/vital.vim'
+commands = 'Vitalize'
+
+[[plugins]]
+repository = 'Shougo/junkfile.vim'
+unite_sources = 'junkfile'
+
+[[plugins]]
+repository = 'Shougo/unite-outline'
+
+[[plugins]]
+repository = 'hail2u/vim-css3-syntax'
+
+[[plugins]]
+repository = 'kana/vim-smartchr'
+insert = 1
+
+[[plugins]]
+repository = 'ctrlpvim/ctrlp.vim'
+
+[[plugins]]
+repository = 'LeafCage/foldCC'
+filetypes = 'vim'
+
+[[plugins]]
+repository = 'mattn/webapi-vim'
+
+[[plugins]]
+repository = 'thinca/vim-fontzoom'
+gui = 1
+mappings = '<Plug>'
+
+[[plugins]]
+repository = 'thinca/vim-prettyprint'
+commands = 'PP'
+
+[[plugins]]
+repository = 'thinca/vim-qfreplace'
+filetypes = ['unite', 'quickfix']
+
+[[plugins]]
+repository = 'thinca/vim-quickrun'
+mappings = '<Plug>'
+
+[[plugins]]
+repository = 'thinca/vim-scouter'
+
+[[plugins]]
+repository = 'thinca/vim-ref'
+unite_sources = 'ref'
+
+[[plugins]]
+repository = 'thinca/vim-unite-history'
+
+[[plugins]]
+repository = 'vim-ruby/vim-ruby'
+mappings = '<Plug>'
+filetypes = 'ruby'
+
+[[plugins]]
+repository = 'basyura/J6uil.vim'
+unite_sources = 'J6uil'
+depends = 'mattn/webapi-vim'
+
+  [plugins.commands]
+  name = 'J6uil'
+  complete = 'custom,J6uil#complete#room'
+
+[[plugins]]
+repository = 'Shougo/unite-help'
+
+[[plugins]]
+repository = 'tsukkee/unite-tag'
+
+[[plugins]]
+repository = 'tyru/caw.vim'
+mappings = '<Plug>'
+
+[[plugins]]
+repository = 'tyru/eskk.vim'
+mappings = [['i', '<Plug>'], ['c', '<Plug>']]
+
+[[plugins]]
+repository = 'tyru/open-browser.vim'
+mappings = '<Plug>'
+
+[[plugins]]
+repository = 'tyru/restart.vim'
+gui = 1
+commands = 'Restart'
+
+[[plugins]]
+repository = 'tyru/winmove.vim'
+mappings = '<Plug>'
+gui = 1
+augroup = 'winmove'
+
+[[plugins]]
+repository = 'eagletmt/neco-ghc'
+filetypes = 'haskell'
+
+[[plugins]]
+repository = 'ujihisa/neco-look'
+insert = 1
+
+[[plugins]]
+repository = 'ujihisa/unite-colorscheme'
+
+[[plugins]]
+repository = 'vim-jp/vimdoc-ja'
+filetypes = 'help'
+
+#[[plugins]]
+#repository = 'eignn/netrw.vim'
+#commands = 'Explore'
+
+[[plugins]]
+repository = 'osyo-manga/unite-quickfix'
+
+[[plugins]]
+repository = 'osyo-manga/unite-filetype'
+
+[[plugins]]
+repository = 'kana/vim-tabpagecd'
+unite_sources = 'tab'
+
+[[plugins]]
+repository = 'rhysd/accelerated-jk'
+mappings = '<Plug>'
+
+[[plugins]]
+repository = 'vim-jp/autofmt'
+
+[[plugins]]
+repository = 'supermomonga/unite-kawaii-calc'
+
+[[plugins]]
+repository = 'godlygeek/csapprox'
+terminal = 1
+
+[[plugins]]
+repository = 'thinca/vim-guicolorscheme'
+terminal = 1
+
+[[plugins]]
+repository = 'matchit.zip'
+mappings = [['nxo', '%', 'g%']]
+
+[[plugins]]
+repository = 'jiangmiao/simple-javascript-indenter'
+filetypes = 'javascript'
+
+[[plugins]]
+repository = 'jelera/vim-javascript-syntax'
+filetypes = 'javascript'
+
+[[plugins]]
+repository = 'hynek/vim-python-pep8-indent'
+filetypes = 'python'
+
+[[plugins]]
+repository = 'bkad/CamelCaseMotion'
+mappings = '<Plug>'
+
+[[plugins]]
+repository = 'aharisu/vim-gdev'
+filetypes = 'scheme'
+
+[[plugins]]
+repository = 'vim-jp/cpp-vim'
+filetypes = 'cpp'
+
+[[plugins]]
+repository = 'thinca/vim-ft-diff_fold'
+filetypes = 'diff'
+
+[[plugins]]
+repository = 'nsf/gocode'
+rtp = 'vim'
+filetypes = 'go'
+
+[[plugins]]
+repository = 'thinca/vim-ft-help_fold'
+filetypes = 'help'
+
+[[plugins]]
+repository = 'elzr/vim-json'
+filetypes = 'json'
+
+[[plugins]]
+repository = 'kana/vim-filetype-haskell'
+filetypes = 'haskell'
+
+[[plugins]]
+repository = 'JesseKPhillips/d.vim'
+filetypes = 'd'
+
+[[plugins]]
+repository = 't9md/vim-choosewin'
+mappings = '<Plug>'
+
+[[plugins]]
+repository = 'fatih/vim-go'
+filetypes = 'go'
+
+[[plugins]]
+repository = 'lambdalisue/vim-fullscreen'
+gui = 1
+mappings = '<Plug>'
+
+[[plugins]]
+repository = 'todesking/ruby_hl_lvar.vim'
+filetypes = 'ruby'
+
+[[plugins]]
+repository = 'syngan/vim-vimlint'
+depends = 'ynkdir/vim-vimlparser'
+
+# Operators
+[[plugins]]
+repository = 'kana/vim-operator-user'
+
+[[plugins]]
+repository = 'kana/vim-operator-replace'
+depends = 'vim-operator-user'
+mappings = [['nx', '<Plug>']]
+
+[[plugins]]
+repository = 'rhysd/vim-operator-surround'
+depends = 'vim-operator-user'
+mappings = '<Plug>'
+
+[[plugins]]
+repository = 'chikatoike/concealedyank.vim'
+mappings = [['x', '<Plug>(operator-concealedyank)']]
+
+# Textobjs
+[[plugins]]
+repository = 'kana/vim-textobj-user'
+
+[[plugins]]
+repository = 'osyo-manga/vim-textobj-multiblock'
+depends = 'vim-textobj-user'
+mappings = [['ox', '<Plug>']]
+
+[[plugins]]
+repository = 'saihoooooooo/glowshi-ft.vim'
+mappings = '<Plug>'
+
+[[plugins]]
+repository = 'Rykka/riv.vim'
+filetypes = 'rst'
+
+[[plugins]]
+repository = 'rcmdnk/vim-markdown'
+filetypes = ['markdown', 'mkd']
+
+[[plugins]]
+repository = 'kannokanno/previm'
+filetypes = ['markdown', 'rst', 'mkd']
+depends = 'tyru/open-browser.vim'
+
+[[plugins]]
+repository = 'Kocha/vim-unite-tig'
+
+[[plugins]]
+repository = 'osyo-manga/vim-jplus'
+mappings = '<Plug>'
+
+[[plugins]]
+repository = 'osyo-manga/unite-vimpatches'
+
+[[plugins]]
+repository = 'katono/rogue.vim'
+commands = 'Rogue'
+
+[[plugins]]
+repository = 'sorah/unite-ghq'
+
+[[plugins]]
+repository = 'thinca/vim-themis'
+filetypes = 'vim'
+
+[[plugins]]
+repository = 'osyo-manga/vim-monster'
+filetypes = 'ruby'
+
+[[plugins]]
+repository = 'cespare/vim-toml'
+filetypes = 'toml'
+
+[[plugins]]
+repository = 'lambdalisue/vim-gita'
+commands = 'Gita'
+
+[[plugins]]
+repository = 'lambdalisue/vim-gista'
+commands = 'Gista'
+mappings = '<Plug>'
+unite_sources = 'gista'
+
+[[plugins]]
+repository = 'davidhalter/jedi-vim'
+filetypes = 'python'
+
+[[plugins]]
+repository = 'Shougo/neco-vim'
+filetypes = 'vim'
+insert = 1
+
+[[plugins]]
+repository = 'Shougo/neoinclude.vim'
+insert = 1
+
+[[plugins]]
+repository = 'terryma/vim-expand-region'
+mappings = [['x', '<Plug>']]
+
+[[plugins]]
+repository = 'phildawes/racer'
+filetypes = 'rust'
+
+[[plugins]]
+repository = 'rust-lang/rust.vim'
+filetypes = 'rust'
+
+[[plugins]]
+repository = 'rhysd/rust-doc.vim'
+filetypes = 'rust'
+
+[[plugins]]
+repository = 'Shougo/neco-syntax'
+insert = 1
+
+[[plugins]]
+repository = 'shawncplus/phpcomplete.vim'
+filetypes = 'php'
+

@@ -17,7 +17,6 @@ else
 endif
 
 " Use ',' instead of '\'.
-" It is not mapped with respect well unless I set it before setting for plug in.
 " Use <Leader> in global plugin.
 let g:mapleader = ','
 " Use <LocalLeader> in filetype plugin.
@@ -51,8 +50,6 @@ if filereadable(expand('~/.secret_vimrc'))
   execute 'source' expand('~/.secret_vimrc')
 endif
 
-let s:neobundle_dir = expand('$CACHE/neobundle')
-
 if has('vim_starting') "{{{
   " Set runtimepath.
   if IsWindows()
@@ -63,17 +60,20 @@ if has('vim_starting') "{{{
   endif
 
   " Load neobundle.
-  if finddir('neobundle.vim', '.;') != ''
+  let s:neobundle_dir = finddir('neobundle.vim', '.;')
+  if s:neobundle_dir != ''
     execute 'set runtimepath^=' .
-          \ fnamemodify(finddir('neobundle.vim', '.;'), ':p')
+          \ fnamemodify(s:neobundle_dir, ':p')
   elseif &runtimepath !~ '/neobundle.vim'
-    if !isdirectory(s:neobundle_dir.'/neobundle.vim')
+    let s:neobundle_dir = expand('$CACHE/neobundle').'/neobundle.vim'
+
+    if !isdirectory(s:neobundle_dir)
       execute printf('!git clone %s://github.com/Shougo/neobundle.vim.git',
             \ (exists('$http_proxy') ? 'https' : 'git'))
-            \ s:neobundle_dir.'/neobundle.vim'
+            \ s:neobundle_dir
     endif
 
-    execute 'set runtimepath^=' . s:neobundle_dir.'/neobundle.vim'
+    execute 'set runtimepath^=' . s:neobundle_dir
   endif
 endif
 "}}}
