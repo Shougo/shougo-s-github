@@ -44,8 +44,10 @@ if !exists('g:neocomplete#force_omni_input_patterns')
 endif
 let g:neocomplete#enable_auto_close_preview = 1
 
-let g:neocomplete#force_omni_input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::\w*'
-" let g:neocomplete#sources#omni#input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::\w*'
+let g:neocomplete#force_omni_input_patterns.ruby =
+      \ '[^. *\t]\.\w*\|\h\w*::\w*'
+" let g:neocomplete#sources#omni#input_patterns.ruby =
+"      \ '[^. *\t]\.\w*\|\h\w*::\w*'
 
 let g:neocomplete#force_omni_input_patterns.python =
 \ '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'

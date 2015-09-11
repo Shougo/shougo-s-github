@@ -25,7 +25,7 @@ augroup MyAutoCmd
 
   " Enable omni completion.
   " autocmd FileType ada setlocal omnifunc=adacomplete#Complete
-  " autocmd FileType c setlocal omnifunc=ccomplete#Complete
+  autocmd FileType c setlocal omnifunc=
   autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
   autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
   autocmd FileType java setlocal omnifunc=javacomplete#Complete
@@ -34,7 +34,6 @@ augroup MyAutoCmd
   autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
   autocmd FileType python setlocal foldmethod=indent
-  " autocmd FileType vim setlocal foldmethod=syntax
 
   " Update filetype.
   autocmd BufWritePost *

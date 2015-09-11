@@ -36,7 +36,8 @@ let g:eskk#start_completion_length = 2
 "let g:eskk#map_normal_keys = 0
 
 " Toggle debug.
-nnoremap <silent> [Space]ed  :<C-u>call ToggleVariable('g:eskk#debug')<CR>
+nnoremap <silent> [Space]ed
+      \ :<C-u>call ToggleVariable('g:eskk#debug')<CR>
 
 autocmd MyAutoCmd User eskk-initialize-post
       \ EskkMap -remap jj <ESC>

@@ -89,13 +89,16 @@ if neobundle#tap('unite.vim') "{{{
   nnoremap <silent> ;t
         \ :<C-u>UniteWithCursorWord -buffer-name=tag tag tag/include<CR>
   xnoremap <silent> ;r
-        \ d:<C-u>Unite -buffer-name=register -default-action=append register history/yank<CR>
+        \ d:<C-u>Unite -buffer-name=register
+        \ -default-action=append register history/yank<CR>
   nnoremap <silent> <C-k>
         \ :<C-u>Unite change jump<CR>
   nnoremap <silent> ;g
-        \ :<C-u>Unite grep -buffer-name=grep`tabpagenr()` -auto-preview -no-split -no-empty -resume<CR>
+        \ :<C-u>Unite grep -buffer-name=grep`tabpagenr()`
+        \ -auto-preview -no-split -no-empty -resume<CR>
   nnoremap <silent> ;r
-        \ :<C-u>Unite -buffer-name=register -default-action=append register history/yank<CR>
+        \ :<C-u>Unite -buffer-name=register
+        \ -default-action=append register history/yank<CR>
 
   " <C-t>: Tab pages
   nnoremap <silent> <C-t>
@@ -133,7 +136,8 @@ if neobundle#tap('unite.vim') "{{{
   " Jump.
   " nnoremap [Tag]t  g<C-]>
   nnoremap <silent><expr> [Tag]t  &filetype == 'help' ?  "g\<C-]>" :
-        \ ":\<C-u>UniteWithCursorWord -buffer-name=tag -immediately tag tag/include\<CR>"
+        \ ":\<C-u>UniteWithCursorWord -buffer-name=tag -immediately
+        \  tag tag/include\<CR>"
   nnoremap <silent><expr> [Tag]p  &filetype == 'help' ?
         \ ":\<C-u>pop\<CR>" : ":\<C-u>Unite jump\<CR>"
   "}}}
@@ -146,11 +150,14 @@ if neobundle#tap('unite.vim') "{{{
 
   " Search.
   nnoremap <silent> /
-        \ :<C-u>Unite -buffer-name=search%`bufnr('%')` -start-insert line:forward:wrap<CR>
+        \ :<C-u>Unite -buffer-name=search%`bufnr('%')`
+        \ -start-insert line:forward:wrap<CR>
   nnoremap <silent> ?
-        \ :<C-u>Unite -buffer-name=search%`bufnr('%')` -start-insert line:backward<CR>
+        \ :<C-u>Unite -buffer-name=search%`bufnr('%')`
+        \ -start-insert line:backward<CR>
   nnoremap <silent> *
-        \ :<C-u>UniteWithCursorWord -buffer-name=search%`bufnr('%')` line:forward:wrap<CR>
+        \ :<C-u>UniteWithCursorWord -buffer-name=search%`bufnr('%')`
+        \ line:forward:wrap<CR>
   nnoremap [Alt]/       /
   nnoremap [Alt]?       ?
 
@@ -363,13 +370,6 @@ if neobundle#tap('matchit.zip') "{{{
   function! neobundle#hooks.on_post_source(bundle)
     silent! execute 'doautocmd Filetype' &filetype
   endfunction
-
-  call neobundle#untap()
-endif "}}}
-
-if neobundle#tap('vim-conque') "{{{
-  let g:ConqueTerm_EscKey = '<Esc>'
-  let g:ConqueTerm_PyVersion = 3
 
   call neobundle#untap()
 endif "}}}

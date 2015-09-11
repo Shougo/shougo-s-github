@@ -58,7 +58,8 @@ function! s:vimshell_settings()
   xmap <buffer> y <Plug>(operator-concealedyank)
 
   nnoremap <silent><buffer> <C-j>
-        \ :<C-u>Unite -buffer-name=files -default-action=lcd directory_mru<CR>
+        \ :<C-u>Unite -buffer-name=files
+        \ -default-action=lcd directory_mru<CR>
 
   call vimshell#altercmd#define('u', 'cdup')
   call vimshell#altercmd#define('g', 'git')
@@ -75,16 +76,23 @@ function! s:vimshell_settings()
         \ -default-action=lcd -no-split -input=$$args directory_mru')
 
   " Console.
-  call vimshell#set_alias('con', 'lilyterm -d `=b:vimshell.current_dir`')
+  call vimshell#set_alias('con',
+        \ 'lilyterm -d `=b:vimshell.current_dir`')
 
   call vimshell#set_alias('up', 'cdup')
 
-  call vimshell#hook#add('chpwd', 'my_chpwd', s:vimshell_hooks.chpwd)
-  " call vimshell#hook#add('emptycmd', 'my_emptycmd', s:vimshell_hooks.emptycmd)
-  call vimshell#hook#add('notfound', 'my_notfound', s:vimshell_hooks.notfound)
-  call vimshell#hook#add('preprompt', 'my_preprompt', s:vimshell_hooks.preprompt)
-  call vimshell#hook#add('preexec', 'my_preexec', s:vimshell_hooks.preexec)
-  " call vimshell#hook#set('preexec', [s:SID_PREFIX() . 'vimshell_hooks_preexec'])
+  call vimshell#hook#add('chpwd',
+        \ 'my_chpwd', s:vimshell_hooks.chpwd)
+  " call vimshell#hook#add('emptycmd',
+  "     \ 'my_emptycmd', s:vimshell_hooks.emptycmd)
+  call vimshell#hook#add('notfound',
+        \ 'my_notfound', s:vimshell_hooks.notfound)
+  call vimshell#hook#add('preprompt',
+        \ 'my_preprompt', s:vimshell_hooks.preprompt)
+  call vimshell#hook#add('preexec',
+        \ 'my_preexec', s:vimshell_hooks.preexec)
+  " call vimshell#hook#set('preexec',
+  "      \ [s:SID_PREFIX() . 'vimshell_hooks_preexec'])
 endfunction
 
 autocmd MyAutoCmd FileType int-* call s:interactive_settings()
@@ -112,7 +120,8 @@ function! s:texe_sticky_func()
   let sticky_table = {
         \',' : '<', '.' : '>', '/' : '?',
         \'1' : '!', '2' : '@', '3' : '#', '4' : '$', '5' : '%',
-        \'6' : '^', '7' : '&', '8' : '*', '9' : '(', '0' : ')', '-' : '_', '=' : '+',
+        \'6' : '^', '7' : '&', '8' : '*', '9' : '(', '0' : ')',
+        \ '-' : '_', '=' : '+',
         \';' : ':', '[' : '{', ']' : '}', '`' : '~', "'" : "\"", '\' : '|',
         \}
   let special_table = {

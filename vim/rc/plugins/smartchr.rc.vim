@@ -11,10 +11,14 @@ inoremap <expr> =
       \ : smartchr#one_of(' = ', '=', ' == ')
 augroup MyAutoCmd
   " Substitute .. into -> .
-  autocmd FileType c,cpp inoremap <buffer> <expr> . smartchr#loop('.', '->', '...')
-  autocmd FileType perl,php inoremap <buffer> <expr> . smartchr#loop(' . ', '->', '.')
-  autocmd FileType perl,php inoremap <buffer> <expr> - smartchr#loop('-', '->')
-  autocmd FileType vim inoremap <buffer> <expr> . smartchr#loop('.', ' . ', '..', '...')
+  autocmd FileType c,cpp inoremap <buffer> <expr> .
+        \ smartchr#loop('.', '->', '...')
+  autocmd FileType perl,php inoremap <buffer> <expr> .
+        \ smartchr#loop(' . ', '->', '.')
+  autocmd FileType perl,php inoremap <buffer> <expr> -
+        \ smartchr#loop('-', '->')
+  autocmd FileType vim inoremap <buffer> <expr> .
+        \ smartchr#loop('.', ' . ', '..', '...')
   autocmd FileType lisp,scheme,clojure inoremap <buffer> <expr> = =
 
   autocmd FileType haskell,int-ghci
