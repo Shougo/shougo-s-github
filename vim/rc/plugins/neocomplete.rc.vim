@@ -92,10 +92,6 @@ call neocomplete#custom#source('look', 'min_pattern_length', 4)
 " <C-f>, <C-b>: page move.
 inoremap <expr><C-f>  pumvisible() ? "\<PageDown>" : "\<Right>"
 inoremap <expr><C-b>  pumvisible() ? "\<PageUp>"   : "\<Left>"
-" <C-y>: paste.
-inoremap <expr><C-y>  pumvisible() ? neocomplete#close_popup() :  "\<C-r>\""
-" <C-e>: close popup.
-inoremap <expr><C-e>  pumvisible() ? neocomplete#cancel_popup() : "\<End>"
 " <C-h>, <BS>: close popup and delete backword char.
 inoremap <expr> <C-h> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr> <BS> neocomplete#smart_close_popup()."\<C-h>"
@@ -103,7 +99,7 @@ inoremap <expr> <BS> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr> <C-n>  pumvisible() ? "\<C-n>" : "\<C-x>\<C-u>\<C-p>\<Down>"
 " <C-p>: keyword completion.
 inoremap <expr> <C-p>  pumvisible() ? "\<C-p>" : "\<C-p>\<C-n>"
-inoremap <expr> '  pumvisible() ? neocomplete#close_popup() : "'"
+inoremap <expr> '  pumvisible() ? "\<C-y>" : "'"
 
 inoremap <silent><expr> <C-x><C-f>
       \ neocomplete#start_manual_complete('file')

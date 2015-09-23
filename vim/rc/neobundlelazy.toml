@@ -408,7 +408,7 @@ insert = 1
 
 [[plugins]]
 repository = 'Shougo/neoinclude.vim'
-insert = 1
+filetypes = 'all'
 
 [[plugins]]
 repository = 'terryma/vim-expand-region'
@@ -434,3 +434,9 @@ insert = 1
 repository = 'shawncplus/phpcomplete.vim'
 filetypes = 'php'
 
+[[plugins]]
+repository = 'marijnh/tern_for_vim'
+filetypes = 'javascript'
+
+  [plugins.build]
+  others = 'npm install'
