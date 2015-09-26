@@ -1,6 +1,3 @@
 [[plugins]]
 repository = 'Shougo/vimproc.vim'
-
-  [plugins.build]
-  windows = 'tools\\update-dll-mingw'
-  others = 'make'
+build = 'make'

@@ -473,6 +473,7 @@ endif "}}}
 
 if neobundle#tap('vim-gista') "{{{
   let g:gista#github_user = 'Shougo'
+  let g:gista#directory = expand('$CACHE/gista')
 
   call neobundle#untap()
 endif "}}}

@@ -437,6 +437,8 @@ filetypes = 'php'
 [[plugins]]
 repository = 'marijnh/tern_for_vim'
 filetypes = 'javascript'
+build = 'npm install'
 
-  [plugins.build]
-  others = 'npm install'
+[[plugins]]
+repository = 'mxw/vim-jsx'
+filetypes = 'javascript'
