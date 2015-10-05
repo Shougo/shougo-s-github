@@ -442,3 +442,12 @@ build = 'npm install'
 [[plugins]]
 repository = 'mxw/vim-jsx'
 filetypes = 'javascript'
+
+[[plugins]]
+repository = 'osyo-manga/vim-marching'
+filetypes = ['c', 'cpp']
+
+[[plugins]]
+repository = 'artur-shaik/vim-javacomplete2'
+filetypes = 'java'
+

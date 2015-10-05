@@ -503,3 +503,9 @@ if neobundle#tap('racer') "{{{
 
   call neobundle#untap()
 endif "}}}
+
+if neobundle#tap('vim-javacomplete2') "{{{
+  autocmd MyAutoCmd FileType java setlocal omnifunc=javacomplete#Complete
+
+  call neobundle#untap()
+endif "}}}
