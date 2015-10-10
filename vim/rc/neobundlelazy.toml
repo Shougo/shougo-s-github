@@ -320,12 +320,12 @@ repository = 'kana/vim-operator-user'
 
 [[plugins]]
 repository = 'kana/vim-operator-replace'
-depends = 'vim-operator-user'
+depends = 'kana/vim-operator-user'
 mappings = [['nx', '<Plug>']]
 
 [[plugins]]
 repository = 'rhysd/vim-operator-surround'
-depends = 'vim-operator-user'
+depends = 'kana/vim-operator-user'
 mappings = '<Plug>'
 
 [[plugins]]
@@ -338,7 +338,7 @@ repository = 'kana/vim-textobj-user'
 
 [[plugins]]
 repository = 'osyo-manga/vim-textobj-multiblock'
-depends = 'vim-textobj-user'
+depends = 'kana/vim-textobj-user'
 mappings = [['ox', '<Plug>']]
 
 [[plugins]]

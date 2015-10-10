@@ -353,6 +353,7 @@ if neobundle#tap('vim-gita') "{{{
   nnoremap <silent> [Space]gs  :<C-u>Gita status<CR>
   nnoremap <silent> [Space]gc  :<C-u>Gita commit<CR>
   nnoremap <silent> [Space]gd  :<C-u>Gita diff<CR>
+  let gita#features#commit#enable_default_mappings = 0
 
   call neobundle#untap()
 endif "}}}
