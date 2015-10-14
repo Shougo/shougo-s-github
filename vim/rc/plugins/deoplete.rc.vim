@@ -23,3 +23,9 @@ inoremap <expr><BS> deoplete#mappings#smart_close_popup()."\<C-h>"
 
 inoremap <expr> '  pumvisible() ? deoplete#mappings#close_popup() : "'"
 
+" Use head matcher
+" call deoplete#custom#set('_', 'matchers', ['matcher_head'])
+
+let g:deoplete#keyword_patterns = {}
+" let g:deoplete#keyword_patterns.tex = '\\?[a-zA-Z_]\w*'
+let g:deoplete#keyword_patterns.tex = '[^\w|\s][a-zA-Z_]\w*'

@@ -1,3 +1,8 @@
 [[plugins]]
 repository = 'Shougo/vimproc.vim'
 build = 'make'
+
+#[[plugins]]
+#repository = 'rhysd/committia.vim'
+#explorer = 'COMMIT_EDITMSG'
+

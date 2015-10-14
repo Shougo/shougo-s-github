@@ -11,8 +11,7 @@ imap <silent>S     <Plug>(neosnippet_start_unite_snippet)
 xmap <silent>o     <Plug>(neosnippet_register_oneshot_snippet)
 xmap <silent>U     <Plug>(neosnippet_expand_target)
 
-imap <expr><silent>L     neocomplete#mappings#close_popup() .
-      \ "\<Plug>(neosnippet_jump_or_expand)"
+imap <silent>L     <Plug>(neosnippet_jump_or_expand)
 
 " let g:neosnippet#enable_snipmate_compatibility = 1
 

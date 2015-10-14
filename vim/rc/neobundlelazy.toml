@@ -70,7 +70,7 @@ depends = 'thinca/vim-openbuf'
 repository = 'Shougo/vimfiler.vim'
 depends = 'Shougo/unite.vim'
 mappings = '<Plug>'
-explorer = 1
+explorer = '^\h\w*:'
 
   [plugins.commands]
   name = ['VimFiler']
