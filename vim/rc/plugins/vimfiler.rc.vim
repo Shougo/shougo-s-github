@@ -73,3 +73,4 @@ function! s:vimfiler_my_settings() "{{{
   endif
 endfunction"}}}
 
+" let g:vimfiler_ignore_pattern = ''
