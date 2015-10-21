@@ -451,3 +451,7 @@ filetypes = ['c', 'cpp']
 repository = 'artur-shaik/vim-javacomplete2'
 filetypes = 'java'
 
+[[plugins]]
+repository = 'rhysd/committia.vim'
+explorer = 'COMMIT_EDITMSG'
+

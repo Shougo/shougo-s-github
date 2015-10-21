@@ -500,6 +500,7 @@ if neobundle#tap('vim-expand-region') "{{{
 endif "}}}
 
 if neobundle#tap('racer') "{{{
+  let g:racer_cmd = expand('~/.cache/neobundle/racer/target/release/racer')
   let $RUST_SRC_PATH = expand('~/src/rust/src')
 
   call neobundle#untap()

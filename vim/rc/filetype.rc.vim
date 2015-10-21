@@ -91,6 +91,9 @@ if $GOROOT != ''
   set runtimepath+=$GOROOT/misc/vim
 endif
 
+" Tex
+let g:tex_flavor = 'latex'
+
 " Vim script
 " augroup: a
 " function: f
