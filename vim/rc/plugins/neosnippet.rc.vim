@@ -13,7 +13,7 @@ xmap <silent>U     <Plug>(neosnippet_expand_target)
 
 imap <silent>L     <Plug>(neosnippet_jump_or_expand)
 
-" let g:neosnippet#enable_snipmate_compatibility = 1
+let g:neosnippet#enable_snipmate_compatibility = 1
 
 " let g:snippets_dir = '~/.vim/snippets/,~/.vim/bundle/snipmate/snippets/'
 let g:neosnippet#snippets_directory = '~/.vim/snippets'

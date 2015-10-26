@@ -15,3 +15,4 @@ export SVN_EDITOR="vim"
 export WWW_BROWSER="w3m"
 export DOWNLOADER="wget -S"
 
+export XDG_CONFIG_HOME=$HOME/.config
