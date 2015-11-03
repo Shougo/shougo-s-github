@@ -5,7 +5,9 @@
 
 " Setting of the encoding to use for a save and reading.
 " Make it normal in UTF-8 in Unix.
-set encoding=utf-8
+if has('vim_starting')
+  set encoding=utf-8
+endif
 
 " Setting of terminal encoding."{{{
 if !has('gui_running')

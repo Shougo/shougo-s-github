@@ -63,6 +63,9 @@ if has('gui')
     execute 'colorscheme' globpath(&runtimepath,
           \ 'colors/candy.vim') != '' ? 'candy' : 'desert'
   endif
+elseif has('nvim') && $NVIM_TUI_ENABLE_TRUE_COLOR != ''
+  " Use true color feature
+  colorscheme candy
 else
   " Use guicolorscheme.vim
   NeoBundleSource vim-guicolorscheme

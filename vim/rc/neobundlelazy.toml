@@ -455,3 +455,7 @@ filetypes = 'java'
 repository = 'rhysd/committia.vim'
 explorer = 'COMMIT_EDITMSG'
 
+[[plugins]]
+repository = 'itchyny/vim-haskell-indent'
+filetypes = 'haskell'
+

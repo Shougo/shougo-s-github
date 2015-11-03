@@ -389,7 +389,6 @@ if neobundle#tap('vim-operator-replace') "{{{
 endif "}}}
 
 if neobundle#tap('restart.vim') "{{{
-  let g:restart_save_window_values = 0
   nnoremap <silent> [Space]re  :<C-u>Restart<CR>
 
   call neobundle#untap()
@@ -502,6 +501,7 @@ endif "}}}
 if neobundle#tap('racer') "{{{
   let g:racer_cmd = expand('~/.cache/neobundle/racer/target/release/racer')
   let $RUST_SRC_PATH = expand('~/src/rust/src')
+  let g:racer_experimental_completer = 1
 
   call neobundle#untap()
 endif "}}}
