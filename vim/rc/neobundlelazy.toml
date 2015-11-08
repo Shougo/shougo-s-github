@@ -34,6 +34,7 @@ insert = 1
 repository = 'Shougo/deoplete.nvim'
 depends = 'Shougo/context_filetype.vim'
 insert = 1
+neovim = 1
 
 [[plugins]]
 repository = 'Shougo/neosnippet.vim'
@@ -45,6 +46,7 @@ unite_sources = ['neosnippet', 'neosnippet/user', 'neosnippet/runtime']
 [[plugins]]
 repository = 'Shougo/unite.vim'
 depends = 'Shougo/neomru.vim'
+neovim = 1
 
   [plugins.commands]
   name = 'Unite'
