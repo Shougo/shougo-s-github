@@ -352,7 +352,11 @@ endif "}}}
 if neobundle#tap('vim-gita') "{{{
   nnoremap <silent> [Space]gs  :<C-u>Gita status<CR>
   nnoremap <silent> [Space]gc  :<C-u>Gita commit<CR>
+  nnoremap <silent> [Space]ga  :<C-u>Gita commit --amend<CR>
   nnoremap <silent> [Space]gd  :<C-u>Gita diff<CR>
+  nnoremap <silent> [Space]gb  :<C-u>Gita browse<CR>
+  nnoremap <silent> [Space]gl  :<C-u>Gita blame<CR>
+
   let gita#features#commit#enable_default_mappings = 0
 
   call neobundle#untap()
@@ -513,3 +517,15 @@ if neobundle#tap('vim-javacomplete2') "{{{
 
   call neobundle#untap()
 endif "}}}
+
+if neobundle#tap('sideways.vim') "{{{
+  nnoremap <silent> " :SidewaysJumpLeft<CR>
+  nnoremap <silent> ' :SidewaysJumpRight<CR>
+  omap a, <Plug>SidewaysArgumentTextobjA
+  xmap a, <Plug>SidewaysArgumentTextobjA
+  omap i, <Plug>SidewaysArgumentTextobjI
+  xmap i, <Plug>SidewaysArgumentTextobjI
+
+  call neobundle#untap()
+endif "}}}
+

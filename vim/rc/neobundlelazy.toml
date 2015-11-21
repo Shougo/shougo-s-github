@@ -3,27 +3,16 @@ repository = 'Shougo/tabpagebuffer.vim'
 filetypes = 'all'
 
 [[plugins]]
+repository = 'Shougo/neopairs.vim'
+insert = 1
+
+[[plugins]]
 repository = 'Shougo/neomru.vim'
 filetypes = 'all'
-
-#[[plugins]]
-#repository = 'Yggdroot/indentLine'
-#filetypes = 'all'
-
-[[plugins]]
-repository = 'Shougo/unite-sudo'
-
-[[plugins]]
-repository = 'kana/vim-niceblock'
-mappings = '<Plug>'
 
 [[plugins]]
 repository = 'Shougo/echodoc.vim'
 insert = 1
-
-#[[plugins]]
-#repository = 'Shougo/neocomplcache.vim'
-#insert = 1
 
 [[plugins]]
 repository = 'Shougo/neocomplete.vim'
@@ -34,7 +23,6 @@ insert = 1
 repository = 'Shougo/deoplete.nvim'
 depends = 'Shougo/context_filetype.vim'
 insert = 1
-neovim = 1
 
 [[plugins]]
 repository = 'Shougo/neosnippet.vim'
@@ -46,7 +34,6 @@ unite_sources = ['neosnippet', 'neosnippet/user', 'neosnippet/runtime']
 [[plugins]]
 repository = 'Shougo/unite.vim'
 depends = 'Shougo/neomru.vim'
-neovim = 1
 
   [plugins.commands]
   name = 'Unite'
@@ -59,14 +46,6 @@ repository = 'Shougo/unite-build'
 repository = 'Shougo/neossh.vim'
 filetypes = ['vimfiler', 'vimshell']
 sources = 'ssh'
-
-[[plugins]]
-repository = 'ujihisa/vimshell-ssh'
-filetypes = 'vimshell'
-
-[[plugins]]
-repository = 'Shougo/vim-vcs'
-depends = 'thinca/vim-openbuf'
 
 [[plugins]]
 repository = 'Shougo/vimfiler.vim'
@@ -87,8 +66,30 @@ mappings = '<Plug>'
   complete = 'customlist,vimshell#complete'
 
 [[plugins]]
-repository = 'yomi322/vim-gitcomplete'
-filetypes = 'vimshell'
+repository = 'Shougo/junkfile.vim'
+unite_sources = 'junkfile'
+
+[[plugins]]
+repository = 'Shougo/unite-outline'
+
+[[plugins]]
+repository = 'Shougo/unite-sudo'
+
+[[plugins]]
+repository = 'Shougo/unite-help'
+
+[[plugins]]
+repository = 'Shougo/neco-vim'
+filetypes = 'vim'
+insert = 1
+
+[[plugins]]
+repository = 'Shougo/neoinclude.vim'
+filetypes = 'all'
+
+[[plugins]]
+repository = 'Shougo/neco-syntax'
+insert = 1
 
 [[plugins]]
 repository = 'Shougo/vinarise.vim'
@@ -98,15 +99,20 @@ repository = 'Shougo/vinarise.vim'
   complete = 'file'
 
 [[plugins]]
+repository = 'kana/vim-niceblock'
+mappings = '<Plug>'
+
+[[plugins]]
+repository = 'ujihisa/vimshell-ssh'
+filetypes = 'vimshell'
+
+[[plugins]]
+repository = 'yomi322/vim-gitcomplete'
+filetypes = 'vimshell'
+
+[[plugins]]
 repository = 'vim-jp/vital.vim'
 commands = 'Vitalize'
-
-[[plugins]]
-repository = 'Shougo/junkfile.vim'
-unite_sources = 'junkfile'
-
-[[plugins]]
-repository = 'Shougo/unite-outline'
 
 [[plugins]]
 repository = 'hail2u/vim-css3-syntax'
@@ -165,9 +171,6 @@ depends = 'mattn/webapi-vim'
   [plugins.commands]
   name = 'J6uil'
   complete = 'custom,J6uil#complete#room'
-
-[[plugins]]
-repository = 'Shougo/unite-help'
 
 [[plugins]]
 repository = 'tsukkee/unite-tag'
@@ -344,6 +347,10 @@ depends = 'kana/vim-textobj-user'
 mappings = [['ox', '<Plug>']]
 
 [[plugins]]
+repository = 'AndrewRadev/sideways.vim'
+mappings = [['ox', '<Plug>']]
+
+[[plugins]]
 repository = 'saihoooooooo/glowshi-ft.vim'
 mappings = '<Plug>'
 
@@ -404,15 +411,6 @@ repository = 'davidhalter/jedi-vim'
 filetypes = 'python'
 
 [[plugins]]
-repository = 'Shougo/neco-vim'
-filetypes = 'vim'
-insert = 1
-
-[[plugins]]
-repository = 'Shougo/neoinclude.vim'
-filetypes = 'all'
-
-[[plugins]]
 repository = 'terryma/vim-expand-region'
 mappings = [['x', '<Plug>']]
 
@@ -427,10 +425,6 @@ filetypes = 'rust'
 [[plugins]]
 repository = 'rhysd/rust-doc.vim'
 filetypes = 'rust'
-
-[[plugins]]
-repository = 'Shougo/neco-syntax'
-insert = 1
 
 [[plugins]]
 repository = 'shawncplus/phpcomplete.vim'

@@ -311,7 +311,7 @@ alias where="command -v"
 # Better jobs
 alias j="jobs -l"
 
-alias scrr='screen -U -D -RR'
+alias vim='nvim'
 
 #####################################################################
 # keybinds
@@ -395,3 +395,5 @@ setopt share_history
 # Enable math functions
 zmodload zsh/mathfunc
 
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
