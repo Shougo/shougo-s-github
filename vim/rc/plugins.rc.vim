@@ -58,8 +58,6 @@ if neobundle#tap('vimshell.vim') "{{{
   " <C-Space>: switch to vimshell.
   nmap <C-@>  <Plug>(vimshell_switch)
   nnoremap !  q:VimShellExecute<Space>
-  nnoremap [Space]i  q:VimShellInteractive<Space>
-  nnoremap [Space]t  q:VimShellTerminal<Space>
 
   let neobundle#hooks.on_source =
         \ '~/.vim/rc/plugins/vimshell.rc.vim'
@@ -172,11 +170,11 @@ if neobundle#tap('unite.vim') "{{{
 endif "}}}
 
 if neobundle#tap('CamelCaseMotion') "{{{
-  nmap <silent> W <Plug>CamelCaseMotion_w
-  xmap <silent> W <Plug>CamelCaseMotion_w
+  nmap <silent> w <Plug>CamelCaseMotion_w
+  xmap <silent> w <Plug>CamelCaseMotion_w
   omap <silent> W <Plug>CamelCaseMotion_w
-  nmap <silent> B <Plug>CamelCaseMotion_b
-  xmap <silent> B <Plug>CamelCaseMotion_b
+  nmap <silent> b <Plug>CamelCaseMotion_b
+  xmap <silent> b <Plug>CamelCaseMotion_b
   omap <silent> B <Plug>CamelCaseMotion_b
 
   call neobundle#untap()
@@ -529,3 +527,11 @@ if neobundle#tap('sideways.vim') "{{{
   call neobundle#untap()
 endif "}}}
 
+if neobundle#tap('vim-findent') "{{{
+  augroup findent
+    autocmd!
+    autocmd BufRead *.c  Findent activate
+  augroup END
+
+  call neobundle#untap()
+endif "}}}

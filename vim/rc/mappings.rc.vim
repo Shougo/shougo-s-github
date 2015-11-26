@@ -186,12 +186,6 @@ function! s:ToggleGJK()
   endif
 endfunction"}}}
 
-" Change tab width. "{{{
-nnoremap <silent> [Space]t2 :<C-u>setl shiftwidth=2 softtabstop=2<CR>
-nnoremap <silent> [Space]t4 :<C-u>setl shiftwidth=4 softtabstop=4<CR>
-nnoremap <silent> [Space]t8 :<C-u>setl shiftwidth=8 softtabstop=8<CR>
-"}}}
-
 " Toggle options. "{{{
 function! ToggleOption(option_name)
   execute 'setlocal' a:option_name.'!'

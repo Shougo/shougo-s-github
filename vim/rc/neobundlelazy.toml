@@ -263,7 +263,7 @@ filetypes = 'python'
 
 [[plugins]]
 repository = 'bkad/CamelCaseMotion'
-mappings = '<Plug>'
+mappings = ['<Plug>CamelCaseMotion_w', '<Plug>CamelCaseMotion_b']
 
 [[plugins]]
 repository = 'aharisu/vim-gdev'
@@ -454,4 +454,8 @@ explorer = 'COMMIT_EDITMSG'
 [[plugins]]
 repository = 'itchyny/vim-haskell-indent'
 filetypes = 'haskell'
+
+[[plugins]]
+repository = 'lambdalisue/vim-findent'
+explorer = 1
 
