@@ -1,41 +1,41 @@
 [[plugins]]
 repository = 'Shougo/tabpagebuffer.vim'
-filetypes = 'all'
+on_ft = 'all'
 
 [[plugins]]
 repository = 'Shougo/neopairs.vim'
-insert = 1
+on_i = 1
 
 [[plugins]]
 repository = 'Shougo/neomru.vim'
-filetypes = 'all'
+on_ft = 'all'
 
 [[plugins]]
 repository = 'Shougo/echodoc.vim'
-insert = 1
+on_i = 1
 
 [[plugins]]
 repository = 'Shougo/neocomplete.vim'
 depends = 'Shougo/context_filetype.vim'
-insert = 1
+on_i = 1
 
 [[plugins]]
 repository = 'Shougo/deoplete.nvim'
 depends = 'Shougo/context_filetype.vim'
-insert = 1
+on_i = 1
 
 [[plugins]]
 repository = 'Shougo/neosnippet.vim'
 depends = ['Shougo/neosnippet-snippets', 'Shougo/context_filetype.vim']
-insert = 1
-filetypes = 'snippet'
-unite_sources = ['neosnippet', 'neosnippet/user', 'neosnippet/runtime']
+on_i = 1
+on_ft = 'snippet'
+on_unite = ['neosnippet', 'neosnippet/user', 'neosnippet/runtime']
 
 [[plugins]]
 repository = 'Shougo/unite.vim'
 depends = 'Shougo/neomru.vim'
 
-  [plugins.commands]
+  [plugins.on_cmd]
   name = 'Unite'
   complete = 'customlist,unite#complete_source'
 
@@ -44,30 +44,30 @@ repository = 'Shougo/unite-build'
 
 [[plugins]]
 repository = 'Shougo/neossh.vim'
-filetypes = ['vimfiler', 'vimshell']
+on_ft = ['vimfiler', 'vimshell']
 sources = 'ssh'
 
 [[plugins]]
 repository = 'Shougo/vimfiler.vim'
 depends = 'Shougo/unite.vim'
-mappings = '<Plug>'
-explorer = '^\h\w*:'
+on_map = '<Plug>'
+on_path = '.*'
 
-  [plugins.commands]
+  [plugins.on_cmd]
   name = ['VimFiler']
   complete = 'customlist,vimfiler#complete'
 
 [[plugins]]
 repository = 'Shougo/vimshell.vim'
-mappings = '<Plug>'
+on_map = '<Plug>'
 
-  [plugins.commands]
+  [plugins.on_cmd]
   name = 'VimShell'
   complete = 'customlist,vimshell#complete'
 
 [[plugins]]
 repository = 'Shougo/junkfile.vim'
-unite_sources = 'junkfile'
+on_unite = 'junkfile'
 
 [[plugins]]
 repository = 'Shougo/unite-outline'
@@ -80,53 +80,53 @@ repository = 'Shougo/unite-help'
 
 [[plugins]]
 repository = 'Shougo/neco-vim'
-filetypes = 'vim'
-insert = 1
+on_ft = 'vim'
+on_i = 1
 
 [[plugins]]
 repository = 'Shougo/neoinclude.vim'
-filetypes = 'all'
+on_ft = 'all'
 
 [[plugins]]
 repository = 'Shougo/neco-syntax'
-insert = 1
+on_i = 1
 
 [[plugins]]
 repository = 'Shougo/vinarise.vim'
 
-  [plugins.commands]
+  [plugins.on_cmd]
   name = 'Vinarise'
   complete = 'file'
 
 [[plugins]]
 repository = 'kana/vim-niceblock'
-mappings = '<Plug>'
+on_map = '<Plug>'
 
 [[plugins]]
 repository = 'ujihisa/vimshell-ssh'
-filetypes = 'vimshell'
+on_ft = 'vimshell'
 
 [[plugins]]
 repository = 'yomi322/vim-gitcomplete'
-filetypes = 'vimshell'
+on_ft = 'vimshell'
 
 [[plugins]]
 repository = 'vim-jp/vital.vim'
-commands = 'Vitalize'
+on_cmd = 'Vitalize'
 
 [[plugins]]
 repository = 'hail2u/vim-css3-syntax'
 
 [[plugins]]
 repository = 'kana/vim-smartchr'
-insert = 1
+on_i = 1
 
 [[plugins]]
 repository = 'ctrlpvim/ctrlp.vim'
 
 [[plugins]]
 repository = 'LeafCage/foldCC'
-filetypes = 'vim'
+on_ft = 'vim'
 
 [[plugins]]
 repository = 'mattn/webapi-vim'
@@ -134,41 +134,41 @@ repository = 'mattn/webapi-vim'
 [[plugins]]
 repository = 'thinca/vim-fontzoom'
 gui = 1
-mappings = '<Plug>'
+on_map = '<Plug>'
 
 [[plugins]]
 repository = 'thinca/vim-prettyprint'
-commands = 'PP'
+on_cmd = 'PP'
 
 [[plugins]]
 repository = 'thinca/vim-qfreplace'
-filetypes = ['unite', 'quickfix']
+on_ft = ['unite', 'quickfix']
 
 [[plugins]]
 repository = 'thinca/vim-quickrun'
-mappings = '<Plug>'
+on_map = '<Plug>'
 
 [[plugins]]
 repository = 'thinca/vim-scouter'
 
 [[plugins]]
 repository = 'thinca/vim-ref'
-unite_sources = 'ref'
+on_unite = 'ref'
 
 [[plugins]]
 repository = 'thinca/vim-unite-history'
 
 [[plugins]]
 repository = 'vim-ruby/vim-ruby'
-mappings = '<Plug>'
-filetypes = 'ruby'
+on_map = '<Plug>'
+on_ft = 'ruby'
 
 [[plugins]]
 repository = 'basyura/J6uil.vim'
-unite_sources = 'J6uil'
+on_unite = 'J6uil'
 depends = 'mattn/webapi-vim'
 
-  [plugins.commands]
+  [plugins.on_cmd]
   name = 'J6uil'
   complete = 'custom,J6uil#complete#room'
 
@@ -177,45 +177,46 @@ repository = 'tsukkee/unite-tag'
 
 [[plugins]]
 repository = 'tyru/caw.vim'
-mappings = '<Plug>'
+on_map = '<Plug>'
 
 [[plugins]]
 repository = 'tyru/eskk.vim'
-mappings = [['i', '<Plug>'], ['c', '<Plug>']]
+on_map = [['i', '<Plug>'], ['c', '<Plug>']]
 
 [[plugins]]
 repository = 'tyru/open-browser.vim'
-mappings = '<Plug>'
+on_map = '<Plug>'
 
 [[plugins]]
 repository = 'tyru/restart.vim'
 gui = 1
-commands = 'Restart'
+on_cmd = 'Restart'
 
 [[plugins]]
 repository = 'tyru/winmove.vim'
-mappings = '<Plug>'
+on_map = '<Plug>'
 gui = 1
 augroup = 'winmove'
 
 [[plugins]]
 repository = 'eagletmt/neco-ghc'
-filetypes = 'haskell'
+on_ft = 'haskell'
+external_commands = 'ghc-mod'
 
 [[plugins]]
 repository = 'ujihisa/neco-look'
-insert = 1
+on_i = 1
 
 [[plugins]]
 repository = 'ujihisa/unite-colorscheme'
 
 [[plugins]]
 repository = 'vim-jp/vimdoc-ja'
-filetypes = 'help'
+on_ft = 'help'
 
 #[[plugins]]
 #repository = 'eignn/netrw.vim'
-#commands = 'Explore'
+#on_cmd = 'Explore'
 
 [[plugins]]
 repository = 'osyo-manga/unite-quickfix'
@@ -225,11 +226,11 @@ repository = 'osyo-manga/unite-filetype'
 
 [[plugins]]
 repository = 'kana/vim-tabpagecd'
-unite_sources = 'tab'
+on_unite = 'tab'
 
 [[plugins]]
 repository = 'rhysd/accelerated-jk'
-mappings = '<Plug>'
+on_map = '<Plug>'
 
 [[plugins]]
 repository = 'vim-jp/autofmt'
@@ -247,73 +248,73 @@ terminal = 1
 
 [[plugins]]
 repository = 'matchit.zip'
-mappings = [['nxo', '%', 'g%']]
+on_map = [['nxo', '%', 'g%']]
 
 [[plugins]]
 repository = 'jiangmiao/simple-javascript-indenter'
-filetypes = 'javascript'
+on_ft = 'javascript'
 
 [[plugins]]
 repository = 'jelera/vim-javascript-syntax'
-filetypes = 'javascript'
+on_ft = 'javascript'
 
 [[plugins]]
 repository = 'hynek/vim-python-pep8-indent'
-filetypes = 'python'
+on_ft = 'python'
 
 [[plugins]]
 repository = 'bkad/CamelCaseMotion'
-mappings = ['<Plug>CamelCaseMotion_w', '<Plug>CamelCaseMotion_b']
+on_map = ['<Plug>CamelCaseMotion_w', '<Plug>CamelCaseMotion_b']
 
 [[plugins]]
 repository = 'aharisu/vim-gdev'
-filetypes = 'scheme'
+on_ft = 'scheme'
 
 [[plugins]]
 repository = 'vim-jp/cpp-vim'
-filetypes = 'cpp'
+on_ft = 'cpp'
 
 [[plugins]]
 repository = 'thinca/vim-ft-diff_fold'
-filetypes = 'diff'
+on_ft = 'diff'
 
 [[plugins]]
 repository = 'nsf/gocode'
 rtp = 'vim'
-filetypes = 'go'
+on_ft = 'go'
 
 [[plugins]]
 repository = 'thinca/vim-ft-help_fold'
-filetypes = 'help'
+on_ft = 'help'
 
 [[plugins]]
 repository = 'elzr/vim-json'
-filetypes = 'json'
+on_ft = 'json'
 
 [[plugins]]
 repository = 'kana/vim-filetype-haskell'
-filetypes = 'haskell'
+on_ft = 'haskell'
 
 [[plugins]]
 repository = 'JesseKPhillips/d.vim'
-filetypes = 'd'
+on_ft = 'd'
 
 [[plugins]]
 repository = 't9md/vim-choosewin'
-mappings = '<Plug>'
+on_map = '<Plug>'
 
 [[plugins]]
 repository = 'fatih/vim-go'
-filetypes = 'go'
+on_ft = 'go'
 
 [[plugins]]
 repository = 'lambdalisue/vim-fullscreen'
 gui = 1
-mappings = '<Plug>'
+on_map = '<Plug>'
 
 [[plugins]]
 repository = 'todesking/ruby_hl_lvar.vim'
-filetypes = 'ruby'
+on_ft = 'ruby'
 
 [[plugins]]
 repository = 'syngan/vim-vimlint'
@@ -326,16 +327,16 @@ repository = 'kana/vim-operator-user'
 [[plugins]]
 repository = 'kana/vim-operator-replace'
 depends = 'kana/vim-operator-user'
-mappings = [['nx', '<Plug>']]
+on_map = [['nx', '<Plug>']]
 
 [[plugins]]
 repository = 'rhysd/vim-operator-surround'
 depends = 'kana/vim-operator-user'
-mappings = '<Plug>'
+on_map = '<Plug>'
 
 [[plugins]]
 repository = 'chikatoike/concealedyank.vim'
-mappings = [['x', '<Plug>(operator-concealedyank)']]
+on_map = [['x', '<Plug>(operator-concealedyank)']]
 
 # Textobjs
 [[plugins]]
@@ -344,27 +345,27 @@ repository = 'kana/vim-textobj-user'
 [[plugins]]
 repository = 'osyo-manga/vim-textobj-multiblock'
 depends = 'kana/vim-textobj-user'
-mappings = [['ox', '<Plug>']]
+on_map = [['ox', '<Plug>']]
 
 [[plugins]]
 repository = 'AndrewRadev/sideways.vim'
-mappings = [['ox', '<Plug>']]
+on_map = [['ox', '<Plug>']]
 
 [[plugins]]
 repository = 'saihoooooooo/glowshi-ft.vim'
-mappings = '<Plug>'
+on_map = '<Plug>'
 
 [[plugins]]
 repository = 'Rykka/riv.vim'
-filetypes = 'rst'
+on_ft = 'rst'
 
 [[plugins]]
 repository = 'rcmdnk/vim-markdown'
-filetypes = ['markdown', 'mkd']
+on_ft = ['markdown', 'mkd']
 
 [[plugins]]
 repository = 'kannokanno/previm'
-filetypes = ['markdown', 'rst', 'mkd']
+on_ft = ['markdown', 'rst', 'mkd']
 depends = 'tyru/open-browser.vim'
 
 [[plugins]]
@@ -372,90 +373,91 @@ repository = 'Kocha/vim-unite-tig'
 
 [[plugins]]
 repository = 'osyo-manga/vim-jplus'
-mappings = '<Plug>'
+on_map = '<Plug>'
 
 [[plugins]]
 repository = 'osyo-manga/unite-vimpatches'
 
 [[plugins]]
 repository = 'katono/rogue.vim'
-commands = 'Rogue'
+on_cmd = 'Rogue'
 
 [[plugins]]
 repository = 'sorah/unite-ghq'
 
 [[plugins]]
 repository = 'thinca/vim-themis'
-filetypes = 'vim'
+on_ft = 'vim'
 
 [[plugins]]
 repository = 'osyo-manga/vim-monster'
-filetypes = 'ruby'
+on_ft = 'ruby'
 
 [[plugins]]
 repository = 'cespare/vim-toml'
-filetypes = 'toml'
+on_ft = 'toml'
 
 [[plugins]]
 repository = 'lambdalisue/vim-gita'
-commands = 'Gita'
+on_cmd = 'Gita'
 
 [[plugins]]
 repository = 'lambdalisue/vim-gista'
-commands = 'Gista'
-mappings = '<Plug>'
-unite_sources = 'gista'
+on_cmd = 'Gista'
+on_map = '<Plug>'
+on_unite = 'gista'
+# rev = 'release'
 
 [[plugins]]
 repository = 'davidhalter/jedi-vim'
-filetypes = 'python'
+on_ft = 'python'
 
 [[plugins]]
 repository = 'terryma/vim-expand-region'
-mappings = [['x', '<Plug>']]
+on_map = [['x', '<Plug>']]
 
 [[plugins]]
 repository = 'phildawes/racer'
-filetypes = 'rust'
+on_ft = 'rust'
 
 [[plugins]]
 repository = 'rust-lang/rust.vim'
-filetypes = 'rust'
+on_ft = 'rust'
 
 [[plugins]]
 repository = 'rhysd/rust-doc.vim'
-filetypes = 'rust'
+on_ft = 'rust'
 
 [[plugins]]
 repository = 'shawncplus/phpcomplete.vim'
-filetypes = 'php'
+on_ft = 'php'
 
 [[plugins]]
 repository = 'marijnh/tern_for_vim'
-filetypes = 'javascript'
+on_ft = 'javascript'
 build = 'npm install'
 
 [[plugins]]
 repository = 'mxw/vim-jsx'
-filetypes = 'javascript'
+on_ft = 'javascript'
 
 [[plugins]]
 repository = 'osyo-manga/vim-marching'
-filetypes = ['c', 'cpp']
+on_ft = ['c', 'cpp']
 
 [[plugins]]
 repository = 'artur-shaik/vim-javacomplete2'
-filetypes = 'java'
+on_ft = 'java'
 
 [[plugins]]
 repository = 'rhysd/committia.vim'
-explorer = 'COMMIT_EDITMSG'
+on_path = 'COMMIT_EDITMSG'
 
 [[plugins]]
 repository = 'itchyny/vim-haskell-indent'
-filetypes = 'haskell'
+on_ft = 'haskell'
 
 [[plugins]]
 repository = 'lambdalisue/vim-findent'
-explorer = 1
+on_path = '.*'
 

@@ -530,7 +530,7 @@ endif "}}}
 if neobundle#tap('vim-findent') "{{{
   augroup findent
     autocmd!
-    autocmd BufRead *.c  Findent activate
+    autocmd BufRead * Findent!
   augroup END
 
   call neobundle#untap()

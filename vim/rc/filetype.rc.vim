@@ -23,16 +23,6 @@ augroup MyAutoCmd
 
   autocmd FileType ref nnoremap <buffer> <TAB> <C-w>w
 
-  " Enable omni completion.
-  " autocmd FileType ada setlocal omnifunc=adacomplete#Complete
-  autocmd FileType c setlocal omnifunc=
-  autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-  " autocmd FileType java setlocal omnifunc=javacomplete#Complete
-  " autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
-  "autocmd FileType sql setlocal omnifunc=sqlcomplete#Complete
-  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
   autocmd FileType python setlocal foldmethod=indent
 
   " Update filetype.

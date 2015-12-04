@@ -65,7 +65,7 @@ let g:neocomplete#sources#omni#input_patterns.php =
 if !exists('g:neocomplete#keyword_patterns')
   let g:neocomplete#keyword_patterns = {}
 endif
-let g:neocomplete#keyword_patterns._ = '\h\w*'
+let g:neocomplete#keyword_patterns._ = '\h\k*(\?'
 let g:neocomplete#keyword_patterns.perl = '\h\w*->\h\w*\|\h\w*::\w*'
 let g:neocomplete#keyword_patterns.rst =
       \ '\$\$\?\w*\|[[:alpha:]_.\\/~-][[:alnum:]_.\\/~-]*\|\d\+\%(\.\d\+\)\+'

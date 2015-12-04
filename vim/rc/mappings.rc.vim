@@ -131,6 +131,7 @@ nnoremap <silent> [Space]ev  :<C-u>edit $MYVIMRC<CR>
 " Load .gvimrc after .vimrc edited at GVim.
 nnoremap <silent> [Space]rv :<C-u>source $MYVIMRC \|
       \ echo "source $MYVIMRC"<CR>
+nnoremap <silent> [Space]z :<C-u>edit ~/.zshrc<CR>
 "}}}
 
 " Useful save mappings.

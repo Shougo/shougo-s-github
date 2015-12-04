@@ -1,4 +1,35 @@
 #####################################################################
+# zplug
+#####################################################################
+
+# Check if zplug is installed
+[[ -f ~/.zplug/zplug ]] || return
+
+# Essential
+source ~/.zplug/zplug
+
+zplug "arzzen/calc.plugin.zsh"
+zplug "rimraf/k"
+zplug "zsh-users/zsh-completions"
+zplug "zsh-users/zsh-history-substring-search"
+zplug "zsh-users/zsh-syntax-highlighting"
+zplug "b4b4r07/enhancd", of:enhancd.sh
+
+# Install plugins if there are plugins that have not been installed
+if ! zplug check --verbose; then
+    printf "Install? [y/N]: "
+    if read -q; then
+        echo; zplug install
+    else
+        echo
+    fi
+fi
+
+# Then, source plugins and add commands to $PATH
+zplug load
+
+
+#####################################################################
 # environment
 #####################################################################
 
@@ -19,8 +50,6 @@ WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 # improved less option
 export LESS='--tabs=4 --no-init --LONG-PROMPT --ignore-case --quit-if-one-screen --RAW-CONTROL-CHARS'
 
-# Disable CapsLock key.
-#setxkbmap -option ctrl:nocaps
 
 #####################################################################
 # completions
@@ -28,16 +57,8 @@ export LESS='--tabs=4 --no-init --LONG-PROMPT --ignore-case --quit-if-one-screen
 
 # Enable completions
 if [ -d ~/.zsh/comp ]; then
-        fpath=(~/.zsh/comp $fpath)
-        autoload -U ~/.zsh/comp/*(:t)
-
-        # Reload complete functions
-        r() {
-                local f
-                f=(~/.zsh/comp/*(.))
-                unfunction $f:t 2> /dev/null
-                autoload -U $f:t
-        }
+    fpath=(~/.zsh/comp $fpath)
+    autoload -U ~/.zsh/comp/*(:t)
 fi
 
 zstyle ':completion:*' group-name ''
@@ -52,12 +73,12 @@ zstyle ':completion:*:options' prefix-needed yes
 zstyle ':completion:*' use-cache true
 zstyle ':completion:*:default' menu select=1
 zstyle ':completion:*' matcher-list \
-        '' \
-        'm:{a-z}={A-Z}' \
-        'l:|=* r:|[.,_-]=* r:|=* m:{a-z}={A-Z}'
+    '' \
+    'm:{a-z}={A-Z}' \
+    'l:|=* r:|[.,_-]=* r:|=* m:{a-z}={A-Z}'
 # sudo completions
 zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin \
-        /usr/sbin /usr/bin /sbin /bin /usr/X11R6/bin
+    /usr/sbin /usr/bin /sbin /bin /usr/X11R6/bin
 zstyle ':completion:*' menu select
 zstyle ':completion:*' keep-prefix
 zstyle ':completion:*' completer _oldlist _complete _match _ignored \
@@ -75,25 +96,26 @@ cdpath=($HOME)
 
 zstyle ':completion:*:processes' command "ps -u $USER -o pid,stat,%cpu,%mem,cputime,command"
 
+
 #####################################################################
 # colors
 #####################################################################
 
 if [ $TERM = "dumb" ]; then
-        # Disable colors in GVim
-        alias ls="ls -F --show-control-chars"
-        alias la='ls -aF --show-control-chars'
-        alias ll='ls -lF --show-control-chars'
-        alias l.='ls -dF .[a-zA-Z]*'
+    # Disable colors in GVim
+    alias ls="ls -F --show-control-chars"
+    alias la='ls -aF --show-control-chars'
+    alias ll='ls -lF --show-control-chars'
+    alias l.='ls -dF .[a-zA-Z]*'
 else
-        # Color settings for zsh complete candidates
-        alias ls='ls -F --show-control-chars --color=always'
-        alias la='ls -aF --show-control-chars --color=always'
-        alias ll='ls -lF --show-control-chars --color=always'
-        alias l.='ls -dF .[a-zA-Z]* --color=always'
-        export LSCOLORS=ExFxCxdxBxegedabagacad
-        export LS_COLORS='di=01;34:ln=01;35:so=01;32:ex=01;31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-        zstyle ':completion:*' list-colors 'di=;34;1' 'ln=;35;1' 'so=;32;1' 'ex=31;1' 'bd=46;34' 'cd=43;34'
+    # Color settings for zsh complete candidates
+    alias ls='ls -F --show-control-chars --color=always'
+    alias la='ls -aF --show-control-chars --color=always'
+    alias ll='ls -lF --show-control-chars --color=always'
+    alias l.='ls -dF .[a-zA-Z]* --color=always'
+    export LSCOLORS=ExFxCxdxBxegedabagacad
+    export LS_COLORS='di=01;34:ln=01;35:so=01;32:ex=01;31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
+    zstyle ':completion:*' list-colors 'di=;34;1' 'ln=;35;1' 'so=;32;1' 'ex=31;1' 'bd=46;34' 'cd=43;34'
 fi
 
 # use prompt colors feature
@@ -101,24 +123,24 @@ autoload -U colors
 colors
 
 if [ $TERM = "dumb" ]; then
-        # Use simple prompt in GVim
-        PROMPT='%n%# '
+    # Use simple prompt in GVim
+    PROMPT='%n%# '
 else
-        PROMPT='%{[$[31+$RANDOM % 7]m%}%U%B%n%#'"%b%{[m%}%u "
+    PROMPT='%{[$[31+$RANDOM % 7]m%}%U%B%n%#'"%b%{[m%}%u "
 
-        if [ ${VIMSHELL_TERM:-""} = "terminal" ] \
-                || [ ${VIMSHELL_TERM:-""} = "" ]; then
-                RPROMPT="%{[33m%}[%35<..<%~]%{[m%}"
-        else
-                PROMPT='%{[$[31+$RANDOM % 7]m%}%B%n%#'"%b%{[m%}%u "
+    if [ ${VIMSHELL_TERM:-""} = "terminal" ] \
+        || [ ${VIMSHELL_TERM:-""} = "" ]; then
+    RPROMPT="%{[33m%}[%35<..<%~]%{[m%}"
+else
+    PROMPT='%{[$[31+$RANDOM % 7]m%}%B%n%#'"%b%{[m%}%u "
 
-                # For test
-                # PROMPT="%{$fg[green]%}%B%~$%b%{${reset_color}%} "
-        fi
+    # For test
+    # PROMPT="%{$fg[green]%}%B%~$%b%{${reset_color}%} "
+fi
 fi
 
 if [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] ; then
-        PROMPT="%{[37m%}${HOST%%.*} ${PROMPT}"
+    PROMPT="%{[37m%}${HOST%%.*} ${PROMPT}"
 fi
 
 if [ $UID = "0" ]; then
@@ -157,8 +179,6 @@ setopt hist_reduce_blanks
 setopt hist_ignore_space
 # Save time stamp
 setopt extended_history
-# ヒストリを呼び出してから実行する間に一旦編集可能を止める
-unsetopt hist_verify
 # Expand history
 setopt hist_expand
 # Better jobs
@@ -201,9 +221,9 @@ setopt extended_glob
 # Prompt substitution
 setopt prompt_subst
 if [[ ${VIMSHELL_TERM:-""} != "" ]]; then
-        setopt no_always_last_prompt
+    setopt no_always_last_prompt
 else
-        setopt always_last_prompt
+    setopt always_last_prompt
 fi
 # List completion
 setopt auto_list
@@ -219,6 +239,7 @@ setopt pushd_minus
 setopt pushd_ignore_dups
 # Check original command in alias completion
 setopt complete_aliases
+unsetopt hist_verify
 # }}}
 
 #####################################################################
@@ -280,11 +301,11 @@ alias emacsclient="emacsclient -a emacs"
 
 # Use rlwrap commands
 if [ -x '/usr/bin/rlwrap' -o  -x '/usr/local/bin/rlwrap' ]; then
-        alias irb='rlwrap irb'
-        alias ghci='rlwrap ghci'
-        alias clisp="rlwrap -b '(){}[],#\";| ' clisp"
-        alias gcl="rlwrap -b '(){}[],#\";| ' gcl"
-        alias gosh="rlwrap -b '(){}[],#\";| ' gosh"
+    alias irb='rlwrap irb'
+    alias ghci='rlwrap ghci'
+    alias clisp="rlwrap -b '(){}[],#\";| ' clisp"
+    alias gcl="rlwrap -b '(){}[],#\";| ' gcl"
+    alias gosh="rlwrap -b '(){}[],#\";| ' gosh"
 fi
 
 # Move to previous directory
@@ -313,16 +334,13 @@ alias j="jobs -l"
 
 alias vim='nvim'
 
+
 #####################################################################
 # keybinds
 ######################################################################
 
 # emacs keybinds
 bindkey -e
-
-# vi keybinds
-#bindkey -v
-#zle-line-init() { zle -K vicmd; } ; zle -N zle-line-init
 
 # History completion
 autoload history-search-end
@@ -334,17 +352,6 @@ bindkey "^n" history-beginning-search-forward-end
 # Like bash
 bindkey "^u" backward-kill-line
 
-typeset -A abbreviations
-abbreviations=(
-"L"    "| $PAGER"
-"G"    "| grep"
-
-"HEAD^"     "HEAD\\^"
-"HEAD^^"    "HEAD\\^\\^"
-"HEAD^^^"   "HEAD\\^\\^\\^"
-"HEAD^^^^"  "HEAD\\^\\^\\^\\^\\^"
-"HEAD^^^^^" "HEAD\\^\\^\\^\\^\\^"
-)
 
 #####################################################################
 # functions
@@ -359,18 +366,30 @@ function history-all { history -E 1 }
 
 #-------------------------------------------------------
 # File encode conversion
-function euc() {
-for i in $@; do;
+euc() {
+    for i in $@; do;
         nkf -e -Lu $i >! /tmp/euc.$$ # -Lu : New line is LF
         mv -f /tmp/euc.$$ $i
-done;
+    done;
 }
-function sjis() {
-for i in $@; do;
+sjis() {
+    for i in $@; do;
         nkf -s -Lw $i >! /tmp/euc.$$ # -Lw : New line is CRLF
         mv -f /tmp/euc.$$ $i
-done;
+    done;
 }
+
+r() {
+    source ~/.zshrc
+    if [ -d ~/.zsh/comp ]; then
+        # Reload complete functions
+        local f
+        f=(~/.zsh/comp/*(.))
+        unfunction $f:t 2> /dev/null
+        autoload -U $f:t
+    fi
+}
+
 
 #####################################################################
 # others
@@ -378,11 +397,11 @@ done;
 
 # Improve terminal title
 case "${TERM}" in
-        kterm*|xterm*|vt100)
-                precmd() {
-                        echo -ne "\033]0;${USER}@${HOST%%.*}:${PWD}\007"
-                }
-                ;;
+    kterm*|xterm*|vt100)
+        precmd() {
+            echo -ne "\033]0;${USER}@${HOST%%.*}:${PWD}\007"
+        }
+        ;;
 esac
 
 # Share zsh histories
