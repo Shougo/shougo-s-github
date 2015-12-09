@@ -535,3 +535,33 @@ if neobundle#tap('vim-findent') "{{{
 
   call neobundle#untap()
 endif "}}}
+
+if neobundle#tap('neopairs.vim') "{{{
+  let g:neopairs#auto_delimiter = 1
+
+  call neobundle#untap()
+endif "}}}
+
+if neobundle#tap('FastFold') "{{{
+  " Folding
+
+  let g:tex_fold_enabled = 1
+
+  " Vim script
+  " augroup: a
+  " function: f
+  " lua: l
+  " perl: p
+  " ruby: r
+  " python: P
+  " tcl: t
+  " mzscheme: m
+  let g:vimsyn_folding = 'af'
+
+  let g:xml_syntax_folding = 1
+  let g:php_folding = 1
+  let g:perl_fold = 1
+
+  call neobundle#untap()
+endif "}}}
+

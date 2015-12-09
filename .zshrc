@@ -13,6 +13,7 @@ zplug "rimraf/k"
 zplug "zsh-users/zsh-completions"
 zplug "zsh-users/zsh-history-substring-search"
 zplug "zsh-users/zsh-syntax-highlighting"
+
 zplug "b4b4r07/enhancd", of:enhancd.sh
 
 # Install plugins if there are plugins that have not been installed
@@ -343,11 +344,13 @@ alias vim='nvim'
 bindkey -e
 
 # History completion
-autoload history-search-end
-zle -N history-beginning-search-backward-end history-search-end
-zle -N history-beginning-search-forward-end history-search-end
-bindkey "^p" history-beginning-search-backward-end
-bindkey "^n" history-beginning-search-forward-end
+# autoload history-search-end
+# zle -N history-beginning-search-backward-end history-search-end
+# zle -N history-beginning-search-forward-end history-search-end
+# bindkey "^p" history-beginning-search-backward-end
+# bindkey "^n" history-beginning-search-forward-end
+bindkey -M emacs '^P' history-substring-search-up
+bindkey -M emacs '^N' history-substring-search-down
 
 # Like bash
 bindkey "^u" backward-kill-line

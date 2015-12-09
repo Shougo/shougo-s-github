@@ -461,3 +461,11 @@ on_ft = 'haskell'
 repository = 'lambdalisue/vim-findent'
 on_path = '.*'
 
+[[plugins]]
+repository = 'udalov/kotlin-vim'
+on_ft = 'kotlin'
+
+[[plugins]]
+repository = 'Konfekt/FastFold'
+on_path = '.*'
+

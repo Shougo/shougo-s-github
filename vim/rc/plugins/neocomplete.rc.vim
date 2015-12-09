@@ -49,8 +49,8 @@ let g:neocomplete#force_omni_input_patterns.ruby =
 " let g:neocomplete#sources#omni#input_patterns.ruby =
 "      \ '[^. *\t]\.\w*\|\h\w*::\w*'
 
-let g:neocomplete#force_omni_input_patterns.python =
-\ '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
+let g:neocomplete#sources#omni#input_patterns.python =
+      \ '[^. *\t]\.\w*\|\h\w*'
 
 let g:neocomplete#sources#omni#functions.go =
       \ 'gocomplete#Complete'

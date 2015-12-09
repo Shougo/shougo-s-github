@@ -32,9 +32,16 @@ inoremap <expr> '  pumvisible() ? deoplete#mappings#close_popup() : "'"
 " Use head matcher
 " call deoplete#custom#set('_', 'matchers', ['matcher_head'])
 
+" Use auto delimiter
+call deoplete#custom#set('_', 'converters',
+      \ ['converter_auto_delimiter', 'remove_overlap'])
+
 " call deoplete#custom#set('buffer', 'min_pattern_length', 9999)
 
 let g:deoplete#keyword_patterns = {}
 let g:deoplete#keyword_patterns._ = '[a-zA-Z_]\k*\(?'
 " let g:deoplete#keyword_patterns.tex = '\\?[a-zA-Z_]\w*'
 let g:deoplete#keyword_patterns.tex = '[^\w|\s][a-zA-Z_]\w*'
+
+" inoremap <silent><expr> <C-t> deoplete#mappings#manual_complete('file')
+

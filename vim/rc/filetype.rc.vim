@@ -16,9 +16,6 @@ augroup MyAutoCmd
   autocmd BufWritePost,FileWritePost *.vim if &autoread
         \ | source <afile> | echo 'source ' . bufname('%') | endif
 
-  " Manage long Rakefile easily
-  autocmd BufNewfile,BufRead Rakefile set foldmethod=syntax foldnestmax=1
-
   autocmd FileType gitcommit,qfreplace setlocal nofoldenable
 
   autocmd FileType ref nnoremap <buffer> <TAB> <C-w>w
@@ -45,14 +42,8 @@ augroup MyAutoCmd
   " autocmd Syntax * syntax sync minlines=100
 augroup END
 
-" PHP
-let g:php_folding = 0
-
 " Python
 let g:python_highlight_all = 1
-
-" XML
-let g:xml_syntax_folding = 1
 
 " Vim
 let g:vimsyntax_noerror = 1
@@ -83,17 +74,6 @@ endif
 
 " Tex
 let g:tex_flavor = 'latex'
-
-" Vim script
-" augroup: a
-" function: f
-" lua: l
-" perl: p
-" ruby: r
-" python: P
-" tcl: t
-" mzscheme: m
-let g:vimsyn_folding = 'af'
 
 " http://mattn.kaoriya.net/software/vim/20140523124903.htm
 let g:markdown_fenced_languages = [
