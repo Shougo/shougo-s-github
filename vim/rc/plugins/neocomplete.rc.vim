@@ -58,6 +58,11 @@ let g:neocomplete#sources#omni#functions.go =
 let g:neocomplete#sources#omni#input_patterns.php =
       \'\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
 
+let g:neocomplete#sources#omni#functions.lua =
+      \ 'xolox#lua#omnifunc'
+let g:neocomplete#sources#omni#input_patterns.lua =
+      \ '\w\+[.:]\|require\s*(\?["'']\w*'
+
 " Disable omni auto completion for Java.
 " let g:neocomplete#sources#omni#input_patterns.java = ''
 

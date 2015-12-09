@@ -469,3 +469,8 @@ on_ft = 'kotlin'
 repository = 'Konfekt/FastFold'
 on_path = '.*'
 
+[[plugins]]
+repository = 'xolox/vim-lua-ftplugin'
+depends = 'xolox/vim-misc'
+on_ft = 'lua'
+

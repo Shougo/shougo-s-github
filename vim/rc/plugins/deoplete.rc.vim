@@ -43,5 +43,9 @@ let g:deoplete#keyword_patterns._ = '[a-zA-Z_]\k*\(?'
 " let g:deoplete#keyword_patterns.tex = '\\?[a-zA-Z_]\w*'
 let g:deoplete#keyword_patterns.tex = '[^\w|\s][a-zA-Z_]\w*'
 
+let g:deoplete#omni#functions = {}
+let g:deoplete#omni#input_patterns = {}
+let g:deoplete#omni#functions.lua = 'xolox#lua#omnifunc'
+
 " inoremap <silent><expr> <C-t> deoplete#mappings#manual_complete('file')
 

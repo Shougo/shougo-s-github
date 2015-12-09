@@ -565,3 +565,12 @@ if neobundle#tap('FastFold') "{{{
   call neobundle#untap()
 endif "}}}
 
+if neobundle#tap('vim-lua-ftplugin') "{{{
+  let g:lua_define_completion_mappings = 0
+  let g:lua_check_syntax = 0
+  let g:lua_complete_omni = 1
+  let g:lua_complete_dynamic = 0
+
+  call neobundle#untap()
+endif "}}}
+
