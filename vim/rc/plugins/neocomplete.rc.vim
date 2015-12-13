@@ -92,6 +92,9 @@ let g:neocomplete#sources#vim#complete_functions = {
       \}
 call neocomplete#custom#source('look', 'min_pattern_length', 4)
 " call neocomplete#custom#source('_', 'sorters', [])
+call neocomplete#custom#source('_', 'converters',
+      \ ['converter_add_paren', 'converter_remove_overlap',
+      \  'converter_delimiter', 'converter_abbr'])
 
 " mappings."{{{
 " <C-f>, <C-b>: page move.

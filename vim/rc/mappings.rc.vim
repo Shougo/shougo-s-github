@@ -626,5 +626,5 @@ endfunction
 
 nnoremap <silent> <leader>gu :call <SID>InsertGitHubUserInfo()<cr>
 
-nnoremap <silent> #    :<C-u>buffer #<CR>
+nnoremap <silent> #    <C-^>
 

@@ -43,14 +43,14 @@ if neobundle#load_cache()
   call neobundle#load_toml(
         \ '~/.vim/rc/neobundlelazy.toml', {'lazy' : 1})
 
-  NeoBundleSaveCache
-endif
+  let s:vimrc_local = findfile('vimrc_local.vim', '.;')
+  if s:vimrc_local !=# ''
+    " Load develop version.
+    call neobundle#local(fnamemodify(s:vimrc_local, ':h'),
+          \ {}, ['vim*', 'unite-*', 'neco-*', '*.vim', '*.nvim'])
+  endif
 
-let s:vimrc_local = findfile('vimrc_local.vim', '.;')
-if s:vimrc_local !=# ''
-  " Load develop version.
-  call neobundle#local(fnamemodify(s:vimrc_local, ':h'),
-        \ {}, ['vim*', 'unite-*', 'neco-*', '*.vim', '*.nvim'])
+  NeoBundleSaveCache
 endif
 
 " NeoBundle configurations.

@@ -123,7 +123,7 @@ if neobundle#tap('unite.vim') "{{{
         \ :<C-u>Unite <CR>
 
   nnoremap <silent> <C-w>
-        \ :<C-u>Unite window:all:no-current<CR>
+        \ :<C-u>Unite -force-immediately window:all:no-current<CR>
   nnoremap <silent> [Space]b
         \ :<C-u>UniteBookmarkAdd<CR>
 
@@ -370,9 +370,32 @@ if neobundle#tap('vim-choosewin') "{{{
 endif "}}}
 
 if neobundle#tap('matchit.zip') "{{{
-  function! neobundle#hooks.on_post_source(bundle)
+  function! neobundle#hooks.on_post_source(bundle) "{{{
+    " https://gist.github.com/k-takata/3d8e909a1a4955de7572
+
+    " Load matchit.vim
+    runtime macros/matchit.vim
+
+    function! s:set_match_words()
+      " Enable these pairs for all file types
+      let words = ['(:)', '{:}', '[:]', '（:）', '「:」']
+      if exists('b:match_words')
+        for w in words
+          if b:match_words !~ '\V' . w
+            let b:match_words .= ',' . w
+          endif
+        endfor
+      else
+        let b:match_words = join(words, ',')
+      endif
+    endfunction
+    augroup matchit-setting
+      autocmd!
+      autocmd BufEnter * call s:set_match_words()
+    augroup END
+
     silent! execute 'doautocmd Filetype' &filetype
-  endfunction
+  endfunction"}}}
 
   call neobundle#untap()
 endif "}}}

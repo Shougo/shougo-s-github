@@ -247,7 +247,7 @@ repository = 'thinca/vim-guicolorscheme'
 terminal = 1
 
 [[plugins]]
-repository = 'matchit.zip'
+repository = 'benjifisher/matchit.zip'
 on_map = [['nxo', '%', 'g%']]
 
 [[plugins]]
