@@ -35,7 +35,10 @@ call s:source_rc('init.rc.vim')
 
 call neobundle#begin(expand('$CACHE/neobundle'))
 
-if neobundle#load_cache()
+if neobundle#load_cache(
+      \ expand('<sfile>'),
+      \ '~/.vim/rc/neobundle.toml',
+      \ '~/.vim/rc/neobundlelazy.toml')
   NeoBundleFetch 'Shougo/neobundle.vim'
 
   call neobundle#load_toml(

@@ -34,7 +34,8 @@ inoremap <expr> '  pumvisible() ? deoplete#mappings#close_popup() : "'"
 
 " Use auto delimiter
 call deoplete#custom#set('_', 'converters',
-      \ ['converter_auto_delimiter', 'remove_overlap'])
+      \ ['converter_auto_paren',
+      \  'converter_auto_delimiter', 'remove_overlap'])
 
 " call deoplete#custom#set('buffer', 'min_pattern_length', 9999)
 
