@@ -133,10 +133,33 @@ set display=lastline
 " View setting.
 set viewdir=$CACHE/vim_view viewoptions-=options viewoptions+=slash,unix
 
+function! s:strwidthpart(str, width) abort "{{{
+  if a:width <= 0
+    return ''
+  endif
+  let ret = a:str
+  let width = s:wcswidth(a:str)
+  while width > a:width
+    let char = matchstr(ret, '.$')
+    let ret = ret[: -1 - len(char)]
+    let width -= s:wcswidth(char)
+  endwhile
+
+  return ret
+endfunction"}}}
+
 if v:version >= 703
   " For conceal.
   set conceallevel=2 concealcursor=niv
 
   set colorcolumn=79
+
+  " Use builtin function.
+  function! s:wcswidth(str)
+    return strwidth(a:str)
+  endfunction
+else
+  function! s:wcswidth(str)
+    return len(a:str)
+  endfunction
 endif
-"}}}
