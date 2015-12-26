@@ -58,7 +58,7 @@ endif
 
 " Define table.
 autocmd MyAutoCmd User eskk-initialize-pre call s:eskk_initial_pre()
-function! s:eskk_initial_pre() "{{{
+function! s:eskk_initial_pre() abort "{{{
   let t = eskk#table#new('rom_to_hira*', 'rom_to_hira')
   call t.add_map('z ', '　')
   call t.add_map('~', '〜')

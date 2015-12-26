@@ -31,29 +31,6 @@ if has('win32') || has('win64')
     set renderoptions=type:directx,gammma:2.2,mode:3
   endif
 
-  " Toggle font setting.
-  function! FontToggle()
-    if &guifont=~ '^VL Gothic:'
-      set guifont=Courier\ New:h11
-      set guifontwide=VL\ Gothic:h11
-
-      " Width of window.
-      set columns=155
-      " Height of window.
-      set lines=50
-    else
-      set guifont=VL\ Gothic:h11.5
-      set guifontwide=
-
-      " Width of window.
-      set columns=200
-      " Height of window.
-      set lines=43
-    endif
-  endfunction
-
-  nnoremap TF     :<C-u>call FontToggle()<CR>
-
   if has('kaoriya')
     " For Kaoriya only.
     set ambiwidth=auto

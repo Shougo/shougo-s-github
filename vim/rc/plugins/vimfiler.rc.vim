@@ -50,7 +50,7 @@ let g:vimfiler_quick_look_command =
       \ IsMac() ? 'qlmanage -p' : 'gloobus-preview'
 
 autocmd MyAutoCmd FileType vimfiler call s:vimfiler_my_settings()
-function! s:vimfiler_my_settings() "{{{
+function! s:vimfiler_my_settings() abort "{{{
   call vimfiler#set_execute_file('vim', ['vim', 'notepad'])
   call vimfiler#set_execute_file('txt', 'vim')
 

@@ -109,7 +109,7 @@ function! s:set_syntax_of_user_defined_commands() "{{{
   execute 'syntax keyword vimCommand ' . command_names
 endfunction"}}}
 
-function! s:my_on_filetype() "{{{
+function! s:my_on_filetype() abort "{{{
   " Disable automatically insert comment.
   setl formatoptions-=ro | setl formatoptions+=mMBl
 

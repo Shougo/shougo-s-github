@@ -10,7 +10,7 @@ if &compatible
   set nocompatible
 endif
 
-function! s:source_rc(path)
+function! s:source_rc(path) abort
   execute 'source' fnameescape(expand('~/.vim/rc/' . a:path))
 endfunction
 
@@ -20,11 +20,11 @@ let s:is_sudo = $SUDO_USER !=# '' && $USER !=# $SUDO_USER
       \ && $HOME !=# expand('~'.$USER)
       \ && $HOME ==# expand('~'.$SUDO_USER)
 
-function! IsWindows()
+function! IsWindows() abort
   return s:is_windows
 endfunction
 
-function! IsMac()
+function! IsMac() abort
   return !s:is_windows && !s:is_cygwin
       \ && (has('mac') || has('macunix') || has('gui_macvim') ||
       \   (!executable('xdg-open') &&

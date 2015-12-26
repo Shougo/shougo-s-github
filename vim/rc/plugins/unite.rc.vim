@@ -112,7 +112,7 @@ call unite#filters#sorter_default#use(['sorter_rank'])
 " call unite#filters#sorter_default#use(['sorter_length'])
 "}}}
 
-function! s:unite_my_settings() "{{{
+function! s:unite_my_settings() abort "{{{
   " Directory partial match.
   call unite#custom#alias('file', 'h', 'left')
   call unite#custom#default_action('directory', 'narrow')
@@ -220,18 +220,6 @@ let g:unite_build_warning_icon  = '~/.vim/signs/warn.'
       \ . (IsWindows() ? 'bmp' : 'png')
 
 let g:unite_source_rec_max_cache_files = -1
-
-" My custom split action
-let s:my_split = {'is_selectable': 1}
-function! s:my_split.func(candidate)
-  let split_action = 'vsplit'
-  if winwidth(winnr('#')) <= 2 * (&tw ? &tw : 80)
-    let split_action = 'split'
-  endif
-  call unite#take_action(split_action, a:candidate)
-endfunction
-call unite#custom_action('openable', 'context_split', s:my_split)
-unlet s:my_split
 
 nnoremap <silent> <Leader>st :NeoCompleteIncludeMakeCache<CR>
             \ :UniteWithCursorWord -immediately -sync

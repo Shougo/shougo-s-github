@@ -194,7 +194,7 @@ if neobundle#tap('vim-quickrun') "{{{
 endif "}}}
 
 if neobundle#tap('vim-ref') "{{{
-  function! neobundle#hooks.on_source(bundle)
+  function! neobundle#hooks.on_source(bundle) abort
     let g:ref_cache_dir = expand('$CACHE/ref')
     let g:ref_use_vimproc = 1
     if IsWindows()
@@ -214,7 +214,7 @@ if neobundle#tap('vim-ref') "{{{
     let g:ref_lynx_hide_url_number = 0
 
     autocmd MyAutoCmd FileType ref call s:ref_my_settings()
-    function! s:ref_my_settings() "{{{
+    function! s:ref_my_settings() abort "{{{
       " Overwrite settings.
       nmap <buffer> [Tag]t  <Plug>(ref-keyword)
       nmap <buffer> [Tag]p  <Plug>(ref-back)
@@ -226,7 +226,6 @@ endif"}}}
 
 if neobundle#tap('vimfiler.vim') "{{{
   nnoremap <silent>   [Space]v   :<C-u>VimFiler -invisible<CR>
-  nnoremap    [Space]ff   :<C-u>VimFilerExplorer<CR>
 
   let neobundle#hooks.on_source =
         \ '~/.vim/rc/plugins/vimfiler.rc.vim'
@@ -245,7 +244,7 @@ if neobundle#tap('eskk.vim') "{{{
 endif "}}}
 
 if neobundle#tap('J6uil.vim') "{{{
-  function! neobundle#hooks.on_source(bundle)
+  function! neobundle#hooks.on_source(bundle) abort
     let g:J6uil_config_dir = expand('$CACHE/J6uil')
     let g:J6uil_no_default_keymappings = 1
     let g:J6uil_display_offline  = 0
@@ -261,7 +260,7 @@ if neobundle#tap('J6uil.vim') "{{{
     autocmd MyAutoCmd FileType J6uil call s:j6uil_settings()
     autocmd MyAutoCmd FileType J6uil_say call s:j6uil_say_settings()
 
-    function! s:j6uil_settings()
+    function! s:j6uil_settings() abort
       setlocal wrap
       setlocal nofoldenable
       setlocal foldcolumn=0
@@ -271,7 +270,7 @@ if neobundle#tap('J6uil.vim') "{{{
       NeoCompleteBufferMakeCache
     endfunction
 
-    function! s:j6uil_say_settings()
+    function! s:j6uil_say_settings() abort
       setlocal wrap
       setlocal nofoldenable
       setlocal foldcolumn=0
@@ -299,10 +298,10 @@ endif "}}}
 if neobundle#tap('open-browser.vim') "{{{
   nmap gs <Plug>(open-browser-wwwsearch)
 
-  function! neobundle#hooks.on_source(bundle)
+  function! neobundle#hooks.on_source(bundle) abort
     nnoremap <Plug>(open-browser-wwwsearch)
           \ :<C-u>call <SID>www_search()<CR>
-    function! s:www_search()
+    function! s:www_search() abort
       let search_word = input('Please input search word: ')
       if search_word != ''
         execute 'OpenBrowserSearch' escape(search_word, '"')
@@ -315,7 +314,7 @@ endif "}}}
 
 if neobundle#tap('caw.vim') "{{{
   autocmd MyAutoCmd FileType * call s:init_caw()
-  function! s:init_caw()
+  function! s:init_caw() abort
     if !&l:modifiable
       silent! nunmap <buffer> gc
       silent! xunmap <buffer> gc
@@ -370,13 +369,13 @@ if neobundle#tap('vim-choosewin') "{{{
 endif "}}}
 
 if neobundle#tap('matchit.zip') "{{{
-  function! neobundle#hooks.on_post_source(bundle) "{{{
+  function! neobundle#hooks.on_post_source(bundle) abort "{{{
     " https://gist.github.com/k-takata/3d8e909a1a4955de7572
 
     " Load matchit.vim
     runtime macros/matchit.vim
 
-    function! s:set_match_words()
+    function! s:set_match_words() abort
       " Enable these pairs for all file types
       let words = ['(:)', '{:}', '[:]', '（:）', '「:」']
       if exists('b:match_words')
@@ -560,7 +559,7 @@ if neobundle#tap('vim-findent') "{{{
 endif "}}}
 
 if neobundle#tap('neopairs.vim') "{{{
-  let g:neopairs#enable = 1
+  let g:neopairs#enable = 0
 
   call neobundle#untap()
 endif "}}}

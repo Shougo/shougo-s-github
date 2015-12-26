@@ -74,7 +74,7 @@ autocmd MyAutoCmd CmdwinEnter *
 autocmd MyAutoCmd CmdwinLeave *
       \ let g:neocomplcache_enable_auto_select = 1
 
-function! s:init_cmdwin()
+function! s:init_cmdwin() abort
   let g:neocomplcache_enable_auto_select = 0
   let b:neocomplcache_sources_list = ['vim_complete']
 
@@ -139,7 +139,7 @@ nnoremap <silent> <Leader><Leader> :<C-u>update<CR>
 
 " Change current directory.
 nnoremap <silent> [Space]cd :<C-u>call <SID>cd_buffer_dir()<CR>
-function! s:cd_buffer_dir() "{{{
+function! s:cd_buffer_dir() abort "{{{
   let filetype = getbufvar(bufnr('%'), '&filetype')
   if filetype ==# 'vimfiler'
     let dir = getbufvar(bufnr('%'), 'vimfiler').current_dir
@@ -161,7 +161,7 @@ nnoremap <silent> [Space]ft
 command! -nargs=? -bar -bang ToggleGJK call s:ToggleGJK()
 nnoremap <silent> [Space]gj :<C-u>ToggleGJK<CR>
 xnoremap <silent> [Space]gj :<C-u>ToggleGJK<CR>
-function! s:ToggleGJK()
+function! s:ToggleGJK() abort
   if exists('b:enable_mapping_gjk') && b:enable_mapping_gjk
     let b:enable_mapping_gjk = 0
     noremap <buffer> j j
@@ -188,12 +188,12 @@ function! s:ToggleGJK()
 endfunction"}}}
 
 " Toggle options. "{{{
-function! ToggleOption(option_name)
+function! ToggleOption(option_name) abort
   execute 'setlocal' a:option_name.'!'
   execute 'setlocal' a:option_name.'?'
 endfunction  "}}}
 " Toggle variables. "{{{
-function! ToggleVariable(variable_name)
+function! ToggleVariable(variable_name) abort
   if eval(a:variable_name)
     execute 'let' a:variable_name.' = 0'
   else
@@ -218,7 +218,7 @@ nnoremap <silent> q :<C-u>call <SID>smart_close()<CR>
 nnoremap <silent> <Tab> :call <SID>NextWindow()<CR>
 nnoremap <silent> <S-Tab> :call <SID>PreviousWindowOrTab()<CR>
 
-function! s:smart_close()
+function! s:smart_close() abort
   if winnr('$') != 1
     close
   else
@@ -226,7 +226,7 @@ function! s:smart_close()
   endif
 endfunction
 
-function! s:NextWindow()
+function! s:NextWindow() abort
   if winnr('$') == 1
     silent! normal! ``z.
   else
@@ -234,7 +234,7 @@ function! s:NextWindow()
   endif
 endfunction
 
-function! s:NextWindowOrTab()
+function! s:NextWindowOrTab() abort
   if tabpagenr('$') == 1 && winnr('$') == 1
     call s:split_nicely()
   elseif winnr() < winnr("$")
@@ -245,7 +245,7 @@ function! s:NextWindowOrTab()
   endif
 endfunction
 
-function! s:PreviousWindowOrTab()
+function! s:PreviousWindowOrTab() abort
   if winnr() > 1
     wincmd W
   else
@@ -255,7 +255,7 @@ function! s:PreviousWindowOrTab()
 endfunction
 
 " Split nicely."{{{
-function! s:split_nicely()
+function! s:split_nicely() abort
   " Split nicely.
   if winwidth(0) > 2 * &winwidth
     vsplit
@@ -268,7 +268,7 @@ endfunction
 " Delete current buffer."{{{
 " Force delete current buffer.
 nnoremap <silent> [Window]D  :<C-u>call <SID>CustomBufferDelete(1)<CR>
-function! s:CustomBufferDelete(is_force)
+function! s:CustomBufferDelete(is_force) abort
   let current = bufnr('%')
 
   call s:alternate_buffer()
@@ -280,7 +280,7 @@ function! s:CustomBufferDelete(is_force)
   endif
 endfunction
 "}}}
-function! s:alternate_buffer() "{{{
+function! s:alternate_buffer() abort "{{{
   let listed_buffer_len = len(filter(range(1, bufnr('$')),
         \ 's:buflisted(v:val) && getbufvar(v:val, "&filetype") !=# "unite"'))
   if listed_buffer_len <= 1
@@ -309,7 +309,7 @@ function! s:alternate_buffer() "{{{
     bnext
   endif
 endfunction"}}}
-function! s:buflisted(bufnr) "{{{
+function! s:buflisted(bufnr) abort "{{{
   return exists('t:unite_buffer_dictionary') ?
         \ has_key(t:unite_buffer_dictionary, a:bufnr) && buflisted(a:bufnr) :
         \ buflisted(a:bufnr)
@@ -352,7 +352,7 @@ nnoremap [Quickfix]   <Nop>
 " Toggle quickfix window.
 nnoremap <silent> [Quickfix]<Space>
       \ :<C-u>call <SID>toggle_quickfix_window()<CR>
-function! s:toggle_quickfix_window()
+function! s:toggle_quickfix_window() abort
   let _ = winnr('$')
   cclose
   if _ == winnr('$')
@@ -381,30 +381,11 @@ nnoremap ZZ  <Nop>
 " Auto escape / and ? in search command.
 cnoremap <expr> / getcmdtype() == '/' ? '\/' : '/'
 
-" Smart }."{{{
-nnoremap <silent> } :<C-u>call ForwardParagraph()<CR>
-onoremap <silent> } :<C-u>call ForwardParagraph()<CR>
-xnoremap <silent> } <Esc>:<C-u>call ForwardParagraph()<CR>mzgv`z
-function! ForwardParagraph()
-  let cnt = v:count ? v:count : 1
-  let i = 0
-  while i < cnt
-    if !search('^\s*\n.*\S','W')
-      normal! G$
-      return
-    endif
-    let i = i + 1
-  endwhile
-endfunction
-"}}}
-
 " Smart home and smart end."{{{
 nnoremap <silent> gh  :<C-u>call SmartHome('n')<CR>
-nnoremap <silent> gl  :<C-u>call SmartEnd('n')<CR>
 xnoremap <silent> gh  <ESC>:<C-u>call SmartHome('v')<CR>
-xnoremap <silent> gl  <ESC>:<C-u>call SmartEnd('v')<CR>
 " Smart home function"{{{
-function! SmartHome(mode)
+function! SmartHome(mode) abort
   let curcol = col('.')
 
   if &wrap
@@ -426,38 +407,6 @@ function! SmartHome(mode)
 
   return ""
 endfunction"}}}
-
-" Smart end function"{{{
-function! SmartEnd(mode)
-  let curcol = col('.')
-  let lastcol = a:mode ==# 'i' ? col('$') : col('$') - 1
-
-  " Gravitate towards ending for wrapped lines
-  if curcol < lastcol - 1
-    call cursor(0, curcol + 1)
-  endif
-
-  if curcol < lastcol
-    if &wrap
-      normal! g$
-    else
-      normal! $
-    endif
-  else
-    normal! g_
-  endif
-
-  " Correct edit mode cursor position, put after current character
-  if a:mode == "i"
-    call cursor(0, col(".") + 1)
-  endif
-
-  if a:mode == "v"
-    normal! msgv`s
-  endif
-
-  return ""
-endfunction "}}}
 "}}}
 
 " Select rectangle.
@@ -496,7 +445,7 @@ inoremap <expr> ;  <SID>sticky_func()
 cnoremap <expr> ;  <SID>sticky_func()
 snoremap <expr> ;  <SID>sticky_func()
 
-function! s:sticky_func()
+function! s:sticky_func() abort
   let sticky_table = {
         \',' : '<', '.' : '>', '/' : '?',
         \'1' : '!', '2' : '@', '3' : '#', '4' : '$', '5' : '%',
@@ -587,7 +536,7 @@ nnoremap <silent> <SID>(increment)    :AddNumbers 1<CR>
 nnoremap <silent> <SID>(decrement)   :AddNumbers -1<CR>
 command! -range -nargs=1 AddNumbers
       \ call s:add_numbers((<line2>-<line1>+1) * eval(<args>))
-function! s:add_numbers(num)
+function! s:add_numbers(num) abort
   let prev_line = getline('.')[: col('.')-1]
   let next_line = getline('.')[col('.') :]
   let prev_num = matchstr(prev_line, '\d\+$')
@@ -614,7 +563,7 @@ nnoremap ;m  ,
 " Replace word under cursor (which should be a GitHub username)
 " with some user info ("Full Name <email@address>").
 " If info cout not be found, "Not found" is inserted.
-function! <SID>InsertGitHubUserInfo()
+function! <SID>InsertGitHubUserInfo() abort
     let user = expand('<cWORD>')
     " final slice is to remove ending newline
     let info = system('github_user_info ' . user . ' 2> /dev/null')[:-2]

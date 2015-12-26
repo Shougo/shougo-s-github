@@ -17,7 +17,7 @@ let g:vimshell_force_overwrite_statusline = 1
 " let g:vimshell_prompt_pattern = '^\f\+:\%(\f\|\\.\)\+% '
 
 autocmd MyAutoCmd FileType vimshell call s:vimshell_settings()
-function! s:vimshell_settings()
+function! s:vimshell_settings() abort
   if IsWindows()
     " Display user name on Windows.
     "let g:vimshell_prompt = $USERNAME."% "
@@ -96,12 +96,12 @@ function! s:vimshell_settings()
 endfunction
 
 autocmd MyAutoCmd FileType int-* call s:interactive_settings()
-function! s:interactive_settings()
+function! s:interactive_settings() abort
   call vimshell#hook#set('input', [s:vimshell_hooks.input])
 endfunction
 
 autocmd MyAutoCmd FileType term-* call s:terminal_settings()
-function! s:terminal_settings()
+function! s:terminal_settings() abort
   inoremap <silent><buffer><expr> <Plug>(vimshell_term_send_semicolon)
         \ vimshell#term_mappings#send_key(';')
   inoremap <silent><buffer><expr> j<Space>
@@ -116,7 +116,7 @@ function! s:terminal_settings()
   iunmap <buffer> <ESC><ESC>
   imap <buffer> <ESC>         <Plug>(vimshell_term_send_escape)
 endfunction
-function! s:texe_sticky_func()
+function! s:texe_sticky_func() abort "{{{
   let sticky_table = {
         \',' : '<', '.' : '>', '/' : '?',
         \'1' : '!', '2' : '@', '3' : '#', '4' : '$', '5' : '%',
@@ -147,27 +147,27 @@ function! s:texe_sticky_func()
   else
     return ''
   endif
-endfunction
+endfunction "}}}
 
 let s:vimshell_hooks = {}
-function! s:vimshell_hooks.chpwd(args, context)
+function! s:vimshell_hooks.chpwd(args, context) abort
   if len(split(glob('*'), '\n')) < 100
     call vimshell#execute('ls')
   else
     call vimshell#execute('echo "Many files."')
   endif
 endfunction
-function! s:vimshell_hooks.emptycmd(cmdline, context)
+function! s:vimshell_hooks.emptycmd(cmdline, context) abort
   call vimshell#set_prompt_command('ls')
   return 'ls'
 endfunction
-function! s:vimshell_hooks.notfound(cmdline, context)
+function! s:vimshell_hooks.notfound(cmdline, context) abort
   return ''
 endfunction
-function! s:vimshell_hooks.preprompt(args, context)
+function! s:vimshell_hooks.preprompt(args, context) abort
   " call vimshell#execute('echo "preprompt"')
 endfunction
-function! s:vimshell_hooks.preexec(cmdline, context)
+function! s:vimshell_hooks.preexec(cmdline, context) abort
   " call vimshell#execute('echo "preexec"')
 
   let args = vimproc#parser#split_args(a:cmdline)
@@ -177,7 +177,7 @@ function! s:vimshell_hooks.preexec(cmdline, context)
 
   return a:cmdline
 endfunction
-function! s:vimshell_hooks.input(input, context)
+function! s:vimshell_hooks.input(input, context) abort
   " echomsg 'input'
   return a:input
 endfunction
