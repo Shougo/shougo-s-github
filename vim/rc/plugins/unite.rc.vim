@@ -60,6 +60,15 @@ let g:unite_source_menu_menus.unite.command_candidates = {
       \       'scriptnames': 'Unite output:scriptnames',
       \     }
 
+let g:unite_source_menu_menus.zsh = {
+      \     'description' : 'Edit zsh files',
+      \ }
+let g:unite_source_menu_menus.zsh.file_candidates = [
+      \       ['zshenv'    , '~/.zshenv'],
+      \       ['zshrc'     , '~/.zshrc'],
+      \       ['zplug'     , '~/.zplug'],
+      \     ]
+
 " For unite-alias.
 let g:unite_source_alias_aliases = {}
 let g:unite_source_alias_aliases.test = {

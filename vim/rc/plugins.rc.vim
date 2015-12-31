@@ -97,6 +97,8 @@ if neobundle#tap('unite.vim') "{{{
   nnoremap <silent> ;r
         \ :<C-u>Unite -buffer-name=register
         \ -default-action=append register history/yank<CR>
+  nnoremap <silent> ;;
+        \ :<C-u>Unite -start-insert command history/command<CR>
 
   " <C-t>: Tab pages
   nnoremap <silent> <C-t>
@@ -595,4 +597,9 @@ if neobundle#tap('vim-lua-ftplugin') "{{{
 
   call neobundle#untap()
 endif "}}}
+
+if neobundle#tap('vim-operator-flashy') "{{{
+  map y <Plug>(operator-flashy)
+  nmap Y <Plug>(operator-flashy)$
+endif"}}}
 

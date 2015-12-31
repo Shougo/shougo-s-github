@@ -66,9 +66,6 @@ nnoremap <SID>(command-line-enter) q:
 xnoremap <SID>(command-line-enter) q:
 nnoremap <SID>(command-line-norange) q:<C-u>
 
-nmap ;;  <SID>(command-line-enter)
-xmap ;;  <SID>(command-line-enter)
-
 autocmd MyAutoCmd CmdwinEnter *
       \ call s:init_cmdwin()
 autocmd MyAutoCmd CmdwinLeave *
@@ -336,9 +333,6 @@ xnoremap <silent> [Alt]P O<Esc>Pm``[=`]``^
 " Insert blank line.
 nnoremap <silent> [Alt]o o<Space><BS><ESC>
 nnoremap <silent> [Alt]O O<Space><BS><ESC>
-" Yank to end line.
-nnoremap [Alt]y y$
-nnoremap Y y$
 nnoremap x "_x
 "}}}
 

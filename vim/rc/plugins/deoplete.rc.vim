@@ -21,6 +21,10 @@ inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<C-h>"
 inoremap <expr><C-h> deolete#mappings#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> deoplete#mappings#smart_close_popup()."\<C-h>"
 
+inoremap <expr><C-g> deoplete#mappings#undo_completion()
+" <C-l>: redraw candidates
+inoremap <C-l>       a<BS>
+
 " <CR>: close popup and save indent.
 inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
 function! s:my_cr_function() abort

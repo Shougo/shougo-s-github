@@ -1,4 +1,4 @@
 [[plugins]]
-repository = 'Shougo/vimproc.vim'
+repo = 'Shougo/vimproc.vim'
 build = 'make'
 

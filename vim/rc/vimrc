@@ -56,6 +56,8 @@ if neobundle#load_cache(
   NeoBundleSaveCache
 endif
 
+NeoBundle 'honza/vim-snippets'
+
 " NeoBundle configurations.
 
 call s:source_rc('plugins.rc.vim')
