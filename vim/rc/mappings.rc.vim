@@ -59,6 +59,8 @@ cnoremap <C-k> <C-\>e getcmdpos() == 1 ?
       \ '' : getcmdline()[:getcmdpos()-2]<CR>
 " <C-y>: paste.
 cnoremap <C-y>          <C-r>*
+" <C-g>: Exit.
+cnoremap <C-g>          <C-c>
 "}}}
 
 " Command line buffer."{{{

@@ -38,10 +38,7 @@ on_unite = ['neosnippet', 'neosnippet/user', 'neosnippet/runtime']
 [[plugins]]
 repo = 'Shougo/unite.vim'
 depends = 'Shougo/neomru.vim'
-
-  [plugins.on_cmd]
-  name = 'Unite'
-  complete = 'customlist,unite#complete_source'
+on_cmd = 'Unite'
 
 [[plugins]]
 repo = 'Shougo/unite-build'
@@ -56,18 +53,12 @@ repo = 'Shougo/vimfiler.vim'
 depends = 'Shougo/unite.vim'
 on_map = '<Plug>'
 on_path = '.*'
-
-  [plugins.on_cmd]
-  name = ['VimFiler']
-  complete = 'customlist,vimfiler#complete'
+on_cmd = 'VimFiler'
 
 [[plugins]]
 repo = 'Shougo/vimshell.vim'
 on_map = '<Plug>'
-
-  [plugins.on_cmd]
-  name = 'VimShell'
-  complete = 'customlist,vimshell#complete'
+on_cmd = 'VimShell'
 
 [[plugins]]
 repo = 'Shougo/junkfile.vim'
@@ -97,10 +88,7 @@ on_i = 1
 
 [[plugins]]
 repo = 'Shougo/vinarise.vim'
-
-  [plugins.on_cmd]
-  name = 'Vinarise'
-  complete = 'file'
+on_cmd = 'Vinarise'
 
 [[plugins]]
 repo = 'kana/vim-niceblock'
@@ -171,10 +159,7 @@ on_ft = 'ruby'
 repo = 'basyura/J6uil.vim'
 on_unite = 'J6uil'
 depends = 'mattn/webapi-vim'
-
-  [plugins.on_cmd]
-  name = 'J6uil'
-  complete = 'custom,J6uil#complete#room'
+on_cmd = 'J6uil'
 
 [[plugins]]
 repo = 'tsukkee/unite-tag'
@@ -421,7 +406,7 @@ repo = 'terryma/vim-expand-region'
 on_map = [['x', '<Plug>']]
 
 [[plugins]]
-repo = 'phildawes/racer'
+repo = 'racer-rust/vim-racer'
 on_ft = 'rust'
 
 [[plugins]]

@@ -123,8 +123,6 @@ set noequalalways
 set previewheight=8
 set helpheight=12
 
-" Don't redraw while macro executing.
-set lazyredraw
 set ttyfast
 
 " When a line is long, do not omit it in @.
