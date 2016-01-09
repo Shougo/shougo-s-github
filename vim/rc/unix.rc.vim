@@ -6,10 +6,10 @@ if exists('$WINDIR') || !executable('zsh')
   " Cygwin.
 
   " Use bash.
-  set shell=bash
+  setglobal shell=bash
 else
   " Use zsh.
-  set shell=zsh
+  setglobal shell=zsh
 endif
 
 " Set path.
@@ -24,7 +24,7 @@ endif
 "
 
 " Enable 256 color terminal.
-set t_Co=256
+setglobal t_Co=256
 
 if &term =~# 'xterm' && !has('nvim')
   let &t_ti .= "\e[?2004h"
@@ -32,7 +32,7 @@ if &term =~# 'xterm' && !has('nvim')
   let &pastetoggle = "\e[201~"
 
   function! XTermPasteBegin(ret) abort
-    set paste
+    setlocal paste
     return a:ret
   endfunction
 
@@ -55,12 +55,12 @@ endif
 
 " Using the mouse on a terminal.
 if has('mouse') && !has('nvim')
-  set mouse=a
+  setglobal mouse=a
   if has('mouse_sgr') || v:version > 703 ||
         \ v:version == 703 && has('patch632')
-    set ttymouse=sgr
+    setglobal ttymouse=sgr
   else
-    set ttymouse=xterm2
+    setglobal ttymouse=xterm2
   endif
 
   " Paste.

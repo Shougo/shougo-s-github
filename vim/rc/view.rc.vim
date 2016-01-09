@@ -10,34 +10,34 @@ endfunction
 " Show line number.
 "set number
 " Show <TAB> and <CR>
-set list
+setglobal list
 if IsWindows()
-  set listchars=tab:>-,trail:-,extends:>,precedes:<
+  setglobal listchars=tab:>-,trail:-,extends:>,precedes:<
 else
-  set listchars=tab:▸\ ,trail:-,extends:»,precedes:«,nbsp:%
+  setglobal listchars=tab:▸\ ,trail:-,extends:»,precedes:«,nbsp:%
 endif
 " Always display statusline.
-set laststatus=2
+setglobal laststatus=2
 " Height of command line.
-set cmdheight=2
+setglobal cmdheight=2
 " Not show command on statusline.
-set noshowcmd
+setglobal noshowcmd
 " Show title.
-set title
+setglobal title
 " Title length.
-set titlelen=95
+setglobal titlelen=95
 " Title string.
-let &titlestring="
+let &g:titlestring="
       \ %{expand('%:p:~:.')}%(%m%r%w%)
       \ %<\(%{".s:SID_PREFIX()."strwidthpart(
       \ fnamemodify(&filetype ==# 'vimfiler' ?
       \ substitute(b:vimfiler.current_dir, '.\\zs/$', '', '') : getcwd(), ':~'),
       \ &columns-len(expand('%:p:.:~')))}\) - VIM"
 " Disable tabline.
-set showtabline=0
+setglobal showtabline=0
 
 " Set statusline.
-let &statusline="%{winnr('$')>1?'['.winnr().'/'.winnr('$')"
+let &g:statusline="%{winnr('$')>1?'['.winnr().'/'.winnr('$')"
       \ . ".(winnr('#')==winnr()?'#':'').']':''}\ "
       \ . "%{(&previewwindow?'[preview] ':'').expand('%:t')}"
       \ . "\ %=%{(winnr('$')==1 || winnr('#')!=winnr()) ?
@@ -46,92 +46,92 @@ let &statusline="%{winnr('$')>1?'['.winnr().'/'.winnr('$')"
       \ . "%m%{printf('%'.(len(line('$'))+2).'d/%d',line('.'),line('$'))}"
 
 " Turn down a long line appointed in 'breakat'
-set linebreak
-set showbreak=\
-set breakat=\ \	;:,!?
+setglobal linebreak
+setglobal showbreak=\
+setglobal breakat=\ \	;:,!?
 " Wrap conditions.
-set whichwrap+=h,l,<,>,[,],b,s,~
+setglobal whichwrap+=h,l,<,>,[,],b,s,~
 if exists('+breakindent')
-  set breakindent
-  set wrap
+  setglobal breakindent
+  setglobal wrap
 else
-  set nowrap
+  setglobal nowrap
 endif
 
 " Do not display greetings message at the time of Vim start.
-set shortmess=aTI
+setglobal shortmess=aTI
 
 " Don't create backup.
-set nowritebackup
-set nobackup
-set noswapfile
-set backupdir-=.
+setglobal nowritebackup
+setglobal nobackup
+setglobal noswapfile
+setglobal backupdir-=.
 
 " Disable bell.
-set t_vb=
-set novisualbell
+setglobal t_vb=
+setglobal novisualbell
 
 " Display candidate supplement.
-set nowildmenu
-set wildmode=list:longest,full
+setglobal nowildmenu
+setglobal wildmode=list:longest,full
 " Increase history amount.
-set history=1000
+setglobal history=1000
 " Display all the information of the tag by the supplement of the Insert mode.
-set showfulltag
+setglobal showfulltag
 " Can supplement a tag in a command-line.
-set wildoptions=tagfile
+setglobal wildoptions=tagfile
 
 " Disable menu
 let g:did_install_default_menus = 1
 
 if !&verbose
   " Enable spell check.
-  set spelllang=en_us
+  setglobal spelllang=en_us
   " Enable CJK support.
-  set spelllang+=cjk
+  setglobal spelllang+=cjk
 endif
 
 " Completion setting.
-set completeopt=menuone
+setglobal completeopt=menuone
 " Don't complete from other buffer.
-set complete=.
+setglobal complete=.
 "set complete=.,w,b,i,t
 " Set popup menu max height.
-set pumheight=20
+setglobal pumheight=20
 
 " Report changes.
-set report=0
+setglobal report=0
 
 " Maintain a current line at the time of movement as much as possible.
-set nostartofline
+setglobal nostartofline
 
 " Splitting a window will put the new window below the current one.
-set splitbelow
+setglobal splitbelow
 " Splitting a window will put the new window right the current one.
-set splitright
+setglobal splitright
 " Set minimal width for current window.
-set winwidth=30
+setglobal winwidth=30
 " Set minimal height for current window.
 " set winheight=20
-set winheight=1
+setglobal winheight=1
 " Set maximam maximam command line window.
-set cmdwinheight=5
+setglobal cmdwinheight=5
 " No equal window size.
-set noequalalways
+setglobal noequalalways
 
 " Adjust window size of preview and help.
-set previewheight=8
-set helpheight=12
+setglobal previewheight=8
+setglobal helpheight=12
 
-set ttyfast
+setglobal ttyfast
 
 " When a line is long, do not omit it in @.
-set display=lastline
+setglobal display=lastline
 " Display an invisible letter with hex format.
 "set display+=uhex
 
 " View setting.
-set viewdir=$CACHE/vim_view viewoptions-=options viewoptions+=slash,unix
+setglobal viewdir=$CACHE/vim_view viewoptions-=options viewoptions+=slash,unix
 
 function! s:strwidthpart(str, width) abort "{{{
   if a:width <= 0
@@ -150,9 +150,9 @@ endfunction"}}}
 
 if v:version >= 703
   " For conceal.
-  set conceallevel=2 concealcursor=niv
+  setglobal conceallevel=2 concealcursor=niv
 
-  set colorcolumn=79
+  setglobal colorcolumn=79
 
   " Use builtin function.
   function! s:wcswidth(str)

@@ -6,7 +6,7 @@
 " Setting of the encoding to use for a save and reading.
 " Make it normal in UTF-8 in Unix.
 if has('vim_starting')
-  set encoding=utf-8
+  setglobal encoding=utf-8
 endif
 
 " Setting of terminal encoding."{{{
@@ -16,22 +16,22 @@ if !has('gui_running')
     " Setting when use the non-GUI Japanese console.
 
     " Garbled unless set this.
-    set termencoding=cp932
+    setglobal termencoding=cp932
     " Japanese input changes itself unless set this.  Be careful because the
     " automatic recognition of the character code is not possible!
-    set encoding=japan
+    setglobal encoding=japan
   else
     if $ENV_ACCESS ==# 'linux'
-      set termencoding=euc-jp
+      setglobal termencoding=euc-jp
     elseif $ENV_ACCESS ==# 'colinux'
-      set termencoding=utf-8
+      setglobal termencoding=utf-8
     else  " fallback
-      set termencoding=  " same as 'encoding'
+      setglobal termencoding=  " same as 'encoding'
     endif
   endif
 elseif IsWindows()
   " For system.
-  set termencoding=cp932
+  setglobal termencoding=cp932
 endif
 "}}}
 
@@ -77,7 +77,7 @@ endif
 
 if has('kaoriya')
   " For Kaoriya only.
-  set fileencodings=guess
+  setglobal fileencodings=guess
 endif
 
 " When do not include Japanese, use encoding for fileencoding.
@@ -91,9 +91,9 @@ endfunction"}}}
 autocmd MyAutoCmd BufReadPost * call s:ReCheck_FENC()
 
 " Default fileformat.
-set fileformat=unix
+setglobal fileformat=unix
 " Automatic recognition of a new line cord.
-set fileformats=unix,dos,mac
+setglobal fileformats=unix,dos,mac
 
 " Command group opening with a specific character code again."{{{
 " In particular effective when I am garbled in a terminal.
@@ -146,5 +146,5 @@ command! -bang -complete=file -nargs=? WMac
 "}}}
 
 if has('multi_byte_ime')
-  set iminsert=0 imsearch=0
+  setglobal iminsert=0 imsearch=0
 endif

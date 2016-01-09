@@ -3,110 +3,110 @@
 "
 
 " Smart insert tab setting.
-set smarttab
+setglobal smarttab
 " Exchange tab to spaces.
-set expandtab
+setglobal expandtab
 " Substitute <Tab> with blanks.
-"set tabstop=8
+"setglobal tabstop=8
 " Spaces instead <Tab>.
-"set softtabstop=4
+"setglobal softtabstop=4
 " Autoindent width.
-"set shiftwidth=4
+"setglobal shiftwidth=4
 " Round indent by shiftwidth.
-set shiftround
+setglobal shiftround
 
 " Enable modeline.
-set modeline
+setglobal modeline
 
 " Use clipboard register.
 if has('unnamedplus')
-  set clipboard& clipboard+=unnamedplus
+  setglobal clipboard& clipboard+=unnamedplus
 else
-  set clipboard& clipboard+=unnamed
+  setglobal clipboard& clipboard+=unnamed
 endif
 
 " Enable backspace delete indent and newline.
-set backspace=indent,eol,start
+setglobal backspace=indent,eol,start
 
 " Highlight parenthesis.
-set showmatch
+setglobal showmatch
 " Highlight when CursorMoved.
-set cpoptions-=m
-set matchtime=1
+setglobal cpoptions-=m
+setglobal matchtime=1
 " Highlight <>.
-set matchpairs+=<:>
+setglobal matchpairs+=<:>
 
 " Display another buffer when current buffer isn't saved.
-set hidden
+setglobal hidden
 
 " Auto reload if file is changed.
-"set autoread
+"setglobal autoread
 
 " Ignore case on insert completion.
-set infercase
+setglobal infercase
 
 " Search home directory path on cd.
 " But can't complete.
-" set cdpath+=~
+" setglobal cdpath+=~
 
 " Enable folding.
-set foldenable
+setglobal foldenable
 " set foldmethod=expr
-set foldmethod=marker
+setglobal foldmethod=marker
 " Show folding level.
-set foldcolumn=1
-set fillchars=vert:\|
-set commentstring=%s
+setglobal foldcolumn=1
+setglobal fillchars=vert:\|
+setglobal commentstring=%s
 
 if exists('*FoldCCtext')
   " Use FoldCCtext().
-  set foldtext=FoldCCtext()
+  setglobal foldtext=FoldCCtext()
 endif
 
 " Use vimgrep.
-"set grepprg=internal
+"setglobal grepprg=internal
 " Use grep.
-set grepprg=grep\ -inH
+setglobal grepprg=grep\ -inH
 
 " Exclude = from isfilename.
-set isfname-==
+setglobal isfname-==
 
 " Reload .vimrc automatically.
 autocmd MyAutoCmd BufWritePost .vimrc,vimrc,*.rc.vim,neobundle*.toml
       \ source $MYVIMRC | redraw
 
 " Keymapping timeout.
-set timeout timeoutlen=3000 ttimeoutlen=100
+setglobal timeout timeoutlen=3000 ttimeoutlen=100
 
 " CursorHold time.
-set updatetime=1000
+setglobal updatetime=1000
 
 " Set swap directory.
-set directory-=.
+setglobal directory-=.
 
 if v:version >= 703
   " Set undofile.
-  set undofile
-  let &undodir=&directory
+  setglobal undofile
+  let &g:undodir=&directory
 endif
 
 if v:version < 703 || (v:version == 7.3 && !has('patch336'))
   " Vim's bug.
-  set notagbsearch
+  setglobal notagbsearch
 endif
 
 " Enable virtualedit in visual block mode.
-set virtualedit=block
+setglobal virtualedit=block
 
 " Set keyword help.
-set keywordprg=:help
+setglobal keywordprg=:help
 
 " Check timestamp more for 'autoread'.
 autocmd MyAutoCmd WinEnter * checktime
 
 " Disable paste.
 autocmd MyAutoCmd InsertLeave *
-      \ if &paste | set nopaste mouse=a | echo 'nopaste' | endif |
+      \ if &paste | setlocal nopaste mouse=a | echo 'nopaste' | endif |
       \ if &l:diff | diffupdate | endif
 
 " Update diff.
@@ -127,11 +127,11 @@ function! s:mkdir_as_necessary(dir, force) abort
 endfunction
 
 " Use autofmt.
-set formatexpr=autofmt#japanese#formatexpr()
+setglobal formatexpr=autofmt#japanese#formatexpr()
 
 " Use blowfish2
 " https://dgl.cx/2014/10/vim-blowfish
 if has('cryptv')
   " It seems 15ms overhead.
-  " set cryptmethod=blowfish2
+  " setglobal cryptmethod=blowfish2
 endif

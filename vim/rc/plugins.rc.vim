@@ -14,7 +14,7 @@ let python_highlight_all = 1
 " netrw.vim"{{{
 let g:netrw_list_hide= '*.swp'
 " Change default directory.
-set browsedir=current
+setglobal browsedir=current
 "}}}
 
 if neobundle#tap('deoplete.nvim') && has('nvim') "{{{

@@ -4,7 +4,7 @@
 
 if exists('&regexpengine')
   " Use old regexp engine.
-  " set regexpengine=1
+  " setglobal regexpengine=1
 endif
 
 " Use English interface.
@@ -32,7 +32,7 @@ xnoremap ,  <Nop>
 
 if IsWindows()
   " Exchange path separator.
-  set shellslash
+  setglobal shellslash
 endif
 
 let $CACHE = expand('~/.cache')
@@ -62,7 +62,7 @@ if has('vim_starting') "{{{
   " Load neobundle.
   let s:neobundle_dir = finddir('neobundle.vim', '.;')
   if s:neobundle_dir != ''
-    execute 'set runtimepath^=' .
+    execute 'setglobal runtimepath^=' .
           \ fnamemodify(s:neobundle_dir, ':p')
   elseif &runtimepath !~ '/neobundle.vim'
     let s:neobundle_dir = expand('$CACHE/neobundle').'/neobundle.vim'
@@ -73,7 +73,7 @@ if has('vim_starting') "{{{
             \ s:neobundle_dir
     endif
 
-    execute 'set runtimepath^=' . s:neobundle_dir
+    execute 'setglobal runtimepath^=' . s:neobundle_dir
   endif
 endif
 "}}}
@@ -86,7 +86,7 @@ let g:neobundle#default_options = {}
 
 " Disable menu.vim
 if has('gui_running')
-  set guioptions=Mc
+  setglobal guioptions=Mc
 endif
 
 let g:loaded_gzip              = 1

@@ -4,44 +4,43 @@
 
 "---------------------------------------------------------------------------
 " Fonts: "{{{
-set ambiwidth=double
+setglobal ambiwidth=double
 
 if has('win32') || has('win64')
   " For Windows.
 
-  "set guifontwide=VL\ Gothic:h11
-  "set guifontwide=MigMix\ 1M:h11
-  set guifontwide=Ricty:h12
+  "setglobal guifontwide=VL\ Gothic:h11
+  setglobal guifontwide=Ricty:h12
 
-  set guifont=Ricty:h12
-  "set guifont=Anonymous\ Pro:h11
-  "set guifont=Courier\ New:h11
-  "set guifont=MS\ Gothic:h11
-  "set guifont=VL\ Gothic:h11
-  "set guifont=Consolas:h12
-  "set guifont=Bitstream\ Vera\ Sans\ Mono:h11
-  "set guifont=Inconsolata:h12
-  "set guifont=Terminal:h10:cSHIFTJIS
+  setglobal guifont=Ricty:h12
+  "setglobal guifont=Anonymous\ Pro:h11
+  "setglobal guifont=Courier\ New:h11
+  "setglobal guifont=MS\ Gothic:h11
+  "setglobal guifont=VL\ Gothic:h11
+  "setglobal guifont=Consolas:h12
+  "setglobal guifont=Bitstream\ Vera\ Sans\ Mono:h11
+  "setglobal guifont=Inconsolata:h12
+  "setglobal guifont=Terminal:h10:cSHIFTJIS
 
   " Number of pixel lines inserted between characters.
-  set linespace=2
+  setglobal linespace=2
 
   if has('patch-7.4.394')
     " Use DirectWrite
-    set renderoptions=type:directx,gammma:2.2,mode:3
+    setglobal renderoptions=type:directx,gammma:2.2,mode:3
   endif
 
   if has('kaoriya')
     " For Kaoriya only.
-    set ambiwidth=auto
+    setglobal ambiwidth=auto
   endif
 elseif has('mac')
   " For Mac.
-  set guifont=Osaka－等幅:h14
+  setglobal guifont=Osaka－等幅:h14
 else
   " For Linux.
-  set guifontwide=VL\ Gothic\ 13
-  set guifont=Courier\ 10\ Pitch\ 13.5
+  setglobal guifontwide=VL\ Gothic\ 13
+  setglobal guifont=Courier\ 10\ Pitch\ 13.5
 endif"}}}
 
 "---------------------------------------------------------------------------
@@ -49,9 +48,9 @@ endif"}}}
 "
 if has('win32') || has('win64')
   " Width of window.
-  set columns=230
+  setglobal columns=230
   " Height of window.
-  set lines=55
+  setglobal lines=55
 
   " Set transparency.
   "autocmd GuiEnter * set transparency=221
@@ -61,9 +60,9 @@ if has('win32') || has('win64')
   nnoremap TT     :<C-u>TransparencyToggle<CR>
 else
   " Width of window.
-  set columns=170
+  setglobal columns=170
   " Height of window.
-  set lines=40
+  setglobal lines=40
 endif
 
 " Don't override colorscheme.
@@ -92,13 +91,13 @@ endif
 "---------------------------------------------------------------------------
 " Mouse:"{{{
 "
-set mouse=
-set mousemodel=
+setglobal mouse=
+setglobal mousemodel=
 
 " Don't focus the window when the mouse pointer is moved.
-set nomousefocus
+setglobal nomousefocus
 " Hide mouse pointer on insert mode.
-set mousehide
+setglobal mousehide
 "}}}
 
 "---------------------------------------------------------------------------
@@ -106,26 +105,26 @@ set mousehide
 "
 
 " Hide toolbar and menus.
-set guioptions-=Tt
-set guioptions-=m
+setglobal guioptions-=Tt
+setglobal guioptions-=m
 " Scrollbar is always off.
-set guioptions-=rL
+setglobal guioptions-=rL
 " Not guitablabel.
-set guioptions-=e
+setglobal guioptions-=e
 
 " Confirm without window.
-set guioptions+=c
+setglobal guioptions+=c
 "}}}
 
 "---------------------------------------------------------------------------
 " Views:"{{{
 "
 " Don't highlight search result.
-set nohlsearch
+setglobal nohlsearch
 
 " Don't flick cursor.
-set guicursor&
-set guicursor+=a:blinkon0
+setglobal guicursor&
+setglobal guicursor+=a:blinkon0
 "}}}
 
 " vim: foldmethod=marker

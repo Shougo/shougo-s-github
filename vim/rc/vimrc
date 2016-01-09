@@ -7,7 +7,7 @@
 "
 
 if &compatible
-  set nocompatible
+  setglobal nocompatible
 endif
 
 function! s:source_rc(path) abort
@@ -85,18 +85,18 @@ call s:source_rc('encoding.rc.vim')
 "
 
 " Ignore the case of normal letters.
-set ignorecase
+setglobal ignorecase
 " If the search pattern contains upper case characters, override ignorecase
 " option.
-set smartcase
+setglobal smartcase
 
 " Enable incremental search.
-set incsearch
+setglobal incsearch
 " Don't highlight search result.
-set nohlsearch
+setglobal nohlsearch
 
 " Searches wrap around the end of the file.
-set wrapscan
+setglobal wrapscan
 
 "---------------------------------------------------------------------------
 " Edit:
@@ -154,11 +154,11 @@ endif
 "
 
 " If true Vim master, use English help file.
-set helplang& helplang=en,ja
+setglobal helplang& helplang=en,ja
 
 " Default home directory.
 let t:cwd = getcwd()
 
-set secure
+setglobal secure
 
 " vim: foldmethod=marker

@@ -3,7 +3,7 @@
 "
 
 " Enable smart indent.
-set autoindent smartindent
+setglobal autoindent smartindent
 
 augroup MyAutoCmd
   autocmd FileType,Syntax,BufEnter,BufWinEnter * call s:my_on_filetype()
@@ -38,8 +38,11 @@ augroup MyAutoCmd
 
   autocmd FileType go highlight default link goErr WarningMsg |
         \ match goErr /\<err\>/
+augroup END
 
-  " autocmd Syntax * syntax sync minlines=100
+augroup vimrc-highlight
+  autocmd!
+  autocmd Syntax * if 5000 < line('$') | syntax sync minlines=100 | endif
 augroup END
 
 " Python
@@ -69,7 +72,7 @@ let g:markdown_fenced_languages = []
 
 " Go
 if $GOROOT != ''
-  set runtimepath+=$GOROOT/misc/vim
+  setglobal runtimepath+=$GOROOT/misc/vim
 endif
 
 " Tex
@@ -136,9 +139,9 @@ endfunction "}}}
 
 " Do not display completion messages
 " Patch: https://groups.google.com/forum/#!topic/vim_dev/WeBBjkXE8H8
-set noshowmode
+setglobal noshowmode
 try
-  set shortmess+=c
+  setglobal shortmess+=c
 catch /^Vim\%((\a\+)\)\=:E539: Illegal character/
   autocmd MyAutoCmd VimEnter *
         \ highlight ModeMsg guifg=bg guibg=bg |
