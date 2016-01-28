@@ -92,10 +92,7 @@ else
   " Use guicolorscheme.vim
   NeoBundleSource vim-guicolorscheme
 
-  autocmd MyAutoCmd VimEnter,BufAdd *
+  autocmd MyAutoCmd VimEnter *
         \ if !exists('g:colors_name') | GuiColorScheme candy
-
-  " Disable error messages.
-  let g:CSApprox_verbose_level = 0
 endif
 

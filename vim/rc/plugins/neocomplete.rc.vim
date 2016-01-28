@@ -11,6 +11,8 @@ let g:neocomplete#enable_camel_case = 1
 " Use fuzzy completion.
 let g:neocomplete#enable_fuzzy_completion = 1
 
+" let g:neocomplete#enable_refresh_always = 1
+
 " Set auto completion length.
 let g:neocomplete#auto_completion_start_length = 2
 " Set manual completion length.
@@ -113,7 +115,8 @@ inoremap <silent><expr> <C-x><C-f>
       \ neocomplete#start_manual_complete('file')
 
 inoremap <expr> <C-g>     neocomplete#undo_completion()
-inoremap <expr> <C-l>     neocomplete#complete_common_string()
+" inoremap <expr> <C-l>     neocomplete#mappings#refresh()
+inoremap <expr> <C-l>     neocomplete#mappings#complete_common_string()
 
 " <CR>: close popup and save indent.
 inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>

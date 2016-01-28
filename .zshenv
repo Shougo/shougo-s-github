@@ -6,7 +6,7 @@ export LESS='-RQM'
 export GZIP='-v9N'
 export SHELL=zsh
 export GOPATH="$HOME/.go"
-export PATH="$HOME/bin:/usr/local/bin:$HOME/.gem/ruby/2.2.0/bin/:$GOPATH/bin:$PATH"
+export PATH="$HOME/bin:/usr/local/bin:$GOPATH/bin:$PATH"
 
 #---- SVN -----------------#
 export SVN_EDITOR="vim"

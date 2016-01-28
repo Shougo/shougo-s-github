@@ -50,36 +50,38 @@ if filereadable(expand('~/.secret_vimrc'))
   execute 'source' expand('~/.secret_vimrc')
 endif
 
-if has('vim_starting') "{{{
-  " Set runtimepath.
-  if IsWindows()
-    let &runtimepath = join([
-          \ expand('~/.vim'),
-          \ expand('$VIM/runtime'),
-          \ expand('~/.vim/after')], ',')
+" Set runtimepath."{{{
+if IsWindows()
+  let &runtimepath = join([
+        \ expand('~/.vim'),
+        \ expand('$VIM/runtime'),
+        \ expand('~/.vim/after')], ',')
+endif
+
+" Load neobundle.
+let s:neobundle_dir = finddir('neobundle.vim', '.;')
+if s:neobundle_dir != ''
+  execute 'setglobal runtimepath^=' .
+        \ fnamemodify(s:neobundle_dir, ':p')
+elseif &runtimepath !~ '/neobundle.vim'
+  let s:neobundle_dir = expand('$CACHE/neobundle').'/neobundle.vim'
+
+  if !isdirectory(s:neobundle_dir)
+    execute printf('!git clone %s://github.com/Shougo/neobundle.vim.git',
+          \ (exists('$http_proxy') ? 'https' : 'git'))
+          \ s:neobundle_dir
   endif
 
-  " Load neobundle.
-  let s:neobundle_dir = finddir('neobundle.vim', '.;')
-  if s:neobundle_dir != ''
-    execute 'setglobal runtimepath^=' .
-          \ fnamemodify(s:neobundle_dir, ':p')
-  elseif &runtimepath !~ '/neobundle.vim'
-    let s:neobundle_dir = expand('$CACHE/neobundle').'/neobundle.vim'
-
-    if !isdirectory(s:neobundle_dir)
-      execute printf('!git clone %s://github.com/Shougo/neobundle.vim.git',
-            \ (exists('$http_proxy') ? 'https' : 'git'))
-            \ s:neobundle_dir
-    endif
-
-    execute 'setglobal runtimepath^=' . s:neobundle_dir
-  endif
+  execute 'setglobal runtimepath^=' . s:neobundle_dir
 endif
 "}}}
 
 let g:neobundle#default_options = {}
 " let g:neobundle#default_options._ = { 'verbose' : 1, 'focus' : 1 }
+
+" Apply new setglobal variables
+autocmd MyAutoCmd VimEnter *
+      \ if argc() == 0 && bufname('%') ==# '' | enew | endif
 
 "---------------------------------------------------------------------------
 " Disable default plugins

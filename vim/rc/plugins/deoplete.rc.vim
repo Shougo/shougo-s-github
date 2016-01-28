@@ -23,7 +23,7 @@ inoremap <expr><BS> deoplete#mappings#smart_close_popup()."\<C-h>"
 
 inoremap <expr><C-g> deoplete#mappings#undo_completion()
 " <C-l>: redraw candidates
-inoremap <C-l>       a<BS>
+inoremap <expr><C-l>       deoplete#mappings#refresh()
 
 " <CR>: close popup and save indent.
 inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
@@ -33,8 +33,8 @@ endfunction
 
 inoremap <expr> '  pumvisible() ? deoplete#mappings#close_popup() : "'"
 
-" Use head matcher
 " call deoplete#custom#set('_', 'matchers', ['matcher_head'])
+" call deoplete#custom#set('_', 'matchers', ['matcher_full_fuzzy'])
 
 " Use auto delimiter
 call deoplete#custom#set('_', 'converters',
@@ -48,9 +48,11 @@ let g:deoplete#keyword_patterns._ = '[a-zA-Z_]\k*\(?'
 " let g:deoplete#keyword_patterns.tex = '\\?[a-zA-Z_]\w*'
 let g:deoplete#keyword_patterns.tex = '[^\w|\s][a-zA-Z_]\w*'
 
-let g:deoplete#omni#functions = {}
 let g:deoplete#omni#input_patterns = {}
+let g:deoplete#omni#input_patterns.python = ''
+let g:deoplete#omni#functions = {}
 let g:deoplete#omni#functions.lua = 'xolox#lua#omnifunc'
 
 " inoremap <silent><expr> <C-t> deoplete#mappings#manual_complete('file')
 
+let g:deoplete#enable_refresh_always = 1
