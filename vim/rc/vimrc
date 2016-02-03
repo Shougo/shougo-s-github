@@ -145,7 +145,7 @@ else
   call s:source_rc('unix.rc.vim')
 endif
 
-if has('gui_running')
+if !has('nvim') && has('gui_running')
   call s:source_rc('gui.rc.vim')
 endif
 

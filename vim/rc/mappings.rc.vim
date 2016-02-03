@@ -26,10 +26,6 @@ endif
 " Insert mode keymappings: "{{{
 " <C-t>: insert tab.
 inoremap <C-t>  <C-v><TAB>
-" <C-d>: delete char.
-inoremap <C-d>  <Del>
-" <C-a>: move to head.
-inoremap <silent><C-a>  <C-o>^
 " Enable undo <C-w> and <C-u>.
 inoremap <C-w>  <C-g>u<C-w>
 inoremap <C-u>  <C-g>u<C-u>
@@ -155,36 +151,6 @@ endfunction"}}}
 " Easily syntax change.
 nnoremap <silent> [Space]ft
       \ :<C-u>Unite -start-insert filetype filetype/new<CR>
-
-" Exchange gj and gk to j and k. "{{{
-command! -nargs=? -bar -bang ToggleGJK call s:ToggleGJK()
-nnoremap <silent> [Space]gj :<C-u>ToggleGJK<CR>
-xnoremap <silent> [Space]gj :<C-u>ToggleGJK<CR>
-function! s:ToggleGJK() abort
-  if exists('b:enable_mapping_gjk') && b:enable_mapping_gjk
-    let b:enable_mapping_gjk = 0
-    noremap <buffer> j j
-    noremap <buffer> k k
-    noremap <buffer> gj gj
-    noremap <buffer> gk gk
-
-    xnoremap <buffer> j j
-    xnoremap <buffer> k k
-    xnoremap <buffer> gj gj
-    xnoremap <buffer> gk gk
-  else
-    let b:enable_mapping_gjk = 1
-    noremap <buffer> j gj
-    noremap <buffer> k gk
-    noremap <buffer> gj j
-    noremap <buffer> gk k
-
-    xnoremap <buffer> j gj
-    xnoremap <buffer> k gk
-    xnoremap <buffer> gj j
-    xnoremap <buffer> gk k
-  endif
-endfunction"}}}
 
 " Toggle options. "{{{
 function! ToggleOption(option_name) abort
@@ -341,24 +307,6 @@ nnoremap x "_x
 " Disable Ex-mode.
 nnoremap Q  q
 
-" q: Quickfix  "{{{
-" The prefix key.
-nnoremap [Quickfix]   <Nop>
-
-" Toggle quickfix window.
-nnoremap <silent> [Quickfix]<Space>
-      \ :<C-u>call <SID>toggle_quickfix_window()<CR>
-function! s:toggle_quickfix_window() abort
-  let _ = winnr('$')
-  cclose
-  if _ == winnr('$')
-    copen
-    setlocal nowrap
-    setlocal whichwrap=b,s
-  endif
-endfunction
-"}}}
-
 " Jump mark can restore column."{{{
 nnoremap \  `
 " Useless command.
@@ -377,42 +325,8 @@ nnoremap ZZ  <Nop>
 " Auto escape / and ? in search command.
 cnoremap <expr> / getcmdtype() == '/' ? '\/' : '/'
 
-" Smart home and smart end."{{{
-nnoremap <silent> gh  :<C-u>call SmartHome('n')<CR>
-xnoremap <silent> gh  <ESC>:<C-u>call SmartHome('v')<CR>
-" Smart home function"{{{
-function! SmartHome(mode) abort
-  let curcol = col('.')
-
-  if &wrap
-    normal! g^
-  else
-    normal! ^
-  endif
-  if col('.') == curcol
-    if &wrap
-      normal! g0
-    else
-      normal! 0
-    endif
-  endif
-
-  if a:mode == "v"
-    normal! msgv`s
-  endif
-
-  return ""
-endfunction"}}}
-"}}}
-
 " Select rectangle.
 xnoremap r <C-v>
-
-" Paste next line.
-nnoremap <silent> gp o<ESC>p^
-nnoremap <silent> gP O<ESC>P^
-xnoremap <silent> gp o<ESC>p^
-xnoremap <silent> gP O<ESC>P^
 
 " Redraw.
 nnoremap <silent> <C-l>    :<C-u>redraw!<CR>
@@ -551,10 +465,6 @@ function! s:add_numbers(num) abort
     call setline('.', new_line)
   endif
 endfunction
-
-" Search.
-nnoremap ;n  ;
-nnoremap ;m  ,
 
 " Replace word under cursor (which should be a GitHub username)
 " with some user info ("Full Name <email@address>").

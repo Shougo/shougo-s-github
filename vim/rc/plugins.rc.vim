@@ -171,17 +171,6 @@ if neobundle#tap('unite.vim') "{{{
   call neobundle#untap()
 endif "}}}
 
-if neobundle#tap('CamelCaseMotion') "{{{
-  nmap <silent> w <Plug>CamelCaseMotion_w
-  xmap <silent> w <Plug>CamelCaseMotion_w
-  omap <silent> W <Plug>CamelCaseMotion_w
-  nmap <silent> b <Plug>CamelCaseMotion_b
-  xmap <silent> b <Plug>CamelCaseMotion_b
-  omap <silent> B <Plug>CamelCaseMotion_b
-
-  call neobundle#untap()
-endif "}}}
-
 if neobundle#tap('vim-smartchr') "{{{
   let neobundle#hooks.on_source =
         \ '~/.vim/rc/plugins/smartchr.rc.vim'
@@ -268,8 +257,6 @@ if neobundle#tap('J6uil.vim') "{{{
       setlocal foldcolumn=0
       nmap <buffer> o <Plug>(J6uil_open_say_buffer)
       nmap <silent> <buffer> <CR> <Plug>(J6uil_action_enter)
-      call neocomplete#initialize()
-      NeoCompleteBufferMakeCache
     endfunction
 
     function! s:j6uil_say_settings() abort
@@ -603,3 +590,16 @@ if neobundle#tap('vim-operator-flashy') "{{{
   nmap Y <Plug>(operator-flashy)$
 endif"}}}
 
+if neobundle#tap('vim-easymotion') "{{{
+  nmap w <Plug>(easymotion-lineforward)
+  nnoremap W     w
+  nmap b <Plug>(easymotion-linebackward)
+  nnoremap B     b
+  nmap [Alt]j <Plug>(easymotion-j)
+  nmap [Alt]k <Plug>(easymotion-k)
+  nmap ' <Plug>(easymotion-prefix)
+
+  let g:EasyMotion_startofline = 0
+  let g:EasyMotion_show_prompt = 0
+  let g:EasyMotion_verbose = 0
+endif"}}}

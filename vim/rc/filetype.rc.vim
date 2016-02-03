@@ -13,8 +13,13 @@ augroup MyAutoCmd
         \let b:current_syntax='' | syntax enable
 
   " Auto reload VimScript.
-  autocmd BufWritePost,FileWritePost *.vim if &autoread
-        \ | source <afile> | echo 'source ' . bufname('%') | endif
+  autocmd BufWritePost,FileWritePost *.vim nested
+        \ if &autoread | source <afile> | echo 'source ' . bufname('%') |
+        \ endif
+
+  " Reload .vimrc automatically.
+  autocmd BufWritePost .vimrc,vimrc,*.rc.vim,neobundle*.toml nested
+        \ | source $MYVIMRC | redraw
 
   autocmd FileType gitcommit,qfreplace setlocal nofoldenable
 
@@ -91,26 +96,6 @@ let g:markdown_fenced_languages = [
       \  'xml',
       \  'vim',
       \]
-
-" Syntax highlight for user commands.
-augroup syntax-highlight-extends
-  autocmd!
-  autocmd Syntax vim
-        \ call s:set_syntax_of_user_defined_commands()
-augroup END
-
-function! s:set_syntax_of_user_defined_commands() "{{{
-  redir => _
-  silent! command
-  redir END
-
-  let command_names = join(map(split(_, '\n')[1:],
-        \ "matchstr(v:val, '[!\"b]*\\s\\+\\zs\\u\\w*\\ze')"))
-
-  if command_names == '' | return | endif
-
-  execute 'syntax keyword vimCommand ' . command_names
-endfunction"}}}
 
 function! s:my_on_filetype() abort "{{{
   " Disable automatically insert comment.

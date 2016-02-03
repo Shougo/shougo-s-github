@@ -21,6 +21,7 @@ on_i = 1
 [[plugins]]
 repo = 'Shougo/neocomplete.vim'
 depends = 'Shougo/context_filetype.vim'
+disabled = '!has("lua")'
 on_i = 1
 
 [[plugins]]
@@ -259,10 +260,6 @@ repo = 'hynek/vim-python-pep8-indent'
 on_ft = 'python'
 
 [[plugins]]
-repo = 'bkad/CamelCaseMotion'
-on_map = ['<Plug>CamelCaseMotion_w', '<Plug>CamelCaseMotion_b']
-
-[[plugins]]
 repo = 'aharisu/vim-gdev'
 on_ft = 'scheme'
 
@@ -473,5 +470,9 @@ on_ft = 'lua'
 
 [[plugins]]
 repo = 'haya14busa/vim-operator-flashy'
+on_map = '<Plug>'
+
+[[plugins]]
+repo = 'easymotion/vim-easymotion'
 on_map = '<Plug>'
 

@@ -71,10 +71,6 @@ setglobal grepprg=grep\ -inH
 " Exclude = from isfilename.
 setglobal isfname-==
 
-" Reload .vimrc automatically.
-autocmd MyAutoCmd BufWritePost .vimrc,vimrc,*.rc.vim,neobundle*.toml
-      \ source $MYVIMRC | redraw
-
 " Keymapping timeout.
 setglobal timeout timeoutlen=3000 ttimeoutlen=100
 

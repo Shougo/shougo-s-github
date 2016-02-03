@@ -15,18 +15,28 @@ let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
 " Use true color feature
 let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
 
-autocmd VimEnter * call s:init_neovim_qt()
+autocmd CursorHold * call s:init_neovim_qt()
 
 function! s:init_neovim_qt() abort "{{{
+  if !has('gui_running')
+    return
+  endif
+
   " Neovim-qt Guifont command
-  command -nargs=? Guifont call rpcnotify(0, 'Gui', 'SetFont', '<args>')
+  command! -nargs=? Guifont call rpcnotify(0, 'Gui', 'SetFont', '<args>')
         \ | let g:Guifont = '<args>'
 
   " Set the font
-  Guifont Courier 10 Pitch:h14
+  if !exists('g:Guifont')
+    Guifont Courier 10 Pitch:h14
+  endif
 
-  " Width of window.
-  setglobal columns=170
-  " Height of window.
-  setglobal lines=40
+  " if &columns < 170
+  "   " Width of window.
+  "   setglobal columns=170
+  " endif
+  " if &lines < 40
+  "   " Height of window.
+  "   setglobal lines=40
+  " endif
 endfunction"}}}
