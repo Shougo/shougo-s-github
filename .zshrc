@@ -1,4 +1,15 @@
 #####################################################################
+# init
+#####################################################################
+
+# zmodload zsh/zprof
+
+if [ ! -f ~/.zshrc.zwc -o ~/.zshrc -nt ~/.zshrc.zwc ]; then
+    zcompile ~/.zshrc
+fi
+
+
+#####################################################################
 # zplug
 #####################################################################
 
@@ -85,7 +96,10 @@ zstyle ':completion:*' keep-prefix
 zstyle ':completion:*' completer _oldlist _complete _match _ignored \
     _approximate _list _history
 
-autoload -U compinit; compinit -d ~/.zcompdump
+autoload -U compinit
+if [ ! -f ~/.zcompdump -o ~/.zshrc -nt ~/.zcompdump ]; then
+    compinit -d ~/.zcompdump
+fi
 
 # Original complete functions
 compdef '_files -g "*.hs"' runhaskell
@@ -334,6 +348,8 @@ alias where="command -v"
 alias j="jobs -l"
 
 alias vim='nvim'
+alias termite='termite --exec=zsh'
+alias lock='i3lock-wrapper'
 
 
 #####################################################################

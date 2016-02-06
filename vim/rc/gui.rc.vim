@@ -40,7 +40,7 @@ elseif has('mac')
 else
   " For Linux.
   setglobal guifontwide=VL\ Gothic\ 13
-  setglobal guifont=Courier\ 10\ Pitch\ 13.5
+  setglobal guifont=Courier\ 10\ Pitch\ 14
 endif"}}}
 
 "---------------------------------------------------------------------------

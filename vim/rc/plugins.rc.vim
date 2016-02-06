@@ -55,8 +55,7 @@ if neobundle#tap('echodoc.vim') "{{{
 endif "}}}
 
 if neobundle#tap('vimshell.vim') "{{{
-  " <C-Space>: switch to vimshell.
-  nmap <C-@>  <Plug>(vimshell_switch)
+  nmap [Space]s  <Plug>(vimshell_switch)
   nnoremap !  q:VimShellExecute<Space>
 
   let neobundle#hooks.on_source =

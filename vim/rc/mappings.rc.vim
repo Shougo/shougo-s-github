@@ -116,7 +116,7 @@ nnoremap <silent> [Space]cl
 nnoremap [Space]ar
       \ :<C-u>setlocal autoread<CR>
 " Set spell check.
-nnoremap [Space]sp
+nnoremap [Space]p
       \ :<C-u>call ToggleOption('spell')<CR>
 nnoremap [Space]w
       \ :<C-u>call ToggleOption('wrap')<CR>
