@@ -349,7 +349,7 @@ alias j="jobs -l"
 
 alias vim='nvim'
 alias termite='termite --exec=zsh'
-alias lock='i3lock-wrapper'
+alias lock='i3exit lock'
 
 
 #####################################################################

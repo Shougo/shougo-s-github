@@ -157,8 +157,7 @@ bar {
         tray_output primary
 }
 
-exec setxkbmap -option ctrl:nocaps
-exec setxkbmap -rules evdev -model us -layout us
+exec setxkbmap -option ctrl:nocaps -rules evdev -model us -layout us
 
 bindsym $mod+f exec pcmanfm
 bindsym $mod+v exec gvim
