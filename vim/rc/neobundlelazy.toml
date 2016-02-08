@@ -34,7 +34,6 @@ repo = 'Shougo/neosnippet.vim'
 depends = ['Shougo/neosnippet-snippets', 'Shougo/context_filetype.vim']
 on_i = 1
 on_ft = 'snippet'
-on_unite = ['neosnippet', 'neosnippet/user', 'neosnippet/runtime']
 
 [[plugins]]
 repo = 'Shougo/unite.vim'
@@ -43,12 +42,10 @@ on_cmd = 'Unite'
 
 [[plugins]]
 repo = 'Shougo/unite-build'
-on_unite = 'build'
 
 [[plugins]]
 repo = 'Shougo/neossh.vim'
 on_ft = ['vimfiler', 'vimshell']
-sources = 'ssh'
 
 [[plugins]]
 repo = 'Shougo/vimfiler.vim'
@@ -64,19 +61,18 @@ on_cmd = 'VimShell'
 
 [[plugins]]
 repo = 'Shougo/junkfile.vim'
-on_unite = 'junkfile'
+on_source = 'unite'
 
 [[plugins]]
 repo = 'Shougo/unite-outline'
-on_unite = 'outline'
+on_source = 'unite'
 
 [[plugins]]
 repo = 'Shougo/unite-sudo'
-on_unite = 'sudo'
 
 [[plugins]]
 repo = 'Shougo/unite-help'
-on_unite = 'help'
+on_source = 'unite'
 
 [[plugins]]
 repo = 'Shougo/neco-vim'
@@ -150,12 +146,11 @@ repo = 'thinca/vim-scouter'
 
 [[plugins]]
 repo = 'thinca/vim-ref'
-on_unite = 'ref'
+on_map = '<Plug>'
 
 [[plugins]]
 repo = 'thinca/vim-unite-history'
-on_unite = 'history/command'
-on_unite = 'history/search'
+on_source = 'unite'
 
 [[plugins]]
 repo = 'vim-ruby/vim-ruby'
@@ -164,13 +159,11 @@ on_ft = 'ruby'
 
 [[plugins]]
 repo = 'basyura/J6uil.vim'
-on_unite = 'J6uil'
 depends = 'mattn/webapi-vim'
-on_cmd = 'J6uil'
 
 [[plugins]]
 repo = 'tsukkee/unite-tag'
-on_unite = 'tag'
+on_source = 'unite'
 
 [[plugins]]
 repo = 'tyru/caw.vim'
@@ -205,10 +198,6 @@ repo = 'ujihisa/neco-look'
 on_i = 1
 
 [[plugins]]
-repo = 'ujihisa/unite-colorscheme'
-on_unite = 'colorscheme'
-
-[[plugins]]
 repo = 'vim-jp/vimdoc-ja'
 on_ft = 'help'
 
@@ -218,15 +207,14 @@ on_ft = 'help'
 
 [[plugins]]
 repo = 'osyo-manga/unite-quickfix'
-on_unite = 'quickfix'
 
 [[plugins]]
 repo = 'osyo-manga/unite-filetype'
-on_unite = 'filetype'
+on_source = 'unite'
 
 [[plugins]]
 repo = 'kana/vim-tabpagecd'
-on_unite = 'tab'
+on_source = 'unite'
 
 [[plugins]]
 repo = 'rhysd/accelerated-jk'
@@ -377,7 +365,7 @@ on_cmd = 'Rogue'
 
 [[plugins]]
 repo = 'sorah/unite-ghq'
-on_unite = 'ghq'
+on_source = 'unite'
 
 [[plugins]]
 repo = 'thinca/vim-themis'
@@ -399,8 +387,6 @@ on_cmd = 'Gita'
 repo = 'lambdalisue/vim-gista'
 on_cmd = 'Gista'
 on_map = '<Plug>'
-on_unite = 'gista'
-# rev = 'release'
 
 [[plugins]]
 repo = 'davidhalter/jedi-vim'

@@ -21,11 +21,8 @@ source ~/.zplug/zplug
 
 zplug "arzzen/calc.plugin.zsh"
 zplug "rimraf/k"
-zplug "zsh-users/zsh-completions"
 zplug "zsh-users/zsh-history-substring-search"
 zplug "zsh-users/zsh-syntax-highlighting"
-
-zplug "b4b4r07/enhancd", of:enhancd.sh
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then

@@ -47,7 +47,7 @@ let g:eskk#dictionary = {
       \   'sorted': 0,
       \   'encoding': 'utf-8',
       \}
-if has('nvim')
+if $TERM !~# '^rxvt' && (has('nvim') || !has('gui_running'))
   " For neovim only.
 
   " Use <> instead of ▽.

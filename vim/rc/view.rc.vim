@@ -155,11 +155,11 @@ if v:version >= 703
   setglobal colorcolumn=79
 
   " Use builtin function.
-  function! s:wcswidth(str)
+  function! s:wcswidth(str) abort
     return strwidth(a:str)
   endfunction
 else
-  function! s:wcswidth(str)
+  function! s:wcswidth(str) abort
     return len(a:str)
   endfunction
 endif
