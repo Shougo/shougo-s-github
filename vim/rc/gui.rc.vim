@@ -59,10 +59,14 @@ if has('win32') || has('win64')
         \ (&transparency != 255 && &transparency != 0)? 255 : 221
   nnoremap TT     :<C-u>TransparencyToggle<CR>
 else
-  " Width of window.
-  setglobal columns=170
-  " Height of window.
-  setglobal lines=40
+  if &columns < 170
+    " Width of window.
+    setglobal columns=170
+  endif
+  if &lines < 40
+    " Height of window.
+    setglobal lines=40
+  endif
 endif
 
 " Don't override colorscheme.

@@ -31,7 +31,7 @@ font pango:Droid Sans Mono 12
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec lilyterm
+bindsym $mod+Return exec st -e zsh
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -74,7 +74,7 @@ bindsym $mod+h split h
 #bindsym $mod+v split v
 
 # enter fullscreen mode for the focused container
-#bindsym $mod+f fullscreen toggle
+bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
@@ -159,8 +159,8 @@ bar {
 
 exec setxkbmap -option ctrl:nocaps -rules evdev -model us -layout us
 
-bindsym $mod+f exec pcmanfm
-bindsym $mod+v exec gvim
+bindsym $mod+p exec pcmanfm
+bindsym $mod+n exec nvim-qt
 bindsym $mod+x exec firefox
 
 workspace_layout tabbed
