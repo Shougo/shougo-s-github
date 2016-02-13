@@ -53,7 +53,8 @@ if neobundle#load_cache(
   let s:vimrc_local = findfile('vimrc_local.vim', '.;')
   if s:vimrc_local !=# ''
     " Load develop version.
-    call neobundle#local(fnamemodify(s:vimrc_local, ':h'), {},
+    call neobundle#local(fnamemodify(s:vimrc_local, ':h'),
+          \ {'frozen': 1},
           \ ['vim*', 'unite-*', 'deoplete-*', 'neco-*', '*.vim', '*.nvim'])
   endif
 
