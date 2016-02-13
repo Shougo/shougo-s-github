@@ -4,43 +4,43 @@
 
 "---------------------------------------------------------------------------
 " Fonts: "{{{
-setglobal ambiwidth=double
+SetFixer set ambiwidth=double
 
 if has('win32') || has('win64')
   " For Windows.
 
-  "setglobal guifontwide=VL\ Gothic:h11
-  setglobal guifontwide=Ricty:h12
+  "SetFixer set guifontwide=VL\ Gothic:h11
+  SetFixer set guifontwide=Ricty:h12
 
-  setglobal guifont=Ricty:h12
-  "setglobal guifont=Anonymous\ Pro:h11
-  "setglobal guifont=Courier\ New:h11
-  "setglobal guifont=MS\ Gothic:h11
-  "setglobal guifont=VL\ Gothic:h11
-  "setglobal guifont=Consolas:h12
-  "setglobal guifont=Bitstream\ Vera\ Sans\ Mono:h11
-  "setglobal guifont=Inconsolata:h12
-  "setglobal guifont=Terminal:h10:cSHIFTJIS
+  SetFixer set guifont=Ricty:h12
+  "SetFixer set guifont=Anonymous\ Pro:h11
+  "SetFixer set guifont=Courier\ New:h11
+  "SetFixer set guifont=MS\ Gothic:h11
+  "SetFixer set guifont=VL\ Gothic:h11
+  "SetFixer set guifont=Consolas:h12
+  "SetFixer set guifont=Bitstream\ Vera\ Sans\ Mono:h11
+  "SetFixer set guifont=Inconsolata:h12
+  "SetFixer set guifont=Terminal:h10:cSHIFTJIS
 
   " Number of pixel lines inserted between characters.
-  setglobal linespace=2
+  SetFixer set linespace=2
 
   if has('patch-7.4.394')
     " Use DirectWrite
-    setglobal renderoptions=type:directx,gammma:2.2,mode:3
+    SetFixer set renderoptions=type:directx,gammma:2.2,mode:3
   endif
 
   if has('kaoriya')
     " For Kaoriya only.
-    setglobal ambiwidth=auto
+    SetFixer set ambiwidth=auto
   endif
 elseif has('mac')
   " For Mac.
-  setglobal guifont=Osaka－等幅:h14
+  SetFixer set guifont=Osaka－等幅:h14
 else
   " For Linux.
-  setglobal guifontwide=VL\ Gothic\ 13
-  setglobal guifont=Courier\ 10\ Pitch\ 14
+  SetFixer set guifontwide=VL\ Gothic\ 13
+  SetFixer set guifont=Courier\ 10\ Pitch\ 14
 endif"}}}
 
 "---------------------------------------------------------------------------
@@ -48,9 +48,9 @@ endif"}}}
 "
 if has('win32') || has('win64')
   " Width of window.
-  setglobal columns=230
+  SetFixer set columns=230
   " Height of window.
-  setglobal lines=55
+  SetFixer set lines=55
 
   " Set transparency.
   "autocmd GuiEnter * set transparency=221
@@ -61,11 +61,11 @@ if has('win32') || has('win64')
 else
   if &columns < 170
     " Width of window.
-    setglobal columns=170
+    SetFixer set columns=170
   endif
   if &lines < 40
     " Height of window.
-    setglobal lines=40
+    SetFixer set lines=40
   endif
 endif
 
@@ -95,13 +95,13 @@ endif
 "---------------------------------------------------------------------------
 " Mouse:"{{{
 "
-setglobal mouse=
-setglobal mousemodel=
+SetFixer set mouse=
+SetFixer set mousemodel=
 
 " Don't focus the window when the mouse pointer is moved.
-setglobal nomousefocus
+SetFixer set nomousefocus
 " Hide mouse pointer on insert mode.
-setglobal mousehide
+SetFixer set mousehide
 "}}}
 
 "---------------------------------------------------------------------------
@@ -109,26 +109,26 @@ setglobal mousehide
 "
 
 " Hide toolbar and menus.
-setglobal guioptions-=Tt
-setglobal guioptions-=m
+SetFixer set guioptions-=Tt
+SetFixer set guioptions-=m
 " Scrollbar is always off.
-setglobal guioptions-=rL
+SetFixer set guioptions-=rL
 " Not guitablabel.
-setglobal guioptions-=e
+SetFixer set guioptions-=e
 
 " Confirm without window.
-setglobal guioptions+=c
+SetFixer set guioptions+=c
 "}}}
 
 "---------------------------------------------------------------------------
 " Views:"{{{
 "
 " Don't highlight search result.
-setglobal nohlsearch
+SetFixer set nohlsearch
 
 " Don't flick cursor.
-setglobal guicursor&
-setglobal guicursor+=a:blinkon0
+SetFixer set guicursor&
+SetFixer set guicursor+=a:blinkon0
 "}}}
 
 " vim: foldmethod=marker

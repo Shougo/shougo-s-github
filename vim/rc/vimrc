@@ -7,7 +7,7 @@
 "
 
 if &compatible
-  setglobal nocompatible
+  set nocompatible
 endif
 
 function! s:source_rc(path) abort
@@ -30,6 +30,10 @@ function! IsMac() abort
       \   (!executable('xdg-open') &&
       \     system('uname') =~? '^darwin'))
 endfunction
+
+command! -nargs=1 SetFixer execute substitute(<q-args>,
+      \ '^\s*\<set\%[global]\>',
+      \ (has('vim_starting') ? 'set' : 'setglobal'), '')
 
 call s:source_rc('init.rc.vim')
 
@@ -85,18 +89,18 @@ call s:source_rc('encoding.rc.vim')
 "
 
 " Ignore the case of normal letters.
-setglobal ignorecase
+SetFixer set ignorecase
 " If the search pattern contains upper case characters, override ignorecase
 " option.
-setglobal smartcase
+SetFixer set smartcase
 
 " Enable incremental search.
-setglobal incsearch
+SetFixer set incsearch
 " Don't highlight search result.
-setglobal nohlsearch
+SetFixer set nohlsearch
 
 " Searches wrap around the end of the file.
-setglobal wrapscan
+SetFixer set wrapscan
 
 "---------------------------------------------------------------------------
 " Edit:
@@ -154,11 +158,11 @@ endif
 "
 
 " If true Vim master, use English help file.
-setglobal helplang& helplang=en,ja
+SetFixer set helplang& helplang=en,ja
 
 " Default home directory.
 let t:cwd = getcwd()
 
-setglobal secure
+SetFixer set secure
 
 " vim: foldmethod=marker

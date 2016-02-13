@@ -14,7 +14,7 @@ let python_highlight_all = 1
 " netrw.vim"{{{
 let g:netrw_list_hide= '*.swp'
 " Change default directory.
-setglobal browsedir=current
+SetFixer set browsedir=current
 "}}}
 
 if neobundle#tap('deoplete.nvim') && has('nvim') "{{{
@@ -474,9 +474,9 @@ if neobundle#tap('vim-themis') "{{{
         \ neobundle#util#uniq(insert(
         \    neobundle#util#split_envpath($PATH), s:bin)), $PATH, s:bin)
   let $THEMIS_HOME = neobundle#get('vim-themis').rtp
-  let $THEMIS_VIM = printf('%s/%s',
-        \ fnamemodify(exepath(v:progpath), ':h'),
-        \ (has('nvim') ? 'nvim' : 'vim'))
+  " let $THEMIS_VIM = printf('%s/%s',
+  "       \ fnamemodify(exepath(v:progpath), ':h'),
+  "       \ (has('nvim') ? 'nvim' : 'vim'))
 
   unlet s:bin
 
@@ -601,4 +601,8 @@ if neobundle#tap('vim-easymotion') "{{{
   let g:EasyMotion_startofline = 0
   let g:EasyMotion_show_prompt = 0
   let g:EasyMotion_verbose = 0
+endif"}}}
+
+if neobundle#tap('vim-vimhelplint') "{{{
+  autocmd MyAutoCmd FileType help  nnoremap <silent><buffer> ,r  :<C-u>VimhelpLint!<CR>
 endif"}}}

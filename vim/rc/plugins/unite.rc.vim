@@ -149,7 +149,7 @@ function! s:unite_my_settings() abort "{{{
         \ unite#smart_map('P', unite#do_action('insert'))
 
   let unite = unite#get_current_unite()
-  if unite.profile_name ==# '^search'
+  if unite.profile_name ==# '^search' || unite.profile_name ==# '^grep'
     nnoremap <silent><buffer><expr> r     unite#do_action('replace')
   else
     nnoremap <silent><buffer><expr> r     unite#do_action('rename')

@@ -23,6 +23,7 @@ zplug "arzzen/calc.plugin.zsh"
 zplug "rimraf/k"
 zplug "zsh-users/zsh-history-substring-search"
 zplug "zsh-users/zsh-syntax-highlighting"
+zplug "b4b4r07/auto-fu.zsh"
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
@@ -107,6 +108,13 @@ compdef _tex platex
 cdpath=($HOME)
 
 zstyle ':completion:*:processes' command "ps -u $USER -o pid,stat,%cpu,%mem,cputime,command"
+
+# auto-fu.zsh
+function zle-line-init () {
+    auto-fu-init
+}
+zle -N zle-line-init
+zstyle ':completion:*' completer _oldlist _complete
 
 
 #####################################################################

@@ -4,7 +4,7 @@
 
 if exists('&regexpengine')
   " Use old regexp engine.
-  " setglobal regexpengine=1
+  " SetFixer set regexpengine=1
 endif
 
 " Use English interface.
@@ -32,7 +32,7 @@ xnoremap ,  <Nop>
 
 if IsWindows()
   " Exchange path separator.
-  setglobal shellslash
+  SetFixer set shellslash
 endif
 
 let $CACHE = expand('~/.cache')
@@ -61,7 +61,7 @@ endif
 " Load neobundle.
 let s:neobundle_dir = finddir('neobundle.vim', '.;')
 if s:neobundle_dir != ''
-  execute 'setglobal runtimepath^=' .
+  execute 'SetFixer set runtimepath^=' .
         \ fnamemodify(s:neobundle_dir, ':p')
 elseif &runtimepath !~ '/neobundle.vim'
   let s:neobundle_dir = expand('$CACHE/neobundle').'/neobundle.vim'
@@ -72,23 +72,19 @@ elseif &runtimepath !~ '/neobundle.vim'
           \ s:neobundle_dir
   endif
 
-  execute 'setglobal runtimepath^=' . s:neobundle_dir
+  execute 'SetFixer set runtimepath^=' . s:neobundle_dir
 endif
 "}}}
 
 let g:neobundle#default_options = {}
 " let g:neobundle#default_options._ = { 'verbose' : 1, 'focus' : 1 }
 
-" Apply new setglobal variables
-autocmd MyAutoCmd VimEnter *
-      \ if argc() == 0 && bufname('%') ==# '' | enew | endif
-
 "---------------------------------------------------------------------------
 " Disable default plugins
 
 " Disable menu.vim
 if has('gui_running')
-  setglobal guioptions=Mc
+  SetFixer set guioptions=Mc
 endif
 
 let g:loaded_gzip              = 1

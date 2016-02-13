@@ -33,10 +33,10 @@ function! s:init_neovim_qt() abort "{{{
 
   " if &columns < 170
   "   " Width of window.
-  "   setglobal columns=170
+  "   SetFixer set columns=170
   " endif
   " if &lines < 40
   "   " Height of window.
-  "   setglobal lines=40
+  "   SetFixer set lines=40
   " endif
 endfunction"}}}

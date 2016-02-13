@@ -3,7 +3,7 @@
 "
 
 " Enable smart indent.
-setglobal autoindent smartindent
+SetFixer set autoindent smartindent
 
 augroup MyAutoCmd
   autocmd FileType,Syntax,BufEnter,BufWinEnter * call s:my_on_filetype()
@@ -14,7 +14,7 @@ augroup MyAutoCmd
 
   " Auto reload VimScript.
   autocmd BufWritePost,FileWritePost *.vim nested
-        \ if &autoread | source <afile> | echo 'source ' . bufname('%') |
+        \ if &l:autoread > 0 | source <afile> | echo 'source ' . bufname('%') |
         \ endif
 
   " Reload .vimrc automatically.
@@ -77,7 +77,7 @@ let g:markdown_fenced_languages = []
 
 " Go
 if $GOROOT != ''
-  setglobal runtimepath+=$GOROOT/misc/vim
+  SetFixer set runtimepath+=$GOROOT/misc/vim
 endif
 
 " Tex
@@ -124,9 +124,9 @@ endfunction "}}}
 
 " Do not display completion messages
 " Patch: https://groups.google.com/forum/#!topic/vim_dev/WeBBjkXE8H8
-setglobal noshowmode
+SetFixer set noshowmode
 try
-  setglobal shortmess+=c
+  SetFixer set shortmess+=c
 catch /^Vim\%((\a\+)\)\=:E539: Illegal character/
   autocmd MyAutoCmd VimEnter *
         \ highlight ModeMsg guifg=bg guibg=bg |

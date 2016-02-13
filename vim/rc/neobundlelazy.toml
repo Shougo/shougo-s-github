@@ -462,3 +462,13 @@ on_map = '<Plug>'
 repo = 'easymotion/vim-easymotion'
 on_map = '<Plug>'
 
+[[plugins]]
+repo = 'will133/vim-dirdiff'
+
+[[plugins]]
+repo = 'lambdalisue/vim-protocol'
+on_path = '^https\?://'
+
+[[plugins]]
+repo = 'machakann/vim-vimhelplint'
+
