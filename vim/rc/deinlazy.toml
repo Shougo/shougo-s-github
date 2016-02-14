@@ -43,6 +43,9 @@ repo = 'Shougo/unite.vim'
 depends = 'neomru.vim'
 
 [[plugins]]
+repo = 'Shougo/context_filetype.vim'
+
+[[plugins]]
 repo = 'Shougo/unite-build'
 
 [[plugins]]
