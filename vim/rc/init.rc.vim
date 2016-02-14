@@ -58,26 +58,24 @@ if IsWindows()
         \ expand('~/.vim/after')], ',')
 endif
 
-" Load neobundle.
-let s:neobundle_dir = finddir('neobundle.vim', '.;')
-if s:neobundle_dir != ''
-  execute 'SetFixer set runtimepath^=' .
-        \ fnamemodify(s:neobundle_dir, ':p')
-elseif &runtimepath !~ '/neobundle.vim'
-  let s:neobundle_dir = expand('$CACHE/neobundle').'/neobundle.vim'
+" Load dein.
+let s:dein_dir = finddir('dein.vim', '.;')
+if s:dein_dir != '' || &runtimepath !~ '/dein.vim'
+  if s:dein_dir == '' && &runtimepath !~ '/dein.vim'
+    let s:dein_dir = expand('$CACHE/dein').'/dein.vim'
 
-  if !isdirectory(s:neobundle_dir)
-    execute printf('!git clone %s://github.com/Shougo/neobundle.vim.git',
-          \ (exists('$http_proxy') ? 'https' : 'git'))
-          \ s:neobundle_dir
+    if !isdirectory(s:dein_dir)
+      execute '!git clone https://github.com/Shougo/dein.vim' s:dein_dir
+    endif
   endif
 
-  execute 'SetFixer set runtimepath^=' . s:neobundle_dir
+  execute 'SetFixer set runtimepath^=' . fnamemodify(s:dein_dir, ':p')
 endif
+
+"profile start profile.txt
+"profile func dein#*
 "}}}
 
-let g:neobundle#default_options = {}
-" let g:neobundle#default_options._ = { 'verbose' : 1, 'focus' : 1 }
 
 "---------------------------------------------------------------------------
 " Disable default plugins

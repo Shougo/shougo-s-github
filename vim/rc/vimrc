@@ -37,46 +37,40 @@ command! -nargs=1 SetFixer execute substitute(<q-args>,
 
 call s:source_rc('init.rc.vim')
 
-call neobundle#begin(expand('$CACHE/neobundle'))
+call dein#begin(expand('$CACHE/dein'))
 
-if neobundle#load_cache(
-      \ expand('<sfile>'),
-      \ '~/.vim/rc/neobundle.toml',
-      \ '~/.vim/rc/neobundlelazy.toml')
-  NeoBundleFetch 'Shougo/neobundle.vim'
+let s:toml_path = '~/.vim/rc/dein.toml'
+let s:toml_lazy_path = '~/.vim/rc/deinlazy.toml'
+if dein#load_cache([expand('<sfile>'), s:toml_path, s:toml_lazy_path])
+  call dein#add('Shougo/dein.vim', {'rtp': ''})
 
-  call neobundle#load_toml(
-        \ '~/.vim/rc/neobundle.toml')
-  call neobundle#load_toml(
-        \ '~/.vim/rc/neobundlelazy.toml', {'lazy' : 1})
+  call dein#load_toml(s:toml_path)
+  call dein#load_toml(s:toml_lazy_path, {'lazy' : 1})
 
   let s:vimrc_local = findfile('vimrc_local.vim', '.;')
   if s:vimrc_local !=# ''
-    " Load develop version.
-    call neobundle#local(fnamemodify(s:vimrc_local, ':h'),
-          \ {'frozen': 1},
+    " Load develop version plugins.
+    call dein#local(fnamemodify(s:vimrc_local, ':h'), {'frozen': 1},
           \ ['vim*', 'unite-*', 'deoplete-*', 'neco-*', '*.vim', '*.nvim'])
   endif
 
-  NeoBundleSaveCache
+  call dein#save_cache()
 endif
 
-NeoBundle 'honza/vim-snippets'
-
-" NeoBundle configurations.
+" dein configurations.
 
 call s:source_rc('plugins.rc.vim')
 
-call neobundle#end()
+call dein#end()
 
 filetype plugin indent on
 
 " Enable syntax color.
 syntax enable
 
-if !has('vim_starting')
+if dein#check_install()
   " Installation check.
-  NeoBundleCheck
+  call dein#install()
 endif
 
 "---------------------------------------------------------------------------

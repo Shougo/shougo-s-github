@@ -1,6 +1,6 @@
 [[plugins]]
 repo = 'Shougo/tabpagebuffer.vim'
-on_ft = 'all'
+on_path = '.*'
 
 [[plugins]]
 repo = 'Shougo/neopairs.vim'
@@ -8,11 +8,11 @@ on_i = 1
 
 [[plugins]]
 repo = 'Shougo/neomru.vim'
-on_ft = 'all'
+on_path = '.*'
 
 [[plugins]]
 repo = 'Shougo/neoyank.vim'
-on_ft = 'all'
+on_path = '.*'
 
 [[plugins]]
 repo = 'Shougo/echodoc.vim'
@@ -20,25 +20,27 @@ on_i = 1
 
 [[plugins]]
 repo = 'Shougo/neocomplete.vim'
-depends = 'Shougo/context_filetype.vim'
+depends = 'context_filetype.vim'
 disabled = '!has("lua")'
 on_i = 1
 
 [[plugins]]
 repo = 'Shougo/deoplete.nvim'
-depends = 'Shougo/context_filetype.vim'
+depends = 'context_filetype.vim'
 on_i = 1
 
 [[plugins]]
 repo = 'Shougo/neosnippet.vim'
-depends = ['Shougo/neosnippet-snippets', 'Shougo/context_filetype.vim']
+depends = ['neosnippet-snippets', 'context_filetype.vim']
 on_i = 1
 on_ft = 'snippet'
 
 [[plugins]]
+repo = 'Shougo/neosnippet-snippets'
+
+[[plugins]]
 repo = 'Shougo/unite.vim'
-depends = 'Shougo/neomru.vim'
-on_cmd = 'Unite'
+depends = 'neomru.vim'
 
 [[plugins]]
 repo = 'Shougo/unite-build'
@@ -49,15 +51,13 @@ on_ft = ['vimfiler', 'vimshell']
 
 [[plugins]]
 repo = 'Shougo/vimfiler.vim'
-depends = 'Shougo/unite.vim'
+depends = 'unite.vim'
 on_map = '<Plug>'
 on_path = '.*'
-on_cmd = 'VimFiler'
 
 [[plugins]]
 repo = 'Shougo/vimshell.vim'
 on_map = '<Plug>'
-on_cmd = 'VimShell'
 
 [[plugins]]
 repo = 'Shougo/junkfile.vim'
@@ -81,7 +81,7 @@ on_i = 1
 
 [[plugins]]
 repo = 'Shougo/neoinclude.vim'
-on_ft = 'all'
+on_path = '.*'
 
 [[plugins]]
 repo = 'Shougo/neco-syntax'
@@ -105,7 +105,6 @@ on_ft = 'vimshell'
 
 [[plugins]]
 repo = 'vim-jp/vital.vim'
-on_cmd = 'Vitalize'
 
 [[plugins]]
 repo = 'hail2u/vim-css3-syntax'
@@ -131,7 +130,6 @@ on_map = '<Plug>'
 
 [[plugins]]
 repo = 'thinca/vim-prettyprint'
-on_cmd = 'PP'
 
 [[plugins]]
 repo = 'thinca/vim-qfreplace'
@@ -159,7 +157,7 @@ on_ft = 'ruby'
 
 [[plugins]]
 repo = 'basyura/J6uil.vim'
-depends = 'mattn/webapi-vim'
+depends = 'webapi-vim'
 
 [[plugins]]
 repo = 'tsukkee/unite-tag'
@@ -180,7 +178,6 @@ on_map = '<Plug>'
 [[plugins]]
 repo = 'tyru/restart.vim'
 gui = 1
-on_cmd = 'Restart'
 
 [[plugins]]
 repo = 'tyru/winmove.vim'
@@ -299,7 +296,7 @@ on_ft = 'ruby'
 
 [[plugins]]
 repo = 'syngan/vim-vimlint'
-depends = 'ynkdir/vim-vimlparser'
+depends = 'vim-vimlparser'
 
 # Operators
 [[plugins]]
@@ -307,12 +304,12 @@ repo = 'kana/vim-operator-user'
 
 [[plugins]]
 repo = 'kana/vim-operator-replace'
-depends = 'kana/vim-operator-user'
+depends = 'vim-operator-user'
 on_map = [['nx', '<Plug>']]
 
 [[plugins]]
 repo = 'rhysd/vim-operator-surround'
-depends = 'kana/vim-operator-user'
+depends = 'vim-operator-user'
 on_map = '<Plug>'
 
 [[plugins]]
@@ -325,7 +322,7 @@ repo = 'kana/vim-textobj-user'
 
 [[plugins]]
 repo = 'osyo-manga/vim-textobj-multiblock'
-depends = 'kana/vim-textobj-user'
+depends = 'vim-textobj-user'
 on_map = [['ox', '<Plug>']]
 
 [[plugins]]
@@ -347,7 +344,7 @@ on_ft = ['markdown', 'mkd']
 [[plugins]]
 repo = 'kannokanno/previm'
 on_ft = ['markdown', 'rst', 'mkd']
-depends = 'tyru/open-browser.vim'
+depends = 'open-browser.vim'
 
 [[plugins]]
 repo = 'Kocha/vim-unite-tig'
@@ -361,7 +358,6 @@ repo = 'osyo-manga/unite-vimpatches'
 
 [[plugins]]
 repo = 'katono/rogue.vim'
-on_cmd = 'Rogue'
 
 [[plugins]]
 repo = 'sorah/unite-ghq'
@@ -381,11 +377,9 @@ on_ft = 'toml'
 
 [[plugins]]
 repo = 'lambdalisue/vim-gita'
-on_cmd = 'Gita'
 
 [[plugins]]
 repo = 'lambdalisue/vim-gista'
-on_cmd = 'Gista'
 on_map = '<Plug>'
 
 [[plugins]]
@@ -451,7 +445,7 @@ on_path = '.*'
 
 [[plugins]]
 repo = 'xolox/vim-lua-ftplugin'
-depends = 'xolox/vim-misc'
+depends = 'vim-misc'
 on_ft = 'lua'
 
 [[plugins]]
