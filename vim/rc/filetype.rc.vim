@@ -28,7 +28,7 @@ augroup MyAutoCmd
   autocmd FileType python setlocal foldmethod=indent
 
   " Update filetype.
-  autocmd BufWritePost *
+  autocmd BufWritePost * nested
   \ if &l:filetype ==# '' || exists('b:ftdetect')
   \ |   unlet! b:ftdetect
   \ |   filetype detect

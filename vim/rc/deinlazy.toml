@@ -224,14 +224,6 @@ on_map = '<Plug>'
 repo = 'vim-jp/autofmt'
 
 [[plugins]]
-repo = 'godlygeek/csapprox'
-terminal = 1
-
-[[plugins]]
-repo = 'thinca/vim-guicolorscheme'
-terminal = 1
-
-[[plugins]]
 repo = 'benjifisher/matchit.zip'
 on_map = [['nxo', '%', 'g%']]
 
@@ -418,9 +410,9 @@ build = 'npm install'
 repo = 'mxw/vim-jsx'
 on_ft = 'javascript'
 
-[[plugins]]
-repo = 'osyo-manga/vim-marching'
-on_ft = ['c', 'cpp']
+# [[plugins]]
+# repo = 'osyo-manga/vim-marching'
+# on_ft = ['c', 'cpp']
 
 [[plugins]]
 repo = 'artur-shaik/vim-javacomplete2'

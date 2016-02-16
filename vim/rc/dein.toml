@@ -2,3 +2,11 @@
 repo = 'Shougo/vimproc.vim'
 build = 'make'
 
+[[plugins]]
+repo = 'godlygeek/csapprox'
+if = "!has('gui_running') || has('nvim')"
+
+[[plugins]]
+repo = 'thinca/vim-guicolorscheme'
+if = "!has('gui_running') || has('nvim')"
+

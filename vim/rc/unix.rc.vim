@@ -73,7 +73,6 @@ endif
 " Colorscheme
 if has('gui')
   " Use CSApprox.vim
-  NeoBundleSource csapprox
 
   " Convert colorscheme in Konsole.
   let g:CSApprox_konsole = 1
@@ -89,9 +88,6 @@ elseif has('nvim') && exists('$NVIM_TUI_ENABLE_TRUE_COLOR')
   " Use true color feature
   colorscheme candy
 else
-  " Use guicolorscheme.vim
-  NeoBundleSource vim-guicolorscheme
-
   autocmd MyAutoCmd VimEnter *
         \ if !exists('g:colors_name') | GuiColorScheme candy
 endif

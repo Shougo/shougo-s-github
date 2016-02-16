@@ -405,7 +405,7 @@ endif "}}}
 
 if dein#tap('vim-themis') "{{{
   " Set to $PATH.
-  let s:bin = dein#get('vim-themis').rtp . 'bin'
+  let s:bin = dein#get('vim-themis').rtp . '/bin'
 
   function! s:split_envpath(path) abort "{{{
     let delimiter = has('win32') ? ';' : ':'
