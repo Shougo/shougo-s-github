@@ -86,7 +86,7 @@ if dein#tap('unite.vim') "{{{
   nnoremap <silent> [Window]s
         \ :<C-u>Unite -buffer-name=files -no-split -multi-line -unique -silent
         \ jump_point file_point file_mru
-        \ `finddir('.git', ';') != '' ? 'file_rec/git' : 'file_rec/async'`
+        \ `finddir('.git', ';') != '' ? 'file_rec/git' : ''`
         \ buffer_tab:- file file/new<CR>
 
   nnoremap <silent> [Window]r
@@ -539,4 +539,8 @@ endif"}}}
 
 if dein#tap('vim-vimhelplint') "{{{
   autocmd MyAutoCmd FileType help  nnoremap <silent><buffer> ,r  :<C-u>VimhelpLint!<CR>
+endif"}}}
+
+if dein#tap('w3m.vim') "{{{
+  nnoremap W     :<C-u>W3m<Space><C-r>+
 endif"}}}

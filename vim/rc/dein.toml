@@ -10,3 +10,150 @@ if = "!has('gui_running') || has('nvim')"
 repo = 'thinca/vim-guicolorscheme'
 if = "!has('gui_running') || has('nvim')"
 
+[[plugins]]
+repo = 'thinca/vim-unite-history'
+on_source = 'unite.vim'
+
+[[plugins]]
+repo = 'osyo-manga/unite-filetype'
+
+[[plugins]]
+repo = 'hail2u/vim-css3-syntax'
+
+[[plugins]]
+repo = 'kana/vim-filetype-haskell'
+on_ft = 'haskell'
+
+[[plugins]]
+repo = 'Shougo/unite-sudo'
+
+[[plugins]]
+repo = 'mxw/vim-jsx'
+on_ft = 'javascript'
+
+[[plugins]]
+repo = 'itchyny/vim-haskell-indent'
+on_ft = 'haskell'
+
+[[plugins]]
+repo = 'udalov/kotlin-vim'
+on_ft = 'kotlin'
+
+[[plugins]]
+repo = 'shawncplus/phpcomplete.vim'
+on_ft = 'php'
+
+[[plugins]]
+repo = 'jiangmiao/simple-javascript-indenter'
+on_ft = 'javascript'
+
+[[plugins]]
+repo = 'thinca/vim-ft-diff_fold'
+on_ft = 'diff'
+
+[[plugins]]
+repo = 'thinca/vim-ft-help_fold'
+on_ft = 'help'
+
+[[plugins]]
+repo = 'yomi322/vim-gitcomplete'
+on_ft = 'vimshell'
+
+[[plugins]]
+repo = 'vim-jp/cpp-vim'
+on_ft = 'cpp'
+
+[[plugins]]
+repo = 'cespare/vim-toml'
+on_ft = 'toml'
+
+[[plugins]]
+repo = 'elzr/vim-json'
+on_ft = 'json'
+
+[[plugins]]
+repo = 'vim-jp/autofmt'
+
+[[plugins]]
+repo = 'kana/vim-textobj-user'
+
+[[plugins]]
+repo = 'hynek/vim-python-pep8-indent'
+on_ft = 'python'
+
+# Operators
+[[plugins]]
+repo = 'kana/vim-operator-user'
+
+[[plugins]]
+repo = 'rcmdnk/vim-markdown'
+on_ft = ['markdown', 'mkd']
+
+[[plugins]]
+repo = 'marijnh/tern_for_vim'
+on_ft = 'javascript'
+build = 'npm install'
+
+[[plugins]]
+repo = 'vim-ruby/vim-ruby'
+on_map = '<Plug>'
+on_ft = 'ruby'
+
+[[plugins]]
+repo = 'osyo-manga/unite-quickfix'
+
+[[plugins]]
+repo = 'Shougo/neosnippet-snippets'
+
+[[plugins]]
+repo = 'sorah/unite-ghq'
+on_source = 'unite.vim'
+
+[[plugins]]
+repo = 'thinca/vim-themis'
+on_ft = 'vim'
+
+[[plugins]]
+repo = 'osyo-manga/unite-vimpatches'
+
+[[plugins]]
+repo = 'Shougo/unite-build'
+
+[[plugins]]
+repo = 'kana/vim-smartchr'
+on_i = 1
+
+[[plugins]]
+repo = 'ujihisa/vimshell-ssh'
+on_ft = 'vimshell'
+
+[[plugins]]
+repo = 'Shougo/unite-help'
+on_source = 'unite.vim'
+
+[[plugins]]
+repo = 'mattn/webapi-vim'
+
+[[plugins]]
+repo = 'jelera/vim-javascript-syntax'
+on_ft = 'javascript'
+
+[[plugins]]
+repo = 'JesseKPhillips/d.vim'
+on_ft = 'd'
+
+[[plugins]]
+repo = 'nsf/gocode'
+rtp = 'vim'
+on_ft = 'go'
+
+[[plugins]]
+repo = 'vim-jp/vimdoc-ja'
+on_ft = 'help'
+
+[[plugins]]
+repo = 'machakann/vim-vimhelplint'
+
+[[plugins]]
+repo = 'Kocha/vim-unite-tig'
+
