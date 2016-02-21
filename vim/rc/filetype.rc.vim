@@ -120,6 +120,17 @@ function! s:my_on_filetype() abort "{{{
       setlocal colorcolumn=
     endif
   endif
+
+  if &l:filetype != '' && bufname('%') != ''
+    redir => filetype_out
+    silent! filetype
+    redir END
+    if filetype_out =~# 'OFF'
+      " Lazy loading
+      silent! filetype plugin indent on
+      syntax enable
+    endif
+  endif
 endfunction "}}}
 
 " Do not display completion messages

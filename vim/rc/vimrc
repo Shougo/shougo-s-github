@@ -63,10 +63,11 @@ call s:source_rc('plugins.rc.vim')
 
 call dein#end()
 
-filetype plugin indent on
+" Filetype loading is too slow
+" filetype plugin indent on
 
 " Enable syntax color.
-syntax enable
+" syntax enable
 
 if dein#check_install()
   " Installation check.

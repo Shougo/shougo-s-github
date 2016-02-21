@@ -316,3 +316,7 @@ on_path = '^https\?://'
 [[plugins]]
 repo = 'yuratomo/w3m.vim'
 
+[[plugins]]
+repo = 'kana/vim-smartchr'
+on_i = 1
+

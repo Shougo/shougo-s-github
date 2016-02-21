@@ -120,10 +120,6 @@ repo = 'osyo-manga/unite-vimpatches'
 repo = 'Shougo/unite-build'
 
 [[plugins]]
-repo = 'kana/vim-smartchr'
-on_i = 1
-
-[[plugins]]
 repo = 'ujihisa/vimshell-ssh'
 on_ft = 'vimshell'
 

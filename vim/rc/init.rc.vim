@@ -73,8 +73,8 @@ if s:dein_dir != '' || &runtimepath !~ '/dein.vim'
   execute 'SetFixer set runtimepath^=' . fnamemodify(s:dein_dir, ':p')
 endif
 
-"profile start profile.txt
-"profile func dein#*
+" profile start profile.txt
+" profile func dein#*
 "}}}
 
 
