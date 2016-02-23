@@ -19,10 +19,13 @@ SetFixer set shiftround
 SetFixer set modeline
 
 " Use clipboard register.
-if has('unnamedplus')
-  SetFixer set clipboard& clipboard+=unnamedplus
-else
-  SetFixer set clipboard& clipboard+=unnamed
+
+if (!has('nvim') || $DISPLAY != '') && has('clipboard')
+  if has('unnamedplus')
+    SetFixer set clipboard& clipboard+=unnamedplus
+  else
+    SetFixer set clipboard& clipboard+=unnamed
+  endif
 endif
 
 " Enable backspace delete indent and newline.

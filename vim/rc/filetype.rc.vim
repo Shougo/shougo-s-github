@@ -121,7 +121,7 @@ function! s:my_on_filetype() abort "{{{
     endif
   endif
 
-  if &l:filetype != '' && bufname('%') != ''
+  if &l:filetype != '' || bufname('%') != ''
     redir => filetype_out
     silent! filetype
     redir END
