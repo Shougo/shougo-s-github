@@ -80,6 +80,8 @@ if has('gui')
         \ 'bold' : 'bold',
         \ 'italic' : '', 'sp' : ''
         \ }
+
+  runtime! plugin/CSApprox.vim
   if !exists('g:colors_name')
     execute 'colorscheme' globpath(&runtimepath,
           \ 'colors/candy.vim') != '' ? 'candy' : 'desert'

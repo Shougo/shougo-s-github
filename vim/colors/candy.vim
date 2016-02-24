@@ -92,3 +92,9 @@ highlight PmenuThumb               guifg=#3cac3c
 highlight TablineSel               gui=NONE guifg=#f0f0f8 guibg=#0060c0
 highlight Tabline                  gui=NONE guifg=#252525 guibg=#c8c8d8
 highlight TablineFill              gui=NONE guifg=#252525 guibg=#c8c8d8
+
+if has('nvim')
+  highlight EndOfBuffer            gui=NONE guifg=#101010
+  highlight TermCursor             gui=NONE guibg=#cc22a0
+  highlight TermCursorNC           gui=NONE guibg=#666666
+endif
