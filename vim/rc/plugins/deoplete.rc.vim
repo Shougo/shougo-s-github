@@ -60,5 +60,18 @@ let g:deoplete#omni#functions.lua = 'xolox#lua#omnifunc'
 let g:deoplete#enable_refresh_always = 1
 let g:deoplete#enable_camel_case = 1
 
+" deoplete-clang "{{{
+" libclang shared library path
+let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
+
+" clang builtin header path
 let g:deoplete#sources#clang#clang_header = '/usr/include/clang'
 
+" libclang default compile flags
+let g:deoplete#sources#clang#flags = ['-x', 'c++', '-std=c++11']
+
+" compile_commands.json directory path
+" Not file path. Need build directory path
+" let g:deoplete#sources#clang#clang_complete_database =
+"       \ expand('~/src/neovim/build')
+"}}}
