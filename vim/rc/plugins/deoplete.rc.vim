@@ -59,3 +59,6 @@ let g:deoplete#omni#functions.lua = 'xolox#lua#omnifunc'
 
 let g:deoplete#enable_refresh_always = 1
 let g:deoplete#enable_camel_case = 1
+
+let g:deoplete#sources#clang#clang_header = '/usr/include/clang'
+

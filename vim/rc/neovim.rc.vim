@@ -9,6 +9,8 @@ tnoremap   j<Space>   j
 nnoremap <Leader>t    :<C-u>terminal<CR>
 nnoremap !            :<C-u>terminal<Space>
 
+set mouse=
+
 " Set terminal colors
 let s:num = 0
 for s:color in [
