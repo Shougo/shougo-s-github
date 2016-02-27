@@ -7,11 +7,11 @@ build = 'make'
 
 [[plugins]]
 repo = 'godlygeek/csapprox'
-if = "!has('gui_running') || has('nvim')"
+if = "!has('gui_running') && has('gui')"
 
 [[plugins]]
 repo = 'thinca/vim-guicolorscheme'
-if = "!has('gui_running') || has('nvim')"
+if = "!has('gui_running') && !has('gui') && !has('nvim')"
 
 [[plugins]]
 repo = 'thinca/vim-unite-history'

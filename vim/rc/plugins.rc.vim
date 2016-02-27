@@ -518,3 +518,7 @@ endif"}}}
 if !dein#tap('csapprox') "{{{
   let g:CSApprox_loaded = 1
 endif"}}}
+
+if !dein#tap('vim-guicolorscheme') "{{{
+  let g:loaded_guicolorscheme = 1
+endif"}}}
