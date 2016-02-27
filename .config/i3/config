@@ -58,10 +58,10 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # move focused window
-bindsym $mod+Shift+j move right
-bindsym $mod+Shift+k move left
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+semicolon move down
+# bindsym $mod+Shift+j move right
+# bindsym $mod+Shift+k move left
+# bindsym $mod+Shift+l move up
+# bindsym $mod+Shift+semicolon move down
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
@@ -124,7 +124,7 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+# bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -170,5 +170,7 @@ bindsym $mod+l workspace prev
 
 bindsym $mod+Tab exec --no-startup-id rofi -show window
 bindsym $mod+s exec --no-startup-id rofi -show ssl -ternimal st
+bindsym $mod+Shift+l exec --no-startup-id i3exit lock
+bindsym $mod+Shift+e exec --no-startup-id i3exit logout
 
 workspace_layout tabbed

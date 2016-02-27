@@ -19,19 +19,19 @@ SetFixer set browsedir=current
 
 if dein#tap('deoplete.nvim') && has('nvim') "{{{
   let g:deoplete#enable_at_startup = 1
-  autocmd MyAutoCmd User dein#source#deoplete.nvim
-        \ source ~/.vim/rc/plugins/deoplete.rc.vim
+  execute 'autocmd MyAutoCmd User' 'dein#source#'.g:dein#name
+        \ 'source ~/.vim/rc/plugins/deoplete.rc.vim'
 endif "}}}
 
 if dein#tap('neocomplete.vim') && has('lua') "{{{
   let g:neocomplete#enable_at_startup = 1
-  autocmd MyAutoCmd User dein#source#neocomplete.vim
-        \ source ~/.vim/rc/plugins/neocomplete.rc.vim
+  execute 'autocmd MyAutoCmd User' 'dein#source#'.g:dein#name
+        \ 'source ~/.vim/rc/plugins/neocomplete.rc.vim'
 endif "}}}
 
 if dein#tap('neosnippet.vim') "{{{
-  autocmd MyAutoCmd User dein#source#neosnippet.vim
-        \ source ~/.vim/rc/plugins/neosnippet.rc.vim
+  execute 'autocmd MyAutoCmd User' 'dein#source#'.g:dein#name
+        \ 'source ~/.vim/rc/plugins/neosnippet.rc.vim'
 endif "}}}
 
 if dein#tap('echodoc.vim') "{{{
@@ -42,8 +42,8 @@ if dein#tap('vimshell.vim') "{{{
   nmap [Space]s  <Plug>(vimshell_switch)
   nnoremap !  q:VimShellExecute<Space>
 
-  autocmd MyAutoCmd User dein#source#vimshell.vim
-        \ source ~/.vim/rc/plugins/vimshell.rc.vim
+  execute 'autocmd MyAutoCmd User' 'dein#source#'.g:dein#name
+        \ 'source ~/.vim/rc/plugins/vimshell.rc.vim'
 endif "}}}
 
 if dein#tap('vinarise.vim') "{{{
@@ -144,13 +144,13 @@ if dein#tap('unite.vim') "{{{
         \ :<C-u>UniteResume search%`bufnr('%')`
         \  -no-start-insert -force-redraw<CR>
 
-  autocmd MyAutoCmd User dein#source#unite.vim
-        \ source ~/.vim/rc/plugins/unite.rc.vim
+  execute 'autocmd MyAutoCmd User' 'dein#source#'.g:dein#name
+        \ 'source ~/.vim/rc/plugins/unite.rc.vim'
 endif "}}}
 
 if dein#tap('vim-smartchr') "{{{
-  autocmd MyAutoCmd User dein#source#vim-smartchr
-        \ source ~/.vim/rc/plugins/smartchr.rc.vim
+  execute 'autocmd MyAutoCmd User' 'dein#source#'.g:dein#name
+        \ 'source ~/.vim/rc/plugins/smartchr.rc.vim'
 endif "}}}
 
 if dein#tap('vim-quickrun') "{{{
@@ -185,23 +185,23 @@ if dein#tap('vim-ref') "{{{
     endfunction"}}}
   endfunction
 
-  autocmd MyAutoCmd User dein#source#vim-ref
-        \ call s:ref_on_source()
+  execute 'autocmd MyAutoCmd User' 'dein#source#'.g:dein#name
+        \ 'call s:ref_on_source()'
 endif"}}}
 
 if dein#tap('vimfiler.vim') "{{{
   nnoremap <silent>   [Space]v   :<C-u>VimFiler -invisible<CR>
 
-  autocmd MyAutoCmd User dein#source#vimfiler.vim
-        \ source ~/.vim/rc/plugins/vimfiler.rc.vim
+  execute 'autocmd MyAutoCmd User' 'dein#source#'.g:dein#name
+        \ 'source ~/.vim/rc/plugins/vimfiler.rc.vim'
 endif "}}}
 
 if dein#tap('eskk.vim') "{{{
   imap <C-j>     <Plug>(eskk:toggle)
   cmap <C-j>     <Plug>(eskk:toggle)
 
-  autocmd MyAutoCmd User dein#source#eskk.vim
-        \ source ~/.vim/rc/plugins/eskk.rc.vim
+  execute 'autocmd MyAutoCmd User' 'dein#source#'.g:dein#name
+        \ 'source ~/.vim/rc/plugins/eskk.rc.vim'
 endif "}}}
 
 if dein#tap('J6uil.vim') "{{{
@@ -235,8 +235,8 @@ if dein#tap('J6uil.vim') "{{{
       setlocal foldcolumn=0
     endfunction
   endfunction
-  autocmd MyAutoCmd User dein#source#J6uil.vim
-        \ call s:J6uil_on_source()
+  execute 'autocmd MyAutoCmd User' 'dein#source#'.g:dein#name
+        \ 'call s:J6uil_on_source()'
 endif "}}}
 
 if dein#tap('vim-operator-surround') "{{{
@@ -263,8 +263,8 @@ if dein#tap('open-browser.vim') "{{{
       endif
     endfunction
   endfunction
-  autocmd MyAutoCmd User dein#source#open-browser.vim
-        \ call s:open_browser_on_source()
+  execute 'autocmd MyAutoCmd User' 'dein#source#'.g:dein#name
+        \ 'call s:open_browser_on_source()'
 endif "}}}
 
 if dein#tap('caw.vim') "{{{
@@ -340,8 +340,8 @@ if dein#tap('matchit.zip') "{{{
 
     silent! execute 'doautocmd Filetype' &filetype
   endfunction"}}}
-  autocmd MyAutoCmd User dein#post_source#matchit.zip
-        \ call s:matchit_on_post_source()
+  execute 'autocmd MyAutoCmd User' 'dein#source#'.g:dein#name
+        \ 'call s:matchit_on_post_source()'
 endif "}}}
 
 if dein#tap('vim-fontzoom') "{{{
@@ -424,6 +424,11 @@ if dein#tap('vim-themis') "{{{
           \ && stridx(a:add_path, delimiter) < 0) ?
           \   join(a:list, delimiter) :
           \   join(map(copy(a:list), 's:escape(v:val)'), delimiter)
+  endfunction"}}}
+
+  " Escape a path for runtimepath.
+  function! s:escape(path) abort "{{{
+    return substitute(a:path, ',\|\\,\@=', '\\\0', 'g')
   endfunction"}}}
 
   let $PATH = s:join_envpath(

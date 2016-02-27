@@ -110,11 +110,11 @@ cdpath=($HOME)
 zstyle ':completion:*:processes' command "ps -u $USER -o pid,stat,%cpu,%mem,cputime,command"
 
 # auto-fu.zsh
-function zle-line-init () {
-    auto-fu-init
-}
-zle -N zle-line-init
-zstyle ':completion:*' completer _oldlist _complete
+# function zle-line-init () {
+#     auto-fu-init
+# }
+# zle -N zle-line-init
+# zstyle ':completion:*' completer _oldlist _complete
 
 
 #####################################################################
