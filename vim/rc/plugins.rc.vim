@@ -450,10 +450,11 @@ if dein#tap('sideways.vim') "{{{
 endif "}}}
 
 if dein#tap('vim-findent') "{{{
-  augroup findent
-    autocmd!
-    autocmd BufRead * Findent! --no-warnings
-  augroup END
+  " augroup findent
+  "   autocmd!
+  "   autocmd BufRead * Findent! --no-warnings
+  " augroup END
+  nnoremap <silent> [Space]i    :<C-u>Findent! --no-warnings<CR>
 endif "}}}
 
 if dein#tap('neopairs.vim') "{{{
