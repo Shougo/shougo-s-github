@@ -66,8 +66,6 @@ elseif !exists('did_encoding_settings') && has('iconv')
   endif
   let &fileencodings .= ',' . 'cp20932'
 
-  let &fileencodings = fileencodings
-
   unlet s:enc_euc
   unlet s:enc_jis
 

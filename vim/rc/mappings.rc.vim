@@ -59,41 +59,6 @@ cnoremap <C-y>          <C-r>*
 cnoremap <C-g>          <C-c>
 "}}}
 
-" Command line buffer."{{{
-nnoremap <SID>(command-line-enter) q:
-xnoremap <SID>(command-line-enter) q:
-nnoremap <SID>(command-line-norange) q:<C-u>
-
-autocmd MyAutoCmd CmdwinEnter *
-      \ call s:init_cmdwin()
-autocmd MyAutoCmd CmdwinLeave *
-      \ let g:neocomplcache_enable_auto_select = 1
-
-function! s:init_cmdwin() abort
-  let g:neocomplcache_enable_auto_select = 0
-  let b:neocomplcache_sources_list = ['vim_complete']
-
-  nnoremap <buffer><silent> q :<C-u>quit<CR>
-  nnoremap <buffer><silent> <TAB> :<C-u>quit<CR>
-  inoremap <buffer><expr><CR> neocomplete#close_popup()."\<CR>"
-  inoremap <buffer><expr><C-h> col('.') == 1 ?
-        \ "\<ESC>:quit\<CR>" : neocomplete#cancel_popup()."\<C-h>"
-  inoremap <buffer><expr><BS> col('.') == 1 ?
-        \ "\<ESC>:quit\<CR>" : neocomplete#cancel_popup()."\<C-h>"
-
-  " Completion.
-  inoremap <buffer><expr><TAB>  pumvisible() ?
-        \ "\<C-n>" : <SID>check_back_space() ?
-        \            "\<TAB>" : "\<C-x>\<C-u>\<C-p>"
-
-  " Remove history lines.
-  silent execute printf("1,%ddelete _",
-        \ min([&history - 20, line("$") - 20]))
-  call cursor(line('$'), 0)
-
-  startinsert!
-endfunction"}}}
-
 " [Space]: Other useful commands "{{{
 " Smart space mapping.
 nmap  <Space>   [Space]
@@ -150,10 +115,6 @@ function! s:cd_buffer_dir() abort "{{{
   execute 'lcd' fnameescape(dir)
 endfunction"}}}
 
-" Easily syntax change.
-nnoremap <silent> [Space]ft
-      \ :<C-u>Unite -start-insert filetype filetype/new<CR>
-
 " Toggle options. "{{{
 function! ToggleOption(option_name) abort
   execute 'setlocal' a:option_name.'!'
@@ -175,15 +136,12 @@ endfunction  "}}}
 nnoremap    [Window]   <Nop>
 nmap    s [Window]
 nnoremap <silent> [Window]p  :<C-u>call <SID>split_nicely()<CR>
-nnoremap <silent> [Window]v  :<C-u>vsplit<CR>
-nnoremap <silent> [Window]c  :<C-u>call <SID>smart_close()<CR>
 nnoremap <silent> -  :<C-u>call <SID>smart_close()<CR>
 nnoremap <silent> [Window]o  :<C-u>only<CR>
 nnoremap <silent> q :<C-u>call <SID>smart_close()<CR>
 
 " A .vimrc snippet that allows you to move around windows beyond tabs
 nnoremap <silent> <Tab> :call <SID>NextWindow()<CR>
-nnoremap <silent> <S-Tab> :call <SID>PreviousWindowOrTab()<CR>
 
 function! s:smart_close() abort
   if winnr('$') != 1
@@ -201,26 +159,6 @@ function! s:NextWindow() abort
   endif
 endfunction
 
-function! s:NextWindowOrTab() abort
-  if tabpagenr('$') == 1 && winnr('$') == 1
-    call s:split_nicely()
-  elseif winnr() < winnr("$")
-    wincmd w
-  else
-    tabnext
-    1wincmd w
-  endif
-endfunction
-
-function! s:PreviousWindowOrTab() abort
-  if winnr() > 1
-    wincmd W
-  else
-    tabprevious
-    execute winnr("$") . "wincmd w"
-  endif
-endfunction
-
 " Split nicely."{{{
 function! s:split_nicely() abort
   " Split nicely.
@@ -232,55 +170,6 @@ function! s:split_nicely() abort
   wincmd p
 endfunction
 "}}}
-" Delete current buffer."{{{
-" Force delete current buffer.
-nnoremap <silent> [Window]D  :<C-u>call <SID>CustomBufferDelete(1)<CR>
-function! s:CustomBufferDelete(is_force) abort
-  let current = bufnr('%')
-
-  call s:alternate_buffer()
-
-  if a:is_force
-    silent! execute 'bdelete! ' . current
-  else
-    silent! execute 'bdelete ' . current
-  endif
-endfunction
-"}}}
-function! s:alternate_buffer() abort "{{{
-  let listed_buffer_len = len(filter(range(1, bufnr('$')),
-        \ 's:buflisted(v:val) && getbufvar(v:val, "&filetype") !=# "unite"'))
-  if listed_buffer_len <= 1
-    enew
-    return
-  endif
-
-  let cnt = 0
-  let pos = 1
-  let current = 0
-  while pos <= bufnr('$')
-    if s:buflisted(pos)
-      if pos == bufnr('%')
-        let current = cnt
-      endif
-
-      let cnt += 1
-    endif
-
-    let pos += 1
-  endwhile
-
-  if current > cnt / 2
-    bprevious
-  else
-    bnext
-  endif
-endfunction"}}}
-function! s:buflisted(bufnr) abort "{{{
-  return exists('t:unite_buffer_dictionary') ?
-        \ has_key(t:unite_buffer_dictionary, a:bufnr) && buflisted(a:bufnr) :
-        \ buflisted(a:bufnr)
-endfunction"}}}
 "}}}
 
 " e: Change basic commands "{{{
@@ -291,9 +180,6 @@ onoremap [Alt]   <Nop>
 nmap    e  [Alt]
 xmap    e  [Alt]
 omap    e  [Alt]
-
-nnoremap    [Alt]e   e
-xnoremap    [Alt]e   e
 
 " Indent paste.
 nnoremap <silent> [Alt]p o<Esc>pm``[=`]``^
