@@ -11,7 +11,7 @@ if = "v:progname !=# 'gvim' && has('gui') && !has('nvim')"
 
 [[plugins]]
 repo = 'thinca/vim-guicolorscheme'
-if = "!has('gui_running') && !has('gui') && !has('nvim')"
+if = "v:progname !=# 'gvim' && !has('gui') && !has('nvim')"
 
 [[plugins]]
 repo = 'thinca/vim-unite-history'
