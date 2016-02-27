@@ -113,10 +113,6 @@ repo = 'sorah/unite-ghq'
 on_source = 'unite.vim'
 
 [[plugins]]
-repo = 'thinca/vim-themis'
-on_ft = 'vim'
-
-[[plugins]]
 repo = 'osyo-manga/unite-vimpatches'
 
 [[plugins]]

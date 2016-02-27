@@ -5,7 +5,7 @@
 
 " Setting of the encoding to use for a save and reading.
 " Make it normal in UTF-8 in Unix.
-if has('vim_starting')
+if has('vim_starting') && &encoding !=# 'utf-8'
   SetFixer set encoding=utf-8
 endif
 
@@ -36,15 +36,13 @@ endif
 "}}}
 
 " The automatic recognition of the character code."{{{
-if !exists('did_encoding_settings') && has('iconv')
-  let s:enc_euc = 'euc-jp'
-  let s:enc_jis = 'iso-2022-jp'
-
+if has('kaoriya')
+  " For Kaoriya only.
+  SetFixer set fileencodings=guess
+elseif !exists('did_encoding_settings') && has('iconv')
   " Does iconv support JIS X 0213?
-  if iconv("\x87\x64\x87\x6a", 'cp932', 'euc-jisx0213') ==# "\xad\xc5\xad\xcb"
-    let s:enc_euc = 'euc-jisx0213,euc-jp'
-    let s:enc_jis = 'iso-2022-jp-3'
-  endif
+  let s:enc_euc = 'euc-jisx0213,euc-jp'
+  let s:enc_jis = 'iso-2022-jp-3'
 
   " Build encodings.
   let &fileencodings = 'ucs-bom'
@@ -68,17 +66,14 @@ if !exists('did_encoding_settings') && has('iconv')
   endif
   let &fileencodings .= ',' . 'cp20932'
 
+  let &fileencodings = fileencodings
+
   unlet s:enc_euc
   unlet s:enc_jis
 
   let did_encoding_settings = 1
 endif
 "}}}
-
-if has('kaoriya')
-  " For Kaoriya only.
-  SetFixer set fileencodings=guess
-endif
 
 " When do not include Japanese, use encoding for fileencoding.
 function! s:ReCheck_FENC() abort "{{{

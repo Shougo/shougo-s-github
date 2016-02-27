@@ -187,3 +187,44 @@ if !exists('g:vimshell_interactive_interpreter_commands')
     let g:vimshell_interactive_interpreter_commands = {}
 endif
 let g:vimshell_interactive_interpreter_commands.python = 'ipython'
+
+" For themis"{{{
+if dein#tap('vim-themis')
+  " Set to $PATH.
+  let s:bin = dein#get('vim-themis').rtp . '/bin'
+
+  function! s:split_envpath(path) abort "{{{
+    let delimiter = has('win32') ? ';' : ':'
+    if stridx(a:path, '\' . delimiter) < 0
+      return split(a:path, delimiter)
+    endif
+
+    let split = split(a:path, '\\\@<!\%(\\\\\)*\zs' . delimiter)
+    return map(split,'substitute(v:val, ''\\\([\\'
+          \ . delimiter . ']\)'', "\\1", "g")')
+  endfunction"}}}
+
+  function! s:join_envpath(list, orig_path, add_path) abort "{{{
+    let delimiter = has('win32') ? ';' : ':'
+    return (stridx(a:orig_path, '\' . delimiter) < 0
+          \ && stridx(a:add_path, delimiter) < 0) ?
+          \   join(a:list, delimiter) :
+          \   join(map(copy(a:list), 's:escape(v:val)'), delimiter)
+  endfunction"}}}
+
+  " Escape a path for runtimepath.
+  function! s:escape(path) abort "{{{
+    return substitute(a:path, ',\|\\,\@=', '\\\0', 'g')
+  endfunction"}}}
+
+  let $PATH = s:join_envpath(
+        \ dein#_uniq(insert(
+        \    s:split_envpath($PATH), s:bin)), $PATH, s:bin)
+  let $THEMIS_HOME = dein#get('vim-themis').rtp
+  " let $THEMIS_VIM = printf('%s/%s',
+  "       \ fnamemodify(exepath(v:progpath), ':h'),
+  "       \ (has('nvim') ? 'nvim' : 'vim'))
+
+  unlet s:bin
+endif"}}}
+

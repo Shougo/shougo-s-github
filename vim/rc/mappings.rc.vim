@@ -118,6 +118,8 @@ nnoremap [Space]ar
 " Set spell check.
 nnoremap [Space]p
       \ :<C-u>call ToggleOption('spell')<CR>
+      \:SetFixer set spelllang=en_us<CR>
+      \:SetFixer set spelllang+=cjk<CR>
 nnoremap [Space]w
       \ :<C-u>call ToggleOption('wrap')<CR>
 

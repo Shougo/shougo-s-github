@@ -84,13 +84,6 @@ SetFixer set wildoptions=tagfile
 " Disable menu
 let g:did_install_default_menus = 1
 
-if !&verbose
-  " Enable spell check.
-  SetFixer set spelllang=en_us
-  " Enable CJK support.
-  SetFixer set spelllang+=cjk
-endif
-
 " Completion setting.
 SetFixer set completeopt=menuone
 " Don't complete from other buffer.

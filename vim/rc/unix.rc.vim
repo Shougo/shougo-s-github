@@ -83,8 +83,7 @@ if has('gui')
 
   runtime! plugin/CSApprox.vim
   if !exists('g:colors_name')
-    execute 'colorscheme' globpath(&runtimepath,
-          \ 'colors/candy.vim') != '' ? 'candy' : 'desert'
+    colorscheme candy
   endif
 elseif has('nvim') && exists('$NVIM_TUI_ENABLE_TRUE_COLOR')
   " Use true color feature

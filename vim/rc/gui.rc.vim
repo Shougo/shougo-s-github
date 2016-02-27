@@ -71,8 +71,7 @@ endif
 
 " Don't override colorscheme.
 if !exists('g:colors_name')
-  execute 'colorscheme' globpath(&runtimepath,
-        \ 'colors/candy.vim') != '' ? 'candy' : 'desert'
+  colorscheme candy
 endif
 "}}}
 

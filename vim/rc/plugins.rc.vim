@@ -549,3 +549,7 @@ endif"}}}
 if dein#tap('w3m.vim') "{{{
   nnoremap W     :<C-u>W3m<Space><C-r>+
 endif"}}}
+
+if !dein#tap('csapprox') "{{{
+  let g:CSApprox_loaded = 1
+endif"}}}
