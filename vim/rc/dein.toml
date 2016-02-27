@@ -7,7 +7,7 @@ build = 'make'
 
 [[plugins]]
 repo = 'godlygeek/csapprox'
-if = "!has('gui_running') && has('gui')"
+if = "v:progname !=# 'gvim' && has('gui') && !has('nvim')"
 
 [[plugins]]
 repo = 'thinca/vim-guicolorscheme'
