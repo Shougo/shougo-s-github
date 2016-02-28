@@ -18,12 +18,14 @@ SetFixer set browsedir=current
 "}}}
 
 if dein#tap('deoplete.nvim') && has('nvim') "{{{
+  let g:loaded_neocomplete = 1
   let g:deoplete#enable_at_startup = 1
   execute 'autocmd MyAutoCmd User' 'dein#source#'.g:dein#name
         \ 'source ~/.vim/rc/plugins/deoplete.rc.vim'
 endif "}}}
 
 if dein#tap('neocomplete.vim') && has('lua') "{{{
+  let g:loaded_deoplete = 1
   let g:neocomplete#enable_at_startup = 1
   execute 'autocmd MyAutoCmd User' 'dein#source#'.g:dein#name
         \ 'source ~/.vim/rc/plugins/neocomplete.rc.vim'

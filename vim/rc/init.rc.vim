@@ -73,6 +73,8 @@ if s:dein_dir != '' || &runtimepath !~ '/dein.vim'
   execute 'SetFixer set runtimepath^=' . fnamemodify(s:dein_dir, ':p')
 endif
 
+let g:loaded_neobundle = 1
+
 " profile start profile.txt
 " profile file ~/.vim/rc/*
 " profile func dein#*

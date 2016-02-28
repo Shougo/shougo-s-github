@@ -152,3 +152,6 @@ repo = 'machakann/vim-vimhelplint'
 [[plugins]]
 repo = 'Kocha/vim-unite-tig'
 
+[[plugins]]
+repo = 'thinca/vim-themis'
+
