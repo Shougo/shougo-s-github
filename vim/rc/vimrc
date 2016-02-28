@@ -10,9 +10,28 @@ if &compatible
   set nocompatible
 endif
 
-function! s:source_rc(path) abort
-  execute 'source' fnameescape(expand('~/.vim/rc/' . a:path))
-endfunction
+function! s:source_rc(path, ...) abort "{{{
+  let use_global = get(a:000, 0, !has('vim_starting'))
+  let abspath = resolve(expand('~/.vim/rc/' . a:path))
+  if !use_global
+    execute 'source' fnameescape(abspath)
+    return
+  endif
+
+  " substitute all 'set' to 'setglobal'
+  let content = map(readfile(abspath),
+        \ 'substitute(v:val, "^\\W*\\zsset\\ze\\W", "setglobal", "")')
+  " create tempfile and source the tempfile
+  let tempfile = tempname()
+  try
+    call writefile(content, tempfile)
+    execute printf('source %s', fnameescape(tempfile))
+  finally
+    if filereadable(tempfile)
+      call delete(tempfile)
+    endif
+  endtry
+endfunction"}}}
 
 let s:is_windows = has('win16') || has('win32') || has('win64')
 let s:is_cygwin = has('win32unix')
@@ -30,10 +49,6 @@ function! IsMac() abort
       \   (!executable('xdg-open') &&
       \     system('uname') =~? '^darwin'))
 endfunction
-
-command! -nargs=1 SetFixer execute substitute(<q-args>,
-      \ '^\s*\<set\%[global]\>',
-      \ (has('vim_starting') ? 'set' : 'setglobal'), '')
 
 call s:source_rc('init.rc.vim')
 
@@ -83,18 +98,18 @@ call s:source_rc('encoding.rc.vim')
 "
 
 " Ignore the case of normal letters.
-SetFixer set ignorecase
+set ignorecase
 " If the search pattern contains upper case characters, override ignorecase
 " option.
-SetFixer set smartcase
+set smartcase
 
 " Enable incremental search.
-SetFixer set incsearch
+set incsearch
 " Don't highlight search result.
-SetFixer set nohlsearch
+set nohlsearch
 
 " Searches wrap around the end of the file.
-SetFixer set wrapscan
+set wrapscan
 
 "---------------------------------------------------------------------------
 " Edit:
@@ -152,11 +167,11 @@ endif
 "
 
 " If true Vim master, use English help file.
-SetFixer set helplang& helplang=en,ja
+set helplang& helplang=en,ja
 
 " Default home directory.
 let t:cwd = getcwd()
 
-SetFixer set secure
+set secure
 
 " vim: foldmethod=marker

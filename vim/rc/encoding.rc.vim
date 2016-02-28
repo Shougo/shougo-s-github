@@ -6,7 +6,7 @@
 " Setting of the encoding to use for a save and reading.
 " Make it normal in UTF-8 in Unix.
 if has('vim_starting') && &encoding !=# 'utf-8'
-  SetFixer set encoding=utf-8
+   set encoding=utf-8
 endif
 
 " Setting of terminal encoding."{{{
@@ -16,29 +16,29 @@ if !has('gui_running')
     " Setting when use the non-GUI Japanese console.
 
     " Garbled unless set this.
-    SetFixer set termencoding=cp932
+     set termencoding=cp932
     " Japanese input changes itself unless set this.  Be careful because the
     " automatic recognition of the character code is not possible!
-    SetFixer set encoding=japan
+     set encoding=japan
   else
     if $ENV_ACCESS ==# 'linux'
-      SetFixer set termencoding=euc-jp
+       set termencoding=euc-jp
     elseif $ENV_ACCESS ==# 'colinux'
-      SetFixer set termencoding=utf-8
+       set termencoding=utf-8
     else  " fallback
-      SetFixer set termencoding=  " same as 'encoding'
+       set termencoding=  " same as 'encoding'
     endif
   endif
 elseif IsWindows()
   " For system.
-  SetFixer set termencoding=cp932
+   set termencoding=cp932
 endif
 "}}}
 
 " The automatic recognition of the character code."{{{
 if has('kaoriya')
   " For Kaoriya only.
-  SetFixer set fileencodings=guess
+   set fileencodings=guess
 elseif !exists('did_encoding_settings') && has('iconv')
   " Does iconv support JIS X 0213?
   let s:enc_euc = 'euc-jisx0213,euc-jp'
@@ -84,9 +84,9 @@ endfunction"}}}
 autocmd MyAutoCmd BufReadPost * call s:ReCheck_FENC()
 
 " Default fileformat.
-SetFixer set fileformat=unix
+set fileformat=unix
 " Automatic recognition of a new line cord.
-SetFixer set fileformats=unix,dos,mac
+set fileformats=unix,dos,mac
 
 " Command group opening with a specific character code again."{{{
 " In particular effective when I am garbled in a terminal.
@@ -139,5 +139,5 @@ command! -bang -complete=file -nargs=? WMac
 "}}}
 
 if has('multi_byte_ime')
-  SetFixer set iminsert=0 imsearch=0
+   set iminsert=0 imsearch=0
 endif

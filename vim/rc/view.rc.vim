@@ -10,22 +10,22 @@ endfunction
 " Show line number.
 "set number
 " Show <TAB> and <CR>
-SetFixer set list
+set list
 if IsWindows()
-  SetFixer set listchars=tab:>-,trail:-,extends:>,precedes:<
+   set listchars=tab:>-,trail:-,extends:>,precedes:<
 else
-  SetFixer set listchars=tab:▸\ ,trail:-,extends:»,precedes:«,nbsp:%
+   set listchars=tab:▸\ ,trail:-,extends:»,precedes:«,nbsp:%
 endif
 " Always display statusline.
-SetFixer set laststatus=2
+set laststatus=2
 " Height of command line.
-SetFixer set cmdheight=2
+set cmdheight=2
 " Not show command on statusline.
-SetFixer set noshowcmd
+set noshowcmd
 " Show title.
-SetFixer set title
+set title
 " Title length.
-SetFixer set titlelen=95
+set titlelen=95
 " Title string.
 let &g:titlestring="
       \ %{expand('%:p:~:.')}%(%m%r%w%)
@@ -34,7 +34,7 @@ let &g:titlestring="
       \ substitute(b:vimfiler.current_dir, '.\\zs/$', '', '') : getcwd(), ':~'),
       \ &columns-len(expand('%:p:.:~')))}\) - VIM"
 " Disable tabline.
-SetFixer set showtabline=0
+set showtabline=0
 
 " Set statusline.
 let &g:statusline="%{winnr('$')>1?'['.winnr().'/'.winnr('$')"
@@ -46,85 +46,85 @@ let &g:statusline="%{winnr('$')>1?'['.winnr().'/'.winnr('$')"
       \ . "%m%{printf('%'.(len(line('$'))+2).'d/%d',line('.'),line('$'))}"
 
 " Turn down a long line appointed in 'breakat'
-SetFixer set linebreak
-SetFixer set showbreak=\
-SetFixer set breakat=\ \	;:,!?
+set linebreak
+set showbreak=\
+set breakat=\ \	;:,!?
 " Wrap conditions.
-SetFixer set whichwrap+=h,l,<,>,[,],b,s,~
+set whichwrap+=h,l,<,>,[,],b,s,~
 if exists('+breakindent')
-  SetFixer set breakindent
-  SetFixer set wrap
+   set breakindent
+   set wrap
 else
-  SetFixer set nowrap
+   set nowrap
 endif
 
 " Do not display greetings message at the time of Vim start.
-SetFixer set shortmess=aTI
+set shortmess=aTI
 
 " Don't create backup.
-SetFixer set nowritebackup
-SetFixer set nobackup
-SetFixer set noswapfile
-SetFixer set backupdir-=.
+set nowritebackup
+set nobackup
+set noswapfile
+set backupdir-=.
 
 " Disable bell.
-SetFixer set t_vb=
-SetFixer set novisualbell
+set t_vb=
+set novisualbell
 
 " Display candidate supplement.
-SetFixer set nowildmenu
-SetFixer set wildmode=list:longest,full
+set nowildmenu
+set wildmode=list:longest,full
 " Increase history amount.
-SetFixer set history=1000
+set history=1000
 " Display all the information of the tag by the supplement of the Insert mode.
-SetFixer set showfulltag
+set showfulltag
 " Can supplement a tag in a command-line.
-SetFixer set wildoptions=tagfile
+set wildoptions=tagfile
 
 " Disable menu
 let g:did_install_default_menus = 1
 
 " Completion setting.
-SetFixer set completeopt=menuone
+set completeopt=menuone
 " Don't complete from other buffer.
-SetFixer set complete=.
+set complete=.
 "set complete=.,w,b,i,t
 " Set popup menu max height.
-SetFixer set pumheight=20
+set pumheight=20
 
 " Report changes.
-SetFixer set report=0
+set report=0
 
 " Maintain a current line at the time of movement as much as possible.
-SetFixer set nostartofline
+set nostartofline
 
 " Splitting a window will put the new window below the current one.
-SetFixer set splitbelow
+set splitbelow
 " Splitting a window will put the new window right the current one.
-SetFixer set splitright
+set splitright
 " Set minimal width for current window.
-SetFixer set winwidth=30
+set winwidth=30
 " Set minimal height for current window.
 " set winheight=20
-SetFixer set winheight=1
+set winheight=1
 " Set maximam maximam command line window.
-SetFixer set cmdwinheight=5
+set cmdwinheight=5
 " No equal window size.
-SetFixer set noequalalways
+set noequalalways
 
 " Adjust window size of preview and help.
-SetFixer set previewheight=8
-SetFixer set helpheight=12
+set previewheight=8
+set helpheight=12
 
-SetFixer set ttyfast
+set ttyfast
 
 " When a line is long, do not omit it in @.
-SetFixer set display=lastline
+set display=lastline
 " Display an invisible letter with hex format.
 "set display+=uhex
 
 " View setting.
-SetFixer set viewdir=$CACHE/vim_view viewoptions-=options viewoptions+=slash,unix
+set viewdir=$CACHE/vim_view viewoptions-=options viewoptions+=slash,unix
 
 function! s:strwidthpart(str, width) abort "{{{
   if a:width <= 0
@@ -143,9 +143,9 @@ endfunction"}}}
 
 if v:version >= 703
   " For conceal.
-  SetFixer set conceallevel=2 concealcursor=niv
+   set conceallevel=2 concealcursor=niv
 
-  SetFixer set colorcolumn=79
+   set colorcolumn=79
 
   " Use builtin function.
   function! s:wcswidth(str) abort

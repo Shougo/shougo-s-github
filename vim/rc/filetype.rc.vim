@@ -3,7 +3,7 @@
 "
 
 " Enable smart indent.
-SetFixer set autoindent smartindent
+set autoindent smartindent
 
 augroup MyAutoCmd
   autocmd FileType,Syntax,BufEnter,BufWinEnter * call s:my_on_filetype()
@@ -77,7 +77,7 @@ let g:markdown_fenced_languages = []
 
 " Go
 if $GOROOT != ''
-  SetFixer set runtimepath+=$GOROOT/misc/vim
+   set runtimepath+=$GOROOT/misc/vim
 endif
 
 " Tex
@@ -135,9 +135,9 @@ endfunction "}}}
 
 " Do not display completion messages
 " Patch: https://groups.google.com/forum/#!topic/vim_dev/WeBBjkXE8H8
-SetFixer set noshowmode
+set noshowmode
 try
-  SetFixer set shortmess+=c
+   set shortmess+=c
 catch /^Vim\%((\a\+)\)\=:E539: Illegal character/
   autocmd MyAutoCmd VimEnter *
         \ highlight ModeMsg guifg=bg guibg=bg |

@@ -3,102 +3,102 @@
 "
 
 " Smart insert tab setting.
-SetFixer set smarttab
+set smarttab
 " Exchange tab to spaces.
-SetFixer set expandtab
+set expandtab
 " Substitute <Tab> with blanks.
-"SetFixer set tabstop=8
+" set tabstop=8
 " Spaces instead <Tab>.
-"SetFixer set softtabstop=4
+" set softtabstop=4
 " Autoindent width.
-"SetFixer set shiftwidth=4
+" set shiftwidth=4
 " Round indent by shiftwidth.
-SetFixer set shiftround
+set shiftround
 
 " Enable modeline.
-SetFixer set modeline
+set modeline
 
 " Use clipboard register.
 
 if (!has('nvim') || $DISPLAY != '') && has('clipboard')
   if has('unnamedplus')
-    SetFixer set clipboard& clipboard+=unnamedplus
+     set clipboard& clipboard+=unnamedplus
   else
-    SetFixer set clipboard& clipboard+=unnamed
+     set clipboard& clipboard+=unnamed
   endif
 endif
 
 " Enable backspace delete indent and newline.
-SetFixer set backspace=indent,eol,start
+set backspace=indent,eol,start
 
 " Highlight parenthesis.
-SetFixer set showmatch
+set showmatch
 " Highlight when CursorMoved.
-SetFixer set cpoptions-=m
-SetFixer set matchtime=1
+set cpoptions-=m
+set matchtime=1
 " Highlight <>.
-SetFixer set matchpairs+=<:>
+set matchpairs+=<:>
 
 " Display another buffer when current buffer isn't saved.
-SetFixer set hidden
+set hidden
 
 " Auto reload if file is changed.
-"SetFixer set autoread
+" set autoread
 
 " Ignore case on insert completion.
-SetFixer set infercase
+set infercase
 
 " Search home directory path on cd.
 " But can't complete.
-" SetFixer set cdpath+=~
+"  set cdpath+=~
 
 " Enable folding.
-SetFixer set foldenable
+set foldenable
 " set foldmethod=expr
-SetFixer set foldmethod=marker
+set foldmethod=marker
 " Show folding level.
-SetFixer set foldcolumn=1
-SetFixer set fillchars=vert:\|
-SetFixer set commentstring=%s
+set foldcolumn=1
+set fillchars=vert:\|
+set commentstring=%s
 
 if exists('*FoldCCtext')
   " Use FoldCCtext().
-  SetFixer set foldtext=FoldCCtext()
+   set foldtext=FoldCCtext()
 endif
 
 " Use vimgrep.
-"SetFixer set grepprg=internal
+" set grepprg=internal
 " Use grep.
-SetFixer set grepprg=grep\ -inH
+set grepprg=grep\ -inH
 
 " Exclude = from isfilename.
-SetFixer set isfname-==
+set isfname-==
 
 " Keymapping timeout.
-SetFixer set timeout timeoutlen=3000 ttimeoutlen=100
+set timeout timeoutlen=3000 ttimeoutlen=100
 
 " CursorHold time.
-SetFixer set updatetime=1000
+set updatetime=1000
 
 " Set swap directory.
-SetFixer set directory-=.
+set directory-=.
 
 if v:version >= 703
   " Set undofile.
-  SetFixer set undofile
+   set undofile
   let &g:undodir=&directory
 endif
 
 if v:version < 703 || (v:version == 7.3 && !has('patch336'))
   " Vim's bug.
-  SetFixer set notagbsearch
+   set notagbsearch
 endif
 
 " Enable virtualedit in visual block mode.
-SetFixer set virtualedit=block
+set virtualedit=block
 
 " Set keyword help.
-SetFixer set keywordprg=:help
+set keywordprg=:help
 
 " Check timestamp more for 'autoread'.
 autocmd MyAutoCmd WinEnter * checktime
@@ -126,11 +126,11 @@ function! s:mkdir_as_necessary(dir, force) abort
 endfunction
 
 " Use autofmt.
-SetFixer set formatexpr=autofmt#japanese#formatexpr()
+set formatexpr=autofmt#japanese#formatexpr()
 
 " Use blowfish2
 " https://dgl.cx/2014/10/vim-blowfish
 if has('cryptv')
   " It seems 15ms overhead.
-  " SetFixer set cryptmethod=blowfish2
+  "  set cryptmethod=blowfish2
 endif

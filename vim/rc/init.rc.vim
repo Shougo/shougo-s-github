@@ -4,7 +4,7 @@
 
 if exists('&regexpengine')
   " Use old regexp engine.
-  " SetFixer set regexpengine=1
+  "  set regexpengine=1
 endif
 
 " Use English interface.
@@ -32,7 +32,7 @@ xnoremap ,  <Nop>
 
 if IsWindows()
   " Exchange path separator.
-  SetFixer set shellslash
+   set shellslash
 endif
 
 let $CACHE = expand('~/.cache')
@@ -70,7 +70,7 @@ if s:dein_dir != '' || &runtimepath !~ '/dein.vim'
     endif
   endif
 
-  execute 'SetFixer set runtimepath^=' . fnamemodify(s:dein_dir, ':p')
+  execute ' set runtimepath^=' . fnamemodify(s:dein_dir, ':p')
 endif
 
 let g:loaded_neobundle = 1
@@ -86,7 +86,7 @@ let g:loaded_neobundle = 1
 
 " Disable menu.vim
 if has('gui_running')
-  SetFixer set guioptions=Mc
+   set guioptions=Mc
 endif
 
 let g:loaded_gzip              = 1

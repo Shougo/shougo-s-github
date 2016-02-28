@@ -4,43 +4,43 @@
 
 "---------------------------------------------------------------------------
 " Fonts: "{{{
-SetFixer set ambiwidth=double
+set ambiwidth=double
 
 if has('win32') || has('win64')
   " For Windows.
 
-  "SetFixer set guifontwide=VL\ Gothic:h11
-  SetFixer set guifontwide=Ricty:h12
+  " set guifontwide=VL\ Gothic:h11
+   set guifontwide=Ricty:h12
 
-  SetFixer set guifont=Ricty:h12
-  "SetFixer set guifont=Anonymous\ Pro:h11
-  "SetFixer set guifont=Courier\ New:h11
-  "SetFixer set guifont=MS\ Gothic:h11
-  "SetFixer set guifont=VL\ Gothic:h11
-  "SetFixer set guifont=Consolas:h12
-  "SetFixer set guifont=Bitstream\ Vera\ Sans\ Mono:h11
-  "SetFixer set guifont=Inconsolata:h12
-  "SetFixer set guifont=Terminal:h10:cSHIFTJIS
+   set guifont=Ricty:h12
+  " set guifont=Anonymous\ Pro:h11
+  " set guifont=Courier\ New:h11
+  " set guifont=MS\ Gothic:h11
+  " set guifont=VL\ Gothic:h11
+  " set guifont=Consolas:h12
+  " set guifont=Bitstream\ Vera\ Sans\ Mono:h11
+  " set guifont=Inconsolata:h12
+  " set guifont=Terminal:h10:cSHIFTJIS
 
   " Number of pixel lines inserted between characters.
-  SetFixer set linespace=2
+   set linespace=2
 
   if has('patch-7.4.394')
     " Use DirectWrite
-    SetFixer set renderoptions=type:directx,gammma:2.2,mode:3
+     set renderoptions=type:directx,gammma:2.2,mode:3
   endif
 
   if has('kaoriya')
     " For Kaoriya only.
-    SetFixer set ambiwidth=auto
+     set ambiwidth=auto
   endif
 elseif has('mac')
   " For Mac.
-  SetFixer set guifont=Osaka－等幅:h14
+   set guifont=Osaka－等幅:h14
 else
   " For Linux.
-  SetFixer set guifontwide=VL\ Gothic\ 13
-  SetFixer set guifont=Courier\ 10\ Pitch\ 14
+   set guifontwide=VL\ Gothic\ 13
+   set guifont=Courier\ 10\ Pitch\ 14
 endif"}}}
 
 "---------------------------------------------------------------------------
@@ -48,9 +48,9 @@ endif"}}}
 "
 if has('win32') || has('win64')
   " Width of window.
-  SetFixer set columns=230
+   set columns=230
   " Height of window.
-  SetFixer set lines=55
+   set lines=55
 
   " Set transparency.
   "autocmd GuiEnter * set transparency=221
@@ -61,11 +61,11 @@ if has('win32') || has('win64')
 else
   if &columns < 170
     " Width of window.
-    SetFixer set columns=170
+     set columns=170
   endif
   if &lines < 40
     " Height of window.
-    SetFixer set lines=40
+     set lines=40
   endif
 endif
 
@@ -94,13 +94,13 @@ endif
 "---------------------------------------------------------------------------
 " Mouse:"{{{
 "
-SetFixer set mouse=
-SetFixer set mousemodel=
+set mouse=
+set mousemodel=
 
 " Don't focus the window when the mouse pointer is moved.
-SetFixer set nomousefocus
+set nomousefocus
 " Hide mouse pointer on insert mode.
-SetFixer set mousehide
+set mousehide
 "}}}
 
 "---------------------------------------------------------------------------
@@ -108,26 +108,26 @@ SetFixer set mousehide
 "
 
 " Hide toolbar and menus.
-SetFixer set guioptions-=Tt
-SetFixer set guioptions-=m
+set guioptions-=Tt
+set guioptions-=m
 " Scrollbar is always off.
-SetFixer set guioptions-=rL
+set guioptions-=rL
 " Not guitablabel.
-SetFixer set guioptions-=e
+set guioptions-=e
 
 " Confirm without window.
-SetFixer set guioptions+=c
+set guioptions+=c
 "}}}
 
 "---------------------------------------------------------------------------
 " Views:"{{{
 "
 " Don't highlight search result.
-SetFixer set nohlsearch
+set nohlsearch
 
 " Don't flick cursor.
-SetFixer set guicursor&
-SetFixer set guicursor+=a:blinkon0
+set guicursor&
+set guicursor+=a:blinkon0
 "}}}
 
 " vim: foldmethod=marker

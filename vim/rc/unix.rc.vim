@@ -6,10 +6,10 @@ if exists('$WINDIR') || !executable('zsh')
   " Cygwin.
 
   " Use bash.
-  SetFixer set shell=bash
+   set shell=bash
 else
   " Use zsh.
-  SetFixer set shell=zsh
+   set shell=zsh
 endif
 
 " Set path.
@@ -24,7 +24,7 @@ endif
 "
 
 " Enable 256 color terminal.
-SetFixer set t_Co=256
+set t_Co=256
 
 if &term =~# 'xterm' && !has('nvim')
   let &t_ti .= "\e[?2004h"
@@ -55,12 +55,12 @@ endif
 
 " Using the mouse on a terminal.
 if has('mouse') && !has('nvim')
-  SetFixer set mouse=a
+   set mouse=a
   if has('mouse_sgr') || v:version > 703 ||
         \ v:version == 703 && has('patch632')
-    SetFixer set ttymouse=sgr
+     set ttymouse=sgr
   else
-    SetFixer set ttymouse=xterm2
+     set ttymouse=xterm2
   endif
 
   " Paste.

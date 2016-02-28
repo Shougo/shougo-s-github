@@ -9,18 +9,18 @@ endif
 
 " Shell settings.
 " Use NYAOS.
-"SetFixer set shell=nyaos.exe
-"SetFixer set shellcmdflag=-e
-"SetFixer set shellpipe=\|&\ tee
-"SetFixer set shellredir=>%s\ 2>&1
-"SetFixer set shellxquote=\"
+" set shell=nyaos.exe
+" set shellcmdflag=-e
+" set shellpipe=\|&\ tee
+" set shellredir=>%s\ 2>&1
+" set shellxquote=\"
 
 " Use bash.
-"SetFixer set shell=bash.exe
-"SetFixer set shellcmdflag=-c
-"SetFixer set shellpipe=2>&1\|\ tee
-"SetFixer set shellredir=>%s\ 2>&1
-"SetFixer set shellxquote=\"
+" set shell=bash.exe
+" set shellcmdflag=-c
+" set shellpipe=2>&1\|\ tee
+" set shellredir=>%s\ 2>&1
+" set shellxquote=\"
 
 " Change colorscheme.
 " Don't override colorscheme.
