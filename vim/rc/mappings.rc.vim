@@ -135,41 +135,10 @@ endfunction  "}}}
 " The prefix key.
 nnoremap    [Window]   <Nop>
 nmap    s [Window]
-nnoremap <silent> [Window]p  :<C-u>call <SID>split_nicely()<CR>
-nnoremap <silent> -  :<C-u>call <SID>smart_close()<CR>
+nnoremap <silent> [Window]p  :<C-u>vsplit<CR>:wincmd w<CR>
 nnoremap <silent> [Window]o  :<C-u>only<CR>
-nnoremap <silent> q :<C-u>call <SID>smart_close()<CR>
-
-" A .vimrc snippet that allows you to move around windows beyond tabs
-nnoremap <silent> <Tab> :call <SID>NextWindow()<CR>
-
-function! s:smart_close() abort
-  if winnr('$') != 1
-    close
-  else
-    call s:alternate_buffer()
-  endif
-endfunction
-
-function! s:NextWindow() abort
-  if winnr('$') == 1
-    silent! normal! ``z.
-  else
-    wincmd w
-  endif
-endfunction
-
-" Split nicely."{{{
-function! s:split_nicely() abort
-  " Split nicely.
-  if winwidth(0) > 2 * &winwidth
-    vsplit
-  else
-    split
-  endif
-  wincmd p
-endfunction
-"}}}
+nnoremap <silent> <Tab>      :wincmd w<CR>
+nnoremap <silent><expr> q winnr('$') != 1 ? ':<C-u>close<CR>' : ""
 "}}}
 
 " e: Change basic commands "{{{

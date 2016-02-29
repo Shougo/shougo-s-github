@@ -107,3 +107,7 @@ let g:loaded_netrwFileHandlers = 1
 let g:loaded_matchparen        = 1
 let g:loaded_LogiPat           = 1
 let g:loaded_logipat           = 1
+let g:loaded_tutor_mode_plugin = 1
+let g:loaded_spellfile_plugin  = 1
+let g:loaded_man               = 1
+let g:loaded_matchit           = 1

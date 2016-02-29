@@ -320,7 +320,3 @@ repo = 'yuratomo/w3m.vim'
 repo = 'kana/vim-smartchr'
 on_i = 1
 
-[[plugins]]
-repo = 'thinca/vim-themis'
-on_source = 'vimshell'
-
