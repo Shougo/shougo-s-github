@@ -4,6 +4,7 @@ export FCEDIT=vim
 export PAGER=less
 export LESS='-RQM'
 export GZIP='-v9N'
+export BROWSER='firefox'
 export SHELL=zsh
 export GOPATH="$HOME/.go"
 export PATH="$HOME/bin:/usr/local/bin:$GOPATH/bin:$PATH"
