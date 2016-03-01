@@ -70,7 +70,8 @@ if s:dein_dir != '' || &runtimepath !~ '/dein.vim'
     endif
   endif
 
-  execute ' set runtimepath^=' . fnamemodify(s:dein_dir, ':p')
+  execute ' set runtimepath^=' . substitute(
+        \ fnamemodify(s:dein_dir, ':p') , '/$', '', '')
 endif
 
 let g:loaded_neobundle = 1

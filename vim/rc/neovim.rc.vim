@@ -34,10 +34,10 @@ augroup MyAutoCmd
   autocmd CursorHold * if exists(':rshada') | rshada | wshada | endif
 augroup END
 
-autocmd CursorHold * call s:init_neovim_qt()
+autocmd BufEnter * call s:init_neovim_qt()
 
 function! s:init_neovim_qt() abort "{{{
-  if !has('gui_running')
+  if $NVIM_GUI == ''
     return
   endif
 
