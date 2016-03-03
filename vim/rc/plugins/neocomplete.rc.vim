@@ -113,6 +113,8 @@ inoremap <expr> '  pumvisible() ? "\<C-y>" : "'"
 
 inoremap <silent><expr> <C-x><C-f>
       \ neocomplete#start_manual_complete('file')
+inoremap <silent><expr> <C-x><C-l>
+      \ neocomplete#start_manual_complete('look')
 
 inoremap <expr> <C-g>     neocomplete#undo_completion()
 " inoremap <expr> <C-l>     neocomplete#mappings#refresh()

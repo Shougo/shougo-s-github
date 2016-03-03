@@ -520,6 +520,15 @@ endif"}}}
 
 if !dein#tap('csapprox') "{{{
   let g:CSApprox_loaded = 1
+else
+  " Use CSApprox.vim
+
+  " Convert colorscheme in Konsole.
+  let g:CSApprox_konsole = 1
+  let g:CSApprox_attr_map = {
+        \ 'bold' : 'bold',
+        \ 'italic' : '', 'sp' : ''
+        \ }
 endif"}}}
 
 if !dein#tap('vim-guicolorscheme') "{{{

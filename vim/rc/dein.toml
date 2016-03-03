@@ -5,13 +5,13 @@ repo = 'Shougo/dein.vim'
 repo = 'Shougo/vimproc.vim'
 build = 'make'
 
-[[plugins]]
-repo = 'godlygeek/csapprox'
-if = "v:progname !=# 'gvim' && has('gui') && !has('nvim')"
+# [[plugins]]
+# repo = 'godlygeek/csapprox'
+# if = "v:progname !=# 'gvim' && has('gui') && !has('nvim')"
 
-[[plugins]]
-repo = 'thinca/vim-guicolorscheme'
-if = "v:progname !=# 'gvim' && !has('gui') && !has('nvim')"
+# [[plugins]]
+# repo = 'thinca/vim-guicolorscheme'
+# if = "v:progname !=# 'gvim' && !has('gui') && !has('nvim')"
 
 [[plugins]]
 repo = 'thinca/vim-unite-history'

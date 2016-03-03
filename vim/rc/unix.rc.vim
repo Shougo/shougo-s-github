@@ -71,25 +71,14 @@ if has('mouse') && !has('nvim')
 endif
 
 " Colorscheme
-if has('gui')
-  " Use CSApprox.vim
-
-  " Convert colorscheme in Konsole.
-  let g:CSApprox_konsole = 1
-  let g:CSApprox_attr_map = {
-        \ 'bold' : 'bold',
-        \ 'italic' : '', 'sp' : ''
-        \ }
-
-  runtime! plugin/CSApprox.vim
-  if !exists('g:colors_name')
-    colorscheme candy
-  endif
-elseif has('nvim') && exists('$NVIM_TUI_ENABLE_TRUE_COLOR')
+if has('nvim') && exists('$NVIM_TUI_ENABLE_TRUE_COLOR')
   " Use true color feature
   colorscheme candy
 else
-  autocmd MyAutoCmd VimEnter *
-        \ if !exists('g:colors_name') | GuiColorScheme candy
+  colorscheme candy256
+
+  " For guicolorscheme
+  " autocmd MyAutoCmd VimEnter * nested
+  "       \ if !exists('g:colors_name') | GuiColorScheme candy | endif
 endif
 
