@@ -43,7 +43,7 @@ bindsym $mod+q kill
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
 #bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
-bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --dmenu='rofi -dmenu'
+bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --dmenu='rofi -i -dmenu'
 
 # change focus
 bindsym $mod+j focus right
@@ -168,8 +168,8 @@ bindsym $mod+x exec firefox
 bindsym $mod+h workspace next
 bindsym $mod+l workspace prev
 
-bindsym $mod+Tab exec --no-startup-id rofi -show window
-bindsym $mod+s exec --no-startup-id rofi -show ssl -ternimal st
+bindsym $mod+Tab exec --no-startup-id rofi -i -show window
+bindsym $mod+s exec --no-startup-id rofi -i -show ssl -ternimal st
 bindsym $mod+Shift+l exec --no-startup-id i3exit lock
 bindsym $mod+Shift+e exec --no-startup-id i3exit logout
 
