@@ -2,6 +2,10 @@
 "Shougo's .vimrc
 "---------------------------------------------------------------------------
 
+" profile start profile.txt
+" profile file ~/.vim/rc/*
+" profile func dein#*
+
 "---------------------------------------------------------------------------
 " Initialize:
 "
@@ -35,9 +39,6 @@ endfunction"}}}
 
 let s:is_windows = has('win16') || has('win32') || has('win64')
 let s:is_cygwin = has('win32unix')
-let s:is_sudo = $SUDO_USER !=# '' && $USER !=# $SUDO_USER
-      \ && $HOME !=# expand('~'.$USER)
-      \ && $HOME ==# expand('~'.$SUDO_USER)
 
 function! IsWindows() abort
   return s:is_windows
@@ -52,29 +53,9 @@ endfunction
 
 call s:source_rc('init.rc.vim')
 
-call dein#begin(expand('$CACHE/dein'))
-
-let s:toml_path = '~/.vim/rc/dein.toml'
-let s:toml_lazy_path = '~/.vim/rc/deinlazy.toml'
-if dein#load_cache([expand('<sfile>'), s:toml_path, s:toml_lazy_path])
-  call dein#load_toml(s:toml_path, {'lazy': 0})
-  call dein#load_toml(s:toml_lazy_path, {'lazy' : 1})
-
-  let s:vimrc_local = findfile('vimrc_local.vim', '.;')
-  if s:vimrc_local !=# ''
-    " Load develop version plugins.
-    call dein#local(fnamemodify(s:vimrc_local, ':h'), {'frozen': 1},
-          \ ['vim*', 'unite-*', 'deoplete-*', 'neco-*', '*.vim', '*.nvim'])
-  endif
-
-  call dein#save_cache()
-endif
-
-" dein configurations.
+call s:source_rc('dein.rc.vim')
 
 call s:source_rc('plugins.rc.vim')
-
-call dein#end()
 
 " Filetype loading is too slow
 " filetype plugin indent on

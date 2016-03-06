@@ -218,7 +218,7 @@ if dein#tap('vim-themis')
   endfunction"}}}
 
   let $PATH = s:join_envpath(
-        \ dein#_uniq(insert(
+        \ dein#util#_uniq(insert(
         \    s:split_envpath($PATH), s:bin)), $PATH, s:bin)
   let $THEMIS_HOME = dein#get('vim-themis').rtp
   " let $THEMIS_VIM = printf('%s/%s',

@@ -75,10 +75,6 @@ if s:dein_dir != '' || &runtimepath !~ '/dein.vim'
 endif
 
 let g:loaded_neobundle = 1
-
-" profile start profile.txt
-" profile file ~/.vim/rc/*
-" profile func dein#*
 "}}}
 
 

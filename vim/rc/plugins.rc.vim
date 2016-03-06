@@ -433,7 +433,6 @@ if dein#tap('vim-expand-region') "{{{
 endif "}}}
 
 if dein#tap('vim-racer') "{{{
-  let g:racer_cmd = expand('~/.cache/dein/racer/target/release/racer')
   let $RUST_SRC_PATH = expand('~/src/rust/src')
   let g:racer_experimental_completer = 1
 endif "}}}
