@@ -11,12 +11,6 @@ let g:changelog_username = "Shougo "
 " python.vim
 let python_highlight_all = 1
 
-" netrw.vim"{{{
-let g:netrw_list_hide= '*.swp'
-" Change default directory.
-set browsedir=current
-"}}}
-
 if dein#tap('deoplete.nvim') && has('nvim') "{{{
   let g:loaded_neocomplete = 1
   let g:deoplete#enable_at_startup = 1
@@ -53,23 +47,12 @@ if dein#tap('vinarise.vim') "{{{
 endif "}}}
 
 if dein#tap('unite.vim') "{{{
-  " The prefix key.
-  nnoremap    [unite]   <Nop>
-  xnoremap    [unite]   <Nop>
-  nmap    ;u [unite]
-  xmap    ;u [unite]
-
   nnoremap <silent> ;b
         \ :<C-u>Unite -buffer-name=build`tabpagenr()` -no-quit build<CR>
-  nnoremap <silent> ;t
-        \ :<C-u>Unite -buffer-name=test`tabpagenr()` -no-quit build::test<CR>
   nnoremap <silent> ;o
         \ :<C-u>Unite outline -no-start-insert -resume<CR>
   nnoremap <silent> ;t
         \ :<C-u>UniteWithCursorWord -buffer-name=tag tag tag/include<CR>
-  xnoremap <silent> ;r
-        \ d:<C-u>Unite -buffer-name=register
-        \ -default-action=append register history/yank<CR>
   nnoremap <silent> <C-k>
         \ :<C-u>Unite change jump<CR>
   nnoremap <silent> ;g
@@ -77,6 +60,9 @@ if dein#tap('unite.vim') "{{{
         \ -auto-preview -no-split -no-empty -resume<CR>
   nnoremap <silent> ;r
         \ :<C-u>Unite -buffer-name=register
+        \ -default-action=append register history/yank<CR>
+  xnoremap <silent> ;r
+        \ d:<C-u>Unite -buffer-name=register
         \ -default-action=append register history/yank<CR>
   nnoremap <silent> ;;
         \ :<C-u>Unite -start-insert command history/command<CR>
@@ -91,24 +77,15 @@ if dein#tap('unite.vim') "{{{
         \ `finddir('.git', ';') != '' ? 'file_rec/git' : ''`
         \ buffer_tab:- file file/new<CR>
 
-  nnoremap <silent> [Window]r
-        \ :<C-u>Unite -start-insert ref/`ref#detect()`<CR>
   nnoremap <silent> [Window]<Space>
         \ :<C-u>Unite -buffer-name=files -path=~/.vim/rc file_rec<CR>
   nnoremap <silent> [Window]n
         \ :<C-u>Unite -start-insert -default-action=lcd dein<CR>
   nnoremap <silent> [Window]g
         \ :<C-u>Unite -start-insert ghq<CR>
-  nnoremap <silent> [Window]t
-        \ :<C-u>Unite -start-insert tig<CR>
-
-  nnoremap <silent> [Window]f
-        \ :<C-u>Unite <CR>
 
   nnoremap <silent> <C-w>
         \ :<C-u>Unite -force-immediately window:all:no-current<CR>
-  nnoremap <silent> [Space]b
-        \ :<C-u>UniteBookmarkAdd<CR>
 
   " Easily syntax change.
   nnoremap <silent> [Space]ft
@@ -119,7 +96,6 @@ if dein#tap('unite.vim') "{{{
   nnoremap    [Tag]   <Nop>
   nmap    t [Tag]
   " Jump.
-  " nnoremap [Tag]t  g<C-]>
   nnoremap <silent><expr> [Tag]t  &filetype == 'help' ?  "g\<C-]>" :
         \ ":\<C-u>UniteWithCursorWord -buffer-name=tag -immediately
         \  tag tag/include\<CR>"
@@ -137,9 +113,6 @@ if dein#tap('unite.vim') "{{{
   nnoremap <silent> /
         \ :<C-u>Unite -buffer-name=search%`bufnr('%')`
         \ -start-insert line:forward:wrap<CR>
-  nnoremap <silent> ?
-        \ :<C-u>Unite -buffer-name=search%`bufnr('%')`
-        \ -start-insert line:backward<CR>
   nnoremap <silent> *
         \ :<C-u>UniteWithCursorWord -buffer-name=search%`bufnr('%')`
         \ line:forward:wrap<CR>
@@ -164,35 +137,8 @@ if dein#tap('vim-quickrun') "{{{
 endif "}}}
 
 if dein#tap('vim-ref') "{{{
-  function! s:ref_on_source() abort
-    let g:ref_cache_dir = expand('$CACHE/ref')
-    let g:ref_use_vimproc = 1
-    if IsWindows()
-      let g:ref_refe_encoding = 'cp932'
-    endif
-
-    " ref-lynx.
-    if IsWindows()
-      let lynx = 'C:/lynx/lynx.exe'
-      let cfg  = 'C:/lynx/lynx.cfg'
-      let g:ref_lynx_cmd = s:lynx.' -cfg='.s:cfg.' -dump -nonumbers %s'
-      let g:ref_alc_cmd = s:lynx.' -cfg='.s:cfg.' -dump %s'
-    endif
-
-    let g:ref_lynx_use_cache = 1
-    let g:ref_lynx_start_linenumber = 0 " Skip.
-    let g:ref_lynx_hide_url_number = 0
-
-    autocmd MyAutoCmd FileType ref call s:ref_my_settings()
-    function! s:ref_my_settings() abort "{{{
-      " Overwrite settings.
-      nmap <buffer> [Tag]t  <Plug>(ref-keyword)
-      nmap <buffer> [Tag]p  <Plug>(ref-back)
-    endfunction"}}}
-  endfunction
-
   execute 'autocmd MyAutoCmd User' 'dein#source#'.g:dein#name
-        \ 'call s:ref_on_source()'
+        \ 'source ~/.vim/rc/plugins/ref.rc.vim'
 endif"}}}
 
 if dein#tap('vimfiler.vim') "{{{
@@ -211,38 +157,8 @@ if dein#tap('eskk.vim') "{{{
 endif "}}}
 
 if dein#tap('J6uil.vim') "{{{
-  function! s:J6uil_on_source() abort
-    let g:J6uil_config_dir = expand('$CACHE/J6uil')
-    let g:J6uil_no_default_keymappings = 1
-    let g:J6uil_display_offline  = 0
-    let g:J6uil_display_online   = 0
-    let g:J6uil_echo_presence    = 1
-    let g:J6uil_display_icon     = 1
-    let g:J6uil_display_interval = 0
-    let g:J6uil_updatetime       = 1000
-    let g:J6uil_align_message    = 0
-
-    silent! delcommand NeoComplCacheCachingBuffer
-
-    autocmd MyAutoCmd FileType J6uil call s:j6uil_settings()
-    autocmd MyAutoCmd FileType J6uil_say call s:j6uil_say_settings()
-
-    function! s:j6uil_settings() abort
-      setlocal wrap
-      setlocal nofoldenable
-      setlocal foldcolumn=0
-      nmap <buffer> o <Plug>(J6uil_open_say_buffer)
-      nmap <silent> <buffer> <CR> <Plug>(J6uil_action_enter)
-    endfunction
-
-    function! s:j6uil_say_settings() abort
-      setlocal wrap
-      setlocal nofoldenable
-      setlocal foldcolumn=0
-    endfunction
-  endfunction
   execute 'autocmd MyAutoCmd User' 'dein#source#'.g:dein#name
-        \ 'call s:J6uil_on_source()'
+        \ 'source ~/.vim/rc/plugins/J6uil.rc.vim'
 endif "}}}
 
 if dein#tap('vim-operator-surround') "{{{
@@ -319,37 +235,6 @@ if dein#tap('vim-choosewin') "{{{
   let g:choosewin_blink_on_land = 0
 endif "}}}
 
-if dein#tap('matchit.zip') "{{{
-  function! s:matchit_on_post_source() abort "{{{
-    " https://gist.github.com/k-takata/3d8e909a1a4955de7572
-
-    " Load matchit.vim
-    runtime macros/matchit.vim
-
-    function! s:set_match_words() abort
-      " Enable these pairs for all file types
-      let words = ['(:)', '{:}', '[:]', '（:）', '「:」']
-      if exists('b:match_words')
-        for w in words
-          if b:match_words !~ '\V' . w
-            let b:match_words .= ',' . w
-          endif
-        endfor
-      else
-        let b:match_words = join(words, ',')
-      endif
-    endfunction
-    augroup matchit-setting
-      autocmd!
-      autocmd BufEnter * call s:set_match_words()
-    augroup END
-
-    silent! execute 'doautocmd Filetype' &filetype
-  endfunction"}}}
-  execute 'autocmd MyAutoCmd User' 'dein#source#'.g:dein#name
-        \ 'call s:matchit_on_post_source()'
-endif "}}}
-
 if dein#tap('vim-fontzoom') "{{{
   nmap + <Plug>(fontzoom-larger)
   nmap _ <Plug>(fontzoom-smaller)
@@ -359,31 +244,13 @@ if dein#tap('vim-operator-replace') "{{{
   xmap p <Plug>(operator-replace)
 endif "}}}
 
-if dein#tap('restart.vim') "{{{
-  nnoremap <silent> [Space]re  :<C-u>Restart<CR>
-endif "}}}
-
 if dein#tap('vim-niceblock') "{{{
   xmap I  <Plug>(niceblock-I)
   xmap A  <Plug>(niceblock-A)
 endif "}}}
 
-if dein#tap('winmove.vim') "{{{
-  nmap <Up>      <Plug>(winmove-up)
-  nmap <Down>    <Plug>(winmove-down)
-  nmap <Left>    <Plug>(winmove-left)
-  nmap <Right>   <Plug>(winmove-right)
-endif "}}}
-
 if dein#tap('vim-fullscreen') "{{{
   nmap <C-CR> <Plug>(fullscreen-toggle)
-endif "}}}
-
-if dein#tap('vim-textobj-user') "{{{
-  omap ab <Plug>(textobj-multiblock-a)
-  omap ib <Plug>(textobj-multiblock-i)
-  xmap ab <Plug>(textobj-multiblock-a)
-  xmap ib <Plug>(textobj-multiblock-i)
 endif "}}}
 
 if dein#tap('glowshi-ft.vim') "{{{
@@ -404,11 +271,6 @@ if dein#tap('vim-jplus') "{{{
   vmap J <Plug>(jplus)
 endif "}}}
 
-if dein#tap('indentLine') "{{{
-  let g:indentLine_faster = 1
-  nmap <silent><Leader>i :<C-u>IndentLinesToggle<CR>
-endif "}}}
-
 if dein#tap('vim-gista') "{{{
   let g:gista#github_user = 'Shougo'
   let g:gista#directory = expand('$CACHE/gista')
@@ -427,11 +289,6 @@ if dein#tap('jedi-vim') "{{{
   let g:jedi#show_call_signatures = 0
 endif "}}}
 
-if dein#tap('vim-expand-region') "{{{
-  xmap v <Plug>(expand_region_expand)
-  xmap <C-v> <Plug>(expand_region_shrink)
-endif "}}}
-
 if dein#tap('vim-racer') "{{{
   let $RUST_SRC_PATH = expand('~/src/rust/src')
   let g:racer_experimental_completer = 1
@@ -441,59 +298,25 @@ if dein#tap('vim-javacomplete2') "{{{
   autocmd MyAutoCmd FileType java setlocal omnifunc=javacomplete#Complete
 endif "}}}
 
-if dein#tap('sideways.vim') "{{{
-  nnoremap <silent> " :SidewaysJumpLeft<CR>
-  nnoremap <silent> ' :SidewaysJumpRight<CR>
-  omap a, <Plug>SidewaysArgumentTextobjA
-  xmap a, <Plug>SidewaysArgumentTextobjA
-  omap i, <Plug>SidewaysArgumentTextobjI
-  xmap i, <Plug>SidewaysArgumentTextobjI
-endif "}}}
-
 if dein#tap('vim-findent') "{{{
-  " augroup findent
-  "   autocmd!
-  "   autocmd BufRead * Findent! --no-warnings
-  " augroup END
+  " Note: It is too slow.
+  " autocmd MyAutoCmd BufRead * Findent! --no-warnings
   nnoremap <silent> [Space]i    :<C-u>Findent! --no-warnings<CR>
-endif "}}}
-
-if dein#tap('neopairs.vim') "{{{
-  let g:neopairs#enable = 0
 endif "}}}
 
 if dein#tap('FastFold') "{{{
   " Folding
 
-  let g:tex_fold_enabled = 1
-
   " Vim script
   " augroup: a
   " function: f
-  " lua: l
-  " perl: p
-  " ruby: r
-  " python: P
-  " tcl: t
-  " mzscheme: m
   let g:vimsyn_folding = 'af'
 
+  let g:tex_fold_enabled = 1
   let g:xml_syntax_folding = 1
   let g:php_folding = 1
   let g:perl_fold = 1
 endif "}}}
-
-if dein#tap('vim-lua-ftplugin') "{{{
-  let g:lua_define_completion_mappings = 0
-  let g:lua_check_syntax = 0
-  let g:lua_complete_omni = 1
-  let g:lua_complete_dynamic = 0
-endif "}}}
-
-if dein#tap('vim-operator-flashy') "{{{
-  map y <Plug>(operator-flashy)
-  nmap Y <Plug>(operator-flashy)$
-endif"}}}
 
 if dein#tap('vim-easymotion') "{{{
   nmap w <Plug>(easymotion-lineforward)
@@ -518,8 +341,6 @@ if dein#tap('w3m.vim') "{{{
 endif"}}}
 
 if dein#tap('csapprox') "{{{
-  " Use CSApprox.vim
-
   " Convert colorscheme in Konsole.
   let g:CSApprox_konsole = 1
   let g:CSApprox_attr_map = {

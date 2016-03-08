@@ -103,9 +103,6 @@ on_map = '<Plug>'
 on_ft = 'ruby'
 
 [[plugins]]
-repo = 'osyo-manga/unite-quickfix'
-
-[[plugins]]
 repo = 'Shougo/neosnippet-snippets'
 
 [[plugins]]
@@ -154,4 +151,7 @@ repo = 'Kocha/vim-unite-tig'
 
 [[plugins]]
 repo = 'thinca/vim-themis'
+
+[[plugins]]
+repo = 'cocopon/iceberg.vim'
 

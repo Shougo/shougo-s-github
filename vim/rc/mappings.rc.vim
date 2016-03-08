@@ -88,12 +88,10 @@ nnoremap [Space]p
 nnoremap [Space]w
       \ :<C-u>call ToggleOption('wrap')<CR>
 
-" Easily edit .vimrc and .gvimrc "{{{
+" Easily edit .vimrc "{{{
 nnoremap <silent> [Space]ev  :<C-u>edit $MYVIMRC<CR>
-" Load .gvimrc after .vimrc edited at GVim.
 nnoremap <silent> [Space]rv :<C-u>source $MYVIMRC \|
       \ echo "source $MYVIMRC"<CR>
-nnoremap <silent> [Space]z :<C-u>edit ~/.zshrc<CR>
 "}}}
 
 " Useful save mappings.
@@ -145,19 +143,14 @@ nnoremap <silent><expr> q winnr('$') != 1 ? ':<C-u>close<CR>' : ""
 " The prefix key.
 nnoremap [Alt]   <Nop>
 xnoremap [Alt]   <Nop>
-onoremap [Alt]   <Nop>
 nmap    e  [Alt]
 xmap    e  [Alt]
-omap    e  [Alt]
 
 " Indent paste.
 nnoremap <silent> [Alt]p o<Esc>pm``[=`]``^
 xnoremap <silent> [Alt]p o<Esc>pm``[=`]``^
 nnoremap <silent> [Alt]P O<Esc>Pm``[=`]``^
 xnoremap <silent> [Alt]P O<Esc>Pm``[=`]``^
-" Insert blank line.
-nnoremap <silent> [Alt]o o<Space><BS><ESC>
-nnoremap <silent> [Alt]O O<Space><BS><ESC>
 nnoremap x "_x
 "}}}
 
@@ -179,9 +172,6 @@ noremap <expr> <C-b> max([winheight(0) - 2, 1])
 " Disable ZZ.
 nnoremap ZZ  <Nop>
 
-" Auto escape / and ? in search command.
-cnoremap <expr> / getcmdtype() == '/' ? '\/' : '/'
-
 " Select rectangle.
 xnoremap r <C-v>
 
@@ -200,7 +190,6 @@ xnoremap <expr> l foldclosed(line('.')) != -1 ? 'zogv0' : 'l'
 noremap [Space]j zj
 noremap [Space]k zk
 noremap zu :<C-u>Unite outline:foldings<CR>
-noremap zz za
 "}}}
 
 " Substitute.
@@ -249,15 +238,9 @@ endfunction
 inoremap jj           <ESC>
 cnoremap <expr> j
       \ getcmdline()[getcmdpos()-2] ==# 'j' ? "\<BS>\<C-c>" : 'j'
-onoremap jj           <ESC>
 
 inoremap j<Space>     j
-onoremap j<Space>     j
 "}}}
-
-" Execute countable 'n.'.
-" EXAMPLE: 3@n
-let @n='n.'
 
 " a>, i], etc... "{{{
 " <angle>
@@ -339,4 +322,3 @@ endfunction
 nnoremap <silent> <leader>gu :call <SID>InsertGitHubUserInfo()<cr>
 
 nnoremap <silent> #    <C-^>
-

@@ -63,7 +63,7 @@ call s:source_rc('plugins.rc.vim')
 " Enable syntax color.
 " syntax enable
 
-if dein#check_install()
+if has('vim_starting') && dein#check_install()
   " Installation check.
   call dein#install()
 endif

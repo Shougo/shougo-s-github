@@ -23,8 +23,6 @@ augroup MyAutoCmd
 
   autocmd FileType gitcommit,qfreplace setlocal nofoldenable
 
-  autocmd FileType ref nnoremap <buffer> <TAB> <C-w>w
-
   autocmd FileType python setlocal foldmethod=indent
 
   " Update filetype.
@@ -47,7 +45,7 @@ augroup END
 
 augroup vimrc-highlight
   autocmd!
-  autocmd Syntax * if 5000 < line('$') | syntax sync minlines=100 | endif
+  autocmd Syntax * if 5000 < line('$') | syntax sync minlines=200 | endif
 augroup END
 
 " Python
@@ -129,6 +127,7 @@ function! s:my_on_filetype() abort "{{{
       " Lazy loading
       silent! filetype plugin indent on
       syntax enable
+      filetype detect
     endif
   endif
 endfunction "}}}

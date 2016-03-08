@@ -30,12 +30,23 @@ font pango:Droid Sans Mono 12
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
+# Hide borders
+hide_edge_borders none
+
+# set default desktop layout (default is tiling)
+# workspace_layout tabbed <stacking|tabbed>
+workspace_layout tabbed
+
 # start a terminal
 bindsym $mod+Return exec st -e zsh
 
 # kill focused window
 # bindsym $mod+Shift+q kill
 bindsym $mod+q kill
+
+# Screen brightness controls
+# bindsym XF86MonBrightnessUp exec "xbacklight -inc 10; notify-send 'brightness up'"
+# bindsym XF86MonBrightnessDown exec "xbacklight -dec 10; notify-send 'brightness down'"
 
 # start dmenu (a program launcher)
 # bindsym $mod+d exec dmenu_run -fn 'Droid Sans Mono-12'
@@ -126,32 +137,6 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 # bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
-# resize window (you can also use the mouse for that)
-mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
-
-        # Pressing left will shrink the window’s width.
-        # Pressing right will grow the window’s width.
-        # Pressing up will shrink the window’s height.
-        # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym semicolon resize grow width 10 px or 10 ppt
-
-        # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
-
-        # back to normal: Enter or Escape
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-}
-
-bindsym $mod+r mode "resize"
-
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
@@ -159,8 +144,73 @@ bar {
         tray_output primary
 }
 
+# Open applications on specific workspaces
+# assign [class="Thunderbird"] 1
+assign [class="Firefox"] 2
+# assign [class="Pcmanfm"] 3
+# assign [class="Skype"] 5
+
+# Open specific applications in floating mode
+for_window [title="alsamixer"] floating enable border pixel 2
+for_window [class="Calamares"] floating enable border normal
+for_window [class="Clipgrab"] floating enable
+for_window [title="File Transfer*"] floating enable
+for_window [class="Galculator"] floating enable border pixel 2
+for_window [class="GParted"] floating enable border normal
+for_window [title="i3_help"] floating enable border normal
+for_window [class="Lightdm-gtk-greeter-settings"] floating enable
+for_window [class="Lxappearance"] floating enable border normal
+for_window [class="manjaro-settings-manager-gui"] floating enable border normal
+for_window [class="Manjaro Welcome"] floating enable
+for_window [title="MuseScore: Play Panel"] floating enable
+for_window [class="Nitrogen"] floating enable border normal
+for_window [class="Oblogout"] fullscreen enable
+for_window [class="octopi"] floating enable
+for_window [class="Pamac-manager"] floating enable
+for_window [class="Pamac-updater"] floating enable
+for_window [class="Pavucontrol"] floating enable
+for_window [class="Qtconfig-qt4"] floating enable border normal
+for_window [title="sudo"] floating enable
+for_window [class="Simple-scan"] floating enable border normal
+for_window [class="(?i)System-config-printer.py"] floating enable border normal
+for_window [class="Skype"] floating enable border normal
+for_window [class="Thus"] floating enable border normal
+for_window [class="Timeset-gui"] floating enable border normal
+for_window [class="(?i)virtualbox"] floating enable border normal
+
+# switch to workspace with urgent window automatically
+for_window [urgent=latest] focus
+
+# Set shut down, restart and locking features
+#bindsym $mod+0 mode "$mode_system"
+set $mode_system (l)ock, (e)xit, switch_(u)ser, (s)uspend, (h)ibernate, (r)eboot, (Shift+s)hutdown
+mode "$mode_system" {
+    bindsym l exec --no-startup-id i3exit lock, mode "default"
+    bindsym s exec --no-startup-id i3exit suspend, mode "default"
+    bindsym u exec --no-startup-id i3exit switch_user, mode "default"
+    bindsym e exec --no-startup-id i3exit logout, mode "default"
+    bindsym h exec --no-startup-id i3exit hibernate, mode "default"
+    bindsym r exec --no-startup-id i3exit reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id i3exit shutdown, mode "default"
+
+    # exit system mode: "Enter" or "Escape"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+# hide/unhide i3status bar
+bindsym $mod+m bar mode toggle
+
+# Theme colors
+# class          border  backgr. text    indicator
+#client.focused   #E8E3D1 #E8E3D1 #000000 #2ECC71
+#client.unfocused #16404B #16404B #2ECC71 #222222
+#client.urgent    #274D01 #900000 #FFFFFF #900000
+
+# Use US keymap
 exec --no-startup-id setxkbmap -option ctrl:nocaps -rules evdev -model us -layout us
 
+# My mappings
 bindsym $mod+p exec thunar
 bindsym $mod+n exec nvim-qt
 bindsym $mod+x exec firefox
@@ -173,4 +223,3 @@ bindsym $mod+s exec --no-startup-id rofi -i -show ssl -ternimal st
 bindsym $mod+Shift+l exec --no-startup-id i3exit lock
 bindsym $mod+Shift+e exec --no-startup-id i3exit logout
 
-workspace_layout tabbed

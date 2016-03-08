@@ -438,5 +438,9 @@ setopt share_history
 # Enable math functions
 zmodload zsh/mathfunc
 
+# Use dtach or abduco instead screen/tmux
+# C-\ is detach
+# dtach command, dtach -A command, dtach -a session
+# adbuco -c session,abduco -c session command, abduco -a command
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
