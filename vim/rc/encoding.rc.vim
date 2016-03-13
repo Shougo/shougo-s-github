@@ -11,27 +11,16 @@ endif
 
 " Setting of terminal encoding."{{{
 if !has('gui_running')
-  if &term ==# 'win32' &&
-        \ (v:version < 703 || (v:version == 703 && has('patch814')))
-    " Setting when use the non-GUI Japanese console.
-
-    " Garbled unless set this.
-     set termencoding=cp932
-    " Japanese input changes itself unless set this.  Be careful because the
-    " automatic recognition of the character code is not possible!
-     set encoding=japan
-  else
-    if $ENV_ACCESS ==# 'linux'
-       set termencoding=euc-jp
-    elseif $ENV_ACCESS ==# 'colinux'
-       set termencoding=utf-8
-    else  " fallback
-       set termencoding=  " same as 'encoding'
-    endif
+  if $ENV_ACCESS ==# 'linux'
+    set termencoding=euc-jp
+  elseif $ENV_ACCESS ==# 'colinux'
+    set termencoding=utf-8
+  else  " fallback
+    set termencoding=  " same as 'encoding'
   endif
 elseif IsWindows()
   " For system.
-   set termencoding=cp932
+  set termencoding=cp932
 endif
 "}}}
 
@@ -40,35 +29,9 @@ if has('kaoriya')
   " For Kaoriya only.
    set fileencodings=guess
 elseif !exists('did_encoding_settings') && has('iconv')
-  " Does iconv support JIS X 0213?
-  let s:enc_euc = 'euc-jisx0213,euc-jp'
-  let s:enc_jis = 'iso-2022-jp-3'
-
   " Build encodings.
-  let &fileencodings = 'ucs-bom'
-  if &encoding !=# 'utf-8'
-    let &fileencodings .= ',' . 'ucs-2le'
-    let &fileencodings .= ',' . 'ucs-2'
-  endif
-  let &fileencodings .= ',' . s:enc_jis
-  let &fileencodings .= ',' . 'utf-8'
-
-  if &encoding ==# 'utf-8'
-    let &fileencodings .= ',' . s:enc_euc
-    let &fileencodings .= ',' . 'cp932'
-  elseif &encoding =~# '^euc-\%(jp\|jisx0213\)$'
-    let &encoding = s:enc_euc
-    let &fileencodings .= ',' . 'cp932'
-    let &fileencodings .= ',' . &encoding
-  else  " cp932
-    let &fileencodings .= ',' . s:enc_euc
-    let &fileencodings .= ',' . &encoding
-  endif
-  let &fileencodings .= ',' . 'cp20932'
-
-  unlet s:enc_euc
-  unlet s:enc_jis
-
+  let &fileencodings = join([
+        \ 'ucs-bom', 'iso-2022-jp-3', 'utf-8', 'euc-jp', 'cp932'])
   let did_encoding_settings = 1
 endif
 "}}}
@@ -139,5 +102,5 @@ command! -bang -complete=file -nargs=? WMac
 "}}}
 
 if has('multi_byte_ime')
-   set iminsert=0 imsearch=0
+  set iminsert=0 imsearch=0
 endif

@@ -53,6 +53,7 @@ autocmd MyAutoCmd FileType vimfiler call s:vimfiler_my_settings()
 function! s:vimfiler_my_settings() abort "{{{
   call vimfiler#set_execute_file('vim', ['vim', 'notepad'])
   call vimfiler#set_execute_file('txt', 'vim')
+  call vimfiler#set_execute_file('pdf', 'zathura')
 
   " Overwrite settings.
   nnoremap <silent><buffer> J

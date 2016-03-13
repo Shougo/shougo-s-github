@@ -203,9 +203,9 @@ bindsym $mod+m bar mode toggle
 
 # Theme colors
 # class          border  backgr. text    indicator
-#client.focused   #E8E3D1 #E8E3D1 #000000 #2ECC71
-#client.unfocused #16404B #16404B #2ECC71 #222222
-#client.urgent    #274D01 #900000 #FFFFFF #900000
+client.focused   #444444 #444444 #CCCCCC #2ECC71
+client.unfocused #16404B #16404B #2ECC71 #222222
+client.urgent    #274D01 #900000 #FFFFFF #900000
 
 # Use US keymap
 exec --no-startup-id setxkbmap -option ctrl:nocaps -rules evdev -model us -layout us
