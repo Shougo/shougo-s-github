@@ -2,15 +2,8 @@
 " For UNIX:
 "
 
-if exists('$WINDIR') || !executable('zsh')
-  " Cygwin.
-
-  " Use bash.
-   set shell=bash
-else
-  " Use zsh.
-   set shell=zsh
-endif
+" Use sh.  It is faster
+set shell=sh
 
 " Set path.
 let $PATH = expand('~/bin').':/usr/local/bin/:'.$PATH

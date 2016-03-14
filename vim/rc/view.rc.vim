@@ -61,6 +61,11 @@ endif
 " Do not display greetings message at the time of Vim start.
 set shortmess=aTI
 
+try
+  set shortmess+=F
+catch
+endtry
+
 " Don't create backup.
 set nowritebackup
 set nobackup

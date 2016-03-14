@@ -348,3 +348,8 @@ if dein#tap('csapprox') "{{{
         \ 'italic' : '', 'sp' : ''
         \ }
 endif"}}}
+
+if dein#tap('vim-ft-help_fold') "{{{
+  execute 'autocmd MyAutoCmd User' 'dein#source#'.g:dein#name
+        \ 'FastFoldUpdate'
+endif"}}}
