@@ -8,6 +8,7 @@
 static char font[] = "Courier 10 Pitch:pixelsize=19:"
 "antialias=true:hintstyle=3:autohint=true";
 static int borderpx = 2;
+#define histsize 2000
 
 /*
  * What program is execed by st depends of these precedence rules:
@@ -141,6 +142,12 @@ static MouseShortcut mshortcuts[] = {
 	{ Button5,              XK_ANY_MOD,     "\005" },
 };
 
+static MouseKey mkeys[] = {
+	/* button               mask            function        argument */
+	{ Button4,              ShiftMask,      kscrollup,      {.i =  1} },
+	{ Button5,              ShiftMask,      kscrolldown,    {.i =  1} },
+};
+
 /* Internal keyboard shortcuts. */
 #define MODKEY Mod1Mask
 
@@ -158,6 +165,10 @@ static Shortcut shortcuts[] = {
 	{ MODKEY|ShiftMask,     XK_C,           clipcopy,       {.i =  0} },
 	{ MODKEY|ShiftMask,     XK_V,           clippaste,      {.i =  0} },
 	{ MODKEY,               XK_Num_Lock,    numlock,        {.i =  0} },
+	{ ShiftMask,            XK_Page_Up,     kscrollup,      {.i = -1} },
+	{ ShiftMask,            XK_Page_Down,   kscrolldown,    {.i = -1} },
+	{ MODKEY, 'u', externalpipe, { .v = "/home/james/dotfiles/scripts/findURL.py | dmenu -i -l 20 -w 1000 -centerx -centery -nf \\#C0C0C0 -nb \\#141214 -sf \\#28F028 -sb \\#303030 | xargs -r firefox" } },
+	// { MODKEY, 'u', externalpipe, { .v = "tee /home/local/ANT/jbbaumga/pipe.txt | /home/local/ANT/jbbaumga/dotfiles/scripts/findURL.py | dmenu -l 10 -centerx -centery -w 900 | xargs -r xdg-open" } },
 };
 
 /*
@@ -417,4 +428,13 @@ static Key key[] = {
 static uint selmasks[] = {
 	[SEL_RECTANGULAR] = Mod1Mask,
 };
+
+/*
+ * Printable characters in ASCII, used to estimate the advance width
+ * of single wide characters.
+ */
+static char ascii_printable[] =
+	" !\"#$%&'()*+,-./0123456789:;<=>?"
+	"@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_"
+	"`abcdefghijklmnopqrstuvwxyz{|}~";
 
