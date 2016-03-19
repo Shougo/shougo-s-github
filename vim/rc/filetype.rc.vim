@@ -9,12 +9,14 @@ augroup MyAutoCmd
   autocmd FileType,Syntax,BufEnter,BufWinEnter * call s:my_on_filetype()
 
   " Enable gauche syntax.
-  autocmd FileType scheme nested let b:is_gauche=1 | setlocal lispwords=define |
-        \let b:current_syntax='' | syntax enable
+  autocmd FileType scheme nested let b:is_gauche=1 |
+        \ setlocal lispwords=define |
+        \ let b:current_syntax='' | syntax enable
 
   " Auto reload VimScript.
   autocmd BufWritePost,FileWritePost *.vim nested
-        \ if &l:autoread > 0 | source <afile> | echo 'source ' . bufname('%') |
+        \ if &l:autoread > 0 | source <afile> |
+        \   echo 'source ' . bufname('%') |
         \ endif
 
   " Reload .vimrc automatically.
@@ -81,6 +83,9 @@ endif
 " Tex
 let g:tex_flavor = 'latex'
 
+" python.vim
+let python_highlight_all = 1
+
 " http://mattn.kaoriya.net/software/vim/20140523124903.htm
 let g:markdown_fenced_languages = [
       \  'coffee',
@@ -118,27 +123,16 @@ function! s:my_on_filetype() abort "{{{
       setlocal colorcolumn=
     endif
   endif
-
-  if &l:filetype != '' || bufname('%') != ''
-    redir => filetype_out
-    silent! filetype
-    redir END
-    if filetype_out =~# 'OFF'
-      " Lazy loading
-      silent! filetype plugin indent on
-      syntax enable
-      filetype detect
-    endif
-  endif
 endfunction "}}}
 
-" Do not display completion messages
-" Patch: https://groups.google.com/forum/#!topic/vim_dev/WeBBjkXE8H8
-set noshowmode
-try
-   set shortmess+=c
-catch /^Vim\%((\a\+)\)\=:E539: Illegal character/
-  autocmd MyAutoCmd VimEnter *
-        \ highlight ModeMsg guifg=bg guibg=bg |
-        \ highlight Question guifg=bg guibg=bg
-endtry
+" Folding
+
+" Vim script
+" augroup: a
+" function: f
+let g:vimsyn_folding = 'af'
+
+let g:tex_fold_enabled = 1
+let g:xml_syntax_folding = 1
+let g:php_folding = 1
+let g:perl_fold = 1

@@ -22,11 +22,13 @@ on_i = 1
 [[plugins]]
 repo = 'Shougo/neocomplete.vim'
 depends = 'context_filetype.vim'
+if = "has('lua')"
 on_i = 1
 
 [[plugins]]
 repo = 'Shougo/deoplete.nvim'
 depends = 'context_filetype.vim'
+if = "has('nvim')"
 on_i = 1
 
 [[plugins]]
@@ -200,7 +202,8 @@ on_map = '<Plug>'
 
 [[plugins]]
 repo = 'kannokanno/previm'
-on_ft = ['markdown', 'rst', 'mkd']
+# on_ft = ['markdown', 'rst', 'mkd']
+on_cmd = 'PrevimOpen'
 depends = 'open-browser.vim'
 
 [[plugins]]

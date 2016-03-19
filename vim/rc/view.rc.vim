@@ -58,13 +58,23 @@ else
    set nowrap
 endif
 
-" Do not display greetings message at the time of Vim start.
+" Do not display the greetings message at the time of Vim start.
 set shortmess=aTI
 
-try
+" Do not display the completion messages
+set noshowmode
+if has('patch-7.4.314')
+  set shortmess+=c
+else
+  autocmd MyAutoCmd VimEnter *
+        \ highlight ModeMsg guifg=bg guibg=bg |
+        \ highlight Question guifg=bg guibg=bg
+endif
+
+" Do not display the edit messages
+if has('patch-7.4.1570')
   set shortmess+=F
-catch
-endtry
+endif
 
 " Don't create backup.
 set nowritebackup

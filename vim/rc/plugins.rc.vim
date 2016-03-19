@@ -2,15 +2,6 @@
 " Plugin:
 "
 
-" changelog.vim"{{{
-autocmd MyAutoCmd BufNewFile,BufRead *.changelog setf changelog
-let g:changelog_timeformat = "%Y-%m-%d"
-let g:changelog_username = "Shougo "
-"}}}
-
-" python.vim
-let python_highlight_all = 1
-
 if dein#tap('deoplete.nvim') && has('nvim') "{{{
   let g:loaded_neocomplete = 1
   let g:deoplete#enable_at_startup = 1
@@ -172,23 +163,6 @@ if dein#tap('qfreplace.vim') "{{{
   autocmd MyAutoCmd FileType qf nnoremap <buffer> r :<C-u>Qfreplace<CR>
 endif "}}}
 
-if dein#tap('open-browser.vim') "{{{
-  nmap gs <Plug>(open-browser-wwwsearch)
-
-  function! s:open_browser_on_source() abort
-    nnoremap <Plug>(open-browser-wwwsearch)
-          \ :<C-u>call <SID>www_search()<CR>
-    function! s:www_search() abort
-      let search_word = input('Please input search word: ')
-      if search_word != ''
-        execute 'OpenBrowserSearch' escape(search_word, '"')
-      endif
-    endfunction
-  endfunction
-  execute 'autocmd MyAutoCmd User' 'dein#source#'.g:dein#name
-        \ 'call s:open_browser_on_source()'
-endif "}}}
-
 if dein#tap('caw.vim') "{{{
   autocmd MyAutoCmd FileType * call s:init_caw()
   function! s:init_caw() abort
@@ -302,20 +276,6 @@ if dein#tap('vim-findent') "{{{
   " Note: It is too slow.
   " autocmd MyAutoCmd BufRead * Findent! --no-warnings
   nnoremap <silent> [Space]i    :<C-u>Findent! --no-warnings<CR>
-endif "}}}
-
-if dein#tap('FastFold') "{{{
-  " Folding
-
-  " Vim script
-  " augroup: a
-  " function: f
-  let g:vimsyn_folding = 'af'
-
-  let g:tex_fold_enabled = 1
-  let g:xml_syntax_folding = 1
-  let g:php_folding = 1
-  let g:perl_fold = 1
 endif "}}}
 
 if dein#tap('vim-easymotion') "{{{

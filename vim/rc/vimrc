@@ -1,5 +1,5 @@
 "---------------------------------------------------------------------------
-"Shougo's .vimrc
+" Shougo's .vimrc
 "---------------------------------------------------------------------------
 
 " profile start profile.txt
@@ -63,11 +63,6 @@ call s:source_rc('plugins.rc.vim')
 " Enable syntax color.
 " syntax enable
 
-if has('vim_starting') && dein#check_install()
-  " Installation check.
-  call dein#install()
-endif
-
 "---------------------------------------------------------------------------
 " Encoding:
 "
@@ -108,7 +103,24 @@ call s:source_rc('view.rc.vim')
 " FileType:
 "
 
-call s:source_rc('filetype.rc.vim')
+autocmd MyAutoCmd FileType,Syntax,BufEnter,BufWinEnter *
+      \ call s:my_on_filetype()
+function! s:my_on_filetype() abort "{{{
+  if &l:filetype == '' && bufname('%') == ''
+    return
+  endif
+
+  redir => filetype_out
+  silent! filetype
+  redir END
+  if filetype_out =~# 'OFF'
+    " Lazy loading
+    call s:source_rc('filetype.rc.vim')
+    silent! filetype plugin indent on
+    syntax enable
+    filetype detect
+  endif
+endfunction "}}}
 
 "---------------------------------------------------------------------------
 " Mappings:
