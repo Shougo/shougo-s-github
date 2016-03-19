@@ -51,6 +51,67 @@ hook_source = 'source ~/.vim/rc/plugins/neosnippet.rc.vim'
 repo = 'Shougo/unite.vim'
 depends = 'neomru.vim'
 hook_source = 'source ~/.vim/rc/plugins/unite.rc.vim'
+hook_add = '''
+  nnoremap <silent> ;b
+        \ :<C-u>Unite -buffer-name=build`tabpagenr()` -no-quit build<CR>
+  nnoremap <silent> ;o
+        \ :<C-u>Unite outline -no-start-insert -resume<CR>
+  nnoremap <silent> <C-k>
+        \ :<C-u>Unite change jump<CR>
+  nnoremap <silent> ;g
+        \ :<C-u>Unite grep -buffer-name=grep`tabpagenr()`
+        \ -auto-preview -no-split -no-empty -resume<CR>
+  nnoremap <silent> ;r
+        \ :<C-u>Unite -buffer-name=register
+        \ -default-action=append register history/yank<CR>
+  xnoremap <silent> ;r
+        \ d:<C-u>Unite -buffer-name=register
+        \ -default-action=append register history/yank<CR>
+
+  nnoremap <silent> <C-t>
+        \ :<C-u>Unite -auto-resize -select=`tabpagenr()-1` tab<CR>
+  nnoremap <silent> <C-w>
+        \ :<C-u>Unite -force-immediately window:all:no-current<CR>
+
+  nnoremap <silent> [Window]s
+        \ :<C-u>Unite -buffer-name=files -no-split -multi-line -unique -silent
+        \ jump_point file_point file_mru
+        \ `finddir('.git', ';') != '' ? 'file_rec/git' : ''`
+        \ buffer_tab:- file file/new<CR>
+
+  nnoremap <silent> [Window]<Space>
+        \ :<C-u>Unite -buffer-name=files -path=~/.vim/rc file_rec<CR>
+  nnoremap <silent> [Window]n
+        \ :<C-u>Unite -start-insert -default-action=lcd dein<CR>
+  nnoremap <silent> [Window]g
+        \ :<C-u>Unite -start-insert ghq<CR>
+
+  nnoremap <silent> [Space]ft
+        \ :<C-u>Unite -start-insert filetype filetype/new<CR>
+
+  " Tag jump.
+  nnoremap <silent><expr> tt  &filetype == 'help' ?  "g\<C-]>" :
+        \ ":\<C-u>UniteWithCursorWord -buffer-name=tag -immediately
+        \  tag tag/include\<CR>"
+  nnoremap <silent><expr> tp  &filetype == 'help' ?
+        \ ":\<C-u>pop\<CR>" : ":\<C-u>Unite jump\<CR>"
+
+  " Execute help.
+  nnoremap <silent> <C-h>  :<C-u>Unite -buffer-name=help help<CR>
+
+  " Search.
+  nnoremap <silent> /
+        \ :<C-u>Unite -buffer-name=search%`bufnr('%')`
+        \ -start-insert line:forward:wrap<CR>
+  nnoremap <silent> *
+        \ :<C-u>UniteWithCursorWord -buffer-name=search%`bufnr('%')`
+        \ line:forward:wrap<CR>
+  nnoremap [Alt]/       /
+  nnoremap [Alt]?       ?
+  nnoremap <silent> n
+        \ :<C-u>UniteResume search%`bufnr('%')`
+        \  -no-start-insert -force-redraw<CR>
+'''
 
 [[plugins]]
 repo = 'Shougo/context_filetype.vim'
@@ -76,7 +137,7 @@ hook_source = 'source ~/.vim/rc/plugins/vimshell.rc.vim'
 [[plugins]]
 repo = 'Shougo/junkfile.vim'
 on_source = 'unite.vim'
-hook_add = ''''
+hook_add = '''
   nnoremap <silent> [Window]e :<C-u>Unite junkfile/new junkfile -start-insert<CR>
 '''
 
@@ -159,6 +220,22 @@ on_source = 'unite.vim'
 [[plugins]]
 repo = 'tyru/caw.vim'
 on_map = '<Plug>'
+hook_add = '''
+  function! InitCaw() abort
+    if !&l:modifiable
+      silent! nunmap <buffer> gc
+      silent! xunmap <buffer> gc
+      silent! nunmap <buffer> gcc
+      silent! xunmap <buffer> gcc
+    else
+      nmap <buffer> gc <Plug>(caw:prefix)
+      xmap <buffer> gc <Plug>(caw:prefix)
+      nmap <buffer> gcc <Plug>(caw:i:toggle)
+      xmap <buffer> gcc <Plug>(caw:i:toggle)
+    endif
+  endfunction
+  autocmd MyAutoCmd FileType * call InitCaw()
+'''
 
 [[plugins]]
 repo = 'tyru/eskk.vim'

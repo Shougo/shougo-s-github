@@ -152,7 +152,8 @@ on_ft = 'help'
 [[plugins]]
 repo = 'machakann/vim-vimhelplint'
 hook_add = '''
-  autocmd MyAutoCmd FileType help nnoremap <silent><buffer> ,r  :<C-u>VimhelpLint!<CR>
+  autocmd MyAutoCmd FileType
+  \ help nnoremap <silent><buffer> ,r  :<C-u>VimhelpLint!<CR>
 '''
 
 [[plugins]]

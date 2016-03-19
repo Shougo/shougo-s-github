@@ -55,13 +55,13 @@ call s:source_rc('init.rc.vim')
 
 call s:source_rc('dein.rc.vim')
 
-call s:source_rc('plugins.rc.vim')
+if dein#tap('deoplete.nvim') && has('nvim')
+  let g:loaded_neocomplete = 1
+endif
 
-" Filetype loading is too slow
-" filetype plugin indent on
-
-" Enable syntax color.
-" syntax enable
+if dein#tap('neocomplete.vim') && has('lua')
+  let g:loaded_deoplete = 1
+endif
 
 "---------------------------------------------------------------------------
 " Encoding:
