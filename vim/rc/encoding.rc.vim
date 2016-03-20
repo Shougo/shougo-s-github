@@ -6,7 +6,11 @@
 " Setting of the encoding to use for a save and reading.
 " Make it normal in UTF-8 in Unix.
 if has('vim_starting') && &encoding !=# 'utf-8'
-   set encoding=utf-8
+  if IsWindows() && !has('gui_running')
+    set encoding=cp932
+  else
+    set encoding=utf-8
+  endif
 endif
 
 " Setting of terminal encoding."{{{

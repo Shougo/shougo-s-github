@@ -6,6 +6,7 @@
 " profile file ~/.vim/rc/*
 " profile func dein#*
 
+
 "---------------------------------------------------------------------------
 " Initialize:
 "
@@ -37,21 +38,9 @@ function! s:source_rc(path, ...) abort "{{{
   endtry
 endfunction"}}}
 
-let s:is_windows = has('win16') || has('win32') || has('win64')
-let s:is_cygwin = has('win32unix')
-
-function! IsWindows() abort
-  return s:is_windows
-endfunction
-
-function! IsMac() abort
-  return !s:is_windows && !s:is_cygwin
-      \ && (has('mac') || has('macunix') || has('gui_macvim') ||
-      \   (!executable('xdg-open') &&
-      \     system('uname') =~? '^darwin'))
-endfunction
-
-call s:source_rc('init.rc.vim')
+if has('vim_starting')
+  call s:source_rc('init.rc.vim')
+endif
 
 call s:source_rc('dein.rc.vim')
 
@@ -62,12 +51,15 @@ endif
 if dein#tap('neocomplete.vim') && has('lua')
   let g:loaded_deoplete = 1
 endif
+let g:loaded_neobundle = 1
+
 
 "---------------------------------------------------------------------------
 " Encoding:
 "
 
 call s:source_rc('encoding.rc.vim')
+
 
 "---------------------------------------------------------------------------
 " Search:
@@ -87,17 +79,20 @@ set nohlsearch
 " Searches wrap around the end of the file.
 set wrapscan
 
+
 "---------------------------------------------------------------------------
 " Edit:
 "
 
 call s:source_rc('edit.rc.vim')
 
+
 "---------------------------------------------------------------------------
 " View:
 "
 
 call s:source_rc('view.rc.vim')
+
 
 "---------------------------------------------------------------------------
 " FileType:
@@ -122,11 +117,13 @@ function! s:my_on_filetype() abort "{{{
   endif
 endfunction "}}}
 
+
 "---------------------------------------------------------------------------
 " Mappings:
 "
 
 call s:source_rc('mappings.rc.vim')
+
 
 "---------------------------------------------------------------------------
 " Commands:
@@ -137,6 +134,7 @@ command! -nargs=1 -complete=file Diff vertical diffsplit <args>
 " Disable diff mode.
 command! -nargs=0 Undiff setlocal nodiff noscrollbind wrap
 
+
 "---------------------------------------------------------------------------
 " Platform:
 "
@@ -145,7 +143,7 @@ if has('nvim')
   call s:source_rc('neovim.rc.vim')
 endif
 
-if s:is_windows
+if IsWindows()
   call s:source_rc('windows.rc.vim')
 else
   call s:source_rc('unix.rc.vim')
@@ -154,6 +152,7 @@ endif
 if !has('nvim') && has('gui_running')
   call s:source_rc('gui.rc.vim')
 endif
+
 
 "---------------------------------------------------------------------------
 " Others:

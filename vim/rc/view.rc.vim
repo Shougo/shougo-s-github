@@ -85,6 +85,7 @@ set backupdir-=.
 " Disable bell.
 set t_vb=
 set novisualbell
+set belloff=all
 
 " Display candidate supplement.
 set nowildmenu
