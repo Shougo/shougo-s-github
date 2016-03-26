@@ -62,7 +62,6 @@ on_ft = 'diff'
 [[plugins]]
 repo = 'thinca/vim-ft-help_fold'
 on_ft = 'help'
-hook_add = 'autocmd MyAutoCmd FileType help FastFoldUpdate'
 
 [[plugins]]
 repo = 'yomi322/vim-gitcomplete'

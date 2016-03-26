@@ -46,32 +46,8 @@ if &term =~# 'xterm' && !has('nvim')
   let &t_EI = "\<Esc>]12;white\x7"
 endif
 
-" Using the mouse on a terminal.
-if has('mouse') && !has('nvim')
-   set mouse=a
-  if has('mouse_sgr') || v:version > 703 ||
-        \ v:version == 703 && has('patch632')
-     set ttymouse=sgr
-  else
-     set ttymouse=xterm2
-  endif
-
-  " Paste.
-  nnoremap <RightMouse> "+p
-  xnoremap <RightMouse> "+p
-  inoremap <RightMouse> <C-r><C-o>+
-  cnoremap <RightMouse> <C-r>+
-endif
+" Disable the mouse.
+set mouse=
 
 " Colorscheme
-if has('nvim') && exists('$NVIM_TUI_ENABLE_TRUE_COLOR')
-  " Use true color feature
-  colorscheme candy
-else
-  colorscheme candy256
-
-  " For guicolorscheme
-  " autocmd MyAutoCmd VimEnter * nested
-  "       \ if !exists('g:colors_name') | GuiColorScheme candy | endif
-endif
-
+colorscheme candy

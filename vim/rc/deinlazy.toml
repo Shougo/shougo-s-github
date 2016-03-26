@@ -230,8 +230,8 @@ hook_add = '''
     else
       nmap <buffer> gc <Plug>(caw:prefix)
       xmap <buffer> gc <Plug>(caw:prefix)
-      nmap <buffer> gcc <Plug>(caw:i:toggle)
-      xmap <buffer> gcc <Plug>(caw:i:toggle)
+      nmap <buffer> gcc <Plug>(caw:tildepos:toggle)
+      xmap <buffer> gcc <Plug>(caw:tildepos:toggle)
     endif
   endfunction
   autocmd MyAutoCmd FileType * call InitCaw()
