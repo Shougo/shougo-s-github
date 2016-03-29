@@ -30,4 +30,3 @@ if has('vim_starting') && dein#check_install()
   " Installation check.
   call dein#install()
 endif
-

@@ -461,3 +461,12 @@ repo = 'kana/vim-smartchr'
 on_i = 1
 hook_source = 'source ~/.vim/rc/plugins/smartchr.rc.vim'
 
+[[plugins]]
+repo = 'osyo-manga/vim-precious'
+depends = 'context_filetype.vim'
+on_i = 1
+hook_source = '''
+  let g:precious_enable_switch_CursorMoved = { '*': 0 }
+  autocmd MyAutoCmd InsertEnter * PreciousSwitch
+  autocmd MyAutoCmd InsertLeave * PreciousReset
+'''
