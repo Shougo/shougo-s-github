@@ -27,7 +27,7 @@ if has('win32') || has('win64')
 
   if has('patch-7.4.394')
     " Use DirectWrite
-     set renderoptions=type:directx,gammma:2.2,mode:3
+     "set renderoptions=type:directx
   endif
 
   if has('kaoriya')
