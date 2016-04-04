@@ -38,6 +38,11 @@ function! s:source_rc(path, ...) abort "{{{
   endtry
 endfunction"}}}
 
+" Set augroup.
+augroup MyAutoCmd
+  autocmd!
+augroup END
+
 if has('vim_starting')
   call s:source_rc('init.rc.vim')
 endif
@@ -106,7 +111,7 @@ call s:source_rc('view.rc.vim')
 " FileType:
 "
 
-autocmd MyAutoCmd FileType,Syntax,BufEnter,BufWinEnter *
+autocmd MyAutoCmd FileType,Syntax *
       \ call s:my_on_filetype()
 function! s:my_on_filetype() abort "{{{
   if &l:filetype == '' && bufname('%') == ''
@@ -122,6 +127,7 @@ function! s:my_on_filetype() abort "{{{
     silent! filetype plugin indent on
     syntax enable
     filetype detect
+    FastFoldUpdate
   endif
 endfunction "}}}
 

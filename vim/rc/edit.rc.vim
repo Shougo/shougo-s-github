@@ -15,6 +15,9 @@ set expandtab
 " Round indent by shiftwidth.
 set shiftround
 
+" Enable smart indent.
+set autoindent smartindent
+
 " Enable modeline.
 set modeline
 

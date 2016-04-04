@@ -192,8 +192,9 @@ hook_add = '''
 [[plugins]]
 repo = 'thinca/vim-qfreplace'
 on_ft = ['unite', 'quickfix']
-hook_source =
-  'autocmd MyAutoCmd FileType qf nnoremap <buffer> r :<C-u>Qfreplace<CR>'
+hook_source = '''
+  autocmd MyAutoCmd FileType qf nnoremap <buffer> r :<C-u>Qfreplace<CR>
+'''
 
 [[plugins]]
 repo = 'thinca/vim-quickrun'
@@ -411,8 +412,9 @@ on_ft = 'rust'
 [[plugins]]
 repo = 'artur-shaik/vim-javacomplete2'
 on_ft = 'java'
-hook_source =
-  'autocmd MyAutoCmd FileType java setlocal omnifunc=javacomplete#Complete'
+hook_source = '''
+  autocmd MyAutoCmd FileType java setlocal omnifunc=javacomplete#Complete
+'''
 
 [[plugins]]
 repo = 'lambdalisue/vim-findent'
@@ -458,16 +460,6 @@ on_i = 1
 hook_source = 'source ~/.vim/rc/plugins/smartchr.rc.vim'
 
 [[plugins]]
-repo = 'osyo-manga/vim-precious'
-depends = 'context_filetype.vim'
-on_i = 1
-hook_source = '''
-  let g:precious_enable_switch_CursorMoved = { '*': 0 }
-  autocmd MyAutoCmd InsertEnter * PreciousSwitch
-  autocmd MyAutoCmd InsertLeave * PreciousReset
-'''
-
-[[plugins]]
 repo = 'zchee/deoplete-clang'
 if = "has('nvim')"
 on_ft = ['c', 'cpp']
@@ -482,4 +474,8 @@ repo = 'zchee/deoplete-go'
 if = "has('nvim')"
 on_i = 1
 on_ft = 'go'
+
+[[plugins]]
+repo = 'racer-rust/vim-racer'
+on_ft = 'rust'
 

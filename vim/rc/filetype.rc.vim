@@ -2,9 +2,6 @@
 " FileType:
 "
 
-" Enable smart indent.
-set autoindent smartindent
-
 augroup MyAutoCmd
   autocmd FileType,Syntax,BufEnter,BufWinEnter * call s:my_on_filetype()
 
@@ -50,56 +47,6 @@ augroup vimrc-highlight
   autocmd Syntax * if 5000 < line('$') | syntax sync minlines=200 | endif
 augroup END
 
-" Python
-let g:python_highlight_all = 1
-
-" Vim
-let g:vimsyntax_noerror = 1
-"let g:vim_indent_cont = 0
-
-" Bash
-let g:is_bash = 1
-
-" Java
-let g:java_highlight_functions = 'style'
-let g:java_highlight_all=1
-let g:java_highlight_debug=1
-let g:java_allow_cpp_keywords=1
-let g:java_space_errors=1
-let g:java_highlight_functions=1
-
-" JavaScript
-let g:SimpleJsIndenter_BriefMode = 1
-let g:SimpleJsIndenter_CaseIndentLevel = -1
-
-" Markdown
-let g:markdown_fenced_languages = []
-
-" Go
-if $GOROOT != ''
-   set runtimepath+=$GOROOT/misc/vim
-endif
-
-" Tex
-let g:tex_flavor = 'latex'
-
-" python.vim
-let python_highlight_all = 1
-
-" http://mattn.kaoriya.net/software/vim/20140523124903.htm
-let g:markdown_fenced_languages = [
-      \  'coffee',
-      \  'css',
-      \  'erb=eruby',
-      \  'javascript',
-      \  'js=javascript',
-      \  'json=javascript',
-      \  'ruby',
-      \  'sass',
-      \  'xml',
-      \  'vim',
-      \]
-
 function! s:my_on_filetype() abort "{{{
   " Disable automatically insert comment.
   setl formatoptions-=ro | setl formatoptions+=mMBl
@@ -124,15 +71,3 @@ function! s:my_on_filetype() abort "{{{
     endif
   endif
 endfunction "}}}
-
-" Folding
-
-" Vim script
-" augroup: a
-" function: f
-let g:vimsyn_folding = 'af'
-
-let g:tex_fold_enabled = 1
-let g:xml_syntax_folding = 1
-let g:php_folding = 1
-let g:perl_fold = 1
