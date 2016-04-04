@@ -427,7 +427,8 @@ hook_add = '''
 
 [[plugins]]
 repo = 'Konfekt/FastFold'
-on_path = '.*'
+on_i = 1
+hook_post_source = 'FastFoldUpdate'
 
 [[plugins]]
 repo = 'easymotion/vim-easymotion'

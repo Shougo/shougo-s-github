@@ -51,11 +51,6 @@ let g:markdown_fenced_languages = [
 
 " Folding
 
-" Vim script
-" augroup: a
-" function: f
-let g:vimsyn_folding = 'af'
-
 let g:tex_fold_enabled = 1
 let g:xml_syntax_folding = 1
 let g:php_folding = 1
@@ -122,6 +117,10 @@ on_ft = 'javascript'
 [[plugins]]
 repo = 'thinca/vim-ft-diff_fold'
 on_ft = 'diff'
+
+[[plugins]]
+repo = 'thinca/vim-ft-vim_fold'
+on_ft = 'vim'
 
 [[plugins]]
 repo = 'thinca/vim-ft-help_fold'

@@ -127,7 +127,6 @@ function! s:my_on_filetype() abort "{{{
     silent! filetype plugin indent on
     syntax enable
     filetype detect
-    FastFoldUpdate
   endif
 endfunction "}}}
 

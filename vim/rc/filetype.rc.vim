@@ -17,7 +17,7 @@ augroup MyAutoCmd
         \ endif
 
   " Reload .vimrc automatically.
-  autocmd BufWritePost .vimrc,vimrc,*.rc.vim,*.toml nested
+  autocmd BufWritePost .vimrc,vimrc,*.rc.vim,*.toml
         \ | source $MYVIMRC | redraw
 
   autocmd FileType gitcommit,qfreplace setlocal nofoldenable
