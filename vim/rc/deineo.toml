@@ -1,0 +1,23 @@
+[[plugins]]
+repo = 'zchee/deoplete-clang'
+on_ft = ['c', 'cpp']
+
+[[plugins]]
+repo = 'zchee/deoplete-jedi'
+on_ft = 'python'
+
+[[plugins]]
+repo = 'zchee/deoplete-go'
+on_i = 1
+on_ft = 'go'
+
+[[plugins]]
+repo = 'Shougo/deoplete.nvim'
+depends = 'context_filetype.vim'
+if = "has('nvim')"
+on_i = 1
+hook_source = '''
+  let g:deoplete#enable_at_startup = 1
+  source ~/.vim/rc/plugins/deoplete.rc.vim
+'''
+

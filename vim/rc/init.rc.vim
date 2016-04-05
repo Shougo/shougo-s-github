@@ -42,11 +42,6 @@ if !isdirectory(expand($CACHE))
   call mkdir(expand($CACHE), 'p')
 endif
 
-" Set augroup.
-augroup MyAutoCmd
-  autocmd!
-augroup END
-
 if filereadable(expand('~/.secret_vimrc'))
   execute 'source' expand('~/.secret_vimrc')
 endif

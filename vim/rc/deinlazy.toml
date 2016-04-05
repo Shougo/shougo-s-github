@@ -31,16 +31,6 @@ hook_source = '''
 '''
 
 [[plugins]]
-repo = 'Shougo/deoplete.nvim'
-depends = 'context_filetype.vim'
-if = "has('nvim')"
-on_i = 1
-hook_source = '''
-  let g:deoplete#enable_at_startup = 1
-  source ~/.vim/rc/plugins/deoplete.rc.vim
-'''
-
-[[plugins]]
 repo = 'Shougo/neosnippet.vim'
 depends = ['neosnippet-snippets', 'context_filetype.vim']
 on_i = 1
@@ -459,22 +449,6 @@ hook_add = 'nnoremap W     :<C-u>W3m<Space><C-r>+'
 repo = 'kana/vim-smartchr'
 on_i = 1
 hook_source = 'source ~/.vim/rc/plugins/smartchr.rc.vim'
-
-[[plugins]]
-repo = 'zchee/deoplete-clang'
-if = "has('nvim')"
-on_ft = ['c', 'cpp']
-
-[[plugins]]
-repo = 'zchee/deoplete-jedi'
-if = "has('nvim')"
-on_ft = 'python'
-
-[[plugins]]
-repo = 'zchee/deoplete-go'
-if = "has('nvim')"
-on_i = 1
-on_ft = 'go'
 
 [[plugins]]
 repo = 'racer-rust/vim-racer'

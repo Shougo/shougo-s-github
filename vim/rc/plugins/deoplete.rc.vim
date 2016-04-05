@@ -2,7 +2,7 @@
 " deoplete.nvim
 "
 
-"set completeopt+=noinsert
+set completeopt+=noinsert
 
 " <TAB>: completion.
 imap <silent><expr> <TAB>
