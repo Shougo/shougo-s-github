@@ -49,12 +49,6 @@ endif
 
 call s:source_rc('dein.rc.vim')
 
-if dein#tap('deoplete.nvim') && has('nvim')
-  let g:loaded_neocomplete = 1
-endif
-
-let g:loaded_neobundle = 1
-
 if !has('vim_starting')
   call dein#call_hook('source')
   call dein#call_hook('post_source')
@@ -108,8 +102,7 @@ call s:source_rc('view.rc.vim')
 " FileType:
 "
 
-autocmd MyAutoCmd FileType,Syntax *
-      \ call s:my_on_filetype()
+autocmd MyAutoCmd FileType,Syntax * call s:my_on_filetype()
 function! s:my_on_filetype() abort "{{{
   if &l:filetype == '' && bufname('%') == ''
     return
@@ -120,7 +113,6 @@ function! s:my_on_filetype() abort "{{{
   redir END
   if filetype_out =~# 'OFF'
     " Lazy loading
-    call s:source_rc('filetype.rc.vim')
     silent! filetype plugin indent on
     syntax enable
     filetype detect
