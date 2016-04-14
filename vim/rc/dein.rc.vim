@@ -34,7 +34,7 @@ if s:vimrc_local !=# ''
 endif
 
 if dein#tap('deoplete.nvim') && has('nvim')
-  call dein#disable(g:dein#name)
+  call dein#disable('neocomplete.vim')
 endif
 call dein#disable('neobundle.vim')
 

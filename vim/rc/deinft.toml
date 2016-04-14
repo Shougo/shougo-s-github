@@ -117,8 +117,10 @@ autocmd MyAutoCmd BufWritePost,FileWritePost *.vim nested
 \ if &l:autoread > 0 | source <afile> |
 \   echo 'source ' . bufname('%') |
 \ endif
+
+setlocal nomodeline
 '''
 
 qfreplace = 'setlocal nofoldenable'
 
-toml = 'syntax sync minlines=200'
+toml = 'syntax sync minlines=500'

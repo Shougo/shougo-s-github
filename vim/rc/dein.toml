@@ -168,3 +168,6 @@ repo = 'thinca/vim-themis'
 [[plugins]]
 repo = 'cocopon/iceberg.vim'
 
+[[plugins]]
+repo = 'vim-jp/syntax-vim-ex'
+
