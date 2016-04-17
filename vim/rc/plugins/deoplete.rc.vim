@@ -80,3 +80,5 @@ let g:deoplete#sources#clang#flags = ['-x', 'c++', '-std=c++11']
 " let g:deoplete#sources#clang#clang_complete_database =
 "       \ expand('~/src/neovim/build')
 "}}}
+
+call deoplete#enable_logging('DEBUG', 'deoplete.log')
