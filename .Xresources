@@ -1,27 +1,53 @@
-URxvt.geometry: 120x35
-URxvt.font: xft:Ubuntu Mono:pixelsize=18,style=regular
-URxvt.imFont: -*-medium-r-*-16-*
-URxvt.preeditType: OffTheSpot
-URxvt.lineSpace: 1
-URxvt.scrollBar: false
-URxvt.foreground: white
-URxvt.background: #003322
-URxvt.cursorColor: #FF0000
-URxvt.cursorColor2: #000000
-!URxvt.color0:
-URxvt.color1: #CE4E4E
-URxvt.color2: #409090
-URxvt.color3: #CD9829
-URxvt.color4: #6E6EAF
-URxvt.color5: #C090D0
-URxvt.color6: #99CCE6
-!URxvt.color7:
-!URxvt.color8:
-URxvt.color9: #E68686
-URxvt.color10: #66CC66
-URxvt.color11: #F0AD6B
-URxvt.color12: #808BED
-URxvt.color13: #CC6FCC
-URxvt.color14: #5ACCCC
-!URxvt.color15:
-URxvt.saveLines: 1024
+! urxvt -------------------------------------------------------------
+
+urxvt.geometry: 72x24
+urxvt.saveLines: 512
+urxvt.scrollBar: false
+urxvt.termName: rxvt-unicode
+!urxvt.termName: xterm-256color
+
+!urxvt.iconFile: /usr/share/pixmaps/gnome-term-linux.png
+urxvt.font: xft:Courier 10 Pitch:size=14:antialias=true:hinting=true:autohint:true
+
+! input with IM at cursor position
+! urxvt.preeditType: OnTheSpot,None
+
+urxvt.letterSpace: -1
+
+! fadeout urxvt if outfocus
+urxvt.fading: 30
+
+! color
+urxvt.depth: 32
+
+urxvt.foreground: #dcdccd
+urxvt.background: #2c2c2c
+urxvt.color0:  #3f3f3f
+urxvt.color1:  #ff6666
+urxvt.color2:  #66ff66
+urxvt.color3:  #ffd30a
+urxvt.color4:  #1e95fd
+urxvt.color5:  #ff13ff
+urxvt.color6:  #1bc8c8
+urxvt.color7:  #c0c0c0
+urxvt.color8:  #383838
+urxvt.color9:  #ff4444
+urxvt.color10:  #44ff44
+urxvt.color11:  #ffb30a
+urxvt.color12:  #6699ff
+urxvt.color13:  #f820ff
+urxvt.color14:  #4ae2e2
+urxvt.color15:  #ffffff
+
+urxvt.perl-ext-common: selection-to-clipboard
+
+
+! xft ---------------------------------------------------------------
+
+Xft.dpi: 96
+Xft.antialias: true
+Xft.hinting: true
+Xft.rgba: rgb
+Xft.autohint: false
+Xft.hintstyle: hintslight
+Xft.lcdfilter: lcddefault
