@@ -1,6 +1,6 @@
 [[plugins]]
 repo = 'Shougo/tabpagebuffer.vim'
-on_path = '.*'
+on_if = 'tabpagenr() > 1'
 
 [[plugins]]
 repo = 'Shougo/neopairs.vim'
@@ -114,7 +114,7 @@ on_ft = ['vimfiler', 'vimshell']
 repo = 'Shougo/vimfiler.vim'
 depends = 'unite.vim'
 on_map = [['n', '<Plug>']]
-on_path = '.*'
+on_if = "isdirectory(bufname('%'))"
 hook_add = 'nnoremap <silent>   [Space]v   :<C-u>VimFiler -invisible<CR>'
 hook_source = 'source ~/.vim/rc/plugins/vimfiler.rc.vim'
 
@@ -138,7 +138,6 @@ on_source = 'unite.vim'
 [[plugins]]
 repo = 'Shougo/neco-vim'
 on_ft = 'vim'
-on_i = 1
 
 [[plugins]]
 repo = 'Shougo/neoinclude.vim'
@@ -146,7 +145,7 @@ on_path = '.*'
 
 [[plugins]]
 repo = 'Shougo/neco-syntax'
-on_i = 1
+on_source = ['neocomplete.vim', 'deoplete.nvim']
 
 [[plugins]]
 repo = 'Shougo/vinarise.vim'
@@ -248,7 +247,7 @@ external_commands = 'ghc-mod'
 
 [[plugins]]
 repo = 'ujihisa/neco-look'
-on_i = 1
+on_source = ['neocomplete.vim', 'deoplete.nvim']
 
 #[[plugins]]
 #repo = 'eignn/netrw.vim'
@@ -449,8 +448,4 @@ hook_add = 'nnoremap W     :<C-u>W3m<Space><C-r>+'
 repo = 'kana/vim-smartchr'
 on_i = 1
 hook_source = 'source ~/.vim/rc/plugins/smartchr.rc.vim'
-
-[[plugins]]
-repo = 'racer-rust/vim-racer'
-on_ft = 'rust'
 
