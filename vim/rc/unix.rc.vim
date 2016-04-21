@@ -44,6 +44,11 @@ if &term =~# 'xterm' && !has('nvim')
   " Change cursor shape.
   let &t_SI = "\<Esc>]12;lightgreen\x7"
   let &t_EI = "\<Esc>]12;white\x7"
+
+  " Enable true color
+  if exists('+guicolors')
+    set guicolors
+  endif
 endif
 
 " Disable the mouse.

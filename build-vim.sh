@@ -15,4 +15,5 @@
 --enable-gpm \
 --enable-cscope \
 --enable-fontset \
+--enable-termtruecolor \
 --enable-fail-if-missing
