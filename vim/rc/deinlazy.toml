@@ -13,14 +13,14 @@ on_source = 'unite.vim'
 
 [[plugins]]
 repo = 'Shougo/echodoc.vim'
-on_i = 1
+on_event = 'InsertCharPre'
 hook_add = 'let g:echodoc_enable_at_startup = 1'
 
 [[plugins]]
 repo = 'Shougo/neocomplete.vim'
 depends = 'context_filetype.vim'
 if = "has('lua')"
-on_i = 1
+on_event = 'InsertEnter'
 hook_source = '''
   let g:neocomplete#enable_at_startup = 1
   source ~/.vim/rc/plugins/neocomplete.rc.vim
@@ -29,7 +29,7 @@ hook_source = '''
 [[plugins]]
 repo = 'Shougo/neosnippet.vim'
 depends = ['neosnippet-snippets', 'context_filetype.vim']
-on_i = 1
+on_event = 'InsertCharPre'
 on_ft = 'snippet'
 hook_source = 'source ~/.vim/rc/plugins/neosnippet.rc.vim'
 
@@ -412,7 +412,7 @@ hook_add = '''
 
 [[plugins]]
 repo = 'Konfekt/FastFold'
-on_i = 1
+on_event = 'InsertEnter'
 hook_post_source = 'FastFoldUpdate'
 
 [[plugins]]
@@ -442,6 +442,6 @@ hook_add = 'nnoremap W     :<C-u>W3m<Space><C-r>+'
 
 [[plugins]]
 repo = 'kana/vim-smartchr'
-on_i = 1
+on_event = 'InsertCharPre'
 hook_source = 'source ~/.vim/rc/plugins/smartchr.rc.vim'
 

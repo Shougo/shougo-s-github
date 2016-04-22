@@ -124,3 +124,5 @@ setlocal nomodeline
 qfreplace = 'setlocal nofoldenable'
 
 toml = 'syntax sync minlines=500'
+
+help = 'setlocal iskeyword+=:#-'
