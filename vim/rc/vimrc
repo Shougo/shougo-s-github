@@ -102,7 +102,8 @@ call s:source_rc('view.rc.vim')
 " FileType:
 "
 
-autocmd MyAutoCmd FileType,Syntax,BufNew * call s:my_on_filetype()
+autocmd MyAutoCmd FileType,Syntax,BufNewFile,BufNew,BufRead
+      \ * call s:my_on_filetype()
 function! s:my_on_filetype() abort "{{{
   if &l:filetype == '' && bufname('%') == ''
     return
