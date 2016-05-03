@@ -421,7 +421,7 @@ r() {
 
 # Improve terminal title
 case "${TERM}" in
-    kterm*|xterm*|vt100)
+    kterm*|xterm*|vt100|st*|rxvt*)
         precmd() {
             echo -ne "\033]0;${USER}@${HOST%%.*}:${PWD}\007"
         }

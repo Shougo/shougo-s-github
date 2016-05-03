@@ -36,6 +36,7 @@ inoremap <expr> '  pumvisible() ? deoplete#mappings#close_popup() : "'"
 " call deoplete#custom#set('_', 'matchers', ['matcher_head'])
 " call deoplete#custom#set('_', 'matchers', ['matcher_full_fuzzy'])
 " call deoplete#custom#set('_', 'disabled_syntaxes', ['Comment', 'String'])
+" call deoplete#custom#set('buffer', 'mark', '*')
 
 " Use auto delimiter
 " call deoplete#custom#set('_', 'converters',

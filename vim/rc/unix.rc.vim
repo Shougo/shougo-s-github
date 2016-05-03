@@ -46,8 +46,8 @@ if &term =~# 'xterm' && !has('nvim')
   let &t_EI = "\<Esc>]12;white\x7"
 
   " Enable true color
-  if exists('+guicolors')
-    set guicolors
+  if exists('+termguicolors')
+    set termguicolors
   endif
 endif
 
