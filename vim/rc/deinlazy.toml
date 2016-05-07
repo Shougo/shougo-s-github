@@ -352,7 +352,9 @@ hook_add = '''
   nnoremap <silent> [Space]gb  :<C-u>Gita browse<CR>
   nnoremap <silent> [Space]gl  :<C-u>Gita blame<CR>
 
-  let gita#features#commit#enable_default_mappings = 0
+  autocmd FileType gita-status
+  \ nmap <buffer> cc    <Plug>(gita-commit-open) |
+  \ nmap <buffer> cA    <Plug>(gita-commit-open-amend)
 '''
 
 [[plugins]]
