@@ -27,7 +27,9 @@ endfor
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
 
 " Use true color feature
-let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
+if exists('+termguicolors')
+  set termguicolors
+endif
 
 " Share the histories
 augroup MyAutoCmd
