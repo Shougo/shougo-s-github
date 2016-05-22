@@ -165,9 +165,9 @@ nnoremap M  m
 
 " Smart <C-f>, <C-b>.
 noremap <expr> <C-f> max([winheight(0) - 2, 1])
-      \ . "\<C-d>" . (line('w$') >= line('$') ? "L" : "H")
+      \ . "\<C-d>" . (line('w$') >= line('$') ? "L" : "M")
 noremap <expr> <C-b> max([winheight(0) - 2, 1])
-      \ . "\<C-u>" . (line('w0') <= 1 ? "H" : "L")
+      \ . "\<C-u>" . (line('w0') <= 1 ? "H" : "M")
 
 " Disable ZZ.
 nnoremap ZZ  <Nop>

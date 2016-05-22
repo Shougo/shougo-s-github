@@ -117,6 +117,9 @@ call unite#custom#source(
 call unite#custom#source(
       \ 'file_rec,file_rec/async,file_rec/git,file_mru', 'converters',
       \ ['converter_uniq_word'])
+call unite#custom#source(
+      \ 'buffer', 'converters',
+      \ ['converter_uniq_word','converter_word_abbr'])
 call unite#filters#sorter_default#use(['sorter_rank'])
 " call unite#filters#sorter_default#use(['sorter_length'])
 "}}}

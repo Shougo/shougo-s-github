@@ -47,6 +47,7 @@ call deoplete#custom#set('_', 'converters', [
       \ 'converter_remove_overlap',
       \ 'converter_truncate_abbr',
       \ 'converter_truncate_menu',
+      \ 'converter_auto_delimiter',
       \ ])
 
 " call deoplete#custom#set('buffer', 'min_pattern_length', 9999)
@@ -63,8 +64,9 @@ let g:deoplete#omni#functions.lua = 'xolox#lua#omnifunc'
 
 " inoremap <silent><expr> <C-t> deoplete#mappings#manual_complete('file')
 
-let g:deoplete#enable_refresh_always = 1
+" let g:deoplete#enable_refresh_always = 1
 let g:deoplete#enable_camel_case = 1
+" let g:deoplete#auto_complete_start_length = 3
 
 " deoplete-clang "{{{
 " libclang shared library path
