@@ -2,8 +2,6 @@
 " deoplete.nvim
 "
 
-set completeopt+=noinsert
-
 " <TAB>: completion.
 imap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :

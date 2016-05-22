@@ -102,6 +102,9 @@ let g:did_install_default_menus = 1
 
 " Completion setting.
 set completeopt=menuone
+if has('patch-7.4.775')
+  set completeopt+=noinsert
+endif
 " Don't complete from other buffer.
 set complete=.
 "set complete=.,w,b,i,t
@@ -138,9 +141,6 @@ set ttyfast
 set display=lastline
 " Display an invisible letter with hex format.
 "set display+=uhex
-
-" View setting.
-set viewdir=$CACHE/vim_view viewoptions-=options viewoptions+=slash,unix
 
 function! s:strwidthpart(str, width) abort "{{{
   if a:width <= 0
