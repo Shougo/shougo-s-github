@@ -13,8 +13,8 @@ on_source = 'unite.vim'
 
 [[plugins]]
 repo = 'Shougo/echodoc.vim'
-on_event = 'InsertCharPre'
-hook_add = 'let g:echodoc_enable_at_startup = 1'
+on_event = 'CompleteDone'
+hook_source = 'call echodoc#enable()'
 
 [[plugins]]
 repo = 'Shougo/neocomplete.vim'
