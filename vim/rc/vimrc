@@ -119,6 +119,7 @@ function! s:my_on_filetype() abort "{{{
     filetype detect
   endif
 endfunction "}}}
+call s:my_on_filetype()
 
 
 "---------------------------------------------------------------------------
