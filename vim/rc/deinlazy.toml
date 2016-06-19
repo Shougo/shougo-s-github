@@ -413,7 +413,7 @@ hook_add = '''
 
 [[plugins]]
 repo = 'Konfekt/FastFold'
-on_event = 'InsertEnter'
+on_event = 'BufEnter'
 hook_post_source = 'FastFoldUpdate'
 
 [[plugins]]
@@ -446,3 +446,6 @@ repo = 'kana/vim-smartchr'
 on_event = 'InsertCharPre'
 hook_source = 'source ~/.vim/rc/plugins/smartchr.rc.vim'
 
+[[plugins]]
+repo = 'hewes/unite-gtags'
+on_source = 'unite.vim'
