@@ -7,6 +7,7 @@ let g:neocomplete#disable_auto_complete = 0
 " Use smartcase.
 let g:neocomplete#enable_smart_case = 1
 let g:neocomplete#enable_camel_case = 1
+let g:neocomplete#auto_complete_delay = 30
 
 " Use fuzzy completion.
 let g:neocomplete#enable_fuzzy_completion = 1
@@ -21,7 +22,6 @@ let g:neocomplete#manual_completion_start_length = 0
 let g:neocomplete#min_keyword_length = 3
 
 let g:neocomplete#enable_auto_select = 1
-let g:neocomplete#enable_cursor_hold_i = 0
 
 let g:neocomplete#sources#dictionary#dictionaries = {
       \ 'default' : '',
@@ -50,6 +50,10 @@ let g:neocomplete#enable_auto_close_preview = 1
 "       \ '[^. *\t]\.\w*\|\h\w*::\w*'
 " let g:neocomplete#sources#omni#input_patterns.ruby =
 "      \ '[^. *\t]\.\w*\|\h\w*::\w*'
+
+let g:marching_enable_neocomplete = 1
+let g:neocomplete#force_omni_input_patterns.cpp =
+    \ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
 
 let g:neocomplete#sources#omni#input_patterns.python =
       \ '[^. *\t]\.\w*\|\h\w*'
@@ -101,7 +105,7 @@ call neocomplete#custom#source('_', 'converters',
 inoremap <expr><C-f>  pumvisible() ? "\<PageDown>" : "\<Right>"
 inoremap <expr><C-b>  pumvisible() ? "\<PageUp>"   : "\<Left>"
 " <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr> <C-h> neocomplete#smart_close_popup()."\<C-h>"
+" inoremap <expr> <C-h> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr> <BS> neocomplete#smart_close_popup()."\<C-h>"
 " <C-n>: neocomplete.
 inoremap <expr> <C-n>  pumvisible() ? "\<C-n>" : "\<C-x>\<C-u>\<C-p>\<Down>"

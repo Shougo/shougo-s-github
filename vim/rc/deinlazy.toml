@@ -9,6 +9,7 @@ on_if = 1
 [[plugins]]
 repo = 'Shougo/neoyank.vim'
 on_if = 1
+on_event = 'TextYankPost'
 on_source = 'unite.vim'
 
 [[plugins]]
@@ -391,9 +392,10 @@ on_ft = 'rust'
 repo = 'rhysd/rust-doc.vim'
 on_ft = 'rust'
 
-# [[plugins]]
-# repo = 'osyo-manga/vim-marching'
-# on_ft = ['c', 'cpp']
+[[plugins]]
+repo = 'osyo-manga/vim-marching'
+on_ft = ['c', 'cpp']
+if = "!has('nvim')"
 
 [[plugins]]
 repo = 'artur-shaik/vim-javacomplete2'
@@ -449,3 +451,8 @@ hook_source = 'source ~/.vim/rc/plugins/smartchr.rc.vim'
 [[plugins]]
 repo = 'hewes/unite-gtags'
 on_source = 'unite.vim'
+
+[[plugins]]
+repo = 'tweekmonster/impsort.vim'
+on_cmd = 'ImpSort'
+hook_source = 'let g:impsort_highlight_imported = 0'

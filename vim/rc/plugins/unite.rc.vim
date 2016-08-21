@@ -3,6 +3,7 @@
 "
 
 let g:unite_enable_auto_select = 0
+let g:unite_restore_alternate_file = 1
 
 " For unite-menu.
 let g:unite_source_menu_menus = {}
@@ -123,6 +124,14 @@ call unite#custom#source(
 call unite#filters#sorter_default#use(['sorter_rank'])
 " call unite#filters#sorter_default#use(['sorter_length'])
 "}}}
+
+" Custom source highlight.
+function! s:rec_on_syntax(args, context)
+  syntax match uniteSource__FileRecFileName /\[.\+\]/ contained containedin=uniteSource__FileRec
+  highlight default link uniteSource__FileRecFileName Type
+endfunction
+call unite#custom#source('file_rec', 'syntax', 'uniteSource__FileRec')
+call unite#custom#source('file_rec', 'on_syntax', function('s:rec_on_syntax'))
 
 function! s:unite_my_settings() abort "{{{
   " Directory partial match.

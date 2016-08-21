@@ -3,7 +3,7 @@
 "
 
 " <TAB>: completion.
-imap <silent><expr> <TAB>
+inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ deoplete#mappings#manual_complete()
@@ -51,6 +51,8 @@ call deoplete#custom#set('_', 'converters', [
       \ ])
 
 " call deoplete#custom#set('buffer', 'min_pattern_length', 9999)
+call deoplete#custom#set('clang', 'input_pattern', '\.\w*|\.->\w*|\w+::\w*')
+call deoplete#custom#set('clang', 'max_pattern_length', -1)
 
 let g:deoplete#keyword_patterns = {}
 let g:deoplete#keyword_patterns._ = '[a-zA-Z_]\k*\(?'
@@ -64,7 +66,7 @@ let g:deoplete#omni#functions.lua = 'xolox#lua#omnifunc'
 
 " inoremap <silent><expr> <C-t> deoplete#mappings#manual_complete('file')
 
-" let g:deoplete#enable_refresh_always = 1
+let g:deoplete#enable_refresh_always = 1
 let g:deoplete#enable_camel_case = 1
 " let g:deoplete#auto_complete_start_length = 3
 
@@ -84,6 +86,6 @@ let g:deoplete#sources#clang#flags = ['-x', 'c++', '-std=c++11']
 "       \ expand('~/src/neovim/build')
 "}}}
 
+" let g:deoplete#enable_profile = 1
 " call deoplete#enable_logging('DEBUG', 'deoplete.log')
-
-let g:deoplete#ignore_sources = {'_': ['tag']}
+" call deoplete#custom#set('clang', 'debug_enabled', 1)
