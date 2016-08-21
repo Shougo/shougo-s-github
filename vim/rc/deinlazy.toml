@@ -353,7 +353,8 @@ hook_add = '''
   nnoremap <silent> [Space]gl  :<C-u>Gita blame<CR>
 
   autocmd FileType gita-status
-  \ nmap <buffer> cc    <Plug>(gita-commit-open) |
+  \ nmap <buffer> cc    <Plug>(gita-commit-open)
+  autocmd FileType gita-status
   \ nmap <buffer> cA    <Plug>(gita-commit-open-amend)
 '''
 
