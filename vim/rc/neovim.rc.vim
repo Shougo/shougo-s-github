@@ -61,3 +61,7 @@ function! s:init_neovim_qt() abort "{{{
   "    set lines=40
   " endif
 endfunction"}}}
+
+nnoremap <silent> [Window]<Space>
+      \ :<C-u>Denite file_rec:~/.vim/rc<CR>
+nnoremap <silent> / :<C-u>Denite line<CR>
