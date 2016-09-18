@@ -21,3 +21,9 @@ hook_source = '''
   source ~/.vim/rc/plugins/deoplete.rc.vim
 '''
 
+[[plugins]]
+repo = 'Shougo/denite.nvim'
+on_cmd = 'Denite'
+hook_source = '''
+  source ~/.vim/rc/plugins/denite.rc.vim
+'''

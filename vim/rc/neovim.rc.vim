@@ -31,6 +31,10 @@ if exists('+termguicolors')
   set termguicolors
 endif
 
+if has('vim_starting')
+  syntax off
+endif
+
 " Share the histories
 augroup MyAutoCmd
   autocmd CursorHold * if exists(':rshada') | rshada | wshada | endif
@@ -65,3 +69,5 @@ endfunction"}}}
 nnoremap <silent> [Window]<Space>
       \ :<C-u>Denite file_rec:~/.vim/rc<CR>
 nnoremap <silent> / :<C-u>Denite line<CR>
+nnoremap <silent> * :<C-u>DeniteCursorWord line<CR>
+nnoremap <silent> [Window]s :<C-u>Denite jump_point file_mru file_rec<CR>

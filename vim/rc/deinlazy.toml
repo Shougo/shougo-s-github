@@ -5,12 +5,13 @@ on_if = 'tabpagenr() > 1'
 [[plugins]]
 repo = 'Shougo/neomru.vim'
 on_if = 1
+on_source = ['unite.vim', 'denite.nvim']
 
 [[plugins]]
 repo = 'Shougo/neoyank.vim'
 on_if = 1
 on_event = 'TextYankPost'
-on_source = 'unite.vim'
+on_source = ['unite.vim', 'denite.nvim']
 
 [[plugins]]
 repo = 'Shougo/echodoc.vim'
@@ -413,11 +414,6 @@ hook_add = '''
   " autocmd MyAutoCmd BufRead * Findent! --no-warnings
   nnoremap <silent> [Space]i    :<C-u>Findent! --no-warnings<CR>
 '''
-
-[[plugins]]
-repo = 'Konfekt/FastFold'
-on_event = 'BufEnter'
-hook_post_source = 'FastFoldUpdate'
 
 [[plugins]]
 repo = 'easymotion/vim-easymotion'

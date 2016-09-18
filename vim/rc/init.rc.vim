@@ -60,6 +60,9 @@ if s:dein_dir != '' || &runtimepath !~ '/dein.vim'
         \ fnamemodify(s:dein_dir, ':p') , '/$', '', '')
 endif
 
+" Disable packpath
+set packpath=
+
 
 "---------------------------------------------------------------------------
 " Disable default plugins
