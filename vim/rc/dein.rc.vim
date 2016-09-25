@@ -25,7 +25,7 @@ if s:vimrc_local !=# ''
   " Load develop version plugins.
   call dein#local(fnamemodify(s:vimrc_local, ':h'),
         \ {'frozen': 1, 'merged': 0},
-        \ ['vim*', 'unite-*', 'neco-*', '*.vim'])
+        \ ['vim*', 'unite-*', 'neco-*', '*.vim', 'denite.nvim'])
   if has('nvim')
     call dein#local(fnamemodify(s:vimrc_local, ':h'),
           \ {'frozen': 1, 'merged': 0},

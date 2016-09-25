@@ -109,17 +109,13 @@ function! s:my_on_filetype() abort "{{{
     return
   endif
 
-  redir => filetype_out
-  silent! filetype
-  redir END
-  if filetype_out =~# 'OFF'
+  if execute('filetype') =~# 'OFF'
     " Lazy loading
     silent! filetype plugin indent on
     syntax enable
     filetype detect
   endif
 endfunction "}}}
-call s:my_on_filetype()
 
 
 "---------------------------------------------------------------------------

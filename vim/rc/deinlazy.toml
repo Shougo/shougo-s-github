@@ -102,6 +102,13 @@ hook_add = '''
 '''
 
 [[plugins]]
+repo = 'Shougo/denite.nvim'
+on_cmd = 'Denite'
+hook_source = '''
+  source ~/.vim/rc/plugins/denite.rc.vim
+'''
+
+[[plugins]]
 repo = 'Shougo/context_filetype.vim'
 
 [[plugins]]
@@ -302,10 +309,6 @@ hook_add = '''
 '''
 
 [[plugins]]
-repo = 'chikatoike/concealedyank.vim'
-on_map = {x = '<Plug>(operator-concealedyank)'}
-
-[[plugins]]
 repo = 'osyo-manga/vim-textobj-multiblock'
 depends = 'vim-textobj-user'
 on_map = {ox = '<Plug>'}
@@ -453,3 +456,12 @@ on_source = 'unite.vim'
 repo = 'tweekmonster/impsort.vim'
 on_cmd = 'ImpSort'
 hook_source = 'let g:impsort_highlight_imported = 0'
+
+[[plugins]]
+repo = 'tweekmonster/helpful.vim'
+on_cmd = 'HelpfulVersion'
+
+[[plugins]]
+repo = 'nixprime/cpsm'
+on_source = 'denite.nvim'
+

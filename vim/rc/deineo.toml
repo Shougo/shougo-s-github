@@ -20,10 +20,3 @@ hook_source = '''
   let g:deoplete#enable_at_startup = 1
   source ~/.vim/rc/plugins/deoplete.rc.vim
 '''
-
-[[plugins]]
-repo = 'Shougo/denite.nvim'
-on_cmd = 'Denite'
-hook_source = '''
-  source ~/.vim/rc/plugins/denite.rc.vim
-'''
