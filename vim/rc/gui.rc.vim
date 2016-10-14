@@ -77,23 +77,23 @@ endif
 
 "---------------------------------------------------------------------------
 " Input Japanese:"{{{
-" For Linux
+" Disable uim when use skk.vim.
+set imdisable
+
 if (has('multi_byte_ime') || has('xim')) && has('GUI_GTK')
-  " Disable uim when use skk.vim.
-  let &imdisable=1
+  " For Linux
 
   " To use uim-anthy.
   "let $GTK_IM_MODULE='uim-anthy'
   "set imactivatekey=C-space
 
   " To use ibus-mozc/fcitx.
-  let $GTK_IM_MODULE='xim'
+  " let $GTK_IM_MODULE = 'xim'
 endif
 "}}}
 
 "---------------------------------------------------------------------------
-" Mouse:"{{{
-"
+" Options:"{{{
 set mouse=
 set mousemodel=
 
@@ -101,11 +101,6 @@ set mousemodel=
 set nomousefocus
 " Hide mouse pointer on insert mode.
 set mousehide
-"}}}
-
-"---------------------------------------------------------------------------
-" Menu:"{{{
-"
 
 " Hide toolbar and menus.
 set guioptions-=Tt
@@ -114,16 +109,8 @@ set guioptions-=m
 set guioptions-=rL
 " Not guitablabel.
 set guioptions-=e
-
 " Confirm without window.
 set guioptions+=c
-"}}}
-
-"---------------------------------------------------------------------------
-" Views:"{{{
-"
-" Don't highlight search result.
-set nohlsearch
 
 " Don't flick cursor.
 set guicursor&

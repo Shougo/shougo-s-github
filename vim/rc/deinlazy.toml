@@ -465,3 +465,6 @@ on_cmd = 'HelpfulVersion'
 repo = 'nixprime/cpsm'
 on_source = 'denite.nvim'
 
+[[plugins]]
+repo = 'dag/vim-fish'
+on_ft = 'fish'

@@ -7,11 +7,6 @@ nmap <C-Space>  <C-@>
 cmap <C-Space>  <C-@>
 
 " Visual mode keymappings: "{{{
-" <TAB>: indent.
-xnoremap <TAB>  >
-" <S-TAB>: unindent.
-xnoremap <S-TAB>  <
-
 " Indent
 nnoremap > >>
 nnoremap < <<
@@ -50,9 +45,6 @@ cnoremap <C-f>          <Right>
 cnoremap <C-n>          <Down>
 " <C-p>: previous history.
 cnoremap <C-p>          <Up>
-" <C-k>, K: delete to end.
-cnoremap <C-k> <C-\>e getcmdpos() == 1 ?
-      \ '' : getcmdline()[:getcmdpos()-2]<CR>
 " <C-y>: paste.
 cnoremap <C-y>          <C-r>*
 " <C-g>: Exit.
@@ -67,19 +59,9 @@ nnoremap  [Space]   <Nop>
 xnoremap  [Space]   <Nop>
 
 " Toggle relativenumber.
-nnoremap <silent> [Space].
-      \ :<C-u>call ToggleOption('relativenumber')<CR>
-nnoremap <silent> [Space]m
-      \ :<C-u>call ToggleOption('paste')<CR>:set mouse=<CR>
-" Toggle highlight.
-nnoremap <silent> [Space]/
-      \ :<C-u>call ToggleOption('hlsearch')<CR>
-" Toggle cursorline.
-nnoremap <silent> [Space]cl
-      \ :<C-u>call ToggleOption('cursorline')<CR>
 " Set autoread.
 nnoremap [Space]ar
-      \ :<C-u>setlocal autoread<CR>
+      \ :<C-u>call ToggleOption('autoread')<CR>
 " Set spell check.
 nnoremap [Space]p
       \ :<C-u>call ToggleOption('spell')<CR>
@@ -88,11 +70,8 @@ nnoremap [Space]p
 nnoremap [Space]w
       \ :<C-u>call ToggleOption('wrap')<CR>
 
-" Easily edit .vimrc "{{{
+" Easily edit .vimrc
 nnoremap <silent> [Space]ev  :<C-u>edit $MYVIMRC<CR>
-nnoremap <silent> [Space]rv :<C-u>source $MYVIMRC \|
-      \ echo "source $MYVIMRC"<CR>
-"}}}
 
 " Useful save mappings.
 nnoremap <silent> <Leader><Leader> :<C-u>update<CR>
@@ -118,15 +97,6 @@ function! ToggleOption(option_name) abort
   execute 'setlocal' a:option_name.'!'
   execute 'setlocal' a:option_name.'?'
 endfunction  "}}}
-" Toggle variables. "{{{
-function! ToggleVariable(variable_name) abort
-  if eval(a:variable_name)
-    execute 'let' a:variable_name.' = 0'
-  else
-    execute 'let' a:variable_name.' = 1'
-  endif
-  echo printf('%s = %s', a:variable_name, eval(a:variable_name))
-endfunction  "}}}
 "}}}
 
 " s: Windows and buffers(High priority) "{{{
@@ -151,17 +121,16 @@ nnoremap <silent> [Alt]p o<Esc>pm``[=`]``^
 xnoremap <silent> [Alt]p o<Esc>pm``[=`]``^
 nnoremap <silent> [Alt]P O<Esc>Pm``[=`]``^
 xnoremap <silent> [Alt]P O<Esc>Pm``[=`]``^
-nnoremap x "_x
 "}}}
+
+" Better x
+nnoremap x "_x
 
 " Disable Ex-mode.
 nnoremap Q  q
 
-" Jump mark can restore column."{{{
-nnoremap \  `
 " Useless command.
 nnoremap M  m
-"}}}
 
 " Smart <C-f>, <C-b>.
 noremap <expr> <C-f> max([winheight(0) - 2, 1])
@@ -187,9 +156,6 @@ nnoremap <expr> l foldclosed(line('.')) != -1 ? 'zo0' : 'l'
 "xnoremap <expr> h col('.') == 1 && foldlevel(line('.')) > 0 ? 'zcgv' : 'h'
 " If press l on fold, range fold open.
 xnoremap <expr> l foldclosed(line('.')) != -1 ? 'zogv0' : 'l'
-noremap [Space]j zj
-noremap [Space]k zk
-noremap zu :<C-u>Unite outline:foldings<CR>
 "}}}
 
 " Substitute.
@@ -268,16 +234,8 @@ onoremap id  i"
 xnoremap id  i"
 "}}}
 
-" Move to top/center/bottom.
-noremap <expr> zz (winline() == (winheight(0)+1)/ 2) ?
-      \ 'zt' : (winline() == 1)? 'zb' : 'zz'
-
-" Capitalize.
-nnoremap gu gUiw`]
-
 " Clear highlight.
 nnoremap <ESC><ESC> :nohlsearch<CR>:match<CR>
-"}}}
 
 " Improved increment.
 nmap <C-a> <SID>(increment)
@@ -305,20 +263,5 @@ function! s:add_numbers(num) abort
     call setline('.', new_line)
   endif
 endfunction
-
-" Replace word under cursor (which should be a GitHub username)
-" with some user info ("Full Name <email@address>").
-" If info cout not be found, "Not found" is inserted.
-function! <SID>InsertGitHubUserInfo() abort
-    let user = expand('<cWORD>')
-    " final slice is to remove ending newline
-    let info = system('github_user_info ' . user . ' 2> /dev/null')[:-2]
-    if v:shell_error
-        let info = 'Not found'
-    endif
-    execute "normal! diWa" . info . "\<esc>"
-endfunction
-
-nnoremap <silent> <leader>gu :call <SID>InsertGitHubUserInfo()<cr>
 
 nnoremap <silent> #    <C-^>

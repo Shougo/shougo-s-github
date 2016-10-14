@@ -1,5 +1,6 @@
 [[plugins]]
 repo = 'Shougo/dein.vim'
+rtp = ''
 
 [[plugins]]
 repo = 'Shougo/vimproc.vim'
@@ -170,4 +171,7 @@ repo = 'cocopon/iceberg.vim'
 
 [[plugins]]
 repo = 'vim-jp/syntax-vim-ex'
+
+[[plugins]]
+repo = 'rhysd/vim-gfm-syntax'
 

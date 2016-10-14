@@ -2,11 +2,6 @@
 " View:
 "
 
-" Anywhere SID.
-function! s:SID_PREFIX() abort
-  return matchstr(expand('<sfile>'), '<SNR>\d\+_\zeSID_PREFIX$')
-endfunction
-
 " Show line number.
 "set number
 " Show <TAB> and <CR>
@@ -29,7 +24,7 @@ set titlelen=95
 " Title string.
 let &g:titlestring="
       \ %{expand('%:p:~:.')}%(%m%r%w%)
-      \ %<\(%{".s:SID_PREFIX()."strwidthpart(
+      \ %<\(%{WidthPart(
       \ fnamemodify(&filetype ==# 'vimfiler' ?
       \ substitute(b:vimfiler.current_dir, '.\\zs/$', '', '') : getcwd(), ':~'),
       \ &columns-len(expand('%:p:.:~')))}\) - VIM"
@@ -107,7 +102,6 @@ if has('patch-7.4.775')
 endif
 " Don't complete from other buffer.
 set complete=.
-"set complete=.,w,b,i,t
 " Set popup menu max height.
 set pumheight=20
 
@@ -142,33 +136,22 @@ set display=lastline
 " Display an invisible letter with hex format.
 "set display+=uhex
 
-function! s:strwidthpart(str, width) abort "{{{
+function! WidthPart(str, width) abort "{{{
   if a:width <= 0
     return ''
   endif
   let ret = a:str
-  let width = s:wcswidth(a:str)
+  let width = strwidth(a:str)
   while width > a:width
     let char = matchstr(ret, '.$')
     let ret = ret[: -1 - len(char)]
-    let width -= s:wcswidth(char)
+    let width -= strwidth(char)
   endwhile
 
   return ret
 endfunction"}}}
 
-if v:version >= 703
-  " For conceal.
-   set conceallevel=2 concealcursor=niv
+" For conceal.
+set conceallevel=2 concealcursor=niv
 
-   set colorcolumn=79
-
-  " Use builtin function.
-  function! s:wcswidth(str) abort
-    return strwidth(a:str)
-  endfunction
-else
-  function! s:wcswidth(str) abort
-    return len(a:str)
-  endfunction
-endif
+set colorcolumn=79

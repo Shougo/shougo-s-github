@@ -24,13 +24,13 @@ if &term =~# 'xterm' && !has('nvim')
   let &t_te .= "\e[?2004l"
   let &pastetoggle = "\e[201~"
 
-  function! XTermPasteBegin(ret) abort
+  function! s:XTermPasteBegin(ret) abort
     setlocal paste
     return a:ret
   endfunction
 
-  noremap <special> <expr> <Esc>[200~ XTermPasteBegin('0i')
-  inoremap <special> <expr> <Esc>[200~ XTermPasteBegin('')
+  noremap <special> <expr> <Esc>[200~ s:XTermPasteBegin('0i')
+  inoremap <special> <expr> <Esc>[200~ s:XTermPasteBegin('')
   cnoremap <special> <Esc>[200~ <nop>
   cnoremap <special> <Esc>[201~ <nop>
 

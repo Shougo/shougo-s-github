@@ -9,8 +9,6 @@ tnoremap   j<Space>   j
 nnoremap <Leader>t    :<C-u>terminal<CR>
 nnoremap !            :<C-u>terminal<Space>
 
-set mouse=
-
 " Set terminal colors
 let s:num = 0
 for s:color in [
@@ -70,4 +68,5 @@ nnoremap <silent> [Window]<Space>
       \ :<C-u>Denite file_rec:~/.vim/rc<CR>
 nnoremap <silent> / :<C-u>Denite line<CR>
 nnoremap <silent> * :<C-u>DeniteCursorWord line<CR>
-nnoremap <silent> [Window]s :<C-u>Denite jump_point file_mru file_rec<CR>
+nnoremap <silent> [Window]s :<C-u>Denite jump_point file_rec file_mru<CR>
+nnoremap <silent> [Window]n :<C-u>Denite dein<CR>

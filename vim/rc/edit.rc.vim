@@ -45,12 +45,6 @@ set matchpairs+=<:>
 " Display another buffer when current buffer isn't saved.
 set hidden
 
-" Auto reload if file is changed.
-" set autoread
-
-" Ignore case on insert completion.
-set infercase
-
 " Search home directory path on cd.
 " But can't complete.
 "  set cdpath+=~
@@ -86,16 +80,9 @@ set updatetime=1000
 " Set swap directory.
 set directory-=.
 
-if v:version >= 703
-  " Set undofile.
-   set undofile
-  let &g:undodir=&directory
-endif
-
-if v:version < 703 || (v:version == 7.3 && !has('patch336'))
-  " Vim's bug.
-   set notagbsearch
-endif
+" Set undofile.
+set undofile
+let &g:undodir = &directory
 
 " Enable virtualedit in visual block mode.
 set virtualedit=block
@@ -133,8 +120,7 @@ set formatexpr=autofmt#japanese#formatexpr()
 
 " Use blowfish2
 " https://dgl.cx/2014/10/vim-blowfish
-if has('cryptv')
+" if has('cryptv')
   " It seems 15ms overhead.
   "  set cryptmethod=blowfish2
-endif
-
+" endif

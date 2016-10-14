@@ -13,26 +13,14 @@ if has('vim_starting') && &encoding !=# 'utf-8'
   endif
 endif
 
-" Setting of terminal encoding."{{{
-if !has('gui_running')
-  if $ENV_ACCESS ==# 'linux'
-    set termencoding=euc-jp
-  elseif $ENV_ACCESS ==# 'colinux'
-    set termencoding=utf-8
-  else  " fallback
-    set termencoding=  " same as 'encoding'
-  endif
-elseif IsWindows()
+" Setting of terminal encoding.
+if !has('gui_running') && IsWindows()
   " For system.
   set termencoding=cp932
 endif
-"}}}
 
 " The automatic recognition of the character code."{{{
-if has('kaoriya')
-  " For Kaoriya only.
-   set fileencodings=guess
-elseif !exists('did_encoding_settings') && has('iconv')
+if !exists('did_encoding_settings')
   " Build encodings.
   let &fileencodings = join([
         \ 'ucs-bom', 'iso-2022-jp-3', 'utf-8', 'euc-jp', 'cp932'])
@@ -72,14 +60,9 @@ command! -bang -bar -complete=file -nargs=? Euc
 " Open in UTF-16 again.
 command! -bang -bar -complete=file -nargs=? Utf16
       \ edit<bang> ++enc=ucs-2le <args>
-" Open in UTF-16BE again.
-command! -bang -bar -complete=file -nargs=? Utf16be
-      \ edit<bang> ++enc=ucs-2 <args>
-
-" Aliases.
-command! -bang -bar -complete=file -nargs=? Jis  Iso2022jp<bang> <args>
-command! -bang -bar -complete=file -nargs=? Sjis  Cp932<bang> <args>
-command! -bang -bar -complete=file -nargs=? Unicode Utf16<bang> <args>
+" Open in latin1 again.
+command! -bang -bar -complete=file -nargs=? Latin
+      \ edit<bang> ++enc=latin1 <args>
 "}}}
 
 " Tried to make a file note version."{{{
@@ -89,21 +72,14 @@ command! WIso2022jp setlocal fenc=iso-2022-jp
 command! WCp932 setlocal fenc=cp932
 command! WEuc setlocal fenc=euc-jp
 command! WUtf16 setlocal fenc=ucs-2le
-command! WUtf16be setlocal fenc=ucs-2
-" Aliases.
-command! WJis  WIso2022jp
-command! WSjis  WCp932
-command! WUnicode WUtf16
+command! WLatin1 setlocal fenc=latin1
 "}}}
 
-" Appoint a line feed."{{{
+" Appoint a line feed.
 command! -bang -complete=file -nargs=? WUnix
       \ write<bang> ++fileformat=unix <args> | edit <args>
 command! -bang -complete=file -nargs=? WDos
       \ write<bang> ++fileformat=dos <args> | edit <args>
-command! -bang -complete=file -nargs=? WMac
-      \ write<bang> ++fileformat=mac <args> | edit <args>
-"}}}
 
 if has('multi_byte_ime')
   set iminsert=0 imsearch=0
