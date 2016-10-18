@@ -33,7 +33,18 @@ repo = 'Shougo/neosnippet.vim'
 depends = ['neosnippet-snippets', 'context_filetype.vim']
 on_event = 'InsertCharPre'
 on_ft = 'snippet'
-hook_source = 'source ~/.vim/rc/plugins/neosnippet.rc.vim'
+hook_source = '''
+imap <silent>L     <Plug>(neosnippet_jump_or_expand)
+smap <silent>L     <Plug>(neosnippet_jump_or_expand)
+xmap <silent>L     <Plug>(neosnippet_expand_target)
+
+let g:neosnippet#enable_snipmate_compatibility = 1
+let g:neosnippet#enable_complete_done = 1
+let g:neosnippet#expand_word_boundary = 1
+
+" let g:snippets_dir = '~/.vim/snippets/,~/.vim/bundle/snipmate/snippets/'
+let g:neosnippet#snippets_directory = '~/.vim/snippets'
+'''
 
 [[plugins]]
 repo = 'Shougo/unite.vim'
@@ -201,12 +212,53 @@ repo = 'thinca/vim-scouter'
 [[plugins]]
 repo = 'thinca/vim-ref'
 on_map = {n = '<Plug>'}
-hook_source = 'source ~/.vim/rc/plugins/ref.rc.vim'
+hook_source = '''
+let g:ref_cache_dir = expand('$CACHE/ref')
+let g:ref_use_vimproc = 1
+if IsWindows()
+  let g:ref_refe_encoding = 'cp932'
+endif
+
+autocmd MyAutoCmd FileType ref call s:ref_my_settings()
+function! s:ref_my_settings() abort "{{{
+  " Overwrite settings.
+  nmap <buffer> [Tag]t  <Plug>(ref-keyword)
+  nmap <buffer> [Tag]p  <Plug>(ref-back)
+  nnoremap <buffer> <TAB> <C-w>w
+endfunction"}}}
+'''
 
 [[plugins]]
 repo = 'basyura/J6uil.vim'
 depends = 'webapi-vim'
-hook_source = 'source ~/.vim/rc/plugins/J6uil.rc.vim'
+hook_source = '''
+let g:J6uil_config_dir = expand('$CACHE/J6uil')
+let g:J6uil_no_default_keymappings = 1
+let g:J6uil_display_offline  = 0
+let g:J6uil_display_online   = 0
+let g:J6uil_echo_presence    = 1
+let g:J6uil_display_icon     = 1
+let g:J6uil_display_interval = 0
+let g:J6uil_updatetime       = 1000
+let g:J6uil_align_message    = 0
+
+autocmd MyAutoCmd FileType J6uil call s:j6uil_settings()
+autocmd MyAutoCmd FileType J6uil_say call s:j6uil_say_settings()
+
+function! s:j6uil_settings() abort
+  setlocal wrap
+  setlocal nofoldenable
+  setlocal foldcolumn=0
+  nmap <buffer> o <Plug>(J6uil_open_say_buffer)
+  nmap <silent> <buffer> <CR> <Plug>(J6uil_action_enter)
+endfunction
+
+function! s:j6uil_say_settings() abort
+  setlocal wrap
+  setlocal nofoldenable
+  setlocal foldcolumn=0
+endfunction
+'''
 
 [[plugins]]
 repo = 'tsukkee/unite-tag'

@@ -130,10 +130,6 @@ repo = 'ujihisa/vimshell-ssh'
 on_ft = 'vimshell'
 
 [[plugins]]
-repo = 'Shougo/unite-help'
-on_source = 'unite.vim'
-
-[[plugins]]
 repo = 'mattn/webapi-vim'
 
 [[plugins]]

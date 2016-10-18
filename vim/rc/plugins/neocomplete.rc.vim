@@ -26,14 +26,9 @@ let g:neocomplete#enable_auto_select = 1
 let g:neocomplete#sources#dictionary#dictionaries = {
       \ 'default' : '',
       \ 'vimshell' : $CACHE.'/vimshell/command-history',
-      \ 'java' : '~/.vim/dict/java.dict',
-      \ 'ruby' : '~/.vim/dict/ruby.dict',
-      \ 'scala' : '~/.vim/dict/scala.dict',
       \ }
 
 let g:neocomplete#enable_auto_delimiter = 1
-let g:neocomplete#disable_auto_select_buffer_name_pattern =
-      \ '\[Command Line\]'
 let g:neocomplete#max_list = 100
 if !exists('g:neocomplete#sources#omni#input_patterns')
   let g:neocomplete#sources#omni#input_patterns = {}
@@ -113,13 +108,7 @@ inoremap <expr> <C-n>  pumvisible() ? "\<C-n>" : "\<C-x>\<C-u>\<C-p>\<Down>"
 inoremap <expr> <C-p>  pumvisible() ? "\<C-p>" : "\<C-p>\<C-n>"
 inoremap <expr> '  pumvisible() ? "\<C-y>" : "'"
 
-inoremap <silent><expr> <C-x><C-f>
-      \ neocomplete#start_manual_complete('file')
-inoremap <silent><expr> <C-x><C-l>
-      \ neocomplete#start_manual_complete('look')
-
 inoremap <expr> <C-g>     neocomplete#undo_completion()
-" inoremap <expr> <C-l>     neocomplete#mappings#refresh()
 inoremap <expr> <C-l>     neocomplete#mappings#complete_common_string()
 
 " <CR>: close popup and save indent.
@@ -139,12 +128,4 @@ function! s:check_back_space() abort "{{{
 endfunction"}}}
 " <S-TAB>: completion back.
 inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<C-h>"
-
-" For cursor moving in insert mode(Not recommended)
-inoremap <expr><Left>  neocomplete#close_popup() . "\<Left>"
-inoremap <expr><Right> neocomplete#close_popup() . "\<Right>"
-inoremap <expr><Up>    neocomplete#close_popup() . "\<Up>"
-inoremap <expr><Down>  neocomplete#close_popup() . "\<Down>"
 "}}}
-
-let g:neocomplete#fallback_mappings = ["\<C-x>\<C-o>", "\<C-x>\<C-n>"]
