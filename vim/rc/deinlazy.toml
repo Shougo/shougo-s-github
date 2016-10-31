@@ -49,12 +49,9 @@ let g:neosnippet#snippets_directory = '~/.vim/snippets'
 [[plugins]]
 repo = 'Shougo/unite.vim'
 depends = 'neomru.vim'
+on_source = 'denite.nvim'
 hook_source = 'source ~/.vim/rc/plugins/unite.rc.vim'
 hook_add = '''
-  nnoremap <silent> ;b
-        \ :<C-u>Unite -buffer-name=build`tabpagenr()` -no-quit build<CR>
-  nnoremap <silent> ;o
-        \ :<C-u>Unite outline -no-start-insert -resume<CR>
   nnoremap <silent> <C-k>
         \ :<C-u>Unite change jump<CR>
   nnoremap <silent> ;g
@@ -69,8 +66,6 @@ hook_add = '''
 
   nnoremap <silent> <C-t>
         \ :<C-u>Unite -auto-resize -select=`tabpagenr()-1` tab<CR>
-  nnoremap <silent> <C-w>
-        \ :<C-u>Unite -force-immediately window:all:no-current<CR>
 
   nnoremap <silent> [Window]s
         \ :<C-u>Unite -buffer-name=files -no-split -multi-line -unique -silent
@@ -85,18 +80,12 @@ hook_add = '''
   nnoremap <silent> [Window]g
         \ :<C-u>Unite -start-insert ghq<CR>
 
-  nnoremap <silent> [Space]ft
-        \ :<C-u>Unite -start-insert filetype filetype/new<CR>
-
   " Tag jump.
   nnoremap <silent><expr> tt  &filetype == 'help' ?  "g\<C-]>" :
         \ ":\<C-u>UniteWithCursorWord -buffer-name=tag -immediately
         \  tag tag/include\<CR>"
   nnoremap <silent><expr> tp  &filetype == 'help' ?
         \ ":\<C-u>pop\<CR>" : ":\<C-u>Unite jump\<CR>"
-
-  " Execute help.
-  nnoremap <silent> <C-h>  :<C-u>Unite -buffer-name=help help<CR>
 
   " Search.
   nnoremap <silent> /
@@ -107,9 +96,6 @@ hook_add = '''
         \ line:forward:wrap<CR>
   nnoremap [Alt]/       /
   nnoremap [Alt]?       ?
-  nnoremap <silent> n
-        \ :<C-u>UniteResume search%`bufnr('%')`
-        \  -no-start-insert -force-redraw<CR>
 '''
 
 [[plugins]]
@@ -132,7 +118,38 @@ depends = 'unite.vim'
 on_map = {n = '<Plug>'}
 on_if = "isdirectory(bufname('%'))"
 hook_add = 'nnoremap <silent>   [Space]v   :<C-u>VimFiler -invisible<CR>'
-hook_source = 'source ~/.vim/rc/plugins/vimfiler.rc.vim'
+hook_source = '''
+call vimfiler#custom#profile('default', 'context', {
+      \ 'safe' : 0,
+      \ 'auto_expand' : 1,
+      \ 'parent' : 0,
+      \ })
+
+let g:vimfiler_as_default_explorer = 1
+if IsWindows()
+  let g:vimfiler_detect_drives = [
+        \ 'C:/', 'D:/', 'E:/', 'F:/', 'G:/', 'H:/', 'I:/',
+        \ 'J:/', 'K:/', 'L:/', 'M:/', 'N:/']
+endif
+
+if IsWindows()
+  " Use trashbox.
+  let g:unite_kind_file_use_trashbox = 1
+else
+  " Like Textmate icons.
+  let g:vimfiler_tree_leaf_icon = ' '
+  let g:vimfiler_tree_opened_icon = '▾'
+  let g:vimfiler_tree_closed_icon = '▸'
+  let g:vimfiler_file_icon = ' '
+  let g:vimfiler_readonly_file_icon = '✗'
+  let g:vimfiler_marked_file_icon = '✓'
+endif
+
+autocmd MyAutoCmd FileType vimfiler call s:vimfiler_my_settings()
+function! s:vimfiler_my_settings() abort "{{{
+  nmap <buffer> <Tab> <Plug>(vimfiler_switch_to_other_window)
+endfunction"}}}
+'''
 
 [[plugins]]
 repo = 'Shougo/vimshell.vim'
@@ -498,11 +515,29 @@ hook_add = 'nnoremap W     :<C-u>W3m<Space><C-r>+'
 [[plugins]]
 repo = 'kana/vim-smartchr'
 on_event = 'InsertCharPre'
-hook_source = 'source ~/.vim/rc/plugins/smartchr.rc.vim'
+hook_source = '''
+inoremap <expr> , smartchr#one_of(', ', ',')
+inoremap <expr> =
+      \ search('\(&\<bar><bar>\<bar>+\<bar>-\<bar>/\<bar>>\<bar><\) \%#', 'bcn')? '<bs>= '
+      \ : search('\(*\<bar>!\)\%#', 'bcn') ? '= '
+      \ : smartchr#one_of(' = ', '=', ' == ')
+augroup MyAutoCmd
+  " Substitute .. into -> .
+  autocmd FileType c,cpp inoremap <buffer> <expr> .
+        \ smartchr#loop('.', '->', '...')
+  autocmd FileType vim inoremap <buffer> <expr> .
+        \ smartchr#loop('.', ' . ', '..', '...')
+  autocmd FileType lisp,scheme,clojure inoremap <buffer> <expr> = =
 
-[[plugins]]
-repo = 'hewes/unite-gtags'
-on_source = 'unite.vim'
+  autocmd FileType haskell,int-ghci
+        \ inoremap <buffer> <expr> + smartchr#loop('+', ' ++ ')
+        \| inoremap <buffer> <expr> - smartchr#loop('-', ' -> ', ' <- ')
+        \| inoremap <buffer> <expr> $ smartchr#loop(' $ ', '$')
+        \| inoremap <buffer> <expr> \ smartchr#loop('\ ', '\')
+        \| inoremap <buffer> <expr> : smartchr#loop(':', ' :: ', ' : ')
+        \| inoremap <buffer> <expr> . smartchr#loop('.', ' . ', '..')
+augroup END
+'''
 
 [[plugins]]
 repo = 'tweekmonster/impsort.vim'

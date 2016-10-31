@@ -65,7 +65,7 @@ let g:deoplete#omni#functions = {}
 
 " inoremap <silent><expr> <C-t> deoplete#mappings#manual_complete('file')
 
-let g:deoplete#enable_refresh_always = 1
+" let g:deoplete#enable_refresh_always = 1
 let g:deoplete#enable_camel_case = 1
 " let g:deoplete#auto_complete_start_length = 3
 

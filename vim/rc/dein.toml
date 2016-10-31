@@ -20,21 +20,11 @@ build = 'make'
 # if = "v:progname !=# 'gvim' && !has('gui') && !has('nvim')"
 
 [[plugins]]
-repo = 'thinca/vim-unite-history'
-on_source = 'unite.vim'
-
-[[plugins]]
-repo = 'osyo-manga/unite-filetype'
-
-[[plugins]]
 repo = 'hail2u/vim-css3-syntax'
 
 [[plugins]]
 repo = 'kana/vim-filetype-haskell'
 on_ft = 'haskell'
-
-[[plugins]]
-repo = 'Shougo/unite-sudo'
 
 [[plugins]]
 repo = 'mxw/vim-jsx'
@@ -102,10 +92,10 @@ repo = 'kana/vim-operator-user'
 repo = 'rcmdnk/vim-markdown'
 on_ft = ['markdown', 'mkd']
 
-[[plugins]]
-repo = 'marijnh/tern_for_vim'
-on_ft = 'javascript'
-build = 'npm install'
+# [[plugins]]
+# repo = 'marijnh/tern_for_vim'
+# on_ft = 'javascript'
+# build = 'npm install'
 
 [[plugins]]
 repo = 'vim-ruby/vim-ruby'
@@ -121,9 +111,6 @@ on_source = 'unite.vim'
 
 [[plugins]]
 repo = 'osyo-manga/unite-vimpatches'
-
-[[plugins]]
-repo = 'Shougo/unite-build'
 
 [[plugins]]
 repo = 'ujihisa/vimshell-ssh'
@@ -164,9 +151,6 @@ repo = 'thinca/vim-themis'
 
 [[plugins]]
 repo = 'cocopon/iceberg.vim'
-
-[[plugins]]
-repo = 'vim-jp/syntax-vim-ex'
 
 [[plugins]]
 repo = 'rhysd/vim-gfm-syntax'
