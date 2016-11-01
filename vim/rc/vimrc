@@ -2,14 +2,11 @@
 " Shougo's .vimrc
 "---------------------------------------------------------------------------
 
+"---------------------------------------------------------------------------
+
 " profile start profile.txt
 " profile file ~/.vim/rc/*
 " profile func dein#*
-
-
-"---------------------------------------------------------------------------
-" Initialize:
-"
 
 if &compatible
   set nocompatible
@@ -41,6 +38,8 @@ endfunction"}}}
 " Set augroup.
 augroup MyAutoCmd
   autocmd!
+  autocmd FileType,Syntax,BufNewFile,BufNew,BufRead *?
+        \ call vimrc#on_filetype()
 augroup END
 
 if has('vim_starting')
@@ -59,75 +58,12 @@ endif
 
 
 "---------------------------------------------------------------------------
-" Encoding:
-"
 
 call s:source_rc('encoding.rc.vim')
 
-
-"---------------------------------------------------------------------------
-" Search:
-"
-
-" Ignore the case of normal letters.
-set ignorecase
-" If the search pattern contains upper case characters, override ignorecase
-" option.
-set smartcase
-
-" Enable incremental search.
-set incsearch
-" Don't highlight search result.
-set nohlsearch
-
-" Searches wrap around the end of the file.
-set wrapscan
-
-
-"---------------------------------------------------------------------------
-" Edit:
-"
-
-call s:source_rc('edit.rc.vim')
-
-
-"---------------------------------------------------------------------------
-" View:
-"
-
-call s:source_rc('view.rc.vim')
-
-
-"---------------------------------------------------------------------------
-" FileType:
-"
-
-autocmd MyAutoCmd FileType,Syntax,BufNewFile,BufNew,BufRead
-      \ * call s:my_on_filetype()
-function! s:my_on_filetype() abort "{{{
-  if &l:filetype == '' && bufname('%') == ''
-    return
-  endif
-
-  if execute('filetype') =~# 'OFF'
-    " Lazy loading
-    silent! filetype plugin indent on
-    syntax enable
-    filetype detect
-  endif
-endfunction "}}}
-
-
-"---------------------------------------------------------------------------
-" Mappings:
-"
+call s:source_rc('options.rc.vim')
 
 call s:source_rc('mappings.rc.vim')
-
-
-"---------------------------------------------------------------------------
-" Platform:
-"
 
 if has('nvim')
   call s:source_rc('neovim.rc.vim')
@@ -145,14 +81,6 @@ endif
 
 
 "---------------------------------------------------------------------------
-" Others:
-"
-
-" If true Vim master, use English help file.
-set helplang& helplang=en,ja
-
-" Default home directory.
-let t:cwd = getcwd()
 
 set secure
 

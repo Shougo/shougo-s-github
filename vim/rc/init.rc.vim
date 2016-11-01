@@ -14,6 +14,30 @@ function! IsMac() abort
       \     || (!executable('xdg-open') && system('uname') =~? '^darwin'))
 endfunction
 
+" Setting of the encoding to use for a save and reading.
+" Make it normal in UTF-8 in Unix.
+if has('vim_starting') && &encoding !=# 'utf-8'
+  if IsWindows() && !has('gui_running')
+    set encoding=cp932
+  else
+    set encoding=utf-8
+  endif
+endif
+
+" Build encodings.
+let &fileencodings = join([
+      \ 'ucs-bom', 'iso-2022-jp-3', 'utf-8', 'euc-jp', 'cp932'])
+
+" Setting of terminal encoding.
+if !has('gui_running') && IsWindows()
+  " For system.
+  set termencoding=cp932
+endif
+
+if has('multi_byte_ime')
+  set iminsert=0 imsearch=0
+endif
+
 " Use English interface.
 language message C
 
@@ -25,11 +49,8 @@ let g:maplocalleader = 'm'
 
 " Release keymappings for plug-in.
 nnoremap ;  <Nop>
-xnoremap ;  <Nop>
 nnoremap m  <Nop>
-xnoremap m  <Nop>
 nnoremap ,  <Nop>
-xnoremap ,  <Nop>
 
 if IsWindows()
   " Exchange path separator.
@@ -56,7 +77,7 @@ if s:dein_dir != '' || &runtimepath !~ '/dein.vim'
       execute '!git clone https://github.com/Shougo/dein.vim' s:dein_dir
     endif
   endif
-  execute ' set runtimepath^=' . substitute(
+  execute 'set runtimepath^=' . substitute(
         \ fnamemodify(s:dein_dir, ':p') , '/$', '', '')
 endif
 

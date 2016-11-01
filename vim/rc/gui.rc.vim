@@ -13,14 +13,10 @@ if has('win32') || has('win64')
    set guifontwide=Ricty:h12
 
    set guifont=Ricty:h12
-  " set guifont=Anonymous\ Pro:h11
   " set guifont=Courier\ New:h11
-  " set guifont=MS\ Gothic:h11
   " set guifont=VL\ Gothic:h11
   " set guifont=Consolas:h12
-  " set guifont=Bitstream\ Vera\ Sans\ Mono:h11
   " set guifont=Inconsolata:h12
-  " set guifont=Terminal:h10:cSHIFTJIS
 
   " Number of pixel lines inserted between characters.
    set linespace=2
@@ -51,13 +47,6 @@ if has('win32') || has('win64')
    set columns=230
   " Height of window.
    set lines=55
-
-  " Set transparency.
-  "autocmd GuiEnter * set transparency=221
-  " Toggle font setting.
-  command! TransparencyToggle let &transparency =
-        \ (&transparency != 255 && &transparency != 0)? 255 : 221
-  nnoremap TT     :<C-u>TransparencyToggle<CR>
 else
   if &columns < 170
     " Width of window.
@@ -72,23 +61,6 @@ endif
 " Don't override colorscheme.
 if !exists('g:colors_name')
   colorscheme candy
-endif
-"}}}
-
-"---------------------------------------------------------------------------
-" Input Japanese:"{{{
-" Disable uim when use skk.vim.
-set imdisable
-
-if (has('multi_byte_ime') || has('xim')) && has('GUI_GTK')
-  " For Linux
-
-  " To use uim-anthy.
-  "let $GTK_IM_MODULE='uim-anthy'
-  "set imactivatekey=C-space
-
-  " To use ibus-mozc/fcitx.
-  " let $GTK_IM_MODULE = 'xim'
 endif
 "}}}
 

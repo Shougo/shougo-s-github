@@ -3,31 +3,6 @@
 "
 " The automatic recognition of the character code.
 
-" Setting of the encoding to use for a save and reading.
-" Make it normal in UTF-8 in Unix.
-if has('vim_starting') && &encoding !=# 'utf-8'
-  if IsWindows() && !has('gui_running')
-    set encoding=cp932
-  else
-    set encoding=utf-8
-  endif
-endif
-
-" Setting of terminal encoding.
-if !has('gui_running') && IsWindows()
-  " For system.
-  set termencoding=cp932
-endif
-
-" The automatic recognition of the character code."{{{
-if !exists('did_encoding_settings')
-  " Build encodings.
-  let &fileencodings = join([
-        \ 'ucs-bom', 'iso-2022-jp-3', 'utf-8', 'euc-jp', 'cp932'])
-  let did_encoding_settings = 1
-endif
-"}}}
-
 " When do not include Japanese, use encoding for fileencoding.
 function! s:ReCheck_FENC() abort "{{{
   let is_multi_byte = search("[^\x01-\x7e]", 'n', 100, 100)
@@ -80,7 +55,3 @@ command! -bang -complete=file -nargs=? WUnix
       \ write<bang> ++fileformat=unix <args> | edit <args>
 command! -bang -complete=file -nargs=? WDos
       \ write<bang> ++fileformat=dos <args> | edit <args>
-
-if has('multi_byte_ime')
-  set iminsert=0 imsearch=0
-endif
