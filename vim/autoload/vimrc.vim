@@ -19,21 +19,23 @@ function! vimrc#sticky_func() abort
   endif
   let char = ''
 
-  let b:deoplete_disable_auto_complete = 1
-  while char == ''
+  while 1
     let char = nr2char(getchar())
-  endwhile
-  let b:deoplete_disable_auto_complete = 0
 
-  if char =~ '\l'
-    return toupper(char)
-  elseif has_key(sticky_table, char)
-    return sticky_table[char]
-  elseif has_key(special_table, char)
-    return special_table[char]
-  else
-    return ''
-  endif
+    if char =~ '\l'
+      let char = toupper(char)
+      break
+    elseif has_key(sticky_table, char)
+      let char = sticky_table[char]
+      break
+    elseif has_key(special_table, char)
+      let char = special_table[char]
+      break
+    endif
+  endwhile
+
+  redraw | echo
+  return char
 endfunction
 
 function! vimrc#add_numbers(num) abort

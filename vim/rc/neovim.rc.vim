@@ -41,6 +41,7 @@ nnoremap <silent> [Window]s :<C-u>Denite file_point
       \ file_mru<CR>
 
 nnoremap <silent> [Window]n :<C-u>Denite dein<CR>
-nnoremap <silent> ;g :<C-u>Denite -buffer-name=grep grep<CR>
+nnoremap <silent> [Window]g :<C-u>Denite unite:ghq<CR>
+nnoremap <silent> ;g :<C-u>Denite -buffer-name=grep -no-empty grep<CR>
 nnoremap <silent> n :<C-u>Denite -buffer-name=grep -resume -mode=normal<CR>
 nnoremap <silent> ft :<C-u>Denite filetype<CR>
