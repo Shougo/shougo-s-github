@@ -1,6 +1,23 @@
 [[plugins]]
 repo = 'zchee/deoplete-clang'
 on_ft = ['c', 'cpp']
+hook_source = '''
+" libclang shared library path
+let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
+" For Ubuntu
+" let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-3.8/lib/libclang-3.8.so'
+
+" clang builtin header path
+let g:deoplete#sources#clang#clang_header = '/usr/include/clang'
+
+" libclang default compile flags
+let g:deoplete#sources#clang#flags = ['-x', 'c++', '-std=c++11']
+
+" compile_commands.json directory path
+" Not file path. Need build directory path
+" let g:deoplete#sources#clang#clang_complete_database =
+"       \ expand('~/src/neovim/build')
+'''
 
 [[plugins]]
 repo = 'zchee/deoplete-jedi'
@@ -17,6 +34,41 @@ depends = 'context_filetype.vim'
 if = "has('nvim')"
 on_i = 1
 hook_source = '''
-  let g:deoplete#enable_at_startup = 1
-  source ~/.vim/rc/plugins/deoplete.rc.vim
+let g:deoplete#enable_at_startup = 1
+source ~/.vim/rc/plugins/deoplete.rc.vim
+'''
+
+[[plugins]]
+repo = 'Shougo/deol.nvim'
+on_cmd = 'Deol'
+hook_source = '''
+  " Set to $PATH.
+  let s:bin = dein#get('vim-themis').rtp . '/bin'
+
+  function! s:split_envpath(path) abort "{{{
+    let delimiter = has('win32') ? ';' : ':'
+    if stridx(a:path, '\' . delimiter) < 0
+      return split(a:path, delimiter)
+    endif
+    let split = split(a:path, '\\\@<!\%(\\\\\)*\zs' . delimiter)
+    return map(split,'substitute(v:val, ''\\\([\\'
+          \ . delimiter . ']\)'', "\\1", "g")')
+  endfunction"}}}
+
+  function! s:join_envpath(list, orig_path, add_path) abort "{{{
+    let delimiter = has('win32') ? ';' : ':'
+    return (stridx(a:orig_path, '\' . delimiter) < 0
+          \ && stridx(a:add_path, delimiter) < 0) ?
+          \   join(a:list, delimiter) :
+          \   join(map(copy(a:list),
+          \        "substitute(v:path, ',\\|\\\\,\\@=', '\\\\\\0', 'g')"),
+          \        delimiter)
+  endfunction"}}}
+
+  let $PATH = s:join_envpath(
+        \ dein#util#_uniq(insert(
+        \    s:split_envpath($PATH), s:bin)), $PATH, s:bin)
+  let $THEMIS_HOME = dein#get('vim-themis').rtp
+
+  unlet s:bin
 '''

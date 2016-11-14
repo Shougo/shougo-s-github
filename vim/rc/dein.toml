@@ -147,11 +147,14 @@ hook_add = '''
 repo = 'Kocha/vim-unite-tig'
 
 [[plugins]]
-repo = 'thinca/vim-themis'
-
-[[plugins]]
 repo = 'cocopon/iceberg.vim'
 
 [[plugins]]
 repo = 'rhysd/vim-gfm-syntax'
+
+[[plugins]]
+repo = 'dag/vim-fish'
+
+[[plugins]]
+repo = 'Shougo/neossh.vim'
 

@@ -2,8 +2,13 @@
 " denite.nvim
 "
 
-call denite#custom#var('file_rec', 'command',
-      \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+if executable('rg')
+  call denite#custom#var('file_rec', 'command',
+        \ ['rg', '--files', '--glob', '!.git'])
+else
+  call denite#custom#var('file_rec', 'command',
+        \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+endif
 call denite#custom#source(
       \ 'file_mru', 'matchers', ['matcher_fuzzy', 'matcher_project_files'])
 call denite#custom#source('file_rec,grep', 'matchers', ['matcher_cpsm'])

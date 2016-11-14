@@ -12,10 +12,6 @@ let g:unite_source_alias_aliases.message = {
       \ 'source' : 'output',
       \ 'args'   : 'message',
       \ }
-let g:unite_source_alias_aliases.mes = {
-      \ 'source' : 'output',
-      \ 'args'   : 'message',
-      \ }
 let g:unite_source_alias_aliases.scriptnames = {
       \ 'source' : 'output',
       \ 'args'   : 'scriptnames',
@@ -28,9 +24,6 @@ let g:unite_ignore_source_files = []
 call unite#custom#profile('action', 'context', {
       \ 'start_insert' : 1
       \ })
-
-" migemo.
-call unite#custom#source('line_migemo', 'matchers', 'matcher_migemo')
 
 " Custom filters."{{{
 call unite#custom#source(
@@ -49,15 +42,6 @@ call unite#custom#source(
 call unite#filters#sorter_default#use(['sorter_rank'])
 "}}}
 
-" Custom source highlight.
-function! s:rec_on_syntax(args, context)
-  syntax match uniteSource__FileRecFileName /\[.\+\]/
-        \ contained containedin=uniteSource__FileRec
-  highlight default link uniteSource__FileRecFileName Type
-endfunction
-call unite#custom#source('file_rec', 'syntax', 'uniteSource__FileRec')
-call unite#custom#source('file_rec', 'on_syntax', function('s:rec_on_syntax'))
-
 function! s:unite_my_settings() abort "{{{
   " Directory partial match.
   call unite#custom#default_action('directory', 'narrow')
@@ -65,9 +49,6 @@ function! s:unite_my_settings() abort "{{{
   " Overwrite settings.
   imap <buffer>  <BS>      <Plug>(unite_delete_backward_path)
   imap <buffer>  jj        <Plug>(unite_insert_leave)
-  imap <buffer> '          <Plug>(unite_quick_match_default_action)
-  nmap <buffer> '          <Plug>(unite_quick_match_default_action)
-  nmap <buffer> cd         <Plug>(unite_quick_match_default_action)
   imap <buffer> <C-w>      <Plug>(unite_delete_backward_path)
   nnoremap <silent><buffer> <Tab>     <C-w>w
 
