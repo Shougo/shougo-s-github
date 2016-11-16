@@ -14,10 +14,12 @@ fi
 #####################################################################
 
 # Check if zplug is installed
-[[ -f ~/.zplug/zplug ]] || return
+[[ -f ~/.zplug/init.zsh ]] || return
+
+unset ZPLUG_SHALLOW
 
 # Essential
-source ~/.zplug/zplug
+source ~/.zplug/init.zsh
 
 zplug "arzzen/calc.plugin.zsh"
 zplug "rimraf/k"
