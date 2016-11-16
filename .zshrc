@@ -23,7 +23,6 @@ zplug "arzzen/calc.plugin.zsh"
 zplug "rimraf/k"
 zplug "zsh-users/zsh-history-substring-search"
 zplug "zsh-users/zsh-syntax-highlighting"
-zplug "b4b4r07/auto-fu.zsh"
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
@@ -43,7 +42,7 @@ zplug load
 # environment
 #####################################################################
 
-export EDITOR=vim
+export EDITOR=nvim
 export LANG=en_US.UTF-8
 
 # Better umask
@@ -109,55 +108,34 @@ cdpath=($HOME)
 
 zstyle ':completion:*:processes' command "ps -u $USER -o pid,stat,%cpu,%mem,cputime,command"
 
-# auto-fu.zsh
-# function zle-line-init () {
-#     auto-fu-init
-# }
-# zle -N zle-line-init
-# zstyle ':completion:*' completer _oldlist _complete
-
 
 #####################################################################
 # colors
 #####################################################################
 
-if [ $TERM = "dumb" ]; then
-    # Disable colors in GVim
-    alias ls="ls -F --show-control-chars"
-    alias la='ls -aF --show-control-chars'
-    alias ll='ls -lF --show-control-chars'
-    alias l.='ls -dF .[a-zA-Z]*'
-else
-    # Color settings for zsh complete candidates
-    alias ls='ls -F --show-control-chars --color=always'
-    alias la='ls -aF --show-control-chars --color=always'
-    alias ll='ls -lF --show-control-chars --color=always'
-    alias l.='ls -dF .[a-zA-Z]* --color=always'
-    export LSCOLORS=ExFxCxdxBxegedabagacad
-    export LS_COLORS='di=01;34:ln=01;35:so=01;32:ex=01;31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-    zstyle ':completion:*' list-colors 'di=;34;1' 'ln=;35;1' 'so=;32;1' 'ex=31;1' 'bd=46;34' 'cd=43;34'
-fi
+# Color settings for zsh complete candidates
+alias ls='ls -F --show-control-chars --color=always'
+alias la='ls -aF --show-control-chars --color=always'
+alias ll='ls -lF --show-control-chars --color=always'
+alias l.='ls -dF .[a-zA-Z]* --color=always'
+export LSCOLORS=ExFxCxdxBxegedabagacad
+export LS_COLORS='di=01;34:ln=01;35:so=01;32:ex=01;31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
+zstyle ':completion:*' list-colors 'di=;34;1' 'ln=;35;1' 'so=;32;1' 'ex=31;1' 'bd=46;34' 'cd=43;34'
 
-# use prompt colors feature
+# Use prompt colors feature
 autoload -U colors
 colors
 
-if [ $TERM = "dumb" ]; then
-    # Use simple prompt in GVim
-    PROMPT='%n%# '
-else
-    PROMPT='%{[$[31+$RANDOM % 7]m%}%U%B%n%#'"%b%{[m%}%u "
+# Use vcs_info
+autoload -Uz vcs_info
+zstyle ':vcs_info:git:*' check-for-changes true
+zstyle ':vcs_info:git:*' stagedstr "%F{yellow}!"
+zstyle ':vcs_info:git:*' unstagedstr "%F{red}+"
+zstyle ':vcs_info:*' formats "%F{green}%c%u[%b]%f"
+zstyle ':vcs_info:*' actionformats '[%b|%a]'
 
-    if [ ${VIMSHELL_TERM:-""} = "terminal" ] \
-        || [ ${VIMSHELL_TERM:-""} = "" ]; then
-    RPROMPT="%{[33m%}[%35<..<%~]%{[m%}"
-else
-    PROMPT='%{[$[31+$RANDOM % 7]m%}%B%n%#'"%b%{[m%}%u "
-
-    # For test
-    # PROMPT="%{$fg[green]%}%B%~$%b%{${reset_color}%} "
-fi
-fi
+PROMPT='%{[33m%}[%35<..<%~]%{[m%}${vcs_info_msg_0_}
+%{[$[31+$RANDOM % 7]m%}%U%B%#'"%b%{[m%}%u "
 
 if [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] ; then
     PROMPT="%{[37m%}${HOST%%.*} ${PROMPT}"
@@ -177,7 +155,7 @@ SPROMPT="correct> %R -> %r [n,y,a,e]? "
 #####################################################################
 # options
 ######################################################################
-#{{{
+
 setopt auto_resume
 # Ignore <C-d> logout
 setopt ignore_eof
@@ -260,61 +238,16 @@ setopt pushd_ignore_dups
 # Check original command in alias completion
 setopt complete_aliases
 unsetopt hist_verify
-# }}}
+
 
 #####################################################################
 # alias
 ######################################################################
-# Global aliases {{{
-alias -g A="| awk"
-alias -g G="| grep"
-alias -g GV="| grep -v"
-alias -g H="| head"
-alias -g L="| $PAGER"
-alias -g P=' --help | less'
-alias -g R="| ruby -e"
-alias -g S="| sed"
-alias -g T="| tail"
-alias -g V="| vim -R -"
-alias -g U=' --help | head'
-alias -g W="| wc"
-# }}}
-
-# Suffix aliases {{{
-alias -s zip=zipinfo
-alias -s tgz=gzcat
-alias -s gz=gzcat
-alias -s tbz=bzcat
-alias -s bz2=bzcat
-alias -s java=vim
-alias -s c=vim
-alias -s h=vim
-alias -s C=vim
-alias -s cpp=vim
-alias -s txt=vim
-alias -s xml=vim
-alias -s html=opera
-alias -s xhtml=opera
-alias -s gif=display
-alias -s jpg=display
-alias -s jpeg=display
-alias -s png=display
-alias -s bmp=display
-alias -s mp3=amarok
-alias -s m4a=amarok
-alias -s ogg=amarok
-# }}}
-
-# Improve lv
-alias lv='lv -c -T8192'
 
 # Better mv, cp, mkdir
 alias mv='nocorrect mv'
 alias cp='nocorrect cp'
 alias mkdir='nocorrect mkdir'
-
-# emacs no window
-alias emacsnw="env TERM=xterm-256color emacs -nw"
 
 # Automatic exec emacs
 alias emacsclient="emacsclient -a emacs"
@@ -328,15 +261,6 @@ if [ -x '/usr/bin/rlwrap' -o  -x '/usr/local/bin/rlwrap' ]; then
     alias gosh="rlwrap -b '(){}[],#\";| ' gosh"
 fi
 
-# Move to previous directory
-alias gd='dirs -v; echo -n "select number: "; read newdir; cd -"$newdir"'
-
-# development
-alias py='python'
-alias rb='ruby'
-alias gdb='gdb -silent'
-alias gpp='g++'
-
 # Improve du, df
 alias du="du -h"
 alias df="df -h"
@@ -345,12 +269,6 @@ alias df="df -h"
 alias od='od -Ax -tx1z'
 alias hexdump='hexdump -C'
 alias hexd=hexdump
-
-# Better where
-alias where="command -v"
-
-# Better jobs
-alias j="jobs -l"
 
 alias vim='nvim'
 alias termite='termite --exec=zsh'
@@ -384,25 +302,6 @@ bindkey "^u" backward-kill-line
 # Set environment variables easily
 setenv () { export $1="$@[2,-1]" }
 
-#-------------------------------------------------------
-# Print all histories
-function history-all { history -E 1 }
-
-#-------------------------------------------------------
-# File encode conversion
-euc() {
-    for i in $@; do;
-        nkf -e -Lu $i >! /tmp/euc.$$ # -Lu : New line is LF
-        mv -f /tmp/euc.$$ $i
-    done;
-}
-sjis() {
-    for i in $@; do;
-        nkf -s -Lw $i >! /tmp/euc.$$ # -Lw : New line is CRLF
-        mv -f /tmp/euc.$$ $i
-    done;
-}
-
 r() {
     source ~/.zshrc
     if [ -d ~/.zsh/comp ]; then
@@ -424,6 +323,7 @@ case "${TERM}" in
     kterm*|xterm*|vt100|st*|rxvt*)
         precmd() {
             echo -ne "\033]0;${USER}@${HOST%%.*}:${PWD}\007"
+            vcs_info
         }
         ;;
 esac
@@ -442,5 +342,3 @@ zmodload zsh/mathfunc
 # C-\ is detach
 # dtach command, dtach -A command, dtach -a session
 # adbuco -c session,abduco -c session command, abduco -a command
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
