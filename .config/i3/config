@@ -212,7 +212,6 @@ exec --no-startup-id setxkbmap -option ctrl:nocaps -rules evdev -model us -layou
 
 # My mappings
 bindsym $mod+p exec thunar
-bindsym $mod+n exec nvim-qt
 bindsym $mod+x exec firefox
 
 bindsym $mod+h workspace next
