@@ -86,8 +86,6 @@ hook_add = '''
   nnoremap <silent> n :<C-u>Denite -buffer-name=search -resume -mode=normal<CR>
   nnoremap <silent> ft :<C-u>Denite filetype<CR>
   nnoremap <silent> <C-t> :<C-u>Denite unite:tab -select=`tabpagenr()-1` -mode=normal<CR>
-  nnoremap <silent> N :<C-u>tabnew<CR>:<C-u>Deol zsh<CR>
-  nnoremap <silent> [Space]s :<C-u>Deol zsh<CR>
 '''
 
 [[plugins]]
@@ -135,6 +133,7 @@ endfunction"}}}
 [[plugins]]
 repo = 'Shougo/vimshell.vim'
 on_map = {n = '<Plug>'}
+on_if = "!has('nvim')"
 hook_add = 'nmap [Space]s  <Plug>(vimshell_switch)'
 hook_source = 'source ~/.vim/rc/plugins/vimshell.rc.vim'
 

@@ -175,5 +175,3 @@ command! -range -nargs=1 AddNumbers
       \ call vimrc#add_numbers((<line2>-<line1>+1) * eval(<args>))
 
 nnoremap <silent> #    <C-^>
-
-nnoremap <silent> N    :<C-u>tabnew<CR>:VimShellCreate<CR>
