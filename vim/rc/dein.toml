@@ -24,55 +24,42 @@ repo = 'hail2u/vim-css3-syntax'
 
 [[plugins]]
 repo = 'kana/vim-filetype-haskell'
-on_ft = 'haskell'
 
 [[plugins]]
 repo = 'mxw/vim-jsx'
-on_ft = 'javascript'
 
 [[plugins]]
 repo = 'itchyny/vim-haskell-indent'
-on_ft = 'haskell'
 
 [[plugins]]
 repo = 'udalov/kotlin-vim'
-on_ft = 'kotlin'
 
 [[plugins]]
 repo = 'shawncplus/phpcomplete.vim'
-on_ft = 'php'
 
 [[plugins]]
 repo = 'jiangmiao/simple-javascript-indenter'
-on_ft = 'javascript'
 
 [[plugins]]
 repo = 'thinca/vim-ft-diff_fold'
-on_ft = 'diff'
 
 [[plugins]]
 repo = 'thinca/vim-ft-vim_fold'
-on_ft = 'vim'
 
 [[plugins]]
 repo = 'thinca/vim-ft-help_fold'
-on_ft = 'help'
 
 [[plugins]]
 repo = 'yomi322/vim-gitcomplete'
-on_ft = 'vimshell'
 
 [[plugins]]
 repo = 'vim-jp/cpp-vim'
-on_ft = 'cpp'
 
 [[plugins]]
 repo = 'cespare/vim-toml'
-on_ft = 'toml'
 
 [[plugins]]
 repo = 'elzr/vim-json'
-on_ft = 'json'
 
 [[plugins]]
 repo = 'vim-jp/autofmt'
@@ -82,7 +69,6 @@ repo = 'kana/vim-textobj-user'
 
 [[plugins]]
 repo = 'hynek/vim-python-pep8-indent'
-on_ft = 'python'
 
 # Operators
 [[plugins]]
@@ -90,17 +76,13 @@ repo = 'kana/vim-operator-user'
 
 [[plugins]]
 repo = 'rcmdnk/vim-markdown'
-on_ft = ['markdown', 'mkd']
 
 # [[plugins]]
 # repo = 'marijnh/tern_for_vim'
-# on_ft = 'javascript'
 # build = 'npm install'
 
 [[plugins]]
 repo = 'vim-ruby/vim-ruby'
-on_map = '<Plug>'
-on_ft = 'ruby'
 
 [[plugins]]
 repo = 'Shougo/neosnippet-snippets'
@@ -114,27 +96,22 @@ repo = 'osyo-manga/unite-vimpatches'
 
 [[plugins]]
 repo = 'ujihisa/vimshell-ssh'
-on_ft = 'vimshell'
 
 [[plugins]]
 repo = 'mattn/webapi-vim'
 
 [[plugins]]
 repo = 'jelera/vim-javascript-syntax'
-on_ft = 'javascript'
 
 [[plugins]]
 repo = 'JesseKPhillips/d.vim'
-on_ft = 'd'
 
 [[plugins]]
 repo = 'nsf/gocode'
 rtp = 'vim'
-on_ft = 'go'
 
 [[plugins]]
 repo = 'vim-jp/vimdoc-ja'
-on_ft = 'help'
 
 [[plugins]]
 repo = 'machakann/vim-vimhelplint'
@@ -153,7 +130,7 @@ repo = 'cocopon/iceberg.vim'
 repo = 'rhysd/vim-gfm-syntax'
 
 [[plugins]]
-repo = 'dag/vim-fish'
+repo = 'kballard/vim-fish'
 
 [[plugins]]
 repo = 'Shougo/neossh.vim'

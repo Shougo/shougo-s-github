@@ -3,6 +3,5 @@ function fish_greeting
 end
 
 function cd
-  builtin cd $argv
-  ls
+  builtin cd $argv; and ls
 end

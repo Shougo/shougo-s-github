@@ -40,7 +40,11 @@ augroup MyAutoCmd
   autocmd!
   autocmd FileType,Syntax,BufNewFile,BufNew,BufRead *?
         \ call vimrc#on_filetype()
+  autocmd CursorHold *? syntax sync minlines=300
 augroup END
+if !empty(argv())
+  call vimrc#on_filetype()
+endif
 
 if has('vim_starting')
   call s:source_rc('init.rc.vim')

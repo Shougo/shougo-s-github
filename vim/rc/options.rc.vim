@@ -30,7 +30,7 @@ set expandtab
 " Spaces instead <Tab>.
 " set softtabstop=4
 " Autoindent width.
-" set shiftwidth=4
+set shiftwidth=4
 " Round indent by shiftwidth.
 set shiftround
 
@@ -74,7 +74,7 @@ set commentstring=%s
 
 if exists('*FoldCCtext')
   " Use FoldCCtext().
-   set foldtext=FoldCCtext()
+  set foldtext=FoldCCtext()
 endif
 
 " Use vimgrep.
@@ -195,10 +195,10 @@ set breakat=\ \	;:,!?
 " Wrap conditions.
 set whichwrap+=h,l,<,>,[,],b,s,~
 if exists('+breakindent')
-   set breakindent
-   set wrap
+  set breakindent
+  set wrap
 else
-   set nowrap
+  set nowrap
 endif
 
 " Do not display the greetings message at the time of Vim start.

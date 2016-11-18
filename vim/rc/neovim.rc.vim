@@ -35,19 +35,3 @@ endif
 
 " Share the histories
 autocmd MyAutoCmd CursorHold * if exists(':rshada') | rshada | wshada | endif
-
-nnoremap <silent> [Window]<Space>
-      \ :<C-u>Denite file_rec:~/.vim/rc<CR>
-nnoremap <silent> / :<C-u>Denite -buffer-name=search line<CR>
-nnoremap <silent> * :<C-u>DeniteCursorWord -buffer-name=search line<CR>
-nnoremap <silent> [Window]s :<C-u>Denite file_point file_mru
-      \ `finddir('.git', ';') != '' ? 'file_rec/git' : 'file_rec'`<CR>
-
-nnoremap <silent> [Window]n :<C-u>Denite dein<CR>
-nnoremap <silent> [Window]g :<C-u>Denite unite:ghq<CR>
-nnoremap <silent> ;g :<C-u>Denite -buffer-name=search -no-empty grep<CR>
-nnoremap <silent> n :<C-u>Denite -buffer-name=search -resume -mode=normal<CR>
-nnoremap <silent> ft :<C-u>Denite filetype<CR>
-nnoremap <silent> <C-t> :<C-u>Denite unite:tab -select=`tabpagenr()-1` -mode=normal<CR>
-nnoremap <silent> N :<C-u>tabnew<CR>:<C-u>Deol zsh<CR>
-nnoremap <silent> [Space]s :<C-u>Deol zsh<CR>

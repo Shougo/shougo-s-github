@@ -54,31 +54,8 @@ hook_source = 'source ~/.vim/rc/plugins/unite.rc.vim'
 hook_add = '''
   nnoremap <silent> <C-k>
         \ :<C-u>Unite change jump<CR>
-  nnoremap <silent> ;g
-        \ :<C-u>Unite grep -buffer-name=grep`tabpagenr()`
-        \ -auto-preview -no-split -no-empty -resume<CR>
-  nnoremap <silent> ;r
-        \ :<C-u>Unite -buffer-name=register
-        \ -default-action=append register history/yank<CR>
-  xnoremap <silent> ;r
-        \ d:<C-u>Unite -buffer-name=register
-        \ -default-action=append register history/yank<CR>
-
   nnoremap <silent> <C-t>
         \ :<C-u>Unite -auto-resize -select=`tabpagenr()-1` tab<CR>
-
-  nnoremap <silent> [Window]s
-        \ :<C-u>Unite -buffer-name=files -no-split -multi-line -unique -silent
-        \ jump_point file_point file_mru
-        \ `finddir('.git', ';') != '' ? 'file_rec/git' : ''`
-        \ buffer_tab:- file file/new<CR>
-
-  nnoremap <silent> [Window]<Space>
-        \ :<C-u>Unite -buffer-name=files -path=~/.vim/rc file_rec<CR>
-  nnoremap <silent> [Window]n
-        \ :<C-u>Unite -start-insert -default-action=lcd dein<CR>
-  nnoremap <silent> [Window]g
-        \ :<C-u>Unite -start-insert ghq<CR>
 
   " Tag jump.
   nnoremap <silent><expr> tt  &filetype == 'help' ?  "g\<C-]>" :
@@ -86,23 +63,31 @@ hook_add = '''
         \  tag tag/include\<CR>"
   nnoremap <silent><expr> tp  &filetype == 'help' ?
         \ ":\<C-u>pop\<CR>" : ":\<C-u>Unite jump\<CR>"
-
-  " Search.
-  nnoremap <silent> /
-        \ :<C-u>Unite -buffer-name=search%`bufnr('%')`
-        \ -start-insert line:forward:wrap<CR>
-  nnoremap <silent> *
-        \ :<C-u>UniteWithCursorWord -buffer-name=search%`bufnr('%')`
-        \ line:forward:wrap<CR>
-  nnoremap [Alt]/       /
-  nnoremap [Alt]?       ?
 '''
 
 [[plugins]]
 repo = 'Shougo/denite.nvim'
 on_cmd = 'Denite'
-hook_source = '''
-  source ~/.vim/rc/plugins/denite.rc.vim
+hook_source = 'source ~/.vim/rc/plugins/denite.rc.vim'
+hook_add = '''
+  nnoremap <silent> ;r
+        \ :<C-u>Denite -buffer-name=register unite:register neoyank<CR>
+
+  nnoremap <silent> [Window]<Space>
+        \ :<C-u>Denite file_rec:~/.vim/rc<CR>
+  nnoremap <silent> / :<C-u>Denite -buffer-name=search line<CR>
+  nnoremap <silent> * :<C-u>DeniteCursorWord -buffer-name=search line<CR>
+  nnoremap <silent> [Window]s :<C-u>Denite file_point file_mru
+        \ `finddir('.git', ';') != '' ? 'file_rec/git' : 'file_rec'`<CR>
+
+  nnoremap <silent> [Window]n :<C-u>Denite dein<CR>
+  nnoremap <silent> [Window]g :<C-u>Denite unite:ghq<CR>
+  nnoremap <silent> ;g :<C-u>Denite -buffer-name=search -no-empty grep<CR>
+  nnoremap <silent> n :<C-u>Denite -buffer-name=search -resume -mode=normal<CR>
+  nnoremap <silent> ft :<C-u>Denite filetype<CR>
+  nnoremap <silent> <C-t> :<C-u>Denite unite:tab -select=`tabpagenr()-1` -mode=normal<CR>
+  nnoremap <silent> N :<C-u>tabnew<CR>:<C-u>Deol zsh<CR>
+  nnoremap <silent> [Space]s :<C-u>Deol zsh<CR>
 '''
 
 [[plugins]]
