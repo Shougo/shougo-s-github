@@ -88,10 +88,6 @@ repo = 'vim-ruby/vim-ruby'
 repo = 'Shougo/neosnippet-snippets'
 
 [[plugins]]
-repo = 'sorah/unite-ghq'
-on_source = 'unite.vim'
-
-[[plugins]]
 repo = 'osyo-manga/unite-vimpatches'
 
 [[plugins]]

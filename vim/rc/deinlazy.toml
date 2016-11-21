@@ -81,7 +81,7 @@ hook_add = '''
         \ `finddir('.git', ';') != '' ? 'file_rec/git' : 'file_rec'`<CR>
 
   nnoremap <silent> [Window]n :<C-u>Denite dein<CR>
-  nnoremap <silent> [Window]g :<C-u>Denite unite:ghq<CR>
+  nnoremap <silent> [Window]g :<C-u>Denite ghq<CR>
   nnoremap <silent> ;g :<C-u>Denite -buffer-name=search -no-empty grep<CR>
   nnoremap <silent> n :<C-u>Denite -buffer-name=search -resume -mode=normal<CR>
   nnoremap <silent> ft :<C-u>Denite filetype<CR>
@@ -571,3 +571,7 @@ on_source = 'denite.nvim'
 
 [[plugins]]
 repo = 'thinca/vim-themis'
+
+[[plugins]]
+repo = 'Jagua/vim-denite-ghq'
+on_source = 'denite.nvim'
