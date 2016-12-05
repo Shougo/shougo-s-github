@@ -6,9 +6,18 @@ function cd
   builtin cd $argv; and ls
 end
 
-set symbol_prompt '~>'
+set pure_symbol_prompt '~>'
 
 # Color theme
+
+set pure_color_blue (set_color '1e95fd')
+set pure_color_cyan \e\[36m
+set pure_color_gray \e\[38\;5\;247m
+set pure_color_green \e\[32m
+set pure_color_normal \e\[30m\e\(B\e\[m
+set pure_color_red \e\[31m
+set pure_color_yellow \e\[33m
+
 set fish_color_autosuggestion '1bc8c8'  'yellow'
 set fish_color_command 'f820ff'  'purple'
 set fish_color_comment 'cc6666', 'red'

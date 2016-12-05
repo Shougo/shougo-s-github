@@ -23,9 +23,12 @@ call denite#custom#source('grep', 'matchers',
 call denite#custom#source('file_mru', 'converters',
       \ ['converter_relative_word'])
 
-call denite#custom#map('_', "\<C-j>", 'move_to_next_line')
-call denite#custom#map('_', "\<C-k>", 'move_to_prev_line')
-call denite#custom#map('insert', "'", 'enter_mode:normal')
+call denite#custom#map('insert', '<C-j>',
+      \ '<denite:move_to_next_line>', 'noremap')
+call denite#custom#map('insert', '<C-k>',
+      \ '<denite:move_to_previous_line>', 'noremap')
+call denite#custom#map('insert', "'",
+      \ '<denite:move_to_next_line>', 'noremap')
 
 call denite#custom#alias('source', 'file_rec/git', 'file_rec')
 call denite#custom#var('file_rec/git', 'command',

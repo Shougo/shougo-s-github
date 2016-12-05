@@ -1,11 +1,12 @@
 [[plugins]]
-repo = 'Shougo/tabpagebuffer.vim'
-on_if = 'tabpagenr() > 1'
-
-[[plugins]]
 repo = 'Shougo/neomru.vim'
 on_if = 1
 on_source = ['unite.vim', 'denite.nvim']
+
+[[plugins]]
+repo = 'Shougo/vimproc.vim'
+build = 'make'
+on_source = ['unite.vim', 'vimshell.vim']
 
 [[plugins]]
 repo = 'Shougo/neoyank.vim'
@@ -109,9 +110,6 @@ if IsWindows()
   let g:vimfiler_detect_drives = [
         \ 'C:/', 'D:/', 'E:/', 'F:/', 'G:/', 'H:/', 'I:/',
         \ 'J:/', 'K:/', 'L:/', 'M:/', 'N:/']
-endif
-
-if IsWindows()
   " Use trashbox.
   let g:unite_kind_file_use_trashbox = 1
 else
@@ -199,11 +197,6 @@ hook_source = '''
 '''
 
 [[plugins]]
-repo = 'thinca/vim-quickrun'
-on_map = {n = '<Plug>'}
-hook_add = 'nmap <silent> <Leader>r <Plug>(quickrun)'
-
-[[plugins]]
 repo = 'thinca/vim-scouter'
 
 [[plugins]]
@@ -227,6 +220,7 @@ hook_source = '''
 
 [[plugins]]
 repo = 'basyura/J6uil.vim'
+on_if = 'has("gui_running")'
 depends = 'webapi-vim'
 hook_source = '''
   let g:J6uil_config_dir = expand('$CACHE/J6uil')
@@ -348,10 +342,6 @@ on_source = ['neocomplete.vim', 'deoplete.nvim']
 #on_cmd = 'Explore'
 
 [[plugins]]
-repo = 'kana/vim-tabpagecd'
-on_source = 'unite.vim'
-
-[[plugins]]
 repo = 'rhysd/accelerated-jk'
 on_map = {n = '<Plug>'}
 hook_add = '''
@@ -362,16 +352,6 @@ hook_add = '''
 [[plugins]]
 repo = 'aharisu/vim-gdev'
 on_ft = 'scheme'
-
-[[plugins]]
-repo = 't9md/vim-choosewin'
-on_map = {n = '<Plug>'}
-hook_add = '''
-  nmap g<C-w>  <Plug>(choosewin)
-  let g:choosewin_overlay_enable = 1
-  let g:choosewin_overlay_clear_multibyte = 1
-  let g:choosewin_blink_on_land = 0
-'''
 
 [[plugins]]
 repo = 'fatih/vim-go'
@@ -392,24 +372,6 @@ hook_add = '''
   nmap <silent>sd <Plug>(operator-surround-delete)a
   nmap <silent>sr <Plug>(operator-surround-replace)a
   nmap <silent>sc <Plug>(operator-surround-replace)a
-'''
-
-[[plugins]]
-repo = 'osyo-manga/vim-textobj-multiblock'
-depends = 'vim-textobj-user'
-on_map = {ox = '<Plug>'}
-
-[[plugins]]
-repo = 'saihoooooooo/glowshi-ft.vim'
-on_map = '<Plug>'
-hook_add = '''
-  let g:glowshi_ft_no_default_key_mappings = 1
-  nmap f <Plug>(glowshi-ft-f)
-  xmap f <Plug>(glowshi-ft-f)
-  nmap F <Plug>(glowshi-ft-F)
-  xmap F <Plug>(glowshi-ft-F)
-
-  let g:glowshi_ft_timeoutlen = 1000
 '''
 
 [[plugins]]
@@ -437,10 +399,6 @@ repo = 'lambdalisue/vim-gita'
 hook_add = '''
   nnoremap <silent> [Space]gs  :<C-u>Gita status<CR>
   nnoremap <silent> [Space]gc  :<C-u>Gita commit<CR>
-  nnoremap <silent> [Space]ga  :<C-u>Gita commit --amend<CR>
-  nnoremap <silent> [Space]gd  :<C-u>Gita diff<CR>
-  nnoremap <silent> [Space]gb  :<C-u>Gita browse<CR>
-  nnoremap <silent> [Space]gl  :<C-u>Gita blame<CR>
 
   autocmd FileType gita-status
   \ nmap <buffer> cc    <Plug>(gita-commit-open)
@@ -484,11 +442,6 @@ repo = 'rhysd/rust-doc.vim'
 on_ft = 'rust'
 
 [[plugins]]
-repo = 'osyo-manga/vim-marching'
-on_ft = ['c', 'cpp']
-if = "!has('nvim')"
-
-[[plugins]]
 repo = 'artur-shaik/vim-javacomplete2'
 on_ft = 'java'
 hook_source = '''
@@ -497,12 +450,6 @@ hook_source = '''
 
 [[plugins]]
 repo = 'lambdalisue/vim-findent'
-on_if = 1
-hook_add = '''
-  " Note: It is too slow.
-  " autocmd MyAutoCmd BufRead * Findent! --no-warnings
-  nnoremap <silent> [Space]i    :<C-u>Findent! --no-warnings<CR>
-'''
 
 [[plugins]]
 repo = 'easymotion/vim-easymotion'
@@ -512,22 +459,11 @@ hook_add = '''
   nnoremap W     w
   nmap b <Plug>(easymotion-linebackward)
   nnoremap B     b
-  nmap [Alt]j <Plug>(easymotion-j)
-  nmap [Alt]k <Plug>(easymotion-k)
-  nmap ' <Plug>(easymotion-prefix)
 
   let g:EasyMotion_startofline = 0
   let g:EasyMotion_show_prompt = 0
   let g:EasyMotion_verbose = 0
 '''
-
-[[plugins]]
-repo = 'lambdalisue/vim-protocol'
-on_path = '^https\?://'
-
-[[plugins]]
-repo = 'yuratomo/w3m.vim'
-hook_add = 'nnoremap W     :<C-u>W3m<Space><C-r>+'
 
 [[plugins]]
 repo = 'kana/vim-smartchr'
@@ -575,3 +511,11 @@ repo = 'thinca/vim-themis'
 [[plugins]]
 repo = 'Jagua/vim-denite-ghq'
 on_source = 'denite.nvim'
+
+[[plugins]]
+repo = 'ciaranm/securemodelines'
+on_event = 'BufRead'
+
+[[plugins]]
+repo = 'rhysd/vim-gfm-syntax'
+on_event = 'BufRead'

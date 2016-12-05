@@ -2,10 +2,6 @@
 repo = 'Shougo/dein.vim'
 rtp = ''
 
-[[plugins]]
-repo = 'Shougo/vimproc.vim'
-build = 'make'
-
 # [[plugins]]
 # repo = 'godlygeek/csapprox'
 # if = "v:progname !=# 'gvim' && has('gui') && !has('nvim')"
@@ -50,9 +46,6 @@ repo = 'thinca/vim-ft-vim_fold'
 repo = 'thinca/vim-ft-help_fold'
 
 [[plugins]]
-repo = 'yomi322/vim-gitcomplete'
-
-[[plugins]]
 repo = 'vim-jp/cpp-vim'
 
 [[plugins]]
@@ -91,9 +84,6 @@ repo = 'Shougo/neosnippet-snippets'
 repo = 'osyo-manga/unite-vimpatches'
 
 [[plugins]]
-repo = 'ujihisa/vimshell-ssh'
-
-[[plugins]]
 repo = 'mattn/webapi-vim'
 
 [[plugins]]
@@ -118,12 +108,6 @@ hook_add = '''
 
 [[plugins]]
 repo = 'Kocha/vim-unite-tig'
-
-[[plugins]]
-repo = 'cocopon/iceberg.vim'
-
-[[plugins]]
-repo = 'rhysd/vim-gfm-syntax'
 
 [[plugins]]
 repo = 'kballard/vim-fish'

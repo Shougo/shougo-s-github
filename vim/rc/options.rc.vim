@@ -37,8 +37,9 @@ set shiftround
 " Enable smart indent.
 set autoindent smartindent
 
-" Enable modeline.
-set modeline
+" Disable modeline.
+set modelines=0
+set nomodeline
 
 " Use clipboard register.
 
