@@ -15,12 +15,13 @@ else
   call denite#custom#var('file_rec', 'command',
         \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
 endif
-call denite#custom#source(
-      \ 'file_mru', 'matchers', ['matcher_fuzzy', 'matcher_project_files'])
-call denite#custom#source('file_rec,grep', 'matchers', ['matcher_cpsm'])
+call denite#custom#source('file_old', 'matchers',
+      \ ['matcher_fuzzy', 'matcher_project_files'])
+call denite#custom#source('file_rec,grep', 'matchers',
+      \ ['matcher_cpsm'])
 call denite#custom#source('grep', 'matchers',
       \ ['matcher_ignore_globs', 'matcher_cpsm'])
-call denite#custom#source('file_mru', 'converters',
+call denite#custom#source('file_old', 'converters',
       \ ['converter_relative_word'])
 
 call denite#custom#map('insert', '<C-j>',
