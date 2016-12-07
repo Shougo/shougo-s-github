@@ -36,6 +36,7 @@ call denite#custom#var('file_rec/git', 'command',
       \ ['git', 'ls-files', '-co', '--exclude-standard'])
 
 call denite#custom#option('default', 'prompt', '>')
+call denite#custom#option('default', 'short_source_names', v:true)
 
 let s:menus = {}
 let s:menus.vim = {

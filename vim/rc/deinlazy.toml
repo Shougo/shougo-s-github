@@ -79,7 +79,7 @@ hook_add = '''
   nnoremap <silent> ;g :<C-u>Denite -buffer-name=search -no-empty grep<CR>
   nnoremap <silent> n :<C-u>Denite -buffer-name=search -resume -mode=normal<CR>
   nnoremap <silent> ft :<C-u>Denite filetype<CR>
-  nnoremap <silent> <C-t> :<C-u>Denite unite:tab -select=`tabpagenr()-1` -mode=normal<CR>
+  nnoremap <silent> <C-t> :<C-u>Denite deol -select=`tabpagenr()-1` -mode=normal<CR>
   nnoremap <silent> <C-k> :<C-u>Denite unite:change unite:jump<CR>
 '''
 
