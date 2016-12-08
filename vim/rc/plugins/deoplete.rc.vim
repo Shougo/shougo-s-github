@@ -70,6 +70,8 @@ let g:deoplete#enable_camel_case = 1
 " let g:deoplete#auto_complete_delay = 50
 " let g:deoplete#auto_complete_start_length = 3
 
+let g:deoplete#skip_chars = ['(', ')']
+
 " let g:deoplete#enable_profile = 1
 " call deoplete#enable_logging('DEBUG', 'deoplete.log')
 " call deoplete#custom#set('clang', 'debug_enabled', 1)
