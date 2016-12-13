@@ -47,6 +47,7 @@ hook_add = '''
   nnoremap <silent> [Space]s :<C-u>Deol zsh<CR>
 '''
 hook_source = '''
+  let g:deol#prompt_pattern = '% \|%$'
   set shell=zsh
 
   " Set to $PATH.
