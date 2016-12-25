@@ -52,7 +52,6 @@ cnoremap <C-g>          <C-c>
 nmap  <Space>   [Space]
 nnoremap  [Space]   <Nop>
 
-" Toggle relativenumber.
 " Set autoread.
 nnoremap [Space]ar
       \ :<C-u>call vimrc#toggle_option('autoread')<CR>
@@ -149,22 +148,7 @@ onoremap ar  a]
 xnoremap ar  a]
 onoremap ir  i]
 xnoremap ir  i]
-
-" 'quote'
-onoremap aq  a'
-xnoremap aq  a'
-onoremap iq  i'
-xnoremap iq  i'
-
-" "double quote"
-onoremap ad  a"
-xnoremap ad  a"
-onoremap id  i"
-xnoremap id  i"
 "}}}
-
-" Clear highlight.
-nnoremap <ESC><ESC> :nohlsearch<CR>:match<CR>
 
 " Improved increment.
 nmap <C-a> <SID>(increment)

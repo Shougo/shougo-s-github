@@ -4,12 +4,12 @@
 " The automatic recognition of the character code.
 
 " When do not include Japanese, use encoding for fileencoding.
-function! s:ReCheck_FENC() abort "{{{
+function! s:ReCheck_FENC() abort
   let is_multi_byte = search("[^\x01-\x7e]", 'n', 100, 100)
   if &fileencoding =~# 'iso-2022-jp' && !is_multi_byte
     let &fileencoding = &encoding
   endif
-endfunction"}}}
+endfunction
 
 autocmd MyAutoCmd BufReadPost * call s:ReCheck_FENC()
 
@@ -40,15 +40,10 @@ command! -bang -bar -complete=file -nargs=? Latin
       \ edit<bang> ++enc=latin1 <args>
 "}}}
 
-" Tried to make a file note version."{{{
-" Don't save it because dangerous.
+" Tried to make a file note version.
 command! WUtf8 setlocal fenc=utf-8
-command! WIso2022jp setlocal fenc=iso-2022-jp
 command! WCp932 setlocal fenc=cp932
-command! WEuc setlocal fenc=euc-jp
-command! WUtf16 setlocal fenc=ucs-2le
 command! WLatin1 setlocal fenc=latin1
-"}}}
 
 " Appoint a line feed.
 command! -bang -complete=file -nargs=? WUnix
