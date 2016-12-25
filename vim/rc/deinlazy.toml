@@ -50,14 +50,6 @@ repo = 'Shougo/unite.vim'
 depends = 'neomru.vim'
 on_source = 'denite.nvim'
 hook_source = 'source ~/.vim/rc/plugins/unite.rc.vim'
-hook_add = '''
-  " Tag jump.
-  nnoremap <silent><expr> tt  &filetype == 'help' ?  "g\<C-]>" :
-        \ ":\<C-u>UniteWithCursorWord -buffer-name=tag -immediately
-        \  tag tag/include\<CR>"
-  nnoremap <silent><expr> tp  &filetype == 'help' ?
-        \ ":\<C-u>pop\<CR>" : ":\<C-u>Unite jump\<CR>"
-'''
 
 [[plugins]]
 repo = 'Shougo/denite.nvim'
@@ -70,13 +62,19 @@ hook_add = '''
   nnoremap <silent> [Window]<Space>
         \ :<C-u>Denite file_rec:~/.vim/rc<CR>
   nnoremap <silent> / :<C-u>Denite -buffer-name=search line<CR>
-  nnoremap <silent> * :<C-u>DeniteCursorWord -buffer-name=search line<CR>
+  nnoremap <silent> * :<C-u>DeniteCursorWord -buffer-name=search -mode=normal line<CR>
   nnoremap <silent> [Window]s :<C-u>Denite file_point file_old
         \ `finddir('.git', ';') != '' ? 'file_rec/git' : 'file_rec'`<CR>
 
+  nnoremap <silent><expr> tt  &filetype == 'help' ?  "g\<C-]>" :
+        \ ":\<C-u>DeniteCursorWord -buffer-name=tag -immediately
+        \  unite:tag unite:tag/include\<CR>"
+  nnoremap <silent><expr> tp  &filetype == 'help' ?
+        \ ":\<C-u>pop\<CR>" : ":\<C-u>Denite unite:jump\<CR>"
+
   nnoremap <silent> [Window]n :<C-u>Denite dein<CR>
   nnoremap <silent> [Window]g :<C-u>Denite ghq<CR>
-  nnoremap <silent> ;g :<C-u>Denite -buffer-name=search -no-empty grep<CR>
+  nnoremap <silent> ;g :<C-u>Denite -buffer-name=search -no-empty -mode=normal grep<CR>
   nnoremap <silent> n :<C-u>Denite -buffer-name=search -resume -mode=normal<CR>
   nnoremap <silent> ft :<C-u>Denite filetype<CR>
   nnoremap <silent> <C-t> :<C-u>Denite deol -select=`tabpagenr()-1` -mode=normal<CR>
@@ -444,21 +442,6 @@ hook_source = '''
 
 [[plugins]]
 repo = 'lambdalisue/vim-findent'
-
-[[plugins]]
-repo = 'easymotion/vim-easymotion'
-on_map = {n = '<Plug>'}
-hook_add = '''
-  nmap w <Plug>(easymotion-lineforward)
-  nnoremap W     w
-  nmap b <Plug>(easymotion-linebackward)
-  nnoremap B     b
-  nmap ' <Plug>(easymotion-prefix)
-
-  let g:EasyMotion_startofline = 0
-  let g:EasyMotion_show_prompt = 0
-  let g:EasyMotion_verbose = 0
-'''
 
 [[plugins]]
 repo = 'kana/vim-smartchr'

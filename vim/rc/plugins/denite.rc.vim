@@ -19,8 +19,6 @@ call denite#custom#source('file_old', 'matchers',
       \ ['matcher_fuzzy', 'matcher_project_files'])
 call denite#custom#source('file_rec,grep', 'matchers',
       \ ['matcher_cpsm'])
-call denite#custom#source('grep', 'matchers',
-      \ ['matcher_ignore_globs', 'matcher_cpsm'])
 call denite#custom#source('file_old', 'converters',
       \ ['converter_relative_word'])
 

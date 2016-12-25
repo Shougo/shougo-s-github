@@ -40,7 +40,7 @@ augroup MyAutoCmd
   autocmd!
   autocmd FileType,Syntax,BufNewFile,BufNew,BufRead *?
         \ call vimrc#on_filetype()
-  autocmd CursorHold *? syntax sync minlines=300
+  autocmd CursorHold *.toml syntax sync minlines=300
 augroup END
 if !empty(argv())
   call vimrc#on_filetype()

@@ -43,7 +43,7 @@ repo = 'Shougo/deol.nvim'
 on_cmd = 'Deol'
 on_source = 'denite.nvim'
 hook_add = '''
-  nnoremap <silent> N :<C-u>tabnew<CR>:<C-u>Deol zsh<CR>
+  nnoremap <silent> N :<C-u>call deol#new({'command': 'zsh'})<CR>
   nnoremap <silent> [Space]s :<C-u>Deol zsh<CR>
 '''
 hook_source = '''

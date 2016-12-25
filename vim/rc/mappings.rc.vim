@@ -83,7 +83,7 @@ nnoremap <silent><expr> q winnr('$') != 1 ? ':<C-u>close<CR>' : ""
 " e: Change basic commands "{{{
 " The prefix key.
 nnoremap [Alt]   <Nop>
-nmap    e  [Alt]
+nmap    S  [Alt]
 
 " Indent paste.
 nnoremap <silent> [Alt]p o<Esc>pm``[=`]``^
@@ -175,3 +175,4 @@ command! -range -nargs=1 AddNumbers
       \ call vimrc#add_numbers((<line2>-<line1>+1) * eval(<args>))
 
 nnoremap <silent> #    <C-^>
+nnoremap ;;     ;
