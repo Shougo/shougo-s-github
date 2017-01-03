@@ -1,6 +1,5 @@
 [[plugins]]
 repo = 'Shougo/dein.vim'
-rtp = ''
 
 # [[plugins]]
 # repo = 'godlygeek/csapprox'
@@ -38,9 +37,6 @@ repo = 'jiangmiao/simple-javascript-indenter'
 
 [[plugins]]
 repo = 'thinca/vim-ft-diff_fold'
-
-[[plugins]]
-repo = 'thinca/vim-ft-vim_fold'
 
 [[plugins]]
 repo = 'thinca/vim-ft-help_fold'

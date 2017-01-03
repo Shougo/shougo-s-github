@@ -265,6 +265,7 @@ hook_add = '''
     endif
   endfunction
   autocmd MyAutoCmd FileType * call InitCaw()
+  call InitCaw()
 '''
 
 [[plugins]]
@@ -386,25 +387,17 @@ repo = 'katono/rogue.vim'
 repo = 'osyo-manga/vim-monster'
 on_ft = 'ruby'
 
-[[plugins]]
-repo = 'lambdalisue/vim-gita'
-hook_add = '''
-  nnoremap <silent> [Space]gs  :<C-u>Gita status<CR>
-  nnoremap <silent> [Space]gc  :<C-u>Gita commit<CR>
-
-  autocmd FileType gita-status
-  \ nmap <buffer> cc    <Plug>(gita-commit-open)
-  autocmd FileType gita-status
-  \ nmap <buffer> cA    <Plug>(gita-commit-open-amend)
-'''
-
-[[plugins]]
-repo = 'lambdalisue/vim-gista'
-on_map = {n = '<Plug>'}
-hook_add = '''
-  let g:gista#github_user = 'Shougo'
-  let g:gista#directory = expand('$CACHE/gista')
-'''
+# [[plugins]]
+# repo = 'lambdalisue/vim-gita'
+# hook_add = '''
+#   nnoremap <silent> [Space]gs  :<C-u>Gita status<CR>
+#   nnoremap <silent> [Space]gc  :<C-u>Gita commit<CR>
+#
+#   autocmd FileType gita-status
+#   \ nmap <buffer> cc    <Plug>(gita-commit-open)
+#   autocmd FileType gita-status
+#   \ nmap <buffer> cA    <Plug>(gita-commit-open-amend)
+# '''
 
 [[plugins]]
 repo = 'davidhalter/jedi-vim'

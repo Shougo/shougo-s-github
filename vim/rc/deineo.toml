@@ -79,4 +79,13 @@ hook_source = '''
   let $THEMIS_HOME = dein#get('vim-themis').rtp
 
   unlet s:bin
+
+  autocmd FileType deol call s:on_deol()
+  function! s:on_deol() abort
+    nnoremap <buffer><silent> [Space]gc :<C-u>call deol#send('git commit')<CR>
+    nnoremap <buffer><silent> [Space]gs :<C-u>call deol#send('git status')<CR>
+    nnoremap <buffer><silent> [Space]gA :<C-u>call deol#send('git commit --amend')<CR>
+  endfunction
+
+  autocmd MyAutoCmd BufWritePost COMMIT_EDITMSG  bdelete
 '''

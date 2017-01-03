@@ -118,7 +118,7 @@ if 5000 < line('$')
   syntax sync minlines=200
 endif
 
-setlocal nomodeline
+setlocal foldmethod=indent
 '''
 
 qfreplace = 'setlocal nofoldenable'

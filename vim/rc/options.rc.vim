@@ -73,6 +73,17 @@ set foldcolumn=1
 set fillchars=vert:\|
 set commentstring=%s
 
+" FastFold
+autocmd MyAutoCmd TextChangedI,TextChanged *
+      \ if &l:foldmethod ==# 'syntax' || &l:foldmethod ==# 'expr' |
+      \   let b:foldmethod_save = &l:foldmethod |
+      \   let &l:foldmethod = 'manual' |
+      \ endif
+autocmd MyAutoCmd BufWritePost *
+      \ if &l:foldmethod ==# 'manual' && exists('b:foldmethod_save') |
+      \   let &l:foldmethod = b:foldmethod_save |
+      \ endif
+
 if exists('*FoldCCtext')
   " Use FoldCCtext().
   set foldtext=FoldCCtext()
@@ -145,7 +156,6 @@ set helplang& helplang=en,ja
 
 " Default home directory.
 let t:cwd = getcwd()
-
 
 "---------------------------------------------------------------------------
 " View:
