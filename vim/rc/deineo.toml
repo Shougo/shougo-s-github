@@ -86,6 +86,4 @@ hook_source = '''
     nnoremap <buffer><silent> [Space]gs :<C-u>call deol#send('git status')<CR>
     nnoremap <buffer><silent> [Space]gA :<C-u>call deol#send('git commit --amend')<CR>
   endfunction
-
-  autocmd MyAutoCmd BufWritePost COMMIT_EDITMSG  bdelete
 '''

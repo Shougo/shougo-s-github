@@ -21,6 +21,10 @@ for s:color in [
   let g:terminal_color_{s:num} = s:color
   let s:num += 1
 endfor
+unlet! s:num
+unlet! s:color
+
+let g:terminal_scrollback_buffer_size = 3000
 
 " Use cursor shape feature
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
