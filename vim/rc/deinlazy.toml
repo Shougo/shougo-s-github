@@ -183,7 +183,7 @@ hook_add = '''
 
 [[plugins]]
 repo = 'thinca/vim-qfreplace'
-on_ft = ['unite', 'quickfix']
+on_ft = ['unite', 'qf']
 hook_source = '''
   autocmd MyAutoCmd FileType qf nnoremap <buffer> r :<C-u>Qfreplace<CR>
 '''

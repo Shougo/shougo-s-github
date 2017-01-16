@@ -28,6 +28,8 @@ call denite#custom#map('insert', '<C-k>',
       \ '<denite:move_to_previous_line>', 'noremap')
 call denite#custom#map('insert', "'",
       \ '<denite:move_to_next_line>', 'noremap')
+call denite#custom#map('normal', 'r',
+      \ '<denite:do_action:quickfix>', 'noremap')
 
 call denite#custom#alias('source', 'file_rec/git', 'file_rec')
 call denite#custom#var('file_rec/git', 'command',
