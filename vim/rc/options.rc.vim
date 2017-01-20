@@ -75,7 +75,7 @@ set commentstring=%s
 
 " FastFold
 autocmd MyAutoCmd TextChangedI,TextChanged *
-      \ if &l:foldmethod ==# 'syntax' || &l:foldmethod ==# 'expr' |
+      \ if &l:foldenable && &l:foldmethod !=# 'manual' |
       \   let b:foldmethod_save = &l:foldmethod |
       \   let &l:foldmethod = 'manual' |
       \ endif
