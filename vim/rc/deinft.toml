@@ -130,3 +130,5 @@ setlocal iskeyword+=:
 setlocal iskeyword+=#
 setlocal iskeyword+=-
 '''
+
+ruby = 'setlocal omnifunc='

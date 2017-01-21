@@ -57,7 +57,11 @@ on_cmd = 'Denite'
 hook_source = 'source ~/.vim/rc/plugins/denite.rc.vim'
 hook_add = '''
   nnoremap <silent> ;r
-        \ :<C-u>Denite -buffer-name=register unite:register neoyank<CR>
+        \ :<C-u>Denite -buffer-name=register
+        \ register neoyank<CR>
+  xnoremap <silent> ;r
+        \ :<C-u>Denite -default-action=replace -buffer-name=register
+        \ register neoyank<CR>
 
   nnoremap <silent> [Window]<Space>
         \ :<C-u>Denite file_rec:~/.vim/rc<CR>
@@ -382,10 +386,6 @@ hook_add = '''
 
 [[plugins]]
 repo = 'katono/rogue.vim'
-
-[[plugins]]
-repo = 'osyo-manga/vim-monster'
-on_ft = 'ruby'
 
 # [[plugins]]
 # repo = 'lambdalisue/vim-gita'

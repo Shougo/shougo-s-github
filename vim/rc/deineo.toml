@@ -45,6 +45,7 @@ on_source = 'denite.nvim'
 hook_add = '''
   nnoremap <silent> N :<C-u>call deol#new({'command': 'zsh'})<CR>
   nnoremap <silent> [Space]s :<C-u>Deol zsh<CR>
+  nnoremap <silent> [Window]D  :<C-u>call deol#kill_editor()<CR>
 '''
 hook_source = '''
   let g:deol#prompt_pattern = '% \|%$'

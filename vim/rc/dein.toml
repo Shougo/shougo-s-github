@@ -70,8 +70,8 @@ repo = 'rcmdnk/vim-markdown'
 # repo = 'marijnh/tern_for_vim'
 # build = 'npm install'
 
-[[plugins]]
-repo = 'vim-ruby/vim-ruby'
+# [[plugins]]
+# repo = 'vim-ruby/vim-ruby'
 
 [[plugins]]
 repo = 'Shougo/neosnippet-snippets'
