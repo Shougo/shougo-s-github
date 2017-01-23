@@ -139,20 +139,12 @@ hook_add = '''
 '''
 
 [[plugins]]
-repo = 'Shougo/unite-outline'
-on_source = 'unite.vim'
-
-[[plugins]]
 repo = 'Shougo/neco-vim'
 on_ft = 'vim'
 
 [[plugins]]
 repo = 'Shougo/neoinclude.vim'
 on_if = 1
-
-[[plugins]]
-repo = 'Shougo/neco-syntax'
-on_source = ['neocomplete.vim', 'deoplete.nvim']
 
 [[plugins]]
 repo = 'Shougo/vinarise.vim'
@@ -248,10 +240,6 @@ hook_source = '''
 '''
 
 [[plugins]]
-repo = 'tsukkee/unite-tag'
-on_source = 'unite.vim'
-
-[[plugins]]
 repo = 'tyru/caw.vim'
 on_map = {nx = '<Plug>'}
 hook_add = '''
@@ -330,10 +318,6 @@ repo = 'eagletmt/neco-ghc'
 on_ft = 'haskell'
 external_commands = 'ghc-mod'
 
-[[plugins]]
-repo = 'ujihisa/neco-look'
-on_source = ['neocomplete.vim', 'deoplete.nvim']
-
 #[[plugins]]
 #repo = 'eignn/netrw.vim'
 #on_cmd = 'Explore'
@@ -411,14 +395,6 @@ hook_source = '''
 '''
 
 [[plugins]]
-repo = 'racer-rust/vim-racer'
-on_ft = 'rust'
-hook_source = '''
-  let $RUST_SRC_PATH = expand('~/src/rust/src')
-  let g:racer_experimental_completer = 1
-'''
-
-[[plugins]]
 repo = 'rust-lang/rust.vim'
 on_ft = 'rust'
 
@@ -473,13 +449,6 @@ repo = 'tweekmonster/helpful.vim'
 on_cmd = 'HelpfulVersion'
 
 [[plugins]]
-repo = 'nixprime/cpsm'
-on_source = 'denite.nvim'
-
-[[plugins]]
-repo = 'thinca/vim-themis'
-
-[[plugins]]
 repo = 'Jagua/vim-denite-ghq'
 on_source = 'denite.nvim'
 
@@ -490,3 +459,20 @@ on_event = 'BufRead'
 [[plugins]]
 repo = 'rhysd/vim-gfm-syntax'
 on_event = 'BufRead'
+
+[[plugins]]
+repo = 'machakann/vim-vimhelplint'
+on_ft = 'help'
+hook_source = '''
+  autocmd MyAutoCmd FileType
+  \ help nnoremap <silent><buffer> ,r  :<C-u>VimhelpLint!<CR>
+'''
+
+[[plugins]]
+repo = 'racer-rust/vim-racer'
+on_ft = 'rust'
+hook_source = '''
+  let $RUST_SRC_PATH = expand('~/.multirust/toolchains/'
+  \ .'stable-x86_64-unknown-linux-gnu/'
+  \ .'lib/rustlib/src/rust/src/')
+'''

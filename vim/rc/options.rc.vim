@@ -82,6 +82,7 @@ autocmd MyAutoCmd TextChangedI,TextChanged *
 autocmd MyAutoCmd BufWritePost *
       \ if &l:foldmethod ==# 'manual' && exists('b:foldmethod_save') |
       \   let &l:foldmethod = b:foldmethod_save |
+      \   execute 'normal! zx' |
       \ endif
 
 if exists('*FoldCCtext')

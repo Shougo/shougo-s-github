@@ -96,13 +96,6 @@ rtp = 'vim'
 repo = 'vim-jp/vimdoc-ja'
 
 [[plugins]]
-repo = 'machakann/vim-vimhelplint'
-hook_add = '''
-  autocmd MyAutoCmd FileType
-  \ help nnoremap <silent><buffer> ,r  :<C-u>VimhelpLint!<CR>
-'''
-
-[[plugins]]
 repo = 'Kocha/vim-unite-tig'
 
 [[plugins]]
@@ -111,3 +104,20 @@ repo = 'kballard/vim-fish'
 [[plugins]]
 repo = 'Shougo/neossh.vim'
 
+[[plugins]]
+repo = 'thinca/vim-themis'
+
+[[plugins]]
+repo = 'tsukkee/unite-tag'
+
+[[plugins]]
+repo = 'Shougo/unite-outline'
+
+[[plugins]]
+repo = 'ujihisa/neco-look'
+
+[[plugins]]
+repo = 'Shougo/neco-syntax'
+
+[[plugins]]
+repo = 'nixprime/cpsm'
