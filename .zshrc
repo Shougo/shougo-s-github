@@ -101,8 +101,6 @@ if [ ! -f ~/.zcompdump -o ~/.zshrc -nt ~/.zcompdump ]; then
 fi
 
 # Original complete functions
-compdef '_files -g "*.hs"' runhaskell
-compdef _man w3mman
 compdef _tex platex
 
 # cd search path
@@ -119,7 +117,6 @@ zstyle ':completion:*:processes' command "ps -u $USER -o pid,stat,%cpu,%mem,cput
 alias ls='ls -F --show-control-chars --color=always'
 alias la='ls -aF --show-control-chars --color=always'
 alias ll='ls -lF --show-control-chars --color=always'
-alias l.='ls -dF .[a-zA-Z]* --color=always'
 export LSCOLORS=ExFxCxdxBxegedabagacad
 export LS_COLORS='di=01;34:ln=01;35:so=01;32:ex=01;31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
 zstyle ':completion:*' list-colors 'di=;34;1' 'ln=;35;1' 'so=;32;1' 'ex=31;1' 'bd=46;34' 'cd=43;34'
@@ -220,11 +217,7 @@ setopt extended_glob
 # setopt no_unset
 # Prompt substitution
 setopt prompt_subst
-if [[ ${VIMSHELL_TERM:-""} != "" ]]; then
-    setopt no_always_last_prompt
-else
-    setopt always_last_prompt
-fi
+setopt always_last_prompt
 # List completion
 setopt auto_list
 setopt auto_param_slash
@@ -251,18 +244,6 @@ alias mv='nocorrect mv'
 alias cp='nocorrect cp'
 alias mkdir='nocorrect mkdir'
 
-# Automatic exec emacs
-alias emacsclient="emacsclient -a emacs"
-
-# Use rlwrap commands
-if [ -x '/usr/bin/rlwrap' -o  -x '/usr/local/bin/rlwrap' ]; then
-    alias irb='rlwrap irb'
-    alias ghci='rlwrap ghci'
-    alias clisp="rlwrap -b '(){}[],#\";| ' clisp"
-    alias gcl="rlwrap -b '(){}[],#\";| ' gcl"
-    alias gosh="rlwrap -b '(){}[],#\";| ' gosh"
-fi
-
 # Improve du, df
 alias du="du -h"
 alias df="df -h"
@@ -270,7 +251,6 @@ alias df="df -h"
 # Improve od for hexdump
 alias od='od -Ax -tx1z'
 alias hexdump='hexdump -C'
-alias hexd=hexdump
 
 alias vim='nvim'
 alias termite='termite --exec=zsh'
@@ -300,9 +280,6 @@ bindkey "^u" backward-kill-line
 #####################################################################
 # functions
 ######################################################################
-
-# Set environment variables easily
-setenv () { export $1="$@[2,-1]" }
 
 r() {
     source ~/.zshrc

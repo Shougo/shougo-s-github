@@ -74,7 +74,7 @@ hook_add = '''
         \ ":\<C-u>DeniteCursorWord -buffer-name=tag -immediately
         \  unite:tag unite:tag/include\<CR>"
   nnoremap <silent><expr> tp  &filetype == 'help' ?
-        \ ":\<C-u>pop\<CR>" : ":\<C-u>Denite unite:jump\<CR>"
+        \ ":\<C-u>pop\<CR>" : ":\<C-u>Denite jump\<CR>"
 
   nnoremap <silent> [Window]n :<C-u>Denite dein<CR>
   nnoremap <silent> [Window]g :<C-u>Denite ghq<CR>
@@ -82,7 +82,7 @@ hook_add = '''
   nnoremap <silent> n :<C-u>Denite -buffer-name=search -resume -mode=normal<CR>
   nnoremap <silent> ft :<C-u>Denite filetype<CR>
   nnoremap <silent> <C-t> :<C-u>Denite deol -select=`tabpagenr()-1` -mode=normal<CR>
-  nnoremap <silent> <C-k> :<C-u>Denite unite:change unite:jump<CR>
+  nnoremap <silent> <C-k> :<C-u>Denite change jump -mode=normal<CR>
 '''
 
 [[plugins]]

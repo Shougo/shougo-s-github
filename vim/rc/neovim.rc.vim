@@ -7,9 +7,6 @@ tnoremap   jj         <C-\><C-n>
 tnoremap   j<Space>   j
 tnoremap <expr> ;  vimrc#sticky_func()
 
-nnoremap <Leader>t    :<C-u>terminal<CR>
-nnoremap !            :<C-u>terminal<Space>
-
 " Set terminal colors
 let s:num = 0
 for s:color in [
