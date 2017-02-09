@@ -15,6 +15,7 @@ else
   call denite#custom#var('file_rec', 'command',
         \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
 endif
+
 call denite#custom#source('file_old', 'matchers',
       \ ['matcher_fuzzy', 'matcher_project_files'])
 call denite#custom#source('file_rec,grep', 'matchers',
