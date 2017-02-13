@@ -96,9 +96,6 @@ rtp = 'vim'
 repo = 'vim-jp/vimdoc-ja'
 
 [[plugins]]
-repo = 'Kocha/vim-unite-tig'
-
-[[plugins]]
 repo = 'kballard/vim-fish'
 
 [[plugins]]
@@ -121,3 +118,6 @@ repo = 'Shougo/neco-syntax'
 
 [[plugins]]
 repo = 'nixprime/cpsm'
+
+[[plugins]]
+repo = 'chemzqm/denite-git'

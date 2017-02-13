@@ -3,8 +3,7 @@
 "
 
 let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
-let g:vimshell_right_prompt =
-      \ 'gita#statusline#format("%{|/}ln%lb%{ <> |}rn%{/|}rb")'
+let g:vimshell_right_prompt = ''
 let g:vimshell_prompt = '% '
 let g:vimshell_split_command = ''
 let g:vimshell_enable_transient_user_prompt = 1

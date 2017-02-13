@@ -88,6 +88,8 @@ hook_add = '''
   nnoremap <silent> <C-t> :<C-u>Denite
         \ -select=`tabpagenr()-1` -mode=normal deol<CR>
   nnoremap <silent> <C-k> :<C-u>Denite -mode=normal change jump<CR>
+
+  nnoremap <silent> [Space]gs :<C-u>Denite gitstatus<CR>
 '''
 
 [[plugins]]

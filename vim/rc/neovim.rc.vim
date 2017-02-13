@@ -2,6 +2,23 @@
 " For neovim:
 "
 
+if has('vim_starting') && empty(argv())
+  syntax off
+endif
+
+let g:python_host_prog  = '/usr/bin/python2'
+let g:python3_host_prog = '/usr/bin/python3'
+
+if exists('&inccommand')
+  set inccommand=nosplit
+endif
+
+" Use cursor shape feature
+let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
+
+" Share the histories
+autocmd MyAutoCmd CursorHold * if exists(':rshada') | rshada | wshada | endif
+
 tnoremap   <ESC>      <C-\><C-n>
 tnoremap   jj         <C-\><C-n>
 tnoremap   j<Space>   j
@@ -21,21 +38,7 @@ endfor
 unlet! s:num
 unlet! s:color
 
+" Modifiable terminal
+autocmd MyAutoCmd TermOpen * setlocal modifiable
+
 let g:terminal_scrollback_buffer_size = 3000
-
-" Use cursor shape feature
-let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
-
-let g:python_host_prog  = '/usr/bin/python2'
-let g:python3_host_prog = '/usr/bin/python3'
-
-if exists('&inccommand')
-  set inccommand=nosplit
-endif
-
-if has('vim_starting') && empty(argv())
-  syntax off
-endif
-
-" Share the histories
-autocmd MyAutoCmd CursorHold * if exists(':rshada') | rshada | wshada | endif
