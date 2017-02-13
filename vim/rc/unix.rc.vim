@@ -19,7 +19,9 @@ endif
 " Enable 256 color terminal.
 set t_Co=256
 
-if &term =~# 'xterm' && !has('nvim')
+if !has('nvim')
+  set term=xterm-256color
+
   let &t_ti .= "\e[?2004h"
   let &t_te .= "\e[?2004l"
   let &pastetoggle = "\e[201~"

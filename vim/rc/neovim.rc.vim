@@ -33,7 +33,7 @@ if exists('&inccommand')
   set inccommand=nosplit
 endif
 
-if has('vim_starting')
+if has('vim_starting') && empty(argv())
   syntax off
 endif
 
