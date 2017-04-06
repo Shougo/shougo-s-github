@@ -159,7 +159,6 @@ command! -range -nargs=1 AddNumbers
       \ call vimrc#add_numbers((<line2>-<line1>+1) * eval(<args>))
 
 nnoremap <silent> #    <C-^>
-nnoremap ;;     ;
 
 " Change current word and repeatable
 nnoremap cn *``cgn
