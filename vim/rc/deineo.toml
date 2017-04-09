@@ -23,7 +23,7 @@
 repo = 'tweekmonster/deoplete-clang2'
 on_ft = ['c', 'cpp']
 hook_source = '''
-  let b:clang2_orig_maps = {}
+  autocmd FileType c,cpp let b:clang2_orig_maps = {}
 '''
 
 [[plugins]]
