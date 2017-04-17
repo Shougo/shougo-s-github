@@ -211,14 +211,12 @@ client.urgent    #274D01 #900000 #FFFFFF #900000
 exec --no-startup-id setxkbmap -option ctrl:nocaps -rules evdev -model us -layout us
 
 # My mappings
-bindsym $mod+p exec thunar
 bindsym $mod+x exec firefox
 
-bindsym $mod+h workspace next
-bindsym $mod+l workspace prev
+bindsym $mod+l workspace next
+bindsym $mod+h workspace prev
 
 bindsym $mod+Tab exec --no-startup-id rofi -i -show window
 bindsym $mod+s exec --no-startup-id rofi -i -show ssl -ternimal st
 bindsym $mod+Shift+l exec --no-startup-id i3exit lock
 bindsym $mod+Shift+e exec --no-startup-id i3exit logout
-
