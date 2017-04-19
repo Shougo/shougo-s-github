@@ -46,11 +46,13 @@ function! vimrc#add_numbers(num) abort
     let next_num = matchstr(next_line, '^\d\+')
     let new_line = prev_line[: -len(prev_num)-1] .
           \ printf('%0'.len(prev_num . next_num).'d',
-          \    max([0, prev_num . next_num + a:num])) . next_line[len(next_num):]
+          \    max([0, substitute(prev_num . next_num, '^0\+', '', '')
+          \         + a:num])) . next_line[len(next_num):]
   else
     let new_line = prev_line . substitute(next_line, '\d\+',
           \ "\\=printf('%0'.len(submatch(0)).'d',
-          \         max([0, submatch(0) + a:num]))", '')
+          \         max([0, substitute(submatch(0), '^0\+', '', '')
+          \              + a:num]))", '')
   endif
 
   if getline('.') !=# new_line
