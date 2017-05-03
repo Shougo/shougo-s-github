@@ -48,7 +48,6 @@ hook_source = '''
 [[plugins]]
 repo = 'Shougo/unite.vim'
 depends = 'neomru.vim'
-on_source = 'denite.nvim'
 hook_source = 'source ~/.vim/rc/plugins/unite.rc.vim'
 
 [[plugins]]
@@ -74,7 +73,7 @@ hook_add = '''
 
   nnoremap <silent><expr> tt  &filetype == 'help' ?  "g\<C-]>" :
         \ ":\<C-u>DeniteCursorWord -buffer-name=tag -immediately
-        \  unite:tag/include\<CR>"
+        \  tag:include\<CR>"
   nnoremap <silent><expr> tp  &filetype == 'help' ?
         \ ":\<C-u>pop\<CR>" : ":\<C-u>Denite -mode=normal jump\<CR>"
 
@@ -142,9 +141,9 @@ hook_source = 'source ~/.vim/rc/plugins/vimshell.rc.vim'
 
 [[plugins]]
 repo = 'Shougo/junkfile.vim'
-on_source = 'unite.vim'
+on_source = 'denite.vim'
 hook_add = '''
-  nnoremap <silent> [Window]e :<C-u>Unite junkfile/new junkfile -start-insert<CR>
+  nnoremap <silent> [Window]e :<C-u>Denite junkfile:new junkfile<CR>
 '''
 
 [[plugins]]
