@@ -14,9 +14,6 @@ function! vimrc#sticky_func() abort
         \"\<ESC>" : "\<ESC>", "\<Space>" : ';', "\<CR>" : ";\<CR>"
         \}
 
-  if mode() !~# '^c'
-    echo 'Input sticky key: '
-  endif
   let char = ''
 
   while 1
@@ -34,7 +31,6 @@ function! vimrc#sticky_func() abort
     endif
   endwhile
 
-  redraw | echo
   return char
 endfunction
 
