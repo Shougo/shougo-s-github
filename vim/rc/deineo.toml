@@ -38,7 +38,6 @@ on_ft = 'go'
 [[plugins]]
 repo = 'Shougo/deoplete.nvim'
 depends = 'context_filetype.vim'
-if = "has('nvim')"
 on_i = 1
 hook_source = '''
 let g:deoplete#enable_at_startup = 1
@@ -94,3 +93,6 @@ hook_source = '''
     nnoremap <buffer><silent> [Space]gA :<C-u>call deol#send('git commit --amend')<CR>
   endfunction
 '''
+
+[[plugins]]
+repo = 'equalsraf/neovim-gui-shim'
