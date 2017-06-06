@@ -124,3 +124,6 @@ repo = 'chemzqm/denite-git'
 
 [[plugins]]
 repo = 'leafgarland/typescript-vim'
+
+[[plugins]]
+repo = 'Shirk/vim-gas'
