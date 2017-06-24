@@ -1,2 +1,2 @@
-GuiFont Courier\ 10\ Pitch:h14
+GuiFont Courier\ 10\ Pitch:h19
 GuiLineSpace 0

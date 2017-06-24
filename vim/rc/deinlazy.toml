@@ -67,10 +67,10 @@ hook_add = '''
 
   nnoremap <silent> [Window]<Space>
         \ :<C-u>Denite file_rec:~/.vim/rc<CR>
-  nnoremap <silent> / :<C-u>Denite -buffer-name=search
+  nnoremap <silent> / :<C-u>Denite -buffer-name=search -auto-highlight
         \ line<CR>
   nnoremap <silent> * :<C-u>DeniteCursorWord -buffer-name=search
-        \ -mode=normal line<CR>
+        \ -auto-highlight -mode=normal line<CR>
   nnoremap <silent> [Window]s :<C-u>Denite file_point file_old
         \ `finddir('.git', ';') != '' ? 'file_rec/git' : 'file_rec'`<CR>
 
