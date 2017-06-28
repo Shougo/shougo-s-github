@@ -46,7 +46,7 @@ font:
   # as modifying the linespacing, and offset.x as modifying the letter spacing.
   offset:
     x: 2.0
-    y: -11.0
+    y: 0.0
 
   # OS X only: use thin stroke font rendering. Thin strokes are suitable
   # for retina displays, but for non-retina you probably want this set to
@@ -67,8 +67,8 @@ colors:
     background: '0x2c2c2c'
     foreground: '0xcccccc'
   cursor:
-    background: '0xffffff'
-    foreground: '0x000000'
+    text:       '0xffffff'
+    cursor:     '0x000000'
 
   # Normal colors
   normal:

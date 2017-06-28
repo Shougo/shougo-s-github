@@ -19,9 +19,10 @@ inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<C-h>"
 inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> deoplete#smart_close_popup()."\<C-h>"
 
-inoremap <expr><C-g> deoplete#undo_completion()
+" inoremap <expr><C-g> deoplete#undo_completion()
 " <C-l>: redraw candidates
-inoremap <expr><C-l>       deoplete#refresh()
+inoremap <expr><C-g>       deoplete#refresh()
+inoremap <silent><expr><C-l>       deoplete#complete_common_string()
 
 " <CR>: close popup and save indent.
 inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
@@ -65,7 +66,7 @@ let g:deoplete#omni#functions = {}
 
 " inoremap <silent><expr> <C-t> deoplete#manual_complete('file')
 
-let g:deoplete#enable_refresh_always = 1
+let g:deoplete#enable_refresh_always = 0
 let g:deoplete#enable_camel_case = 1
 " let g:deoplete#auto_complete_delay = 50
 " let g:deoplete#auto_complete_start_length = 3
