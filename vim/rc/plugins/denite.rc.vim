@@ -18,6 +18,7 @@ endif
 
 call denite#custom#source('file_old', 'matchers',
       \ ['matcher_fuzzy', 'matcher_project_files'])
+call denite#custom#source('tag', 'matchers', ['matcher_substring'])
 if has('nvim')
   call denite#custom#source('file_rec,grep', 'matchers',
         \ ['matcher_cpsm'])
@@ -58,3 +59,6 @@ call denite#custom#var('menu', 'menus', s:menus)
 call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
       \ [ '.git/', '.ropeproject/', '__pycache__/',
       \   'venv/', 'images/', '*.min.*', 'img/', 'fonts/'])
+
+call denite#custom#action('file', 'test',
+      \ {context -> execute('let g:foo = 1')})
