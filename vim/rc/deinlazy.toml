@@ -16,7 +16,7 @@ on_source = ['unite.vim', 'denite.nvim']
 repo = 'Shougo/echodoc.vim'
 on_event = 'CompleteDone'
 hook_source = '''
-let g:echodoc#type = 'signature'
+" let g:echodoc#type = 'signature'
 call echodoc#enable()
 '''
 
@@ -72,6 +72,7 @@ hook_add = '''
   nnoremap <silent> * :<C-u>DeniteCursorWord -buffer-name=search
         \ -auto-highlight -mode=normal line<CR>
   nnoremap <silent> [Window]s :<C-u>Denite file_point file_old
+        \ -sorters=sorter_rank
         \ `finddir('.git', ';') != '' ? 'file_rec/git' : 'file_rec'`<CR>
 
   nnoremap <silent><expr> tt  &filetype == 'help' ?  "g\<C-]>" :
@@ -160,7 +161,10 @@ on_if = 1
 [[plugins]]
 repo = 'Shougo/vinarise.vim'
 on_cmd = 'Vinarise'
-hook_add = 'let g:vinarise_enable_auto_detect = 1'
+hook_add = '''
+let g:vinarise_enable_auto_detect = 1
+let g:vinarise_guifont = 'Courier\ 10\ Pitch:h14'
+'''
 
 [[plugins]]
 repo = 'kana/vim-niceblock'

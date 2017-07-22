@@ -44,7 +44,9 @@ call denite#custom#var('file_rec/git', 'command',
 " call denite#custom#option('default', 'prompt', '>')
 " call denite#custom#option('default', 'short_source_names', v:true)
 call denite#custom#option('default', {
-      \ 'prompt': '>', 'short_source_names': v:true
+      \ 'auto_accel': v:true,
+      \ 'prompt': '>',
+      \ 'short_source_names': v:true
       \ })
 
 let s:menus = {}
@@ -62,3 +64,6 @@ call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
 
 call denite#custom#action('file', 'test',
       \ {context -> execute('let g:foo = 1')})
+
+call denite#custom#action('file', 'test2',
+      \ {context -> denite#do_action(context, 'open', context['targets'])})
