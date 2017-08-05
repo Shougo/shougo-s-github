@@ -127,3 +127,6 @@ repo = 'leafgarland/typescript-vim'
 
 [[plugins]]
 repo = 'Shirk/vim-gas'
+
+[[plugins]]
+repo = 'chrisbra/vim-zsh'

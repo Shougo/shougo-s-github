@@ -26,6 +26,10 @@ endif
 call denite#custom#source('file_old', 'converters',
       \ ['converter_relative_word'])
 
+call denite#custom#map('insert', '<C-r>',
+      \ '<denite:toggle_matchers:matcher_substring>', 'noremap')
+call denite#custom#map('insert', '<C-s>',
+      \ '<denite:toggle_sorters:sorter_reverse>', 'noremap')
 call denite#custom#map('insert', '<C-j>',
       \ '<denite:move_to_next_line>', 'noremap')
 call denite#custom#map('insert', '<C-k>',

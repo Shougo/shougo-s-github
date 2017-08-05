@@ -31,6 +31,10 @@ repo = 'zchee/deoplete-jedi'
 on_ft = 'python'
 
 [[plugins]]
+repo = 'zchee/deoplete-zsh'
+on_ft = 'zsh'
+
+[[plugins]]
 repo = 'zchee/deoplete-go'
 on_i = 1
 on_ft = 'go'
@@ -54,7 +58,7 @@ hook_add = '''
   nnoremap <silent> [Window]D  :<C-u>call deol#kill_editor()<CR>
 '''
 hook_source = '''
-  let g:deol#prompt_pattern = '% \|%$'
+  let g:deol#prompt_pattern = '\w*%'
   set shell=zsh
 
   " Set to $PATH.
