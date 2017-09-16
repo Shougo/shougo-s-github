@@ -22,11 +22,6 @@ autocmd MyAutoCmd CursorHold *
 
 autocmd MyAutoCmd FocusGained * checktime
 
-tnoremap   <ESC>      <C-\><C-n>
-tnoremap   jj         <C-\><C-n>
-tnoremap   j<Space>   j
-tnoremap <expr> ;  vimrc#sticky_func()
-
 " Set terminal colors
 let s:num = 0
 for s:color in [
