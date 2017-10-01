@@ -73,8 +73,7 @@ set hidden
 
 " Enable folding.
 set foldenable
-" set foldmethod=expr
-set foldmethod=marker
+set foldmethod=indent
 " Show folding level.
 set foldcolumn=1
 set fillchars=vert:\|

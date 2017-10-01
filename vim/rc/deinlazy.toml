@@ -231,10 +231,6 @@ repo = 'vim-jp/vital.vim'
 repo = 'ctrlpvim/ctrlp.vim'
 
 [[plugins]]
-repo = 'LeafCage/foldCC'
-on_ft = 'vim'
-
-[[plugins]]
 repo = 'thinca/vim-fontzoom'
 on_map = {n = '<Plug>'}
 hook_add = '''

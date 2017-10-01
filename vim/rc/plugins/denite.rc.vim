@@ -50,7 +50,7 @@ call denite#custom#var('file_rec/git', 'command',
 call denite#custom#option('default', {
       \ 'auto_accel': v:true,
       \ 'prompt': '>',
-      \ 'short_source_names': v:true
+      \ 'source_names': 'short',
       \ })
 
 let s:menus = {}
