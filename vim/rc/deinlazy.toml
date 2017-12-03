@@ -186,7 +186,7 @@ repo = 'equalsraf/neovim-gui-shim'
 
 [[plugins]]
 repo = 'Shougo/junkfile.vim'
-on_source = 'denite.vim'
+on_source = 'denite.nvim'
 hook_add = '''
   nnoremap <silent> [Window]e :<C-u>Denite junkfile:new junkfile<CR>
 '''
