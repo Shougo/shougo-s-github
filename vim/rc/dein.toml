@@ -130,3 +130,10 @@ repo = 'Shirk/vim-gas'
 
 [[plugins]]
 repo = 'chrisbra/vim-zsh'
+
+[[plugins]]
+repo = 'roxma/vim-hug-neovim-rpc'
+on_if = '!has("nvim")'
+
+[[plugins]]
+repo = 'https://github.com/roxma/nvim-yarp'

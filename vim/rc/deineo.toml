@@ -25,26 +25,3 @@ on_ft = ['c', 'cpp']
 hook_source = '''
   autocmd FileType c,cpp let b:clang2_orig_maps = {}
 '''
-
-[[plugins]]
-repo = 'zchee/deoplete-jedi'
-on_ft = 'python'
-
-[[plugins]]
-repo = 'zchee/deoplete-zsh'
-on_ft = 'zsh'
-
-[[plugins]]
-repo = 'zchee/deoplete-go'
-on_i = 1
-on_ft = 'go'
-
-[[plugins]]
-repo = 'Shougo/deoplete.nvim'
-depends = 'context_filetype.vim'
-on_i = 1
-hook_source = '''
-let g:deoplete#enable_at_startup = 1
-source ~/.vim/rc/plugins/deoplete.rc.vim
-'''
-

@@ -32,6 +32,10 @@ endfunction
 
 inoremap <expr> '  pumvisible() ? deoplete#close_popup() : "'"
 
+" cpsm test
+" call deoplete#custom#source('_', 'matchers', ['matcher_cpsm'])
+" call deoplete#custom#source('_', 'sorters', [])
+
 " call deoplete#custom#source('_', 'matchers', ['matcher_head'])
 call deoplete#custom#source('ghc', 'sorters', ['sorter_word'])
 " call deoplete#custom#source('buffer', 'mark', '')

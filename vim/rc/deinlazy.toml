@@ -21,16 +21,6 @@ call echodoc#enable()
 '''
 
 [[plugins]]
-repo = 'Shougo/neocomplete.vim'
-depends = 'context_filetype.vim'
-if = "has('lua')"
-on_event = 'InsertEnter'
-hook_source = '''
-  let g:neocomplete#enable_at_startup = 1
-  source ~/.vim/rc/plugins/neocomplete.rc.vim
-'''
-
-[[plugins]]
 repo = 'Shougo/neosnippet.vim'
 depends = ['neosnippet-snippets', 'context_filetype.vim']
 on_event = 'InsertCharPre'
@@ -193,6 +183,7 @@ hook_source = '''
 
 [[plugins]]
 repo = 'equalsraf/neovim-gui-shim'
+
 [[plugins]]
 repo = 'Shougo/junkfile.vim'
 on_source = 'denite.vim'
@@ -531,3 +522,29 @@ hook_source = '''
   \ .'stable-x86_64-unknown-linux-gnu/'
   \ .'lib/rustlib/src/rust/src/')
 '''
+
+[[plugins]]
+repo = 'zchee/deoplete-jedi'
+on_ft = 'python'
+
+[[plugins]]
+repo = 'zchee/deoplete-zsh'
+on_ft = 'zsh'
+
+[[plugins]]
+repo = 'zchee/deoplete-go'
+on_i = 1
+on_ft = 'go'
+
+[[plugins]]
+repo = 'Shougo/deoplete.nvim'
+depends = 'context_filetype.vim'
+on_i = 1
+hook_source = '''
+let g:deoplete#enable_at_startup = 1
+source ~/.vim/rc/plugins/deoplete.rc.vim
+'''
+
+[[plugins]]
+repo = 'lambdalisue/suda.vim'
+on_path = 'suda://'
