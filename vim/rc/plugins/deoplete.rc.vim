@@ -56,8 +56,8 @@ call deoplete#custom#source('_', 'converters', [
       \ ])
 
 " call deoplete#custom#source('buffer', 'min_pattern_length', 9999)
-call deoplete#custom#source('clang', 'input_pattern', '\.\w*|\.->\w*|\w+::\w*')
-call deoplete#custom#source('clang', 'max_pattern_length', -1)
+" call deoplete#custom#source('clang', 'input_pattern', '\.\w*|\.->\w*|\w+::\w*')
+" call deoplete#custom#source('clang', 'max_pattern_length', -1)
 
 let g:deoplete#keyword_patterns = {}
 let g:deoplete#keyword_patterns._ = '[a-zA-Z_]\k*\(?'
