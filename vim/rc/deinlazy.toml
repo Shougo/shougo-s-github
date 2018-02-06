@@ -530,10 +530,6 @@ hook_source = '''
 repo = 'zchee/deoplete-jedi'
 on_ft = 'python'
 
-# [[plugins]]
-# repo = 'zchee/deoplete-clang'
-# on_ft = 'cpp'
-
 [[plugins]]
 repo = 'zchee/deoplete-zsh'
 on_ft = 'zsh'
