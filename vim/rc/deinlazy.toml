@@ -36,6 +36,7 @@ hook_source = '''
 
   " let g:snippets_dir = '~/.vim/snippets/,~/.vim/bundle/snipmate/snippets/'
   let g:neosnippet#snippets_directory = '~/.vim/snippets'
+  autocmd MyAutoCmd CompleteDone * call neosnippet#complete_done()
 '''
 
 [[plugins]]
@@ -63,7 +64,8 @@ hook_add = '''
         \ -auto-highlight -mode=normal line<CR>
   nnoremap <silent> [Window]s :<C-u>Denite file_point file_old
         \ -sorters=sorter_rank
-        \ `finddir('.git', ';') != '' ? 'file_rec/git' : 'file_rec'`<CR>
+        \ `finddir('.git', ';') != '' ? 'file_rec/git' : 'file_rec'`
+        \ file file:new<CR>
 
   nnoremap <silent><expr> tt  &filetype == 'help' ?  "g\<C-]>" :
         \ ":\<C-u>DeniteCursorWord -buffer-name=tag -immediately
@@ -121,9 +123,9 @@ else
 endif
 
 autocmd MyAutoCmd FileType vimfiler call s:vimfiler_my_settings()
-function! s:vimfiler_my_settings() abort "{{{
+function! s:vimfiler_my_settings() abort
   nmap <buffer> <Tab> <Plug>(vimfiler_switch_to_other_window)
-endfunction"}}}
+endfunction
 '''
 
 [[plugins]]
@@ -147,7 +149,7 @@ hook_source = '''
   " Set to $PATH.
   let s:bin = dein#get('vim-themis').rtp . '/bin'
 
-  function! s:split_envpath(path) abort "{{{
+  function! s:split_envpath(path) abort
     let delimiter = has('win32') ? ';' : ':'
     if stridx(a:path, '\' . delimiter) < 0
       return split(a:path, delimiter)
@@ -155,9 +157,9 @@ hook_source = '''
     let split = split(a:path, '\\\@<!\%(\\\\\)*\zs' . delimiter)
     return map(split,'substitute(v:val, ''\\\([\\'
           \ . delimiter . ']\)'', "\\1", "g")')
-  endfunction"}}}
+  endfunction
 
-  function! s:join_envpath(list, orig_path, add_path) abort "{{{
+  function! s:join_envpath(list, orig_path, add_path) abort
     let delimiter = has('win32') ? ';' : ':'
     return (stridx(a:orig_path, '\' . delimiter) < 0
           \ && stridx(a:add_path, delimiter) < 0) ?
@@ -165,7 +167,7 @@ hook_source = '''
           \   join(map(copy(a:list),
           \        "substitute(v:path, ',\\|\\\\,\\@=', '\\\\\\0', 'g')"),
           \        delimiter)
-  endfunction"}}}
+  endfunction
 
   let $PATH = s:join_envpath(
         \ dein#util#_uniq(insert(
@@ -250,12 +252,12 @@ hook_source = '''
   endif
 
   autocmd MyAutoCmd FileType ref call s:ref_my_settings()
-  function! s:ref_my_settings() abort "{{{
+  function! s:ref_my_settings() abort
     " Overwrite settings.
     nmap <buffer> [Tag]t  <Plug>(ref-keyword)
     nmap <buffer> [Tag]p  <Plug>(ref-back)
     nnoremap <buffer> <TAB> <C-w>w
-  endfunction"}}}
+  endfunction
 '''
 
 [[plugins]]
@@ -350,7 +352,7 @@ hook_source = '''
   autocmd MyAutoCmd User eskk-initialize-post
         \ EskkMap -remap jj <ESC>
   autocmd MyAutoCmd User eskk-initialize-pre call s:eskk_initial_pre()
-  function! s:eskk_initial_pre() abort "{{{
+  function! s:eskk_initial_pre() abort
     let t = eskk#table#new('rom_to_hira*', 'rom_to_hira')
     call t.add_map('z ', '　')
     call t.add_map('~', '〜')
@@ -359,7 +361,7 @@ hook_source = '''
     call t.add_map('z9', '（')
     call t.add_map('z0', '）')
     call eskk#register_mode_table('hira', t)
-  endfunction "}}}
+  endfunction
 '''
 
 [[plugins]]
@@ -544,7 +546,7 @@ repo = 'Shougo/deoplete.nvim'
 depends = 'context_filetype.vim'
 on_i = 1
 hook_source = '''
-let g:deoplete#enable_at_startup = 1
+call deoplete#enable()
 source ~/.vim/rc/plugins/deoplete.rc.vim
 '''
 

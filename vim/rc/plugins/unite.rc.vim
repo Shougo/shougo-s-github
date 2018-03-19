@@ -25,7 +25,7 @@ call unite#custom#profile('action', 'context', {
       \ 'start_insert' : 1
       \ })
 
-" Custom filters."{{{
+" Custom filters.
 call unite#custom#source(
       \ 'buffer,file_rec,file_rec/async,file_rec/git', 'matchers',
       \ ['converter_relative_word', 'matcher_fuzzy'])
@@ -40,9 +40,8 @@ call unite#custom#source(
       \ 'buffer', 'converters',
       \ ['converter_uniq_word','converter_word_abbr'])
 call unite#filters#sorter_default#use(['sorter_rank'])
-"}}}
 
-function! s:unite_my_settings() abort "{{{
+function! s:unite_my_settings() abort
   " Directory partial match.
   call unite#custom#default_action('directory', 'narrow')
 
@@ -60,7 +59,7 @@ function! s:unite_my_settings() abort "{{{
   endif
 
   nmap <buffer> x     <Plug>(unite_quick_match_jump)
-endfunction"}}}
+endfunction
 
 " Default configuration.
 let default_context = {

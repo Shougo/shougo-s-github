@@ -3,7 +3,7 @@
 "
 
 "---------------------------------------------------------------------------
-" Fonts: "{{{
+" Fonts:
 set ambiwidth=double
 
 if has('win32') || has('win64')
@@ -37,10 +37,10 @@ else
   " For Linux.
    set guifontwide=VL\ Gothic\ 13
    set guifont=Courier\ 10\ Pitch\ 14
-endif"}}}
+endif
 
 "---------------------------------------------------------------------------
-" Window:"{{{
+" Window:
 "
 if has('win32') || has('win64')
   " Width of window.
@@ -62,10 +62,9 @@ endif
 if !exists('g:colors_name')
   colorscheme candy
 endif
-"}}}
 
 "---------------------------------------------------------------------------
-" Options:"{{{
+" Options:
 set mouse=
 set mousemodel=
 
@@ -83,10 +82,12 @@ set guioptions-=rL
 set guioptions-=e
 " Confirm without window.
 set guioptions+=c
+if has('patch-8.0.1609')
+  set guioptions+=!
+endif
 
 " Don't flick cursor.
 set guicursor&
 set guicursor+=a:blinkon0
-"}}}
 
 " vim: foldmethod=marker

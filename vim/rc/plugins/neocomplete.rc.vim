@@ -40,7 +40,7 @@ call neocomplete#custom#source('_', 'converters',
       \ ['converter_add_paren', 'converter_remove_overlap',
       \  'converter_delimiter', 'converter_abbr'])
 
-" mappings."{{{
+" mappings.
 " <C-f>, <C-b>: page move.
 inoremap <expr><C-f>  pumvisible() ? "\<PageDown>" : "\<Right>"
 inoremap <expr><C-b>  pumvisible() ? "\<PageUp>"   : "\<Left>"
@@ -64,10 +64,9 @@ inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ neocomplete#start_manual_complete()
-function! s:check_back_space() abort "{{{
+function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~ '\s'
-endfunction"}}}
+endfunction
 " <S-TAB>: completion back.
 inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<C-h>"
-"}}}

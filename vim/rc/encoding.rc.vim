@@ -18,7 +18,7 @@ set fileformat=unix
 " Automatic recognition of a new line cord.
 set fileformats=unix,dos,mac
 
-" Command group opening with a specific character code again."{{{
+" Command group opening with a specific character code again.
 " In particular effective when I am garbled in a terminal.
 " Open in UTF-8 again.
 command! -bang -bar -complete=file -nargs=? Utf8
@@ -38,7 +38,6 @@ command! -bang -bar -complete=file -nargs=? Utf16
 " Open in latin1 again.
 command! -bang -bar -complete=file -nargs=? Latin
       \ edit<bang> ++enc=latin1 <args>
-"}}}
 
 " Tried to make a file note version.
 command! WUtf8 setlocal fenc=utf-8
