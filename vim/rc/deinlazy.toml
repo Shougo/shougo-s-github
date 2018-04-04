@@ -57,14 +57,14 @@ hook_add = '''
         \ register neoyank<CR>
 
   nnoremap <silent> [Window]<Space>
-        \ :<C-u>Denite file_rec:~/.vim/rc<CR>
+        \ :<C-u>Denite file/rec:~/.vim/rc<CR>
   nnoremap <silent> / :<C-u>Denite -buffer-name=search -auto-highlight
         \ line<CR>
   nnoremap <silent> * :<C-u>DeniteCursorWord -buffer-name=search
         \ -auto-highlight -mode=normal line<CR>
-  nnoremap <silent> [Window]s :<C-u>Denite file_point file_old
-        \ -sorters=sorter_rank
-        \ `finddir('.git', ';') != '' ? 'file_rec/git' : 'file_rec'`
+  nnoremap <silent> [Window]s :<C-u>Denite file/point file/old
+        \ -sorters=sorter/rank
+        \ `finddir('.git', ';') != '' ? 'file/rec/git' : 'file/rec'`
         \ file file:new<CR>
 
   nnoremap <silent><expr> tt  &filetype == 'help' ?  "g\<C-]>" :

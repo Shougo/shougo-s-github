@@ -3,7 +3,7 @@
 "
 
 if executable('rg')
-  call denite#custom#var('file_rec', 'command',
+  call denite#custom#var('file/rec', 'command',
         \ ['rg', '--files', '--glob', '!.git'])
   call denite#custom#var('grep', 'command', ['rg', '--threads', '1'])
   call denite#custom#var('grep', 'recursive_opts', [])
@@ -12,18 +12,18 @@ if executable('rg')
   call denite#custom#var('grep', 'default_opts',
         \ ['--vimgrep', '--no-heading'])
 else
-  call denite#custom#var('file_rec', 'command',
+  call denite#custom#var('file/rec', 'command',
         \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
 endif
 
-call denite#custom#source('file_old', 'matchers',
+call denite#custom#source('file/old', 'matchers',
       \ ['matcher_fuzzy', 'matcher_project_files'])
 call denite#custom#source('tag', 'matchers', ['matcher_substring'])
 if has('nvim')
-  call denite#custom#source('file_rec,grep', 'matchers',
+  call denite#custom#source('file/rec,grep', 'matchers',
         \ ['matcher_cpsm'])
 endif
-call denite#custom#source('file_old', 'converters',
+call denite#custom#source('file/old', 'converters',
       \ ['converter_relative_word'])
 
 call denite#custom#map('insert', '<C-r>',
@@ -41,8 +41,8 @@ call denite#custom#map('normal', 'r',
 call denite#custom#map('insert', ';',
       \ 'vimrc#sticky_func()', 'expr')
 
-call denite#custom#alias('source', 'file_rec/git', 'file_rec')
-call denite#custom#var('file_rec/git', 'command',
+call denite#custom#alias('source', 'file/rec/git', 'file/rec')
+call denite#custom#var('file/rec/git', 'command',
       \ ['git', 'ls-files', '-co', '--exclude-standard'])
 
 " call denite#custom#option('default', 'prompt', '>')
