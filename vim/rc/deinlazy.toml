@@ -18,6 +18,9 @@ call echodoc#enable()
 '''
 
 [[plugins]]
+repo = 'Shougo/neco-syntax'
+
+[[plugins]]
 repo = 'Shougo/neosnippet.vim'
 depends = ['neosnippet-snippets', 'context_filetype.vim']
 on_event = 'InsertCharPre'
@@ -76,7 +79,7 @@ hook_add = '''
         \ -resume -mode=normal -refresh<CR>
   nnoremap <silent> ft :<C-u>Denite filetype<CR>
   nnoremap <silent> <C-t> :<C-u>Denite
-        \ -select=`tabpagenr()-1` -mode=normal deol<CR>
+        \ -select=`tabpagenr()-1` -mode=normal deol:zsh<CR>
   nnoremap <silent> <C-k> :<C-u>Denite -mode=normal change jump<CR>
 
   nnoremap <silent> [Space]gs :<C-u>Denite gitstatus<CR>
@@ -134,7 +137,6 @@ hook_add = '''
 '''
 hook_source = '''
   let g:deol#prompt_pattern = '\w*%'
-  set shell=zsh
 
   " Set to $PATH.
   let s:bin = dein#get('vim-themis').rtp . '/bin'

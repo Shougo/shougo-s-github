@@ -78,9 +78,6 @@ repo = 'thinca/vim-themis'
 repo = 'ujihisa/neco-look'
 
 [[plugins]]
-repo = 'Shougo/neco-syntax'
-
-[[plugins]]
 repo = 'nixprime/cpsm'
 build = 'sh -c "PY3=ON ./install.sh"'
 
