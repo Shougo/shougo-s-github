@@ -1,19 +1,6 @@
 [[plugins]]
 repo = 'Shougo/dein.vim'
 
-# [[plugins]]
-# repo = 'godlygeek/csapprox'
-# if = "v:progname !=# 'gvim' && has('gui') && !has('nvim')"
-# hook_add = '''
-# " Convert colorscheme in Konsole.
-#  let g:CSApprox_konsole = 1
-#  let g:CSApprox_attr_map = { 'bold' : 'bold', 'italic' : '', 'sp' : '' }
-# '''
-
-# [[plugins]]
-# repo = 'thinca/vim-guicolorscheme'
-# if = "v:progname !=# 'gvim' && !has('gui') && !has('nvim')"
-
 [[plugins]]
 repo = 'hail2u/vim-css3-syntax'
 
@@ -59,28 +46,11 @@ repo = 'kana/vim-textobj-user'
 [[plugins]]
 repo = 'hynek/vim-python-pep8-indent'
 
-# Operators
 [[plugins]]
 repo = 'kana/vim-operator-user'
 
 [[plugins]]
 repo = 'rcmdnk/vim-markdown'
-
-# [[plugins]]
-# repo = 'marijnh/tern_for_vim'
-# build = 'npm install'
-
-# [[plugins]]
-# repo = 'vim-ruby/vim-ruby'
-
-[[plugins]]
-repo = 'Shougo/neosnippet-snippets'
-
-[[plugins]]
-repo = 'osyo-manga/unite-vimpatches'
-
-[[plugins]]
-repo = 'mattn/webapi-vim'
 
 [[plugins]]
 repo = 'jelera/vim-javascript-syntax'
@@ -103,12 +73,6 @@ repo = 'Shougo/neossh.vim'
 
 [[plugins]]
 repo = 'thinca/vim-themis'
-
-[[plugins]]
-repo = 'tsukkee/unite-tag'
-
-[[plugins]]
-repo = 'Shougo/unite-outline'
 
 [[plugins]]
 repo = 'ujihisa/neco-look'

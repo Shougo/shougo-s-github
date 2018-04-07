@@ -1,23 +1,2 @@
-# [[plugins]]
-# repo = 'zchee/deoplete-clang'
-# on_ft = ['c', 'cpp']
-# hook_source = '''
-# " libclang shared library path
-# let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
-# " For Ubuntu
-# " let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-3.8/lib/libclang-3.8.so'
-#
-# " clang builtin header path
-# let g:deoplete#sources#clang#clang_header = '/usr/include/clang'
-#
-# " libclang default compile flags
-# let g:deoplete#sources#clang#flags = ['-x', 'c++', '-std=c++11']
-#
-# " compile_commands.json directory path
-# " Not file path. Need build directory path
-# " let g:deoplete#sources#clang#clang_complete_database =
-# "       \ expand('~/src/neovim/build')
-# '''
-
 [[plugins]]
 repo = 'Shougo/deoppet.nvim'
