@@ -11,11 +11,11 @@ let g:is_bash = 1
 
 " Java
 let g:java_highlight_functions = 'style'
-let g:java_highlight_all=1
-let g:java_highlight_debug=1
-let g:java_allow_cpp_keywords=1
-let g:java_space_errors=1
-let g:java_highlight_functions=1
+let g:java_highlight_all = 1
+let g:java_highlight_debug = 1
+let g:java_allow_cpp_keywords = 1
+let g:java_space_errors = 1
+let g:java_highlight_functions = 1
 
 " JavaScript
 let g:SimpleJsIndenter_BriefMode = 1
@@ -77,7 +77,8 @@ autocmd MyAutoCmd BufWritePost,FileWritePost *.vim nested
 
 _ = '''
   " Disable automatically insert comment.
-  setl formatoptions-=ro | setl formatoptions+=mMBl
+  setl formatoptions-=ro
+  setl formatoptions+=mMBl
 
   " Disable auto wrap.
   if &l:textwidth != 70 && &filetype !=# 'help'
@@ -92,21 +93,25 @@ _ = '''
   if !&l:modifiable
     setlocal nofoldenable
     setlocal foldcolumn=0
-
-    if v:version >= 703
-      setlocal colorcolumn=
-    endif
+    setlocal colorcolumn=
   endif
 '''
 
-python = 'setlocal foldmethod=indent'
+python = '''
+" Indent settings.
+setlocal foldmethod=indent
+setlocal softtabstop=4
+setlocal shiftwidth=4
+setlocal textwidth=80
+setlocal smarttab
+setlocal expandtab
+setlocal nosmartindent
+'''
 
 html = '''
 setlocal includeexpr=substitute(v:fname,'^\\/','','')
 setlocal path+=./;/
 '''
-
-php = 'setlocal path+=/usr/local/share/pear'
 
 go = '''
 highlight default link goErr WarningMsg
@@ -114,11 +119,13 @@ match goErr /\<err\>/
 '''
 
 vim = '''
-if 5000 < line('$')
+if line('$') > 1000
   syntax sync minlines=200
 endif
 
 setlocal foldmethod=indent
+setlocal shiftwidth=2 softtabstop=2
+setlocal iskeyword+=:,#
 '''
 
 qfreplace = 'setlocal nofoldenable'
@@ -135,4 +142,5 @@ ruby = '''
 setlocal iskeyword+=!
 setlocal iskeyword+=?
 setlocal omnifunc=
+setlocal shiftwidth=2 softtabstop=2 tabstop=2
 '''
