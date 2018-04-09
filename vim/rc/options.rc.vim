@@ -47,6 +47,7 @@ endfunction
 " Disable modeline.
 set modelines=0
 set nomodeline
+autocmd MyAutoCmd BufRead,BufWritePost *.txt setlocal modelines=5 modeline
 
 " Use clipboard register.
 
