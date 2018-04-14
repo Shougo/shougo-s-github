@@ -59,24 +59,15 @@ call deoplete#custom#source('_', 'converters', [
 " call deoplete#custom#source('clang', 'input_pattern', '\.\w*|\.->\w*|\w+::\w*')
 " call deoplete#custom#source('clang', 'max_pattern_length', -1)
 
-let g:deoplete#keyword_patterns = {}
-let g:deoplete#keyword_patterns._ = '[a-zA-Z_]\k*\(?'
-" let g:deoplete#keyword_patterns.tex = '\\?[a-zA-Z_]\w*'
-let g:deoplete#keyword_patterns.tex = '[^\w|\s][a-zA-Z_]\w*'
-
-let g:deoplete#omni#input_patterns = {}
-let g:deoplete#omni#input_patterns.python = ''
-let g:deoplete#omni#functions = {}
+call deoplete#custom#option('keyword_patterns', {
+      \ '_': '[a-zA-Z_]\k*\(?',
+      \ 'tex': '[^\w|\s][a-zA-Z_]\w*',
+      \ })
 
 " inoremap <silent><expr> <C-t> deoplete#manual_complete('file')
 
-let g:deoplete#enable_refresh_always = 0
-let g:deoplete#enable_camel_case = 1
-" let g:deoplete#auto_complete_delay = 50
-" let g:deoplete#auto_complete_start_length = 3
+call deoplete#custom#option('camel_case', v:true)
 
-let g:deoplete#skip_chars = ['(', ')']
-
-" let g:deoplete#enable_profile = 1
+" call deoplete#custom#option('profile', v:true)
 " call deoplete#enable_logging('DEBUG', 'deoplete.log')
 " call deoplete#custom#source('clang', 'debug_enabled', 1)
