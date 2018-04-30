@@ -86,7 +86,7 @@ font:
   # Offset is the extra space around each character. offset.y can be thought of
   # as modifying the linespacing, and offset.x as modifying the letter spacing.
   offset:
-    x: 2
+    x: 0
     y: 0
 
   # Glyph offset determines the locations of the glyphs within their cells with
