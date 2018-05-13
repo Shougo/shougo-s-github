@@ -19,9 +19,8 @@ inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<C-h>"
 inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> deoplete#smart_close_popup()."\<C-h>"
 
-" inoremap <expr><C-g> deoplete#undo_completion()
-" <C-l>: redraw candidates
 inoremap <expr><C-g>       deoplete#refresh()
+inoremap <expr><C-e>       deoplete#cancel_popup()
 inoremap <silent><expr><C-l>       deoplete#complete_common_string()
 
 " <CR>: close popup and save indent.
@@ -63,6 +62,7 @@ call deoplete#custom#option('keyword_patterns', {
 " inoremap <silent><expr> <C-t> deoplete#manual_complete('file')
 
 call deoplete#custom#option('camel_case', v:true)
+" call deoplete#custom#option('num_processes', 0)
 
 " call deoplete#custom#option('profile', v:true)
 " call deoplete#enable_logging('DEBUG', 'deoplete.log')
