@@ -440,13 +440,13 @@ on_ft = ['c', 'cpp']
 
 [[plugins]]
 repo = 'zchee/deoplete-go'
-on_i = 1
+on_event = 'InsertEnter'
 on_ft = 'go'
 
 [[plugins]]
 repo = 'Shougo/deoplete.nvim'
 depends = 'context_filetype.vim'
-on_i = 1
+on_event = 'InsertEnter'
 hook_source = '''
 call deoplete#enable()
 source ~/.vim/rc/plugins/deoplete.rc.vim
