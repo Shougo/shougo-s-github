@@ -101,7 +101,4 @@ on_if = '!has("nvim")'
 repo = 'https://github.com/roxma/nvim-yarp'
 
 [[plugins]]
-repo = 'uplus/deoplete-solargraph'
-
-[[plugins]]
 repo = 'Shougo/deoppet.nvim'

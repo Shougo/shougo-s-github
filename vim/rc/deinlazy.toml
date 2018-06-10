@@ -5,7 +5,6 @@ on_source = ['vimfiler.vim']
 
 [[plugins]]
 repo = 'Shougo/neoyank.vim'
-on_if = 1
 on_event = 'TextYankPost'
 on_source = ['denite.nvim']
 
@@ -15,6 +14,17 @@ on_event = 'CompleteDone'
 hook_source = '''
 " let g:echodoc#type = 'signature'
 call echodoc#enable()
+'''
+
+[[plugins]]
+repo = 'Shougo/defx.nvim'
+hook_add = 'nnoremap <silent>   [Space]f   :<C-u>Defx<CR>'
+hook_source = '''
+autocmd MyAutoCmd FileType defx call s:defx_my_settings()
+function! s:defx_my_settings() abort
+  " Define mappings
+  nnoremap <silent><buffer><expr><CR>  defx#do_action('open')
+endfunction
 '''
 
 [[plugins]]
@@ -191,7 +201,6 @@ on_ft = 'vim'
 
 [[plugins]]
 repo = 'Shougo/neoinclude.vim'
-on_if = 1
 
 [[plugins]]
 repo = 'Shougo/vinarise.vim'
@@ -455,3 +464,7 @@ source ~/.vim/rc/plugins/deoplete.rc.vim
 [[plugins]]
 repo = 'lambdalisue/suda.vim'
 on_path = 'suda://'
+
+[[plugins]]
+repo = 'uplus/deoplete-solargraph'
+on_ft = 'ruby'
