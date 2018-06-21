@@ -18,7 +18,9 @@ call echodoc#enable()
 
 [[plugins]]
 repo = 'Shougo/defx.nvim'
-hook_add = 'nnoremap <silent>   [Space]f   :<C-u>Defx<CR>'
+hook_add = '''
+nnoremap <silent>   [Space]f   :<C-u>Defx<CR>
+'''
 hook_source = '''
 autocmd MyAutoCmd FileType defx call s:defx_my_settings()
 function! s:defx_my_settings() abort
@@ -139,7 +141,7 @@ endfunction
 [[plugins]]
 repo = 'Shougo/deol.nvim'
 on_cmd = 'Deol'
-on_source = 'denite.nvim'
+depends = 'denite.nvim'
 hook_add = '''
   nnoremap <silent> N :<C-u>call deol#new({'command': 'zsh'})<CR>
   nnoremap <silent> [Space]s :<C-u>Deol zsh<CR>
