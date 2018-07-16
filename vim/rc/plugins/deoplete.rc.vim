@@ -35,7 +35,8 @@ inoremap <expr> '  pumvisible() ? deoplete#close_popup() : "'"
 " call deoplete#custom#source('_', 'matchers', ['matcher_cpsm'])
 " call deoplete#custom#source('_', 'sorters', [])
 
-call deoplete#custom#source('_', 'matchers', ['matcher_head'])
+call deoplete#custom#source('_', 'matchers',
+      \ ['matcher_fuzzy', 'matcher_length'])
 " call deoplete#custom#source('buffer', 'mark', '')
 " call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy'])
 " call deoplete#custom#source('_', 'disabled_syntaxes', ['Comment', 'String'])

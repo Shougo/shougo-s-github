@@ -26,18 +26,14 @@ endif
 call denite#custom#source('file/old', 'converters',
       \ ['converter/relative_word'])
 
-call denite#custom#map('insert', '<C-r>',
-      \ '<denite:toggle_matchers:matcher/substring>', 'noremap')
-call denite#custom#map('insert', '<C-s>',
-      \ '<denite:toggle_sorters:sorter/reverse>', 'noremap')
-call denite#custom#map('insert', '<C-j>',
-      \ '<denite:move_to_next_line>', 'noremap')
-call denite#custom#map('insert', '<C-k>',
-      \ '<denite:move_to_previous_line>', 'noremap')
 call denite#custom#map('insert', "'",
       \ '<denite:move_to_next_line>', 'noremap')
 call denite#custom#map('normal', 'r',
       \ '<denite:do_action:quickfix>', 'noremap')
+call denite#custom#map('insert', '<BS>',
+      \ '<denite:smart_delete_char_before_caret>', 'noremap')
+call denite#custom#map('insert', '<C-h>',
+      \ '<denite:smart_delete_char_before_caret>', 'noremap')
 call denite#custom#map('insert', ';',
       \ 'vimrc#sticky_func()', 'expr')
 
