@@ -20,7 +20,7 @@ call denite#custom#source('file/old', 'matchers',
       \ ['matcher/fuzzy', 'matcher/project_files'])
 call denite#custom#source('tag', 'matchers', ['matcher/substring'])
 if has('nvim')
-  call denite#custom#source('file/rec,grep', 'matchers',
+  call denite#custom#source('file/rec', 'matchers',
         \ ['matcher/cpsm'])
 endif
 call denite#custom#source('file/old', 'converters',
