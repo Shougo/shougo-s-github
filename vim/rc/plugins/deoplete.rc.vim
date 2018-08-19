@@ -63,6 +63,7 @@ call deoplete#custom#option('keyword_patterns', {
 " inoremap <silent><expr> <C-t> deoplete#manual_complete('file')
 
 call deoplete#custom#option('camel_case', v:true)
+call deoplete#custom#option('refresh_always', v:true)
 " call deoplete#custom#option('num_processes', 0)
 
 " call deoplete#custom#option('profile', v:true)
