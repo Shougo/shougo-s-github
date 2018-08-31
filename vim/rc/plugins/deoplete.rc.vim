@@ -42,6 +42,8 @@ call deoplete#custom#source('_', 'matchers',
 " call deoplete#custom#source('_', 'disabled_syntaxes', ['Comment', 'String'])
 " call deoplete#custom#source('buffer', 'mark', '*')
 
+call deoplete#custom#source('zsh', 'filetypes', ['zsh', 'sh'])
+
 call deoplete#custom#source('_', 'converters', [
       \ 'converter_remove_paren',
       \ 'converter_remove_overlap',

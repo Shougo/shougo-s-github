@@ -27,26 +27,38 @@ function! s:defx_my_settings() abort
   " Define mappings
   nnoremap <silent><buffer><expr> <CR>
   \ defx#do_action('open')
+  nnoremap <silent><buffer><expr> l
+  \ defx#do_action('open')
+  nnoremap <silent><buffer><expr> E
+  \ defx#do_action('open', 'vsplit')
+  nnoremap <silent><buffer><expr> P
+  \ defx#do_action('open', 'pedit')
   nnoremap <silent><buffer><expr> K
   \ defx#do_action('new_directory')
   nnoremap <silent><buffer><expr> N
   \ defx#do_action('new_file')
   nnoremap <silent><buffer><expr> d
-  \ defx#do_action('remove')
+  \ defx#do_action('remove_trash')
   nnoremap <silent><buffer><expr> r
   \ defx#do_action('rename')
   nnoremap <silent><buffer><expr> h
   \ defx#do_action('cd', ['..'])
   nnoremap <silent><buffer><expr> ~
   \ defx#do_action('cd')
+  nnoremap <silent><buffer><expr> q
+  \ defx#do_action('quit')
   nnoremap <silent><buffer><expr> <Space>
   \ defx#do_action('toggle_select') . 'j'
+  nnoremap <silent><buffer><expr> *
+  \ defx#do_action('toggle_select_all')
   nnoremap <silent><buffer><expr> j
   \ line('.') == line('$') ? 'gg' : 'j'
   nnoremap <silent><buffer><expr> k
   \ line('.') == 1 ? 'G' : 'k'
   nnoremap <silent><buffer><expr> <C-l>
   \ defx#do_action('redraw')
+  nnoremap <silent><buffer><expr> <C-g>
+  \ defx#do_action('print')
 endfunction
 '''
 
@@ -129,7 +141,6 @@ repo = 'Shougo/unite.vim'
 [[plugins]]
 repo = 'Shougo/vimfiler.vim'
 depends = 'unite.vim'
-hook_add = 'nnoremap <silent>   [Space]v   :<C-u>VimFiler -invisible<CR>'
 hook_source = '''
 call vimfiler#custom#profile('default', 'context', {
       \ 'safe' : 0,
@@ -452,11 +463,6 @@ hook_source = '''
 [[plugins]]
 repo = 'racer-rust/vim-racer'
 on_ft = 'rust'
-hook_source = '''
-  let $RUST_SRC_PATH = expand('~/.multirust/toolchains/'
-  \ .'stable-x86_64-unknown-linux-gnu/'
-  \ .'lib/rustlib/src/rust/src/')
-'''
 
 [[plugins]]
 repo = 'zchee/deoplete-jedi'
@@ -464,7 +470,7 @@ on_ft = 'python'
 
 [[plugins]]
 repo = 'zchee/deoplete-zsh'
-on_ft = 'zsh'
+on_ft = ['zsh', 'sh']
 
 [[plugins]]
 repo = 'Shougo/deoplete-clangx'
