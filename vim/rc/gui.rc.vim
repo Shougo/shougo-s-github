@@ -82,12 +82,12 @@ set guioptions-=rL
 set guioptions-=e
 " Confirm without window.
 set guioptions+=c
-if has('patch-8.0.1609')
-  set guioptions+=!
-endif
+" if has('patch-8.0.1609')
+"   set guioptions+=!
+" endif
 
 " Don't flick cursor.
 set guicursor&
 set guicursor+=a:blinkon0
 
-" vim: foldmethod=marker
+" " vim: foldmethod=marker
