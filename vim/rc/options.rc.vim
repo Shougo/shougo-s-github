@@ -174,9 +174,9 @@ let t:cwd = getcwd()
 " Show <TAB> and <CR>
 set list
 if IsWindows()
-   set listchars=tab:>-,trail:-,extends:>,precedes:<
+   set listchars=tab:>-,trail:-,precedes:<
 else
-   set listchars=tab:▸\ ,trail:-,extends:»,precedes:«,nbsp:%
+   set listchars=tab:▸\ ,trail:-,precedes:«,nbsp:%
 endif
 " Always display statusline.
 set laststatus=2
