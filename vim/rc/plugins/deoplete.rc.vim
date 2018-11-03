@@ -66,6 +66,8 @@ call deoplete#custom#option('keyword_patterns', {
 
 call deoplete#custom#option('camel_case', v:true)
 call deoplete#custom#option('refresh_always', v:true)
+call deoplete#custom#option('auto_complete_delay', 0)
+call deoplete#custom#option('async_timeout', 100)
 " call deoplete#custom#option('num_processes', 0)
 
 " call deoplete#custom#option('profile', v:true)

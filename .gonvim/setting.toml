@@ -1,0 +1,40 @@
+[editor]
+# Editor minimum width (>= 800)
+width = 1600
+# Editor minimum height (>= 600)
+height = 1024
+# Gonvim copy the yank text to clipboad
+clipboard = true
+# Editor font-family, font-size, linespace.
+#  Note: If you want to control the font, linespace with the neovim command, you need 'equalsraf/neovim-gui-shim'.
+# fontFamily = "Courier 10 Pitch 14"
+fontsize = 13
+linespace = 10
+# Editor cursor blink
+cursorBlink = false
+# Disable IME in Normal mode
+disableIMEinNormal = true
+
+[miniMap]
+visible = true
+
+[scrollBar]
+visible = false
+
+[activityBar]
+visible = true
+dropshadow = false
+
+[sideBar]
+visible = false
+dropshadow = false
+width = 300
+accentColor = "#519aba"
+
+[workspace]
+# name: directoryname
+# full: /path/to/directoryname
+# minimum: /p/t/directoryname
+pathStyle = "minimum"
+# Restore session-information that was ended without being saved
+restoreSession = false

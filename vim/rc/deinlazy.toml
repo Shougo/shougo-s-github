@@ -12,7 +12,7 @@ on_source = ['denite.nvim']
 repo = 'Shougo/echodoc.vim'
 on_event = 'CompleteDone'
 hook_source = '''
-" let g:echodoc#type = 'signature'
+let g:echodoc#type = 'signature'
 call echodoc#enable()
 '''
 
@@ -26,7 +26,7 @@ autocmd MyAutoCmd FileType defx call s:defx_my_settings()
 function! s:defx_my_settings() abort
   " Define mappings
   nnoremap <silent><buffer><expr> <CR>
-  \ defx#do_action('open')
+  \ defx#do_action('drop')
   nnoremap <silent><buffer><expr> c
   \ defx#do_action('copy')
   nnoremap <silent><buffer><expr> m
@@ -51,6 +51,8 @@ function! s:defx_my_settings() abort
   \ defx#do_action('execute_system')
   nnoremap <silent><buffer><expr> .
   \ defx#do_action('toggle_ignored_files')
+  nnoremap <silent><buffer><expr> yy
+  \ defx#do_action('yank_path')
   nnoremap <silent><buffer><expr> h
   \ defx#do_action('cd', ['..'])
   nnoremap <silent><buffer><expr> ~
@@ -160,35 +162,22 @@ call vimfiler#custom#profile('default', 'context', {
       \ 'parent' : 0,
       \ })
 
-if IsWindows()
-  let g:vimfiler_detect_drives = [
-        \ 'C:/', 'D:/', 'E:/', 'F:/', 'G:/', 'H:/', 'I:/',
-        \ 'J:/', 'K:/', 'L:/', 'M:/', 'N:/']
-  " Use trashbox.
-  let g:unite_kind_file_use_trashbox = 1
-else
-  " Like Textmate icons.
-  let g:vimfiler_tree_leaf_icon = ' '
-  let g:vimfiler_tree_opened_icon = '▾'
-  let g:vimfiler_tree_closed_icon = '▸'
-  let g:vimfiler_file_icon = ' '
-  let g:vimfiler_readonly_file_icon = '✗'
-  let g:vimfiler_marked_file_icon = '✓'
-endif
-
-autocmd MyAutoCmd FileType vimfiler call s:vimfiler_my_settings()
-function! s:vimfiler_my_settings() abort
-  nmap <buffer> <Tab> <Plug>(vimfiler_switch_to_other_window)
-endfunction
+" Like Textmate icons.
+let g:vimfiler_tree_leaf_icon = ' '
+let g:vimfiler_tree_opened_icon = '▾'
+let g:vimfiler_tree_closed_icon = '▸'
+let g:vimfiler_file_icon = ' '
+let g:vimfiler_readonly_file_icon = '✗'
+let g:vimfiler_marked_file_icon = '✓'
 '''
 
 [[plugins]]
 repo = 'Shougo/deol.nvim'
-on_cmd = 'Deol'
 depends = 'denite.nvim'
 hook_add = '''
-  nnoremap <silent> N :<C-u>call deol#new({'command': 'zsh'})<CR>
-  nnoremap <silent> [Space]s :<C-u>Deol zsh<CR>
+  nnoremap <silent> N :<C-u>call deol#new({
+    \ 'command': 'zsh', 'edit': v:true})<CR>
+  nnoremap <silent> [Space]s :<C-u>Deol zsh -edit<CR>
   nnoremap <silent> [Window]D  :<C-u>call deol#kill_editor()<CR>
 '''
 hook_source = '''
@@ -495,9 +484,6 @@ on_ft = ['c', 'cpp']
 repo = 'zchee/deoplete-go'
 on_event = 'InsertEnter'
 on_ft = 'go'
-hook_source = '''
-let g:deoplete#sources#go#source_importer = 1
-'''
 
 [[plugins]]
 repo = 'Shougo/deoplete.nvim'
@@ -515,3 +501,11 @@ on_path = 'suda://'
 [[plugins]]
 repo = 'uplus/deoplete-solargraph'
 on_ft = 'ruby'
+
+[[plugins]]
+repo = 'raghur/fruzzy'
+on_source = ['denite.nvim']
+hook_source = '''
+let g:fruzzy#sortonempty = 0
+'''
+hook_post_update = 'call fruzzy#install()'
