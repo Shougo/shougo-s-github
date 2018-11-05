@@ -19,7 +19,8 @@ call echodoc#enable()
 [[plugins]]
 repo = 'Shougo/defx.nvim'
 hook_add = '''
-nnoremap <silent>   [Space]f   :<C-u>Defx<CR>
+nnoremap <silent>   [Space]f
+\ :<C-u>Defx -listed -resume -buffer-name=tab`tabpagenr()`<CR>
 '''
 hook_source = '''
 autocmd MyAutoCmd FileType defx call s:defx_my_settings()
@@ -57,6 +58,8 @@ function! s:defx_my_settings() abort
   \ defx#do_action('cd', ['..'])
   nnoremap <silent><buffer><expr> ~
   \ defx#do_action('cd')
+  nnoremap <silent><buffer><expr> \
+  \ defx#do_action('cd', getcwd())
   nnoremap <silent><buffer><expr> q
   \ defx#do_action('quit')
   nnoremap <silent><buffer><expr> <Space>
@@ -72,7 +75,8 @@ function! s:defx_my_settings() abort
   nnoremap <silent><buffer><expr> <C-g>
   \ defx#do_action('print')
   nnoremap <silent><buffer><expr> <Tab> winnr('$') != 1 ?
-  \ ':<C-u>wincmd w<CR>' : ':<C-u>Defx -new -split=vertical<CR>'
+  \ ':<C-u>wincmd w<CR>' :
+  \ ':<C-u>Defx -buffer-name=temp -split=vertical<CR>'
 endfunction
 '''
 
