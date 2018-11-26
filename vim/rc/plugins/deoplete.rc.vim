@@ -42,6 +42,11 @@ call deoplete#custom#source('_', 'matchers',
 " call deoplete#custom#source('_', 'disabled_syntaxes', ['Comment', 'String'])
 " call deoplete#custom#source('buffer', 'mark', '*')
 
+call deoplete#custom#source('look', 'filetypes', ['help', 'gitcommit'])
+call deoplete#custom#option('ignore_sources', {'_': ['around', 'buffer']})
+
+call deoplete#custom#source('tabnine', 'rank', 200)
+
 call deoplete#custom#source('zsh', 'filetypes', ['zsh', 'sh'])
 
 call deoplete#custom#source('_', 'converters', [

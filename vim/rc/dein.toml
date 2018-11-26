@@ -17,9 +17,6 @@ repo = 'itchyny/vim-haskell-indent'
 repo = 'udalov/kotlin-vim'
 
 [[plugins]]
-repo = 'shawncplus/phpcomplete.vim'
-
-[[plugins]]
 repo = 'jiangmiao/simple-javascript-indenter'
 
 [[plugins]]
@@ -69,9 +66,6 @@ repo = 'vim-jp/vimdoc-ja'
 repo = 'kballard/vim-fish'
 
 [[plugins]]
-repo = 'Shougo/neossh.vim'
-
-[[plugins]]
 repo = 'thinca/vim-themis'
 
 [[plugins]]
@@ -80,9 +74,6 @@ repo = 'ujihisa/neco-look'
 [[plugins]]
 repo = 'nixprime/cpsm'
 build = 'sh -c "PY3=ON ./install.sh"'
-
-[[plugins]]
-repo = 'chemzqm/denite-git'
 
 [[plugins]]
 repo = 'leafgarland/typescript-vim'
@@ -102,3 +93,7 @@ repo = 'https://github.com/roxma/nvim-yarp'
 
 [[plugins]]
 repo = 'Shougo/deoppet.nvim'
+
+[[plugins]]
+repo = 'tbodt/deoplete-tabnine'
+build = './install.sh'

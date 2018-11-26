@@ -1,9 +1,4 @@
 [[plugins]]
-repo = 'Shougo/vimproc.vim'
-build = 'make'
-on_source = ['vimfiler.vim']
-
-[[plugins]]
 repo = 'Shougo/neoyank.vim'
 on_event = 'TextYankPost'
 on_source = ['denite.nvim']
@@ -12,7 +7,7 @@ on_source = ['denite.nvim']
 repo = 'Shougo/echodoc.vim'
 on_event = 'CompleteDone'
 hook_source = '''
-let g:echodoc#type = 'signature'
+let g:echodoc#type = 'virtual'
 call echodoc#enable()
 '''
 
@@ -22,62 +17,64 @@ hook_add = '''
 nnoremap <silent>   [Space]f
 \ :<C-u>Defx -listed -resume -buffer-name=tab`tabpagenr()`<CR>
 '''
-hook_source = '''
-autocmd MyAutoCmd FileType defx call s:defx_my_settings()
-function! s:defx_my_settings() abort
-  " Define mappings
-  nnoremap <silent><buffer><expr> <CR>
-  \ defx#do_action('drop')
-  nnoremap <silent><buffer><expr> c
-  \ defx#do_action('copy')
-  nnoremap <silent><buffer><expr> m
-  \ defx#do_action('move')
-  nnoremap <silent><buffer><expr> p
-  \ defx#do_action('paste')
-  nnoremap <silent><buffer><expr> l
-  \ defx#do_action('open')
-  nnoremap <silent><buffer><expr> E
-  \ defx#do_action('open', 'vsplit')
-  nnoremap <silent><buffer><expr> P
-  \ defx#do_action('open', 'pedit')
-  nnoremap <silent><buffer><expr> K
-  \ defx#do_action('new_directory')
-  nnoremap <silent><buffer><expr> N
-  \ defx#do_action('new_file')
-  nnoremap <silent><buffer><expr> d
-  \ defx#do_action('remove_trash')
-  nnoremap <silent><buffer><expr> r
-  \ defx#do_action('rename')
-  nnoremap <silent><buffer><expr> x
-  \ defx#do_action('execute_system')
-  nnoremap <silent><buffer><expr> .
-  \ defx#do_action('toggle_ignored_files')
-  nnoremap <silent><buffer><expr> yy
-  \ defx#do_action('yank_path')
-  nnoremap <silent><buffer><expr> h
-  \ defx#do_action('cd', ['..'])
-  nnoremap <silent><buffer><expr> ~
-  \ defx#do_action('cd')
-  nnoremap <silent><buffer><expr> \
-  \ defx#do_action('cd', getcwd())
-  nnoremap <silent><buffer><expr> q
-  \ defx#do_action('quit')
-  nnoremap <silent><buffer><expr> <Space>
-  \ defx#do_action('toggle_select') . 'j'
-  nnoremap <silent><buffer><expr> *
-  \ defx#do_action('toggle_select_all')
-  nnoremap <silent><buffer><expr> j
-  \ line('.') == line('$') ? 'gg' : 'j'
-  nnoremap <silent><buffer><expr> k
-  \ line('.') == 1 ? 'G' : 'k'
-  nnoremap <silent><buffer><expr> <C-l>
-  \ defx#do_action('redraw')
-  nnoremap <silent><buffer><expr> <C-g>
-  \ defx#do_action('print')
-  nnoremap <silent><buffer><expr> <Tab> winnr('$') != 1 ?
-  \ ':<C-u>wincmd w<CR>' :
-  \ ':<C-u>Defx -buffer-name=temp -split=vertical<CR>'
-endfunction
+[plugins.ftplugin]
+defx = '''
+" Define mappings
+nnoremap <silent><buffer><expr> <CR>
+\ defx#async_action('drop')
+nnoremap <silent><buffer><expr> c
+\ defx#do_action('copy')
+nnoremap <silent><buffer><expr> !
+\ defx#do_action('execute_command')
+nnoremap <silent><buffer><expr> m
+\ defx#do_action('move')
+nnoremap <silent><buffer><expr> p
+\ defx#do_action('paste')
+nnoremap <silent><buffer><expr> l
+\ defx#async_action('open')
+nnoremap <silent><buffer><expr> E
+\ defx#do_action('open', 'vsplit')
+nnoremap <silent><buffer><expr> P
+\ defx#do_action('open', 'pedit')
+nnoremap <silent><buffer><expr> K
+\ defx#do_action('new_directory')
+nnoremap <silent><buffer><expr> N
+\ defx#do_action('new_file')
+nnoremap <silent><buffer><expr> d
+\ defx#do_action('remove_trash')
+nnoremap <silent><buffer><expr> r
+\ defx#do_action('rename')
+nnoremap <silent><buffer><expr> x
+\ defx#do_action('execute_system')
+nnoremap <silent><buffer><expr> >
+\ defx#do_action('toggle_ignored_files')
+nnoremap <silent><buffer><expr> .
+\ defx#do_action('repeat')
+nnoremap <silent><buffer><expr> yy
+\ defx#do_action('yank_path')
+nnoremap <silent><buffer><expr> h
+\ defx#do_action('cd', ['..'])
+nnoremap <silent><buffer><expr> ~
+\ defx#do_action('cd')
+nnoremap <silent><buffer><expr> \
+\ defx#do_action('cd', getcwd())
+nnoremap <silent><buffer><expr> q
+\ defx#do_action('quit')
+nnoremap <silent><buffer><expr> <Space>
+\ defx#do_action('toggle_select') . 'j'
+nnoremap <silent><buffer><expr> *
+\ defx#do_action('toggle_select_all')
+nnoremap <silent><buffer><expr> j
+\ line('.') == line('$') ? 'gg' : 'j'
+nnoremap <silent><buffer><expr> k
+\ line('.') == 1 ? 'G' : 'k'
+nnoremap <silent><buffer><expr> <C-l>
+\ defx#do_action('redraw')
+nnoremap <silent><buffer><expr> <C-g>
+\ defx#do_action('print')
+nnoremap <silent><buffer><expr> <Tab> winnr('$') != 1 ?
+\ ':<C-u>wincmd w<CR>' :
+\ ':<C-u>Defx -buffer-name=temp -split=vertical<CR>'
 '''
 
 [[plugins]]
@@ -216,12 +213,13 @@ hook_source = '''
   let $THEMIS_HOME = dein#get('vim-themis').rtp
 
   unlet s:bin
-
-  autocmd FileType deol call s:on_deol()
-  function! s:on_deol() abort
-    nnoremap <buffer><silent> [Space]gc :<C-u>call deol#send('git commit')<CR>
-    nnoremap <buffer><silent> [Space]gA :<C-u>call deol#send('git commit --amend')<CR>
-  endfunction
+'''
+[plugins.ftplugin]
+deol = '''
+nnoremap <buffer><silent> [Space]gc
+\ :<C-u>call deol#send('git commit')<CR>
+nnoremap <buffer><silent> [Space]gA
+\ :<C-u>call deol#send('git commit --amend')<CR>
 '''
 
 [[plugins]]
@@ -275,8 +273,9 @@ hook_add = '''
 [[plugins]]
 repo = 'thinca/vim-qfreplace'
 on_ft = ['qf']
-hook_source = '''
-  autocmd MyAutoCmd FileType qf nnoremap <buffer> r :<C-u>Qfreplace<CR>
+[plugins.ftplugin]
+qf = '''
+nnoremap <buffer> r :<C-u>Qfreplace<CR>
 '''
 
 [[plugins]]
@@ -434,14 +433,6 @@ hook_source = '''
     autocmd FileType vim inoremap <buffer> <expr> .
           \ smartchr#loop('.', ' . ', '..', '...')
     autocmd FileType lisp,scheme,clojure inoremap <buffer> <expr> = =
-
-    autocmd FileType haskell,int-ghci
-          \ inoremap <buffer> <expr> + smartchr#loop('+', ' ++ ')
-          \| inoremap <buffer> <expr> - smartchr#loop('-', ' -> ', ' <- ')
-          \| inoremap <buffer> <expr> $ smartchr#loop(' $ ', '$')
-          \| inoremap <buffer> <expr> \ smartchr#loop('\ ', '\')
-          \| inoremap <buffer> <expr> : smartchr#loop(':', ' :: ', ' : ')
-          \| inoremap <buffer> <expr> . smartchr#loop('.', ' . ', '..')
   augroup END
 '''
 
@@ -460,9 +451,9 @@ on_event = 'BufRead'
 [[plugins]]
 repo = 'machakann/vim-vimhelplint'
 on_ft = 'help'
-hook_source = '''
-  autocmd MyAutoCmd FileType
-  \ help nnoremap <silent><buffer> ,r  :<C-u>VimhelpLint!<CR>
+[plugins.ftplugin]
+help = '''
+nnoremap <silent><buffer> ,r  :<C-u>VimhelpLint!<CR>
 '''
 
 [[plugins]]
@@ -473,7 +464,8 @@ on_ft = 'rust'
 repo = 'zchee/deoplete-jedi'
 on_ft = 'python'
 hook_source = '''
-let g:deoplete#sources#jedi#enable_typeinfo = 0
+let g:deoplete#sources#jedi#enable_typeinfo = v:false
+let g:deoplete#sources#jedi#ignore_errors = v:true
 '''
 
 [[plugins]]

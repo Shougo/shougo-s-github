@@ -23,6 +23,8 @@ call denite#custom#source('file/rec', 'matchers',
       \ ['matcher/fruzzy'])
 call denite#custom#source('file/old', 'converters',
       \ ['converter/relative_word'])
+call denite#custom#source('buffer', 'matchers',
+      \ ['matcher/fuzzy', 'matcher/ignore_current_buffer'])
 
 call denite#custom#map('insert', "'",
       \ '<denite:move_to_next_line>', 'noremap')
