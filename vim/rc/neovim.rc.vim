@@ -17,8 +17,8 @@ endif
 set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor
 
 " Share the histories
-autocmd MyAutoCmd CursorHold *
-      \if exists(':rshada') | rshada | wshada | endif
+autocmd MyAutoCmd FocusGained *
+      \ if exists(':rshada') | rshada | wshada | endif
 
 autocmd MyAutoCmd FocusGained * checktime
 

@@ -56,10 +56,6 @@ repo = 'jelera/vim-javascript-syntax'
 repo = 'JesseKPhillips/d.vim'
 
 [[plugins]]
-repo = 'nsf/gocode'
-rtp = 'vim'
-
-[[plugins]]
 repo = 'vim-jp/vimdoc-ja'
 
 [[plugins]]

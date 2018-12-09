@@ -135,6 +135,10 @@ autocmd MyAutoCmd InsertLeave *
 " Update diff.
 autocmd MyAutoCmd InsertLeave * if &l:diff | diffupdate | endif
 
+if has('patch-8.1.0360')
+  set diffopt=internal,algorithm:patience,indent-heuristic
+endif
+
 " Make directory automatically.
 " --------------------------------------
 " http://vim-users.jp/2011/02/hack202/

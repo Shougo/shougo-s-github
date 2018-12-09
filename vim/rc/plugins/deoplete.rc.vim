@@ -46,6 +46,8 @@ call deoplete#custom#source('look', 'filetypes', ['help', 'gitcommit'])
 call deoplete#custom#option('ignore_sources', {'_': ['around', 'buffer']})
 
 call deoplete#custom#source('tabnine', 'rank', 500)
+call deoplete#custom#source('tabnine', 'min_pattern_length', 2)
+call deoplete#custom#source('tabnine', 'input_pattern', '[^\w\s]$')
 
 call deoplete#custom#source('zsh', 'filetypes', ['zsh', 'sh'])
 
@@ -69,10 +71,11 @@ call deoplete#custom#option('keyword_patterns', {
 
 " inoremap <silent><expr> <C-t> deoplete#manual_complete('file')
 
+call deoplete#custom#option('async_timeout', 0)
+call deoplete#custom#option('auto_complete_delay', 0)
+call deoplete#custom#option('auto_refresh_delay', 10)
 call deoplete#custom#option('camel_case', v:true)
 call deoplete#custom#option('refresh_always', v:true)
-call deoplete#custom#option('auto_complete_delay', 0)
-call deoplete#custom#option('async_timeout', 100)
 " call deoplete#custom#option('num_processes', 0)
 
 " call deoplete#custom#option('profile', v:true)
