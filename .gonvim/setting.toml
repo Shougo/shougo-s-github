@@ -9,14 +9,14 @@ clipboard = true
 #  Note: If you want to control the font, linespace with the neovim command, you need 'equalsraf/neovim-gui-shim'.
 # fontFamily = "Courier 10 Pitch 14"
 fontsize = 13
-linespace = 10
+linespace = 0
 # Editor cursor blink
 cursorBlink = false
 # Disable IME in Normal mode
 disableIMEinNormal = true
 
 [miniMap]
-visible = true
+visible = false
 
 [scrollBar]
 visible = false

@@ -318,12 +318,12 @@ hook_source = '''
         \   'encoding': 'euc-jp',
         \}
 
-  if $TERM !~# '^rxvt' && has('nvim')
-    " Use <> instead of ▽.
-    let g:eskk#marker_henkan = '<>'
-    " Use >> instead of ▼.
-    let g:eskk#marker_henkan_select = '>>'
-  endif
+  " if $TERM !~# '^rxvt' && has('nvim')
+  "   " Use <> instead of ▽.
+  "   let g:eskk#marker_henkan = '<>'
+  "   " Use >> instead of ▼.
+  "   let g:eskk#marker_henkan_select = '>>'
+  " endif
 
   autocmd MyAutoCmd User eskk-initialize-post
         \ EskkMap -remap jj <ESC>

@@ -253,6 +253,7 @@ alias od='od -Ax -tx1z'
 alias hexdump='hexdump -C'
 
 alias vim='TERM=xterm-256color nvim'
+#alias nvim-qt='nvim-qt --geometry 1800x1200'
 alias gonvim='~/Downloads/gonvim/gonvim.sh'
 alias termite='termite --exec=zsh'
 alias lock='i3exit lock'

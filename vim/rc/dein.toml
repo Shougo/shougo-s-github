@@ -87,8 +87,8 @@ on_if = '!has("nvim")'
 [[plugins]]
 repo = 'https://github.com/roxma/nvim-yarp'
 
-[[plugins]]
-repo = 'Shougo/deoppet.nvim'
+# [[plugins]]
+# repo = 'Shougo/deoppet.nvim'
 
 [[plugins]]
 repo = 'tbodt/deoplete-tabnine'
