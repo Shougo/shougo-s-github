@@ -2,42 +2,11 @@
 # init
 #####################################################################
 
-# zmodload zsh/zprof
+# zmodload zsh/zprof && zprof
 
 if [ ! -f ~/.zshrc.zwc -o ~/.zshrc -nt ~/.zshrc.zwc ]; then
     zcompile ~/.zshrc
 fi
-
-
-#####################################################################
-# zplug
-#####################################################################
-
-# Check if zplug is installed
-[[ -f ~/.zplug/init.zsh ]] || return
-
-unset ZPLUG_SHALLOW
-
-# Essential
-source ~/.zplug/init.zsh
-
-zplug "arzzen/calc.plugin.zsh"
-zplug "rimraf/k"
-zplug "zsh-users/zsh-history-substring-search"
-zplug "zsh-users/zsh-syntax-highlighting"
-
-# Install plugins if there are plugins that have not been installed
-if ! zplug check --verbose; then
-    printf "Install? [y/N]: "
-    if read -q; then
-        echo; zplug install
-    else
-        echo
-    fi
-fi
-
-# Then, source plugins and add commands to $PATH
-zplug load
 
 
 #####################################################################
@@ -100,9 +69,6 @@ if [ ! -f ~/.zcompdump -o ~/.zshrc -nt ~/.zcompdump ]; then
     compinit -d ~/.zcompdump
 fi
 
-# Original complete functions
-compdef _tex platex
-
 # cd search path
 cdpath=($HOME)
 
@@ -149,6 +115,9 @@ fi
 PROMPT2="%_%% "
 # Spell miss prompt
 SPROMPT="correct> %R -> %r [n,y,a,e]? "
+
+# Syntax highlight
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 
 #####################################################################
@@ -255,7 +224,6 @@ alias hexdump='hexdump -C'
 alias vim='TERM=xterm-256color nvim'
 #alias nvim-qt='nvim-qt --geometry 1800x1200'
 alias gonvim='~/Downloads/gonvim/gonvim.sh'
-alias termite='termite --exec=zsh'
 alias lock='i3exit lock'
 
 
@@ -267,32 +235,14 @@ alias lock='i3exit lock'
 bindkey -e
 
 # History completion
-# autoload history-search-end
-# zle -N history-beginning-search-backward-end history-search-end
-# zle -N history-beginning-search-forward-end history-search-end
-# bindkey "^p" history-beginning-search-backward-end
-# bindkey "^n" history-beginning-search-forward-end
-bindkey -M emacs '^P' history-substring-search-up
-bindkey -M emacs '^N' history-substring-search-down
+autoload history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+bindkey "^p" history-beginning-search-backward-end
+bindkey "^n" history-beginning-search-forward-end
 
 # Like bash
 bindkey "^u" backward-kill-line
-
-
-#####################################################################
-# functions
-######################################################################
-
-r() {
-    source ~/.zshrc
-    if [ -d ~/.zsh/comp ]; then
-        # Reload complete functions
-        local f
-        f=(~/.zsh/comp/*(.))
-        unfunction $f:t 2> /dev/null
-        autoload -U $f:t
-    fi
-}
 
 
 #####################################################################
@@ -323,3 +273,7 @@ zmodload zsh/mathfunc
 # C-\ is detach
 # dtach command, dtach -A command, dtach -a session
 # adbuco -c session,abduco -c session command, abduco -a command
+
+if ( which zprof > /dev/null ); then
+    zprof | less
+fi
