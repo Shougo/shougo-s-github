@@ -71,6 +71,9 @@ autocmd MyAutoCmd BufWritePost,FileWritePost *.vim nested
 \ if &l:autoread > 0 | source <afile> |
 \   echo 'source ' . bufname('%') |
 \ endif
+
+autocmd MyAutoCmd BufRead,BufNewFile *.xonshrc setfiletype python
+autocmd MyAutoCmd BufRead,BufNewFile *.xsh setfiletype python
 '''
 
 [ftplugin]

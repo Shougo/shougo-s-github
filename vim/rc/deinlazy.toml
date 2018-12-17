@@ -176,13 +176,17 @@ let g:vimfiler_marked_file_icon = '✓'
 repo = 'Shougo/deol.nvim'
 depends = 'denite.nvim'
 hook_add = '''
+  " nnoremap <silent> N :<C-u>call deol#new({
+  "  \ 'command': 'zsh', 'edit': v:true})<CR>
+  " nnoremap <silent> [Space]s :<C-u>Deol zsh -edit<CR>
   nnoremap <silent> N :<C-u>call deol#new({
-    \ 'command': 'zsh', 'edit': v:true})<CR>
-  nnoremap <silent> [Space]s :<C-u>Deol zsh -edit<CR>
+   \ 'command': 'xonsh', 'edit': v:true})<CR>
+  nnoremap <silent> [Space]s :<C-u>Deol xonsh -edit<CR>
   nnoremap <silent> [Window]D  :<C-u>call deol#kill_editor()<CR>
 '''
 hook_source = '''
-  let g:deol#prompt_pattern = '\w*%'
+  " let g:deol#prompt_pattern = '\w*%'
+  let g:deol#prompt_pattern = '%'
 
   " Set to $PATH.
   let s:bin = dein#get('vim-themis').rtp . '/bin'
