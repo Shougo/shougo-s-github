@@ -378,17 +378,6 @@ hook_add = '''
 repo = 'katono/rogue.vim'
 
 [[plugins]]
-repo = 'rust-lang/rust.vim'
-on_ft = 'rust'
-hook_source = '''
-let g:rustfmt_autosave = 1
-'''
-
-[[plugins]]
-repo = 'rhysd/rust-doc.vim'
-on_ft = 'rust'
-
-[[plugins]]
 repo = 'lambdalisue/vim-findent'
 
 [[plugins]]
@@ -420,7 +409,7 @@ on_source = 'denite.nvim'
 
 [[plugins]]
 repo = 'rhysd/vim-gfm-syntax'
-on_event = 'BufRead'
+on_ft = 'markdown'
 
 [[plugins]]
 repo = 'machakann/vim-vimhelplint'
@@ -450,7 +439,5 @@ on_path = 'suda://'
 [[plugins]]
 repo = 'raghur/fruzzy'
 on_source = ['denite.nvim']
-hook_source = '''
-let g:fruzzy#sortonempty = 0
-'''
+hook_source = 'let g:fruzzy#sortonempty = 0'
 hook_post_update = 'call fruzzy#install()'

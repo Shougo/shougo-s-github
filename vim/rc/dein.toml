@@ -2,22 +2,10 @@
 repo = 'Shougo/dein.vim'
 
 [[plugins]]
-repo = 'hail2u/vim-css3-syntax'
-
-[[plugins]]
-repo = 'kana/vim-filetype-haskell'
-
-[[plugins]]
-repo = 'mxw/vim-jsx'
-
-[[plugins]]
-repo = 'itchyny/vim-haskell-indent'
-
-[[plugins]]
-repo = 'udalov/kotlin-vim'
-
-[[plugins]]
-repo = 'jiangmiao/simple-javascript-indenter'
+repo = 'sheerun/vim-polyglot'
+hook_add = '''
+let g:polyglot_disabled = ['markdown']
+'''
 
 [[plugins]]
 repo = 'thinca/vim-ft-diff_fold'
@@ -26,22 +14,10 @@ repo = 'thinca/vim-ft-diff_fold'
 repo = 'thinca/vim-ft-help_fold'
 
 [[plugins]]
-repo = 'vim-jp/cpp-vim'
-
-[[plugins]]
-repo = 'cespare/vim-toml'
-
-[[plugins]]
-repo = 'elzr/vim-json'
-
-[[plugins]]
 repo = 'vim-jp/autofmt'
 
 [[plugins]]
 repo = 'kana/vim-textobj-user'
-
-[[plugins]]
-repo = 'hynek/vim-python-pep8-indent'
 
 [[plugins]]
 repo = 'kana/vim-operator-user'
@@ -50,16 +26,10 @@ repo = 'kana/vim-operator-user'
 repo = 'rcmdnk/vim-markdown'
 
 [[plugins]]
-repo = 'jelera/vim-javascript-syntax'
-
-[[plugins]]
 repo = 'JesseKPhillips/d.vim'
 
 [[plugins]]
 repo = 'vim-jp/vimdoc-ja'
-
-[[plugins]]
-repo = 'kballard/vim-fish'
 
 [[plugins]]
 repo = 'thinca/vim-themis'
@@ -72,9 +42,6 @@ repo = 'nixprime/cpsm'
 build = 'sh -c "PY3=ON ./install.sh"'
 
 [[plugins]]
-repo = 'leafgarland/typescript-vim'
-
-[[plugins]]
 repo = 'Shirk/vim-gas'
 
 [[plugins]]
@@ -85,7 +52,7 @@ repo = 'roxma/vim-hug-neovim-rpc'
 on_if = '!has("nvim")'
 
 [[plugins]]
-repo = 'https://github.com/roxma/nvim-yarp'
+repo = 'roxma/nvim-yarp'
 
 # [[plugins]]
 # repo = 'Shougo/deoppet.nvim'

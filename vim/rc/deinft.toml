@@ -77,7 +77,8 @@ autocmd MyAutoCmd BufWritePost,FileWritePost *.vim nested
 
 _ = '''
   " Disable automatically insert comment.
-  setl formatoptions-=ro
+  setl formatoptions-=r
+  setl formatoptions-=o
   setl formatoptions+=mMBl
 
   " Disable auto wrap.
