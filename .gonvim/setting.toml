@@ -4,10 +4,10 @@ width = 1600
 # Editor minimum height (>= 600)
 height = 1024
 # Editor font-family, font-size, linespace.
-FontFamily = "Monospace"
-# FontFamily = "Courier 10 Pitch 14"
-FontSize = 13
-Linespace = 5
+# FontFamily = "Monospace"
+FontFamily = "Courier 10 Pitch"
+FontSize = 15
+Linespace = 0
 # Gonvim copy the yank text to clipboad
 Clipboard = false
 # Editor cursor blink
