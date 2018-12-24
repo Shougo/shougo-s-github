@@ -26,7 +26,7 @@ inoremap <silent><expr><C-l>       deoplete#complete_common_string()
 " <CR>: close popup and save indent.
 inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
 function! s:my_cr_function() abort
-  return pumvisible() ? deoplete#close_popup() . "\<CR>"
+  return pumvisible() ? deoplete#close_popup() : "\<CR>"
 endfunction
 
 " cpsm test
@@ -78,3 +78,11 @@ call deoplete#custom#option('refresh_always', v:true)
 " call deoplete#custom#option('profile', v:true)
 " call deoplete#enable_logging('DEBUG', 'deoplete.log')
 " call deoplete#custom#source('clang', 'debug_enabled', 1)
+
+call deoplete#custom#option('candidate_marks',
+      \ ['A', 'S', 'D', 'F', 'G'])
+inoremap <expr>A       deoplete#insert_candidate(0)
+inoremap <expr>S       deoplete#insert_candidate(1)
+inoremap <expr>D       deoplete#insert_candidate(2)
+inoremap <expr>F       deoplete#insert_candidate(3)
+inoremap <expr>G       deoplete#insert_candidate(4)
