@@ -274,9 +274,6 @@ let g:did_install_default_menus = 1
 
 " Completion setting.
 set completeopt=menuone
-if has('patch-7.4.775')
-  set completeopt+=noinsert
-endif
 " Don't complete from other buffer.
 set complete=.
 " Set popup menu max height.

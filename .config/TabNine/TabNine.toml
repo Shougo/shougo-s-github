@@ -18,3 +18,7 @@ command = "solargraph"
 args = ["stdio"]
 install = [["gem", "install", "solargraph"]]
 
+[language.go]
+command = "/home/shougo/bin/bingo"
+args = ["-mode", "stdio"]
+install = [["go", "get", "-u", "github.com/saibing/bingo"]]
