@@ -18,7 +18,6 @@ DisableImeInNormal = false
 GinitVim = '''
 set guifontwide=VL\ Gothic\ 13
 set guifont=Courier\ 10\ Pitch\ 14
-autocmd! BufEnter
 '''
 # start fullscreen
 StartFullscreen = false

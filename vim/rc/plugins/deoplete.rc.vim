@@ -38,9 +38,9 @@ call deoplete#custom#source('eskk,tabnine', 'matchers', [])
 " call deoplete#custom#source('buffer', 'mark', '*')
 
 call deoplete#custom#source('look', 'filetypes', ['help', 'gitcommit'])
-call deoplete#custom#option('ignore_sources', {'_': ['around', 'buffer']})
+call deoplete#custom#option('ignore_sources', {'_': ['around', 'buffer', 'tag']})
 
-call deoplete#custom#source('tabnine', 'rank', 500)
+call deoplete#custom#source('tabnine', 'rank', 300)
 call deoplete#custom#source('tabnine', 'min_pattern_length', 2)
 
 call deoplete#custom#source('zsh', 'filetypes', ['zsh', 'sh'])
@@ -56,6 +56,7 @@ call deoplete#custom#source('_', 'converters', [
 call deoplete#custom#source('tabnine', 'converters', [
       \ 'converter_remove_overlap',
       \ ])
+call deoplete#custom#source('eskk', 'converters', [])
 
 " call deoplete#custom#source('buffer', 'min_pattern_length', 9999)
 " call deoplete#custom#source('clang', 'input_pattern', '\.\w*|\.->\w*|\w+::\w*')

@@ -75,15 +75,6 @@ nnoremap <silent> [Window]o  :<C-u>only<CR>
 nnoremap <silent> <Tab>      :wincmd w<CR>
 nnoremap <silent><expr> q winnr('$') != 1 ? ':<C-u>close<CR>' : ""
 
-" e: Change basic commands
-" The prefix key.
-nnoremap [Alt]   <Nop>
-nmap    S  [Alt]
-
-" Indent paste.
-nnoremap <silent> [Alt]p o<Esc>pm``[=`]``^
-nnoremap <silent> [Alt]P O<Esc>Pm``[=`]``^
-
 " Better x
 nnoremap x "_x
 

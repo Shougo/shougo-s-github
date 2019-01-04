@@ -17,6 +17,13 @@ hook_add = '''
 nnoremap <silent>   [Space]f
 \ :<C-u>Defx -listed -resume -buffer-name=tab`tabpagenr()`<CR>
 '''
+hook_source = '''
+call defx#custom#column('mark', {
+      \ 'directory_icon': '▾',
+      \ 'readonly_icon': '✗',
+      \ 'selected_icon': '✓',
+      \ })
+'''
 [plugins.ftplugin]
 defx = '''
 " Define mappings
@@ -42,6 +49,10 @@ nnoremap <silent><buffer><expr> N
 \ defx#do_action('new_file')
 nnoremap <silent><buffer><expr> M
 \ defx#do_action('new_multiple_files')
+nnoremap <silent><buffer><expr> C
+\ defx#do_action('toggle_columns', 'mark:filename:type:size:time')
+nnoremap <silent><buffer><expr> S
+\ defx#do_action('toggle_sort', 'Time')
 nnoremap <silent><buffer><expr> d
 \ defx#do_action('remove_trash')
 nnoremap <silent><buffer><expr> r
@@ -227,9 +238,6 @@ nnoremap <buffer><silent> [Space]gc
 nnoremap <buffer><silent> [Space]gA
 \ :<C-u>call deol#send('git commit --amend')<CR>
 '''
-
-[[plugins]]
-repo = 'equalsraf/neovim-gui-shim'
 
 [[plugins]]
 repo = 'Shougo/junkfile.vim'
