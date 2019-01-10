@@ -19,7 +19,7 @@ nnoremap <silent>   [Space]f
 '''
 hook_source = '''
 call defx#custom#column('mark', {
-      \ 'directory_icon': '▾',
+      \ 'directory_icon': '▸',
       \ 'readonly_icon': '✗',
       \ 'selected_icon': '✓',
       \ })
@@ -162,28 +162,6 @@ hook_add = '''
 
 [[plugins]]
 repo = 'Shougo/context_filetype.vim'
-
-[[plugins]]
-repo = 'Shougo/unite.vim'
-
-[[plugins]]
-repo = 'Shougo/vimfiler.vim'
-depends = 'unite.vim'
-hook_source = '''
-call vimfiler#custom#profile('default', 'context', {
-      \ 'safe' : 0,
-      \ 'auto_expand' : 1,
-      \ 'parent' : 0,
-      \ })
-
-" Like Textmate icons.
-let g:vimfiler_tree_leaf_icon = ' '
-let g:vimfiler_tree_opened_icon = '▾'
-let g:vimfiler_tree_closed_icon = '▸'
-let g:vimfiler_file_icon = ' '
-let g:vimfiler_readonly_file_icon = '✗'
-let g:vimfiler_marked_file_icon = '✓'
-'''
 
 [[plugins]]
 repo = 'Shougo/deol.nvim'
@@ -374,6 +352,14 @@ hook_add = '''
   nmap <silent>sd <Plug>(operator-surround-delete)a
   nmap <silent>sr <Plug>(operator-surround-replace)a
   nmap <silent>sc <Plug>(operator-surround-replace)a
+'''
+
+[[plugins]]
+repo = 'kana/vim-operator-replace'
+depends = 'vim-operator-user'
+on_map = {n = '<Plug>'}
+hook_add = '''
+  map R <Plug>(operator-replace)
 '''
 
 [[plugins]]

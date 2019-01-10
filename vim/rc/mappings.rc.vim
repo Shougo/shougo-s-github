@@ -143,13 +143,12 @@ command! -range -nargs=1 AddNumbers
 
 nnoremap <silent> #    <C-^>
 
-" Change selected word and repeatable
-vnoremap <expr> cn "y/\\V\<C-r>=escape(@\", '/')\<CR>\<CR>" . "``cgn"
-vnoremap <expr> cN "y/\\V\<C-r>=escape(@\", '/')\<CR>\<CR>" . "``cgN"
-
 if exists(':tnoremap')
   tnoremap   <ESC>      <C-\><C-n>
   tnoremap   jj         <C-\><C-n>
   tnoremap   j<Space>   j
   tnoremap <expr> ;  vimrc#sticky_func()
 endif
+
+" Wordcount
+command! WordCount echo strchars(join(getline(1, '$')))
