@@ -69,12 +69,12 @@ call deoplete#custom#option('keyword_patterns', {
 
 " inoremap <silent><expr> <C-t> deoplete#manual_complete('file')
 
-call deoplete#custom#option('async_timeout', 0)
-call deoplete#custom#option('auto_complete_delay', 0)
-call deoplete#custom#option('auto_refresh_delay', 10)
-call deoplete#custom#option('camel_case', v:true)
-call deoplete#custom#option('refresh_always', v:true)
-call deoplete#custom#option('skip_multibyte', v:true)
+call deoplete#custom#option({
+      \ 'auto_refresh_delay': 10,
+      \ 'camel_case': v:true,
+      \ 'skip_multibyte': v:true,
+      \ 'prev_completion_mode': 'mirror',
+      \ })
 " call deoplete#custom#option('num_processes', 0)
 
 " call deoplete#custom#option('profile', v:true)
