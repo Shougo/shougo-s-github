@@ -91,9 +91,6 @@ nnoremap <silent><buffer><expr> <Tab> winnr('$') != 1 ?
 '''
 
 [[plugins]]
-repo = 'Shougo/neco-syntax'
-
-[[plugins]]
 repo = 'Shougo/neosnippet.vim'
 depends = ['neosnippet-snippets', 'context_filetype.vim']
 on_event = 'InsertCharPre'
@@ -167,12 +164,9 @@ repo = 'Shougo/context_filetype.vim'
 repo = 'Shougo/deol.nvim'
 depends = 'denite.nvim'
 hook_add = '''
-  " nnoremap <silent> N :<C-u>call deol#new({
-  "  \ 'command': 'zsh', 'edit': v:true})<CR>
   " nnoremap <silent> [Space]s :<C-u>Deol zsh -edit<CR>
-  nnoremap <silent> N :<C-u>call deol#new({
-   \ 'command': 'xonsh', 'edit': v:true})<CR>
-  nnoremap <silent> [Space]s :<C-u>Deol xonsh -edit<CR>
+  nnoremap <silent> N :<C-u>call deol#new({'command': 'xonsh'})<CR>
+  nnoremap <silent> [Space]s :<C-u>Deol xonsh<CR>
   nnoremap <silent> [Window]D  :<C-u>call deol#kill_editor()<CR>
 '''
 hook_source = '''
@@ -227,9 +221,6 @@ hook_add = '''
 [[plugins]]
 repo = 'Shougo/neco-vim'
 on_ft = 'vim'
-
-[[plugins]]
-repo = 'Shougo/neoinclude.vim'
 
 [[plugins]]
 repo = 'Shougo/vinarise.vim'
@@ -374,8 +365,8 @@ hook_add = '''
   nmap J <Plug>(jplus)
 '''
 
-[[plugins]]
-repo = 'katono/rogue.vim'
+# [[plugins]]
+# repo = 'katono/rogue.vim'
 
 [[plugins]]
 repo = 'lambdalisue/vim-findent'

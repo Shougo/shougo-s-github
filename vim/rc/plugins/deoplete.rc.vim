@@ -31,7 +31,8 @@ endfunction
 
 call deoplete#custom#source('_', 'matchers',
       \ ['matcher_fuzzy', 'matcher_length'])
-call deoplete#custom#source('eskk,tabnine', 'matchers', [])
+" call deoplete#custom#source('eskk,tabnine', 'matchers', [])
+call deoplete#custom#source('eskk', 'matchers', [])
 " call deoplete#custom#source('buffer', 'mark', '')
 " call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy'])
 " call deoplete#custom#source('_', 'disabled_syntaxes', ['Comment', 'String'])
@@ -42,6 +43,7 @@ call deoplete#custom#option('ignore_sources', {'_': ['around', 'buffer', 'tag']}
 
 call deoplete#custom#source('tabnine', 'rank', 300)
 call deoplete#custom#source('tabnine', 'min_pattern_length', 2)
+call deoplete#custom#source('tabnine', 'is_volatile', v:false)
 
 call deoplete#custom#source('zsh', 'filetypes', ['zsh', 'sh'])
 
@@ -73,7 +75,7 @@ call deoplete#custom#option({
       \ 'auto_refresh_delay': 10,
       \ 'camel_case': v:true,
       \ 'skip_multibyte': v:true,
-      \ 'prev_completion_mode': 'mirror',
+      \ 'prev_completion_mode': 'length',
       \ })
 " call deoplete#custom#option('num_processes', 0)
 
