@@ -187,7 +187,7 @@ set laststatus=2
 " Height of command line.
 set cmdheight=2
 " Not show command on statusline.
-set noshowcmd
+" set noshowcmd
 " Show title.
 set title
 " Title length.
