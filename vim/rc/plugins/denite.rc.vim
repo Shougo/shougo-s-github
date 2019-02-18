@@ -59,9 +59,3 @@ call denite#custom#var('menu', 'menus', s:menus)
 call denite#custom#filter('matcher/ignore_globs', 'ignore_globs',
       \ [ '.git/', '.ropeproject/', '__pycache__/',
       \   'venv/', 'images/', '*.min.*', 'img/', 'fonts/'])
-
-call denite#custom#action('file', 'test',
-      \ {context -> execute('let g:foo = 1')})
-
-call denite#custom#action('file', 'test2',
-      \ {context -> denite#do_action(context, 'open', context['targets'])})
