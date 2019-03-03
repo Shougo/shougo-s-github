@@ -46,6 +46,8 @@ call denite#custom#option('default', {
       \ 'prompt': '>',
       \ 'source_names': 'short',
       \ })
+      "\ 'split': 'floating',
+      "\ })
 
 let s:menus = {}
 let s:menus.vim = {

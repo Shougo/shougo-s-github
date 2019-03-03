@@ -9,5 +9,5 @@ if exists('g:GtkGuiLoaded')
   call rpcnotify(1, 'Gui', 'Option', 'Cmdline', 1)
 
   " Enable transparency
-  NGTransparency .8
+  NGTransparency 1.0
 endif
