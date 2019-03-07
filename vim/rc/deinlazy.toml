@@ -46,7 +46,9 @@ nnoremap <silent><buffer><expr> E
 nnoremap <silent><buffer><expr> P
 \ defx#do_action('open', 'pedit')
 nnoremap <silent><buffer><expr> o
-\ defx#async_action('open_tree')
+\ defx#async_action('open_or_close_tree')
+nnoremap <silent><buffer><expr> O
+\ defx#async_action('open_tree_recursive')
 nnoremap <silent><buffer><expr> K
 \ defx#do_action('new_directory')
 nnoremap <silent><buffer><expr> N
@@ -166,7 +168,7 @@ repo = 'Shougo/context_filetype.vim'
 
 [[plugins]]
 repo = 'Shougo/deol.nvim'
-depends = 'denite.nvim'
+on_source = 'denite.nvim'
 hook_add = '''
   " nnoremap <silent> [Space]s :<C-u>Deol zsh -edit<CR>
   nnoremap <silent> N :<C-u>call deol#new({'command': 'xonsh'})<CR>
@@ -440,3 +442,6 @@ hook_post_update = 'call fruzzy#install()'
 [[plugins]]
 repo = 'fatih/vim-go'
 on_ft = 'go'
+hook_source = '''
+let g:go_def_mapping_enabled = 0
+'''
