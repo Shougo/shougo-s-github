@@ -44,7 +44,7 @@ call deoplete#custom#option('ignore_sources',
 
 call deoplete#custom#source('tabnine', 'rank', 300)
 call deoplete#custom#source('tabnine', 'min_pattern_length', 2)
-call deoplete#custom#source('tabnine', 'is_volatile', v:false)
+" call deoplete#custom#source('tabnine', 'is_volatile', v:false)
 
 call deoplete#custom#source('zsh', 'filetypes', ['zsh', 'sh'])
 

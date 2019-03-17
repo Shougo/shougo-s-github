@@ -253,15 +253,22 @@ set t_vb=
 set novisualbell
 set belloff=all
 
-" Display candidate supplement.
-set nowildmenu
-set wildmode=list:longest,full
+if has('nvim')
+  " Display candidates by popup menu.
+  set wildmenu
+  set wildmode=full
+  set wildoptions+=pum
+else
+  " Display candidates by list.
+  set nowildmenu
+  set wildmode=list:longest,full
+endif
 " Increase history amount.
 set history=1000
 " Display all the information of the tag by the supplement of the Insert mode.
 set showfulltag
 " Can supplement a tag in a command-line.
-set wildoptions=tagfile
+set wildoptions+=tagfile
 
 if has('nvim')
   set shada=!,'300,<50,s10,h

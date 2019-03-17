@@ -19,6 +19,6 @@ args = ["stdio"]
 install = [["gem", "install", "solargraph"]]
 
 [language.go]
-command = "/home/shougo/bin/bingo"
-args = ["-mode", "stdio"]
-install = [["go", "get", "-u", "github.com/saibing/bingo"]]
+command = "gopls"
+args = ["serve"]
+install = [["go", "get", "-u", "golang.org/x/tools/cmd/gopls"]]
