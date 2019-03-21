@@ -453,3 +453,12 @@ on_ft = 'go'
 hook_source = '''
 let g:go_def_mapping_enabled = 0
 '''
+
+[[plugins]]
+repo = 'ncm2/float-preview.nvim'
+on_source = 'deoplete.nvim'
+hook_source = '''
+let g:float_preview#docked = 0
+let g:float_preview#max_width = 60
+let g:float_preview#max_height = 20
+'''

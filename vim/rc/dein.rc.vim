@@ -10,11 +10,17 @@ if !dein#load_state(s:path)
   finish
 endif
 
-call dein#begin(s:path, expand('<sfile>'))
+let s:dein_toml = '~/.vim/rc/dein.toml'
+let s:dein_lazy_toml = '~/.vim/rc/deinlazy.toml'
+let s:dein_ft_toml = '~/.vim/rc/deinft.toml'
 
-call dein#load_toml('~/.vim/rc/dein.toml', {'lazy': 0})
-call dein#load_toml('~/.vim/rc/deinlazy.toml', {'lazy' : 1})
-call dein#load_toml('~/.vim/rc/deinft.toml')
+call dein#begin(s:path, [
+      \ expand('<sfile>'), s:dein_toml, s:dein_lazy_toml, s:dein_ft_toml
+      \ ])
+
+call dein#load_toml(s:dein_toml, {'lazy': 0})
+call dein#load_toml(s:dein_lazy_toml, {'lazy' : 1})
+call dein#load_toml(s:dein_ft_toml)
 
 let s:vimrc_local = findfile('vimrc_local.vim', '.;')
 if s:vimrc_local !=# ''

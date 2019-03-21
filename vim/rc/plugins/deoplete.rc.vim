@@ -53,11 +53,13 @@ call deoplete#custom#source('_', 'converters', [
       \ 'converter_remove_overlap',
       \ 'matcher_length',
       \ 'converter_truncate_abbr',
+      \ 'converter_truncate_info',
       \ 'converter_truncate_menu',
       \ 'converter_auto_delimiter',
       \ ])
 call deoplete#custom#source('tabnine', 'converters', [
       \ 'converter_remove_overlap',
+      \ 'converter_truncate_info',
       \ ])
 call deoplete#custom#source('eskk', 'converters', [])
 
@@ -77,6 +79,7 @@ call deoplete#custom#option({
       \ 'camel_case': v:true,
       \ 'skip_multibyte': v:true,
       \ 'prev_completion_mode': 'length',
+      \ 'auto_preview': v:true,
       \ })
 " call deoplete#custom#option('num_processes', 0)
 
