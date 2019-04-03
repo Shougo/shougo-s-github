@@ -45,9 +45,8 @@ call denite#custom#option('default', {
       \ 'auto_accel': v:true,
       \ 'prompt': '>',
       \ 'source_names': 'short',
+      \ 'split': 'floating',
       \ })
-      "\ 'split': 'floating',
-      "\ })
 
 let s:menus = {}
 let s:menus.vim = {
