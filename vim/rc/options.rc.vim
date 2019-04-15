@@ -195,10 +195,7 @@ set titlelen=95
 " Title string.
 let &g:titlestring="
       \ %{expand('%:p:~:.')}%(%m%r%w%)
-      \ %<\(%{WidthPart(
-      \ fnamemodify(&filetype ==# 'vimfiler' ?
-      \ substitute(b:vimfiler.current_dir, '.\\zs/$', '', '') : getcwd(), ':~'),
-      \ &columns-len(expand('%:p:.:~')))}\) - VIM"
+      \ %<\(%{fnamemodify(getcwd(), ':~')}\) - VIM"
 " Disable tabline.
 set showtabline=0
 
@@ -316,21 +313,6 @@ set ttyfast
 set display=lastline
 " Display an invisible letter with hex format.
 "set display+=uhex
-
-function! WidthPart(str, width) abort
-  if a:width <= 0
-    return ''
-  endif
-  let ret = a:str
-  let width = strwidth(a:str)
-  while width > a:width
-    let char = matchstr(ret, '.$')
-    let ret = ret[: -1 - len(char)]
-    let width -= strwidth(char)
-  endwhile
-
-  return ret
-endfunction
 
 " For conceal.
 set conceallevel=2 concealcursor=niv

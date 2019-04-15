@@ -11,3 +11,6 @@ if exists('g:GtkGuiLoaded')
   " Enable transparency
   NGTransparency 1.0
 endif
+
+" For gonvim
+set pumblend=30

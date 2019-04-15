@@ -225,7 +225,7 @@ alias hexdump='hexdump -C'
 
 alias vim='TERM=xterm-256color nvim'
 #alias nvim-qt='nvim-qt --geometry 1800x1200'
-alias gonvim='~/Downloads/gonvim/gonvim.sh &>/dev/null &'
+alias gonvim='~/Downloads/gonvim/gonvim &>/dev/null &'
 alias lock='i3exit lock'
 
 

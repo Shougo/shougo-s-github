@@ -22,7 +22,7 @@ call defx#custom#column('mark', {
         \ 'readonly_icon': '✗',
         \ 'selected_icon': '✓',
         \ })
-call defx#custom#column('filename', {
+call defx#custom#column('icon', {
         \ 'directory_icon': '▸',
         \ 'opened_icon': '▾',
         \ 'root_icon': ' ',
@@ -165,6 +165,7 @@ hook_add = '''
   nnoremap <silent> <C-t> :<C-u>Denite
         \ -select=`tabpagenr()-1` -mode=normal deol:zsh<CR>
   nnoremap <silent> <C-k> :<C-u>Denite -mode=normal change jump<CR>
+  nnoremap <silent> <C-h> :<C-u>DeniteCursorWord help<CR>
 
   nnoremap <silent> [Space]gs :<C-u>Denite gitstatus<CR>
   nnoremap <silent> ;;
@@ -454,12 +455,12 @@ hook_source = '''
 let g:go_def_mapping_enabled = 0
 '''
 
-# [[plugins]]
-# repo = 'ncm2/float-preview.nvim'
-# on_source = 'deoplete.nvim'
-# if = 'has("nvim")'
-# hook_source = '''
-# let g:float_preview#docked = 0
-# let g:float_preview#max_width = 60
-# let g:float_preview#max_height = 20
-# '''
+[[plugins]]
+repo = 'ncm2/float-preview.nvim'
+on_source = 'deoplete.nvim'
+if = 'has("nvim")'
+hook_source = '''
+let g:float_preview#docked = 0
+let g:float_preview#max_width = 60
+let g:float_preview#max_height = 20
+'''
