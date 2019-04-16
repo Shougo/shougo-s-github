@@ -39,8 +39,7 @@ call deoplete#custom#source('eskk', 'matchers', [])
 " call deoplete#custom#source('buffer', 'mark', '*')
 
 call deoplete#custom#source('look', 'filetypes', ['help', 'gitcommit'])
-call deoplete#custom#option('ignore_sources',
-      \ {'_': ['around', 'buffer', 'tag', 'dictionary']})
+call deoplete#custom#option('ignore_sources', {'_': ['around', 'buffer']})
 
 call deoplete#custom#source('tabnine', 'rank', 300)
 call deoplete#custom#source('tabnine', 'min_pattern_length', 2)
