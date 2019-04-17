@@ -1,13 +1,18 @@
 [Editor]
 # Editor minimum width (>= 800)
-width = 1600
+Width = 1600
 # Editor minimum height (>= 600)
-height = 1024
+Height = 1024
 # Editor font-family, font-size, linespace.
 # FontFamily = "Monospace"
 FontFamily = "Courier 10 Pitch"
 FontSize = 15
 Linespace = 0
+# neovim extend feature
+ExtCmdline = false
+ExtWildmenu = true
+ExtPopupmenu = true
+ExtTabline  = true
 # Gonvim copy the yank text to clipboad
 Clipboard = false
 # Editor cursor blink
@@ -16,8 +21,6 @@ CursorBlink = false
 DisableImeInNormal = false
 # load vimscript after setting of g:gonvim_running=1
 GinitVim = '''
-"set guifontwide=VL\ Gothic\ 13
-"set guifont=Courier\ 10\ Pitch\ 14
 '''
 # start fullscreen
 StartFullscreen = false
@@ -33,6 +36,9 @@ InsertModeColor = "#2abcb4"
 ReplaceModeColor = "#ff8c0a"
 VisualModeColor = "#9932cc"
 TerminalModeColor = "#778899"
+# Statusline component
+# Left = [ "mode", "filepath", "filename" ]
+# Right = [ "message", "git", "filetype", "fileformat", "fileencoding", "curpos", "lint" ]
 
 [Tabline]
 Visible = false
@@ -63,3 +69,5 @@ AccentColor = "#5596ea"
 PathStyle = "minimum"
 # Restore session-information that was ended without being saved
 RestoreSession = false
+# File open command in gonvim file explorer
+FileExplorerOpenCmd = ":tabnew"

@@ -14,7 +14,9 @@ if exists('&inccommand')
 endif
 
 if exists('&pumblend')
-  set pumblend=20
+  " set pumblend=20
+  " For gonvim
+  autocmd MyAutoCmd InsertEnter * set pumblend=20
 endif
 
 " Use cursor shape feature
