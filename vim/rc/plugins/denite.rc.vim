@@ -24,17 +24,6 @@ call denite#custom#source('file/rec', 'matchers',
 call denite#custom#source('file/old', 'converters',
       \ ['converter/relative_word'])
 
-call denite#custom#map('insert', "'",
-      \ '<denite:move_to_next_line>', 'noremap')
-call denite#custom#map('normal', 'r',
-      \ '<denite:do_action:quickfix>', 'noremap')
-call denite#custom#map('insert', '<BS>',
-      \ '<denite:smart_delete_char_before_caret>', 'noremap')
-call denite#custom#map('insert', '<C-h>',
-      \ '<denite:smart_delete_char_before_caret>', 'noremap')
-call denite#custom#map('insert', ';',
-      \ 'vimrc#sticky_func()', 'expr')
-
 call denite#custom#alias('source', 'file/rec/git', 'file/rec')
 call denite#custom#var('file/rec/git', 'command',
       \ ['git', 'ls-files', '-co', '--exclude-standard'])
