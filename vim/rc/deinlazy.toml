@@ -140,10 +140,13 @@ hook_add = '''
 
   nnoremap <silent> [Window]<Space>
         \ :<C-u>Denite file/rec:~/.vim/rc<CR>
-  nnoremap <silent> / :<C-u>Denite -buffer-name=search -auto-highlight
-        \ -start-filter line<CR>
-  nnoremap <silent> * :<C-u>DeniteCursorWord -buffer-name=search
-        \ -auto-highlight line<CR>
+  nnoremap <expr> / line('$') > 10000 ? '/' :
+  \ ":\<C-u>Denite -buffer-name=search -auto-highlight
+  \  -start-filter line\<CR>"
+  nnoremap <expr> n line('$') > 10000 ? 'n' :
+  \ ":\<C-u>Denite -buffer-name=search -resume -refresh -no-start-filter\<CR>"
+  nnoremap <expr> * line('$') > 10000 ? '*' :
+  \ ":\<C-u>DeniteCursorWord -buffer-name=search -auto-highlight line\<CR>"
   nnoremap <silent> [Window]s :<C-u>Denite file/point file/old
         \ -sorters=sorter/rank
         \ `finddir('.git', ';') != '' ? 'file/rec/git' : 'file/rec'`
@@ -159,8 +162,6 @@ hook_add = '''
   nnoremap <silent> [Window]g :<C-u>Denite ghq<CR>
   nnoremap <silent> ;g :<C-u>Denite -buffer-name=search
         \ -no-empty grep<CR>
-  nnoremap <silent> n :<C-u>Denite -buffer-name=search
-        \ -resume -refresh -no-start-filter<CR>
   nnoremap <silent> ft :<C-u>Denite filetype<CR>
   nnoremap <silent> <C-t> :<C-u>Denite
         \ -select=`tabpagenr()-1` deol:zsh<CR>
