@@ -109,7 +109,7 @@ set isfname-==
 set timeout timeoutlen=3000 ttimeoutlen=100
 
 " CursorHold time.
-set updatetime=1000
+set updatetime=100
 
 " Set swap directory.
 set directory-=.
@@ -123,9 +123,6 @@ set virtualedit=block
 
 " Set keyword help.
 set keywordprg=:help
-
-" Check timestamp more for 'autoread'.
-autocmd MyAutoCmd WinEnter * checktime
 
 " Disable paste.
 autocmd MyAutoCmd InsertLeave *
