@@ -163,7 +163,7 @@ hook_add = '''
         \ -no-empty grep<CR>
   nnoremap <silent> ft :<C-u>Denite filetype<CR>
   nnoremap <silent> <C-t> :<C-u>Denite
-        \ -select=`tabpagenr()-1` deol:zsh<CR>
+        \ -cursor-pos=`tabpagenr()-1` deol:zsh<CR>
   nnoremap <silent> <C-k> :<C-u>Denite change jump<CR>
   nnoremap <silent> <C-h> :<C-u>DeniteCursorWord help<CR>
 
@@ -177,6 +177,8 @@ denite = '''
 " Define mappings
 nnoremap <silent><buffer><expr> <CR>
 \ denite#do_map('do_action')
+nnoremap <silent><buffer><expr> a
+\ denite#do_map('choose_action')
 nnoremap <silent><buffer><expr> d
 \ denite#do_map('do_action', 'delete')
 nnoremap <silent><buffer><expr> p
@@ -459,7 +461,10 @@ call deoplete#enable()
 
 [[plugins]]
 repo = 'lambdalisue/suda.vim'
-on_path = 'suda://'
+on_event = 'BufRead'
+hook_add = '''
+let g:suda_smart_edit = 1
+'''
 
 [[plugins]]
 repo = 'raghur/fruzzy'

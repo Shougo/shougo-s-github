@@ -9,6 +9,9 @@ let g:vimsyntax_noerror = 1
 " Bash
 let g:is_bash = 1
 
+" Ruby
+let g:ruby_no_expensive = 1
+
 " Java
 let g:java_highlight_functions = 'style'
 let g:java_highlight_all = 1

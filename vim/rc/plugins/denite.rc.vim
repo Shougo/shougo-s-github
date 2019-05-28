@@ -31,8 +31,7 @@ call denite#custom#var('file/rec/git', 'command',
 " call denite#custom#option('default', 'prompt', '>')
 " call denite#custom#option('default', 'short_source_names', v:true)
 call denite#custom#option('default', {
-      \ 'auto_accel': v:true,
-      \ 'prompt': '>',
+      \ 'highlight_filter_background': 'CursorLine',
       \ 'source_names': 'short',
       \ 'split': 'floating',
       \ })

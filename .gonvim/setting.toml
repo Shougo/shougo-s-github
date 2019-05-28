@@ -11,7 +11,7 @@ Linespace = 0
 # neovim extend feature
 ExtCmdline = false
 ExtWildmenu = true
-ExtPopupmenu = true
+ExtPopupmenu = false
 ExtTabline  = true
 # Gonvim copy the yank text to clipboad
 Clipboard = false
