@@ -26,8 +26,6 @@ set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr
 " autocmd MyAutoCmd FocusGained *
 "      \ if exists(':rshada') | rshada | wshada | endif
 
-autocmd MyAutoCmd FocusGained * checktime
-
 " Modifiable terminal
 autocmd MyAutoCmd TermOpen * setlocal modifiable
 autocmd MyAutoCmd TermClose * buffer #

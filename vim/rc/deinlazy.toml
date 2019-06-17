@@ -62,7 +62,7 @@ nnoremap <silent><buffer><expr> C
 nnoremap <silent><buffer><expr> S
 \ defx#do_action('toggle_sort', 'Time')
 nnoremap <silent><buffer><expr> se
-\ defx#do_action('save_session')
+\ defx#do_action('add_session')
 nnoremap <silent><buffer><expr> sl
 \ defx#do_action('load_session')
 nnoremap <silent><buffer><expr> d
@@ -200,9 +200,10 @@ repo = 'Shougo/context_filetype.vim'
 repo = 'Shougo/deol.nvim'
 on_source = 'denite.nvim'
 hook_add = '''
-  " nnoremap <silent> [Space]s :<C-u>Deol zsh -edit<CR>
-  nnoremap <silent> N :<C-u>call deol#new({'command': 'xonsh'})<CR>
-  nnoremap <silent> [Space]s :<C-u>Deol xonsh<CR>
+  nnoremap <silent> [Space]s :<C-u>Deol zsh -no-start-insert<CR>
+  nnoremap <silent> N :<C-u>call deol#new(
+  \ {'command': 'zsh', 'start_insert': 0})<CR>
+  " nnoremap <silent> [Space]s :<C-u>Deol xonsh<CR>
   nnoremap <silent> [Window]D  :<C-u>call deol#kill_editor()<CR>
 '''
 hook_source = '''
@@ -245,6 +246,7 @@ nnoremap <buffer><silent> [Space]gc
 \ :<C-u>call deol#send('git commit')<CR>
 nnoremap <buffer><silent> [Space]gA
 \ :<C-u>call deol#send('git commit --amend')<CR>
+nmap <buffer> i <Plug>(deol_edit)
 '''
 
 [[plugins]]

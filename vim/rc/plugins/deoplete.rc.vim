@@ -31,6 +31,8 @@ endfunction
 
 call deoplete#custom#source('_', 'matchers',
       \ ['matcher_fuzzy', 'matcher_length'])
+call deoplete#custom#source('denite', 'matchers',
+      \ ['matcher_full_fuzzy', 'matcher_length'])
 " call deoplete#custom#source('eskk,tabnine', 'matchers', [])
 call deoplete#custom#source('eskk', 'matchers', [])
 " call deoplete#custom#source('buffer', 'mark', '')
