@@ -207,8 +207,8 @@ hook_add = '''
   nnoremap <silent> [Window]D  :<C-u>call deol#kill_editor()<CR>
 '''
 hook_source = '''
-  " let g:deol#prompt_pattern = '\w*%'
-  let g:deol#prompt_pattern = '%'
+  let g:deol#prompt_pattern = '\w*%'
+  let g:deol#shell_history_path = '~/.zsh-history'
 
   " Set to $PATH.
   let s:bin = dein#get('vim-themis').rtp . '/bin'
