@@ -1,0 +1,5 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =3
+let g:netrw_dirhist_1='/home/shougo/src/haxe-language-server'
+let g:netrw_dirhist_2='/home/shougo/src/haxe-language-server/src'
+let g:netrw_dirhist_3='/home/shougo/src/haxe-language-server/src/haxeLanguageServer'
