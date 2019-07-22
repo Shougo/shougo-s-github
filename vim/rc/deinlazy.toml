@@ -196,6 +196,8 @@ nnoremap <silent><buffer><expr> <Space>
 \ denite#do_map('toggle_select').'j'
 nnoremap <silent><buffer><expr> r
 \ denite#do_map('do_action', 'quickfix')
+nnoremap <silent><buffer><expr> <C-r>
+\ denite#do_map('restore_sources')
 '''
 
 [[plugins]]
@@ -212,7 +214,7 @@ hook_add = '''
   nnoremap <silent> [Window]D  :<C-u>call deol#kill_editor()<CR>
 '''
 hook_source = '''
-  let g:deol#prompt_pattern = '\w*%'
+  let g:deol#prompt_pattern = '\w*% '
   let g:deol#shell_history_path = '~/.zsh-history'
 
   " Set to $PATH.

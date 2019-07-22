@@ -40,7 +40,6 @@ call deoplete#custom#source('eskk', 'matchers', [])
 " call deoplete#custom#source('_', 'disabled_syntaxes', ['Comment', 'String'])
 " call deoplete#custom#source('buffer', 'mark', '*')
 
-call deoplete#custom#source('look', 'filetypes', ['help', 'gitcommit'])
 call deoplete#custom#option('ignore_sources', {
       \ '_': ['around', 'buffer'],
       \ })
