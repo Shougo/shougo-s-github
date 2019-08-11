@@ -497,3 +497,10 @@ let g:float_preview#docked = 0
 let g:float_preview#max_width = 60
 let g:float_preview#max_height = 20
 '''
+
+[[plugins]]
+repo = 'dag/vim2hs'
+on_ft = 'haskell'
+hook_source = '''
+let g:haskell_conceal = 0
+'''
