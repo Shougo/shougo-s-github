@@ -275,6 +275,10 @@ let g:did_install_default_menus = 1
 
 " Completion setting.
 set completeopt=menuone
+if exists('+completepopup')
+  set completeopt+=popup
+  set completepopup=height:4,width:60,highlight:InfoPopup
+endif
 " Don't complete from other buffer.
 set complete=.
 " Set popup menu max height.

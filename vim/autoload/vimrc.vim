@@ -17,7 +17,7 @@ function! vimrc#sticky_func() abort
   let char = ''
 
   while 1
-    let char = nr2char(getchar())
+    silent! let char = nr2char(getchar())
 
     if char =~ '\l'
       let char = toupper(char)

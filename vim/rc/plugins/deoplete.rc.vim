@@ -55,7 +55,6 @@ call deoplete#custom#var('tabnine', {
 call deoplete#custom#source('zsh', 'filetypes', ['zsh', 'sh'])
 
 call deoplete#custom#source('_', 'converters', [
-      \ 'converter_remove_paren',
       \ 'converter_remove_overlap',
       \ 'matcher_length',
       \ 'converter_truncate_abbr',
