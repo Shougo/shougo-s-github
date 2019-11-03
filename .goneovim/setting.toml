@@ -24,6 +24,8 @@ GinitVim = '''
 '''
 # start fullscreen
 StartFullscreen = false
+# fix font drawing problem
+CachedDrawing = false
 
 [Statusline]
 Visible = false
