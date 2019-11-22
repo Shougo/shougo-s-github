@@ -27,11 +27,6 @@ let g:SimpleJsIndenter_CaseIndentLevel = -1
 " Markdown
 let g:markdown_fenced_languages = []
 
-" Go
-if $GOROOT != ''
-   set runtimepath+=$GOROOT/misc/vim
-endif
-
 " Tex
 let g:tex_flavor = 'latex'
 
@@ -74,9 +69,6 @@ autocmd MyAutoCmd BufWritePost,FileWritePost *.vim nested
 \ if &l:autoread > 0 | source <afile> |
 \   echo 'source ' . bufname('%') |
 \ endif
-
-autocmd MyAutoCmd BufRead,BufNewFile *.xonshrc setfiletype python
-autocmd MyAutoCmd BufRead,BufNewFile *.xsh setfiletype python
 '''
 
 [ftplugin]

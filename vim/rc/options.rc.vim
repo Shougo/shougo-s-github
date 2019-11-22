@@ -163,8 +163,6 @@ set formatexpr=autofmt#japanese#formatexpr()
 " If true Vim master, use English help file.
 set helplang& helplang=en,ja
 
-" Default home directory.
-let t:cwd = getcwd()
 
 "---------------------------------------------------------------------------
 " View:

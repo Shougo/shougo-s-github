@@ -55,6 +55,7 @@ call deoplete#custom#source('zsh', 'filetypes', ['zsh', 'sh'])
 
 call deoplete#custom#source('_', 'converters', [
       \ 'converter_remove_overlap',
+      \ 'converter_case',
       \ 'matcher_length',
       \ 'converter_truncate_abbr',
       \ 'converter_truncate_info',
