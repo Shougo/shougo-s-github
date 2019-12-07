@@ -40,7 +40,10 @@ call deoplete#custom#source('eskk', 'matchers', [])
 " call deoplete#custom#source('_', 'disabled_syntaxes', ['Comment', 'String'])
 " call deoplete#custom#source('buffer', 'mark', '*')
 
-call deoplete#custom#option('ignore_sources', { '_': ['buffer'] })
+call deoplete#custom#option('ignore_sources', {
+      \ '_': ['buffer'],
+      \ 'help': ['tabnine'],
+      \ })
 
 call deoplete#custom#source('tabnine', 'rank', 300)
 call deoplete#custom#source('tabnine', 'min_pattern_length', 2)
