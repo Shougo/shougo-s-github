@@ -4,7 +4,7 @@ repo = 'Shougo/dein.vim'
 [[plugins]]
 repo = 'sheerun/vim-polyglot'
 hook_add = '''
-let g:polyglot_disabled = ['markdown', 'tsx', 'typescript', 'csv', 'ansible']
+let g:polyglot_disabled = ['markdown', 'tsx', 'typescript', 'csv']
 '''
 
 [[plugins]]

@@ -34,6 +34,12 @@ call denite#custom#option('default', {
       \ 'highlight_filter_background': 'CursorLine',
       \ 'source_names': 'short',
       \ 'split': 'floating',
+      \ 'filter_split_direction': 'floating',
+      \ })
+call denite#custom#option('search', {
+      \ 'highlight_filter_background': 'CursorLine',
+      \ 'source_names': 'short',
+      \ 'filter_split_direction': 'floating',
       \ })
 
 let s:menus = {}
