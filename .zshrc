@@ -67,9 +67,6 @@ zstyle ':completion:*' completer _oldlist _complete _match _ignored \
     _approximate _list _history
 
 autoload -U compinit
-if [ ! -f ~/.zcompdump -o ~/.zshrc -nt ~/.zcompdump ]; then
-    compinit -d ~/.zcompdump
-fi
 
 # cd search path
 cdpath=($HOME)

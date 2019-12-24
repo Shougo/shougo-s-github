@@ -483,12 +483,16 @@ on_source = ['denite.nvim']
 hook_source = 'let g:fruzzy#sortonempty = 0'
 hook_post_update = 'call fruzzy#install()'
 
+# [[plugins]]
+# repo = 'fatih/vim-go'
+# on_ft = 'go'
+# hook_source = '''
+# let g:go_def_mapping_enabled = 0
+# '''
+
 [[plugins]]
-repo = 'fatih/vim-go'
+repo = 'mattn/vim-goimports'
 on_ft = 'go'
-hook_source = '''
-let g:go_def_mapping_enabled = 0
-'''
 
 [[plugins]]
 repo = 'ncm2/float-preview.nvim'
