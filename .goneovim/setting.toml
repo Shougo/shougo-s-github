@@ -41,6 +41,7 @@ IndentGuide = true
 # load vimscript after setting of g:gonvim_running=1
 GinitVim = '''
 " set guifont=Courier\ 10\ Pitch\ 14
+set wildmode=list:longest,full
 '''
 
 # fix drawing problem
