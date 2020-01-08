@@ -286,9 +286,6 @@ hook_add = '''
 '''
 
 [[plugins]]
-repo = 'vim-jp/vital.vim'
-
-[[plugins]]
 repo = 'thinca/vim-qfreplace'
 on_ft = ['qf']
 [plugins.ftplugin]
@@ -418,24 +415,16 @@ hook_add = '''
 [[plugins]]
 repo = 'lambdalisue/vim-findent'
 
-[[plugins]]
-repo = 'kana/vim-smartchr'
-on_event = 'InsertCharPre'
-hook_source = '''
-  inoremap <expr> , smartchr#one_of(', ', ',')
-  inoremap <expr> =
-        \ search('\(&\<bar><bar>\<bar>+\<bar>-\<bar>/\<bar>>\<bar><\) \%#', 'bcn')? '<bs>= '
-        \ : search('\(*\<bar>!\)\%#', 'bcn') ? '= '
-        \ : smartchr#one_of(' = ', '=', ' == ')
-  augroup MyAutoCmd
-    " Substitute .. into -> .
-    autocmd FileType c,cpp inoremap <buffer> <expr> .
-          \ smartchr#loop('.', '->', '...')
-    autocmd FileType vim inoremap <buffer> <expr> .
-          \ smartchr#loop('.', ' . ', '..', '...')
-    autocmd FileType lisp,scheme,clojure inoremap <buffer> <expr> = =
-  augroup END
-'''
+# [[plugins]]
+# repo = 'kana/vim-smartchr'
+# on_event = 'InsertCharPre'
+# hook_source = '''
+#   inoremap <expr> , smartchr#one_of(', ', ',')
+#   inoremap <expr> =
+#         \ search('\(&\<bar><bar>\<bar>+\<bar>-\<bar>/\<bar>>\<bar><\) \%#', 'bcn')? '<bs>= '
+#         \ : search('\(*\<bar>!\)\%#', 'bcn') ? '= '
+#         \ : smartchr#one_of(' = ', '=', ' == ')
+# '''
 
 [[plugins]]
 repo = 'tweekmonster/helpful.vim'
