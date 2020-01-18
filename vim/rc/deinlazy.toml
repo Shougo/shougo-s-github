@@ -147,7 +147,7 @@ hook_add = '''
   \ ":\<C-u>Denite -buffer-name=search -start-filter -search line\<CR>"
   nnoremap <expr> n line('$') > 10000 ? 'n' :
   \ ":\<C-u>Denite -buffer-name=search -resume -refresh
-  \-search -no-start-filter\<CR>"
+  \ -search -no-start-filter\<CR>"
   nnoremap <expr> * line('$') > 10000 ? '*' :
   \ ":\<C-u>DeniteCursorWord -buffer-name=search -search line\<CR>"
   xnoremap <silent> *
@@ -186,6 +186,8 @@ nnoremap <silent><buffer><expr> a
 \ denite#do_map('choose_action')
 nnoremap <silent><buffer><expr> d
 \ denite#do_map('do_action', 'delete')
+nnoremap <silent><buffer><expr> e
+\ denite#do_map('do_action', 'edit')
 nnoremap <silent><buffer><expr> p
 \ denite#do_map('do_action', 'preview')
 nnoremap <silent><buffer><expr> q
