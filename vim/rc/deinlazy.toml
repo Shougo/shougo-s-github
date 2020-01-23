@@ -127,6 +127,20 @@ hook_source = '''
 '''
 
 [[plugins]]
+repo = 'Shougo/deoppet.nvim'
+depends = ['neosnippet-snippets', 'context_filetype.vim']
+on_event = 'InsertCharPre'
+hook_source = '''
+  " Test
+  imap <C-k>  <Plug>(deoppet_expand)
+  imap <C-f>  <Plug>(deoppet_jump_forward)
+  imap <C-b>  <Plug>(deoppet_jump_backward)
+
+  call deoppet#custom#option('snippets_dirs',
+  \ globpath(&runtimepath, 'neosnippets', 1, 1))
+'''
+
+[[plugins]]
 repo = 'Shougo/neosnippet-snippets'
 
 [[plugins]]
