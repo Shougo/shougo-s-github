@@ -35,6 +35,8 @@ call denite#custom#option('default', {
       \ 'source_names': 'short',
       \ 'split': 'floating',
       \ 'filter_split_direction': 'floating',
+      \ 'vertical_preview': v:true,
+      \ 'floating_preview': v:true,
       \ })
 call denite#custom#option('search', {
       \ 'highlight_filter_background': 'CursorLine',

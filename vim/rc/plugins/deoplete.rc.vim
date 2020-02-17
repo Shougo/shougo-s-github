@@ -85,7 +85,6 @@ call deoplete#custom#option({
       \ 'auto_refresh_delay': 10,
       \ 'camel_case': v:true,
       \ 'skip_multibyte': v:true,
-      \ 'prev_completion_mode': 'length',
       \ 'auto_preview': v:true,
       \ })
 " call deoplete#custom#option('num_processes', 0)
