@@ -76,7 +76,11 @@ set hidden
 set foldenable
 set foldmethod=indent
 " Show folding level.
-set foldcolumn=1
+if has('nvim')
+  set foldcolumn=auto:1
+else
+  set foldcolumn=1
+endif
 set fillchars=vert:\|
 set commentstring=%s
 
