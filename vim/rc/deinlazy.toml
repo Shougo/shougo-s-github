@@ -217,7 +217,7 @@ nnoremap <silent><buffer><expr> r
 nnoremap <silent><buffer><expr> <C-r>
 \ denite#do_map('restore_sources')
 nnoremap <silent><buffer><expr> <C-l>
-\ denite#do_map('do_action', 'redraw')
+\ denite#do_map('redraw')
 '''
 
 [[plugins]]
