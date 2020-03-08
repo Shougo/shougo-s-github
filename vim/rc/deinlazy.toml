@@ -204,6 +204,8 @@ nnoremap <silent><buffer><expr> e
 \ denite#do_map('do_action', 'edit')
 nnoremap <silent><buffer><expr> p
 \ denite#do_map('do_action', 'preview')
+nnoremap <silent><buffer><expr> N
+\ denite#do_map('do_action', 'new')
 nnoremap <silent><buffer><expr> q
 \ denite#do_map('quit')
 nnoremap <silent><buffer><expr> '
@@ -228,9 +230,6 @@ repo = 'Shougo/deol.nvim'
 on_source = 'denite.nvim'
 hook_add = '''
   nnoremap <silent> [Space]s :<C-u>Deol zsh -no-start-insert<CR>
-  nnoremap <silent> N :<C-u>call deol#new(
-  \ {'command': 'zsh', 'start_insert': 0})<CR>
-  " nnoremap <silent> [Space]s :<C-u>Deol xonsh<CR>
   nnoremap <silent> [Window]D  :<C-u>call deol#kill_editor()<CR>
 '''
 hook_source = '''
