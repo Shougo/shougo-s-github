@@ -432,17 +432,6 @@ hook_add = '''
 [[plugins]]
 repo = 'lambdalisue/vim-findent'
 
-# [[plugins]]
-# repo = 'kana/vim-smartchr'
-# on_event = 'InsertCharPre'
-# hook_source = '''
-#   inoremap <expr> , smartchr#one_of(', ', ',')
-#   inoremap <expr> =
-#         \ search('\(&\<bar><bar>\<bar>+\<bar>-\<bar>/\<bar>>\<bar><\) \%#', 'bcn')? '<bs>= '
-#         \ : search('\(*\<bar>!\)\%#', 'bcn') ? '= '
-#         \ : smartchr#one_of(' = ', '=', ' == ')
-# '''
-
 [[plugins]]
 repo = 'tweekmonster/helpful.vim'
 on_cmd = 'HelpfulVersion'
@@ -486,7 +475,10 @@ let g:suda_smart_edit = 1
 [[plugins]]
 repo = 'raghur/fruzzy'
 on_source = ['denite.nvim']
-hook_source = 'let g:fruzzy#sortonempty = 0'
+hook_source = '''
+let g:fruzzy#sortonempty = 0
+let g:fruzzy#use_native = 1
+'''
 hook_post_update = 'call fruzzy#install()'
 
 [[plugins]]
