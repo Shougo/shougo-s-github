@@ -17,3 +17,4 @@ export WWW_BROWSER="w3m"
 export DOWNLOADER="wget -S"
 
 export XDG_CONFIG_HOME=$HOME/.config
+export NEXTWORD_DATA_PATH=$HOME/Downloads/nextword-data-large

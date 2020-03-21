@@ -55,6 +55,8 @@ call deoplete#custom#var('tabnine', {
       \ })
 
 call deoplete#custom#source('zsh', 'filetypes', ['zsh', 'sh'])
+call deoplete#custom#source('nextword', 'filetypes',
+      \ ['markdown', 'help', 'gitcommit'])
 
 call deoplete#custom#source('_', 'converters', [
       \ 'converter_remove_overlap',

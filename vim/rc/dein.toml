@@ -60,3 +60,7 @@ repo = 'roxma/nvim-yarp'
 [[plugins]]
 repo = 'tbodt/deoplete-tabnine'
 build = './install.sh'
+
+
+[[plugins]]
+repo = 'Shougo/deoplete-nextword'
