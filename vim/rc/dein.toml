@@ -35,9 +35,6 @@ repo = 'JesseKPhillips/d.vim'
 repo = 'vim-jp/vimdoc-ja'
 
 [[plugins]]
-repo = 'thinca/vim-themis'
-
-[[plugins]]
 repo = 'nixprime/cpsm'
 build = 'sh -c "PY3=ON ./install.sh"'
 

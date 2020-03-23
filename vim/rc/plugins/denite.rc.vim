@@ -5,16 +5,13 @@
 if executable('rg')
   call denite#custom#var('file/rec', 'command',
         \ ['rg', '--files', '--glob', '!.git'])
-  call denite#custom#var('grep,line/external',
-        \ 'command', ['rg', '--threads', '1'])
-  call denite#custom#var('grep,line/external',
-        \ 'recursive_opts', [])
-  call denite#custom#var('grep,line/external',
-        \ 'final_opts', [])
-  call denite#custom#var('grep,line/external',
-        \ 'separator', ['--'])
-  call denite#custom#var('grep,line/external',
-        \ 'default_opts', ['-i', '--vimgrep', '--no-heading'])
+  call denite#custom#var('grep,line/external', {
+        \ 'command': ['rg', '--threads', '1'],
+        \ 'recursive_opts': [],
+        \ 'final_opts': [],
+        \ 'separator': ['--'],
+        \ 'default_opts': ['-i', '--vimgrep', '--no-heading'],
+        \ })
 else
   call denite#custom#var('file/rec', 'command',
         \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
