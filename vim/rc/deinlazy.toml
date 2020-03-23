@@ -157,11 +157,11 @@ hook_add = '''
 
   nnoremap <silent> [Window]<Space>
         \ :<C-u>Denite file/rec:~/.vim/rc<CR>
-  nnoremap <expr> / wordcount().chars > 10000 ?
+  nnoremap <silent><expr> / wordcount().chars > 20000 ?
   \ ":\<C-u>Denite -buffer-name=search -start-filter
   \  -search line/external\<CR>" :
   \ ":\<C-u>Denite -buffer-name=search -start-filter -search line\<CR>"
-  nnoremap <expr> * wordcount().chars > 10000 ?
+  nnoremap <silent><expr> * wordcount().chars > 20000 ?
   \ ":\<C-u>DeniteCursorWord -buffer-name=search -search line/external\<CR>" :
   \ ":\<C-u>DeniteCursorWord -buffer-name=search -search line\<CR>"
   xnoremap <silent> *
@@ -170,6 +170,8 @@ hook_add = '''
         \ -sorters=sorter/rank
         \ `finddir('.git', ';') != '' ? 'file/rec/git' : 'file/rec'`
         \ file file:new<CR>
+  nnoremap <silent> n
+        \ :<C-u>Denite -buffer-name=search -resume<CR>
 
   nnoremap <silent><expr> tt  &filetype == 'help' ?  "g\<C-]>" :
         \ ":\<C-u>DeniteCursorWord -buffer-name=tag -immediately
