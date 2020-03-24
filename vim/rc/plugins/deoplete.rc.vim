@@ -89,7 +89,7 @@ call deoplete#custom#option({
       \ 'skip_multibyte': v:true,
       \ 'auto_preview': v:true,
       \ })
-" call deoplete#custom#option('num_processes', 0)
+call deoplete#custom#option('num_processes', 1)
 
 " call deoplete#custom#option('profile', v:true)
 " call deoplete#enable_logging('DEBUG', 'deoplete.log')
