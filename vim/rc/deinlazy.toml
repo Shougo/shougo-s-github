@@ -157,11 +157,11 @@ hook_add = '''
 
   nnoremap <silent> [Window]<Space>
         \ :<C-u>Denite file/rec:~/.vim/rc<CR>
-  nnoremap <silent><expr> / wordcount().chars > 20000 ?
+  nnoremap <silent><expr> / wordcount().chars > 30000 ?
   \ ":\<C-u>Denite -buffer-name=search -start-filter
   \  -search line/external\<CR>" :
   \ ":\<C-u>Denite -buffer-name=search -start-filter -search line\<CR>"
-  nnoremap <silent><expr> * wordcount().chars > 20000 ?
+  nnoremap <silent><expr> * wordcount().chars > 30000 ?
   \ ":\<C-u>DeniteCursorWord -buffer-name=search -search line/external\<CR>" :
   \ ":\<C-u>DeniteCursorWord -buffer-name=search -search line\<CR>"
   xnoremap <silent> *
