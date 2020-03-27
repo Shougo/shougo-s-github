@@ -85,6 +85,8 @@ set guioptions+=c
 " if has('patch-8.0.1609')
 "   set guioptions+=!
 " endif
+" Use dark mode.
+set guioptions+=d
 
 " Don't flick cursor.
 set guicursor&
