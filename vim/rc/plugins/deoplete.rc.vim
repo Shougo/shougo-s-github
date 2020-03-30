@@ -45,7 +45,7 @@ call deoplete#custom#option('ignore_sources', {
       \ 'help': ['tabnine'],
       \ })
 
-call deoplete#custom#source('tabnine', 'rank', 300)
+call deoplete#custom#source('tabnine', 'rank', 600)
 call deoplete#custom#source('tabnine', 'min_pattern_length', 2)
 " call deoplete#custom#source('tabnine', 'is_volatile', v:false)
 call deoplete#custom#var('tabnine', {
