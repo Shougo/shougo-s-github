@@ -229,7 +229,7 @@ repo = 'Shougo/context_filetype.vim'
 
 [[plugins]]
 repo = 'Shougo/deol.nvim'
-on_source = 'denite.nvim'
+depends = 'denite.nvim'
 hook_add = '''
   nnoremap <silent> [Space]s :<C-u>Deol zsh -no-start-insert<CR>
   nnoremap <silent> [Window]D  :<C-u>call deol#kill_editor()<CR>
