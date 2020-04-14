@@ -7,104 +7,104 @@ on_source = ['denite.nvim']
 repo = 'Shougo/echodoc.vim'
 on_event = 'CompleteDone'
 hook_source = '''
-let g:echodoc#type = 'virtual'
-call echodoc#enable()
+  let g:echodoc#type = 'virtual'
+  call echodoc#enable()
 '''
 
 [[plugins]]
 repo = 'Shougo/defx.nvim'
 hook_add = '''
-nnoremap <silent>   [Space]f
-\ :<C-u>Defx -listed -resume -buffer-name=tab`tabpagenr()`<CR>
+  nnoremap <silent>   [Space]f
+  \ :<C-u>Defx -listed -resume -buffer-name=tab`tabpagenr()`<CR>
 '''
 hook_source = '''
-call defx#custom#column('mark', {
-        \ 'readonly_icon': '✗',
-        \ 'selected_icon': '✓',
-        \ })
-call defx#custom#column('icon', {
-        \ 'directory_icon': '▸',
-        \ 'opened_icon': '▾',
-        \ 'root_icon': ' ',
-        \ })
+  call defx#custom#column('mark', {
+          \ 'readonly_icon': '✗',
+          \ 'selected_icon': '✓',
+          \ })
+  call defx#custom#column('icon', {
+          \ 'directory_icon': '▸',
+          \ 'opened_icon': '▾',
+          \ 'root_icon': ' ',
+          \ })
 '''
 [plugins.ftplugin]
 defx = '''
-" Define mappings
-nnoremap <silent><buffer><expr> <CR>
-\ defx#async_action('drop')
-nnoremap <silent><buffer><expr> c
-\ defx#do_action('copy')
-nnoremap <silent><buffer><expr> !
-\ defx#do_action('execute_command')
-nnoremap <silent><buffer><expr> m
-\ defx#do_action('move')
-nnoremap <silent><buffer><expr> p
-\ defx#do_action('paste')
-nnoremap <silent><buffer><expr> l
-\ defx#async_action('open')
-nnoremap <silent><buffer><expr> E
-\ defx#do_action('open', 'vsplit')
-nnoremap <silent><buffer><expr> P
-\ defx#do_action('open', 'pedit')
-nnoremap <silent><buffer><expr> o
-\ defx#async_action('open_or_close_tree')
-nnoremap <silent><buffer><expr> O
-\ defx#async_action('open_tree_recursive')
-nnoremap <silent><buffer><expr> K
-\ defx#do_action('new_directory')
-nnoremap <silent><buffer><expr> N
-\ defx#do_action('new_file')
-nnoremap <silent><buffer><expr> M
-\ defx#do_action('new_multiple_files')
-nnoremap <silent><buffer><expr> C
-\ defx#do_action('toggle_columns', 'mark:filename:type:size:time')
-nnoremap <silent><buffer><expr> S
-\ defx#do_action('toggle_sort', 'Time')
-nnoremap <silent><buffer><expr> se
-\ defx#do_action('add_session')
-nnoremap <silent><buffer><expr> sl
-\ defx#do_action('load_session')
-nnoremap <silent><buffer><expr> d
-\ defx#do_action('remove_trash')
-nnoremap <silent><buffer><expr> r
-\ defx#do_action('rename')
-nnoremap <silent><buffer><expr> x
-\ defx#do_action('execute_system')
-nnoremap <silent><buffer><expr> >
-\ defx#do_action('toggle_ignored_files')
-nnoremap <silent><buffer><expr> .
-\ defx#do_action('repeat')
-nnoremap <silent><buffer><expr> yy
-\ defx#do_action('yank_path')
-nnoremap <silent><buffer><expr> h
-\ defx#async_action('cd', ['..'])
-nnoremap <silent><buffer><expr> ~
-\ defx#async_action('cd')
-nnoremap <silent><buffer><expr> \
-\ defx#do_action('cd', getcwd())
-nnoremap <silent><buffer><expr> q
-\ defx#do_action('quit')
-nnoremap <silent><buffer><expr> <Space>
-\ defx#do_action('toggle_select') . 'j'
-nnoremap <silent><buffer><expr> *
-\ defx#do_action('toggle_select_all')
-nnoremap <silent><buffer><expr> j
-\ line('.') == line('$') ? 'gg' : 'j'
-nnoremap <silent><buffer><expr> k
-\ line('.') == 1 ? 'G' : 'k'
-nnoremap <silent><buffer><expr> <C-l>
-\ defx#do_action('redraw')
-xnoremap <silent><buffer><expr> <CR>
-\ defx#do_action('toggle_select_visual')
-nnoremap <silent><buffer><expr> <C-g>
-\ defx#do_action('print')
-nnoremap <silent><buffer><expr> <Tab> winnr('$') != 1 ?
-\ ':<C-u>wincmd w<CR>' :
-\ ':<C-u>Defx -buffer-name=temp -split=vertical<CR>'
+  " Define mappings
+  nnoremap <silent><buffer><expr> <CR>
+  \ defx#async_action('drop')
+  nnoremap <silent><buffer><expr> c
+  \ defx#do_action('copy')
+  nnoremap <silent><buffer><expr> !
+  \ defx#do_action('execute_command')
+  nnoremap <silent><buffer><expr> m
+  \ defx#do_action('move')
+  nnoremap <silent><buffer><expr> p
+  \ defx#do_action('paste')
+  nnoremap <silent><buffer><expr> l
+  \ defx#async_action('open')
+  nnoremap <silent><buffer><expr> E
+  \ defx#do_action('open', 'vsplit')
+  nnoremap <silent><buffer><expr> P
+  \ defx#do_action('open', 'pedit')
+  nnoremap <silent><buffer><expr> o
+  \ defx#async_action('open_or_close_tree')
+  nnoremap <silent><buffer><expr> O
+  \ defx#async_action('open_tree_recursive')
+  nnoremap <silent><buffer><expr> K
+  \ defx#do_action('new_directory')
+  nnoremap <silent><buffer><expr> N
+  \ defx#do_action('new_file')
+  nnoremap <silent><buffer><expr> M
+  \ defx#do_action('new_multiple_files')
+  nnoremap <silent><buffer><expr> C
+  \ defx#do_action('toggle_columns', 'mark:filename:type:size:time')
+  nnoremap <silent><buffer><expr> S
+  \ defx#do_action('toggle_sort', 'Time')
+  nnoremap <silent><buffer><expr> se
+  \ defx#do_action('add_session')
+  nnoremap <silent><buffer><expr> sl
+  \ defx#do_action('load_session')
+  nnoremap <silent><buffer><expr> d
+  \ defx#do_action('remove_trash')
+  nnoremap <silent><buffer><expr> r
+  \ defx#do_action('rename')
+  nnoremap <silent><buffer><expr> x
+  \ defx#do_action('execute_system')
+  nnoremap <silent><buffer><expr> >
+  \ defx#do_action('toggle_ignored_files')
+  nnoremap <silent><buffer><expr> .
+  \ defx#do_action('repeat')
+  nnoremap <silent><buffer><expr> yy
+  \ defx#do_action('yank_path')
+  nnoremap <silent><buffer><expr> h
+  \ defx#async_action('cd', ['..'])
+  nnoremap <silent><buffer><expr> ~
+  \ defx#async_action('cd')
+  nnoremap <silent><buffer><expr> \
+  \ defx#do_action('cd', getcwd())
+  nnoremap <silent><buffer><expr> q
+  \ defx#do_action('quit')
+  nnoremap <silent><buffer><expr> <Space>
+  \ defx#do_action('toggle_select') . 'j'
+  nnoremap <silent><buffer><expr> *
+  \ defx#do_action('toggle_select_all')
+  nnoremap <silent><buffer><expr> j
+  \ line('.') == line('$') ? 'gg' : 'j'
+  nnoremap <silent><buffer><expr> k
+  \ line('.') == 1 ? 'G' : 'k'
+  nnoremap <silent><buffer><expr> <C-l>
+  \ defx#do_action('redraw')
+  xnoremap <silent><buffer><expr> <CR>
+  \ defx#do_action('toggle_select_visual')
+  nnoremap <silent><buffer><expr> <C-g>
+  \ defx#do_action('print')
+   <silent><buffer><expr> <Tab> winnr('$') != 1 ?
+  \ ':<C-u>wincmd w<CR>' :
+  \ ':<C-u>Defx -buffer-name=temp -split=vertical<CR>'
 '''
 zsh = '''
-imap <buffer> <C-c> <Plug>(deol_quit)
+  imap <buffer> <C-c> <Plug>(deol_quit)
 '''
 
 [[plugins]]
@@ -195,33 +195,33 @@ hook_add = '''
 
 [plugins.ftplugin]
 denite = '''
-" Define mappings
-nnoremap <silent><buffer><expr> <CR>
-\ denite#do_map('do_action')
-nnoremap <silent><buffer><expr> a
-\ denite#do_map('choose_action')
-nnoremap <silent><buffer><expr> d
-\ denite#do_map('do_action', 'delete')
-nnoremap <silent><buffer><expr> e
-\ denite#do_map('do_action', 'edit')
-nnoremap <silent><buffer><expr> p
-\ denite#do_map('do_action', 'preview')
-nnoremap <silent><buffer><expr> N
-\ denite#do_map('do_action', 'new')
-nnoremap <silent><buffer><expr> q
-\ denite#do_map('quit')
-nnoremap <silent><buffer><expr> '
-\ denite#do_map('quick_move')
-nnoremap <silent><buffer><expr> i
-\ denite#do_map('open_filter_buffer')
-nnoremap <silent><buffer><expr> <Space>
-\ denite#do_map('toggle_select').'j'
-nnoremap <silent><buffer><expr> r
-\ denite#do_map('do_action', 'quickfix')
-nnoremap <silent><buffer><expr> <C-r>
-\ denite#do_map('restore_sources')
-nnoremap <silent><buffer><expr> <C-l>
-\ denite#do_map('redraw')
+  " Define mappings
+  nnoremap <silent><buffer><expr> <CR>
+  \ denite#do_map('do_action')
+  nnoremap <silent><buffer><expr> a
+  \ denite#do_map('choose_action')
+  nnoremap <silent><buffer><expr> d
+  \ denite#do_map('do_action', 'delete')
+  nnoremap <silent><buffer><expr> e
+  \ denite#do_map('do_action', 'edit')
+  nnoremap <silent><buffer><expr> p
+  \ denite#do_map('do_action', 'preview')
+  nnoremap <silent><buffer><expr> N
+  \ denite#do_map('do_action', 'new')
+  nnoremap <silent><buffer><expr> q
+  \ denite#do_map('quit')
+  nnoremap <silent><buffer><expr> '
+  \ denite#do_map('quick_move')
+  nnoremap <silent><buffer><expr> i
+  \ denite#do_map('open_filter_buffer')
+  nnoremap <silent><buffer><expr> <Space>
+  \ denite#do_map('toggle_select').'j'
+  nnoremap <silent><buffer><expr> r
+  \ denite#do_map('do_action', 'quickfix')
+  nnoremap <silent><buffer><expr> <C-r>
+  \ denite#do_map('restore_sources')
+  nnoremap <silent><buffer><expr> <C-l>
+  \ denite#do_map('redraw')
 '''
 
 [[plugins]]
@@ -237,16 +237,19 @@ hook_add = '''
 hook_source = '''
   let g:deol#prompt_pattern = '\w*% '
   let g:deol#shell_history_path = '~/.zsh-history'
+  let g:deol#extra_options = {
+      \ 'term_kill': 'kill',
+      \ }
 '''
 [plugins.ftplugin]
 deol = '''
-nnoremap <buffer><silent> [Space]gc
-\ :<C-u>call deol#send('git commit')<CR>
-nnoremap <buffer><silent> [Space]gs
-\ :<C-u>call deol#send('git status')<CR>
-nnoremap <buffer><silent> [Space]gA
-\ :<C-u>call deol#send('git commit --amend')<CR>
-nmap <buffer> i <Plug>(deol_edit)
+  nnoremap <buffer><silent> [Space]gc
+  \ :<C-u>call deol#send('git commit')<CR>
+  nnoremap <buffer><silent> [Space]gs
+  \ :<C-u>call deol#send('git status')<CR>
+  nnoremap <buffer><silent> [Space]gA
+  \ :<C-u>call deol#send('git commit --amend')<CR>
+  nmap <buffer> i <Plug>(deol_edit)
 '''
 
 [[plugins]]
@@ -264,8 +267,8 @@ on_ft = 'vim'
 repo = 'Shougo/vinarise.vim'
 on_cmd = 'Vinarise'
 hook_add = '''
-let g:vinarise_enable_auto_detect = 1
-let g:vinarise_guifont = 'Courier\ 10\ Pitch:h14'
+  let g:vinarise_enable_auto_detect = 1
+  let g:vinarise_guifont = 'Courier\ 10\ Pitch:h14'
 '''
 
 [[plugins]]
@@ -281,7 +284,7 @@ repo = 'thinca/vim-qfreplace'
 on_ft = ['qf']
 [plugins.ftplugin]
 qf = '''
-nnoremap <buffer> r :<C-u>Qfreplace<CR>
+  nnoremap <buffer> r :<C-u>Qfreplace<CR>
 '''
 
 [[plugins]]
@@ -421,7 +424,7 @@ repo = 'machakann/vim-vimhelplint'
 on_ft = 'help'
 [plugins.ftplugin]
 help = '''
-nnoremap <silent><buffer> ,r  :<C-u>VimhelpLint!<CR>
+  nnoremap <silent><buffer> ,r  :<C-u>VimhelpLint!<CR>
 '''
 
 [[plugins]]
@@ -433,23 +436,23 @@ repo = 'Shougo/deoplete.nvim'
 depends = 'context_filetype.vim'
 on_event = 'InsertEnter'
 hook_source = '''
-source ~/.vim/rc/plugins/deoplete.rc.vim
-call deoplete#enable()
+  source ~/.vim/rc/plugins/deoplete.rc.vim
+  call deoplete#enable()
 '''
 
 [[plugins]]
 repo = 'lambdalisue/suda.vim'
 on_event = 'BufRead'
 hook_add = '''
-let g:suda_smart_edit = 1
+  let g:suda_smart_edit = 1
 '''
 
 [[plugins]]
 repo = 'raghur/fruzzy'
 on_source = ['denite.nvim']
 hook_source = '''
-let g:fruzzy#sortonempty = 0
-let g:fruzzy#use_native = 1
+  let g:fruzzy#sortonempty = 0
+  let g:fruzzy#use_native = 1
 '''
 hook_post_update = 'call fruzzy#install()'
 
@@ -462,16 +465,16 @@ repo = 'ncm2/float-preview.nvim'
 on_source = 'deoplete.nvim'
 if = 'has("nvim")'
 hook_source = '''
-let g:float_preview#docked = 0
-let g:float_preview#max_width = 60
-let g:float_preview#max_height = 20
+  let g:float_preview#docked = 0
+  let g:float_preview#max_width = 60
+  let g:float_preview#max_height = 20
 '''
 
 [[plugins]]
 repo = 'dag/vim2hs'
 on_ft = 'haskell'
 hook_source = '''
-let g:haskell_conceal = 0
+  let g:haskell_conceal = 0
 '''
 
 [[plugins]]
