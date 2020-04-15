@@ -486,3 +486,15 @@ hook_source = '''
 
 [[plugins]]
 repo = 'tyru/notify-changed.vim'
+
+[[plugins]]
+repo = 'tyru/columnskip.vim'
+on_map = {n = '<Plug>'}
+hook_add = '''
+  nmap sj <Plug>(columnskip-j)
+  nmap sk <Plug>(columnskip-k)
+  omap sj <Plug>(columnskip-j)
+  xmap sk <Plug>(columnskip-k)
+  xmap sj <Plug>(columnskip-j)
+  omap sk <Plug>(columnskip-k)
+'''
