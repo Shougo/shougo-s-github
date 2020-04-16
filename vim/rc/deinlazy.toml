@@ -153,7 +153,7 @@ hook_add = '''
         \ register neoyank<CR>
 
   nnoremap <silent> [Window]<Space>
-        \ :<C-u>Denite file/rec:~/.vim/rc<CR>
+  \ :<C-u>Denite file/rec:~/.vim/rc<CR>
   nnoremap <silent><expr> / wordcount().chars > 30000 ?
   \ ":\<C-u>Denite -buffer-name=search -start-filter
   \  -search line/external\<CR>" :
@@ -163,23 +163,23 @@ hook_add = '''
   \ ":\<C-u>DeniteCursorWord -buffer-name=search -search line\<CR>"
   xnoremap <silent> *
   \ "qy:Denite -input=`@q` -buffer-name=search -search line<CR>
-  nnoremap <silent> [Window]s :<C-u>Denite file/point file/old
-        \ -sorters=sorter/rank
-        \ `finddir('.git', ';') != '' ? 'file/rec/git' : 'file/rec'`
-        \ file file:new<CR>
+  nnoremap <silent><expr> [Window]s finddir('.git', ';') != '' ?
+  \ ":\<C-u>Denite -sorters=sorter/rank -unique
+  \  file/point file/rec/git/dirty file/rec/git file file:new\<CR>" :
+  \ ":\<C-u>Denite -sorters=sorter/rank -unique
+  \  file/point file/old file file:new\<CR>"
   nnoremap <silent> n
-        \ :<C-u>Denite -buffer-name=search -resume<CR>
+  \ :<C-u>Denite -buffer-name=search -resume<CR>
 
   nnoremap <silent><expr> tt  &filetype == 'help' ?  "g\<C-]>" :
-        \ ":\<C-u>DeniteCursorWord -buffer-name=tag -immediately
-        \  tag:include\<CR>"
+  \ ":\<C-u>DeniteCursorWord -buffer-name=tag -immediately tag:include\<CR>"
   nnoremap <silent><expr> tp  &filetype == 'help' ?
-        \ ":\<C-u>pop\<CR>" : ":\<C-u>Denite jump\<CR>"
+  \ ":\<C-u>pop\<CR>" : ":\<C-u>Denite jump\<CR>"
 
   nnoremap <silent> [Window]n :<C-u>Denite dein<CR>
   nnoremap <silent> [Window]g :<C-u>Denite ghq -default-action=cd<CR>
   nnoremap <silent> ;g :<C-u>Denite -buffer-name=search
-        \ -no-empty grep<CR>
+  \ -no-empty grep<CR>
   nnoremap <silent> ft :<C-u>Denite filetype<CR>
   nnoremap <silent> <C-t> :<C-u>Denite -buffer-name=deol -split=floating
   \ -cursor-pos=`tabpagenr()-1` deol:zsh<CR>
@@ -187,7 +187,7 @@ hook_add = '''
   nnoremap <silent> <C-h> :<C-u>DeniteCursorWord help<CR>
 
   nnoremap <silent> ;;
-        \ :<C-u>Denite command command_history<CR>
+  \ :<C-u>Denite command command_history<CR>
 '''
 
 [plugins.ftplugin]

@@ -284,7 +284,7 @@ endif
 " Don't complete from other buffer.
 set complete=.
 " Set popup menu max height.
-set pumheight=20
+set pumheight=10
 
 " Report changes.
 set report=0
