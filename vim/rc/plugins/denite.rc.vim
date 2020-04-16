@@ -25,11 +25,11 @@ call denite#custom#source('file/rec', 'matchers',
 call denite#custom#source('file/old,ghq', 'converters',
       \ ['converter/relative_word', 'converter/relative_abbr'])
 
-call denite#custom#alias('source', 'file/rec/git', 'file/rec')
+call denite#custom#alias('source', 'file/git', 'file/rec')
 call denite#custom#var('file/rec/git', 'command',
       \ ['git', 'ls-files', '-co', '--exclude-standard'])
 
-call denite#custom#alias('source', 'file/rec/git/dirty', 'file/rec')
+call denite#custom#alias('source', 'file/dirty', 'file/rec')
 call denite#custom#var('file/rec/git/dirty', 'command',
       \ ['git', 'ls-files', '-mo',
       \  '--directory', '--no-empty-directory', '--exclude-standard'])
