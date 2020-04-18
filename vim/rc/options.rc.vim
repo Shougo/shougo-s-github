@@ -60,7 +60,11 @@ if (!has('nvim') || $DISPLAY != '') && has('clipboard')
 endif
 
 " Enable backspace delete indent and newline.
-set backspace=indent,eol,start
+if has('patch-8.2.0592')
+  set backspace=indent,eol,nostop
+else
+  set backspace=indent,eol,start
+endif
 
 " Highlight <>.
 set matchpairs+=<:>
