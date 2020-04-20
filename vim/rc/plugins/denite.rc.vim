@@ -36,14 +36,22 @@ call denite#custom#var('file/dirty', 'command',
 
 " call denite#custom#option('default', 'prompt', '>')
 " call denite#custom#option('default', 'short_source_names', v:true)
-call denite#custom#option('default', {
-      \ 'highlight_filter_background': 'CursorLine',
-      \ 'source_names': 'short',
-      \ 'split': 'floating',
-      \ 'filter_split_direction': 'floating',
-      \ 'vertical_preview': v:true,
-      \ 'floating_preview': v:true,
-      \ })
+if has('nvim')
+  call denite#custom#option('default', {
+        \ 'highlight_filter_background': 'CursorLine',
+        \ 'source_names': 'short',
+        \ 'split': 'floating',
+        \ 'filter_split_direction': 'floating',
+        \ 'vertical_preview': v:true,
+        \ 'floating_preview': v:true,
+        \ })
+else
+  call denite#custom#option('default', {
+        \ 'highlight_filter_background': 'CursorLine',
+        \ 'source_names': 'short',
+        \ 'vertical_preview': v:true,
+        \ })
+endif
 call denite#custom#option('search', {
       \ 'highlight_filter_background': 'CursorLine',
       \ 'source_names': 'short',

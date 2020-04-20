@@ -99,7 +99,7 @@ defx = '''
   \ defx#do_action('toggle_select_visual')
   nnoremap <silent><buffer><expr> <C-g>
   \ defx#do_action('print')
-   <silent><buffer><expr> <Tab> winnr('$') != 1 ?
+  nnoremap <silent><buffer><expr> <Tab> winnr('$') != 1 ?
   \ ':<C-u>wincmd w<CR>' :
   \ ':<C-u>Defx -buffer-name=temp -split=vertical<CR>'
 '''
