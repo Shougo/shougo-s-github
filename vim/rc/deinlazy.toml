@@ -165,7 +165,7 @@ hook_add = '''
   \ "qy:Denite -input=`@q` -buffer-name=search -search line<CR>
   nnoremap <silent><expr> [Window]s finddir('.git', ';') != '' ?
   \ ":\<C-u>Denite -sorters=sorter/rank -unique
-  \  file/point file/dirty file/old file/git file file:new\<CR>" :
+  \  file/point file/old file/dirty file/git file file:new\<CR>" :
   \ ":\<C-u>Denite -sorters=sorter/rank -unique
   \  file/point file/old file file:new\<CR>"
   nnoremap <silent> n
@@ -227,6 +227,7 @@ repo = 'Shougo/context_filetype.vim'
 [[plugins]]
 repo = 'Shougo/deol.nvim'
 depends = 'denite.nvim'
+on_source = 'defx.nvim'
 hook_add = '''
   nnoremap <silent> [Space]s :<C-u>Deol zsh -no-start-insert<CR>
   nnoremap <silent> [Window]D  :<C-u>call deol#kill_editor()<CR>

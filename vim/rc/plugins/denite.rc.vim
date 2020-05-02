@@ -17,8 +17,9 @@ else
         \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
 endif
 
-call denite#custom#source('file/old', 'matchers',
-      \ ['matcher/fruzzy', 'matcher/project_files'])
+call denite#custom#source('file/old', 'matchers', [
+      \ 'matcher/fruzzy', 'matcher/project_files', 'matcher/ignore_globs',
+      \ ])
 call denite#custom#source('tag', 'matchers', ['matcher/substring'])
 call denite#custom#source('file/rec', 'matchers',
       \ ['matcher/fruzzy'])
