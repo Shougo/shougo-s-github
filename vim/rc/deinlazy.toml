@@ -48,9 +48,9 @@ defx = '''
   nnoremap <silent><buffer><expr> P
   \ defx#do_action('open', 'pedit')
   nnoremap <silent><buffer><expr> o
-  \ defx#async_action('open_or_close_tree')
+  \ defx#async_action('open_tree', ['nested', 'toggle'])
   nnoremap <silent><buffer><expr> O
-  \ defx#async_action('open_tree_recursive')
+  \ defx#async_action('open_tree', 'recursive')
   nnoremap <silent><buffer><expr> K
   \ defx#do_action('new_directory')
   nnoremap <silent><buffer><expr> N
@@ -120,7 +120,7 @@ hook_source = '''
   let g:neosnippet#expand_word_boundary = 1
 
   " let g:snippets_dir = '~/.vim/snippets/,~/.vim/bundle/snipmate/snippets/'
-  let g:neosnippet#snippets_directory = '~/.vim/snippets'
+  let g:neosnippet#snippets_directory = '~/.vim/my-snippets'
 '''
 
 [[plugins]]

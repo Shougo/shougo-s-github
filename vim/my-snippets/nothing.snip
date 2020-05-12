@@ -1,0 +1,24 @@
+snippet     defn-doc
+abbr        defn function "..." [...] ...
+options     head
+	(defn ${1:name}
+		"${2:doc}"
+		[${3}]
+		${0})
+
+snippet     try
+abbr        (try ... (catch ...
+	(try
+		${1}
+		(catch ${2:Exception} e ${3:nil}))
+
+snippet zfn
+abbr footnote
+alias ^fn
+    [^fn-${1:fn1}] ${3}
+
+    [^fn-$1]: ${2:#:footnote text}
+
+
+snippet     date_english
+        foo
