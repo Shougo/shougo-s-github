@@ -22,3 +22,9 @@ install = [["gem", "install", "solargraph"]]
 command = "gopls"
 args = ["serve"]
 install = [["go", "get", "-u", "golang.org/x/tools/cmd/gopls"]]
+
+[language.python]
+command = "pyls"
+install = [["pip", "install", "python-language-server"]]
+synchronous_triggers = ["."]
+synchronous_timeout_ms = 1000
