@@ -42,6 +42,7 @@ call deoplete#custom#source('eskk', 'matchers', [])
 
 call deoplete#custom#option('ignore_sources', {
       \ '_': ['buffer'],
+      \ 'c': ['tabnine'],
       \ 'help': ['tabnine'],
       \ })
 

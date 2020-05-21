@@ -15,7 +15,7 @@ hook_source = '''
 repo = 'Shougo/defx.nvim'
 hook_add = '''
   nnoremap <silent>   [Space]f
-  \ :<C-u>Defx -listed -resume -buffer-name=tab`tabpagenr()`<CR>
+  \ :<C-u>Defx -listed -resume -buffer-name=win-`win_getid()`<CR>
 '''
 hook_source = '''
   call defx#custom#column('mark', {
@@ -32,7 +32,7 @@ hook_source = '''
 defx = '''
   " Define mappings
   nnoremap <silent><buffer><expr> <CR>
-  \ defx#async_action('drop')
+  \ defx#async_action('open')
   nnoremap <silent><buffer><expr> c
   \ defx#do_action('copy')
   nnoremap <silent><buffer><expr> !
@@ -227,7 +227,7 @@ repo = 'Shougo/context_filetype.vim'
 [[plugins]]
 repo = 'Shougo/deol.nvim'
 depends = 'denite.nvim'
-on_source = 'defx.nvim'
+on_source = ['defx.nvim', 'denite.nvim']
 hook_add = '''
   nnoremap <silent> [Space]s :<C-u>Deol zsh -no-start-insert<CR>
   nnoremap <silent> [Window]D  :<C-u>call deol#kill_editor()<CR>

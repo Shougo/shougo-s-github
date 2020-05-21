@@ -145,11 +145,10 @@ command! -range -nargs=1 AddNumbers
 nnoremap <silent> #    <C-^>
 
 if exists(':tnoremap')
+  " Note: Does not overwrite <ESC> behavior
   if has('nvim')
-    tnoremap   <ESC>      <C-\><C-n>
     tnoremap   jj         <C-\><C-n>
   else
-    tnoremap   <ESC>       <C-w>N
     tnoremap   <ESC><ESC>  <C-w>N
     tnoremap   jj          <C-w>N
   endif
