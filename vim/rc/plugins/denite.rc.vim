@@ -4,7 +4,7 @@
 
 if executable('rg')
   call denite#custom#var('file/rec', 'command',
-        \ ['rg', '--files', '--glob', '!.git'])
+        \ ['rg', '--files', '--glob', '!.git', '--color', 'never'])
   call denite#custom#var('grep,line/external', {
         \ 'command': ['rg', '--threads', '1'],
         \ 'recursive_opts': [],

@@ -196,18 +196,19 @@ set title
 " Title length.
 set titlelen=95
 " Title string.
-let &g:titlestring="
+let &g:titlestring = "
       \ %{expand('%:p:~:.')}%(%m%r%w%)
       \ %<\(%{fnamemodify(getcwd(), ':~')}\) - VIM"
 " Disable tabline.
 set showtabline=0
 
 " Set statusline.
-let &g:statusline="%{winnr('$')>1?'['.winnr().'/'.winnr('$')"
-      \ . ".(winnr('#')==winnr()?'#':'').']':''}\ "
-      \ . "%{(&previewwindow?'[preview] ':'').expand('%:t')}"
+let &g:statusline = "%{winnr('$')>1?'['.winnr().'/'.winnr('$')"
+      \ . ".(winnr('#')==#winnr()?'#':'').']':''}\ "
+      \ . "%{(&previewwindow?'[preview] ':'')."
+      \ . ".expand('%:t')==#''?expand('%'):expand('%:t')}"
       \ . "\ %=%{(winnr('$')==1 || winnr('#')!=winnr()) ?
-      \ '['.(&filetype!=''?&filetype.',':'')"
+      \ '['.(&filetype!=#''?&filetype.',':'')"
       \ . ".(&fenc!=''?&fenc:&enc).','.&ff.']' : ''}"
       \ . "%m%{printf('%'.(len(line('$'))+2).'d/%d',line('.'),line('$'))}"
 
