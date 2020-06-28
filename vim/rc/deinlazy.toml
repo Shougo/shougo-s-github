@@ -46,7 +46,7 @@ defx = '''
   nnoremap <silent><buffer><expr> E
   \ defx#do_action('open', 'vsplit')
   nnoremap <silent><buffer><expr> P
-  \ defx#do_action('open', 'pedit')
+  \ defx#do_action('preview')
   nnoremap <silent><buffer><expr> o
   \ defx#async_action('open_tree', ['nested', 'toggle'])
   nnoremap <silent><buffer><expr> O
@@ -258,7 +258,6 @@ zsh = '''
   inoreabbrev <buffer><expr> d deol#abbrev('git d', 'd', 'diff')
   inoreabbrev <buffer><expr> p deol#abbrev('git p', 'p', 'push')
   inoreabbrev <buffer><expr> s deol#abbrev('git s', 's', 'status')
-  imap <buffer> <C-c> <Plug>(deol_quit)
 '''
 
 [[plugins]]
