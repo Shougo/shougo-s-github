@@ -36,4 +36,4 @@ autocmd MyAutoCmd TermClose * buffer #
 
 let g:terminal_scrollback_buffer_size = 3000
 
-autocmd MyAutoCmd TextYankPost * silent! lua require'vim.highlight'.on_yank()
+autocmd MyAutoCmd TextYankPost * silent! lua require'vim.highlight'.on_yank('IncSearch', 150)

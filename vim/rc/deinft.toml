@@ -129,7 +129,7 @@ setlocal iskeyword+=:,#
 
 qfreplace = 'setlocal nofoldenable'
 
-toml = 'syntax sync minlines=500'
+toml = 'syntax sync minlines=100'
 
 help = '''
 setlocal iskeyword+=:

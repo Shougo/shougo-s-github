@@ -7,8 +7,8 @@ hook_add = '''
 let g:polyglot_disabled = ['markdown', 'tsx', 'typescript', 'csv']
 '''
 
-[[plugins]]
-repo = 'HerringtonDarkholme/yats.vim'
+#[[plugins]]
+#repo = 'HerringtonDarkholme/yats.vim'
 
 [[plugins]]
 repo = 'thinca/vim-ft-diff_fold'
