@@ -180,7 +180,6 @@ hook_add = '''
   nnoremap <silent> [Window]g :<C-u>Denite ghq -default-action=cd<CR>
   nnoremap <silent> ;g :<C-u>Denite -buffer-name=search
   \ -no-empty grep<CR>
-  nnoremap <silent> ft :<C-u>Denite filetype<CR>
   nnoremap <silent> <C-t> :<C-u>Denite -buffer-name=deol -split=floating
   \ -cursor-pos=`tabpagenr()-1` deol:zsh<CR>
   nnoremap <silent> <C-k> :<C-u>Denite change jump<CR>
@@ -539,3 +538,25 @@ require'nvim-treesitter.configs'.setup {
 }
 EOF
 '''
+
+[[plugins]]
+repo = 'deris/vim-shot-f'
+hook_add = ''''
+" disable default key mappings
+let g:shot_f_no_default_key_mappings = 1
+
+" key mappings
+nmap f  <Plug>(shot-f-f)
+nmap F  <Plug>(shot-f-F)
+nmap ,t  <Plug>(shot-f-t)
+nmap ,T  <Plug>(shot-f-T)
+xmap f  <Plug>(shot-f-f)
+xmap F  <Plug>(shot-f-F)
+xmap ,t  <Plug>(shot-f-t)
+xmap ,T  <Plug>(shot-f-T)
+omap f  <Plug>(shot-f-f)
+omap F  <Plug>(shot-f-F)
+omap ,t  <Plug>(shot-f-t)
+omap ,T  <Plug>(shot-f-T)
+'''
+on_map = {n = '<Plug>', x = '<Plug>', o = '<Plug>'}
