@@ -18,17 +18,22 @@ else
 endif
 
 call denite#custom#source('file/old', 'matchers', [
-      \ 'matcher/fruzzy', 'matcher/project_files', 'matcher/ignore_globs',
+      \ 'matcher/clap', 'matcher/project_files', 'matcher/ignore_globs',
       \ ])
 call denite#custom#source('tag', 'matchers', ['matcher/substring'])
-call denite#custom#source('file/rec', 'matchers',
-      \ ['matcher/fruzzy'])
 call denite#custom#source('file/old,ghq', 'converters',
       \ ['converter/relative_word', 'converter/relative_abbr'])
 
 call denite#custom#alias('source', 'file/git', 'file/rec')
 call denite#custom#var('file/git', 'command',
       \ ['git', 'ls-files', '-co', '--exclude-standard'])
+
+
+call denite#custom#filter('matcher/clap',
+      \ 'clap_path', expand('~/src/vim-clap'))
+call denite#custom#source('file/rec', 'matchers', [
+      \ 'matcher/clap',
+      \ ])
 
 call denite#custom#alias('source', 'file/dirty', 'file/rec')
 call denite#custom#var('file/dirty', 'command',

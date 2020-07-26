@@ -455,15 +455,6 @@ hook_add = '''
 '''
 
 [[plugins]]
-repo = 'raghur/fruzzy'
-on_source = ['denite.nvim']
-hook_source = '''
-  let g:fruzzy#sortonempty = 0
-  let g:fruzzy#use_native = 1
-'''
-hook_post_update = 'call fruzzy#install()'
-
-[[plugins]]
 repo = 'mattn/vim-goimports'
 on_ft = 'go'
 
