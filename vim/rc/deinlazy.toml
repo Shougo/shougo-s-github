@@ -110,9 +110,9 @@ depends = ['neosnippet-snippets', 'context_filetype.vim']
 on_event = 'InsertCharPre'
 on_ft = 'snippet'
 hook_source = '''
-  imap <silent>L     <Plug>(neosnippet_jump_or_expand)
-  smap <silent>L     <Plug>(neosnippet_jump_or_expand)
-  xmap <silent>L     <Plug>(neosnippet_expand_target)
+  "imap <silent>L     <Plug>(neosnippet_jump_or_expand)
+  "smap <silent>L     <Plug>(neosnippet_jump_or_expand)
+  "xmap <silent>L     <Plug>(neosnippet_expand_target)
 
   let g:neosnippet#enable_snipmate_compatibility = 1
   let g:neosnippet#enable_completed_snippet = 1
@@ -126,15 +126,22 @@ hook_source = '''
 [[plugins]]
 repo = 'Shougo/deoppet.nvim'
 depends = ['neosnippet-snippets', 'context_filetype.vim']
-on_event = 'InsertCharPre'
+on_event = 'InsertEnter'
+if = 'has("nvim")'
 hook_source = '''
   " Test
-  imap <C-k>  <Plug>(deoppet_expand)
+  "imap L  <Plug>(deoppet_expand)
+  imap <expr> L  deoppet#expandable() ?
+  \ "\<Plug>(deoppet_expand)" : ''
   imap <C-f>  <Plug>(deoppet_jump_forward)
   imap <C-b>  <Plug>(deoppet_jump_backward)
+  smap <C-f>  <Plug>(deoppet_jump_forward)
+  smap <C-b>  <Plug>(deoppet_jump_backward)
+  call deoppet#initialize()
 
   call deoppet#custom#option('snippets_dirs',
-  \ globpath(&runtimepath, 'neosnippets', 1, 1))
+          \ [expand('~/.vim/my-snippets')] +
+          \ globpath(&runtimepath, 'neosnippets', 1, 1))
 '''
 
 [[plugins]]

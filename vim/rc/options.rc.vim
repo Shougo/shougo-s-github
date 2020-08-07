@@ -290,6 +290,8 @@ endif
 set complete=.
 " Set popup menu max height.
 set pumheight=10
+" Set popup menu max width.
+set pumwidth=10
 
 " Report changes.
 set report=0
