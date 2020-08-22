@@ -137,6 +137,8 @@ hook_source = '''
   imap <C-b>  <Plug>(deoppet_jump_backward)
   smap <C-f>  <Plug>(deoppet_jump_forward)
   smap <C-b>  <Plug>(deoppet_jump_backward)
+  xmap <C-l>  <Plug>(deoppet_select_text)
+  xmap <C-x>  <Plug>(deoppet_cut_text)
   call deoppet#initialize()
 
   call deoppet#custom#option('snippets_dirs',
