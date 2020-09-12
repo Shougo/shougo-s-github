@@ -42,7 +42,7 @@ defx = '''
   nnoremap <silent><buffer><expr> p
   \ defx#do_action('paste')
   nnoremap <silent><buffer><expr> l
-  \ defx#async_action('open')
+  \ defx#do_action('open')
   nnoremap <silent><buffer><expr> E
   \ defx#do_action('open', 'vsplit')
   nnoremap <silent><buffer><expr> P
@@ -78,9 +78,9 @@ defx = '''
   nnoremap <silent><buffer><expr> yy
   \ defx#do_action('yank_path')
   nnoremap <silent><buffer><expr> h
-  \ defx#async_action('cd', ['..'])
+  \ defx#do_action('cd', ['..'])
   nnoremap <silent><buffer><expr> ~
-  \ defx#async_action('cd')
+  \ defx#do_action('cd')
   nnoremap <silent><buffer><expr> \
   \ defx#do_action('cd', getcwd())
   nnoremap <silent><buffer><expr> q
@@ -306,26 +306,26 @@ qf = '''
 [[plugins]]
 repo = 'thinca/vim-scouter'
 
-[[plugins]]
-repo = 'tyru/caw.vim'
-on_map = {nx = '<Plug>'}
-hook_add = '''
-  function! InitCaw() abort
-    if !&l:modifiable
-      silent! nunmap <buffer> gc
-      silent! xunmap <buffer> gc
-      silent! nunmap <buffer> gcc
-      silent! xunmap <buffer> gcc
-    else
-      nmap <buffer> gc <Plug>(caw:prefix)
-      xmap <buffer> gc <Plug>(caw:prefix)
-      nmap <buffer> gcc <Plug>(caw:hatpos:toggle)
-      xmap <buffer> gcc <Plug>(caw:hatpos:toggle)
-    endif
-  endfunction
-  autocmd MyAutoCmd FileType * call InitCaw()
-  call InitCaw()
-'''
+# [[plugins]]
+# repo = 'tyru/caw.vim'
+# on_map = {nx = '<Plug>'}
+# hook_add = '''
+#   function! InitCaw() abort
+#     if !&l:modifiable
+#       silent! nunmap <buffer> gc
+#       silent! xunmap <buffer> gc
+#       silent! nunmap <buffer> gcc
+#       silent! xunmap <buffer> gcc
+#     else
+#       nmap <buffer> gc <Plug>(caw:prefix)
+#       xmap <buffer> gc <Plug>(caw:prefix)
+#       nmap <buffer> gcc <Plug>(caw:hatpos:toggle)
+#       xmap <buffer> gcc <Plug>(caw:hatpos:toggle)
+#     endif
+#   endfunction
+#   autocmd MyAutoCmd FileType * call InitCaw()
+#   call InitCaw()
+# '''
 
 [[plugins]]
 repo = 'tyru/eskk.vim'
@@ -373,6 +373,16 @@ hook_source = '''
     call t.add_map('z0', '）')
     call eskk#register_mode_table('hira', t)
   endfunction
+
+  let &g:statusline = "%{winnr('$')>1?'['.winnr().'/'.winnr('$')"
+        \ . ".(winnr('#')==#winnr()?'#':'').']':''}\ "
+        \ . "%{(&previewwindow?'[preview] ':'')."
+        \ . ".expand('%:t')==#''?expand('%'):expand('%:t')}"
+        \ . "\ %=%{(winnr('$')==1 || winnr('#')!=winnr()) ?
+        \ '['.(&filetype!=#''?&filetype.',':'')"
+        \ . ".(&fenc!=''?&fenc:&enc).','.&ff.']' : ''}"
+        \ . "%{eskk#statusline('[%s]')}"
+        \ . "%m%{printf('%'.(len(line('$'))+2).'d/%d',line('.'),line('$'))}"
 '''
 
 [[plugins]]
