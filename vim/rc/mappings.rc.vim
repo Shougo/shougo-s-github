@@ -158,3 +158,8 @@ endif
 
 " Wordcount
 command! WordCount echo strchars(join(getline(1, '$')))
+
+" {visual}P to put without yank to unnamed register
+" https://github.com/neovim/neovim/pull/12383#issuecomment-695768082
+xnoremap <silent> p :call vimrc#visual_paste('p')<CR>
+xnoremap <silent> P :call vimrc#visual_paste('P')<CR>
