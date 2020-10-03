@@ -37,6 +37,8 @@ defx = '''
   \ defx#do_action('copy')
   nnoremap <silent><buffer><expr> !
   \ defx#do_action('execute_command')
+  nnoremap <silent><buffer><expr> &
+  \ defx#do_action('execute_command', ['', 'async'])
   nnoremap <silent><buffer><expr> m
   \ defx#do_action('move')
   nnoremap <silent><buffer><expr> p
@@ -195,9 +197,6 @@ hook_add = '''
   \ -cursor-pos=`tabpagenr()-1` deol:zsh<CR>
   nnoremap <silent> <C-k> :<C-u>Denite change jump<CR>
   nnoremap <silent> <C-h> :<C-u>DeniteCursorWord help<CR>
-
-  nnoremap <silent> ;;
-  \ :<C-u>Denite command command_history<CR>
 '''
 
 [plugins.ftplugin]
@@ -307,27 +306,6 @@ qf = '''
 
 [[plugins]]
 repo = 'thinca/vim-scouter'
-
-# [[plugins]]
-# repo = 'tyru/caw.vim'
-# on_map = {nx = '<Plug>'}
-# hook_add = '''
-#   function! InitCaw() abort
-#     if !&l:modifiable
-#       silent! nunmap <buffer> gc
-#       silent! xunmap <buffer> gc
-#       silent! nunmap <buffer> gcc
-#       silent! xunmap <buffer> gcc
-#     else
-#       nmap <buffer> gc <Plug>(caw:prefix)
-#       xmap <buffer> gc <Plug>(caw:prefix)
-#       nmap <buffer> gcc <Plug>(caw:hatpos:toggle)
-#       xmap <buffer> gcc <Plug>(caw:hatpos:toggle)
-#     endif
-#   endfunction
-#   autocmd MyAutoCmd FileType * call InitCaw()
-#   call InitCaw()
-# '''
 
 [[plugins]]
 repo = 'tyru/eskk.vim'
@@ -552,23 +530,23 @@ EOF
 '''
 
 [[plugins]]
-repo = 'deris/vim-shot-f'
-hook_add = ''''
-" disable default key mappings
-let g:shot_f_no_default_key_mappings = 1
+repo = 'hrsh7th/vim-eft'
+hook_source = '''
+let g:eft_ignorecase = v:true
+'''
+hook_add = '''
+nmap ;; <Plug>(eft-repeat)
+xmap ;; <Plug>(eft-repeat)
 
-" key mappings
-nmap f  <Plug>(shot-f-f)
-nmap F  <Plug>(shot-f-F)
-nmap ,t  <Plug>(shot-f-t)
-nmap ,T  <Plug>(shot-f-T)
-xmap f  <Plug>(shot-f-f)
-xmap F  <Plug>(shot-f-F)
-xmap ,t  <Plug>(shot-f-t)
-xmap ,T  <Plug>(shot-f-T)
-omap f  <Plug>(shot-f-f)
-omap F  <Plug>(shot-f-F)
-omap ,t  <Plug>(shot-f-t)
-omap ,T  <Plug>(shot-f-T)
+nmap f <Plug>(eft-f)
+xmap f <Plug>(eft-f)
+omap f <Plug>(eft-f)
+nmap F <Plug>(eft-F)
+xmap F <Plug>(eft-F)
+omap F <Plug>(eft-F)
 '''
 on_map = {n = '<Plug>', x = '<Plug>', o = '<Plug>'}
+
+[[plugins]]
+repo = 'mattn/vim-maketable'
+on_ft = 'markdown'

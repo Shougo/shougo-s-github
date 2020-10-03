@@ -52,13 +52,12 @@ on_if = '!has("nvim")'
 [[plugins]]
 repo = 'roxma/nvim-yarp'
 
-# [[plugins]]
-# repo = 'Shougo/deoppet.nvim'
-
 [[plugins]]
 repo = 'tbodt/deoplete-tabnine'
 build = './install.sh'
 
-
 [[plugins]]
 repo = 'Shougo/deoplete-nextword'
+
+[[plugins]]
+repo = 'vim-jp/syntax-vim-ex'
