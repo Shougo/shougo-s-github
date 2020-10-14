@@ -230,18 +230,10 @@ set shortmess=aTI
 
 " Do not display the completion messages
 set noshowmode
-if has('patch-7.4.314')
-  set shortmess+=c
-else
-  autocmd MyAutoCmd VimEnter *
-        \ highlight ModeMsg guifg=bg guibg=bg |
-        \ highlight Question guifg=bg guibg=bg
-endif
+set shortmess+=c
 
 " Do not display the edit messages
-if has('patch-7.4.1570')
-  set shortmess+=F
-endif
+set shortmess+=F
 
 " Don't create backup.
 set nowritebackup

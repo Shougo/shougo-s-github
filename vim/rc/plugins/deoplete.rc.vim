@@ -85,12 +85,10 @@ call deoplete#custom#option('keyword_patterns', {
 " inoremap <silent><expr> <C-t> deoplete#manual_complete('file')
 
 call deoplete#custom#option({
-      \ 'auto_refresh_delay': 10,
       \ 'camel_case': v:true,
       \ 'skip_multibyte': v:true,
       \ 'auto_preview': v:true,
       \ })
-call deoplete#custom#option('num_processes', 1)
 
 " call deoplete#custom#option('profile', v:true)
 " call deoplete#enable_logging('DEBUG', 'deoplete.log')
