@@ -266,9 +266,9 @@ set showfulltag
 set wildoptions+=tagfile
 
 if has('nvim')
-  set shada=!,'300,<50,s10,h
+  set shada=!,'100,<20,s10,h
 else
-  set viminfo=!,'300,<50,s10,h
+  set viminfo=!,'100,<20,s10,h
 endif
 
 " Disable menu
