@@ -556,3 +556,10 @@ on_ft = 'markdown'
 [[plugins]]
 repo = 't9md/vim-choosewin'
 on_source = 'defx.nvim'
+
+[[plugins]]
+repo = 'sheerun/vim-polyglot'
+on_event = 'BufRead'
+hook_add = '''
+let g:polyglot_disabled = ['markdown', 'tsx', 'typescript', 'csv', 'autoindent']
+'''

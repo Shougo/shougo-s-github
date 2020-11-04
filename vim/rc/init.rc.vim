@@ -87,7 +87,7 @@ endif
 
 " Disable menu.vim
 if has('gui_running')
-   set guioptions=Mc
+  set guioptions=Mc
 endif
 
 let g:loaded_2html_plugin      = 1

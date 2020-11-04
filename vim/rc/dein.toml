@@ -2,16 +2,6 @@
 repo = 'Shougo/dein.vim'
 
 [[plugins]]
-repo = 'sheerun/vim-polyglot'
-hook_add = '''
-let g:polyglot_disabled = ['markdown', 'tsx', 'typescript', 'csv']
-let g:loaded_sleuth = 1
-'''
-
-#[[plugins]]
-#repo = 'HerringtonDarkholme/yats.vim'
-
-[[plugins]]
 repo = 'thinca/vim-ft-diff_fold'
 
 [[plugins]]

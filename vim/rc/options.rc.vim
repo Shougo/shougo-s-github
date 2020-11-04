@@ -212,18 +212,15 @@ let &g:statusline = "%{winnr('$')>1?'['.winnr().'/'.winnr('$')"
       \ . ".(&fenc!=''?&fenc:&enc).','.&ff.']' : ''}"
       \ . "%m%{printf('%'.(len(line('$'))+2).'d/%d',line('.'),line('$'))}"
 
+" Note: wrap option is very slow!
+set nowrap
 " Turn down a long line appointed in 'breakat'
 set linebreak
 set showbreak=\
 set breakat=\ \	;:,!?
 " Wrap conditions.
 set whichwrap+=h,l,<,>,[,],b,s,~
-if exists('+breakindent')
-  set breakindent
-  set wrap
-else
-  set nowrap
-endif
+set breakindent
 
 " Do not display the greetings message at the time of Vim start.
 set shortmess=aTI

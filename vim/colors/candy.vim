@@ -5,11 +5,13 @@
 " This color scheme uses a dark background.
 "=============================================================================
 
-set background=dark
-highlight clear
+if !has('vim_starting')
+  set background=dark
+  highlight clear
 
-if exists('syntax_on')
-  syntax reset
+  if exists('syntax_on')
+    syntax reset
+  endif
 endif
 
 let colors_name = 'candy'

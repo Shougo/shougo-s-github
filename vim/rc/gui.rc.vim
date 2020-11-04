@@ -19,12 +19,10 @@ if has('win32') || has('win64')
   " set guifont=Inconsolata:h12
 
   " Number of pixel lines inserted between characters.
-   set linespace=2
+  set linespace=2
 
-  if has('patch-7.4.394')
-    " Use DirectWrite
-     "set renderoptions=type:directx
-  endif
+  " Use DirectWrite
+  "set renderoptions=type:directx
 
   if has('kaoriya')
     " For Kaoriya only.
@@ -82,9 +80,7 @@ set guioptions-=rL
 set guioptions-=e
 " Confirm without window.
 set guioptions+=c
-" if has('patch-8.0.1609')
-"   set guioptions+=!
-" endif
+" set guioptions+=!
 " Use dark mode.
 set guioptions+=d
 

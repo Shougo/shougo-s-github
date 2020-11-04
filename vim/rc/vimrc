@@ -5,7 +5,7 @@
 "---------------------------------------------------------------------------
 
 " profile start profile.txt
-" profile file ~/.vim/rc/*
+" profile file ~/.vim/*
 " profile func dein#*
 
 if &compatible
