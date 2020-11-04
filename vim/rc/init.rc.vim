@@ -68,7 +68,7 @@ if filereadable(expand('~/.secret_vimrc'))
 endif
 
 " Load dein.
-let s:dein_dir = finddir('dein.vim', '.;')
+let s:dein_dir = fnamemodify('dein.vim', ':p')
 if s:dein_dir != '' || &runtimepath !~ '/dein.vim'
   if s:dein_dir == '' && &runtimepath !~ '/dein.vim'
     let s:dein_dir = expand('$CACHE/dein')

@@ -6,33 +6,16 @@
 
 " profile start profile.txt
 " profile file ~/.vim/*
+" profile file ~/.cache/dein/state_nvim.vim
 " profile func dein#*
 
 if &compatible
   set nocompatible
 endif
 
-function! s:source_rc(path, ...) abort
-  let use_global = get(a:000, 0, !has('vim_starting'))
+function! s:source_rc(path) abort
   let abspath = resolve(expand('~/.vim/rc/' . a:path))
-  if !use_global
-    execute 'source' fnameescape(abspath)
-    return
-  endif
-
-  " substitute all 'set' to 'setglobal'
-  let content = map(readfile(abspath),
-        \ 'substitute(v:val, "^\\W*\\zsset\\ze\\W", "setglobal", "")')
-  " create tempfile and source the tempfile
-  let tempfile = tempname()
-  try
-    call writefile(content, tempfile)
-    execute 'source' fnameescape(tempfile)
-  finally
-    if filereadable(tempfile)
-      call delete(tempfile)
-    endif
-  endtry
+  execute 'source' fnameescape(abspath)
 endfunction
 
 " Set augroup.
@@ -63,24 +46,24 @@ endif
 
 "---------------------------------------------------------------------------
 
-call s:source_rc('encoding.rc.vim')
+if has('vim_starting')
+  call s:source_rc('options.rc.vim')
 
-call s:source_rc('options.rc.vim')
+  call s:source_rc('mappings.rc.vim')
 
-call s:source_rc('mappings.rc.vim')
+  if has('nvim')
+    call s:source_rc('neovim.rc.vim')
+  endif
 
-if has('nvim')
-  call s:source_rc('neovim.rc.vim')
-endif
+  if IsWindows()
+    call s:source_rc('windows.rc.vim')
+  else
+    call s:source_rc('unix.rc.vim')
+  endif
 
-if IsWindows()
-  call s:source_rc('windows.rc.vim')
-else
-  call s:source_rc('unix.rc.vim')
-endif
-
-if !has('nvim') && has('gui_running')
-  call s:source_rc('gui.rc.vim')
+  if !has('nvim') && has('gui_running')
+    call s:source_rc('gui.rc.vim')
+  endif
 endif
 
 

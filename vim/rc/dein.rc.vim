@@ -1,9 +1,23 @@
 " dein configurations.
 
-let g:dein#auto_recache = 1
+let g:dein#auto_recache = v:true
+let g:dein#lazy_rplugins = v:true
 let g:dein#install_progress_type = 'title'
-let g:dein#enable_notification = 1
+let g:dein#enable_notification = v:true
 let g:dein#notification_icon = '~/.vim/signs/warn.png'
+
+let g:dein#inline_vimrcs = ['options.rc.vim', 'mappings.rc.vim']
+if has('nvim')
+  call add(g:dein#inline_vimrcs, 'neovim.rc.vim')
+elseif has('gui_running')
+  call add(g:dein#inline_vimrcs, 'gui.rc.vim')
+endif
+if IsWindows()
+  call add(g:dein#inline_vimrcs, 'windows.rc.vim')
+else
+  call add(g:dein#inline_vimrcs, 'unix.rc.vim')
+endif
+call map(g:dein#inline_vimrcs, "resolve(expand('~/.vim/rc/' . v:val))")
 
 let s:path = expand('$CACHE/dein')
 if !dein#load_state(s:path)
