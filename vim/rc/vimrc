@@ -2,8 +2,6 @@
 " Shougo's .vimrc
 "---------------------------------------------------------------------------
 
-"---------------------------------------------------------------------------
-
 " profile start profile.txt
 " profile file ~/.vim/*
 " profile file ~/.cache/dein/state_nvim.vim
@@ -43,32 +41,4 @@ if !has('vim_starting')
   call dein#call_hook('post_source')
 endif
 
-
-"---------------------------------------------------------------------------
-
-if has('vim_starting')
-  call s:source_rc('options.rc.vim')
-
-  call s:source_rc('mappings.rc.vim')
-
-  if has('nvim')
-    call s:source_rc('neovim.rc.vim')
-  endif
-
-  if IsWindows()
-    call s:source_rc('windows.rc.vim')
-  else
-    call s:source_rc('unix.rc.vim')
-  endif
-
-  if !has('nvim') && has('gui_running')
-    call s:source_rc('gui.rc.vim')
-  endif
-endif
-
-
-"---------------------------------------------------------------------------
-
 set secure
-
-" vim: foldmethod=marker

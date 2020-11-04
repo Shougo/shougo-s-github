@@ -87,5 +87,3 @@ set guioptions+=d
 " Don't flick cursor.
 set guicursor&
 set guicursor+=a:blinkon0
-
-" " vim: foldmethod=marker
