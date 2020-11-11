@@ -88,6 +88,8 @@ call deoplete#custom#option({
       \ 'camel_case': v:true,
       \ 'skip_multibyte': v:true,
       \ 'auto_preview': v:true,
+      \ 'num_processes': 4,
+      \ 'refresh_always': v:false,
       \ })
 
 " call deoplete#custom#option('profile', v:true)

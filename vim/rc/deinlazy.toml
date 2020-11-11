@@ -147,9 +147,10 @@ hook_source = '''
   xmap <C-x>  <Plug>(deoppet_cut_text)
   call deoppet#initialize()
 
-  call deoppet#custom#option('snippets_dirs',
-          \ [expand('~/.vim/my-snippets')] +
-          \ globpath(&runtimepath, 'neosnippets', 1, 1))
+  call deoppet#custom#option('snippets',
+          \ [{ 'path': expand('~/.vim/my-snippets')}] +
+          \ map(globpath(&runtimepath, 'neosnippets', 1, 1),
+          \     "{ 'path': v:val }"))
 '''
 
 [[plugins]]
