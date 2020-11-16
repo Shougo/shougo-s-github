@@ -359,12 +359,12 @@ hook_source = '''
 
   let &g:statusline = "%{winnr('$')>1?'['.winnr().'/'.winnr('$')"
         \ . ".(winnr('#')==#winnr()?'#':'').']':''}\ "
-        \ . "%{(&previewwindow?'[preview] ':'')."
+        \ . "%{(&previewwindow?'[preview] ':'')"
         \ . ".expand('%:t')==#''?expand('%'):expand('%:t')}"
-        \ . "\ %=%{(winnr('$')==1 || winnr('#')!=winnr()) ?
-        \ '['.(&filetype!=#''?&filetype.',':'')"
-        \ . ".(&fenc!=''?&fenc:&enc).','.&ff.']' : ''}"
-        \ . "%{eskk#statusline('[%s]')}"
+        \ . "\ %=%{(winnr('$')==1||winnr('#')!=winnr())?"
+        \ . "eskk#statusline('[%s]')."
+        \ . "'['.(&filetype!=#''?&filetype.',':'')"
+        \ . ".(&fenc!=''?&fenc:&enc).','.&ff.']':''}"
         \ . "%m%{printf('%'.(len(line('$'))+2).'d/%d',line('.'),line('$'))}"
 '''
 

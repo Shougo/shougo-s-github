@@ -210,11 +210,11 @@ set showtabline=0
 " Set statusline.
 let &g:statusline = "%{winnr('$')>1?'['.winnr().'/'.winnr('$')"
       \ . ".(winnr('#')==#winnr()?'#':'').']':''}\ "
-      \ . "%{(&previewwindow?'[preview] ':'')."
+      \ . "%{(&previewwindow?'[preview] ':'')"
       \ . ".expand('%:t')==#''?expand('%'):expand('%:t')}"
-      \ . "\ %=%{(winnr('$')==1 || winnr('#')!=winnr()) ?
-      \ '['.(&filetype!=#''?&filetype.',':'')"
-      \ . ".(&fenc!=''?&fenc:&enc).','.&ff.']' : ''}"
+      \ . "\ %=%{(winnr('$')==1||winnr('#')!=winnr())?"
+      \ . "'['.(&filetype!=#''?&filetype.',':'')"
+      \ . ".(&fenc!=''?&fenc:&enc).','.&ff.']':''}"
       \ . "%m%{printf('%'.(len(line('$'))+2).'d/%d',line('.'),line('$'))}"
 
 " Note: wrap option is very slow!
