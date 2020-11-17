@@ -28,9 +28,6 @@ if has('win32') || has('win64')
     " For Kaoriya only.
      set ambiwidth=auto
   endif
-elseif has('mac')
-  " For Mac.
-   set guifont=Osaka－等幅:h14
 else
   " For Linux.
    set guifontwide=VL\ Gothic\ 13

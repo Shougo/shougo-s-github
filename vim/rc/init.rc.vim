@@ -1,6 +1,7 @@
 "---------------------------------------------------------------------------
 " Initialize:
 "
+set encoding=utf-8
 
 let s:is_windows = has('win32') || has('win64')
 
@@ -13,16 +14,6 @@ function! IsMac() abort
       \ && (has('mac') || has('macunix') || has('gui_macvim')
       \     || (!executable('xdg-open') && system('uname') =~? '^darwin'))
 endfunction
-
-" Setting of the encoding to use for a save and reading.
-" Make it normal in UTF-8 in Unix.
-if has('vim_starting') && &encoding !=# 'utf-8'
-  if IsWindows() && !has('gui_running')
-    set encoding=cp932
-  else
-    set encoding=utf-8
-  endif
-endif
 
 " Build encodings.
 let &fileencodings = join([
@@ -69,8 +60,8 @@ endif
 
 " Load dein.
 let s:dein_dir = fnamemodify('dein.vim', ':p')
-if s:dein_dir != '' || &runtimepath !~ '/dein.vim'
-  if s:dein_dir == '' && &runtimepath !~ '/dein.vim'
+if s:dein_dir !=# '' || &runtimepath !~# '/dein.vim'
+  if s:dein_dir ==# '' && &runtimepath !~# '/dein.vim'
     let s:dein_dir = expand('$CACHE/dein')
           \. '/repos/github.com/Shougo/dein.vim'
     if !isdirectory(s:dein_dir)

@@ -13,7 +13,7 @@ nnoremap < <<
 xnoremap > >gv
 xnoremap < <gv
 
-if (!has('nvim') || $DISPLAY != '') && has('clipboard')
+if (!has('nvim') || $DISPLAY !=# '') && has('clipboard')
   xnoremap <silent> y "*y:let [@+,@"]=[@*,@*]<CR>
 endif
 

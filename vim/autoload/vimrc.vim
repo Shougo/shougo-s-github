@@ -19,7 +19,7 @@ function! vimrc#sticky_func() abort
   while 1
     silent! let char = nr2char(getchar())
 
-    if char =~ '\l'
+    if char =~# '\l'
       let char = toupper(char)
       break
     elseif has_key(sticky_table, char)
@@ -38,7 +38,7 @@ function! vimrc#add_numbers(num) abort
   let prev_line = getline('.')[: col('.')-1]
   let next_line = getline('.')[col('.') :]
   let prev_num = matchstr(prev_line, '\d\+$')
-  if prev_num != ''
+  if prev_num !=# ''
     let next_num = matchstr(next_line, '^\d\+')
     let new_line = prev_line[: -len(prev_num)-1] .
           \ printf('%0'.len(prev_num . next_num).'d',
@@ -70,7 +70,7 @@ function! vimrc#on_filetype() abort
   endif
 endfunction
 
-function! vimrc#visual_paste(direction) range
+function! vimrc#visual_paste(direction) range abort
   let registers = {}
 
   for name in ['"', '0']

@@ -518,6 +518,54 @@ require'nvim-treesitter.configs'.setup {
     ensure_installed = 'all'
 }
 EOF
+
+" neovim treesitter colors
+highlight! link TSAnnotation      CandyViolet
+highlight! link TSAttribute       CandySky
+highlight! link TSBoolean         Boolean
+highlight! link TSCharacter       Character
+highlight! link TSConditional     CandyCoral
+highlight! link TSConstBuiltin    CandyGreen
+highlight! link TSConstMacro      CandyViolet
+highlight! link TSConstant        Constant
+highlight! link TSConstructor     CandyEmerald
+highlight! link TSError           Error
+highlight! link TSException       Exception
+highlight! link TSField           CandyBlue
+highlight! link TSFloat           Float
+highlight! link TSFuncBuiltin     CandySky
+highlight! link TSFuncMacro       CandySky
+highlight! link TSFunction        CandyCranberry
+highlight! link TSInclude         CandyCranberry
+highlight! link TSKeyword         CandyEmerald
+highlight! link TSKeywordFunction Keyword
+highlight! link TSKeywordOperator CandyViolet
+highlight! link TSLabel           Label
+highlight! link TSLiteral         CandyYellow
+highlight! link TSMethod          CandyTurquoise
+highlight! link TSNamespace       CandyBlue
+highlight! link TSNone            Normal
+highlight! link TSNumber          Number
+highlight! link TSOperator        Operator
+highlight! link TSParameter       CandyWhite
+highlight! link TSParameterReference CandyWhite
+highlight! link TSProperty        Identifier
+highlight! link TSPunctBracket    CandyOrange
+highlight! link TSPunctDelimiter  CandyLime
+highlight! link TSPunctSpecial    Special
+highlight! link TSRepeat          Repeat
+highlight! link TSString          String
+highlight! link TSStringEscape    SpecialChar
+highlight! link TSStringRegex     String
+highlight! link TSTag             CandyBlue
+highlight! link TSTagDelimiter    CandyLime
+highlight! link TSText            TSNone
+highlight! link TSTitle           Title
+highlight! link TSType            Type
+highlight! link TSTypeBuiltin     Type
+highlight! link TSURL             Underlined
+highlight! link TSUnderline       Underlined
+highlight! link TSVariableBuiltin CandyLime
 '''
 
 [[plugins]]
@@ -552,3 +600,10 @@ on_event = ['BufRead', 'BufNewFile']
 hook_add = '''
 let g:polyglot_disabled = ['markdown', 'tsx', 'typescript', 'csv', 'autoindent']
 '''
+
+[[plugins]]
+repo = 'vim-jp/vital.vim'
+on_command = 'Vitalize'
+
+[[plugins]]
+repo = 'Shougo/deorise.nvim'
