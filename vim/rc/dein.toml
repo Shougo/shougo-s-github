@@ -51,3 +51,6 @@ repo = 'Shougo/deoplete-nextword'
 
 [[plugins]]
 repo = 'vim-jp/syntax-vim-ex'
+
+[[plugins]]
+repo = 'cespare/vim-toml'

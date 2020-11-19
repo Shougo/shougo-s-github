@@ -61,8 +61,9 @@ nnoremap [Space]p
 nnoremap [Space]w
       \ :<C-u>call vimrc#toggle_option('wrap')<CR>
 
-" Easily edit .vimrc
-nnoremap <silent> [Space]ev  :<C-u>edit $MYVIMRC<CR>
+" Easily edit current buffer
+nnoremap <silent><expr> [Space]e
+      \ bufname('%') !=# '' && &l:buftype ==# '' ? ":\<C-u>edit %\<CR>" : ''
 
 " Useful save mappings.
 nnoremap <silent> <Leader><Leader> :<C-u>update<CR>

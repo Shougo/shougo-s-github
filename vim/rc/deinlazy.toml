@@ -595,13 +595,6 @@ repo = 't9md/vim-choosewin'
 on_source = 'defx.nvim'
 
 [[plugins]]
-repo = 'sheerun/vim-polyglot'
-on_event = ['BufRead', 'BufNewFile']
-hook_add = '''
-let g:polyglot_disabled = ['markdown', 'tsx', 'typescript', 'csv', 'autoindent']
-'''
-
-[[plugins]]
 repo = 'vim-jp/vital.vim'
 on_command = 'Vitalize'
 
