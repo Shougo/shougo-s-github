@@ -202,15 +202,13 @@ set title
 set titlelen=95
 " Title string.
 let &g:titlestring = "
-      \ %(%m%r%w%)%{expand('%:p:~:.')}
-      \ %<\(%{fnamemodify(getcwd(), ':~')}\) - VIM"
+      \ %(%m%r%w%)%{expand('%:p:~:.')} %<\(%{fnamemodify(getcwd(), ':~')}\)"
 " Disable tabline.
 set showtabline=0
 
 " Set statusline.
-let &g:statusline = "%{winnr('$')>1?'['.winnr().'/'.winnr('$')"
-      \ . ".(winnr('#')==#winnr()?'#':'').']':''}\ "
-      \ . "%{(&previewwindow?'[preview] ':'')"
+let &g:statusline =
+      \ "%{(&previewwindow?'[preview] ':'')"
       \ . ".expand('%:t')==#''?expand('%'):expand('%:t')}"
       \ . "\ %=%{(winnr('$')==1||winnr('#')!=winnr())?"
       \ . "'['.(&filetype!=#''?&filetype.',':'')"

@@ -359,10 +359,9 @@ hook_source = '''
 
   let &g:titlestring = "
         \ %(%m%r%w%)%{eskk#statusline('[%s]').expand('%:p:~:.')}
-        \ %<\(%{fnamemodify(getcwd(), ':~')}\) - VIM"
-  let &g:statusline = "%{winnr('$')>1?'['.winnr().'/'.winnr('$')"
-        \ . ".(winnr('#')==#winnr()?'#':'').']':''}\ "
-        \ . "%{(&previewwindow?'[preview] ':'')"
+        \ %<\(%{fnamemodify(getcwd(), ':~')}\)"
+  let &g:statusline =
+        \ "%{(&previewwindow?'[preview] ':'')"
         \ . ".expand('%:t')==#''?expand('%'):expand('%:t')}"
         \ . "\ %=%{(winnr('$')==1||winnr('#')!=winnr())?"
         \ . "eskk#statusline('[%s]')."
