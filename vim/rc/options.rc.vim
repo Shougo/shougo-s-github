@@ -190,10 +190,10 @@ if IsWindows()
 else
    set listchars=tab:▸\ ,trail:-,precedes:«,nbsp:%
 endif
-" Always display statusline.
-set laststatus=2
+" Always disable statusline.
+set laststatus=0
 " Height of command line.
-set cmdheight=2
+set cmdheight=1
 " Not show command on statusline.
 " set noshowcmd
 " Show title.
@@ -202,7 +202,7 @@ set title
 set titlelen=95
 " Title string.
 let &g:titlestring = "
-      \ %{expand('%:p:~:.')}%(%m%r%w%)
+      \ %(%m%r%w%)%{expand('%:p:~:.')}
       \ %<\(%{fnamemodify(getcwd(), ':~')}\) - VIM"
 " Disable tabline.
 set showtabline=0

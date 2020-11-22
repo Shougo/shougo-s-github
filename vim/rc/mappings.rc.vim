@@ -60,6 +60,8 @@ nnoremap [Space]p
       \: set spelllang+=cjk<CR>
 nnoremap [Space]w
       \ :<C-u>call vimrc#toggle_option('wrap')<CR>
+nnoremap [Space]l
+      \ :<C-u>call vimrc#toggle_option('laststatus')<CR>
 
 " Easily edit current buffer
 nnoremap <silent><expr> [Space]e

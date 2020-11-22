@@ -357,6 +357,9 @@ hook_source = '''
     call eskk#register_mode_table('hira', t)
   endfunction
 
+  let &g:titlestring = "
+        \ %(%m%r%w%)%{eskk#statusline('[%s]').expand('%:p:~:.')}
+        \ %<\(%{fnamemodify(getcwd(), ':~')}\) - VIM"
   let &g:statusline = "%{winnr('$')>1?'['.winnr().'/'.winnr('$')"
         \ . ".(winnr('#')==#winnr()?'#':'').']':''}\ "
         \ . "%{(&previewwindow?'[preview] ':'')"

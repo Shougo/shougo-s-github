@@ -57,7 +57,16 @@ function! vimrc#add_numbers(num) abort
 endfunction
 
 function! vimrc#toggle_option(option_name) abort
-  execute 'setlocal' a:option_name.'!'
+  if a:option_name ==# 'laststatus'
+    if &laststatus == 0
+      setlocal laststatus=2
+    else
+      setlocal laststatus=0
+    endif
+  else
+    execute 'setlocal' a:option_name.'!'
+  endif
+
   execute 'setlocal' a:option_name.'?'
 endfunction
 

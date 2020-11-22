@@ -90,6 +90,7 @@ call deoplete#custom#option({
       \ 'auto_preview': v:true,
       \ 'num_processes': 4,
       \ 'refresh_always': v:false,
+      \ 'refresh_backspace': v:false,
       \ })
 
 " call deoplete#custom#option('profile', v:true)
