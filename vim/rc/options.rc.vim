@@ -317,7 +317,7 @@ set display=lastline
 "set display+=uhex
 
 " For conceal.
-set conceallevel=2 concealcursor=niv
+set conceallevel=2
 
 set colorcolumn=79
 

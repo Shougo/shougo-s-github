@@ -116,7 +116,10 @@ PROMPT2="%_%% "
 SPROMPT="correct> %R -> %r [n,y,a,e]? "
 
 # Syntax highlight
+# For Arch/Manjaro
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# For Ubuntu
+# source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 
 #####################################################################
