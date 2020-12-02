@@ -54,3 +54,6 @@ repo = 'vim-jp/syntax-vim-ex'
 
 [[plugins]]
 repo = 'cespare/vim-toml'
+
+[[plugins]]
+repo = 'Vimjas/vim-python-pep8-indent'

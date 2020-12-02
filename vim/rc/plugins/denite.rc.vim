@@ -10,7 +10,7 @@ if executable('rg')
         \ 'recursive_opts': [],
         \ 'final_opts': [],
         \ 'separator': ['--'],
-        \ 'default_opts': ['-i', '--vimgrep', '--no-heading'],
+        \ 'default_opts': ['--smart-case', '--vimgrep', '--no-heading'],
         \ })
 else
   call denite#custom#var('file/rec', 'command',
