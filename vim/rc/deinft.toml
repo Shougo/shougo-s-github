@@ -47,13 +47,6 @@ let g:markdown_fenced_languages = [
       \  'vim',
       \]
 
-" Folding
-
-let g:tex_fold_enabled = 1
-let g:xml_syntax_folding = 1
-let g:php_folding = 1
-let g:perl_fold = 1
-
 " Update filetype.
 autocmd MyAutoCmd BufWritePost * nested
 \ if &l:filetype ==# '' || exists('b:ftdetect')
@@ -98,7 +91,7 @@ _ = '''
 
 python = '''
 " Indent settings.
-setlocal foldmethod=indent
+"setlocal foldmethod=indent
 setlocal softtabstop=4
 setlocal shiftwidth=4
 setlocal textwidth=80
@@ -122,7 +115,7 @@ if line('$') > 1000
   syntax sync minlines=200
 endif
 
-setlocal foldmethod=indent
+"setlocal foldmethod=indent
 setlocal shiftwidth=2 softtabstop=2
 setlocal iskeyword+=:,#
 '''

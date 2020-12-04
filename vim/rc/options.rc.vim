@@ -78,7 +78,7 @@ set hidden
 
 " Enable folding.
 set foldenable
-set foldmethod=indent
+set foldmethod=manual
 " Show folding level.
 if has('nvim')
   set foldcolumn=auto:1
