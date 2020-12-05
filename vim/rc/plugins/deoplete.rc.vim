@@ -85,12 +85,13 @@ call deoplete#custom#option('keyword_patterns', {
 " inoremap <silent><expr> <C-t> deoplete#manual_complete('file')
 
 call deoplete#custom#option({
-      \ 'camel_case': v:true,
-      \ 'skip_multibyte': v:true,
       \ 'auto_preview': v:true,
+      \ 'camel_case': v:true,
+      \ 'nofile_complete_filetypes': ['denite-filter', 'zsh'],
       \ 'num_processes': 4,
       \ 'refresh_always': v:false,
       \ 'refresh_backspace': v:false,
+      \ 'skip_multibyte': v:true,
       \ })
 
 " call deoplete#custom#option('profile', v:true)
