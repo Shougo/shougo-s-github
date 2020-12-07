@@ -205,6 +205,9 @@ setopt pushd_ignore_dups
 setopt complete_aliases
 unsetopt hist_verify
 
+# Ignore some command histories
+export HISTORY_IGNORE="(cd|pwd|l[sal]|rm|mv|shutdown|exit|rmdir)"
+
 
 #####################################################################
 # alias
