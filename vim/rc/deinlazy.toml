@@ -519,7 +519,7 @@ require'nvim-treesitter.configs'.setup {
         list_definitions = 'gnD'
       }
     },
-    ensure_installed = 'all'
+    ensure_installed = 'all',
     indent = {
         enable = true
     }
