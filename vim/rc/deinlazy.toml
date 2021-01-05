@@ -32,7 +32,9 @@ hook_source = '''
 defx = '''
   " Define mappings
   nnoremap <silent><buffer><expr> <CR>
-  \ defx#async_action('open')
+  \ defx#is_binary() ?
+  \ defx#do_action('execute_system') :
+  \ defx#do_action('open')
   nnoremap <silent><buffer><expr> +
   \ defx#do_action('open', 'choose')
   nnoremap <silent><buffer><expr> c
@@ -243,11 +245,11 @@ repo = 'Shougo/deol.nvim'
 depends = 'denite.nvim'
 on_source = ['defx.nvim', 'denite.nvim']
 hook_add = '''
-  nnoremap <silent> [Space]s :<C-u>Deol zsh -no-start-insert<CR>
+  nnoremap <silent> [Space]s :<C-u>Deol zsh -no-start-insert -toggle<CR>
   nnoremap <silent> [Window]D  :<C-u>call deol#kill_editor()<CR>
 '''
 hook_source = '''
-  let g:deol#prompt_pattern = '\w*% '
+  let g:deol#prompt_pattern = '\w*% \?'
   let g:deol#shell_history_path = '~/.zsh-history'
   let g:deol#extra_options = {
       \ 'term_kill': 'kill',
@@ -263,6 +265,7 @@ deol = '''
   \ :<C-u>call deol#send('git commit --amend')<CR>
   nmap <buffer> i <Plug>(deol_edit)
   nmap <buffer> e <Plug>(deol_edit)
+  tmap <buffer> <CR> <Plug>(deol_execute_line)
 '''
 zsh = '''
   inoreabbrev <buffer><expr> g deol#abbrev('g', 'g', 'git')
