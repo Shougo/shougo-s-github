@@ -110,6 +110,9 @@ defx = '''
   nnoremap <silent><buffer><expr> <Tab> winnr('$') != 1 ?
   \ ':<C-u>wincmd w<CR>' :
   \ ':<C-u>Defx -buffer-name=temp -split=vertical<CR>'
+  nnoremap <silent><buffer> gr :<C-u>call denite#start(
+  \ [{'name': 'grep', 'args': map(defx#get_selected_candidates(),
+  \ "v:val['action__path']")}])<CR>
 '''
 
 #[[plugins]]
@@ -525,6 +528,7 @@ require'nvim-treesitter.configs'.setup {
     ensure_installed = 'all',
     indent = {
         enable = true
+        disable = { 'python' },
     }
 }
 EOF
