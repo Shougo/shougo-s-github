@@ -368,14 +368,6 @@ hook_source = '''
   let &g:titlestring = "
         \ %(%m%r%w%)%{eskk#statusline('[%s]').expand('%:p:~:.')}
         \ %<\(%{fnamemodify(getcwd(), ':~')}\)"
-  let &g:statusline =
-        \ "%{(&previewwindow?'[preview] ':'')"
-        \ . ".expand('%:t')==#''?expand('%'):expand('%:t')}"
-        \ . "\ %=%{(winnr('$')==1||winnr('#')!=winnr())?"
-        \ . "eskk#statusline('[%s]')."
-        \ . "'['.(&filetype!=#''?&filetype.',':'')"
-        \ . ".(&fenc!=''?&fenc:&enc).','.&ff.']':''}"
-        \ . "%m%{printf('%'.(len(line('$'))+2).'d/%d',line('.'),line('$'))}"
 '''
 
 [[plugins]]

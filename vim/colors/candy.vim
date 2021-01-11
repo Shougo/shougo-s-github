@@ -30,8 +30,14 @@ highlight MoreMsg       gui=bold guibg=#2c2c2c guifg=#00ffff
 highlight Question      gui=bold guibg=#2c2c2c guifg=#e8e800
 
 " Split area
-highlight StatusLine    gui=bold guibg=#c8c8d8 guifg=#151505
-highlight StatusLineNC  gui=reverse guibg=#c8c8d8 guifg=#151505
+if &laststatus == 0
+  " Disable StatusLine highlights
+  highlight StatusLine    gui=NONE guibg=#1c1c1c guifg=#aaaaaa
+  highlight StatusLineNC  gui=NONE guibg=#1c1c1c guifg=#1c1c1c
+else
+  highlight StatusLine    gui=bold guibg=#c8c8d8 guifg=#151505
+  highlight StatusLineNC  gui=reverse guibg=#c8c8d8 guifg=#151505
+endif
 highlight VertSplit     gui=NONE guibg=#1c1c1c guifg=#1c1c1c
 highlight WildMenu      gui=NONE guibg=#a0a0ff guifg=#252525
 
