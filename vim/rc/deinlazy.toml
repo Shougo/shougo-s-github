@@ -222,6 +222,8 @@ denite = '''
   \ denite#do_map('do_action', 'edit')
   nnoremap <silent><buffer><expr> p
   \ denite#do_map('do_action', 'preview')
+  nnoremap <silent><buffer><expr> P
+  \ denite#do_map('do_action', 'preview_bat')
   nnoremap <silent><buffer><expr> N
   \ denite#do_map('do_action', 'new')
   nnoremap <silent><buffer><expr> q
@@ -281,6 +283,10 @@ zsh = '''
 '''
 
 [[plugins]]
+repo = 'lambdalisue/edita.vim'
+on_source = 'deol.nvim'
+
+[[plugins]]
 repo = 'Shougo/junkfile.vim'
 on_source = 'denite.nvim'
 hook_add = '''
@@ -289,7 +295,7 @@ hook_add = '''
 
 [[plugins]]
 repo = 'Shougo/neco-vim'
-on_ft = 'vim'
+on_ft = ['vim', 'toml']
 
 [[plugins]]
 repo = 'Shougo/vinarise.vim'
@@ -606,3 +612,7 @@ on_command = 'Vitalize'
 
 [[plugins]]
 repo = 'Shougo/deorise.nvim'
+
+[[plugins]]
+repo = 'teal-language/vim-teal'
+on_ft = 'teal'
