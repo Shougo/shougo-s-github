@@ -65,7 +65,8 @@ nnoremap [Space]l
 
 " Easily edit current buffer
 nnoremap <silent><expr> [Space]e
-      \ bufname('%') !=# '' && &l:buftype ==# '' ? ":\<C-u>edit %\<CR>" : ''
+      \ bufname('%') !=# '' && &l:buftype ==# '' ?
+      \ ":\<C-u>edit %\<CR>" : ''
 
 " Useful save mappings.
 nnoremap <silent> <Leader><Leader> :<C-u>update<CR>
