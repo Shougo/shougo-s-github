@@ -57,3 +57,6 @@ repo = 'cespare/vim-toml'
 
 [[plugins]]
 repo = 'Vimjas/vim-python-pep8-indent'
+
+[[plugins]]
+repo = 'leafOfTree/vim-vue-plugin'

@@ -220,14 +220,10 @@ set whichwrap+=h,l,<,>,[,],b,s,~
 set breakindent
 
 " Do not display the greetings message at the time of Vim start.
-set shortmess=aTI
-
 " Do not display the completion messages
-set noshowmode
-set shortmess+=c
-
 " Do not display the edit messages
-set shortmess+=F
+set shortmess=aTIcF
+set noshowmode
 
 " Don't create backup.
 set nowritebackup
