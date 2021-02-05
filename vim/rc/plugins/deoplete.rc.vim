@@ -15,7 +15,7 @@ endfunction
 " <S-TAB>: completion back.
 inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<C-h>"
 
-inoremap <expr><C-g>       deoplete#refresh()
+inoremap <silent><expr><C-g>       deoplete#manual_complete('tabnine')
 inoremap <expr><C-e>       deoplete#cancel_popup()
 inoremap <silent><expr><C-l>       deoplete#complete_common_string()
 
@@ -41,9 +41,7 @@ call deoplete#custom#source('eskk', 'matchers', [])
 " call deoplete#custom#source('buffer', 'mark', '*')
 
 call deoplete#custom#option('ignore_sources', {
-      \ '_': ['buffer'],
-      \ 'c': ['tabnine'],
-      \ 'help': ['tabnine'],
+      \ '_': ['tabnine'],
       \ })
 
 call deoplete#custom#source('tabnine', 'rank', 600)
@@ -51,8 +49,7 @@ call deoplete#custom#source('tabnine', 'min_pattern_length', 2)
 " call deoplete#custom#source('tabnine', 'is_volatile', v:false)
 call deoplete#custom#var('tabnine', {
       \ 'line_limit': 300,
-      \ 'max_num_results': 5,
-      \ 'markers': ['.git/'],
+      \ 'max_num_results': 10,
       \ })
 
 call deoplete#custom#source('zsh', 'filetypes', ['zsh', 'sh'])
