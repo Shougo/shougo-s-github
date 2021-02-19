@@ -32,7 +32,6 @@ set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr
 
 " Modifiable terminal
 autocmd MyAutoCmd TermOpen * setlocal modifiable
-autocmd MyAutoCmd TermClose * buffer #
 
 let g:terminal_scrollback_buffer_size = 3000
 
