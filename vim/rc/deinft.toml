@@ -24,28 +24,17 @@ let g:java_highlight_functions = 1
 let g:SimpleJsIndenter_BriefMode = 1
 let g:SimpleJsIndenter_CaseIndentLevel = -1
 
-" Markdown
-let g:markdown_fenced_languages = []
-
 " Tex
 let g:tex_flavor = 'latex'
 
 " python.vim
 let python_highlight_all = 1
 
-" http://mattn.kaoriya.net/software/vim/20140523124903.htm
-let g:markdown_fenced_languages = [
-      \  'coffee',
-      \  'css',
-      \  'erb=eruby',
-      \  'javascript',
-      \  'js=javascript',
-      \  'json=javascript',
-      \  'ruby',
-      \  'sass',
-      \  'xml',
-      \  'vim',
-      \]
+" markdown
+let g:vim_markdown_frontmatter = 1
+let g:vim_markdown_toml_frontmatter = 1
+let g:vim_markdown_json_frontmatter = 1
+let g:vim_markdown_no_default_key_mappings = 1
 
 " Update filetype.
 autocmd MyAutoCmd BufWritePost * nested
@@ -135,11 +124,4 @@ setlocal iskeyword+=!
 setlocal iskeyword+=?
 setlocal omnifunc=
 setlocal shiftwidth=2 softtabstop=2 tabstop=2
-'''
-
-markdown = '''
-unlet! b:current_syntax
-syntax include @Yaml syntax/yaml.vim
-syntax region yamlFrontmatter
-\ start=/\%^---$/ end=/^---$/ keepend contains=@Yaml
 '''

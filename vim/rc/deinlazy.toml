@@ -595,3 +595,7 @@ repo = 'Shougo/deorise.nvim'
 [[plugins]]
 repo = 'teal-language/vim-teal'
 on_ft = 'teal'
+
+[[plugins]]
+repo = 'joker1007/vim-markdown-quote-syntax'
+on_ft = 'markdown'
