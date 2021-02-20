@@ -136,3 +136,10 @@ setlocal iskeyword+=?
 setlocal omnifunc=
 setlocal shiftwidth=2 softtabstop=2 tabstop=2
 '''
+
+markdown = '''
+unlet! b:current_syntax
+syntax include @Yaml syntax/yaml.vim
+syntax region yamlFrontmatter
+\ start=/\%^---$/ end=/^---$/ keepend contains=@Yaml
+'''

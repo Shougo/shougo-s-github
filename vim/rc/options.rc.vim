@@ -76,8 +76,8 @@ set hidden
 " But can't complete.
 "  set cdpath+=~
 
-" Enable folding.
-set foldenable
+" Disable folding.
+set nofoldenable
 set foldmethod=manual
 " Show folding level.
 if has('nvim')
