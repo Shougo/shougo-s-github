@@ -9,15 +9,8 @@ function! IsWindows() abort
   return s:is_windows
 endfunction
 
-function! IsMac() abort
-  return !s:is_windows && !has('win32unix')
-      \ && (has('mac') || has('macunix') || has('gui_macvim')
-      \     || (!executable('xdg-open') && system('uname') =~? '^darwin'))
-endfunction
-
 " Build encodings.
-let &fileencodings = join([
-      \ 'ucs-bom', 'iso-2022-jp-3', 'utf-8', 'euc-jp', 'cp932'])
+let &fileencodings = 'ucs-bom,iso-2022-jp-3,utf-8,euc-jp,cp932'
 
 " Setting of terminal encoding.
 if !has('gui_running') && IsWindows()
@@ -45,7 +38,7 @@ nnoremap ,  <Nop>
 
 if IsWindows()
   " Exchange path separator.
-   set shellslash
+  set shellslash
 endif
 
 let $CACHE = expand('~/.cache')

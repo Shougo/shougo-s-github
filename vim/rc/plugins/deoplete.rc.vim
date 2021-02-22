@@ -16,7 +16,7 @@ endfunction
 inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<C-h>"
 
 inoremap <silent><expr><C-g>       deoplete#manual_complete('tabnine')
-inoremap <expr><C-e>       deoplete#cancel_popup()
+inoremap <silent><expr><C-e>       deoplete#cancel_popup()
 inoremap <silent><expr><C-l>       deoplete#complete_common_string()
 
 " <CR>: close popup and save indent.

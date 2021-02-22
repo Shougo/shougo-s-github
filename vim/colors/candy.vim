@@ -8,7 +8,6 @@
 if !has('vim_starting')
   set background=dark
   highlight clear
-
   if exists('syntax_on')
     syntax reset
   endif
@@ -117,46 +116,3 @@ if has('nvim')
   highlight NormalNC     gui=NONE guibg=#2c2c2c guifg=#bfbfbf
   highlight WhiteSpace   gui=NONE guifg=#999999
 endif
-
-" Set terminal colors
-if has('nvim')
-  let g:terminal_color_0  = '#6c6c6c'
-  let g:terminal_color_1  = '#ff6666'
-  let g:terminal_color_2  = '#66ff66'
-  let g:terminal_color_3  = '#ffd30a'
-  let g:terminal_color_4  = '#1e95fd'
-  let g:terminal_color_5  = '#ff13ff'
-  let g:terminal_color_6  = '#1bc8c8'
-  let g:terminal_color_7  = '#c0c0c0'
-  let g:terminal_color_8  = '#383838'
-  let g:terminal_color_9  = '#ff4444'
-  let g:terminal_color_10 = '#44ff44'
-  let g:terminal_color_11 = '#ffb30a'
-  let g:terminal_color_12 = '#6699ff'
-  let g:terminal_color_13 = '#f820ff'
-  let g:terminal_color_14 = '#4ae2e2'
-  let g:terminal_color_15 = '#ffffff'
-else
-  let g:terminal_ansi_colors = [
-        \ '#6c6c6c', '#ff6666', '#66ff66', '#ffd30a',
-        \ '#1e95fd', '#ff13ff', '#1bc8c8', '#c0c0c0',
-        \ '#383838', '#ff4444', '#44ff44', '#ffb30a',
-        \ '#6699ff', '#f820ff', '#4ae2e2', '#ffffff',
-        \ ]
-endif
-
-" Custom colors
-highlight CandyBlue         gui=NONE guibg=#2c2c2c guifg=#1e95fd
-highlight CandyCranberry    gui=NONE guibg=#2c2c2c guifg=#4ae2e2
-highlight CandyEmerald      gui=NONE guibg=#2c2c2c guifg=#44ff44
-highlight CandyGreen        gui=NONE guibg=#2c2c2c guifg=#66ff66
-highlight CandyLime         gui=NONE guibg=#2c2c2c guifg=#4ae2e2
-highlight CandyOrange       gui=NONE guibg=#2c2c2c guifg=#ffb30a
-highlight CandyRed          gui=NONE guibg=#2c2c2c guifg=#ff6666
-highlight CandySky          gui=NONE guibg=#2c2c2c guifg=#6699ff
-highlight CandyViolet       gui=NONE guibg=#2c2c2c guifg=#ff13ff
-highlight CandyWhite        gui=NONE guibg=#2c2c2c guifg=#cccccc
-highlight CandyYellow       gui=NONE guibg=#2c2c2c guifg=#ffd30a
-highlight CandyCoral        gui=NONE guibg=#2c2c2c guifg=#f820ff
-highlight CandyTurquoise    gui=NONE guibg=#2c2c2c guifg=#1bc8c8
-highlight CandyCrimson      gui=NONE guibg=#2c2c2c guifg=#ff4444
