@@ -230,6 +230,7 @@ alias vim='TERM=xterm-256color nvim'
 #alias nvim-qt='nvim-qt --geometry 1800x1200'
 alias goneovim='~/Downloads/goneovim/goneovim &>/dev/null &'
 alias gn=goneovim
+alias g=git
 alias lock='i3exit lock'
 
 

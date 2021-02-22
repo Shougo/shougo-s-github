@@ -305,6 +305,13 @@ zsh = '''
   inoreabbrev <buffer><expr> d deol#abbrev('git d', 'd', 'diff')
   inoreabbrev <buffer><expr> p deol#abbrev('git p', 'p', 'push')
   inoreabbrev <buffer><expr> s deol#abbrev('git s', 's', 'status')
+
+  nnoremap <buffer><silent> [Space]gc
+  \ :<C-u>call deol#send('git commit')<CR>
+  nnoremap <buffer><silent> [Space]gs
+  \ :<C-u>call deol#send('git status')<CR>
+  nnoremap <buffer><silent> [Space]gA
+  \ :<C-u>call deol#send('git commit --amend')<CR>
 '''
 
 [[plugins]]
