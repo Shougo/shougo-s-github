@@ -171,7 +171,7 @@ hook_add = '''
         \ :<C-u>Denite -default-action=replace -buffer-name=register
         \ register<CR>
 
-  nnoremap <silent> [Window]<Space>
+  nnoremap <silent> s<Space>
   \ :<C-u>Denite file/rec:~/.vim/rc<CR>
   nnoremap <silent><expr> / wordcount().chars > 30000 ?
   \ ":\<C-u>Denite -buffer-name=search -start-filter
@@ -182,7 +182,7 @@ hook_add = '''
   \ ":\<C-u>DeniteCursorWord -buffer-name=search -search line\<CR>"
   xnoremap <silent> *
   \ "qy:Denite -input=`@q` -buffer-name=search -search line<CR>
-  nnoremap <silent><expr> [Window]s finddir('.git', ';') != '' ?
+  nnoremap <silent><expr> ss finddir('.git', ';') != '' ?
   \ ":\<C-u>Denite -sorters=sorter/rank -unique
   \  file/point file/old file/dirty file/git file file:new\<CR>" :
   \ ":\<C-u>Denite -sorters=sorter/rank -unique
@@ -195,8 +195,8 @@ hook_add = '''
   nnoremap <silent><expr> tp  &filetype == 'help' ?
   \ ":\<C-u>pop\<CR>" : ":\<C-u>Denite jump\<CR>"
 
-  nnoremap <silent> [Window]n :<C-u>Denite dein<CR>
-  nnoremap <silent> [Window]g :<C-u>Denite ghq -default-action=cd<CR>
+  nnoremap <silent> sn :<C-u>Denite dein<CR>
+  nnoremap <silent> sg :<C-u>Denite ghq -default-action=cd<CR>
   nnoremap <silent> ;g :<C-u>Denite -buffer-name=search
   \ -no-empty grep<CR>
   nnoremap <silent> ;w :<C-u>DeniteCursorWord -buffer-name=search
@@ -248,7 +248,7 @@ depends = 'denite.nvim'
 on_source = ['defx.nvim', 'denite.nvim']
 hook_add = '''
   nnoremap <silent> [Space]s :<C-u>Deol zsh -no-start-insert -toggle<CR>
-  nnoremap <silent> [Window]D  :<C-u>call deol#kill_editor()<CR>
+  nnoremap <silent> sD  :<C-u>call deol#kill_editor()<CR>
 '''
 hook_source = '''
   let g:deol#prompt_pattern = '\w*% \?'
@@ -321,7 +321,7 @@ on_source = 'deol.nvim'
 repo = 'Shougo/junkfile.vim'
 on_source = 'denite.nvim'
 hook_add = '''
-  nnoremap <silent> [Window]e :<C-u>Denite junkfile:new junkfile<CR>
+  nnoremap <silent> se :<C-u>Denite junkfile:new junkfile<CR>
 '''
 
 [[plugins]]
@@ -423,7 +423,7 @@ repo = 'rhysd/vim-operator-surround'
 depends = 'vim-operator-user'
 on_map = {n = '<Plug>'}
 hook_add = '''
-  nmap <silent>sa <Plug>(operator-surround-append)a
+  nmap <silent>sa <Plug>(operator-surround-append)
   nmap <silent>sd <Plug>(operator-surround-delete)a
   nmap <silent>sr <Plug>(operator-surround-replace)a
   nmap <silent>sc <Plug>(operator-surround-replace)a
