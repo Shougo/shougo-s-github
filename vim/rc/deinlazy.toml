@@ -498,6 +498,9 @@ hook_add = '''
 [[plugins]]
 repo = 'mattn/vim-goimports'
 on_ft = 'go'
+hook_source = '''
+  let g:goimports_simplify = 1
+'''
 
 [[plugins]]
 repo = 'ncm2/float-preview.nvim'
