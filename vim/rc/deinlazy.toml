@@ -183,12 +183,14 @@ hook_add = '''
   xnoremap <silent> *
   \ "qy:Denite -input=`@q` -buffer-name=search -search line<CR>
   nnoremap <silent><expr> ss finddir('.git', ';') != '' ?
-  \ ":\<C-u>Denite -sorters=sorter/rank -unique
+  \ ":\<C-u>Denite -sorters=sorter/rank -unique -buffer-name=files
   \  file/point file/old file/dirty file/git file file:new\<CR>" :
-  \ ":\<C-u>Denite -sorters=sorter/rank -unique
+  \ ":\<C-u>Denite -sorters=sorter/rank -unique -buffer-name=files
   \  file/point file/old file file:new\<CR>"
   nnoremap <silent> n
   \ :<C-u>Denite -buffer-name=search -resume<CR>
+  nnoremap <silent> sf
+  \ :<C-u>Denite -buffer-name=files -resume<CR>
 
   nnoremap <silent><expr> tt  &filetype == 'help' ?  "g\<C-]>" :
   \ ":\<C-u>DeniteCursorWord -buffer-name=tag -immediately tag:include\<CR>"

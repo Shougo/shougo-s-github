@@ -43,7 +43,7 @@ call denite#custom#var('file/dirty', 'command',
 " call denite#custom#option('default', 'prompt', '>')
 " call denite#custom#option('default', 'short_source_names', v:true)
 if has('nvim')
-  call denite#custom#option('default', {
+  call denite#custom#option('files', {
         \ 'highlight_filter_background': 'CursorLine',
         \ 'source_names': 'short',
         \ 'split': 'floating',
@@ -52,7 +52,7 @@ if has('nvim')
         \ 'floating_preview': v:true,
         \ })
 else
-  call denite#custom#option('default', {
+  call denite#custom#option('files', {
         \ 'highlight_filter_background': 'CursorLine',
         \ 'source_names': 'short',
         \ 'vertical_preview': v:true,
