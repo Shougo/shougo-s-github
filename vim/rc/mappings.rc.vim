@@ -78,6 +78,10 @@ nnoremap <silent> so  :<C-u>only<CR>
 nnoremap <silent> <Tab>      :wincmd w<CR>
 nnoremap <silent><expr> q winnr('$') != 1 ? ':<C-u>close<CR>' : ""
 
+" Original search
+nnoremap s/    /
+nnoremap s?    ?
+
 " Better x
 nnoremap x "_x
 

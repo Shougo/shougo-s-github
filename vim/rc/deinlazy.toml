@@ -172,7 +172,7 @@ hook_add = '''
         \ register<CR>
 
   nnoremap <silent> s<Space>
-  \ :<C-u>Denite file/rec:~/.vim/rc<CR>
+  \ :<C-u>Denite -buffer-name=files file/rec:~/.vim/rc<CR>
   nnoremap <silent><expr> / wordcount().chars > 30000 ?
   \ ":\<C-u>Denite -buffer-name=search -start-filter
   \  -search line/external\<CR>" :
@@ -642,3 +642,36 @@ repo = 'Shougo/deorise.nvim'
 [[plugins]]
 repo = 'joker1007/vim-markdown-quote-syntax'
 on_ft = 'markdown'
+
+[[plugins]]
+repo = 'gelguy/wilder.nvim'
+on_map = ':'
+hook_source = '''
+call wilder#enable_cmdline_enter()
+set wildcharm=<Tab>
+
+cnoremap <expr> <Tab> wilder#in_context() ? wilder#next() : "\<Tab>"
+cnoremap <expr> <S-Tab> wilder#in_context() ? wilder#previous() : "\<S-Tab>"
+
+" only / and ? are enabled by default
+call wilder#set_option('modes', ['/', '?', ':'])
+
+" When the cmdline is empty, provide suggestions based on the cmdline history
+call wilder#set_option('pipeline', [
+      \   wilder#branch(
+      \     [
+      \       wilder#check({_, x -> empty(x)}),
+      \       wilder#history(),
+      \     ],
+      \     wilder#cmdline_pipeline(),
+      \     wilder#search_pipeline(),
+      \   ),
+      \ ])
+
+if has('nvim')
+  " popupmenu completion
+  call wilder#set_option('renderer', wilder#popupmenu_renderer({
+        \ 'highlighter': wilder#basic_highlighter(),
+        \ }))
+endif
+'''
