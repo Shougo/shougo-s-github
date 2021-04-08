@@ -525,6 +525,7 @@ hook_source = '''
 repo = 'nvim-treesitter/nvim-treesitter'
 if = 'has("nvim")'
 on_event = 'BufRead'
+hook_post_update = 'TSUpdate'
 hook_source = '''
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
@@ -646,6 +647,7 @@ on_ft = 'markdown'
 [[plugins]]
 repo = 'gelguy/wilder.nvim'
 on_map = ':'
+if = 'has("nvim")'
 hook_source = '''
 call wilder#enable_cmdline_enter()
 set wildcharm=<Tab>

@@ -304,7 +304,7 @@ set ttyfast
 " When a line is long, do not omit it in @.
 set display=lastline
 " Display an invisible letter with hex format.
-"set display+=uhex
+set display+=uhex
 
 " For conceal.
 set conceallevel=2

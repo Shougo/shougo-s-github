@@ -198,3 +198,6 @@ command! -bang -complete=file -nargs=? WUnix
       \ write<bang> ++fileformat=unix <args> | edit <args>
 command! -bang -complete=file -nargs=? WDos
       \ write<bang> ++fileformat=dos <args> | edit <args>
+
+" Insert special character
+inoremap <C-v>u  <C-r>=nr2char(0x)<Left>
