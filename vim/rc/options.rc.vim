@@ -80,7 +80,7 @@ set hidden
 set nofoldenable
 set foldmethod=manual
 " Show folding level.
-if has('nvim')
+if has('nvim-0.5')
   set foldcolumn=auto:1
 else
   set foldcolumn=1
@@ -272,8 +272,10 @@ endif
 set complete=.
 " Set popup menu max height.
 set pumheight=10
-" Set popup menu max width.
-set pumwidth=10
+if exists('+pumwidth')
+  " Set popup menu max width.
+  set pumwidth=10
+endif
 
 " Report changes.
 set report=0
