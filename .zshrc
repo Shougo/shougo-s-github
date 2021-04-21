@@ -68,9 +68,6 @@ zstyle ':completion:*' completer _oldlist _complete _match _ignored \
 
 autoload -U compinit
 
-# cd search path
-cdpath=($HOME)
-
 zstyle ':completion:*:processes' command "ps -u $USER -o pid,stat,%cpu,%mem,cputime,command"
 
 
@@ -98,16 +95,14 @@ zstyle ':vcs_info:git:*' unstagedstr "%F{red}+"
 zstyle ':vcs_info:*' formats "%F{green}%c%u[%b]%f"
 zstyle ':vcs_info:*' actionformats '[%b|%a]'
 
-PROMPT='%{[33m%}[%35<..<%~]%{[m%}${vcs_info_msg_0_}
-%{[$[31+$RANDOM % 7]m%}%U%B%#'"%b%{[m%}%u "
-
-if [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] ; then
-    PROMPT="%{[37m%}${HOST%%.*} ${PROMPT}"
-fi
-
 if [ $UID = "0" ]; then
     PROMPT="%B%{[31m%}%/#%{^[[m%}%b "
     PROMPT2="%B%{[31m%}%_#%{^[[m%}%b "
+elif [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] ; then
+    PROMPT="%{[37m%}${HOST%%.*} ${PROMPT}"
+else;
+    PROMPT='%{[33m%}[%35<..<%~]%{[m%}${vcs_info_msg_0_}
+%{[$[31+$RANDOM % 7]m%}%U%B%#'"%b%{[m%}%u "
 fi
 
 # Multi line prompt
@@ -116,10 +111,13 @@ PROMPT2="%_%% "
 SPROMPT="correct> %R -> %r [n,y,a,e]? "
 
 # Syntax highlight
-# For Arch/Manjaro
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-# For Ubuntu
-# source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+if [ -d /usr/share/zsh/plugins/zsh-syntax-highlighting ]; then
+    # For Arch/Manjaro
+    source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+elif [ -d /usr/share/zsh-syntax-highlighting ]; then
+    # For Ubuntu
+    source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
 
 
 #####################################################################
@@ -174,7 +172,6 @@ setopt pushd_silent
 setopt short_loops
 # Ignore history (fc -l) command in history
 setopt hist_no_store
-setopt transient_rprompt
 unsetopt promptcr
 setopt hash_cmds
 setopt numeric_glob_sort
@@ -219,8 +216,8 @@ alias cp='nocorrect cp'
 alias mkdir='nocorrect mkdir'
 
 # Improve du, df
-alias du="du -h"
-alias df="df -h"
+alias du='du -h'
+alias df='df -h'
 
 # Improve od for hexdump
 alias od='od -Ax -tx1z'
