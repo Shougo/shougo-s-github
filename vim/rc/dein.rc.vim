@@ -17,7 +17,8 @@ if IsWindows()
 else
   call add(g:dein#inline_vimrcs, 'unix.rc.vim')
 endif
-call map(g:dein#inline_vimrcs, "resolve(expand('~/.vim/rc/' . v:val))")
+call map(g:dein#inline_vimrcs,
+      \ { _, val -> resolve(expand('~/.vim/rc/' . val)) })
 
 let s:path = expand('$CACHE/dein')
 if !dein#load_state(s:path)

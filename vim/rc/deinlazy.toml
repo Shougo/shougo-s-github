@@ -114,7 +114,7 @@ defx = '''
   \ ':<C-u>Defx -buffer-name=temp -split=vertical<CR>'
   nnoremap <silent><buffer> gr :<C-u>call denite#start(
   \ [{'name': 'grep', 'args': [map(defx#get_selected_candidates(),
-  \ "v:val['action__path']")]}])<CR>
+  \ { _, val -> val['action__path'] })]}])<CR>
 '''
 
 #[[plugins]]
@@ -154,7 +154,7 @@ hook_source = '''
   call deoppet#custom#option('snippets',
           \ [{ 'path': expand('~/.vim/my-snippets')}] +
           \ map(globpath(&runtimepath, 'neosnippets', 1, 1),
-          \     "{ 'path': v:val }"))
+          \     { _, val -> { 'path': val } }))
 '''
 
 [[plugins]]
