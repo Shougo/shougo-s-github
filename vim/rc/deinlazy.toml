@@ -243,6 +243,11 @@ denite = '''
 
 [[plugins]]
 repo = 'Shougo/context_filetype.vim'
+hook_source = '''
+let g:context_filetype#ignore_patterns = {
+    \ 'toml': ['^\s*#\s*'],
+    \ }
+'''
 
 [[plugins]]
 repo = 'Shougo/deol.nvim'

@@ -25,20 +25,11 @@ function! s:my_cr_function() abort
   return pumvisible() ? deoplete#close_popup()."\<CR>" : "\<CR>"
 endfunction
 
-" cpsm test
-" call deoplete#custom#source('_', 'matchers', ['matcher_cpsm'])
-" call deoplete#custom#source('_', 'sorters', [])
-
 call deoplete#custom#source('_', 'matchers',
       \ ['matcher_fuzzy', 'matcher_length'])
 call deoplete#custom#source('denite', 'matchers',
       \ ['matcher_full_fuzzy', 'matcher_length'])
-" call deoplete#custom#source('eskk,tabnine', 'matchers', [])
 call deoplete#custom#source('eskk', 'matchers', [])
-" call deoplete#custom#source('buffer', 'mark', '')
-" call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy'])
-" call deoplete#custom#source('_', 'disabled_syntaxes', ['Comment', 'String'])
-" call deoplete#custom#source('buffer', 'mark', '*')
 
 call deoplete#custom#option('ignore_sources', {
       \ '_': ['tabnine'],
@@ -46,7 +37,6 @@ call deoplete#custom#option('ignore_sources', {
 
 call deoplete#custom#source('tabnine', 'rank', 600)
 call deoplete#custom#source('tabnine', 'min_pattern_length', 2)
-" call deoplete#custom#source('tabnine', 'is_volatile', v:false)
 call deoplete#custom#var('tabnine', {
       \ 'line_limit': 300,
       \ 'max_num_results': 10,
@@ -70,16 +60,10 @@ call deoplete#custom#source('tabnine', 'converters', [
       \ ])
 call deoplete#custom#source('eskk', 'converters', [])
 
-" call deoplete#custom#source('buffer', 'min_pattern_length', 9999)
-" call deoplete#custom#source('clang', 'input_pattern', '\.\w*|\.->\w*|\w+::\w*')
-" call deoplete#custom#source('clang', 'max_pattern_length', -1)
-
 call deoplete#custom#option('keyword_patterns', {
       \ '_': '[a-zA-Z_]\k*\(?',
       \ 'tex': '[^\w|\s][a-zA-Z_]\w*',
       \ })
-
-" inoremap <silent><expr> <C-t> deoplete#manual_complete('file')
 
 call deoplete#custom#option({
       \ 'auto_preview': v:true,
@@ -93,12 +77,3 @@ call deoplete#custom#option({
 
 " call deoplete#custom#option('profile', v:true)
 " call deoplete#enable_logging('DEBUG', 'deoplete.log')
-" call deoplete#custom#source('clang', 'debug_enabled', 1)
-
-call deoplete#custom#option('candidate_marks',
-      \ ['A', 'S', 'D', 'F', 'G'])
-inoremap <expr>A       pumvisible() ? deoplete#insert_candidate(0) : 'A'
-inoremap <expr>S       pumvisible() ? deoplete#insert_candidate(1) : 'S'
-inoremap <expr>D       pumvisible() ? deoplete#insert_candidate(2) : 'D'
-inoremap <expr>F       pumvisible() ? deoplete#insert_candidate(3) : 'F'
-inoremap <expr>G       pumvisible() ? deoplete#insert_candidate(4) : 'G'
