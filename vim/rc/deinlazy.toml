@@ -15,7 +15,7 @@ hook_source = '''
 repo = 'Shougo/defx.nvim'
 hook_add = '''
   nnoremap <silent>   [Space]f
-  \ :<C-u>Defx -listed -resume -buffer-name=win-`win_getid()`<CR>
+  \ <Cmd>Defx -listed -resume -buffer-name=win-`win_getid()`<CR>
 '''
 hook_source = '''
   call defx#custom#column('mark', {
@@ -110,9 +110,9 @@ defx = '''
   nnoremap <silent><buffer><expr> <C-g>
   \ defx#do_action('print')
   nnoremap <silent><buffer><expr> <Tab> winnr('$') != 1 ?
-  \ ':<C-u>wincmd w<CR>' :
-  \ ':<C-u>Defx -buffer-name=temp -split=vertical<CR>'
-  nnoremap <silent><buffer> gr :<C-u>call denite#start(
+  \ '<Cmd>wincmd w<CR>' :
+  \ '<Cmd>Defx -buffer-name=temp -split=vertical<CR>'
+  nnoremap <silent><buffer> gr <Cmd>call denite#start(
   \ [{'name': 'grep', 'args': [map(defx#get_selected_candidates(),
   \ { _, val -> val['action__path'] })]}])<CR>
 '''
@@ -166,46 +166,46 @@ on_cmd = 'Denite'
 hook_source = 'source ~/.vim/rc/plugins/denite.rc.vim'
 hook_add = '''
   nnoremap <silent> ;r
-        \ :<C-u>Denite -buffer-name=register register<CR>
+        \ <Cmd>Denite -buffer-name=register register<CR>
   xnoremap <silent> ;r
-        \ :<C-u>Denite -default-action=replace -buffer-name=register
+        \ <Cmd>Denite -default-action=replace -buffer-name=register
         \ register<CR>
 
   nnoremap <silent> s<Space>
-  \ :<C-u>Denite -buffer-name=files file/rec:~/.vim/rc<CR>
+  \ <Cmd>Denite -buffer-name=files file/rec:~/.vim/rc<CR>
   nnoremap <silent><expr> / wordcount().chars > 30000 ?
-  \ ":\<C-u>Denite -buffer-name=search -start-filter
+  \ "\<Cmd>Denite -buffer-name=search -start-filter
   \  -search line/external\<CR>" :
-  \ ":\<C-u>Denite -buffer-name=search -start-filter -search line\<CR>"
+  \ "\<Cmd>Denite -buffer-name=search -start-filter -search line\<CR>"
   nnoremap <silent><expr> * wordcount().chars > 30000 ?
-  \ ":\<C-u>DeniteCursorWord -buffer-name=search -search line/external\<CR>" :
-  \ ":\<C-u>DeniteCursorWord -buffer-name=search -search line\<CR>"
+  \ "\<Cmd>DeniteCursorWord -buffer-name=search -search line/external\<CR>" :
+  \ "\<Cmd>DeniteCursorWord -buffer-name=search -search line\<CR>"
   xnoremap <silent> *
   \ "qy:Denite -input=`@q` -buffer-name=search -search line<CR>
   nnoremap <silent><expr> ss finddir('.git', ';') != '' ?
-  \ ":\<C-u>Denite -sorters=sorter/rank -unique -buffer-name=files
+  \ "\<Cmd>Denite -sorters=sorter/rank -unique -buffer-name=files
   \  file/point file/old file/dirty file/git file file:new\<CR>" :
-  \ ":\<C-u>Denite -sorters=sorter/rank -unique -buffer-name=files
+  \ "\<Cmd>Denite -sorters=sorter/rank -unique -buffer-name=files
   \  file/point file/old file file:new\<CR>"
   nnoremap <silent> n
-  \ :<C-u>Denite -buffer-name=search -resume<CR>
+  \ <Cmd>Denite -buffer-name=search -resume<CR>
   nnoremap <silent> sf
-  \ :<C-u>Denite -buffer-name=files -resume<CR>
+  \ <Cmd>Denite -buffer-name=files -resume<CR>
 
   nnoremap <silent><expr> tt  &filetype == 'help' ?  "g\<C-]>" :
-  \ ":\<C-u>DeniteCursorWord -buffer-name=tag -immediately tag:include\<CR>"
+  \ "\<Cmd>DeniteCursorWord -buffer-name=tag -immediately tag:include\<CR>"
   nnoremap <silent><expr> tp  &filetype == 'help' ?
-  \ ":\<C-u>pop\<CR>" : ":\<C-u>Denite jump\<CR>"
+  \ "\<Cmd>pop\<CR>" : "\<Cmd>Denite jump\<CR>"
 
-  nnoremap <silent> sn :<C-u>Denite dein<CR>
-  nnoremap <silent> sg :<C-u>Denite ghq -default-action=cd<CR>
-  nnoremap <silent> ;g :<C-u>Denite -buffer-name=search
+  nnoremap <silent> sn <Cmd>Denite dein<CR>
+  nnoremap <silent> sg <Cmd>Denite ghq -default-action=cd<CR>
+  nnoremap <silent> ;g <Cmd>Denite -buffer-name=search
   \ -no-empty grep<CR>
-  nnoremap <silent> ;w :<C-u>DeniteCursorWord -buffer-name=search
+  nnoremap <silent> ;w <Cmd>DeniteCursorWord -buffer-name=search
   \ -no-empty grep<CR>
-  nnoremap <silent> <C-t> :<C-u>Denite -buffer-name=deol -split=floating
+  nnoremap <silent> <C-t> <Cmd>Denite -buffer-name=deol -split=floating
   \ -cursor-pos=`tabpagenr()-1` deol:zsh<CR>
-  nnoremap <silent> <C-k> :<C-u>Denite change jump<CR>
+  nnoremap <silent> <C-k> <Cmd>Denite change jump<CR>
 '''
 
 [plugins.ftplugin]
@@ -254,8 +254,8 @@ repo = 'Shougo/deol.nvim'
 depends = 'denite.nvim'
 on_source = ['defx.nvim', 'denite.nvim']
 hook_add = '''
-  nnoremap <silent> [Space]s :<C-u>Deol zsh -no-start-insert -toggle<CR>
-  nnoremap <silent> sD  :<C-u>call deol#kill_editor()<CR>
+  nnoremap <silent> [Space]s <Cmd>Deol zsh -no-start-insert -toggle<CR>
+  nnoremap <silent> sD  <Cmd>call deol#kill_editor()<CR>
 '''
 hook_source = '''
   let g:deol#prompt_pattern = '\w*% \?'
@@ -294,11 +294,11 @@ hook_source = '''
 [plugins.ftplugin]
 deol = '''
   nnoremap <buffer><silent> [Space]gc
-  \ :<C-u>call deol#send('git commit')<CR>
+  \ <Cmd>call deol#send('git commit')<CR>
   nnoremap <buffer><silent> [Space]gs
-  \ :<C-u>call deol#send('git status')<CR>
+  \ <Cmd>call deol#send('git status')<CR>
   nnoremap <buffer><silent> [Space]gA
-  \ :<C-u>call deol#send('git commit --amend')<CR>
+  \ <Cmd>call deol#send('git commit --amend')<CR>
   nmap <buffer> i <Plug>(deol_edit)
   nmap <buffer> e <Plug>(deol_edit)
   tmap <buffer> <CR> <Plug>(deol_execute_line)
@@ -313,11 +313,11 @@ zsh = '''
   inoreabbrev <buffer><expr> s deol#abbrev('git s', 's', 'status')
 
   nnoremap <buffer><silent> [Space]gc
-  \ :<C-u>call deol#send('git commit')<CR>
+  \ <Cmd>call deol#send('git commit')<CR>
   nnoremap <buffer><silent> [Space]gs
-  \ :<C-u>call deol#send('git status')<CR>
+  \ <Cmd>call deol#send('git status')<CR>
   nnoremap <buffer><silent> [Space]gA
-  \ :<C-u>call deol#send('git commit --amend')<CR>
+  \ <Cmd>call deol#send('git commit --amend')<CR>
 '''
 
 [[plugins]]
@@ -328,7 +328,7 @@ on_source = 'deol.nvim'
 repo = 'Shougo/junkfile.vim'
 on_source = 'denite.nvim'
 hook_add = '''
-  nnoremap <silent> se :<C-u>Denite junkfile:new junkfile<CR>
+  nnoremap <silent> se <Cmd>Denite junkfile:new junkfile<CR>
 '''
 
 [[plugins]]
@@ -356,7 +356,7 @@ repo = 'thinca/vim-qfreplace'
 on_ft = ['qf']
 [plugins.ftplugin]
 qf = '''
-  nnoremap <buffer> r :<C-u>Qfreplace<CR>
+  nnoremap <buffer> r <Cmd>Qfreplace<CR>
 '''
 
 [[plugins]]
@@ -479,7 +479,7 @@ repo = 'machakann/vim-vimhelplint'
 on_ft = 'help'
 [plugins.ftplugin]
 help = '''
-  nnoremap <silent><buffer> ,r  :<C-u>VimhelpLint!<CR>
+  nnoremap <silent><buffer> ,r  <Cmd>VimhelpLint!<CR>
 '''
 
 [[plugins]]

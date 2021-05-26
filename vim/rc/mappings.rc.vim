@@ -52,31 +52,31 @@ nnoremap  [Space]   <Nop>
 
 " Set autoread.
 nnoremap [Space]ar
-      \ :<C-u>call vimrc#toggle_option('autoread')<CR>
+      \ <Cmd>call vimrc#toggle_option('autoread')<CR>
 " Set spell check.
 nnoremap [Space]p
-      \ :<C-u>call vimrc#toggle_option('spell')<CR>
-      \: set spelllang=en_us<CR>
-      \: set spelllang+=cjk<CR>
+      \ <Cmd>call vimrc#toggle_option('spell')<CR>
+      \<Cmd>set spelllang=en_us<CR>
+      \<Cmd>set spelllang+=cjk<CR>
 nnoremap [Space]w
-      \ :<C-u>call vimrc#toggle_option('wrap')<CR>
+      \ <Cmd>call vimrc#toggle_option('wrap')<CR>
 nnoremap [Space]l
-      \ :<C-u>call vimrc#toggle_option('laststatus')<CR>
+      \ <Cmd>call vimrc#toggle_option('laststatus')<CR>
 
 " Easily edit current buffer
 nnoremap <silent><expr> [Space]e
       \ bufname('%') !=# '' && &l:buftype ==# '' ?
-      \ ":\<C-u>edit %\<CR>" : ''
+      \ "\<Cmd>edit %\<CR>" : ''
 
 " Useful save mappings.
-nnoremap <silent> <Leader><Leader> :<C-u>update<CR>
+nnoremap <silent> <Leader><Leader> <Cmd>update<CR>
 
 " s: Windows and buffers(High priority)
 " The prefix key.
-nnoremap <silent> sp  :<C-u>vsplit<CR>:wincmd w<CR>
-nnoremap <silent> so  :<C-u>only<CR>
-nnoremap <silent> <Tab>      :wincmd w<CR>
-nnoremap <silent><expr> q winnr('$') != 1 ? ':<C-u>close<CR>' : ""
+nnoremap <silent> sp  <Cmd>vsplit<CR>:wincmd w<CR>
+nnoremap <silent> so  <Cmd>only<CR>
+nnoremap <silent> <Tab>      <cmd>wincmd w<CR>
+nnoremap <silent><expr> q winnr('$') != 1 ? '<Cmd>close<CR>' : ""
 
 " Original search
 nnoremap s/    /
@@ -104,7 +104,7 @@ nnoremap ZZ  <Nop>
 xnoremap r <C-v>
 
 " Redraw.
-nnoremap <silent> <C-l>    :<C-u>redraw!<CR>
+nnoremap <silent> <C-l>    <Cmd>redraw!<CR>
 
 " If press l on fold, fold open.
 nnoremap <expr> l foldclosed(line('.')) != -1 ? 'zo0' : 'l'
@@ -143,8 +143,8 @@ xnoremap ir  i]
 " Improved increment.
 nmap <C-a> <SID>(increment)
 nmap <C-x> <SID>(decrement)
-nnoremap <silent> <SID>(increment)    :AddNumbers 1<CR>
-nnoremap <silent> <SID>(decrement)   :AddNumbers -1<CR>
+nnoremap <silent> <SID>(increment)    <Cmd>AddNumbers 1<CR>
+nnoremap <silent> <SID>(decrement)    <Cmd>AddNumbers -1<CR>
 command! -range -nargs=1 AddNumbers
       \ call vimrc#add_numbers((<line2>-<line1>+1) * eval(<args>))
 
@@ -167,8 +167,8 @@ command! WordCount echo strchars(join(getline(1, '$')))
 
 " {visual}P to put without yank to unnamed register
 " https://github.com/neovim/neovim/pull/12383#issuecomment-695768082
-xnoremap <silent> p :call vimrc#visual_paste('p')<CR>
-xnoremap <silent> P :call vimrc#visual_paste('P')<CR>
+xnoremap <silent> p <Cmd>call vimrc#visual_paste('p')<CR>
+xnoremap <silent> P <Cmd>call vimrc#visual_paste('P')<CR>
 
 
 " Command group opening with a specific character code again.
