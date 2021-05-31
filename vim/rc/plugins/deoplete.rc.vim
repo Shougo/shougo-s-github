@@ -46,6 +46,8 @@ call deoplete#custom#source('zsh', 'filetypes', ['zsh', 'sh'])
 call deoplete#custom#source('nextword', 'filetypes',
       \ ['markdown', 'help', 'gitcommit', 'text'])
 
+call deoplete#custom#source('_', 'ignore_case', v:true)
+call deoplete#custom#source('_', 'smart_case', v:true)
 call deoplete#custom#source('_', 'converters', [
       \ 'converter_remove_overlap',
       \ 'converter_case',

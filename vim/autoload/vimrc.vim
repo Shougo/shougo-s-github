@@ -86,7 +86,7 @@ function! vimrc#visual_paste(direction) range abort
     let registers[name] = {'type': getregtype(name), 'value': getreg(name)}
   endfor
 
-  execute 'normal!' 'gv' . a:direction
+  execute 'normal!' a:direction
 
   for [name, register] in items(registers)
     call setreg(name, register.value, register.type)
