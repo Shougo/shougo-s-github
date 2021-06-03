@@ -1,4 +1,5 @@
 #[[plugins]]
+
 #repo = 'Shougo/neoyank.vim'
 #on_event = 'TextYankPost'
 #on_source = ['denite.nvim']
@@ -539,6 +540,10 @@ require'nvim-treesitter.configs'.setup {
         enable = true,
         disable = {},
     },
+    indent = {
+        enable = true,
+        disable = {'python'},
+    },
     ensure_installed = 'all',
 }
 EOF
@@ -681,4 +686,13 @@ if has('nvim')
         \ 'highlighter': wilder#basic_highlighter(),
         \ }))
 endif
+'''
+
+[[plugins]]
+repo = 'winston0410/smart-cursor.nvim'
+on_map = 'o'
+if = 'has("nvim")'
+depends = 'nvim-treesitter'
+hook_source = '''
+nnoremap o o<cmd>lua require('smart-cursor').indent_cursor()<cr>
 '''
