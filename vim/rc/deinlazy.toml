@@ -688,11 +688,11 @@ if has('nvim')
 endif
 '''
 
-[[plugins]]
-repo = 'winston0410/smart-cursor.nvim'
-on_map = 'o'
-if = 'has("nvim")'
-depends = 'nvim-treesitter'
-hook_source = '''
-nnoremap o o<cmd>lua require('smart-cursor').indent_cursor()<cr>
-'''
+#[[plugins]]
+#repo = 'winston0410/smart-cursor.nvim'
+#on_map = 'o'
+#if = 'has("nvim")'
+#depends = 'nvim-treesitter'
+#hook_source = '''
+#nnoremap o o<cmd>lua require('smart-cursor').indent_cursor()<cr>
+#'''
