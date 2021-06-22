@@ -688,11 +688,10 @@ if has('nvim')
 endif
 '''
 
-#[[plugins]]
-#repo = 'winston0410/smart-cursor.nvim'
-#on_map = 'o'
-#if = 'has("nvim")'
-#depends = 'nvim-treesitter'
-#hook_source = '''
-#nnoremap o o<cmd>lua require('smart-cursor').indent_cursor()<cr>
-#'''
+[[plugins]]
+repo = 'aiya000/aho-bakaup.vim'
+on_event = 'BufWritePre'
+hook_source = '''
+let g:bakaup_auto_backup = 1
+let g:bakaup_backup_dir = expand('$CACHE/vim_bakaup')
+'''

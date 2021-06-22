@@ -72,7 +72,7 @@ call deoplete#custom#option({
       \ 'camel_case': v:true,
       \ 'nofile_complete_filetypes': ['denite-filter', 'zsh'],
       \ 'num_processes': 4,
-      \ 'refresh_always': v:false,
+      \ 'refresh_always': v:true,
       \ 'refresh_backspace': v:false,
       \ 'skip_multibyte': v:true,
       \ })

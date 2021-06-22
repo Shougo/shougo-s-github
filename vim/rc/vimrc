@@ -7,6 +7,9 @@
 " profile file ~/.cache/dein/state_nvim.vim
 " profile func dein#*
 
+" For debug
+set debug=throw
+
 if &compatible
   set nocompatible
 endif
