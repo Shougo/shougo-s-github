@@ -104,9 +104,9 @@ if line('$') > 1000
   syntax sync minlines=200
 endif
 
-"setlocal foldmethod=indent
 setlocal shiftwidth=2 softtabstop=2
 setlocal iskeyword+=:,#
+setlocal indentkeys+=\,endif,endfunction,endfor,endwhile,endtry
 '''
 
 qfreplace = 'setlocal nofoldenable'
