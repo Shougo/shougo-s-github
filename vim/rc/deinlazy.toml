@@ -487,14 +487,28 @@ help = '''
 repo = 'zchee/deoplete-zsh'
 on_ft = ['zsh', 'sh']
 
+#[[plugins]]
+#repo = 'Shougo/deoplete.nvim'
+#depends = 'context_filetype.vim'
+#on_event = 'InsertEnter'
+#hook_source = '''
+#  source ~/.vim/rc/plugins/deoplete.rc.vim
+#  call deoplete#enable()
+#'''
+
 [[plugins]]
-repo = 'Shougo/deoplete.nvim'
-depends = 'context_filetype.vim'
+repo = 'Shougo/ddc.vim'
+depends = ['context_filetype.vim', 'denops.vim']
 on_event = 'InsertEnter'
 hook_source = '''
-  source ~/.vim/rc/plugins/deoplete.rc.vim
-  call deoplete#enable()
+  call ddc#custom#global('sources', { '_': ['around'] })
+  call ddc#custom#source('_', 'matchers', ['matcher_head'])
+  call ddc#enable()
 '''
+
+[[plugins]]
+repo = 'vim-denops/denops.vim'
+augroup = 'denops_plugin_internal'
 
 [[plugins]]
 repo = 'lambdalisue/suda.vim'
