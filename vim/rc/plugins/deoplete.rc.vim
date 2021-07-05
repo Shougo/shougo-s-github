@@ -15,7 +15,6 @@ endfunction
 " <S-TAB>: completion back.
 inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<C-h>"
 
-inoremap <silent><expr><C-g>       deoplete#manual_complete('tabnine')
 inoremap <silent><expr><C-e>       deoplete#cancel_popup()
 inoremap <silent><expr><C-l>       deoplete#complete_common_string()
 
@@ -31,17 +30,6 @@ call deoplete#custom#source('denite', 'matchers',
       \ ['matcher_full_fuzzy', 'matcher_length'])
 call deoplete#custom#source('eskk', 'matchers', [])
 
-call deoplete#custom#option('ignore_sources', {
-      \ '_': ['tabnine'],
-      \ })
-
-call deoplete#custom#source('tabnine', 'rank', 600)
-call deoplete#custom#source('tabnine', 'min_pattern_length', 2)
-call deoplete#custom#var('tabnine', {
-      \ 'line_limit': 300,
-      \ 'max_num_results': 10,
-      \ })
-
 call deoplete#custom#source('zsh', 'filetypes', ['zsh', 'sh'])
 call deoplete#custom#source('nextword', 'filetypes',
       \ ['markdown', 'help', 'gitcommit', 'text'])
@@ -55,10 +43,6 @@ call deoplete#custom#source('_', 'converters', [
       \ 'converter_truncate_abbr',
       \ 'converter_truncate_info',
       \ 'converter_truncate_menu',
-      \ ])
-call deoplete#custom#source('tabnine', 'converters', [
-      \ 'converter_remove_overlap',
-      \ 'converter_truncate_info',
       \ ])
 call deoplete#custom#source('eskk', 'converters', [])
 
