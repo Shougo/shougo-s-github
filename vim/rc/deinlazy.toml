@@ -24,10 +24,15 @@ hook_source = '''
           \ 'selected_icon': '✓',
           \ })
   call defx#custom#column('icon', {
-          \ 'directory_icon': '▸',
-          \ 'opened_icon': '▾',
+          \ 'directory_icon': '+',
+          \ 'opened_icon': '-',
           \ 'root_icon': ' ',
           \ })
+  "call defx#custom#column('icon', {
+  "      \ 'directory_icon': '▸',
+  "      \ 'opened_icon': '▾',
+  "      \ 'root_icon': ' ',
+  "      \ })
 '''
 [plugins.ftplugin]
 defx = '''
@@ -510,8 +515,11 @@ hook_source = '''
     return !col || getline('.')[col - 1]  =~# '\s'
   endfunction
 
-  call ddc#custom#global('sources', { '_': ['around'] })
-  call ddc#custom#source('_', 'matchers', ['matcher_head'])
+  call ddc#custom#patch_global('sources', ['around'])
+  call ddc#custom#patch_global('sourceOptions', {
+      \ '_': {'matchers': ['matcher_head']},
+      \ 'around': {'mark': 'A'},
+      \ })
   call ddc#enable()
 '''
 
