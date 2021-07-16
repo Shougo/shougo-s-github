@@ -52,7 +52,7 @@ zstyle ':completion:*:options' prefix-needed yes
 # Use cache completion
 # apt-get, dpkg (Debian), rpm (Redhat), urpmi (Mandrake), perl -M,
 # bogofilter (zsh 4.2.1 >=), fink, mac_apps...
-zstyle ':completion:*' use-cache true
+# zstyle ':completion:*' use-cache true
 zstyle ':completion:*:default' menu select=1
 zstyle ':completion:*' matcher-list \
     '' \
@@ -66,7 +66,7 @@ zstyle ':completion:*' keep-prefix
 zstyle ':completion:*' completer _oldlist _complete _match _ignored \
     _approximate _list _history
 
-autoload -U compinit
+autoload -U compinit; compinit -C
 
 zstyle ':completion:*:processes' command "ps -u $USER -o pid,stat,%cpu,%mem,cputime,command"
 

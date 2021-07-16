@@ -28,11 +28,12 @@ hook_source = '''
           \ 'opened_icon': '-',
           \ 'root_icon': ' ',
           \ })
-  "call defx#custom#column('icon', {
-  "      \ 'directory_icon': '▸',
-  "      \ 'opened_icon': '▾',
-  "      \ 'root_icon': ' ',
-  "      \ })
+  call defx#custom#column('icon', {
+        \ 'directory_icon': '▸ ',
+        \ 'file_icon': '  ',
+        \ 'opened_icon': '▾ ',
+        \ 'root_icon': '  ',
+        \ })
 '''
 [plugins.ftplugin]
 defx = '''

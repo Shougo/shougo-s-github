@@ -60,6 +60,3 @@ call deoplete#custom#option({
       \ 'refresh_backspace': v:false,
       \ 'skip_multibyte': v:true,
       \ })
-
-" call deoplete#custom#option('profile', v:true)
-" call deoplete#enable_logging('DEBUG', 'deoplete.log')
