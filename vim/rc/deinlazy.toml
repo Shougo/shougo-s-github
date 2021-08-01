@@ -1,9 +1,3 @@
-#[[plugins]]
-
-#repo = 'Shougo/neoyank.vim'
-#on_event = 'TextYankPost'
-#on_source = ['denite.nvim']
-
 [[plugins]]
 repo = 'Shougo/echodoc.vim'
 on_event = 'CompleteDone'
@@ -490,41 +484,6 @@ help = '''
 '''
 
 [[plugins]]
-repo = 'zchee/deoplete-zsh'
-on_ft = ['zsh', 'sh']
-
-#[[plugins]]
-#repo = 'Shougo/deoplete.nvim'
-#depends = 'context_filetype.vim'
-#on_event = 'InsertEnter'
-#hook_source = '''
-#  source ~/.vim/rc/plugins/deoplete.rc.vim
-#  call deoplete#enable()
-#'''
-
-[[plugins]]
-repo = 'Shougo/ddc.vim'
-depends = ['context_filetype.vim', 'denops.vim']
-on_event = 'InsertEnter'
-hook_source = '''
-  inoremap <silent><expr> <TAB>
-        \ pumvisible() ? "\<C-n>" :
-        \ <SID>check_back_space() ? "\<TAB>" :
-        \ ""
-  function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~# '\s'
-  endfunction
-
-  call ddc#custom#patch_global('sources', ['around'])
-  call ddc#custom#patch_global('sourceOptions', {
-      \ '_': {'matchers': ['matcher_head']},
-      \ 'around': {'mark': 'A'},
-      \ })
-  call ddc#enable()
-'''
-
-[[plugins]]
 repo = 'vim-denops/denops.vim'
 augroup = 'denops_plugin_internal'
 
@@ -544,7 +503,7 @@ hook_source = '''
 
 [[plugins]]
 repo = 'ncm2/float-preview.nvim'
-on_source = 'deoplete.nvim'
+on_source = 'ddc.vim'
 if = 'has("nvim")'
 hook_source = '''
   let g:float_preview#docked = 0

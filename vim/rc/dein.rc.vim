@@ -26,6 +26,7 @@ endif
 
 let s:dein_toml = '~/.vim/rc/dein.toml'
 let s:dein_lazy_toml = '~/.vim/rc/deinlazy.toml'
+let s:dein_ddc_toml = '~/.vim/rc/ddc.toml'
 let s:dein_ft_toml = '~/.vim/rc/deinft.toml'
 
 call dein#begin(s:path, [
@@ -34,16 +35,14 @@ call dein#begin(s:path, [
 
 call dein#load_toml(s:dein_toml, {'lazy': 0})
 call dein#load_toml(s:dein_lazy_toml, {'lazy' : 1})
+call dein#load_toml(s:dein_ddc_toml, {'lazy' : 1})
 call dein#load_toml(s:dein_ft_toml)
 
 if filereadable('vimrc_local.vim')
   " Load develop version plugins.
   call dein#local(getcwd(),
         \ {'frozen': 1, 'merged': 0},
-        \ ['vim*', 'nvim-*', 'unite-*', 'neco-*', '*.vim', 'denite.nvim'])
-  call dein#local(getcwd(),
-        \ {'frozen': 1, 'merged': 0},
-        \ ['deoplete-*', '*.nvim'])
+        \ ['ddc-*', 'vim*', 'nvim-*', 'neco-*', '*.vim', '*.nvim'])
 endif
 
 call dein#end()
