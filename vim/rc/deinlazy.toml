@@ -333,10 +333,6 @@ hook_add = '''
 '''
 
 [[plugins]]
-repo = 'Shougo/neco-vim'
-on_ft = ['vim', 'toml']
-
-[[plugins]]
 repo = 'Shougo/vinarise.vim'
 on_cmd = 'Vinarise'
 hook_add = '''

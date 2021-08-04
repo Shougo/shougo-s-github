@@ -3,6 +3,7 @@ repo = 'Shougo/ddc.vim'
 depends = ['context_filetype.vim', 'denops.vim']
 on_event = 'InsertEnter'
 hook_source = '''
+  inoremap <silent><expr> <C-l> ddc#complete_common_string()
   inoremap <silent><expr> <TAB>
         \ pumvisible() ? "\<C-n>" :
         \ <SID>check_back_space() ? "\<TAB>" :
@@ -12,13 +13,21 @@ hook_source = '''
     return !col || getline('.')[col - 1]  =~# '\s'
   endfunction
 
-  call ddc#custom#patch_global('sources', ['around'])
+  call ddc#custom#patch_global(
+      \ 'sources', ['around', 'eskk']
+      \ )
   call ddc#custom#patch_global('sourceOptions', {
       \ '_': {
       \   'matchers': ['matcher_head'],
-      \   'sorters': ['sorter_rank']},
+      \   'sorters': ['sorter_rank'],
+      \ },
       \ 'around': {'mark': 'A'},
+      \ 'eskk': {'mark': 'eskk', 'matchers': [], 'sorters': []},
+      \ 'necovim': {'mark': 'vim'},
       \ })
+  call ddc#custom#patch_filetype(
+      \ ['vim', 'toml'], 'sources', ['necovim', 'around']
+      \ )
   call ddc#enable()
 '''
 
@@ -37,4 +46,9 @@ on_source = 'ddc.vim'
 
 [[plugins]]
 repo = 'Shougo/ddc-sorter_rank'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/neco-vim'
+on_ft = ['vim', 'toml']
 on_source = 'ddc.vim'
