@@ -24,9 +24,13 @@ hook_source = '''
       \ 'around': {'mark': 'A'},
       \ 'eskk': {'mark': 'eskk', 'matchers': [], 'sorters': []},
       \ 'necovim': {'mark': 'vim'},
+      \ 'nextword': {'mark': 'nextword', 'minAutoCompleteLength': 3},
       \ })
   call ddc#custom#patch_filetype(
       \ ['vim', 'toml'], 'sources', ['necovim', 'around']
+      \ )
+  call ddc#custom#patch_filetype(
+      \ ['help', 'markdown'], 'sources', ['nextword', 'around']
       \ )
   call ddc#enable()
 '''
@@ -39,6 +43,11 @@ on_source = 'ddc.vim'
 repo = 'Shougo/ddc-zsh'
 on_ft = 'zsh'
 depends = 'ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc-nextword'
+on_ft = ['toml', 'help']
+on_source = 'ddc.vim'
 
 [[plugins]]
 repo = 'Shougo/ddc-matcher_head'
