@@ -682,3 +682,7 @@ hook_source = '''
 let g:bakaup_auto_backup = 1
 let g:bakaup_backup_dir = expand('$CACHE/vim_bakaup')
 '''
+
+[[plugins]]
+repo = 'rcarriga/nvim-notify'
+on_lua = 'notify'
