@@ -527,10 +527,6 @@ require'nvim-treesitter.configs'.setup {
         enable = true,
         disable = {},
     },
-    indent = {
-        enable = true,
-        disable = {'python'},
-    },
     ensure_installed = 'all',
 }
 EOF

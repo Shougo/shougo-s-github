@@ -10,7 +10,7 @@ hook_source = '''
         \ "\<TAB>" : ddc#manual_complete()
 
   call ddc#custom#patch_global(
-      \ 'sources', ['around', 'eskk']
+      \ 'sources', ['around', 'eskk', 'deoppet']
       \ )
   call ddc#custom#patch_global('sourceOptions', {
       \ '_': {
@@ -20,6 +20,7 @@ hook_source = '''
       \ 'around': {'mark': 'A'},
       \ 'eskk': {'mark': 'eskk', 'matchers': [], 'sorters': []},
       \ 'necovim': {'mark': 'vim'},
+      \ 'deoppet': {'mark': 'dp'},
       \ 'nextword': {
       \   'mark': 'nextword',
       \   'minAutoCompleteLength': 3,
