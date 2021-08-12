@@ -2,7 +2,7 @@
 repo = 'Shougo/echodoc.vim'
 on_event = 'CompleteDone'
 hook_source = '''
-  let g:echodoc#type = 'virtual'
+  let g:echodoc#type = has('nvim') ? 'floating' : 'popup'
   call echodoc#enable()
 '''
 
@@ -409,6 +409,10 @@ hook_source = '''
   let &g:titlestring = "
         \ %(%m%r%w%)%{eskk#statusline('[%s]').expand('%:p:~:.')}
         \ %<\(%{fnamemodify(getcwd(), ':~')}\)"
+
+  call ddc#custom#patch_global(
+      \ 'sources', ['around', 'eskk', 'deoppet']
+      \ )
 '''
 
 [[plugins]]

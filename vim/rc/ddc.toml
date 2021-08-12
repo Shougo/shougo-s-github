@@ -10,7 +10,7 @@ hook_source = '''
         \ "\<TAB>" : ddc#manual_complete()
 
   call ddc#custom#patch_global(
-      \ 'sources', ['around', 'eskk', 'deoppet']
+      \ 'sources', ['around', 'deoppet']
       \ )
   call ddc#custom#patch_global('sourceOptions', {
       \ '_': {
@@ -48,7 +48,7 @@ depends = 'ddc.vim'
 [[plugins]]
 repo = 'Shougo/ddc-nextword'
 on_ft = ['toml', 'help']
-on_source = 'ddc.vim'
+depends = 'ddc.vim'
 
 [[plugins]]
 repo = 'Shougo/ddc-matcher_head'
@@ -61,4 +61,4 @@ on_source = 'ddc.vim'
 [[plugins]]
 repo = 'Shougo/neco-vim'
 on_ft = ['vim', 'toml']
-on_source = 'ddc.vim'
+depends = 'ddc.vim'
