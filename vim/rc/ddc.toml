@@ -26,12 +26,16 @@ hook_source = '''
       \   'minAutoCompleteLength': 3,
       \   'isVolatile': v:true,
       \ },
+      \ 'nvimlsp': {'mark': 'lsp'},
       \ })
   call ddc#custom#patch_filetype(
       \ ['vim', 'toml'], 'sources', ['necovim', 'around']
       \ )
   call ddc#custom#patch_filetype(
       \ ['help', 'markdown', 'gitcommit'], 'sources', ['nextword', 'around']
+      \ )
+  call ddc#custom#patch_filetype(
+      \ ['typescript'], 'sources', ['nvimlsp', 'around', 'deoppet']
       \ )
   call ddc#enable()
 '''
@@ -47,8 +51,17 @@ depends = 'ddc.vim'
 
 [[plugins]]
 repo = 'Shougo/ddc-nextword'
-on_ft = ['toml', 'help']
+on_ft = ['toml', 'help', 'gitcommit']
 depends = 'ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/neco-vim'
+on_ft = ['vim', 'toml']
+depends = 'ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc-nvim-lsp'
+on_source = 'nvim-lspconfig'
 
 [[plugins]]
 repo = 'Shougo/ddc-matcher_head'
@@ -59,6 +72,12 @@ repo = 'Shougo/ddc-sorter_rank'
 on_source = 'ddc.vim'
 
 [[plugins]]
-repo = 'Shougo/neco-vim'
-on_ft = ['vim', 'toml']
+repo = 'neovim/nvim-lspconfig'
+on_ft = ['typescript']
+on_if = 'has("nvim")'
 depends = 'ddc.vim'
+hook_source = '''
+lua << EOF
+require'lspconfig'.denols.setup{}
+EOF
+'''
