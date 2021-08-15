@@ -16,6 +16,7 @@ hook_source = '''
       \ '_': {
       \   'matchers': ['matcher_head'],
       \   'sorters': ['sorter_rank'],
+      \   'converters': ['converter_remove_overlap'],
       \ },
       \ 'around': {'mark': 'A'},
       \ 'eskk': {'mark': 'eskk', 'matchers': [], 'sorters': []},
@@ -26,7 +27,7 @@ hook_source = '''
       \   'minAutoCompleteLength': 3,
       \   'isVolatile': v:true,
       \ },
-      \ 'nvimlsp': {'mark': 'lsp'},
+      \ 'nvimlsp': {'mark': 'lsp', 'forceCompletionPattern': '\\.|:|->'},
       \ })
   call ddc#custom#patch_filetype(
       \ ['vim', 'toml'], 'sources', ['necovim', 'around']
@@ -69,6 +70,10 @@ on_source = 'ddc.vim'
 
 [[plugins]]
 repo = 'Shougo/ddc-sorter_rank'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc-converter_remove_overlap'
 on_source = 'ddc.vim'
 
 [[plugins]]

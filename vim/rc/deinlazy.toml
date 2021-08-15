@@ -2,7 +2,7 @@
 repo = 'Shougo/echodoc.vim'
 on_event = 'CompleteDone'
 hook_source = '''
-  let g:echodoc#type = has('nvim') ? 'floating' : 'popup'
+  "let g:echodoc#type = has('nvim') ? 'floating' : 'popup'
   call echodoc#enable()
 '''
 
