@@ -485,7 +485,6 @@ help = '''
 
 [[plugins]]
 repo = 'vim-denops/denops.vim'
-augroup = 'denops_plugin_internal'
 
 [[plugins]]
 repo = 'lambdalisue/suda.vim'
