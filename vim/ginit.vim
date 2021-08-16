@@ -1,4 +1,4 @@
-GuiFont Courier\ 10\ Pitch:h14
+GuiFont! Courier\ 10\ Pitch:h14
 
 " For neovim-gtk
 " https://github.com/daa84/neovim-gtk
