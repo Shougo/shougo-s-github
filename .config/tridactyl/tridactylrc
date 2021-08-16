@@ -1,0 +1,4 @@
+set editorcmd nvim-qt
+set hintnames uniform
+set hintchars hjklasdfgyuiopqwertnmzxcvb
+set allowautofocus false

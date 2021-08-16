@@ -138,6 +138,7 @@ defx = '''
 repo = 'Shougo/deoppet.nvim'
 depends = ['neosnippet-snippets', 'context_filetype.vim']
 on_event = 'InsertEnter'
+on_source = 'ddc.vim'
 if = 'has("nvim")'
 hook_source = '''
   " Test
