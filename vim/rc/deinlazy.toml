@@ -160,7 +160,8 @@ hook_add = '''
         \ register<CR>
 
   nnoremap <silent> s<Space>
-  \ <Cmd>Denite -buffer-name=files file/rec:~/.vim/rc<CR>
+  \ <Cmd>Denite -buffer-name=files
+  \  file/rec:`fnamemodify(expand('$MYVIMRC'), ':h').'/rc'`<CR>
   nnoremap <silent><expr> / wordcount().chars > 30000 ?
   \ "\<Cmd>Denite -buffer-name=search -start-filter
   \  -search line/external\<CR>" :
@@ -242,7 +243,11 @@ repo = 'Shougo/deol.nvim'
 depends = 'denite.nvim'
 on_source = ['defx.nvim', 'denite.nvim']
 hook_add = '''
-  nnoremap <silent> [Space]s <Cmd>Deol zsh -no-start-insert -toggle<CR>
+  if has('win32')
+    nnoremap <silent> [Space]s <Cmd>Deol cmd -no-start-insert -toggle<CR>
+  else
+    nnoremap <silent> [Space]s <Cmd>Deol zsh -no-start-insert -toggle<CR>
+  endif
   nnoremap <silent> sD  <Cmd>call deol#kill_editor()<CR>
 '''
 hook_source = '''

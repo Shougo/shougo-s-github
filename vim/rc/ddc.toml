@@ -10,7 +10,7 @@ hook_source = '''
         \ "\<TAB>" : ddc#manual_complete()
 
   call ddc#custom#patch_global(
-      \ 'sources', ['around', 'deoppet']
+      \ 'sources', has('nvim') ? ['around', 'deoppet'] : [],
       \ )
   call ddc#custom#patch_global('sourceOptions', {
       \ '_': {
@@ -37,7 +37,8 @@ hook_source = '''
       \ ['help', 'markdown', 'gitcommit'], 'sources', ['nextword', 'around']
       \ )
   call ddc#custom#patch_filetype(
-      \ ['typescript'], 'sources', ['nvimlsp', 'around', 'deoppet']
+      \ ['typescript'], 'sources',
+      \ has('nvim') ? ['nvimlsp', 'around', 'deoppet'] : ['nvimlsp', 'around']
       \ )
   call ddc#enable()
 '''
