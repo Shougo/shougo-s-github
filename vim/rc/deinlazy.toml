@@ -118,22 +118,6 @@ defx = '''
   \ { _, val -> val['action__path'] })]}])<CR>
 '''
 
-#[[plugins]]
-#repo = 'Shougo/neosnippet.vim'
-#depends = ['neosnippet-snippets', 'context_filetype.vim']
-#on_event = 'InsertCharPre'
-#on_ft = 'snippet'
-#hook_source = '''
-#  "imap <silent>L     <Plug>(neosnippet_jump_or_expand)
-#  "smap <silent>L     <Plug>(neosnippet_jump_or_expand)
-#  "xmap <silent>L     <Plug>(neosnippet_expand_target)
-#
-#  let g:neosnippet#enable_snipmate_compatibility = 1
-#  let g:neosnippet#enable_completed_snippet = 1
-#  let g:neosnippet#expand_word_boundary = 1
-#  let g:neosnippet#snippets_directory = '~/.vim/my-snippets'
-#'''
-
 [[plugins]]
 repo = 'Shougo/deoppet.nvim'
 depends = ['neosnippet-snippets', 'context_filetype.vim']
@@ -165,7 +149,9 @@ repo = 'Shougo/neosnippet-snippets'
 [[plugins]]
 repo = 'Shougo/denite.nvim'
 on_cmd = 'Denite'
-hook_source = 'source ~/.vim/rc/plugins/denite.rc.vim'
+hook_source = '''
+  execute 'source' fnamemodify(expand('$MYVIMRC'), ':h').'/rc/plugins/denite.rc.vim'
+'''
 hook_add = '''
   nnoremap <silent> ;r
         \ <Cmd>Denite -buffer-name=register register<CR>

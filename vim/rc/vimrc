@@ -14,8 +14,9 @@ if &compatible
   set nocompatible
 endif
 
+let s:base_dir = fnamemodify(expand('<sfile>'), ':h') . '/'
 function! s:source_rc(path) abort
-  let abspath = resolve(expand('~/.vim/rc/' . a:path))
+  let abspath = resolve(s:base_dir . a:path)
   execute 'source' fnameescape(abspath)
 endfunction
 

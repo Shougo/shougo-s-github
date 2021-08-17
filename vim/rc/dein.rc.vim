@@ -16,18 +16,19 @@ if IsWindows()
 else
   call add(g:dein#inline_vimrcs, 'unix.rc.vim')
 endif
-call map(g:dein#inline_vimrcs,
-      \ { _, val -> resolve(expand('~/.vim/rc/' . val)) })
+
+let s:base_dir = fnamemodify(expand('<sfile>'), ':h') . '/'
+call map(g:dein#inline_vimrcs, { _, val -> s:base_dir . val })
 
 let s:path = expand('$CACHE/dein')
 if !dein#load_state(s:path)
   finish
 endif
 
-let s:dein_toml = '~/.vim/rc/dein.toml'
-let s:dein_lazy_toml = '~/.vim/rc/deinlazy.toml'
-let s:dein_ddc_toml = '~/.vim/rc/ddc.toml'
-let s:dein_ft_toml = '~/.vim/rc/deinft.toml'
+let s:dein_toml = s:base_dir . 'dein.toml'
+let s:dein_lazy_toml = s:base_dir . 'deinlazy.toml'
+let s:dein_ddc_toml = s:base_dir . 'ddc.toml'
+let s:dein_ft_toml = s:base_dir . 'deinft.toml'
 
 call dein#begin(s:path, [
       \ expand('<sfile>'), s:dein_toml, s:dein_lazy_toml, s:dein_ft_toml
