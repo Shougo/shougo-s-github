@@ -29,9 +29,6 @@ WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 #limit -s
 #limit coredumpsize  0
 
-# improved less option
-export LESS='--tabs=4 --no-init --LONG-PROMPT --ignore-case --quit-if-one-screen --RAW-CONTROL-CHARS'
-
 
 #####################################################################
 # completions
@@ -68,7 +65,8 @@ zstyle ':completion:*' completer _oldlist _complete _match _ignored \
 
 autoload -U compinit; compinit -C
 
-zstyle ':completion:*:processes' command "ps -u $USER -o pid,stat,%cpu,%mem,cputime,command"
+zstyle ':completion:*:processes' command \
+    "ps -u $USER -o pid,stat,%cpu,%mem,cputime,command"
 
 
 #####################################################################
@@ -80,8 +78,10 @@ alias ls='ls -F --show-control-chars --color=always'
 alias la='ls -aF --show-control-chars --color=always'
 alias ll='ls -lF --show-control-chars --color=always'
 export LSCOLORS=ExFxCxdxBxegedabagacad
-export LS_COLORS='di=01;34:ln=01;35:so=01;32:ex=01;31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-zstyle ':completion:*' list-colors 'di=;34;1' 'ln=;35;1' 'so=;32;1' 'ex=31;1' 'bd=46;34' 'cd=43;34'
+export LS_COLORS=\
+    'di=01;34:ln=01;35:so=01;32:ex=01;31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
+zstyle ':completion:*' list-colors \
+    'di=;34;1' 'ln=;35;1' 'so=;32;1' 'ex=31;1' 'bd=46;34' 'cd=43;34'
 
 # Use prompt colors feature
 autoload -U colors
@@ -202,8 +202,18 @@ setopt pushd_ignore_dups
 setopt complete_aliases
 unsetopt hist_verify
 
+# Share zsh histories
+HISTFILE=$HOME/.zsh-history
+HISTSIZE=10000
+SAVEHIST=50000
+setopt inc_append_history
+setopt share_history
+
 # Ignore some command histories
 export HISTORY_IGNORE="(cd|pwd|l[sal]|rm|mv|shutdown|exit|rmdir)"
+
+# Enable math functions
+zmodload zsh/mathfunc
 
 
 #####################################################################
@@ -225,8 +235,8 @@ alias hexdump='hexdump -C'
 
 alias vim='TERM=xterm-256color nvim'
 #alias nvim-qt='nvim-qt --geometry 1800x1200'
-alias goneovim='~/Downloads/goneovim/goneovim &>/dev/null &'
-alias gn=goneovim
+#alias goneovim='~/Downloads/goneovim/goneovim &>/dev/null &'
+#alias gn=goneovim
 alias g=git
 alias lock='i3exit lock'
 
@@ -255,23 +265,13 @@ bindkey "^u" backward-kill-line
 
 # Improve terminal title
 case "${TERM}" in
-    kterm*|xterm*|vt100|st*|rxvt*)
+    kterm*|xterm*|vt100|st*|rxvt*|alacritty)
         precmd() {
             echo -ne "\033]0;${USER}@${HOST%%.*}:${PWD}\007"
             vcs_info
         }
         ;;
 esac
-
-# Share zsh histories
-HISTFILE=$HOME/.zsh-history
-HISTSIZE=10000
-SAVEHIST=50000
-setopt inc_append_history
-setopt share_history
-
-# Enable math functions
-zmodload zsh/mathfunc
 
 # Use dtach or abduco instead screen/tmux
 # C-\ is detach

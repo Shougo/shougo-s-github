@@ -634,6 +634,7 @@ on_ft = 'markdown'
 
 [[plugins]]
 repo = 'gelguy/wilder.nvim'
+if = '!has("win32")'
 on_map = ':'
 hook_source = '''
 call wilder#enable_cmdline_enter()
