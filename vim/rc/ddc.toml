@@ -31,10 +31,7 @@ hook_source = '''
       \ 'nvimlsp': {'mark': 'lsp', 'forceCompletionPattern': '\\.|:|->'},
       \ })
   call ddc#custom#patch_filetype(
-      \ ['vim', 'toml'], 'sources', ['necovim', 'around']
-      \ )
-  call ddc#custom#patch_filetype(
-      \ ['help', 'markdown', 'gitcommit'], 'sources', ['nextword', 'around']
+      \ ['help', 'markdown', 'gitcommit', 'toml'], 'sources', ['nextword', 'around']
       \ )
   call ddc#custom#patch_filetype(
       \ ['typescript'], 'sources',
@@ -61,6 +58,11 @@ depends = 'ddc.vim'
 repo = 'Shougo/neco-vim'
 on_ft = ['vim', 'toml']
 depends = 'ddc.vim'
+on_source = '''
+  call ddc#custom#patch_filetype(
+          \ ['vim'], 'sources', ['necovim', 'around']
+          \ )
+'''
 
 [[plugins]]
 repo = 'Shougo/ddc-nvim-lsp'
@@ -84,7 +86,7 @@ on_ft = ['typescript']
 if = 'has("nvim")'
 depends = 'ddc.vim'
 hook_source = '''
-lua << EOF
+  lua << EOF
 require'lspconfig'.denols.setup{}
 EOF
 '''

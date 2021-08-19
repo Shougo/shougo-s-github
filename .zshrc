@@ -23,6 +23,9 @@ umask 022
 
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
+# improved less option
+export LESS='--tabs=4 --no-init --LONG-PROMPT --ignore-case --quit-if-one-screen --RAW-CONTROL-CHARS'
+
 # Print core files?
 #unlimit
 #limit core 0
