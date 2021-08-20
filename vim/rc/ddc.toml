@@ -10,7 +10,7 @@ hook_source = '''
         \ "\<TAB>" : ddc#manual_complete()
 
   call ddc#custom#patch_global(
-      \ 'sources', has('nvim') ? ['around', 'deoppet'] : [],
+      \ 'sources', has('nvim') ? ['around', 'deoppet'] : ['around'],
       \ )
   call ddc#custom#patch_global('sourceOptions', {
       \ '_': {
@@ -51,14 +51,13 @@ depends = 'ddc.vim'
 
 [[plugins]]
 repo = 'Shougo/ddc-nextword'
-on_ft = ['toml', 'help', 'gitcommit']
 depends = 'ddc.vim'
 
 [[plugins]]
 repo = 'Shougo/neco-vim'
-on_ft = ['vim', 'toml']
+on_ft = ['vim', 'toml', 'help']
 depends = 'ddc.vim'
-on_source = '''
+hook_source = '''
   call ddc#custom#patch_filetype(
           \ ['vim'], 'sources', ['necovim', 'around']
           \ )
