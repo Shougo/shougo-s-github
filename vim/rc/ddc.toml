@@ -51,7 +51,7 @@ depends = 'ddc.vim'
 
 [[plugins]]
 repo = 'Shougo/ddc-nextword'
-depends = 'ddc.vim'
+on_source = 'ddc.vim'
 
 [[plugins]]
 repo = 'Shougo/neco-vim'
@@ -87,5 +87,6 @@ depends = 'ddc.vim'
 hook_source = '''
   lua << EOF
 require'lspconfig'.denols.setup{}
+require'lspconfig'.gopls.setup{}
 EOF
 '''

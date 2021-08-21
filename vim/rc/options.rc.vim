@@ -316,3 +316,6 @@ set colorcolumn=79
 if exists('+previewpopup')
   set previewpopup=height:10,width:60
 endif
+
+" Disable signcolumn
+set signcolumn=no
