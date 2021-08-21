@@ -161,7 +161,7 @@ hook_add = '''
 
   nnoremap <silent> s<Space>
   \ <Cmd>Denite -buffer-name=files
-  \  file/rec:`fnamemodify(expand('$MYVIMRC'), ':h').'/rc'`<CR>
+  \  file/rec:'`fnamemodify(expand('$MYVIMRC'), ':h').'/rc'`'<CR>
   nnoremap <silent><expr> / wordcount().chars > 30000 ?
   \ "\<Cmd>Denite -buffer-name=search -start-filter
   \  -search line/external\<CR>" :
