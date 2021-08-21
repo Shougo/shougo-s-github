@@ -619,10 +619,6 @@ repo = 't9md/vim-choosewin'
 on_source = 'defx.nvim'
 
 [[plugins]]
-repo = 'vim-jp/vital.vim'
-on_command = 'Vitalize'
-
-[[plugins]]
 repo = 'Shougo/deorise.nvim'
 
 #[[plugins]]
