@@ -672,3 +672,8 @@ let g:bakaup_backup_dir = expand('$CACHE/vim_bakaup')
 [[plugins]]
 repo = 'rcarriga/nvim-notify'
 on_lua = 'notify'
+
+[[plugins]]
+repo = 'kevinhwang91/nvim-bqf'
+on_ft = 'qf'
+if = 'has("nvim")'

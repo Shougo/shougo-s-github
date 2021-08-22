@@ -19,7 +19,10 @@ hook_source = '''
       \   'sorters': ['sorter_rank'],
       \   'converters': ['converter_remove_overlap'],
       \ },
-      \ 'around': {'mark': 'A'},
+      \ 'around': {
+      \   'mark': 'A',
+      \   'matchers': ['matcher_head', 'matcher_length'],
+      \ },
       \ 'eskk': {'mark': 'eskk', 'matchers': [], 'sorters': []},
       \ 'necovim': {'mark': 'vim'},
       \ 'deoppet': {'mark': 'dp'},
@@ -59,7 +62,8 @@ on_ft = ['vim', 'toml', 'help']
 depends = 'ddc.vim'
 hook_source = '''
   call ddc#custom#patch_filetype(
-          \ ['vim'], 'sources', ['necovim', 'around']
+          \ ['vim'], 'sources', has('nvim') ?
+          \ ['necovim', 'around', 'deoppet'] : ['necovim', 'around']
           \ )
 '''
 
@@ -69,6 +73,10 @@ on_source = 'nvim-lspconfig'
 
 [[plugins]]
 repo = 'Shougo/ddc-matcher_head'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc-matcher_length'
 on_source = 'ddc.vim'
 
 [[plugins]]

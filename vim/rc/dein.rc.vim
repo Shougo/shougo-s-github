@@ -1,6 +1,8 @@
 " dein configurations.
 
-let g:dein#auto_recache = v:true
+" In Windows, auto_recache is disabled.  It is too slow.
+let g:dein#auto_recache = !IsWindows()
+
 let g:dein#lazy_rplugins = v:true
 let g:dein#install_progress_type = 'title'
 let g:dein#enable_notification = v:true
