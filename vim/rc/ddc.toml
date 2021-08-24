@@ -37,7 +37,7 @@ hook_source = '''
       \ ['help', 'markdown', 'gitcommit', 'toml'], 'sources', ['nextword', 'around']
       \ )
   call ddc#custom#patch_filetype(
-      \ ['typescript'], 'sources',
+      \ ['typescript', 'go'], 'sources',
       \ has('nvim') ? ['nvimlsp', 'around', 'deoppet'] : ['nvimlsp', 'around']
       \ )
   call ddc#enable()
@@ -89,7 +89,7 @@ on_source = 'ddc.vim'
 
 [[plugins]]
 repo = 'neovim/nvim-lspconfig'
-on_ft = ['typescript']
+on_ft = ['typescript', 'go']
 if = 'has("nvim")'
 depends = 'ddc.vim'
 hook_source = '''

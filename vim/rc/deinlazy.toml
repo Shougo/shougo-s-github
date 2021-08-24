@@ -406,6 +406,9 @@ hook_source = '''
   call ddc#custom#patch_global(
       \ 'sources', ['around', 'eskk', 'deoppet']
       \ )
+  call ddc#custom#patch_filetype(
+      \ ['help', 'markdown', 'gitcommit', 'toml'], 'sources', ['eskk', 'nextword', 'around']
+      \ )
 '''
 
 [[plugins]]
