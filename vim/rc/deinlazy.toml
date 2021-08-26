@@ -622,3 +622,8 @@ on_lua = 'notify'
 repo = 'kevinhwang91/nvim-bqf'
 on_ft = 'qf'
 if = 'has("nvim")'
+
+[[plugins]]
+repo = 'mattn/vim-treesitter'
+build = 'cd server && go build'
+if = '!has("nvim")'

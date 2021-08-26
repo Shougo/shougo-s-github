@@ -45,23 +45,22 @@ call denite#custom#var('file/dirty', 'command',
 if has('nvim')
   call denite#custom#option('files', {
         \ 'highlight_filter_background': 'CursorLine',
-        \ 'source_names': 'short',
         \ 'split': 'floating',
-        \ 'filter_split_direction': 'floating',
-        \ 'vertical_preview': v:true,
         \ 'floating_preview': v:true,
         \ })
 else
   call denite#custom#option('files', {
         \ 'highlight_filter_background': 'CursorLine',
-        \ 'source_names': 'short',
-        \ 'vertical_preview': v:true,
         \ })
 endif
 call denite#custom#option('search', {
       \ 'highlight_filter_background': 'CursorLine',
+      \ })
+
+call denite#custom#option('_', {
       \ 'source_names': 'short',
       \ 'filter_split_direction': 'floating',
+      \ 'vertical_preview': v:true,
       \ })
 
 let s:menus = {}
