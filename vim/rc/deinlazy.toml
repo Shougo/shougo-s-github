@@ -315,8 +315,9 @@ zsh = '''
 '''
 
 [[plugins]]
-repo = 'lambdalisue/edita.vim'
+repo = 'lambdalisue/guise.vim'
 on_source = 'deol.nvim'
+depends = 'denops.vim'
 
 [[plugins]]
 repo = 'Shougo/junkfile.vim'
