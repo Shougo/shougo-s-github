@@ -468,7 +468,6 @@ require'nvim-treesitter.configs'.setup {
         enable = true,
         disable = {},
     },
-    ensure_installed = 'all',
 }
 EOF
 

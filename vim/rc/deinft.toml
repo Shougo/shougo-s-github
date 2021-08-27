@@ -1,11 +1,4 @@
 hook_add = '''
-" Python
-let g:python_highlight_all = 1
-
-" Vim
-let g:vimsyntax_noerror = 1
-"let g:vim_indent_cont = 0
-
 " Bash
 let g:is_bash = 1
 
@@ -27,9 +20,6 @@ let g:SimpleJsIndenter_CaseIndentLevel = -1
 " Tex
 let g:tex_flavor = 'latex'
 
-" python.vim
-let python_highlight_all = 1
-
 " markdown
 let g:vim_markdown_frontmatter = 1
 let g:vim_markdown_toml_frontmatter = 1
@@ -42,40 +32,31 @@ autocmd MyAutoCmd BufWritePost * nested
 \ |   unlet! b:ftdetect
 \ |   filetype detect
 \ | endif
-
-" Reload .vimrc automatically.
-" autocmd MyAutoCmd BufWritePost .vimrc,vimrc,*.rc.vim,*.toml source $MYVIMRC | redraw
-
-" Auto reload VimScript.
-autocmd MyAutoCmd BufWritePost,FileWritePost *.vim nested
-\ if &l:autoread > 0 | source <afile> |
-\   echo 'source ' . bufname('%') |
-\ endif
 '''
 
 [ftplugin]
 
 _ = '''
-  " Disable automatically insert comment.
-  setl formatoptions-=r
-  setl formatoptions-=o
-  setl formatoptions+=mMBl
+" Disable automatically insert comment.
+setl formatoptions-=r
+setl formatoptions-=o
+setl formatoptions+=mMBl
 
-  " Disable auto wrap.
-  if &l:textwidth != 70 && &filetype !=# 'help'
-    setlocal textwidth=0
-  endif
+" Disable auto wrap.
+if &l:textwidth != 70 && &filetype !=# 'help'
+  setlocal textwidth=0
+endif
 
-  " Use FoldCCtext().
-  if &filetype !=# 'help'
-    setlocal foldtext=FoldCCtext()
-  endif
+" Use FoldCCtext().
+if &filetype !=# 'help'
+  setlocal foldtext=FoldCCtext()
+endif
 
-  if !&l:modifiable
-    setlocal nofoldenable
-    setlocal foldcolumn=0
-    setlocal colorcolumn=
-  endif
+if !&l:modifiable
+  setlocal nofoldenable
+  setlocal foldcolumn=0
+  setlocal colorcolumn=
+endif
 '''
 
 python = '''
@@ -100,18 +81,12 @@ match goErr /\<err\>/
 '''
 
 vim = '''
-if line('$') > 1000
-  syntax sync minlines=200
-endif
-
 setlocal shiftwidth=2 softtabstop=2
 setlocal iskeyword+=:,#
 setlocal indentkeys+=\,endif,endfunction,endfor,endwhile,endtry
 '''
 
 qfreplace = 'setlocal nofoldenable'
-
-toml = 'syntax sync minlines=100'
 
 help = '''
 setlocal iskeyword+=:

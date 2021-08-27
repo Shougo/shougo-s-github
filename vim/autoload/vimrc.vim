@@ -92,3 +92,40 @@ function! vimrc#visual_paste(direction) range abort
     call setreg(name, register.value, register.type)
   endfor
 endfunction
+
+" Todo: support vim-treesitter plugin
+function! vimrc#enable_syntax() abort
+  if has('nvim') && exists(':TSEnableAll')
+    TSBufEnable highlight
+    TSBufEnable context_commentstring
+  endif
+endfunction
+function! vimrc#disable_syntax() abort
+  syntax off
+  if has('nvim') && exists(':TSEnableAll')
+    TSBufDisable highlight
+    TSBufDisable context_commentstring
+  endif
+endfunction
+function! vimrc#check_syntax() abort
+  let max_size = 500000
+  let max_head_size = 10000
+  let max_line = line('$')
+  let fsize = line2byte(max_line + 1)
+  let head_size = line2byte(min([max_line + 1, 5]))
+
+  if fsize <= max_size && head_size <= max_head_size
+    return
+  endif
+
+  let confirm = confirm(printf(
+        \ '"%s" is too large.(%d lines, %s bytes) Enable syntax?',
+        \ bufname('%'), max_line, fsize), "&Yes\n&No", 2)
+  redraw
+
+  if confirm == 1
+    call vimrc#enable_syntax()
+  else
+    call vimrc#disable_syntax()
+  endif
+endfunction

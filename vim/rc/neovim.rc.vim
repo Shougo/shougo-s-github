@@ -3,6 +3,7 @@
 "
 
 if has('vim_starting') && empty(argv())
+  " Disable auto syntax loading
   syntax off
 endif
 
