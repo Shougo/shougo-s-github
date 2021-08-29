@@ -11,7 +11,7 @@ hook_source = '''
 
   call ddc#custom#patch_global(
       \ 'sources', has('nvim') ?
-      \ ['eskk', 'around', 'deoppet'] : ['eskk''around'],
+      \ ['eskk', 'around', 'deoppet'] : ['eskk', 'around'],
       \ )
   call ddc#custom#patch_global('sourceOptions', {
       \ '_': {
