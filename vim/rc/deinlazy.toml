@@ -459,8 +459,9 @@ hook_source = '''
 repo = 'nvim-treesitter/nvim-treesitter'
 if = 'has("nvim")'
 on_event = 'BufRead'
+depends = 'impatient.nvim'
 hook_post_update = 'TSUpdate'
-hook_source = '''
+hook_post_source = '''
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
     ensure_installed = 'all',
@@ -575,6 +576,7 @@ on_ft = 'markdown'
 
 [[plugins]]
 repo = 'gelguy/wilder.nvim'
+depends = 'impatient.nvim'
 if = '!has("win32")'
 on_map = ':'
 hook_source = '''
@@ -626,3 +628,11 @@ if = 'has("nvim")'
 repo = 'mattn/vim-treesitter'
 build = 'cd server && go build'
 if = '!has("nvim")'
+
+# To improve neovim startup time
+[[plugins]]
+repo = 'lewis6991/impatient.nvim'
+if = 'has("nvim")'
+hook_source = '''
+lua require('impatient')
+'''

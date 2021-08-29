@@ -5,9 +5,9 @@ on_event = 'InsertEnter'
 hook_source = '''
   inoremap <silent><expr> <C-l> ddc#complete_common_string()
   inoremap <silent><expr> <TAB>
-        \ pumvisible() ? "\<C-n>" :
+        \ pumvisible() ? '<C-n>' :
         \ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
-        \ "\<TAB>" : ddc#manual_complete()
+        \ '<TAB>' : ddc#manual_complete()
 
   call ddc#custom#patch_global(
       \ 'sources', has('nvim') ?
@@ -91,6 +91,7 @@ on_source = 'ddc.vim'
 
 [[plugins]]
 repo = 'neovim/nvim-lspconfig'
+depends = 'impatient.nvim'
 on_ft = ['typescript', 'go']
 if = 'has("nvim")'
 depends = 'ddc.vim'
