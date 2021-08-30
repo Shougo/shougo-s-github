@@ -5,7 +5,6 @@
 --with-compiledby="Shougo" \
 --enable-multibyte \
 --enable-gui=gtk3 \
---enable-rubyinterp \
 --enable-python3interp \
 --enable-luainterp \
 --with-lua-prefix=/usr --with-luajit \

@@ -26,7 +26,7 @@ hook_source = '''
       \ },
       \ 'eskk': {'mark': 'eskk', 'matchers': [], 'sorters': []},
       \ 'necovim': {'mark': 'vim'},
-      \ 'deoppet': {'mark': 'dp'},
+      \ 'deoppet': {'mark': 'dp', 'dup': v:true},
       \ 'nextword': {
       \   'mark': 'nextword',
       \   'minAutoCompleteLength': 3,
