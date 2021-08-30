@@ -276,6 +276,8 @@ if exists('+pumwidth')
   " Set popup menu max width.
   set pumwidth=10
 endif
+" Use "/" for path completion
+set completeslash=slash
 
 " Report changes.
 set report=0

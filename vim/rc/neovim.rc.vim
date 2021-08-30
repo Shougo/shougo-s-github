@@ -39,3 +39,6 @@ set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr
 autocmd MyAutoCmd TermOpen * setlocal modifiable
 
 let g:terminal_scrollback_buffer_size = 3000
+
+autocmd MyAutoCmd TextYankPost * lua require'vim.highlight'.on_yank
+     \ {higroup='IncSearch', timeout=150}

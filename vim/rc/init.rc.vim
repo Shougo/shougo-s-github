@@ -36,11 +36,6 @@ nnoremap ;  <Nop>
 nnoremap m  <Nop>
 nnoremap ,  <Nop>
 
-if IsWindows()
-  " Exchange path separator.
-  set shellslash
-endif
-
 let $CACHE = expand('~/.cache')
 
 if !isdirectory(expand($CACHE))
