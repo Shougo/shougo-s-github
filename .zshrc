@@ -75,7 +75,7 @@ zstyle ':completion:*:processes' command \
 # https://github.com/zsh-users/zsh-autosuggestions
 if [ -d ~/.zsh/zsh-autosuggestions ]; then
     source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-    ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#666666,bg=#2c2c2c,underline"
+    ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#666666,bg=#2c2c2c"
     ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 fi
 
@@ -245,11 +245,8 @@ alias od='od -Ax -tx1z'
 alias hexdump='hexdump -C'
 
 alias vim='TERM=xterm-256color nvim'
-#alias nvim-qt='nvim-qt --geometry 1800x1200'
 #alias goneovim='~/Downloads/goneovim/goneovim &>/dev/null &'
 #alias gn=goneovim
-alias g=git
-alias lock='i3exit lock'
 
 
 #####################################################################
