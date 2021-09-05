@@ -57,7 +57,7 @@ if &runtimepath !~# '/dein.vim'
     endif
   endif
   execute 'set runtimepath^=' . substitute(
-        \ fnamemodify(s:dein_dir, ':p') , '/$', '', '')
+        \ fnamemodify(s:dein_dir, ':p') , '[/\\]$', '', '')
 endif
 
 
