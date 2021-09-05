@@ -28,13 +28,5 @@ if !has('nvim')
   let &t_EI = "\<Esc>[0 q"
 endif
 
-" Enable true color
-if exists('+termguicolors')
-  set termguicolors
-endif
-
 " Disable the mouse.
 set mouse=
-
-" Colorscheme
-colorscheme candy

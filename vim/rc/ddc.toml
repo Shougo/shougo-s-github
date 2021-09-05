@@ -42,6 +42,7 @@ hook_source = '''
       \ ['typescript', 'go'], 'sources', has('nvim') ?
       \ ['nvimlsp', 'around', 'deoppet'] : ['nvimlsp', 'around']
       \ )
+  "call ddc#custom#patch_global('completionMode', 'inline')
   call ddc#enable()
 '''
 

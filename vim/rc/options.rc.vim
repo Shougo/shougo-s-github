@@ -321,3 +321,13 @@ endif
 
 " Disable signcolumn
 set signcolumn=no
+
+set redrawtime=0
+
+" Enable true color
+if exists('+termguicolors') && !has('gui_running')
+  set termguicolors
+endif
+
+" Colorscheme
+colorscheme candy
