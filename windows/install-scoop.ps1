@@ -11,6 +11,7 @@ try {
 }
 
 # Install basic modules
+# Note: aria2 is for parallel downloads
 scoop install aria2
 scoop install git
 scoop install sudo
@@ -21,3 +22,6 @@ scoop bucket add versions
 
 # Root directory
 $SCOOP_ROOT = if ($env:SCOOP) {$env:SCOOP} else {"$home\scoop"}
+
+# neovim
+scoop install neovim
