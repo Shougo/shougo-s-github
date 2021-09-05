@@ -21,3 +21,6 @@ Set-PSReadLineKeyHandler -Key Ctrl+i -Function Complete
 Set-PSReadLineKeyHandler -Key Ctrl+j -Function AcceptLine
 Set-PSReadLineKeyHandler -Key Ctrl+y -Function Paste
 Set-PSReadLineKeyHandler -Key Ctrl+d -Function DeleteChar
+Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
+
+Set-PSReadLineOption -PredictionSource History

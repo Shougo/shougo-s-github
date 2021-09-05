@@ -71,6 +71,14 @@ autoload -U compinit; compinit -C
 zstyle ':completion:*:processes' command \
     "ps -u $USER -o pid,stat,%cpu,%mem,cputime,command"
 
+# Enable auto-suggestion
+# https://github.com/zsh-users/zsh-autosuggestions
+if [ -d ~/.zsh/zsh-autosuggestions ]; then
+    source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+    ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#666666,bg=#2c2c2c,underline"
+    ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+fi
+
 
 #####################################################################
 # colors
