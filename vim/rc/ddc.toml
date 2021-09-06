@@ -32,7 +32,7 @@ hook_source = '''
       \   'minAutoCompleteLength': 3,
       \   'isVolatile': v:true,
       \ },
-      \ 'nvimlsp': {'mark': 'lsp', 'forceCompletionPattern': '\\.|:|->'},
+      \ 'nvimlsp': {'mark': 'lsp', 'forceCompletionPattern': '\.|:|->'},
       \ })
   call ddc#custom#patch_filetype(
       \ ['help', 'markdown', 'gitcommit', 'toml'], 'sources',
