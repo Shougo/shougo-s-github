@@ -1,12 +1,4 @@
 [[plugins]]
-repo = 'Shougo/echodoc.vim'
-on_event = 'CompleteDone'
-hook_source = '''
-  "let g:echodoc#type = has('nvim') ? 'floating' : 'popup'
-  call echodoc#enable()
-'''
-
-[[plugins]]
 repo = 'Shougo/defx.nvim'
 hook_add = '''
   nnoremap <silent>   [Space]f
@@ -406,10 +398,6 @@ repo = 'tweekmonster/helpful.vim'
 on_cmd = 'HelpfulVersion'
 
 [[plugins]]
-repo = 'Jagua/vim-denite-ghq'
-on_source = 'denite.nvim'
-
-[[plugins]]
 repo = 'rhysd/vim-gfm-syntax'
 on_ft = 'markdown'
 
@@ -438,17 +426,6 @@ hook_source = '''
   let g:goimports_simplify = 1
 '''
 
-#[[plugins]]
-#repo = 'ncm2/float-preview.nvim'
-#on_source = 'ddc.vim'
-#if = 'has("nvim")'
-#hook_source = '''
-#  let g:float_preview#docked = 0
-#  let g:float_preview#max_width = 60
-#  let g:float_preview#max_height = 20
-#'''
-
-
 [[plugins]]
 repo = 'matsui54/ddc-nvim-lsp-doc'
 on_source = 'ddc-nvim-lsp'
@@ -457,12 +434,11 @@ hook_source = '''
 call ddc_nvim_lsp_doc#enable()
 '''
 
-
 [[plugins]]
 repo = 'dag/vim2hs'
 on_ft = 'haskell'
 hook_source = '''
-  let g:haskell_conceal = 0
+let g:haskell_conceal = 0
 '''
 
 [[plugins]]
@@ -566,17 +542,6 @@ omap F <Plug>(eft-F)
 on_map = {n = '<Plug>', x = '<Plug>', o = '<Plug>'}
 
 #[[plugins]]
-#repo = 'mattn/vim-maketable'
-#on_ft = 'markdown'
-
-[[plugins]]
-repo = 't9md/vim-choosewin'
-on_source = 'defx.nvim'
-
-[[plugins]]
-repo = 'Shougo/deorise.nvim'
-
-#[[plugins]]
 #repo = 'teal-language/vim-teal'
 #on_ft = 'teal'
 
@@ -616,14 +581,6 @@ call wilder#set_option('renderer', wilder#popupmenu_renderer({
     \ 'highlighter': wilder#basic_highlighter(),
     \ }))
 '''
-
-#[[plugins]]
-#repo = 'aiya000/aho-bakaup.vim'
-#on_event = 'BufWritePre'
-#hook_source = '''
-#let g:bakaup_auto_backup = 1
-#let g:bakaup_backup_dir = expand('$CACHE/vim_bakaup')
-#'''
 
 [[plugins]]
 repo = 'rcarriga/nvim-notify'

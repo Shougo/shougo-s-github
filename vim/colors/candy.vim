@@ -51,6 +51,8 @@ highlight Cursor        gui=NONE guibg=#606060 guifg=fg
 highlight CursorLine    gui=NONE guibg=#444444 guifg=fg term=NONE cterm=NONE
 highlight lCursor       gui=NONE guibg=#80403f guifg=fg
 highlight CursorIM      gui=NONE guibg=#bb00aa guifg=fg
+highlight CursorColumn  gui=NONE guibg=#666666 guifg=fg
+highlight CursorLineNr  gui=bold guibg=bg guifg=#ffff00
 
 " Fold
 highlight Folded        gui=NONE guibg=#106090 guifg=#40f0f0
@@ -68,8 +70,6 @@ highlight Statement     gui=NONE guibg=#2c2c2c guifg=#ffa0ff
 highlight Todo          gui=bold,underline guibg=#2c2c2c guifg=#ffa0a0
 highlight Type          gui=NONE guibg=#2c2c2c guifg=#ffc864
 highlight Underlined    gui=underline guibg=#2c2c2c guifg=#f0f0f8
-highlight CursorColumn  gui=NONE guibg=#666666 guifg=fg
-highlight CursorLineNr  gui=bold guibg=bg guifg=#ffff00
 
 " HTML
 highlight htmlLink      gui=underline guibg=bg guifg=fg

@@ -2,9 +2,6 @@
 repo = 'Shougo/dein.vim'
 
 [[plugins]]
-repo = 'thinca/vim-ft-diff_fold'
-
-[[plugins]]
 repo = 'vim-jp/autofmt'
 
 [[plugins]]

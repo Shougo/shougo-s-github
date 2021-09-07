@@ -50,7 +50,6 @@ set nomodeline
 autocmd MyAutoCmd BufRead,BufWritePost *.txt setlocal modelines=5 modeline
 
 " Use clipboard register.
-
 if (!has('nvim') || $DISPLAY !=# '') && has('clipboard')
   if has('unnamedplus')
      set clipboard& clipboard+=unnamedplus
@@ -246,17 +245,17 @@ else
   set nowildmenu
   set wildmode=list:longest,full
 endif
-" Increase history amount.
-set history=1000
 " Display all the information of the tag by the supplement of the Insert mode.
 set showfulltag
 " Can supplement a tag in a command-line.
 set wildoptions+=tagfile
 
+" Increase history amount.
+set history=200
 if has('nvim')
-  set shada=!,'100,<20,s10,h
+  set shada='20,<20,s10,h
 else
-  set viminfo=!,'100,<20,s10,h
+  set viminfo='20,<20,s10,h
 endif
 
 " Disable menu
