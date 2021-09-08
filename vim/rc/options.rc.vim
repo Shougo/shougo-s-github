@@ -1,4 +1,21 @@
 "---------------------------------------------------------------------------
+" Base:
+"
+
+" For debug
+set debug=throw
+
+" Build encodings.
+let &fileencodings = 'ucs-bom,iso-2022-jp-3,utf-8,euc-jp,cp932'
+
+if has('multi_byte_ime')
+  set iminsert=0 imsearch=0
+endif
+
+set packpath=
+
+
+"---------------------------------------------------------------------------
 " Search:
 "
 
@@ -179,6 +196,11 @@ set fileformats=unix,dos,mac
 "---------------------------------------------------------------------------
 " View:
 "
+
+" Disable menu.vim
+if has('gui_running')
+  set guioptions=Mc
+endif
 
 " Show line number.
 "set number

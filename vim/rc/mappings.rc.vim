@@ -2,6 +2,17 @@
 " Key-mappings:
 "
 
+" Use ',' instead of '\'.
+" Use <Leader> in global plugin.
+let g:mapleader = ','
+" Use <LocalLeader> in filetype plugin.
+let g:maplocalleader = 'm'
+
+" Release keymappings for plug-in.
+nnoremap ;  <Nop>
+nnoremap m  <Nop>
+nnoremap ,  <Nop>
+
 " Use <C-Space>.
 nmap <C-Space>  <C-@>
 cmap <C-Space>  <C-@>

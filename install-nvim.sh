@@ -17,6 +17,9 @@ if [ -d /usr/local/share/nvim/runtime/plugin ]; then
     rm /usr/local/share/nvim/runtime/plugin/tutor.vim
     rm /usr/local/share/nvim/runtime/plugin/zipPlugin.vim
 fi
+if [ -f /usr/local/share/nvim/runtime/ftplugin.vim ]; then
+    rm /usr/local/share/nvim/runtime/ftplugin.vim
+fi
 if [ -d /usr/share/vim/vimfiles/plugin ]; then
     rm -Rf /usr/share/vim/vimfiles/plugin
 fi
