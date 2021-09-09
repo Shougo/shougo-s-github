@@ -78,7 +78,7 @@ let s:base_dir = fnamemodify(expand('<sfile>'), ':h') . '/'
 call map(g:dein#inline_vimrcs, { _, val -> s:base_dir . val })
 
 let s:path = expand('$CACHE/dein')
-if dein#load_state(s:path)
+if dein#min#load_state(s:path)
   let s:dein_toml = s:base_dir . 'dein.toml'
   let s:dein_lazy_toml = s:base_dir . 'deinlazy.toml'
   let s:dein_ddc_toml = s:base_dir . 'ddc.toml'
