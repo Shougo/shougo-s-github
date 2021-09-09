@@ -8,9 +8,6 @@ repo = 'vim-jp/autofmt'
 repo = 'kana/vim-operator-user'
 
 [[plugins]]
-repo = 'rcmdnk/vim-markdown'
-
-[[plugins]]
 repo = 'JesseKPhillips/d.vim'
 
 [[plugins]]
