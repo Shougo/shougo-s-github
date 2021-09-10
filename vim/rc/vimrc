@@ -60,6 +60,7 @@ let g:dein#auto_recache = !IsWindows()
 
 let g:dein#lazy_rplugins = v:true
 let g:dein#install_progress_type = 'title'
+let g:dein#install_check_diff = v:true
 let g:dein#enable_notification = v:true
 
 let g:dein#inline_vimrcs = ['options.rc.vim', 'mappings.rc.vim']

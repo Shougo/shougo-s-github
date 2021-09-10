@@ -35,12 +35,14 @@ hook_source = '''
       \ 'nvimlsp': {'mark': 'lsp', 'forceCompletionPattern': '\.|:|->'},
       \ })
   call ddc#custom#patch_filetype(
-      \ ['help', 'markdown', 'gitcommit', 'toml'], 'sources',
+      \ ['help', 'markdown', 'gitcommit', 'toml'], 'sources', has('nvim') ?
+      \ ['deoppet', 'eskk', 'nextword', 'around'] :
       \ ['eskk', 'nextword', 'around']
       \ )
   call ddc#custom#patch_filetype(
       \ ['typescript', 'go'], 'sources', has('nvim') ?
-      \ ['nvimlsp', 'around', 'deoppet'] : ['nvimlsp', 'around']
+      \ ['nvimlsp', 'deoppet', 'around'] :
+      \ ['nvimlsp', 'around']
       \ )
   "call ddc#custom#patch_global('completionMode', 'inline')
   call ddc#enable()
