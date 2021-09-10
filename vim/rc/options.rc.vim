@@ -116,11 +116,6 @@ autocmd MyAutoCmd BufWritePost *
       \   execute 'normal! zx' |
       \ endif
 
-if exists('*FoldCCtext')
-  " Use FoldCCtext().
-  set foldtext=FoldCCtext()
-endif
-
 " Use vimgrep.
 " set grepprg=internal
 " Use grep.

@@ -68,11 +68,6 @@ if &l:textwidth != 70 && &filetype !=# 'help'
   setlocal textwidth=0
 endif
 
-" Use FoldCCtext().
-if &filetype !=# 'help'
-  setlocal foldtext=FoldCCtext()
-endif
-
 if !&l:modifiable
   setlocal nofoldenable
   setlocal foldcolumn=0
