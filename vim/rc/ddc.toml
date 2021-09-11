@@ -11,7 +11,8 @@ hook_source = '''
 
   call ddc#custom#patch_global(
       \ 'sources', has('nvim') ?
-      \ ['eskk', 'around', 'deoppet'] : ['eskk', 'around'],
+      \ ['eskk', 'around', 'deoppet', 'file'] :
+      \ ['eskk', 'around', 'file'],
       \ )
   call ddc#custom#patch_global('sourceOptions', {
       \ '_': {
@@ -32,7 +33,16 @@ hook_source = '''
       \   'minAutoCompleteLength': 3,
       \   'isVolatile': v:true,
       \ },
-      \ 'nvimlsp': {'mark': 'lsp', 'forceCompletionPattern': '\.|:|->'},
+      \ 'nvimlsp': {
+      \   'mark': 'lsp',
+      \   'forceCompletionPattern': '\.|:|->'
+      \ },
+      \ 'file': {
+      \   'mark': 'F',
+      \   'isVolatile': v:true,
+      \   'minAutoCompleteLength': 1000,
+      \   'forceCompletionPattern': '\S/\S*'
+      \ },
       \ })
   call ddc#custom#patch_filetype(
       \ ['help', 'markdown', 'gitcommit', 'toml'], 'sources', has('nvim') ?
@@ -68,7 +78,8 @@ depends = 'ddc.vim'
 hook_source = '''
   call ddc#custom#patch_filetype(
           \ ['vim'], 'sources', has('nvim') ?
-          \ ['necovim', 'around', 'deoppet'] : ['necovim', 'around']
+          \ ['necovim', 'around', 'deoppet', 'file'] :
+          \ ['necovim', 'around', 'file']
           \ )
 '''
 
@@ -157,3 +168,7 @@ hook_source = '''
         \ %(%m%r%w%)%{eskk#statusline('[%s]').expand('%:p:~:.')}
         \ %<\(%{fnamemodify(getcwd(), ':~')}\)"
 '''
+
+[[plugins]]
+repo = 'LumaKernel/ddc-file'
+on_source = 'ddc.vim'
