@@ -10,11 +10,6 @@ if &compatible
   set nocompatible
 endif
 
-let s:is_windows = has('win32') || has('win64')
-function! IsWindows() abort
-  return s:is_windows
-endfunction
-
 " Set augroup.
 augroup MyAutoCmd
   autocmd!
@@ -56,7 +51,7 @@ endif
 " dein configurations.
 
 " In Windows, auto_recache is disabled.  It is too slow.
-let g:dein#auto_recache = !IsWindows()
+let g:dein#auto_recache = !has('win32')
 
 let g:dein#lazy_rplugins = v:true
 let g:dein#install_progress_type = 'title'
@@ -69,7 +64,7 @@ if has('nvim')
 elseif has('gui_running')
   call add(g:dein#inline_vimrcs, 'gui.rc.vim')
 endif
-if IsWindows()
+if has('win32')
   call add(g:dein#inline_vimrcs, 'windows.rc.vim')
 else
   call add(g:dein#inline_vimrcs, 'unix.rc.vim')

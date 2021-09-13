@@ -140,7 +140,7 @@ hook_source = '''
         \   'encoding': 'utf-8',
         \}
   let g:eskk#large_dictionary = {
-        \   'path': IsWindows() ?
+        \   'path': has('win32') ?
         \     '~/.config/SKK-JISYO.L' : '/usr/share/skk/SKK-JISYO.L',
         \   'sorted': 1,
         \   'encoding': 'euc-jp',

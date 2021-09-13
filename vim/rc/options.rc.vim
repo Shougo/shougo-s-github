@@ -201,7 +201,7 @@ endif
 "set number
 " Show <TAB> and <CR>
 set list
-if IsWindows()
+if has('win32')
    set listchars=tab:>-,trail:-,precedes:<
 else
    set listchars=tab:▸\ ,trail:-,precedes:«,nbsp:%

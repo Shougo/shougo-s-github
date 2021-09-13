@@ -6,7 +6,7 @@
 " Fonts:
 set ambiwidth=double
 
-if has('win32') || has('win64')
+if has('win32')
   " For Windows.
 
   " set guifontwide=VL\ Gothic:h11
@@ -37,7 +37,7 @@ endif
 "---------------------------------------------------------------------------
 " Window:
 "
-if has('win32') || has('win64')
+if has('win32')
   " Width of window.
    set columns=230
   " Height of window.
