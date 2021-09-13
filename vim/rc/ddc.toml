@@ -35,7 +35,7 @@ hook_source = '''
       \ },
       \ 'nvimlsp': {
       \   'mark': 'lsp',
-      \   'forceCompletionPattern': '\.|:|->'
+      \   'forceCompletionPattern': '\.\w*|:\w*|->\w*'
       \ },
       \ 'file': {
       \   'mark': 'F',
@@ -146,7 +146,7 @@ hook_source = '''
         \   'encoding': 'euc-jp',
         \}
 
-  if $TERM !~# '^xterm'
+  if !has('gui_running') && !exists(':GuiFont') && $TERM !~# '^xterm'
     " Use <> instead of ▽.
     let g:eskk#marker_henkan = '<>'
     " Use >> instead of ▼.

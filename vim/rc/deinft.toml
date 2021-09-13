@@ -123,4 +123,5 @@ setlocal shiftwidth=2
 
 markdown = '''
 setlocal foldexpr=
+setlocal iskeyword-='
 '''
