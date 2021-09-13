@@ -1,10 +1,5 @@
 "---------------------------------------------------------------------------
-" GUI:
-"
-
-"---------------------------------------------------------------------------
-" Fonts:
-set ambiwidth=double
+" Views:
 
 if has('win32')
   " For Windows.
@@ -24,32 +19,22 @@ if has('win32')
   " Use DirectWrite
   "set renderoptions=type:directx
 
-  if has('kaoriya')
-    " For Kaoriya only.
-     set ambiwidth=auto
-  endif
-else
-  " For Linux.
-   set guifontwide=VL\ Gothic\ 13
-   set guifont=Courier\ 10\ Pitch\ 14
-endif
-
-"---------------------------------------------------------------------------
-" Window:
-"
-if has('win32')
   " Width of window.
    set columns=230
   " Height of window.
    set lines=55
 else
+  " For Linux.
+  set guifontwide=VL\ Gothic\ 13
+  set guifont=Courier\ 10\ Pitch\ 14
+
   if &columns < 170
     " Width of window.
-     set columns=170
+    set columns=170
   endif
   if &lines < 40
     " Height of window.
-     set lines=40
+    set lines=40
   endif
 endif
 
@@ -60,6 +45,9 @@ endif
 
 "---------------------------------------------------------------------------
 " Options:
+
+set ambiwidth=double
+
 set mouse=
 set mousemodel=
 
