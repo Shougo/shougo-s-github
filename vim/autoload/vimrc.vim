@@ -129,3 +129,27 @@ function! vimrc#check_syntax() abort
     call vimrc#disable_syntax()
   endif
 endfunction
+
+function! vimrc#diagnostics_to_qf() abort
+  if !has('nvim')
+    return
+  endif
+
+  lua <<END
+  -- Send diagnostics to quickfix list
+  local diagnostics = vim.lsp.diagnostic.get_all()
+  local qflist = {}
+  for bufnr, diagnostic in pairs(diagnostics) do
+    for _, d in ipairs(diagnostic) do
+      d.bufnr = bufnr
+      d.lnum = d.range.start.line + 1
+      d.col = d.range.start.character + 1
+      d.text = d.message
+      table.insert(qflist, d)
+    end
+  end
+  vim.lsp.util.set_qflist(qflist)
+END
+
+  copen
+endfunction

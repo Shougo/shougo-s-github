@@ -173,3 +173,7 @@ hook_source = '''
 [[plugins]]
 repo = 'LumaKernel/ddc-file'
 on_source = 'ddc.vim'
+
+
+[[plugins]]
+repo = 'Shougo/ddc-omni'
