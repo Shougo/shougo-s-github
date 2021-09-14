@@ -13,10 +13,6 @@ let g:java_allow_cpp_keywords = 1
 let g:java_space_errors = 1
 let g:java_highlight_functions = 1
 
-" JavaScript
-let g:SimpleJsIndenter_BriefMode = 1
-let g:SimpleJsIndenter_CaseIndentLevel = -1
-
 " Tex
 let g:tex_flavor = 'latex'
 
@@ -28,6 +24,9 @@ let g:vim_markdown_no_default_key_mappings = 1
 
 " Set help filetype
 autocmd MyAutoCmd BufRead,BufNewFile *.jax setfiletype help
+
+" Enable dein toml synatx
+autocmd MyAutoCmd CursorHold */rc/*.toml call dein#toml#syntax()
 
 " Update filetype.
 autocmd MyAutoCmd BufWritePost * nested
