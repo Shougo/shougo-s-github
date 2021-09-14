@@ -26,6 +26,9 @@ let g:vim_markdown_toml_frontmatter = 1
 let g:vim_markdown_json_frontmatter = 1
 let g:vim_markdown_no_default_key_mappings = 1
 
+" Set help filetype
+autocmd MyAutoCmd BufRead,BufNewFile *.jax setfiletype help
+
 " Update filetype.
 autocmd MyAutoCmd BufWritePost * nested
 \ if &l:filetype ==# '' || exists('b:ftdetect')

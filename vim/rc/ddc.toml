@@ -45,7 +45,7 @@ hook_source = '''
       \ },
       \ })
   call ddc#custom#patch_filetype(
-      \ ['help', 'markdown', 'gitcommit', 'toml'], 'sources', has('nvim') ?
+      \ ['help', 'markdown', 'gitcommit'], 'sources', has('nvim') ?
       \ ['deoppet', 'eskk', 'nextword', 'around'] :
       \ ['eskk', 'nextword', 'around']
       \ )
