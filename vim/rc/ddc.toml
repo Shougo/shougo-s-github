@@ -146,22 +146,18 @@ hook_source = '''
         \   'encoding': 'euc-jp',
         \}
 
-  if !has('gui_running') && !exists(':GuiFont') && $TERM !~# '^xterm'
-    " Use <> instead of $B"&(B.
+  if &term !=# 'gui' && &term !=# 'nvim' && &term !~# '^xterm'
+    " Use <> instead of ▽.
     let g:eskk#marker_henkan = '<>'
-    " Use >> instead of $B"'(B.
+    " Use >> instead of ▼.
     let g:eskk#marker_henkan_select = '>>'
   endif
 
   autocmd MyAutoCmd User eskk-initialize-pre call s:eskk_initial_pre()
   function! s:eskk_initial_pre() abort
     let t = eskk#table#new('rom_to_hira*', 'rom_to_hira')
-    call t.add_map('z ', '$B!!(B')
-    call t.add_map('~', '$B!A(B')
-    call t.add_map('zc', '$(O)&(B')
-    call t.add_map('zr', '$(O)*(B')
-    call t.add_map('z9', '$B!J(B')
-    call t.add_map('z0', '$B!K(B')
+    call t.add_map('z ', '　')
+    call t.add_map('~', '〜')
     call eskk#register_mode_table('hira', t)
   endfunction
 

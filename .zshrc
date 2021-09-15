@@ -247,6 +247,7 @@ alias hexdump='hexdump -C'
 alias vim='TERM=xterm-256color nvim'
 #alias goneovim='~/Downloads/goneovim/goneovim &>/dev/null &'
 #alias gn=goneovim
+alias vide=neovide
 
 
 #####################################################################

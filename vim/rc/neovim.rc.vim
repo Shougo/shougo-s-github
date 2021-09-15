@@ -24,9 +24,7 @@ if exists('&pumblend')
   " autocmd MyAutoCmd InsertEnter * set pumblend=20
 endif
 
-if exists('&winblend')
-  set winblend=20
-endif
+set winblend=20
 
 " Use cursor shape feature
 set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor
@@ -42,3 +40,10 @@ let g:terminal_scrollback_buffer_size = 3000
 
 autocmd MyAutoCmd TextYankPost * lua require'vim.highlight'.on_yank
      \ {higroup='IncSearch', timeout=150}
+
+" For neovide
+let g:neovide_no_idle = v:true
+let g:neovide_cursor_animation_length = 0.01
+let g:neovide_cursor_trail_length = 0
+
+set guifont=Courier\ 10\ Pitch\ 14

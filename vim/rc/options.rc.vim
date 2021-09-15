@@ -76,11 +76,7 @@ if (!has('nvim') || $DISPLAY !=# '') && has('clipboard')
 endif
 
 " Enable backspace delete indent and newline.
-if has('patch-8.2.0592')
-  set backspace=indent,eol,nostop
-else
-  set backspace=indent,eol,start
-endif
+set backspace=indent,eol,nostop
 
 " Highlight <>.
 set matchpairs+=<:>
@@ -96,7 +92,7 @@ set hidden
 set nofoldenable
 set foldmethod=manual
 " Show folding level.
-if has('nvim-0.5')
+if has('nvim')
   set foldcolumn=auto:1
 else
   set foldcolumn=1
@@ -151,9 +147,7 @@ autocmd MyAutoCmd InsertLeave *
 " Update diff.
 autocmd MyAutoCmd InsertLeave * if &l:diff | diffupdate | endif
 
-if has('patch-8.1.0360')
-  set diffopt=internal,algorithm:patience,indent-heuristic
-endif
+set diffopt=internal,algorithm:patience,indent-heuristic
 
 " Make directory automatically.
 " --------------------------------------
