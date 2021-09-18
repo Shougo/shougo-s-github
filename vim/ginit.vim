@@ -10,7 +10,6 @@ if exists('g:fvim_loaded')
   FVimFontAutohint v:true
   FVimFontHintLevel 'full'
   FVimFontLigature v:true
-  FVimFontLineHeight '+1.0' " can be 'default', '14.0', '-1.0' etc.
   FVimFontSubpixel v:true
 elseif exists('g:GtkGuiLoaded')
   " For neovim-gtk

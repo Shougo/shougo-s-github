@@ -173,3 +173,22 @@ on_source = 'ddc.vim'
 
 [[plugins]]
 repo = 'Shougo/ddc-omni'
+
+[[plugins]]
+repo = 'kuuote/denops-skkeleton.vim'
+on_map = {ic = '<Plug>'}
+on_source = 'ddc.vim'
+hook_source = '''
+"let g:skkeleton#debug = v:true
+call skkeleton#config({
+      \ 'globalJisyo': has('win32') ?
+      \     '~/.config/SKK-JISYO.L' : '/usr/share/skk/SKK-JISYO.L',
+      \ 'eggLikeNewline': v:true,
+      \ })
+
+call skkeleton#register_kanatable('rom', {
+      \ 'jj': 'escape',
+      \ '~': ['〜', ''],
+      \ "z\<Space>": ["\u3000", ''],
+      \ })
+'''
