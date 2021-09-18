@@ -555,10 +555,9 @@ on_ft = 'markdown'
 [[plugins]]
 repo = 'gelguy/wilder.nvim'
 depends = 'impatient.nvim'
-if = '!has("win32")'
 on_map = ':'
 hook_source = '''
-call wilder#enable_cmdline_enter()
+silent! call wilder#enable_cmdline_enter()
 set wildcharm=<Tab>
 
 cnoremap <expr> <Tab> wilder#in_context() ? wilder#next() : "\<Tab>"
