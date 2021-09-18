@@ -310,6 +310,9 @@ zsh = '''
 repo = 'lambdalisue/guise.vim'
 on_source = 'deol.nvim'
 depends = 'denops.vim'
+hook_add = '''
+let g:denops#debug = 1
+'''
 
 [[plugins]]
 repo = 'Shougo/junkfile.vim'

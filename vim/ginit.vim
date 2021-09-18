@@ -27,6 +27,4 @@ if exists('g:GtkGuiLoaded')
 
   " Enable transparency
   NGTransparency 1.0
-
-  call rpcnotify(1, 'Gui', 'Font', 'DejaVu Sans Mono 15')
 endif

@@ -34,6 +34,9 @@ call denite#custom#filter('matcher/clap',
 call denite#custom#source('file/rec', 'matchers', [
       \ 'matcher/clap',
       \ ])
+call denite#custom#source('line', 'matchers', [
+      \ 'matcher/substring',
+      \ ])
 
 call denite#custom#alias('source', 'file/dirty', 'file/rec')
 call denite#custom#var('file/dirty', 'command',

@@ -5,13 +5,15 @@ if has('win32')
   " For Windows.
 
   " set guifontwide=VL\ Gothic:h11
-   set guifontwide=Ricty:h12
+  " set guifontwide=Ricty:h12
 
-   set guifont=Ricty:h12
+  " set guifont=Ricty:h12
   " set guifont=Courier\ New:h11
   " set guifont=VL\ Gothic:h11
   " set guifont=Consolas:h12
   " set guifont=Inconsolata:h12
+  " set guifont=HackGen:h12
+  set guifont=Firge:h12
 
   " Number of pixel lines inserted between characters.
   set linespace=2
@@ -20,9 +22,9 @@ if has('win32')
   "set renderoptions=type:directx
 
   " Width of window.
-   set columns=230
+  set columns=230
   " Height of window.
-   set lines=55
+  set lines=55
 else
   " For Linux.
   set guifontwide=VL\ Gothic\ 13
