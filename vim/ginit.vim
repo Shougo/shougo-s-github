@@ -22,6 +22,6 @@ elseif exists('g:GtkGuiLoaded')
   NGTransparency 1.0
 
   call rpcnotify(1, 'Gui', 'Font', 'DejaVu Sans Mono 15')
-else
+elseif exists(':GuiFont')
   GuiFont! Courier\ 10\ Pitch:h14
 endif

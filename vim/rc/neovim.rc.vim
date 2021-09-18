@@ -46,4 +46,8 @@ let g:neovide_no_idle = v:true
 let g:neovide_cursor_animation_length = 0.01
 let g:neovide_cursor_trail_length = 0
 
-"set guifont=Courier\ 10\ Pitch\ 14
+if has('win32')
+  set guifont=Firge:h13
+else
+  set guifont=Courier\ 10\ Pitch\ 14
+endif
