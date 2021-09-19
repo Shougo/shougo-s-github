@@ -11,8 +11,8 @@ hook_source = '''
 
   call ddc#custom#patch_global(
       \ 'sources', has('nvim') ?
-      \ ['eskk', 'around', 'deoppet', 'file'] :
-      \ ['eskk', 'around', 'file'],
+      \ ['skkeleton', 'around', 'deoppet', 'file'] :
+      \ ['skkeleton', 'around', 'file'],
       \ )
   call ddc#custom#patch_global('sourceOptions', {
       \ '_': {
@@ -44,10 +44,17 @@ hook_source = '''
       \   'forceCompletionPattern': '\S/\S*'
       \ },
       \ })
+call ddc#custom#patch_global('sourceOptions', {
+      \ 'skkeleton': {
+      \   'mark': 'skk',
+      \   'matchers': ['skkeleton'],
+      \   'sorters': [],
+      \   'minAutoCompleteLength': 2,
+      \ }})
   call ddc#custom#patch_filetype(
       \ ['help', 'markdown', 'gitcommit'], 'sources', has('nvim') ?
-      \ ['deoppet', 'eskk', 'nextword', 'around'] :
-      \ ['eskk', 'nextword', 'around']
+      \ ['deoppet', 'skkeleton', 'nextword', 'around'] :
+      \ ['skkeleton', 'nextword', 'around']
       \ )
   call ddc#custom#patch_filetype(
       \ ['typescript', 'go'], 'sources', has('nvim') ?
@@ -116,55 +123,55 @@ require'lspconfig'.gopls.setup{}
 EOF
 '''
 
-[[plugins]]
-repo = 'tyru/eskk.vim'
-on_map = {ic = '<Plug>'}
-on_source = 'ddc.vim'
-hook_add = '''
-  imap <C-j>     <Plug>(eskk:toggle)
-  cmap <C-j>     <Plug>(eskk:toggle)
-'''
-hook_source = '''
-  let g:eskk#directory = expand('$CACHE/eskk')
-  let g:eskk#keep_state = 0
-  let g:eskk#debug = 0
-  let g:eskk#show_annotation = 1
-  let g:eskk#rom_input_style = 'msime'
-  let g:eskk#egg_like_newline = 1
-  let g:eskk#egg_like_newline_completion = 1
-  let g:eskk#tab_select_completion = 1
-  let g:eskk#start_completion_length = 2
-  let g:eskk#dictionary = {
-        \   'path': expand('$CACHE/skk-jisyo'),
-        \   'sorted': 0,
-        \   'encoding': 'utf-8',
-        \}
-  let g:eskk#large_dictionary = {
-        \   'path': has('win32') ?
-        \     '~/.config/SKK-JISYO.L' : '/usr/share/skk/SKK-JISYO.L',
-        \   'sorted': 1,
-        \   'encoding': 'euc-jp',
-        \}
-
-  if &term !=# 'gui' && &term !=# 'nvim' && &term !~# '^xterm'
-    " Use <> instead of ▽.
-    let g:eskk#marker_henkan = '<>'
-    " Use >> instead of ▼.
-    let g:eskk#marker_henkan_select = '>>'
-  endif
-
-  autocmd MyAutoCmd User eskk-initialize-pre call s:eskk_initial_pre()
-  function! s:eskk_initial_pre() abort
-    let t = eskk#table#new('rom_to_hira*', 'rom_to_hira')
-    call t.add_map('z ', '　')
-    call t.add_map('~', '〜')
-    call eskk#register_mode_table('hira', t)
-  endfunction
-
-  let &g:titlestring = "
-        \ %(%m%r%w%)%{eskk#statusline('[%s]').expand('%:p:~:.')}
-        \ %<\(%{fnamemodify(getcwd(), ':~')}\)"
-'''
+#[[plugins]]
+#repo = 'tyru/eskk.vim'
+#on_map = {ic = '<Plug>'}
+#on_source = 'ddc.vim'
+#hook_add = '''
+#  imap <C-j>     <Plug>(eskk:toggle)
+#  cmap <C-j>     <Plug>(eskk:toggle)
+#'''
+#hook_source = '''
+#  let g:eskk#directory = expand('$CACHE/eskk')
+#  let g:eskk#keep_state = 0
+#  let g:eskk#debug = 0
+#  let g:eskk#show_annotation = 1
+#  let g:eskk#rom_input_style = 'msime'
+#  let g:eskk#egg_like_newline = 1
+#  let g:eskk#egg_like_newline_completion = 1
+#  let g:eskk#tab_select_completion = 1
+#  let g:eskk#start_completion_length = 2
+#  let g:eskk#dictionary = {
+#        \   'path': expand('$CACHE/skk-jisyo'),
+#        \   'sorted': 0,
+#        \   'encoding': 'utf-8',
+#        \}
+#  let g:eskk#large_dictionary = {
+#        \   'path': has('win32') ?
+#        \     '~/.config/SKK-JISYO.L' : '/usr/share/skk/SKK-JISYO.L',
+#        \   'sorted': 1,
+#        \   'encoding': 'euc-jp',
+#        \}
+#
+#  if &term !=# 'gui' && &term !=# 'nvim' && &term !~# '^xterm'
+#    " Use <> instead of ▽.
+#    let g:eskk#marker_henkan = '<>'
+#    " Use >> instead of ▼.
+#    let g:eskk#marker_henkan_select = '>>'
+#  endif
+#
+#  autocmd MyAutoCmd User eskk-initialize-pre call s:eskk_initial_pre()
+#  function! s:eskk_initial_pre() abort
+#    let t = eskk#table#new('rom_to_hira*', 'rom_to_hira')
+#    call t.add_map('z ', '　')
+#    call t.add_map('~', '〜')
+#    call eskk#register_mode_table('hira', t)
+#  endfunction
+#
+#  let &g:titlestring = "
+#        \ %(%m%r%w%)%{eskk#statusline('[%s]').expand('%:p:~:.')}
+#        \ %<\(%{fnamemodify(getcwd(), ':~')}\)"
+#'''
 
 [[plugins]]
 repo = 'LumaKernel/ddc-file'
@@ -178,17 +185,21 @@ repo = 'Shougo/ddc-omni'
 repo = 'kuuote/denops-skkeleton.vim'
 on_map = {ic = '<Plug>'}
 on_source = 'ddc.vim'
+hook_add = '''
+  imap <C-j> <Plug>(skkeleton-toggle)
+  cmap <C-j> <Plug>(skkeleton-toggle)
+'''
 hook_source = '''
-"let g:skkeleton#debug = v:true
-call skkeleton#config({
-      \ 'globalJisyo': has('win32') ?
-      \     '~/.config/SKK-JISYO.L' : '/usr/share/skk/SKK-JISYO.L',
-      \ 'eggLikeNewline': v:true,
-      \ })
+  "let g:skkeleton#debug = v:true
+  call skkeleton#config({
+        \ 'globalJisyo': has('win32') ?
+        \     '~/.config/SKK-JISYO.L' : '/usr/share/skk/SKK-JISYO.L',
+        \ 'eggLikeNewline': v:true,
+        \ })
 
-call skkeleton#register_kanatable('rom', {
-      \ 'jj': 'escape',
-      \ '~': ['〜', ''],
-      \ "z\<Space>": ["\u3000", ''],
-      \ })
+  call skkeleton#register_kanatable('rom', {
+        \ 'jj': 'escape',
+        \ '~': ['〜', ''],
+        \ "z\<Space>": ["\u3000", ''],
+        \ })
 '''

@@ -49,5 +49,5 @@ let g:neovide_cursor_trail_length = 0
 if has('win32')
   set guifont=Firge:h13
 else
-  set guifont=Courier\ 10\ Pitch\ 14
+  "set guifont=Courier\ 10\ Pitch\ 14
 endif
