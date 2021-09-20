@@ -204,6 +204,13 @@ hook_source = '''
         \ 'eggLikeNewline': v:true,
         \ })
 
+  if &term !=# 'gui' && &term !=# 'nvim' && &term !~# '^xterm'
+    call skkeleton#config({
+            \ 'markerHenkan': '<>',
+            \ 'markerHenkanSelect': '>>',
+            \ })
+  endif
+
   call skkeleton#register_kanatable('rom', {
         \ 'jj': 'escape',
         \ '~': ['〜', ''],
