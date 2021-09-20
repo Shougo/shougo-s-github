@@ -11,8 +11,8 @@ hook_source = '''
 
   call ddc#custom#patch_global(
       \ 'sources', has('nvim') ?
-      \ ['skkeleton', 'around', 'deoppet', 'file'] :
-      \ ['skkeleton', 'around', 'file'],
+      \ ['around', 'deoppet', 'file'] :
+      \ ['around', 'file'],
       \ )
   call ddc#custom#patch_global('sourceOptions', {
       \ '_': {
@@ -44,7 +44,7 @@ hook_source = '''
       \   'forceCompletionPattern': '\S/\S*'
       \ },
       \ })
-call ddc#custom#patch_global('sourceOptions', {
+  call ddc#custom#patch_global('sourceOptions', {
       \ 'skkeleton': {
       \   'mark': 'skk',
       \   'matchers': ['skkeleton'],
@@ -61,7 +61,6 @@ call ddc#custom#patch_global('sourceOptions', {
       \ ['nvimlsp', 'deoppet', 'around'] :
       \ ['nvimlsp', 'around']
       \ )
-  "call ddc#custom#patch_global('completionMode', 'inline')
   call ddc#enable()
 '''
 
@@ -183,8 +182,8 @@ repo = 'Shougo/ddc-omni'
 
 [[plugins]]
 repo = 'kuuote/denops-skkeleton.vim'
-on_map = {ic = '<Plug>'}
-on_source = 'ddc.vim'
+on_map = {ic = '<Plug>(skkeleton-toggle)'}
+depends = ['ddc.vim']
 hook_add = '''
   imap <C-j> <Plug>(skkeleton-toggle)
   cmap <C-j> <Plug>(skkeleton-toggle)
@@ -202,4 +201,16 @@ hook_source = '''
         \ '~': ['〜', ''],
         \ "z\<Space>": ["\u3000", ''],
         \ })
+
+  autocmd MyAutoCmd User skkeleton-enable-pre call s:skkeleton_pre()
+  function! s:skkeleton_pre() abort
+    " Save sources
+    let s:sources = get(ddc#custom#get_current(), 'sources', [])
+    call ddc#custom#patch_buffer('sources', ['skkeleton'])
+  endfunction
+  autocmd MyAutoCmd User skkeleton-disable-pre call s:skkeleton_post()
+  function! s:skkeleton_post() abort
+    " Restore sources
+    call ddc#custom#patch_buffer('sources', s:sources)
+  endfunction
 '''

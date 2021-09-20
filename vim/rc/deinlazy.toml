@@ -610,3 +610,11 @@ lua require('impatient')
 repo = 'gamoutatsumi/dps-ghosttext.vim'
 depends = 'denops.vim'
 on_cmd = 'GhostStart'
+
+[[plugins]]
+repo = 'Shougo/echodoc.vim'
+on_event = 'InsertEnter'
+hook_source = '''
+  call echodoc#enable()
+  let g:echodoc#type = has('nvim') ? 'floating' : 'popup'
+'''
