@@ -270,7 +270,7 @@ else
 endif
 
 " Disable menu
-let g:did_install_default_menus = 1
+let g:did_install_default_menus = v:true
 
 " Completion setting.
 set completeopt=menuone

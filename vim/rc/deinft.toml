@@ -1,26 +1,26 @@
 hook_add = '''
 " Bash
-let g:is_bash = 1
+let g:is_bash = v:true
 
 " Ruby
-let g:ruby_no_expensive = 1
+let g:ruby_no_expensive = v:true
 
 " Java
 let g:java_highlight_functions = 'style'
-let g:java_highlight_all = 1
-let g:java_highlight_debug = 1
-let g:java_allow_cpp_keywords = 1
-let g:java_space_errors = 1
-let g:java_highlight_functions = 1
+let g:java_highlight_all = v:true
+let g:java_highlight_debug = v:true
+let g:java_allow_cpp_keywords = v:true
+let g:java_space_errors = v:true
+let g:java_highlight_functions = v:true
 
 " Tex
 let g:tex_flavor = 'latex'
 
 " markdown
-let g:vim_markdown_frontmatter = 1
-let g:vim_markdown_toml_frontmatter = 1
-let g:vim_markdown_json_frontmatter = 1
-let g:vim_markdown_no_default_key_mappings = 1
+let g:vim_markdown_frontmatter = v:true
+let g:vim_markdown_toml_frontmatter = v:true
+let g:vim_markdown_json_frontmatter = v:true
+let g:vim_markdown_no_default_key_mappings = v:true
 
 " Set help filetype
 autocmd MyAutoCmd BufRead,BufNewFile *.jax setfiletype help
@@ -39,25 +39,25 @@ autocmd MyAutoCmd BufWritePost * nested
 \ | endif
 
 " Disable default plugins
-let g:loaded_2html_plugin      = 1
-let g:loaded_logiPat           = 1
-let g:loaded_getscriptPlugin   = 1
-let g:loaded_gzip              = 1
-let g:loaded_gtags             = 1
-let g:loaded_gtags_cscope      = 1
-let g:loaded_man               = 1
-let g:loaded_matchit           = 1
-let g:loaded_matchparen        = 1
-let g:loaded_netrwFileHandlers = 1
-let g:loaded_netrwPlugin       = 1
-let g:loaded_netrwSettings     = 1
-let g:loaded_rrhelper          = 1
-let g:loaded_shada_plugin      = 1
-let g:loaded_spellfile_plugin  = 1
-let g:loaded_tarPlugin         = 1
-let g:loaded_tutor_mode_plugin = 1
-let g:loaded_vimballPlugin     = 1
-let g:loaded_zipPlugin         = 1
+let g:loaded_2html_plugin      = v:true
+let g:loaded_logiPat           = v:true
+let g:loaded_getscriptPlugin   = v:true
+let g:loaded_gzip              = v:true
+let g:loaded_gtags             = v:true
+let g:loaded_gtags_cscope      = v:true
+let g:loaded_man               = v:true
+let g:loaded_matchit           = v:true
+let g:loaded_matchparen        = v:true
+let g:loaded_netrwFileHandlers = v:true
+let g:loaded_netrwPlugin       = v:true
+let g:loaded_netrwSettings     = v:true
+let g:loaded_rrhelper          = v:true
+let g:loaded_shada_plugin      = v:true
+let g:loaded_spellfile_plugin  = v:true
+let g:loaded_tarPlugin         = v:true
+let g:loaded_tutor_mode_plugin = v:true
+let g:loaded_vimballPlugin     = v:true
+let g:loaded_zipPlugin         = v:true
 '''
 
 [ftplugin]

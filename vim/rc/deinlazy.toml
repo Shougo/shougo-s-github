@@ -311,7 +311,7 @@ repo = 'lambdalisue/guise.vim'
 on_source = 'deol.nvim'
 depends = 'denops.vim'
 hook_add = '''
-"let g:denops#debug = 1
+"let g:denops#debug = v:true
 '''
 
 [[plugins]]
@@ -325,7 +325,7 @@ hook_add = '''
 repo = 'Shougo/vinarise.vim'
 on_cmd = 'Vinarise'
 hook_add = '''
-  let g:vinarise_enable_auto_detect = 1
+  let g:vinarise_enable_auto_detect = v:true
   let g:vinarise_guifont = 'Courier\ 10\ Pitch:h14'
 '''
 
@@ -419,14 +419,14 @@ repo = 'vim-denops/denops.vim'
 repo = 'lambdalisue/suda.vim'
 on_event = 'BufRead'
 hook_add = '''
-  let g:suda_smart_edit = 1
+  let g:suda_smart_edit = v:true
 '''
 
 [[plugins]]
 repo = 'mattn/vim-goimports'
 on_ft = 'go'
 hook_source = '''
-  let g:goimports_simplify = 1
+  let g:goimports_simplify = v:true
 '''
 
 [[plugins]]
@@ -441,7 +441,7 @@ call ddc_nvim_lsp_doc#enable()
 repo = 'dag/vim2hs'
 on_ft = 'haskell'
 hook_source = '''
-let g:haskell_conceal = 0
+let g:haskell_conceal = v:false
 '''
 
 [[plugins]]

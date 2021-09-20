@@ -7,10 +7,10 @@ if has('vim_starting') && empty(argv())
   syntax off
 endif
 
-let g:loaded_node_provider = 0
-let g:loaded_perl_provider = 0
-let g:loaded_python_provider = 0
-let g:loaded_ruby_provider = 0
+let g:loaded_node_provider = v:false
+let g:loaded_perl_provider = v:false
+let g:loaded_python_provider = v:false
+let g:loaded_ruby_provider = v:false
 
 let g:python3_host_prog = 'python3'
 
