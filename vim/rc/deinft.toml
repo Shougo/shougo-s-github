@@ -28,6 +28,8 @@ autocmd MyAutoCmd BufRead,BufNewFile *.jax setfiletype help
 " Enable dein toml synatx
 autocmd MyAutoCmd CursorHold */rc/*.toml call dein#toml#syntax()
 
+autocmd MyAutoCmd BufEnter,BufRead,BufNewFile *.md setlocal iskeyword-='
+
 " Update filetype.
 autocmd MyAutoCmd BufWritePost * nested
 \ if &l:filetype ==# '' || exists('b:ftdetect')
@@ -126,9 +128,4 @@ setlocal shiftwidth=2 softtabstop=2 tabstop=2
 
 typescript = '''
 setlocal shiftwidth=2
-'''
-
-markdown = '''
-setlocal foldexpr=
-setlocal iskeyword-='
 '''
