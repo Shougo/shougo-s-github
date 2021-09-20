@@ -28,6 +28,7 @@ autocmd MyAutoCmd BufRead,BufNewFile *.jax setfiletype help
 " Enable dein toml synatx
 autocmd MyAutoCmd CursorHold */rc/*.toml call dein#toml#syntax()
 
+" Disable quotes keyword
 autocmd MyAutoCmd BufEnter,BufRead,BufNewFile *.md setlocal iskeyword-='
 
 " Update filetype.

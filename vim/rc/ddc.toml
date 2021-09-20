@@ -37,6 +37,10 @@ hook_source = '''
       \   'mark': 'lsp',
       \   'forceCompletionPattern': '\.\w*|:\w*|->\w*'
       \ },
+      \ 'rtags': {
+      \   'mark': 'R',
+      \   'forceCompletionPattern': '\.\w*|:\w*|->\w*'
+      \ },
       \ 'file': {
       \   'mark': 'F',
       \   'isVolatile': v:true,
@@ -69,13 +73,13 @@ repo = 'Shougo/ddc-around'
 on_source = 'ddc.vim'
 
 [[plugins]]
+repo = 'Shougo/ddc-nextword'
+on_source = 'ddc.vim'
+
+[[plugins]]
 repo = 'Shougo/ddc-zsh'
 on_ft = 'zsh'
 depends = 'ddc.vim'
-
-[[plugins]]
-repo = 'Shougo/ddc-nextword'
-on_source = 'ddc.vim'
 
 [[plugins]]
 repo = 'Shougo/neco-vim'
@@ -179,6 +183,10 @@ on_source = 'ddc.vim'
 
 [[plugins]]
 repo = 'Shougo/ddc-omni'
+
+[[plugins]]
+repo = 'Shougo/ddc-rtags'
+on_ft = ['c', 'cpp']
 
 [[plugins]]
 repo = 'kuuote/denops-skkeleton.vim'
