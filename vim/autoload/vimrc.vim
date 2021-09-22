@@ -148,8 +148,10 @@ function! vimrc#diagnostics_to_qf() abort
       table.insert(qflist, d)
     end
   end
-  vim.lsp.util.set_qflist(qflist)
-END
 
-  copen
+  if #qflist > 0 then
+    vim.lsp.util.set_qflist(qflist)
+    vim.command('copen')
+  end
+END
 endfunction
