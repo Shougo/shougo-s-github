@@ -202,6 +202,7 @@ hook_source = '''
         \ 'globalJisyo': has('win32') ?
         \     '~/.config/SKK-JISYO.L' : '/usr/share/skk/SKK-JISYO.L',
         \ 'eggLikeNewline': v:true,
+        \ 'registerConvertResult': v:true,
         \ })
 
   if &term !=# 'gui' && &term !=# 'nvim' && &term !~# '^xterm'
