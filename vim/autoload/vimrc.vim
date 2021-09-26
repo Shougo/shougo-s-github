@@ -73,6 +73,8 @@ endfunction
 function! vimrc#on_filetype() abort
   if execute('filetype') =~# 'OFF'
     " Lazy loading
+    call dein#source('filetype.nvim')
+
     silent! filetype plugin indent on
     syntax enable
     filetype detect
@@ -151,7 +153,7 @@ function! vimrc#diagnostics_to_qf() abort
 
   if #qflist > 0 then
     vim.lsp.util.set_qflist(qflist)
-    vim.command('copen')
+    vim.api.nvim_command('copen')
   end
 END
 endfunction

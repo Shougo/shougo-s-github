@@ -33,7 +33,7 @@ hook_source = '''
       \   'minAutoCompleteLength': 3,
       \   'isVolatile': v:true,
       \ },
-      \ 'nvimlsp': {
+      \ 'nvim-lsp': {
       \   'mark': 'lsp',
       \   'forceCompletionPattern': '\.\w*|:\w*|->\w*'
       \ },
@@ -62,8 +62,8 @@ hook_source = '''
       \ )
   call ddc#custom#patch_filetype(
       \ ['typescript', 'go'], 'sources', has('nvim') ?
-      \ ['nvimlsp', 'deoppet', 'around'] :
-      \ ['nvimlsp', 'around']
+      \ ['nvim-lsp', 'deoppet', 'around'] :
+      \ ['nvim-lsp', 'around']
       \ )
   call ddc#enable()
 '''
@@ -233,4 +233,12 @@ hook_source = '''
   let &g:titlestring = "
       \ %(%m%r%w%)%{skkeleton#mode().expand('%:p:~:.')}
       \ %<\(%{fnamemodify(getcwd(), ':~')}\)"
+'''
+
+[[plugins]]
+repo = 'nathom/filetype.nvim'
+if = 'has("nvim")'
+hook_source = '''
+" Do not source the default filetype.vim
+let g:did_load_filetypes = 1
 '''
