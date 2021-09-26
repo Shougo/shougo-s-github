@@ -310,9 +310,6 @@ zsh = '''
 repo = 'lambdalisue/guise.vim'
 on_source = 'deol.nvim'
 depends = 'denops.vim'
-hook_add = '''
-"let g:denops#debug = v:true
-'''
 
 [[plugins]]
 repo = 'Shougo/junkfile.vim'
@@ -603,7 +600,7 @@ if = '!has("nvim")'
 repo = 'lewis6991/impatient.nvim'
 if = 'has("nvim")'
 hook_source = '''
-lua require('impatient')
+  lua require('impatient')
 '''
 
 [[plugins]]
@@ -617,4 +614,13 @@ on_event = 'InsertEnter'
 hook_source = '''
   call echodoc#enable()
   let g:echodoc#type = has('nvim') ? 'floating' : 'popup'
+'''
+
+[[plugins]]
+repo = 'nathom/filetype.nvim'
+if = 'has("nvim")'
+depends = 'impatient.nvim'
+hook_source = '''
+  " Do not source the default filetype.vim
+  let g:did_load_filetypes = 1
 '''

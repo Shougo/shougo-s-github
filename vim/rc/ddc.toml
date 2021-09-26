@@ -234,11 +234,3 @@ hook_source = '''
       \ %(%m%r%w%)%{skkeleton#mode().expand('%:p:~:.')}
       \ %<\(%{fnamemodify(getcwd(), ':~')}\)"
 '''
-
-[[plugins]]
-repo = 'nathom/filetype.nvim'
-if = 'has("nvim")'
-hook_source = '''
-" Do not source the default filetype.vim
-let g:did_load_filetypes = 1
-'''
