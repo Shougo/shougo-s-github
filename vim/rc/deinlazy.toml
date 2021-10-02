@@ -179,14 +179,10 @@ hook_add = '''
   \ "\<Cmd>pop\<CR>" : "\<Cmd>Denite jump\<CR>"
 
   nnoremap <silent> sn <Cmd>Denite dein<CR>
-  nnoremap <silent> sg <Cmd>Denite ghq -default-action=cd<CR>
   nnoremap <silent> ;g <Cmd>Denite -buffer-name=search
   \ -no-empty grep<CR>
   nnoremap <silent> ;w <Cmd>DeniteCursorWord -buffer-name=search
   \ -no-empty grep<CR>
-  nnoremap <silent> <C-t> <Cmd>Denite -buffer-name=deol
-  \ -split=`has('nvim') ? 'floating' : 'horizontal'`
-  \ -cursor-pos=`tabpagenr()-1` deol:zsh<CR>
   nnoremap <silent> <C-k> <Cmd>Denite change jump<CR>
 '''
 
@@ -549,37 +545,37 @@ on_map = {n = '<Plug>', x = '<Plug>', o = '<Plug>'}
 repo = 'joker1007/vim-markdown-quote-syntax'
 on_ft = 'markdown'
 
-[[plugins]]
-repo = 'gelguy/wilder.nvim'
-depends = 'impatient.nvim'
-on_map = ':'
-hook_source = '''
-silent! call wilder#enable_cmdline_enter()
-set wildcharm=<Tab>
-
-cnoremap <expr> <Tab> wilder#in_context() ? wilder#next() : "\<Tab>"
-cnoremap <expr> <S-Tab> wilder#in_context() ? wilder#previous() : "\<S-Tab>"
-
-" only / and ? are enabled by default
-call wilder#set_option('modes', ['/', '?', ':'])
-
-" When the cmdline is empty, provide suggestions based on the cmdline history
-call wilder#set_option('pipeline', [
-      \   wilder#branch(
-      \     [
-      \       wilder#check({_, x -> empty(x)}),
-      \       wilder#history(),
-      \     ],
-      \     wilder#cmdline_pipeline(),
-      \     wilder#search_pipeline(),
-      \   ),
-      \ ])
-
-" popupmenu completion
-call wilder#set_option('renderer', wilder#popupmenu_renderer({
-    \ 'highlighter': wilder#basic_highlighter(),
-    \ }))
-'''
+#[[plugins]]
+#repo = 'gelguy/wilder.nvim'
+#depends = 'impatient.nvim'
+#on_map = ':'
+#hook_source = '''
+#silent! call wilder#enable_cmdline_enter()
+#set wildcharm=<Tab>
+#
+#cnoremap <expr> <Tab> wilder#in_context() ? wilder#next() : "\<Tab>"
+#cnoremap <expr> <S-Tab> wilder#in_context() ? wilder#previous() : "\<S-Tab>"
+#
+#" only / and ? are enabled by default
+#call wilder#set_option('modes', ['/', '?', ':'])
+#
+#" When the cmdline is empty, provide suggestions based on the cmdline history
+#call wilder#set_option('pipeline', [
+#      \   wilder#branch(
+#      \     [
+#      \       wilder#check({_, x -> empty(x)}),
+#      \       wilder#history(),
+#      \     ],
+#      \     wilder#cmdline_pipeline(),
+#      \     wilder#search_pipeline(),
+#      \   ),
+#      \ ])
+#
+#" popupmenu completion
+#call wilder#set_option('renderer', wilder#popupmenu_renderer({
+#    \ 'highlighter': wilder#basic_highlighter(),
+#    \ }))
+#'''
 
 [[plugins]]
 repo = 'rcarriga/nvim-notify'
@@ -624,4 +620,12 @@ depends = 'impatient.nvim'
 hook_source = '''
   " Do not source the default filetype.vim
   let g:did_load_filetypes = 1
+'''
+
+[[multiple_plugins]]
+plugins = ['denite.nvim', 'deol.nvim']
+hook_add = '''
+  nnoremap <silent> <C-t> <Cmd>Denite -buffer-name=deol
+  \ -split=`has('nvim') ? 'floating' : 'horizontal'`
+  \ -cursor-pos=`tabpagenr()-1` deol:zsh<CR>
 '''
