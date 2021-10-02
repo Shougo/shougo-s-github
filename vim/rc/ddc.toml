@@ -189,7 +189,7 @@ repo = 'Shougo/ddc-rtags'
 on_ft = ['c', 'cpp']
 
 [[plugins]]
-repo = 'kuuote/denops-skkeleton.vim'
+repo = 'vim-skk/skkeleton'
 on_map = {ic = '<Plug>(skkeleton-toggle)'}
 depends = ['ddc.vim']
 hook_add = '''
