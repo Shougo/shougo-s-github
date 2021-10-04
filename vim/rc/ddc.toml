@@ -87,10 +87,13 @@ hook_add = '''
   function! CommandlinePre() abort
     call dein#source('ddc.vim')
 
-    cnoremap <Tab>   <Cmd>call pum#map#insert_relative(+1)<CR>
+    cnoremap <expr> <Tab>
+    \ pum#visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' : '<Tab>'
     cnoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
-    cnoremap <C-n>   <Cmd>call pum#map#select_relative(+1)<CR>
-    cnoremap <C-p>   <Cmd>call pum#map#select_relative(-1)<CR>
+    cnoremap <expr> <C-n>
+    \ pum#visible() ? '<Cmd>call pum#map#select_relative(+1)<CR>' : '<Down>'
+    cnoremap <expr> <C-p>
+    \ pum#visible() ? '<Cmd>call pum#map#select_relative(-1)<CR>' : '<Up>'
     cnoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
     cnoremap <C-e>   <Cmd>call pum#map#cancel()<CR>
 
