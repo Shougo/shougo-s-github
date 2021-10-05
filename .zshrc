@@ -98,13 +98,29 @@ zstyle ':completion:*' list-colors \
 autoload -U colors
 colors
 
-# Use vcs_info
-autoload -Uz vcs_info
-zstyle ':vcs_info:git:*' check-for-changes true
-zstyle ':vcs_info:git:*' stagedstr "%F{yellow}!"
-zstyle ':vcs_info:git:*' unstagedstr "%F{red}+"
-zstyle ':vcs_info:*' formats "%F{green}%c%u[%b]%f"
-zstyle ':vcs_info:*' actionformats '[%b|%a]'
+# Use git-prompt.zsh instead of vcs_info
+# https://github.com/woefe/git-prompt.zsh
+if [ -d ~/.zsh/git-prompt.zsh ]; then
+    source ~/.zsh/git-prompt.zsh/git-prompt.zsh
+fi
+
+ZSH_GIT_PROMPT_SHOW_UPSTREAM="no"
+ZSH_THEME_GIT_PROMPT_PREFIX=" "
+ZSH_THEME_GIT_PROMPT_SUFFIX=""
+ZSH_THEME_GIT_PROMPT_SEPARATOR="|"
+ZSH_THEME_GIT_PROMPT_DETACHED="%{$fg_bold[cyan]%}:"
+ZSH_THEME_GIT_PROMPT_BRANCH="%{$fg_bold[magenta]%}"
+ZSH_THEME_GIT_PROMPT_UPSTREAM_SYMBOL="%{$fg_bold[yellow]%}⟳ "
+ZSH_THEME_GIT_PROMPT_UPSTREAM_PREFIX="%{$fg[red]%}(%{$fg[yellow]%}"
+ZSH_THEME_GIT_PROMPT_UPSTREAM_SUFFIX="%{$fg[red]%})"
+ZSH_THEME_GIT_PROMPT_BEHIND="↓"
+ZSH_THEME_GIT_PROMPT_AHEAD="↑"
+ZSH_THEME_GIT_PROMPT_UNMERGED="%{$fg[red]%}X"
+ZSH_THEME_GIT_PROMPT_STAGED="%{$fg[green]%}O"
+ZSH_THEME_GIT_PROMPT_UNSTAGED="%{$fg[red]%}+"
+ZSH_THEME_GIT_PROMPT_UNTRACKED="…"
+ZSH_THEME_GIT_PROMPT_STASHED="%{$fg[blue]%}⚑"
+ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg_bold[green]%}✔"
 
 if [ $UID = "0" ]; then
     PROMPT="%B%{[31m%}%/#%{^[[m%}%b "
@@ -112,8 +128,11 @@ if [ $UID = "0" ]; then
 elif [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] ; then
     PROMPT="%{[37m%}${HOST%%.*} ${PROMPT}"
 else;
-    PROMPT='%{[33m%}[%35<..<%~]%{[m%}${vcs_info_msg_0_}
-%{[$[31+$RANDOM % 7]m%}%U%B%#'"%b%{[m%}%u "
+    PROMPT='%{[33m%}[%35<..<%~]%{[m%}$(gitprompt)'
+    PROMPT+='%(?.%(!.%F{white}%F{yellow}%F{red}.%F{green})%f.%F{red}%f)
+%{[$[31+$RANDOM % 7]m%}%U%B%#'"%b%{%}%u "
+    #PROMPT='%{[33m%}[%35<..<%~]%{[m%}${vcs_info_msg_0_}
+#%{[$[31+$RANDOM % 7]m%}%U%B%#'"%b%{%}%u "
 fi
 
 # Multi line prompt
@@ -121,13 +140,10 @@ PROMPT2="%_%% "
 # Spell miss prompt
 SPROMPT="correct> %R -> %r [n,y,a,e]? "
 
-# Syntax highlight
-if [ -d /usr/share/zsh/plugins/zsh-syntax-highlighting ]; then
-    # For Arch/Manjaro
-    source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-elif [ -d /usr/share/zsh-syntax-highlighting ]; then
-    # For Ubuntu
-    source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# Enable syntax highlight
+# https://github.com/zdharma/fast-syntax-highlighting
+if [ -d ~/.zsh/fast-syntax-highlighting ]; then
+    source ~/.zsh/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 fi
 
 
@@ -277,7 +293,6 @@ case "${TERM}" in
     kterm*|xterm*|vt100|st*|rxvt*|alacritty)
         precmd() {
             echo -ne "\033]0;${USER}@${HOST%%.*}:${PWD}\007"
-            vcs_info
         }
         ;;
 esac
