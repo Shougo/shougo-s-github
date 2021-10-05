@@ -43,6 +43,7 @@ hook_source = '''
       \   'minAutoCompleteLength': 1000,
       \   'forceCompletionPattern': '\S/\S*'
       \ },
+      \ 'cmdline-history': {'mark': 'history'},
       \ })
   call ddc#custom#patch_global('sourceOptions', {
       \ 'skkeleton': {
@@ -96,10 +97,12 @@ hook_add = '''
     \ pum#visible() ? '<Cmd>call pum#map#select_relative(-1)<CR>' : '<Up>'
     cnoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
     cnoremap <C-e>   <Cmd>call pum#map#cancel()<CR>
+    cnoremap <expr> <C-p>   ddc#manual_complete('cmdline-history')
 
     " Overwrite sources
     let s:prev_buffer_config = ddc#custom#get_buffer()
-    call ddc#custom#patch_buffer('sources', ['necovim', 'around'])
+    call ddc#custom#patch_buffer('sources',
+            \ ['necovim', 'cmdline-history', 'around'])
 
     autocmd MyAutoCmd CmdlineLeave * ++once call CommandlinePost()
 
@@ -154,6 +157,10 @@ on_source = 'ddc.vim'
 
 [[plugins]]
 repo = 'Shougo/ddc-sorter_rank'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc-cmdline-history'
 on_source = 'ddc.vim'
 
 [[plugins]]
