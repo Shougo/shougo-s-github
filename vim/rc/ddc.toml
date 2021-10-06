@@ -88,16 +88,13 @@ hook_add = '''
   function! CommandlinePre() abort
     call dein#source('ddc.vim')
 
+    " Note: It disables default command line completion!
     cnoremap <expr> <Tab>
-    \ pum#visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' : '<Tab>'
+    \ pum#visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' :
+    \ ddc#manual_complete()
     cnoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
-    cnoremap <expr> <C-n>
-    \ pum#visible() ? '<Cmd>call pum#map#select_relative(+1)<CR>' : '<Down>'
-    cnoremap <expr> <C-p>
-    \ pum#visible() ? '<Cmd>call pum#map#select_relative(-1)<CR>' : '<Up>'
     cnoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
     cnoremap <C-e>   <Cmd>call pum#map#cancel()<CR>
-    cnoremap <expr> <C-p>   ddc#manual_complete('cmdline-history')
 
     " Overwrite sources
     let s:prev_buffer_config = ddc#custom#get_buffer()
@@ -113,6 +110,7 @@ hook_add = '''
   function! CommandlinePost() abort
     " Restore sources
     call ddc#custom#set_buffer(s:prev_buffer_config)
+    cunmap <Tab>
   endfunction
 '''
 
