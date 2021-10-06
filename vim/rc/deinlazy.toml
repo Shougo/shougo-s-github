@@ -423,13 +423,6 @@ hook_source = '''
 '''
 
 [[plugins]]
-repo = 'matsui54/denops-popup-preview.vim'
-on_source = 'ddc.vim'
-hook_source = '''
-call popup_preview#enable()
-'''
-
-[[plugins]]
 repo = 'dag/vim2hs'
 on_ft = 'haskell'
 hook_source = '''

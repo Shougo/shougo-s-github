@@ -235,3 +235,11 @@ hook_source = '''
       \ %(%m%r%w%)%{skkeleton#mode().expand('%:p:~:.')}
       \ %<\(%{fnamemodify(getcwd(), ':~')}\)"
 '''
+
+[[plugins]]
+repo = 'matsui54/denops-popup-preview.vim'
+on_source = 'ddc.vim'
+hook_source = '''
+call popup_preview#enable()
+'''
+
