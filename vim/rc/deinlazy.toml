@@ -423,11 +423,10 @@ hook_source = '''
 '''
 
 [[plugins]]
-repo = 'matsui54/ddc-nvim-lsp-doc'
-on_source = 'ddc-nvim-lsp'
-if = 'has("nvim")'
+repo = 'matsui54/denops-popup-preview.vim'
+on_source = 'ddc.vim'
 hook_source = '''
-call ddc_nvim_lsp_doc#enable()
+call popup_preview#enable()
 '''
 
 [[plugins]]
