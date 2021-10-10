@@ -332,6 +332,9 @@ endif
 " Disable signcolumn
 set signcolumn=no
 
+" Disable cmdwin
+set cedit=
+
 set redrawtime=0
 
 " Enable true color
