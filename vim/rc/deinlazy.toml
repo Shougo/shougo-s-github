@@ -245,6 +245,7 @@ hook_source = '''
   let g:deol#extra_options = {
       \ 'term_kill': 'kill',
       \ }
+  let g:deol#enable_ddc_completion = v:true
 
   " Set terminal colors
   if has('nvim')
@@ -273,9 +274,13 @@ hook_source = '''
           \ ]
   endif
 
-  tnoremap <silent><expr> <C-t> ddc#manual_complete()
-  tnoremap <Down>   <Cmd>call pum#map#insert_relative(+1)<CR>
-  tnoremap <Up>     <Cmd>call pum#map#insert_relative(-1)<CR>
+  tnoremap <C-t> <Tab>
+  tnoremap <silent><expr> <Tab> pum#visible() ?
+        \ '<Cmd>call pum#map#insert_relative(+1)<CR>' :
+        \ ddc#manual_complete()
+  tnoremap <S-Tab>  <Cmd>call pum#map#insert_relative(-1)<CR>
+  tnoremap <Down>   <Cmd>call pum#map#select_relative(+1)<CR>
+  tnoremap <Up>     <Cmd>call pum#map#select_relative(-1)<CR>
   tnoremap <silent><expr> <C-y>
         \ pum#visible() ? '<Cmd>call pum#map#confirm()<CR>' : '<C-y>'
   tnoremap <silent><expr> <C-e>
@@ -292,6 +297,12 @@ deol = '''
   nmap <buffer> i <Plug>(deol_edit)
   nmap <buffer> e <Plug>(deol_edit)
   tmap <buffer> <CR> <Plug>(deol_execute_line)
+
+  call ddc#custom#patch_buffer('sourceOptions', {
+      \ '_': {
+      \   'converters': [],
+      \ },
+      \ })
 '''
 zsh = '''
   inoreabbrev <buffer><expr> g deol#abbrev('g', 'g', 'git')

@@ -44,6 +44,12 @@ hook_source = '''
       \   'forceCompletionPattern': '\S/\S*'
       \ },
       \ 'cmdline-history': {'mark': 'history'},
+      \ 'shell-history': {'mark': 'shell'},
+      \ 'zsh': {
+      \   'mark': 'zsh',
+      \   'isVolatile': v:true,
+      \   'forceCompletionPattern': '\S/\S*'
+      \ }
       \ })
   call ddc#custom#patch_global('sourceOptions', {
       \ 'skkeleton': {
@@ -63,7 +69,7 @@ hook_source = '''
       \ ['nvim-lsp', 'around']
       \ )
   call ddc#custom#patch_filetype(
-      \ ['zsh', 'deol'], 'sources', ['zsh']
+      \ ['deol'], 'sources', ['zsh', 'shell-history', 'around']
       \ )
 
   " Use pum.vim
