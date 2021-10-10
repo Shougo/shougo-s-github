@@ -229,7 +229,7 @@ let g:context_filetype#ignore_patterns = {
 
 [[plugins]]
 repo = 'Shougo/deol.nvim'
-depends = 'denite.nvim'
+depends = ['denite.nvim', 'ddc.vim']
 on_source = ['defx.nvim', 'denite.nvim']
 hook_add = '''
   if has('win32')
@@ -272,6 +272,14 @@ hook_source = '''
           \ '#6699ff', '#f820ff', '#4ae2e2', '#ffffff',
           \ ]
   endif
+
+  tnoremap <silent><expr> <C-t> ddc#manual_complete()
+  tnoremap <Down>   <Cmd>call pum#map#insert_relative(+1)<CR>
+  tnoremap <Up>     <Cmd>call pum#map#insert_relative(-1)<CR>
+  tnoremap <silent><expr> <C-y>
+        \ pum#visible() ? '<Cmd>call pum#map#confirm()<CR>' : '<C-y>'
+  tnoremap <silent><expr> <C-e>
+        \ pum#visible() ? '<Cmd>call pum#map#cancel()<CR>' : '<C-e>'
 '''
 [plugins.ftplugin]
 deol = '''
