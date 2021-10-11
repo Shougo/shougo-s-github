@@ -77,7 +77,7 @@ nnoremap [Space]l
 " Easily edit current buffer
 nnoremap <silent><expr> [Space]e
       \ bufname('%') !=# '' && &l:buftype ==# '' ?
-      \ "\<Cmd>edit %\<CR>" : ''
+      \ '<Cmd>edit %<CR>' : ''
 
 " Useful save mappings.
 nnoremap <silent> <Leader><Leader> <Cmd>update<CR>
@@ -87,7 +87,7 @@ nnoremap <silent> <Leader><Leader> <Cmd>update<CR>
 nnoremap <silent> sp  <Cmd>vsplit<CR>:wincmd w<CR>
 nnoremap <silent> so  <Cmd>only<CR>
 nnoremap <silent> <Tab>      <cmd>wincmd w<CR>
-nnoremap <silent><expr> q winnr('$') != 1 ? '<Cmd>close<CR>' : ""
+nnoremap <silent><expr> q winnr('$') != 1 ? '<Cmd>close<CR>' : ''
 
 " Original search
 nnoremap s/    /
@@ -104,9 +104,9 @@ nnoremap M  m
 
 " Smart <C-f>, <C-b>.
 noremap <expr> <C-f> max([winheight(0) - 2, 1])
-      \ . "\<C-d>" . (line('w$') >= line('$') ? "L" : "M")
+      \ . '<C-d>' . (line('w$') >= line('$') ? 'L' : 'M')
 noremap <expr> <C-b> max([winheight(0) - 2, 1])
-      \ . "\<C-u>" . (line('w0') <= 1 ? "H" : "M")
+      \ . '<C-u>' . (line('w0') <= 1 ? 'H' : 'M')
 
 " Disable ZZ.
 nnoremap ZZ  <Nop>
@@ -134,7 +134,7 @@ snoremap <expr> ;  vimrc#sticky_func()
 " Easy escape.
 inoremap jj           <ESC>
 cnoremap <expr> j
-      \ getcmdline()[getcmdpos()-2] ==# 'j' ? "\<BS>\<C-c>" : 'j'
+      \ getcmdline()[getcmdpos()-2] ==# 'j' ? '<BS><C-c>' : 'j'
 
 inoremap j<Space>     j
 

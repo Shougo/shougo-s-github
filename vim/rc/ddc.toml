@@ -247,10 +247,9 @@ hook_source = '''
       \ %<\(%{fnamemodify(getcwd(), ':~')}\)"
 '''
 
-[[plugins]]
-repo = 'matsui54/denops-popup-preview.vim'
-on_source = 'ddc.vim'
-hook_source = '''
-call popup_preview#enable()
-'''
-
+#[[plugins]]
+#repo = 'matsui54/denops-popup-preview.vim'
+#on_source = 'ddc.vim'
+#hook_source = '''
+#call popup_preview#enable()
+#'''

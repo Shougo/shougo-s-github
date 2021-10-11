@@ -117,10 +117,7 @@ on_event = 'InsertEnter'
 on_source = 'ddc.vim'
 if = 'has("nvim")'
 hook_source = '''
-  " Test
-  "imap L  <Plug>(deoppet_expand)
-  imap <expr> L  deoppet#expandable() ?
-  \ "\<Plug>(deoppet_expand)" : ''
+  imap <expr> L  deoppet#expandable() ? '<Plug>(deoppet_expand)' : ''
   imap <C-f>  <Plug>(deoppet_jump_forward)
   imap <C-b>  <Plug>(deoppet_jump_backward)
   smap <C-f>  <Plug>(deoppet_jump_forward)
@@ -155,28 +152,28 @@ hook_add = '''
   \ <Cmd>Denite -buffer-name=files
   \  file/rec:'`fnamemodify(expand('$MYVIMRC'), ':h').'/rc'`'<CR>
   nnoremap <silent><expr> / wordcount().chars > 30000 ?
-  \ "\<Cmd>Denite -buffer-name=search -start-filter
-  \  -search line/external\<CR>" :
-  \ "\<Cmd>Denite -buffer-name=search -start-filter -search line\<CR>"
+  \ '<Cmd>Denite -buffer-name=search -start-filter
+  \  -search line/external<CR>' :
+  \ '<Cmd>Denite -buffer-name=search -start-filter -search line<CR>'
   nnoremap <silent><expr> * wordcount().chars > 30000 ?
-  \ "\<Cmd>DeniteCursorWord -buffer-name=search -search line/external\<CR>" :
-  \ "\<Cmd>DeniteCursorWord -buffer-name=search -search line\<CR>"
+  \ '<Cmd>DeniteCursorWord -buffer-name=search -search line/external<CR>' :
+  \ '<Cmd>DeniteCursorWord -buffer-name=search -search line<CR>'
   xnoremap <silent> *
   \ "qy:Denite -input=`@q` -buffer-name=search -search line<CR>
   nnoremap <silent><expr> ss finddir('.git', ';') != '' ?
-  \ "\<Cmd>Denite -sorters=sorter/rank -unique -buffer-name=files
-  \  file/point file/old file/dirty file/git file file:new\<CR>" :
-  \ "\<Cmd>Denite -sorters=sorter/rank -unique -buffer-name=files
-  \  file/point file/old file file:new\<CR>"
+  \ '<Cmd>Denite -sorters=sorter/rank -unique -buffer-name=files
+  \  file/point file/old file/dirty file/git file file:new<CR>' :
+  \ '<Cmd>Denite -sorters=sorter/rank -unique -buffer-name=files
+  \  file/point file/old file file:new<CR>'
   nnoremap <silent> n
   \ <Cmd>Denite -buffer-name=search -resume<CR>
   nnoremap <silent> sf
   \ <Cmd>Denite -buffer-name=files -resume<CR>
 
-  nnoremap <silent><expr> tt  &filetype == 'help' ?  "g\<C-]>" :
-  \ "\<Cmd>DeniteCursorWord -buffer-name=tag -immediately tag:include\<CR>"
+  nnoremap <silent><expr> tt  &filetype == 'help' ?  'g<C-]>' :
+  \ '<Cmd>DeniteCursorWord -buffer-name=tag -immediately tag:include<CR>'
   nnoremap <silent><expr> tp  &filetype == 'help' ?
-  \ "\<Cmd>pop\<CR>" : "\<Cmd>Denite jump\<CR>"
+  \ '<Cmd>pop<CR>' : '<Cmd>Denite jump<CR>'
 
   nnoremap <silent> sn <Cmd>Denite dein<CR>
   nnoremap <silent> ;g <Cmd>Denite -buffer-name=search
@@ -245,7 +242,7 @@ hook_source = '''
   let g:deol#extra_options = {
       \ 'term_kill': 'kill',
       \ }
-  let g:deol#enable_ddc_completion = v:true
+  let g:deol#enable_ddc_completion = v:false
 
   " Set terminal colors
   if has('nvim')
@@ -274,11 +271,13 @@ hook_source = '''
           \ ]
   endif
 
-  tnoremap <C-t> <Tab>
+  tnoremap <expr><C-t> ddc#manual_complete()
   tnoremap <silent><expr> <Tab> pum#visible() ?
         \ '<Cmd>call pum#map#insert_relative(+1)<CR>' :
-        \ ddc#manual_complete()
-  tnoremap <S-Tab>  <Cmd>call pum#map#insert_relative(-1)<CR>
+        \ '<Tab>'
+  tnoremap <silent><expr> <S-Tab> pum#visible() ?
+        \ '<Cmd>call pum#map#insert_relative(-1)<CR>' :
+        \ '<S-Tab>'
   tnoremap <Down>   <Cmd>call pum#map#select_relative(+1)<CR>
   tnoremap <Up>     <Cmd>call pum#map#select_relative(-1)<CR>
   tnoremap <silent><expr> <C-y>
@@ -294,7 +293,6 @@ deol = '''
   \ <Cmd>call deol#send('git status')<CR>
   nnoremap <buffer><silent> [Space]gA
   \ <Cmd>call deol#send('git commit --amend')<CR>
-  nmap <buffer> i <Plug>(deol_edit)
   nmap <buffer> e <Plug>(deol_edit)
   tmap <buffer> <CR> <Plug>(deol_execute_line)
 
@@ -305,14 +303,6 @@ deol = '''
       \ })
 '''
 zsh = '''
-  inoreabbrev <buffer><expr> g deol#abbrev('g', 'g', 'git')
-  inoreabbrev <buffer><expr> a deol#abbrev('git a', 'a', 'add')
-  inoreabbrev <buffer><expr> b deol#abbrev('git b', 'b', 'branch')
-  inoreabbrev <buffer><expr> c deol#abbrev('git c', 'c', 'commit')
-  inoreabbrev <buffer><expr> d deol#abbrev('git d', 'd', 'diff')
-  inoreabbrev <buffer><expr> p deol#abbrev('git p', 'p', 'push')
-  inoreabbrev <buffer><expr> s deol#abbrev('git s', 's', 'status')
-
   nnoremap <buffer><silent> [Space]gc
   \ <Cmd>call deol#send('git commit')<CR>
   nnoremap <buffer><silent> [Space]gs
@@ -555,38 +545,6 @@ on_map = {n = '<Plug>', x = '<Plug>', o = '<Plug>'}
 [[plugins]]
 repo = 'joker1007/vim-markdown-quote-syntax'
 on_ft = 'markdown'
-
-#[[plugins]]
-#repo = 'gelguy/wilder.nvim'
-#depends = 'impatient.nvim'
-#on_map = ':'
-#hook_source = '''
-#silent! call wilder#enable_cmdline_enter()
-#set wildcharm=<Tab>
-#
-#cnoremap <expr> <Tab> wilder#in_context() ? wilder#next() : "\<Tab>"
-#cnoremap <expr> <S-Tab> wilder#in_context() ? wilder#previous() : "\<S-Tab>"
-#
-#" only / and ? are enabled by default
-#call wilder#set_option('modes', ['/', '?', ':'])
-#
-#" When the cmdline is empty, provide suggestions based on the cmdline history
-#call wilder#set_option('pipeline', [
-#      \   wilder#branch(
-#      \     [
-#      \       wilder#check({_, x -> empty(x)}),
-#      \       wilder#history(),
-#      \     ],
-#      \     wilder#cmdline_pipeline(),
-#      \     wilder#search_pipeline(),
-#      \   ),
-#      \ ])
-#
-#" popupmenu completion
-#call wilder#set_option('renderer', wilder#popupmenu_renderer({
-#    \ 'highlighter': wilder#basic_highlighter(),
-#    \ }))
-#'''
 
 [[plugins]]
 repo = 'rcarriga/nvim-notify'

@@ -11,8 +11,8 @@ function! vimrc#sticky_func() abort
         \';' : ':', '[' : '{', ']' : '}', '`' : '~', "'" : "\"", '\' : '|',
         \}
   let special_table = {
-        \"\<ESC>" : "\<ESC>", "\<Space>" : ';', "\<CR>" : ";\<CR>"
-        \}
+        \ "\<ESC>": "\<ESC>", "\<Space>": ';', "\<CR>": ";\<CR>",
+        \ }
 
   let char = ''
 
