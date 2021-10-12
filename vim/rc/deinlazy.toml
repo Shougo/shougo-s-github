@@ -242,7 +242,7 @@ hook_source = '''
   let g:deol#extra_options = {
       \ 'term_kill': 'kill',
       \ }
-  let g:deol#enable_ddc_completion = v:false
+  let g:deol#enable_ddc_completion = v:true
 
   " Set terminal colors
   if has('nvim')

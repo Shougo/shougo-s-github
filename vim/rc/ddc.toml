@@ -68,9 +68,10 @@ hook_source = '''
       \ ['nvim-lsp', 'deoppet', 'around'] :
       \ ['nvim-lsp', 'around']
       \ )
-  call ddc#custom#patch_filetype(
-      \ ['deol'], 'sources', ['zsh', 'shell-history', 'around']
-      \ )
+  call ddc#custom#patch_filetype(['deol'], {
+      \ 'keywordPattern': '[[:alnum:]_./-]',
+      \ 'sources': ['zsh', 'shell-history', 'around'],
+      \ })
 
   " Use pum.vim
   call ddc#custom#patch_global('autoCompleteEvents', [
