@@ -17,8 +17,6 @@ augroup MyAutoCmd
         \ call vimrc#on_filetype()
   autocmd BufEnter *? call vimrc#check_syntax()
 augroup END
-augroup filetypedetect
-augroup END
 
 let $CACHE = expand('~/.cache')
 if !isdirectory(expand($CACHE))
