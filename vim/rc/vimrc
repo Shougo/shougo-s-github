@@ -19,8 +19,8 @@ augroup MyAutoCmd
 augroup END
 
 let $CACHE = expand('~/.cache')
-if !isdirectory(expand($CACHE))
-  call mkdir(expand($CACHE), 'p')
+if !isdirectory($CACHE)
+  call mkdir($CACHE, 'p')
 endif
 
 " Use English interface.
