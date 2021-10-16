@@ -105,11 +105,18 @@ hook_add = '''
     cnoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
     cnoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
     cnoremap <C-e>   <Cmd>call pum#map#cancel()<CR>
+    set wildchar=<C-t>
 
     " Overwrite sources
     let s:prev_buffer_config = ddc#custom#get_buffer()
     call ddc#custom#patch_buffer('sources',
             \ ['necovim', 'cmdline-history', 'around'])
+    call ddc#custom#patch_buffer('sourceOptions', {
+      \ 'necovim': {
+      \   'isVolatile': v:true,
+      \   'forceCompletionPattern': '\S/\S*'
+      \ },
+      \})
 
     autocmd MyAutoCmd CmdlineLeave * ++once call CommandlinePost()
 
@@ -121,6 +128,7 @@ hook_add = '''
     " Restore sources
     call ddc#custom#set_buffer(s:prev_buffer_config)
     cunmap <Tab>
+    set wildchar=<Tab>
   endfunction
 '''
 
