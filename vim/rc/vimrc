@@ -33,9 +33,8 @@ endif
 " Load dein.
 if &runtimepath !~# '/dein.vim'
   let s:dein_dir = fnamemodify('dein.vim', ':p')
-  if !isdirectory(s:dein_dir) && &runtimepath !~# '/dein.vim'
-    let s:dein_dir = expand('$CACHE/dein')
-          \. '/repos/github.com/Shougo/dein.vim'
+  if !isdirectory(s:dein_dir)
+    let s:dein_dir = $CACHE . '/dein/repos/github.com/Shougo/dein.vim'
     if !isdirectory(s:dein_dir)
       execute '!git clone https://github.com/Shougo/dein.vim' s:dein_dir
     endif
@@ -56,7 +55,7 @@ let g:dein#install_progress_type = 'title'
 let g:dein#install_check_diff = v:true
 let g:dein#enable_notification = v:true
 
-let s:path = expand('$CACHE/dein')
+let s:path = $CACHE . '/dein'
 if dein#min#load_state(s:path)
   let s:base_dir = fnamemodify(expand('<sfile>'), ':h') . '/'
 
