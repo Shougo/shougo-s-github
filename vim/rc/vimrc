@@ -27,7 +27,7 @@ endif
 language message C
 
 if filereadable(expand('~/.secret_vimrc'))
-  execute 'source' expand('~/.secret_vimrc')
+  source ~/.secret_vimrc
 endif
 
 " Load dein.

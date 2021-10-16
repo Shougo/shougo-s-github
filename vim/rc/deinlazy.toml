@@ -139,7 +139,7 @@ repo = 'Shougo/neosnippet-snippets'
 repo = 'Shougo/denite.nvim'
 on_cmd = 'Denite'
 hook_source = '''
-  execute 'source' fnamemodify(expand('$MYVIMRC'), ':h').'/rc/plugins/denite.rc.vim'
+  execute 'source' fnamemodify($MYVIMRC, ':h').'/rc/plugins/denite.rc.vim'
 '''
 hook_add = '''
   nnoremap <silent> ;r

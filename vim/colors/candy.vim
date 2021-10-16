@@ -5,6 +5,8 @@
 " This color scheme uses a dark background.
 "=============================================================================
 
+" Based on https://www.vim.org/scripts/script.php?script_id=282
+
 if !has('vim_starting')
   set background=dark
   highlight clear
