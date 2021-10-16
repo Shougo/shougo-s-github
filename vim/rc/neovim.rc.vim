@@ -14,15 +14,9 @@ let g:loaded_ruby_provider = v:false
 
 let g:python3_host_prog = 'python3'
 
-if exists('&inccommand')
-  set inccommand=nosplit
-endif
+set inccommand=nosplit
 
-if exists('&pumblend')
-  set pumblend=20
-  " For gonvim
-  " autocmd MyAutoCmd InsertEnter * set pumblend=20
-endif
+set pumblend=20
 
 set winblend=20
 
