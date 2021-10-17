@@ -119,7 +119,7 @@ hook_add = '''
       \ },
       \})
 
-    autocmd MyAutoCmd CmdlineLeave * ++once call CommandlinePost()
+    autocmd MyAutoCmd User DDCCmdlineLeave ++once call CommandlinePost()
 
     " Enable command line completion
     call ddc#enable_cmdline_completion()
@@ -152,6 +152,7 @@ depends = 'ddc.vim'
 [[plugins]]
 repo = 'Shougo/neco-vim'
 on_ft = ['vim', 'toml', 'markdown']
+depends = 'ddc.vim'
 hook_source = '''
   call ddc#custom#patch_filetype(
           \ ['vim'], 'sources', has('nvim') ?
