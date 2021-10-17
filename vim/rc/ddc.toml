@@ -23,6 +23,7 @@ hook_source = '''
       \ },
       \ 'eskk': {'mark': 'eskk', 'matchers': [], 'sorters': []},
       \ 'necovim': {'mark': 'vim'},
+      \ 'cmdline': {'mark': 'cmdline'},
       \ 'deoppet': {'mark': 'dp', 'dup': v:true},
       \ 'nextword': {
       \   'mark': 'nextword',
@@ -69,7 +70,7 @@ hook_source = '''
       \ ['nvim-lsp', 'around']
       \ )
   call ddc#custom#patch_filetype(['deol'], {
-      \ 'keywordPattern': '[[:alnum:]_./-]',
+      \ 'keywordPattern': '[0-9a-zA-Z_./-]',
       \ 'sources': ['zsh', 'shell-history', 'around'],
       \ })
 
@@ -110,10 +111,10 @@ hook_add = '''
     " Overwrite sources
     let s:prev_buffer_config = ddc#custom#get_buffer()
     call ddc#custom#patch_buffer('sources',
-            \ ['necovim', 'cmdline-history', 'around'])
+            \ ['cmdline', 'cmdline-history', 'around'])
+    call ddc#custom#patch_buffer('keywordPattern', '[0-9a-zA-Z_:]*')
     call ddc#custom#patch_buffer('sourceOptions', {
-      \ 'necovim': {
-      \   'isVolatile': v:true,
+      \ 'cmdline': {
       \   'forceCompletionPattern': '\S/\S*'
       \ },
       \})
@@ -150,7 +151,7 @@ depends = 'ddc.vim'
 
 [[plugins]]
 repo = 'Shougo/neco-vim'
-on_source = 'ddc.vim'
+on_ft = ['vim', 'toml', 'markdown']
 hook_source = '''
   call ddc#custom#patch_filetype(
           \ ['vim'], 'sources', has('nvim') ?
@@ -158,6 +159,10 @@ hook_source = '''
           \ ['necovim', 'around', 'file']
           \ )
 '''
+
+[[plugins]]
+repo = 'Shougo/ddc-cmdline'
+on_source = 'ddc.vim'
 
 [[plugins]]
 repo = 'Shougo/ddc-nvim-lsp'
