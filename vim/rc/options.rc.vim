@@ -260,6 +260,8 @@ endif
 set showfulltag
 " Can supplement a tag in a command-line.
 set wildoptions+=tagfile
+" Complete all candidates
+set wildignorecase
 
 " Increase history amount.
 set history=200
