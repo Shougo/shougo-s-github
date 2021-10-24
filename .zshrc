@@ -229,12 +229,11 @@ setopt pushd_ignore_dups
 setopt complete_aliases
 unsetopt hist_verify
 
-# Share zsh histories
+# Histories
 HISTFILE=$HOME/.zsh-history
-HISTSIZE=10000
-SAVEHIST=50000
+HISTSIZE=3000
+SAVEHIST=8000
 setopt inc_append_history
-setopt share_history
 
 # Ignore some command histories
 export HISTORY_IGNORE="(cd|pwd|l[sal]|rm|mv|shutdown|exit|rmdir)"
