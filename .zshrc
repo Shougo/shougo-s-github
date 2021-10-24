@@ -3,9 +3,19 @@
 #####################################################################
 
 # zmodload zsh/zprof && zprof
+# zmodload zsh/datetime
+# setopt promptsubst
+# PS4='+$EPOCHREALTIME %N:%i> '
+# exec 3>&2 2>/tmp/zsh_profile.$$
+# setopt xtrace prompt_subst
 
 if [ ! -f ~/.zshrc.zwc -o ~/.zshrc -nt ~/.zshrc.zwc ]; then
     zcompile ~/.zshrc
+
+    # Compile all zsh plugins
+    if [ -d ~/.zsh ]; then
+        for f in $(find ~/.zsh -type f -name "*.zsh"); do zcompile $f; done
+    fi
 fi
 
 source ~/.zshenv
@@ -66,7 +76,7 @@ zstyle ':completion:*' keep-prefix
 zstyle ':completion:*' completer _oldlist _complete _match _ignored \
     _approximate _list _history
 
-autoload -U compinit; compinit -C
+autoload -Uz compinit && compinit -C
 
 zstyle ':completion:*:processes' command \
     "ps -u $USER -o pid,stat,%cpu,%mem,cputime,command"
