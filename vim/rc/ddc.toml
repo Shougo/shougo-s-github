@@ -110,7 +110,7 @@ hook_add = '''
     let s:prev_buffer_config = ddc#custom#get_buffer()
     call ddc#custom#patch_buffer('sources',
             \ ['cmdline', 'cmdline-history', 'around'])
-    call ddc#custom#patch_buffer('keywordPattern', '[0-9a-zA-Z_:]*')
+    call ddc#custom#patch_buffer('keywordPattern', '[0-9a-zA-Z_:#]*')
     call ddc#custom#patch_buffer('sourceOptions', {
       \ 'cmdline': {
       \   'forceCompletionPattern': '\S/\S*'
@@ -253,9 +253,9 @@ hook_source = '''
     call ddc#custom#set_buffer(s:prev_buffer_config)
   endfunction
 
-  let &g:titlestring = "
-      \ %(%m%r%w%)%{skkeleton#mode().expand('%:p:~:.')}
-      \ %<\(%{fnamemodify(getcwd(), ':~')}\)"
+  "let &g:titlestring = "
+  "    \ %(%m%r%w%)%{skkeleton#mode().expand('%:p:~:.')}
+  "    \ %<\(%{fnamemodify(getcwd(), ':~')}\)"
 '''
 
 #[[plugins]]
@@ -263,4 +263,12 @@ hook_source = '''
 #on_source = 'ddc.vim'
 #hook_source = '''
 #call popup_preview#enable()
+#'''
+
+#[[plugins]]
+#repo = 'delphinus/skkeleton_indicator.nvim'
+#if = 'has("nvim")'
+#on_source = 'skkeleton'
+#hook_source = '''
+#lua require'skkeleton_indicator'.setup{}
 #'''
