@@ -55,6 +55,9 @@ cnoremap <C-p>          <Up>
 cnoremap <C-y>          <C-r>*
 " <C-g>: Exit.
 cnoremap <C-g>          <C-c>
+" <C-k>: Delete to the end.
+cnoremap <expr><C-k>
+      \ repeat("\<Del>", strchars(getcmdline()[getcmdpos() - 1:]))
 
 " [Space]: Other useful commands
 " Smart space mapping.
