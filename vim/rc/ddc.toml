@@ -7,7 +7,7 @@ hook_source = '''
 
   call ddc#custom#patch_global(
       \ 'sources', has('nvim') ?
-      \ ['around', 'deoppet', 'file'] :
+      \ ['around', 'deoppet', 'file', 'rg'] :
       \ ['around', 'file'],
       \ )
   call ddc#custom#patch_global('sourceOptions', {
@@ -50,7 +50,12 @@ hook_source = '''
       \   'mark': 'zsh',
       \   'isVolatile': v:true,
       \   'forceCompletionPattern': '\S/\S*'
-      \ }
+      \ },
+      \ 'rg': {
+      \   'mark': 'rg',
+      \   'matchers': ['matcher_head', 'matcher_length'],
+      \   'minAutoCompleteLength': 4,
+      \ },
       \ })
   call ddc#custom#patch_global('sourceOptions', {
       \ 'skkeleton': {
@@ -64,11 +69,14 @@ hook_source = '''
       \ ['deoppet', 'nextword', 'around'] :
       \ ['nextword', 'around']
       \ )
-  call ddc#custom#patch_filetype(
-      \ ['typescript', 'go'], 'sources', has('nvim') ?
-      \ ['nvim-lsp', 'deoppet', 'around'] :
-      \ ['nvim-lsp', 'around']
-      \ )
+
+  if has('nvim')
+    call ddc#custom#patch_filetype(
+            \ ['typescript', 'go'], 'sources',
+            \ ['nvim-lsp', 'deoppet', 'around']
+            \ )
+  endif
+
   call ddc#custom#patch_filetype(['deol'], {
       \ 'keywordPattern': '[0-9a-zA-Z_./-]',
       \ 'sources': ['zsh', 'shell-history', 'around'],
@@ -161,6 +169,10 @@ hook_source = '''
 
 [[plugins]]
 repo = 'Shougo/ddc-cmdline'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc-rg'
 on_source = 'ddc.vim'
 
 [[plugins]]
@@ -257,13 +269,6 @@ hook_source = '''
   "    \ %(%m%r%w%)%{skkeleton#mode().expand('%:p:~:.')}
   "    \ %<\(%{fnamemodify(getcwd(), ':~')}\)"
 '''
-
-#[[plugins]]
-#repo = 'matsui54/denops-popup-preview.vim'
-#on_source = 'ddc.vim'
-#hook_source = '''
-#call popup_preview#enable()
-#'''
 
 #[[plugins]]
 #repo = 'delphinus/skkeleton_indicator.nvim'
