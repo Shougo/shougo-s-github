@@ -598,3 +598,10 @@ hook_add = '''
   \ -split=`has('nvim') ? 'floating' : 'horizontal'`
   \ -cursor-pos=`tabpagenr()-1` deol:zsh<CR>
 '''
+
+[[plugins]]
+repo = 'github/copilot.vim'
+hook_source = '''
+let g:copilot_no_maps = v:true
+imap <script><silent><nowait><expr> <C-g> copilot#Accept()
+'''
