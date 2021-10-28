@@ -103,9 +103,10 @@ hook_source = '''
   call ddc#enable()
 '''
 hook_add = '''
-  nnoremap :       <Cmd>call CommandlinePre()<CR>:
+  nnoremap :       <Cmd>call CommandlinePre(':')<CR>:
+  nnoremap ?       <Cmd>call CommandlinePre('/')<CR>?
 
-  function! CommandlinePre() abort
+  function! CommandlinePre(mode) abort
     call dein#source('ddc.vim')
 
     " Note: It disables default command line completion!
@@ -117,14 +118,19 @@ hook_add = '''
 
     " Overwrite sources
     let s:prev_buffer_config = ddc#custom#get_buffer()
-    call ddc#custom#patch_buffer('sources',
-            \ ['cmdline', 'cmdline-history', 'around'])
-    call ddc#custom#patch_buffer('keywordPattern', '[0-9a-zA-Z_:#]*')
-    call ddc#custom#patch_buffer('sourceOptions', {
+    if a:mode ==# ':'
+      call ddc#custom#patch_buffer('sources',
+              \ ['cmdline', 'cmdline-history', 'around'])
+      call ddc#custom#patch_buffer('keywordPattern', '[0-9a-zA-Z_:#]*')
+      call ddc#custom#patch_buffer('sourceOptions', {
       \ 'cmdline': {
       \   'forceCompletionPattern': '\S/\S*'
       \ },
       \})
+    else
+      call ddc#custom#patch_buffer('sources',
+              \ ['around', 'line'])
+    endif
 
     autocmd MyAutoCmd User DDCCmdlineLeave ++once call CommandlinePost()
 
