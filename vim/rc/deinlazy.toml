@@ -442,7 +442,6 @@ let g:haskell_conceal = v:false
 repo = 'nvim-treesitter/nvim-treesitter'
 if = 'has("nvim")'
 on_event = 'BufRead'
-depends = 'impatient.nvim'
 hook_post_update = 'TSUpdate'
 hook_source = '''
 lua <<EOF
@@ -560,14 +559,6 @@ repo = 'mattn/vim-treesitter'
 build = 'cd server && go build'
 if = '!has("nvim")'
 
-# To improve neovim startup time
-[[plugins]]
-repo = 'lewis6991/impatient.nvim'
-if = 'has("nvim")'
-hook_source = '''
-  lua require('impatient')
-'''
-
 [[plugins]]
 repo = 'gamoutatsumi/dps-ghosttext.vim'
 depends = 'denops.vim'
@@ -585,7 +576,6 @@ hook_source = '''
 [[plugins]]
 repo = 'nathom/filetype.nvim'
 if = 'has("nvim")'
-depends = 'impatient.nvim'
 hook_source = '''
   " Do not source the default filetype.vim
   let g:did_load_filetypes = 1
