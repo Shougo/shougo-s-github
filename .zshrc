@@ -292,6 +292,14 @@ bindkey "^n" history-beginning-search-forward-end
 # Like bash
 bindkey "^u" backward-kill-line
 
+# Sticky shift
+# https://github.com/4513ECHO/zsh-sticky-shift
+if [ -d ~/.zsh/zsh-sticky-shift ]; then
+    source ~/.zsh/zsh-sticky-shift/sticky-shift.plugin.zsh
+    export STICKY_TABLE=us
+    export STIKY_DELAY=0.2
+fi
+
 
 #####################################################################
 # others
