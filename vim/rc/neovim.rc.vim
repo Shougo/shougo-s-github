@@ -40,6 +40,12 @@ let g:neovide_no_idle = v:true
 let g:neovide_cursor_animation_length = 0
 let g:neovide_cursor_trail_length = 0
 
+" For nvui
+if exists('g:nvui')
+  " Configure nvui
+  set guifont=Courier\ 10\ Pitch:h14,VL\ Gothic:h11
+endif
+
 if has('win32')
   set guifont=Firge:h13
 else
