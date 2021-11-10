@@ -44,6 +44,7 @@ let g:neovide_cursor_trail_length = 0
 if exists('g:nvui')
   " Configure nvui
   set guifont=Courier\ 10\ Pitch:h14,VL\ Gothic:h11
+  call rpcnotify(1, 'NVUI_ANIMATIONS_ENABLED', v:false)
 endif
 
 if has('win32')
