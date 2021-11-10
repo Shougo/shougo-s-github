@@ -297,7 +297,7 @@ bindkey "^u" backward-kill-line
 if [ -d ~/.zsh/zsh-sticky-shift ]; then
     source ~/.zsh/zsh-sticky-shift/sticky-shift.plugin.zsh
     export STICKY_TABLE=us
-    export STIKY_DELAY=0.2
+    export STICKY_DELAY=0.7
 fi
 
 
