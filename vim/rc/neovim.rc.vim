@@ -42,9 +42,17 @@ let g:neovide_cursor_trail_length = 0
 
 " For nvui
 if exists('g:nvui')
-  " Configure nvui
   set guifont=Courier\ 10\ Pitch:h14,VL\ Gothic:h11
   call rpcnotify(1, 'NVUI_ANIMATIONS_ENABLED', v:false)
+
+  " Note: nvui does not use 'titlestring'
+  autocmd MyAutoCmd
+        \ BufWritePost,TextChanged,TextChangedI,BufEnter,DirChanged *
+        \ call rpcnotify(1, 'NVUI_TB_TITLE', printf('%s%s%s (%s)',
+        \ &l:readonly ? '[-]' : '',
+        \ &l:modified ? '[+]' : '',
+        \ expand('%:p:~:.'),
+        \ fnamemodify(getcwd(), ':~')))
 endif
 
 if has('win32')
