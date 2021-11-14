@@ -170,8 +170,6 @@ hook_add = '''
   nnoremap <silent> sf
   \ <Cmd>Denite -buffer-name=files -resume<CR>
 
-  nnoremap <silent><expr> tt  &filetype == 'help' ?  'g<C-]>' :
-  \ '<Cmd>DeniteCursorWord -buffer-name=tag -immediately tag:include<CR>'
   nnoremap <silent><expr> tp  &filetype == 'help' ?
   \ '<Cmd>pop<CR>' : '<Cmd>Denite jump<CR>'
 

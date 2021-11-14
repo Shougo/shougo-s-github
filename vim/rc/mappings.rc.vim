@@ -214,3 +214,6 @@ command! -bang -complete=file -nargs=? WDos
 
 " Insert special character
 inoremap <C-v>u  <C-r>=nr2char(0x)<Left>
+
+" Tag jump
+nnoremap tt  g<C-]>
