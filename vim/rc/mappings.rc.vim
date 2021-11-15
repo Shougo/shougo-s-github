@@ -82,7 +82,7 @@ nnoremap <silent><expr> [Space]e
       \ bufname('%') !=# '' ? '<Cmd>edit %<CR>' : ''
 
 " Useful save mappings.
-nnoremap <silent> <Leader><Leader> <Cmd>update<CR>
+nnoremap <silent> <Leader><Leader> <Cmd>silent update<CR>
 
 " s: Windows and buffers(High priority)
 " The prefix key.

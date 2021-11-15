@@ -115,6 +115,7 @@ hook_add = '''
     \ ddc#manual_complete()
     cnoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
     set wildchar=<C-t>
+    set cmdheight=1
 
     " Overwrite sources
     let s:prev_buffer_config = ddc#custom#get_buffer()
@@ -143,6 +144,12 @@ hook_add = '''
     call ddc#custom#set_buffer(s:prev_buffer_config)
     cunmap <Tab>
     set wildchar=<Tab>
+
+    try
+      set cmdheight=0
+    catch
+      set cmdheight=1
+    endtry
   endfunction
 '''
 

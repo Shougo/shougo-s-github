@@ -181,7 +181,6 @@ set fileformat=unix
 " Automatic recognition of a new line cord.
 set fileformats=unix,dos,mac
 
-
 "---------------------------------------------------------------------------
 " View:
 "
@@ -203,7 +202,11 @@ endif
 " Always disable statusline.
 set laststatus=0
 " Height of command line.
-set cmdheight=1
+try
+  set cmdheight=0
+catch
+  set cmdheight=1
+endtry
 " Not show command on statusline.
 " set noshowcmd
 " Show title.
@@ -346,3 +349,4 @@ endif
 
 " Colorscheme
 colorscheme candy
+
