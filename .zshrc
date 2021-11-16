@@ -292,6 +292,14 @@ bindkey "^n" history-beginning-search-forward-end
 # Like bash
 bindkey "^u" backward-kill-line
 
+# Use clipboard
+x-yank () {
+  CUTBUFFER=$(xclip -o -b </dev/null)
+  zle yank
+}
+zle -N x-yank
+bindkey "^y" x-yank
+
 # Sticky shift
 # https://github.com/4513ECHO/zsh-sticky-shift
 if [ -d ~/.zsh/zsh-sticky-shift ]; then
