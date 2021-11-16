@@ -77,6 +77,9 @@ function! vimrc#on_filetype() abort
 
     silent! filetype plugin indent on
     syntax enable
+
+    " Note: filetype detect does not work on startup
+    silent! filetype detect
   endif
 endfunction
 
