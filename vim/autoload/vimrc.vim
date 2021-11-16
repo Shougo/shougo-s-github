@@ -77,7 +77,6 @@ function! vimrc#on_filetype() abort
 
     silent! filetype plugin indent on
     syntax enable
-    filetype detect
   endif
 endfunction
 
