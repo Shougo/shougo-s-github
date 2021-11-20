@@ -586,10 +586,11 @@ imap <script><silent><nowait><expr> <C-g> copilot#Accept()
 
 [[plugins]]
 repo = 'VonHeikemen/fine-cmdline.nvim'
+if = 'has("nvim")'
 depends = 'nui.nvim'
 on_lua = 'fine-cmdline'
 hook_add = '''
-nnoremap <silent> <C-p> :lua require('fine-cmdline').open()<CR>
+nnoremap <silent> <C-p> <Cmd>lua require('fine-cmdline').open()<CR>
 '''
 
 [[plugins]]
