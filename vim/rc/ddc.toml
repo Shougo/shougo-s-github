@@ -23,7 +23,7 @@ hook_source = '''
       \ },
       \ 'eskk': {'mark': 'eskk', 'matchers': [], 'sorters': []},
       \ 'necovim': {'mark': 'vim'},
-      \ 'cmdline': {'mark': 'cmdline'},
+      \ 'cmdline': {'mark': 'cmdline', '\S/\S*'},
       \ 'deoppet': {'mark': 'dp', 'dup': v:true},
       \ 'nextword': {
       \   'mark': 'nextword',
@@ -82,6 +82,12 @@ hook_source = '''
       \ 'sources': ['zsh', 'shell-history', 'around'],
       \ })
 
+  call ddc#custom#patch_filetype(['FineCmdlinePrompt'], {
+      \ 'keywordPattern': '[0-9a-zA-Z_:#]*',
+      \ 'sources': ['cmdline', 'cmdline-history', 'around'],
+      \ 'specialBufferCompletion': v:true,
+      \ })
+
   " Use pum.vim
   call ddc#custom#patch_global('autoCompleteEvents', [
       \ 'InsertEnter', 'TextChangedI', 'TextChangedP',
@@ -123,10 +129,6 @@ hook_add = '''
       call ddc#custom#patch_buffer('sources',
               \ ['cmdline', 'cmdline-history', 'around'])
       call ddc#custom#patch_buffer('keywordPattern', '[0-9a-zA-Z_:#]*')
-      call ddc#custom#patch_buffer('sourceOptions', {
-      \ 'cmdline': {
-      \   'forceCompletionPattern': '\S/\S*'
-      \ },
       \})
     else
       call ddc#custom#patch_buffer('sources',

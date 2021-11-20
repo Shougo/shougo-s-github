@@ -590,7 +590,13 @@ if = 'has("nvim")'
 depends = 'nui.nvim'
 on_lua = 'fine-cmdline'
 hook_add = '''
-nnoremap <silent> <C-p> <Cmd>lua require('fine-cmdline').open()<CR>
+nnoremap <silent> <C-p> <Cmd>lua require'fine-cmdline'.setup({
+\  popup = {
+\    buf_options = {
+\      filetype = 'FineCmdlinePrompt'
+\    }
+\  },
+\})<CR><Cmd>lua require('fine-cmdline').open()<CR>
 '''
 
 [[plugins]]
