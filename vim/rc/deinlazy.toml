@@ -81,7 +81,7 @@ defx = '''
   nnoremap <silent><buffer><expr> yy
   \ defx#do_action('yank_path')
   nnoremap <silent><buffer><expr> h
-  \ defx#do_action('cd', ['..'])
+  \ defx#do_action('cd', ['..', '', 'nohist'])
   nnoremap <silent><buffer><expr> ~
   \ defx#do_action('cd')
   nnoremap <silent><buffer><expr> \
