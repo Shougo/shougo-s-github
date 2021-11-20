@@ -310,11 +310,6 @@ zsh = '''
 '''
 
 [[plugins]]
-repo = 'lambdalisue/guise.vim'
-on_source = 'deol.nvim'
-depends = 'denops.vim'
-
-[[plugins]]
 repo = 'Shougo/junkfile.vim'
 on_source = 'denite.nvim'
 hook_add = '''
@@ -588,3 +583,14 @@ hook_source = '''
 let g:copilot_no_maps = v:true
 imap <script><silent><nowait><expr> <C-g> copilot#Accept()
 '''
+
+[[plugins]]
+repo = 'VonHeikemen/fine-cmdline.nvim'
+depends = 'nui.nvim'
+on_lua = 'fine-cmdline'
+hook_add = '''
+nnoremap <silent> <C-p> :lua require('fine-cmdline').open()<CR>
+'''
+
+[[plugins]]
+repo = 'MunifTanjim/nui.nvim'
