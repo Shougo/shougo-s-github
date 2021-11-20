@@ -23,7 +23,10 @@ hook_source = '''
       \ },
       \ 'eskk': {'mark': 'eskk', 'matchers': [], 'sorters': []},
       \ 'necovim': {'mark': 'vim'},
-      \ 'cmdline': {'mark': 'cmdline', '\S/\S*'},
+      \ 'cmdline': {
+      \   'mark': 'cmdline',
+      \   'forceCompletionPattern': '\S/\S*',
+      \ },
       \ 'deoppet': {'mark': 'dp', 'dup': v:true},
       \ 'nextword': {
       \   'mark': 'nextword',
@@ -129,7 +132,6 @@ hook_add = '''
       call ddc#custom#patch_buffer('sources',
               \ ['cmdline', 'cmdline-history', 'around'])
       call ddc#custom#patch_buffer('keywordPattern', '[0-9a-zA-Z_:#]*')
-      \})
     else
       call ddc#custom#patch_buffer('sources',
               \ ['around', 'line'])
