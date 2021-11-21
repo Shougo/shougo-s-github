@@ -590,7 +590,7 @@ if = 'has("nvim")'
 depends = 'nui.nvim'
 on_lua = 'fine-cmdline'
 hook_add = '''
-nnoremap <silent> <C-p> <Cmd>lua require'fine-cmdline'.setup({
+nnoremap <C-p> <Cmd>lua require'fine-cmdline'.setup({
 \  cmdline = {
 \    enable_keymaps = false
 \  },
