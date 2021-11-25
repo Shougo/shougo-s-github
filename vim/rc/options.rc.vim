@@ -288,7 +288,7 @@ set complete=.
 " Set popup menu max height.
 set pumheight=10
 if exists('+pumwidth')
-  " Set popup menu max width.
+  " Set popup menu min width.
   set pumwidth=10
 endif
 " Use "/" for path completion
