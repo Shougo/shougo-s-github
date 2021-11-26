@@ -558,7 +558,7 @@ on_event = 'InsertEnter'
 hook_source = '''
   call echodoc#enable()
   let g:echodoc#type = has('nvim') ? 'floating' : 'popup'
-  "let g:echodoc#type = has('nvim') ? 'virtual_lines' : 'popup'
+  let g:echodoc#events = ['PumCompleteDone', 'TextChangedP', 'PumCompleteChanged']
 '''
 
 [[plugins]]
