@@ -151,7 +151,7 @@ PROMPT2="%_%% "
 SPROMPT="correct> %R -> %r [n,y,a,e]? "
 
 # Enable syntax highlight
-# https://github.com/zdharma/fast-syntax-highlighting
+# https://github.com/zdharma-continuum/fast-syntax-highlighting
 if [ -d ~/.zsh/fast-syntax-highlighting ]; then
     source ~/.zsh/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 fi

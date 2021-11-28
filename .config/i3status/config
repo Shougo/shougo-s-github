@@ -42,7 +42,7 @@ format = " /home %avail "
 }
 wireless _first_ {
 # format_up = "W: (%quality at %essid) %ip"
-format_up = "  %essid %quality "
+format_up = " %essid %quality "
 format_down = " no wlan "
 }
 ethernet _first_ {
@@ -58,9 +58,9 @@ battery 0 {
 	integer_battery_capacity = true
 #	status_chr = ""
 	status_chr = "⚡"
-	status_bat = ""
+#	status_bat = ""
 #	status_bat = "bat"
-#	status_bat = "☉"
+	status_bat = ""
 #	status_full = ""
 	status_full = "☻"
         low_threshold = 15

@@ -38,7 +38,7 @@ hide_edge_borders none
 workspace_layout tabbed
 
 # start a terminal
-bindsym $mod+Return exec st -e zsh
+bindsym $mod+Return exec alacritty -e zsh
 
 # kill focused window
 # bindsym $mod+Shift+q kill
