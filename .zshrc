@@ -294,7 +294,7 @@ bindkey "^u" backward-kill-line
 
 # Use clipboard
 x-yank () {
-  CUTBUFFER=$(xclip -o -b </dev/null)
+  CUTBUFFER=$(xclip -selection clipboard -o -b </dev/null)
   zle yank
 }
 zle -N x-yank
