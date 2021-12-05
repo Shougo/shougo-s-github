@@ -442,7 +442,7 @@ require'nvim-treesitter.configs'.setup {
     ensure_installed = 'all',
     highlight = {
         enable = true,
-        disable = {},
+        disable = {'c'},
     },
 }
 EOF
@@ -617,3 +617,7 @@ nnoremap <C-p> <Cmd>lua require'fine-cmdline'.setup({
 
 [[plugins]]
 repo = 'MunifTanjim/nui.nvim'
+
+[[plugins]]
+repo = 'Shougo/ddu.vim'
+depends = 'denops.vim'
