@@ -220,3 +220,9 @@ bindsym $mod+Tab exec --no-startup-id rofi -i -show window
 bindsym $mod+s exec --no-startup-id rofi -i -show ssl -ternimal st
 bindsym $mod+Shift+l exec --no-startup-id i3exit lock
 bindsym $mod+Shift+e exec --no-startup-id i3exit logout
+
+# Change brightness
+# Note: "sudo pacman -S light" and "sudo chmod +s /usr/bin/light" is needed
+# https://unix.stackexchange.com/questions/526653/control-screen-brightness-in-i3
+bindsym XF86MonBrightnessUp exec light -A 1 # increase screen brightness
+bindsym XF86MonBrightnessDown exec light -U 1 # decrease screen brightness

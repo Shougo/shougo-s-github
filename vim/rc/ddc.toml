@@ -146,7 +146,7 @@ hook_add = '''
   function! CommandlinePost() abort
     " Restore sources
     call ddc#custom#set_buffer(s:prev_buffer_config)
-    cunmap <Tab>
+    silent! cunmap <Tab>
     set wildchar=<Tab>
 
     "try
