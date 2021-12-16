@@ -26,7 +26,10 @@ let g:vim_markdown_no_default_key_mappings = v:true
 autocmd MyAutoCmd BufRead,BufNewFile *.jax setfiletype help
 
 " Enable dein toml synatx
-autocmd MyAutoCmd CursorHold */rc/*.toml call dein#toml#syntax()
+" Note: For neovim use nvim-treesitter syntax instead.
+if !has('nvim')
+  autocmd MyAutoCmd CursorHold */rc/*.toml call dein#toml#syntax()
+endif
 
 " Disable quotes keyword
 autocmd MyAutoCmd BufEnter,BufRead,BufNewFile *.md setlocal iskeyword-='
