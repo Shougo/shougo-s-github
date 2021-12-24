@@ -41,17 +41,6 @@ autocmd MyAutoCmd BufWritePost * nested
 \ |   filetype detect
 \ | endif
 
-" Restore cursor
-autocmd MyAutoCmd BufReadPost *
-\ if 1 <= line("'\"") && line("'\"") <= line('$')
-\ |  execute "normal! g`\""
-\ | endif
-" Move to center
-autocmd MyAutoCmd BufWinEnter *
-\ if &l:buftype == '' && line('.') > winheight(0) / 3 * 2
-\ |  execute 'normal! zz' . repeat("\<C-y>", winheight(0) / 6)
-\ | endif
-
 " Disable default plugins
 let g:loaded_2html_plugin      = v:true
 let g:loaded_logiPat           = v:true
