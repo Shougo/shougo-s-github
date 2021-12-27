@@ -7,7 +7,7 @@ export GZIP='-v9N'
 export BROWSER='firefox'
 export SHELL=zsh
 export GOPATH="$HOME/.go"
-export PATH="$HOME/bin:/usr/local/bin:$GOPATH/bin:$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/bin:/usr/local/bin:$GOPATH/bin:$HOME/.cargo/bin:$HOME/.deno/bin:$PATH"
 
 #---- SVN -----------------#
 export SVN_EDITOR="vim"

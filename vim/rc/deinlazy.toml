@@ -621,3 +621,12 @@ repo = 'MunifTanjim/nui.nvim'
 [[plugins]]
 repo = 'Shougo/ddu.vim'
 depends = 'denops.vim'
+
+[[plugins]]
+repo = 'yuki-yano/fuzzy-motion.vim'
+depends = 'denops.vim'
+if = 'has("nvim")'
+on_cmd = 'FuzzyMotion'
+hook_add = '''
+  nnoremap F   <Cmd>FuzzyMotion<CR>
+'''
