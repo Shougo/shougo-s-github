@@ -628,5 +628,5 @@ depends = 'denops.vim'
 if = 'has("nvim")'
 on_cmd = 'FuzzyMotion'
 hook_add = '''
-  nnoremap F   <Cmd>FuzzyMotion<CR>
+  nnoremap <CR>   <Cmd>FuzzyMotion<CR>
 '''
