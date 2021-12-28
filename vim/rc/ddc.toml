@@ -47,7 +47,10 @@ hook_source = '''
       \   'minAutoCompleteLength': 1000,
       \   'forceCompletionPattern': '\S/\S*'
       \ },
-      \ 'cmdline-history': {'mark': 'history'},
+      \ 'cmdline-history': {
+      \   'mark': 'history',
+      \   'sorters': [],
+      \ },
       \ 'shell-history': {'mark': 'shell'},
       \ 'zsh': {
       \   'mark': 'zsh',
