@@ -215,7 +215,7 @@ set title
 set titlelen=95
 " Title string.
 let &g:titlestring = "
-      \ %(%m%r%w%)%{expand('%:p:~:.')} %<\(%{fnamemodify(getcwd(), ':~')}\)"
+      \ %{expand('%:p:~:.')} %<\(%{fnamemodify(getcwd(), ':~')}\)%(%m%r%w%)"
 " Disable tabline.
 set showtabline=0
 
