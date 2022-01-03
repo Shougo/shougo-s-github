@@ -1,0 +1,9 @@
+[[plugins]]
+repo = 'Shougo/ddu.vim'
+depends = 'denops.vim'
+
+[plugins.ftplugin]
+ddu-std = '''
+nnoremap <buffer><silent> <CR> <Cmd>call ddu#ui#std#do_action('default')<CR>
+'''
+
