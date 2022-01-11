@@ -1,9 +1,18 @@
 [[plugins]]
 repo = 'Shougo/ddu.vim'
 depends = 'denops.vim'
+hook_source = '''
+call ddu#custom#patch_global({
+    \ 'ui': 'std',
+    \ })
+'''
 
 [plugins.ftplugin]
 ddu-std = '''
-nnoremap <buffer><silent> <CR> <Cmd>call ddu#ui#std#do_action('default')<CR>
+nnoremap <buffer><silent> <CR> <Cmd>call ddu#ui#std#do_map('doAction')<CR>
 '''
 
+[[plugins]]
+repo = 'Shougo/ddu-commands.vim'
+depends = 'ddu.vim'
+on_cmd = 'Ddu'
