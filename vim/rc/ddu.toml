@@ -3,13 +3,28 @@ repo = 'Shougo/ddu.vim'
 depends = 'denops.vim'
 hook_source = '''
 call ddu#custom#patch_global({
-    \ 'ui': 'std',
+    \   'ui': 'std',
+    \   'sourceOptions' : {
+    \     '_' : {
+    \       'matchers': ['matcher_substring'],
+    \     }
+    \   },
+    \   'uiParams': {
+    \     'std': {
+    \       'startFilter': v:true,
+    \     }
+    \   },
     \ })
 '''
 
 [plugins.ftplugin]
 ddu-std = '''
-nnoremap <buffer><silent> <CR> <Cmd>call ddu#ui#std#do_map('doAction')<CR>
+nnoremap <buffer><silent> <CR>
+\ <Cmd>call ddu#ui#std#do_map('doAction')<CR>
+nnoremap <buffer><silent> <Space>
+\ <Cmd>call ddu#ui#std#do_map('toggleSelectItem')<CR>
+nnoremap <buffer><silent> i
+\ <Cmd>call ddu#ui#std#do_map('startFilter')<CR>
 '''
 
 [[plugins]]

@@ -126,6 +126,8 @@ hook_add = '''
     \ pum#visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' :
     \ ddc#manual_complete()
     cnoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
+    cnoremap <C-e>   <Cmd>call pum#map#cancel()<CR>
+
     set wildchar=<C-t>
     "set cmdheight=1
 
