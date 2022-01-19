@@ -11,7 +11,6 @@ call ddu#custom#patch_global({
     \   },
     \   'uiParams': {
     \     'std': {
-    \       'startFilter': v:true,
     \     }
     \   },
     \ })
@@ -24,7 +23,7 @@ nnoremap <buffer><silent> <CR>
 nnoremap <buffer><silent> <Space>
 \ <Cmd>call ddu#ui#std#do_map('toggleSelectItem')<CR>
 nnoremap <buffer><silent> i
-\ <Cmd>call ddu#ui#std#do_map('startFilter')<CR>
+\ <Cmd>call ddu#ui#std#do_map('openFilterWindow')<CR>
 '''
 
 [[plugins]]
