@@ -1,11 +1,16 @@
 [[plugins]]
 repo = 'Shougo/ddu.vim'
 depends = 'denops.vim'
+hook_add = '''
+  nnoremap <silent> / <Cmd>Ddu
+  \ -name=search line -ui-param-startFilter=v:true<CR>
+'''
 hook_source = '''
 call ddu#custom#patch_global({
     \   'ui': 'std',
     \   'sourceOptions' : {
     \     '_' : {
+    \       'ignoreCase': v:true,
     \       'matchers': ['matcher_substring'],
     \     }
     \   },
