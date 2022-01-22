@@ -29,6 +29,14 @@ nnoremap <buffer><silent> <Space>
 \ <Cmd>call ddu#ui#std#do_map('toggleSelectItem')<CR>
 nnoremap <buffer><silent> i
 \ <Cmd>call ddu#ui#std#do_map('openFilterWindow')<CR>
+nnoremap <buffer><silent> q
+\ <Cmd>call ddu#ui#std#do_map('quit')<CR>
+'''
+ddu-std-filter = '''
+inoremap <buffer><silent> <CR>
+\ <Esc><Cmd>close<CR>
+nnoremap <buffer><silent> <CR>
+\ <Cmd>close<CR>
 '''
 
 [[plugins]]

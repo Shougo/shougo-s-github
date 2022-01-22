@@ -67,6 +67,8 @@ let g:loaded_zipPlugin         = v:true
 
 _ = '''
 " Disable automatically insert comment.
+setl formatoptions-=t
+setl formatoptions-=c
 setl formatoptions-=r
 setl formatoptions-=o
 setl formatoptions+=mMBl
