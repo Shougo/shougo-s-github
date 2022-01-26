@@ -11,16 +11,21 @@ hook_add = '''
   \ -name=search line -input=`expand('<cword>')`
   \ -ui-param-startFilter=v:false<CR>
   nnoremap <silent> n <Cmd>Ddu
-  \ -name=search -resume<CR>
+  \ -name=search -resume -refresh<CR>
 '''
 hook_source = '''
 call ddu#custom#patch_global({
     \   'ui': 'std',
-    \   'sourceOptions' : {
-    \     '_' : {
+    \   'sourceOptions': {
+    \     '_': {
     \       'ignoreCase': v:true,
     \       'matchers': ['matcher_substring'],
-    \     }
+    \     },
+    \   },
+    \   'sourceParams': {
+    \     'file_external': {
+    \       'cmd': ['git', 'ls-files', '-co', '--exclude-standard'],
+    \     },
     \   },
     \   'uiParams': {
     \     'std': {
@@ -77,6 +82,14 @@ on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-source-line'
+on_source = 'ddu.vim'
+
+[[plugins]]
+repo = 'matsui54/ddu-source-file_external'
+on_source = 'ddu.vim'
+
+[[plugins]]
+repo = 'shun/ddu-source-rg'
 on_source = 'ddu.vim'
 
 [[plugins]]
