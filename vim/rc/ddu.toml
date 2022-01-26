@@ -4,6 +4,10 @@ depends = 'denops.vim'
 hook_add = '''
   nnoremap <silent> / <Cmd>Ddu
   \ -name=search line -ui-param-startFilter=v:true<CR>
+  nnoremap <silent> * <Cmd>Ddu
+  \ -name=search line -input=`expand('<cword>')`<CR>
+  nnoremap <silent> n <Cmd>Ddu
+  \ -name=search -resume<CR>
 '''
 hook_source = '''
 call ddu#custom#patch_global({

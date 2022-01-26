@@ -117,8 +117,8 @@ autocmd MyAutoCmd BufWritePost *
 " Use grep.
 set grepprg=grep\ -inH
 
-" Exclude = from isfilename.
 set isfname-==
+set isfname+=@
 
 " Keymapping timeout.
 set timeout timeoutlen=3000 ttimeoutlen=100

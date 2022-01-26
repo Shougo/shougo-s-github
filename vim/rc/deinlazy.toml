@@ -144,39 +144,20 @@ hook_source = '''
 hook_add = '''
   nnoremap <silent> ;r
         \ <Cmd>Denite -buffer-name=register register<CR>
-  xnoremap <silent> ;r
-        \ <Cmd>Denite -default-action=replace -buffer-name=register
-        \ register<CR>
 
   nnoremap <silent> s<Space>
   \ <Cmd>Denite -buffer-name=files
   \  file/rec:'`fnamemodify($MYVIMRC, ':h').'/rc'`'<CR>
-  "nnoremap <silent><expr> / wordcount().chars > 30000 ?
-  "\ '<Cmd>Denite -buffer-name=search -start-filter
-  "\  -search line/external<CR>' :
-  "\ '<Cmd>Denite -buffer-name=search -start-filter -search line<CR>'
-  nnoremap <silent><expr> * wordcount().chars > 30000 ?
-  \ '<Cmd>DeniteCursorWord -buffer-name=search -search line/external<CR>' :
-  \ '<Cmd>DeniteCursorWord -buffer-name=search -search line<CR>'
-  xnoremap <silent> *
-  \ "qy:Denite -input=`@q` -buffer-name=search -search line<CR>
   nnoremap <silent><expr> ss finddir('.git', ';') != '' ?
   \ '<Cmd>Denite -sorters=sorter/rank -unique -buffer-name=files
   \  file/point file/old file/dirty file/git file file:new<CR>' :
   \ '<Cmd>Denite -sorters=sorter/rank -unique -buffer-name=files
   \  file/point file/old file file:new<CR>'
-  nnoremap <silent> n
-  \ <Cmd>Denite -buffer-name=search -resume<CR>
-  nnoremap <silent> sf
-  \ <Cmd>Denite -buffer-name=files -resume<CR>
 
   nnoremap <silent><expr> tp  &filetype == 'help' ?
   \ '<Cmd>pop<CR>' : '<Cmd>Denite jump<CR>'
 
-  nnoremap <silent> sn <Cmd>Denite dein<CR>
   nnoremap <silent> ;g <Cmd>Denite -buffer-name=search
-  \ -no-empty grep<CR>
-  nnoremap <silent> ;w <Cmd>DeniteCursorWord -buffer-name=search
   \ -no-empty grep<CR>
   nnoremap <silent> <C-k> <Cmd>Denite change jump<CR>
 '''
