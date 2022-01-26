@@ -145,17 +145,11 @@ hook_add = '''
   nnoremap <silent> ;r
         \ <Cmd>Denite -buffer-name=register register<CR>
 
-  nnoremap <silent> s<Space>
-  \ <Cmd>Denite -buffer-name=files
-  \  file/rec:'`fnamemodify($MYVIMRC, ':h').'/rc'`'<CR>
   nnoremap <silent><expr> ss finddir('.git', ';') != '' ?
   \ '<Cmd>Denite -sorters=sorter/rank -unique -buffer-name=files
-  \  file/point file/old file/dirty file/git file file:new<CR>' :
+  \  file/point file/old file/git file<CR>' :
   \ '<Cmd>Denite -sorters=sorter/rank -unique -buffer-name=files
-  \  file/point file/old file file:new<CR>'
-
-  nnoremap <silent><expr> tp  &filetype == 'help' ?
-  \ '<Cmd>pop<CR>' : '<Cmd>Denite jump<CR>'
+  \  file/point file/old file<CR>'
 
   nnoremap <silent> ;g <Cmd>Denite -buffer-name=search
   \ -no-empty grep<CR>

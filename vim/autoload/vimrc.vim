@@ -112,7 +112,7 @@ function! vimrc#disable_syntax() abort
   endif
 endfunction
 function! vimrc#check_syntax() abort
-  let max_size = 500000
+  let max_size = 1000000
   let max_head_size = 10000
   let max_line = line('$')
   let fsize = line2byte(max_line + 1)

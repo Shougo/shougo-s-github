@@ -217,3 +217,4 @@ inoremap <C-v>u  <C-r>=nr2char(0x)<Left>
 
 " Tag jump
 nnoremap tt  g<C-]>
+nnoremap tp  <Cmd>pop<CR>
