@@ -12,8 +12,12 @@ hook_add = '''
   nnoremap <silent> * <Cmd>Ddu
   \ -name=search line -input=`expand('<cword>')`
   \ -ui-param-startFilter=v:false<CR>
+  nnoremap <silent> ;g <Cmd>Ddu
+  \ -name=search rg
+  \ -source-param-input=`input('Pattern: ')`<CR>
   nnoremap <silent> n <Cmd>Ddu
-  \ -name=search -resume -refresh<CR>
+  \ -name=search -resume
+  \ -ui-param-startFilter=v:false<CR>
 '''
 hook_source = '''
 call ddu#custom#patch_global({

@@ -144,15 +144,11 @@ hook_source = '''
 hook_add = '''
   nnoremap <silent> ;r
         \ <Cmd>Denite -buffer-name=register register<CR>
-
   nnoremap <silent><expr> ss finddir('.git', ';') != '' ?
   \ '<Cmd>Denite -sorters=sorter/rank -unique -buffer-name=files
   \  file/point file/old file/git file<CR>' :
   \ '<Cmd>Denite -sorters=sorter/rank -unique -buffer-name=files
   \  file/point file/old file<CR>'
-
-  nnoremap <silent> ;g <Cmd>Denite -buffer-name=search
-  \ -no-empty grep<CR>
   nnoremap <silent> <C-k> <Cmd>Denite change jump<CR>
 '''
 
