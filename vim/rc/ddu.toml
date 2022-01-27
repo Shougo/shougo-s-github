@@ -1,12 +1,14 @@
 [[plugins]]
 repo = 'Shougo/ddu.vim'
 depends = 'denops.vim'
+on_source = 'denops.vim'
 hook_add = '''
   nnoremap <silent> s<Space>
   \ <Cmd>Ddu -name=files file_rec
   \ -source-param-path='`fnamemodify($MYVIMRC, ':h').'/rc'`'<CR>
   nnoremap <silent> / <Cmd>Ddu
-  \ -name=search line<CR>
+  \ -name=search line
+  \ -ui-param-startFilter=v:true<CR>
   nnoremap <silent> * <Cmd>Ddu
   \ -name=search line -input=`expand('<cword>')`
   \ -ui-param-startFilter=v:false<CR>
@@ -29,6 +31,7 @@ call ddu#custom#patch_global({
     \   },
     \   'uiParams': {
     \     'std': {
+    \       'filterSplitDirection': 'floating',
     \     }
     \   },
     \ })

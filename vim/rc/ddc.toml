@@ -1,6 +1,7 @@
 [[plugins]]
 repo = 'Shougo/ddc.vim'
 depends = ['context_filetype.vim', 'denops.vim', 'pum.vim']
+on_source = 'denops.vim'
 on_event = 'InsertEnter'
 hook_source = '''
   inoremap <silent><expr> <C-l> ddc#complete_common_string()
