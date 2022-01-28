@@ -56,6 +56,8 @@ nnoremap <buffer><silent> <Space>
 \ <Cmd>call ddu#ui#std#do_map('toggleSelectItem')<CR>
 nnoremap <buffer><silent> i
 \ <Cmd>call ddu#ui#std#do_map('openFilterWindow')<CR>
+nnoremap <buffer><silent> <C-l>
+\ <Cmd>call ddu#ui#std#do_map('refreshItems')<CR>
 nnoremap <buffer><silent> q
 \ <Cmd>call ddu#ui#std#do_map('quit')<CR>
 '''

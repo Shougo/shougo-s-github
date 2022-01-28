@@ -79,7 +79,7 @@ hook_source = '''
 
   if has('nvim')
     call ddc#custom#patch_filetype(
-            \ ['typescript', 'go'], 'sources',
+            \ ['typescript', 'go', 'python'], 'sources',
             \ ['nvim-lsp', 'deoppet', 'around']
             \ )
   endif
@@ -230,13 +230,14 @@ on_source = 'ddc.vim'
 [[plugins]]
 repo = 'neovim/nvim-lspconfig'
 depends = 'impatient.nvim'
-on_ft = ['typescript', 'go']
+on_ft = ['typescript', 'go', 'python']
 if = 'has("nvim")'
 depends = 'ddc.vim'
 hook_source = '''
   lua << EOF
 require'lspconfig'.denols.setup{}
 require'lspconfig'.gopls.setup{}
+require'lspconfig'.pylsp.setup{}
 EOF
 '''
 
