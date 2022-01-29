@@ -51,15 +51,15 @@ call ddu#custom#patch_local('files', {
 [plugins.ftplugin]
 ddu-std = '''
 nnoremap <buffer><silent> <CR>
-\ <Cmd>call ddu#ui#std#do_map('itemAction')<CR>
+\ <Cmd>call ddu#ui#std#do_action('itemAction')<CR>
 nnoremap <buffer><silent> <Space>
-\ <Cmd>call ddu#ui#std#do_map('toggleSelectItem')<CR>
+\ <Cmd>call ddu#ui#std#do_action('toggleSelectItem')<CR>
 nnoremap <buffer><silent> i
-\ <Cmd>call ddu#ui#std#do_map('openFilterWindow')<CR>
+\ <Cmd>call ddu#ui#std#do_action('openFilterWindow')<CR>
 nnoremap <buffer><silent> <C-l>
-\ <Cmd>call ddu#ui#std#do_map('refreshItems')<CR>
+\ <Cmd>call ddu#ui#std#do_action('refreshItems')<CR>
 nnoremap <buffer><silent> q
-\ <Cmd>call ddu#ui#std#do_map('quit')<CR>
+\ <Cmd>call ddu#ui#std#do_action('quit')<CR>
 '''
 ddu-std-filter = '''
 inoremap <buffer><silent> <CR>
