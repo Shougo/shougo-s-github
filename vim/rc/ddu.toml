@@ -60,6 +60,14 @@ nnoremap <buffer><silent> <C-l>
 \ <Cmd>call ddu#ui#std#do_action('refreshItems')<CR>
 nnoremap <buffer><silent> q
 \ <Cmd>call ddu#ui#std#do_action('quit')<CR>
+nnoremap <buffer><silent> r
+\ <Cmd>call ddu#ui#std#do_action('updateOptions', {
+\   'sourceOptions': {
+\     '_': {
+\       'matchers': [],
+\     },
+\   },
+\ })<CR>
 '''
 ddu-std-filter = '''
 inoremap <buffer><silent> <CR>

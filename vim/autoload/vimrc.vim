@@ -141,7 +141,7 @@ function! vimrc#diagnostics_to_qf() abort
 
   lua <<END
   -- Send diagnostics to quickfix list
-  local diagnostics = vim.lsp.diagnostic.get_all()
+  local diagnostics = vim.diagnostic.get(nil)
   local qflist = {}
   for bufnr, diagnostic in pairs(diagnostics) do
     for _, d in ipairs(diagnostic) do
@@ -154,7 +154,7 @@ function! vimrc#diagnostics_to_qf() abort
   end
 
   if #qflist > 0 then
-    vim.lsp.util.set_qflist(qflist)
+    vim.diagnostic.setqflist(qflist)
     vim.api.nvim_command('copen')
   end
 END
