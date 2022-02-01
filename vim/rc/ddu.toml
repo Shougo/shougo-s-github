@@ -18,6 +18,8 @@ hook_add = '''
   nnoremap <silent> n <Cmd>Ddu
   \ -name=search -resume
   \ -ui-param-startFilter=v:false<CR>
+  nnoremap <silent> ;r <Cmd>Ddu
+  \ -buffer-name=register register<CR>
 '''
 hook_source = '''
 call ddu#custom#patch_global({
@@ -102,6 +104,10 @@ repo = 'Shougo/ddu-source-line'
 on_source = 'ddu.vim'
 
 [[plugins]]
+repo = 'Shougo/ddu-source-register'
+on_source = 'ddu.vim'
+
+[[plugins]]
 repo = 'matsui54/ddu-source-file_external'
 on_source = 'ddu.vim'
 
@@ -115,4 +121,8 @@ on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-kind-file'
+on_source = 'ddu.vim'
+
+[[plugins]]
+repo = 'Shougo/ddu-kind-word'
 on_source = 'ddu.vim'
