@@ -7,9 +7,7 @@ hook_source = '''
   inoremap <silent><expr> <C-l> ddc#complete_common_string()
 
   call ddc#custom#patch_global(
-      \ 'sources', has('nvim') ?
-      \ ['around', 'deoppet', 'file', 'rg'] :
-      \ ['around', 'file'],
+      \ 'sources', ['around', 'file', 'rg']
       \ )
   call ddc#custom#patch_global('sourceOptions', {
       \ '_': {
@@ -28,7 +26,6 @@ hook_source = '''
       \   'mark': 'cmdline',
       \   'forceCompletionPattern': '\S/\S*',
       \ },
-      \ 'deoppet': {'mark': 'dp', 'dup': v:true},
       \ 'nextword': {
       \   'mark': 'nextword',
       \   'minAutoCompleteLength': 3,
@@ -72,15 +69,14 @@ hook_source = '''
       \   'minAutoCompleteLength': 2,
       \ }})
   call ddc#custom#patch_filetype(
-      \ ['help', 'markdown', 'gitcommit'], 'sources', has('nvim') ?
-      \ ['deoppet', 'nextword', 'around'] :
+      \ ['help', 'markdown', 'gitcommit'], 'sources',
       \ ['nextword', 'around']
       \ )
 
   if has('nvim')
     call ddc#custom#patch_filetype(
             \ ['typescript', 'go', 'python'], 'sources',
-            \ ['nvim-lsp', 'deoppet', 'around']
+            \ ['nvim-lsp', 'around']
             \ )
   endif
 
@@ -185,9 +181,7 @@ on_ft = ['vim', 'toml', 'markdown']
 depends = 'ddc.vim'
 hook_source = '''
   call ddc#custom#patch_filetype(
-          \ ['vim'], 'sources', has('nvim') ?
-          \ ['necovim', 'around', 'deoppet', 'file'] :
-          \ ['necovim', 'around', 'file']
+          \ ['vim'], 'sources', ['necovim', 'around', 'file']
           \ )
 '''
 
