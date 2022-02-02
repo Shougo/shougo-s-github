@@ -204,6 +204,7 @@ hook_add = '''
   nnoremap <silent> sD  <Cmd>call deol#kill_editor()<CR>
 '''
 hook_source = '''
+  let g:deol#enable_dir_changed = v:false
   let g:deol#prompt_pattern = '\w*% \?'
   let g:deol#shell_history_path = '~/.zsh-history'
   let g:deol#extra_options = {
