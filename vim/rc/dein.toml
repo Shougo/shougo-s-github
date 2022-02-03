@@ -41,3 +41,9 @@ repo = 'leafOfTree/vim-vue-plugin'
 
 [[plugins]]
 repo = 'rbtnn/vim-vimscript_indentexpr'
+
+[[plugins]]
+repo = 'mboughaba/i3config.vim'
+hook_add = '''
+autocmd MyAutoCmd BufNewFile,BufRead *i3/config set filetype=i3config
+'''

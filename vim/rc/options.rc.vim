@@ -269,9 +269,9 @@ set wildignorecase
 " Increase history amount.
 set history=200
 if has('nvim')
-  set shada='20,<20,s10,h
+  set shada='100,<20,s10,h
 else
-  set viminfo='20,<20,s10,h
+  set viminfo='100,<20,s10,h
 endif
 
 " Disable menu
