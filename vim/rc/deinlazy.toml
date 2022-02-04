@@ -196,11 +196,9 @@ repo = 'Shougo/deol.nvim'
 depends = ['denite.nvim', 'ddc.vim']
 on_source = ['defx.nvim', 'denite.nvim']
 hook_add = '''
-  if has('win32')
-    nnoremap <silent> [Space]s <Cmd>Deol cmd -no-start-insert -toggle<CR>
-  else
-    nnoremap <silent> [Space]s <Cmd>Deol zsh -no-start-insert -toggle<CR>
-  endif
+  nnoremap <expr><silent> [Space]s
+  \ printf('<Cmd>Deol %s -no-start-insert -toggle<CR>',
+  \        has('win32') ? 'cmd': 'zsh')
   nnoremap <silent> sD  <Cmd>call deol#kill_editor()<CR>
 '''
 hook_source = '''
@@ -545,7 +543,7 @@ plugins = ['denite.nvim', 'deol.nvim']
 hook_add = '''
   nnoremap <silent> <C-t> <Cmd>Denite -buffer-name=deol
   \ -split=`has('nvim') ? 'floating' : 'horizontal'`
-  \ -cursor-pos=`tabpagenr()-1` deol:zsh<CR>
+  \ -winrow=1 -auto-resize -cursor-pos=`tabpagenr()-1` deol:zsh<CR>
 '''
 
 [[plugins]]

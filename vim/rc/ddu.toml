@@ -11,7 +11,7 @@ hook_add = '''
   \ `finddir('.git', ';') != '' ? 'file_external' : 'file_rec'`<CR>
   nnoremap <silent> / <Cmd>Ddu
   \ -name=search line
-  \ -ui-param-startFilter=v:true<CR>
+  \ -ui-param-startFilter<CR>
   nnoremap <silent> * <Cmd>Ddu
   \ -name=search line -input=`expand('<cword>')`
   \ -ui-param-startFilter=v:false<CR>
@@ -22,7 +22,8 @@ hook_add = '''
   \ -name=search -resume
   \ -ui-param-startFilter=v:false<CR>
   nnoremap <silent> ;r <Cmd>Ddu
-  \ -buffer-name=register register<CR>
+  \ -buffer-name=register register
+  \ -ui-param-autoResize<CR>
 '''
 hook_source = '''
 call ddu#custom#patch_global({
@@ -73,6 +74,12 @@ nnoremap <buffer><silent> <C-l>
 \ <Cmd>call ddu#ui#std#do_action('refreshItems')<CR>
 nnoremap <buffer><silent> q
 \ <Cmd>call ddu#ui#std#do_action('quit')<CR>
+nnoremap <buffer><silent> d
+\ <Cmd>call ddu#ui#std#do_action('itemAction', {'name': 'delete'})<CR>
+nnoremap <buffer><silent> e
+\ <Cmd>call ddu#ui#std#do_action('itemAction', {'name': 'edit'})<CR>
+nnoremap <buffer><silent> N
+\ <Cmd>call ddu#ui#std#do_action('itemAction', {'name': 'new'})<CR>
 nnoremap <buffer><silent> r
 \ <Cmd>call ddu#ui#std#do_action('updateOptions', {
 \   'sourceOptions': {
