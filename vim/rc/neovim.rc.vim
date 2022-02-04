@@ -33,7 +33,7 @@ autocmd MyAutoCmd TermOpen * setlocal modifiable
 let g:terminal_scrollback_buffer_size = 3000
 
 autocmd MyAutoCmd TextYankPost * lua require'vim.highlight'.on_yank
-     \ {higroup='IncSearch', timeout=150}
+     \ {higroup='IncSearch', timeout=100}
 
 " For neovide
 let g:neovide_no_idle = v:true

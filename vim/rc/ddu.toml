@@ -43,6 +43,14 @@ call ddu#custom#patch_global({
     \       'filterSplitDirection': 'floating',
     \     }
     \   },
+    \   'kindOptions': {
+    \     'file': {
+    \       'defaultAction': 'open',
+    \     },
+    \     'word': {
+    \       'defaultAction': 'append',
+    \     },
+    \   }
     \ })
 call ddu#custom#patch_local('files', {
     \   'uiParams': {
