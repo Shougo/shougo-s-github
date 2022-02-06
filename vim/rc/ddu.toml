@@ -33,6 +33,16 @@ call ddu#custom#patch_global({
     \       'ignoreCase': v:true,
     \       'matchers': ['matcher_substring'],
     \     },
+    \     'file_old': {
+    \       'matchers': [
+    \         'matcher_substring', 'matcher_relative', 'matcher_hidden',
+    \       ],
+    \     },
+    \     'file_external': {
+    \       'matchers': [
+    \         'matcher_substring', 'matcher_hidden',
+    \       ],
+    \     },
     \   },
     \   'sourceParams': {
     \     'file_external': {
@@ -50,6 +60,9 @@ call ddu#custom#patch_global({
     \     },
     \     'word': {
     \       'defaultAction': 'append',
+    \     },
+    \     'deol': {
+    \       'defaultAction': 'switch',
     \     },
     \   }
     \ })
@@ -72,6 +85,8 @@ nnoremap <buffer><silent> i
 \ <Cmd>call ddu#ui#std#do_action('openFilterWindow')<CR>
 nnoremap <buffer><silent> <C-l>
 \ <Cmd>call ddu#ui#std#do_action('refreshItems')<CR>
+nnoremap <buffer><silent> p
+\ <Cmd>call ddu#ui#std#do_action('preview')<CR>
 nnoremap <buffer><silent> q
 \ <Cmd>call ddu#ui#std#do_action('quit')<CR>
 nnoremap <buffer><silent> d
@@ -135,6 +150,10 @@ on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-filter-matcher_substring'
+on_source = 'ddu.vim'
+
+[[plugins]]
+repo = 'Shougo/ddu-filter-matcher_relative'
 on_source = 'ddu.vim'
 
 [[plugins]]
