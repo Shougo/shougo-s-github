@@ -144,7 +144,6 @@ hook_add = '''
   "\  file/point file/old file/git file<CR>' :
   "\ '<Cmd>Denite -sorters=sorter/rank -unique -buffer-name=files
   "\  file/point file/old file<CR>'
-  nnoremap <silent> <C-k> <Cmd>Denite change jump<CR>
 '''
 
 [plugins.ftplugin]
