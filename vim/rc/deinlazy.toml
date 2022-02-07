@@ -280,8 +280,10 @@ zsh = '''
 
 [[plugins]]
 repo = 'Shougo/junkfile.vim'
+on_source = ['denite.nvim', 'ddu.vim']
 hook_add = '''
-  nnoremap <silent> se <Cmd>Denite junkfile:new junkfile<CR>
+  "nnoremap <silent> se <Cmd>Denite junkfile:new junkfile<CR>
+  nnoremap <silent> se <Cmd>Ddu junkfile -volatile<CR>
 '''
 
 [[plugins]]
