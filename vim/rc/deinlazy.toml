@@ -105,9 +105,6 @@ defx = '''
   nnoremap <silent><buffer><expr> <Tab> winnr('$') != 1 ?
   \ '<Cmd>wincmd w<CR>' :
   \ '<Cmd>Defx -buffer-name=temp -split=vertical<CR>'
-  nnoremap <silent><buffer> gr <Cmd>call denite#start(
-  \ [{'name': 'grep', 'args': [map(defx#get_selected_candidates(),
-  \ { _, val -> val['action__path'] })]}])<CR>
 '''
 
 #[[plugins]]
@@ -142,11 +139,11 @@ hook_source = '''
   execute 'source' fnamemodify($MYVIMRC, ':h').'/rc/plugins/denite.rc.vim'
 '''
 hook_add = '''
-  nnoremap <silent><expr> ss finddir('.git', ';') != '' ?
-  \ '<Cmd>Denite -sorters=sorter/rank -unique -buffer-name=files
-  \  file/point file/old file/git file<CR>' :
-  \ '<Cmd>Denite -sorters=sorter/rank -unique -buffer-name=files
-  \  file/point file/old file<CR>'
+  "nnoremap <silent><expr> ss finddir('.git', ';') != '' ?
+  "\ '<Cmd>Denite -sorters=sorter/rank -unique -buffer-name=files
+  "\  file/point file/old file/git file<CR>' :
+  "\ '<Cmd>Denite -sorters=sorter/rank -unique -buffer-name=files
+  "\  file/point file/old file<CR>'
   nnoremap <silent> <C-k> <Cmd>Denite change jump<CR>
 '''
 
@@ -193,13 +190,17 @@ let g:context_filetype#ignore_patterns = {
 
 [[plugins]]
 repo = 'Shougo/deol.nvim'
-depends = ['denite.nvim', 'ddc.vim']
-on_source = ['defx.nvim', 'denite.nvim']
+depends = ['ddu.vim', 'ddc.vim']
 hook_add = '''
   nnoremap <expr><silent> [Space]s
   \ printf('<Cmd>Deol %s -no-start-insert -toggle<CR>',
   \        has('win32') ? 'cmd': 'zsh')
   nnoremap <silent> sD  <Cmd>call deol#kill_editor()<CR>
+  nnoremap <silent> <C-t> <Cmd>Ddu -name=deol
+  \ -ui-param-split=`has('nvim') ? 'floating' : 'horizontal'`
+  \ -ui-param-winRow=1 -ui-param-autoResize
+  \ -ui-param-cursorPos=`tabpagenr()-1`
+  \ deol -source-param-command=zsh<CR>
 '''
 hook_source = '''
   let g:deol#enable_dir_changed = v:false
@@ -279,7 +280,6 @@ zsh = '''
 
 [[plugins]]
 repo = 'Shougo/junkfile.vim'
-on_source = 'denite.nvim'
 hook_add = '''
   nnoremap <silent> se <Cmd>Denite junkfile:new junkfile<CR>
 '''
@@ -538,19 +538,6 @@ hook_source = '''
   let g:did_load_filetypes = 1
 '''
 
-[[multiple_plugins]]
-plugins = ['denite.nvim', 'deol.nvim']
-hook_add = '''
-  "nnoremap <silent> <C-t> <Cmd>Denite -buffer-name=deol
-  "\ -split=`has('nvim') ? 'floating' : 'horizontal'`
-  "\ -winrow=1 -auto-resize -cursor-pos=`tabpagenr()-1` deol:zsh<CR>
-  nnoremap <silent> <C-t> <Cmd>Ddu -name=deol
-  \ -ui-param-split=`has('nvim') ? 'floating' : 'horizontal'`
-  \ -ui-param-winRow=1 -ui-param-autoResize
-  \ -ui-param-cursorPos=`tabpagenr()-1`
-  \ deol -source-param-command=zsh<CR>
-'''
-
 [[plugins]]
 repo = 'github/copilot.vim'
 hook_source = '''
@@ -598,5 +585,5 @@ depends = 'denops.vim'
 if = 'has("nvim")'
 on_cmd = 'FuzzyMotion'
 hook_add = '''
-  nnoremap <CR>   <Cmd>FuzzyMotion<CR>
+  nnoremap F   <Cmd>FuzzyMotion<CR>
 '''

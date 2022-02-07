@@ -118,7 +118,7 @@ autocmd MyAutoCmd BufWritePost *
 set grepprg=grep\ -inH
 
 set isfname-==
-set isfname+=@
+set isfname+=@-@
 
 " Keymapping timeout.
 set timeout timeoutlen=3000 ttimeoutlen=100
@@ -289,7 +289,7 @@ set complete=.
 set pumheight=10
 if exists('+pumwidth')
   " Set popup menu min width.
-  set pumwidth=10
+  set pumwidth=0
 endif
 " Use "/" for path completion
 set completeslash=slash

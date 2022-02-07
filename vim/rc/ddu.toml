@@ -6,8 +6,8 @@ hook_add = '''
   nnoremap <silent> s<Space>
   \ <Cmd>Ddu -name=files file_rec
   \ -source-param-path='`fnamemodify($MYVIMRC, ':h').'/rc'`'<CR>
-  nnoremap <silent> sf
-  \ <Cmd>Ddu -name=files file_old
+  nnoremap <silent> ss
+  \ <Cmd>Ddu -name=files file_point file_old
   \ `finddir('.git', ';') != '' ? 'file_external' : 'file_rec'`<CR>
   nnoremap <silent> / <Cmd>Ddu
   \ -name=search line
@@ -130,6 +130,10 @@ on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-source-file_old'
+on_source = 'ddu.vim'
+
+[[plugins]]
+repo = 'Shougo/ddu-source-file_point'
 on_source = 'ddu.vim'
 
 [[plugins]]
