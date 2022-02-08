@@ -2,9 +2,6 @@
 " Base:
 "
 
-" For debug
-set debug=throw
-
 " Build encodings.
 let &fileencodings = 'ucs-bom,utf-8,iso-2022-jp-3,euc-jp,cp932'
 
@@ -54,13 +51,6 @@ set shiftround
 " Enable smart indent.
 set autoindent smartindent
 
-function! GnuIndent()
-  setlocal cinoptions=>4,n-2,{2,^-2,:2,=2,g0,h2,p5,t0,+2,(0,u0,w1,m1
-  setlocal shiftwidth=2
-  setlocal tabstop=8
-  setlocal noexpandtab
-endfunction
-
 " Disable modeline.
 set modelines=0
 set nomodeline
@@ -84,10 +74,6 @@ set matchpairs+=<:>
 " Display another buffer when current buffer isn't saved.
 set hidden
 
-" Search home directory path on cd.
-" But can't complete.
-"  set cdpath+=~
-
 " Disable folding.
 set nofoldenable
 set foldmethod=manual
@@ -99,18 +85,6 @@ else
 endif
 set fillchars=vert:\|
 set commentstring=%s
-
-" FastFold
-autocmd MyAutoCmd TextChangedI,TextChanged *
-      \ if &l:foldenable && &l:foldmethod !=# 'manual' |
-      \   let b:foldmethod_save = &l:foldmethod |
-      \   let &l:foldmethod = 'manual' |
-      \ endif
-autocmd MyAutoCmd BufWritePost *
-      \ if &l:foldmethod ==# 'manual' && exists('b:foldmethod_save') |
-      \   let &l:foldmethod = b:foldmethod_save |
-      \   execute 'normal! zx' |
-      \ endif
 
 " Use vimgrep.
 " set grepprg=internal
@@ -152,7 +126,6 @@ set diffopt=internal,algorithm:patience,indent-heuristic
 " Make directory automatically.
 " --------------------------------------
 " http://vim-users.jp/2011/02/hack202/
-
 autocmd MyAutoCmd BufWritePre *
       \ call s:mkdir_as_necessary(expand('<afile>:p:h'), v:cmdbang)
 function! s:mkdir_as_necessary(dir, force) abort
@@ -214,13 +187,14 @@ set title
 " Title length.
 set titlelen=95
 " Title string.
-let &g:titlestring = "
-      \ %{expand('%:p:~:.')} %<\(%{fnamemodify(getcwd(), ':~')}\)%(%m%r%w%)"
+let &g:titlestring =
+      \ "%{expand('%:p:~:.')} %<\(%{fnamemodify(getcwd(), ':~')}\)%(%m%r%w%)"
 " Disable tabline.
 set showtabline=0
 
 " Set statusline.
-let &g:statusline = " %=%{printf('%'.(len(line('$'))+2).'d/%d',line('.'),line('$'))}"
+let &g:statusline =
+      \ " %=%{printf('%'.(len(line('$'))+2).'d/%d',line('.'),line('$'))}"
 
 " Note: wrap option is very slow!
 set nowrap

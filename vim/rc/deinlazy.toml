@@ -588,3 +588,14 @@ on_cmd = 'FuzzyMotion'
 hook_add = '''
   nnoremap F   <Cmd>FuzzyMotion<CR>
 '''
+
+[[plugins]]
+repo = 'tversteeg/registers.nvim'
+depends = 'denops.vim'
+if = 'has("nvim")'
+on_map = '"'
+hook_source = '''
+let g:registers_paste_in_normal_mode = 1
+let g:registers_hide_only_whitespace = 1
+let g:registers_show_empty_registers = 0
+'''

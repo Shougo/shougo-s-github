@@ -42,7 +42,7 @@ let g:neovide_cursor_trail_length = 0
 
 " For nvui
 if exists('g:nvui')
-  set guifont=Courier\ 10\ Pitch:h14,VL\ Gothic:h11
+  set guifont=Courier\ 10\ Pitch:h14,VL\ Gothic:h14
   call rpcnotify(1, 'NVUI_ANIMATIONS_ENABLED', v:false)
   call rpcnotify(1, 'NVUI_CURSOR_HIDE_TYPE', v:true)
 

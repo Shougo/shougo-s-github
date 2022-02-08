@@ -8,7 +8,8 @@ hook_add = '''
   \ -source-param-path='`fnamemodify($MYVIMRC, ':h').'/rc'`'<CR>
   nnoremap <silent> ss
   \ <Cmd>Ddu -name=files file_point file_old
-  \ `finddir('.git', ';') != '' ? 'file_external' : 'file_rec'`<CR>
+  \ `finddir('.git', ';') != '' ? 'file_external' : 'file_rec'`
+  \ -ui-param-displaySourceName=short<CR>
   nnoremap <silent> / <Cmd>Ddu
   \ -name=search line
   \ -ui-param-startFilter<CR>
@@ -98,6 +99,9 @@ nnoremap <buffer><silent> d
 \ <Cmd>call ddu#ui#ff#do_action('itemAction', {'name': 'delete'})<CR>
 nnoremap <buffer><silent> e
 \ <Cmd>call ddu#ui#ff#do_action('itemAction', {'name': 'edit'})<CR>
+nnoremap <buffer><silent> v
+\ <Cmd>call ddu#ui#ff#do_action('itemAction',
+\ {'name': 'open', 'params': {'command': 'vsplit'}})<CR>
 nnoremap <buffer><silent> N
 \ <Cmd>call ddu#ui#ff#do_action('itemAction', {'name': 'new'})<CR>
 nnoremap <buffer><silent> r
