@@ -54,7 +54,8 @@ set autoindent smartindent
 " Disable modeline.
 set modelines=0
 set nomodeline
-autocmd MyAutoCmd BufRead,BufWritePost *.txt setlocal modelines=5 modeline
+" For only Vim help files.
+autocmd MyAutoCmd BufRead,BufWritePost *.txt setlocal modelines=2 modeline
 
 " Use clipboard register.
 if (!has('nvim') || $DISPLAY !=# '') && has('clipboard')
@@ -140,9 +141,9 @@ endfunction
 set formatexpr=autofmt#japanese#formatexpr()
 
 " Use blowfish2
+" Note: It seems 15ms overhead.
 " https://dgl.cx/2014/10/vim-blowfish
 " if has('cryptv')
-  " It seems 15ms overhead.
   "  set cryptmethod=blowfish2
 " endif
 
@@ -163,8 +164,6 @@ if has('gui_running')
   set guioptions=Mc
 endif
 
-" Show line number.
-"set number
 " Show <TAB> and <CR>
 set list
 if has('win32')
@@ -172,16 +171,19 @@ if has('win32')
 else
    set listchars=tab:▸\ ,trail:-,precedes:«,nbsp:%
 endif
+
 " Always disable statusline.
 set laststatus=0
 " Height of command line.
-try
-  set cmdheight=0
-catch
-  set cmdheight=1
-endtry
+set cmdheight=1
+"try
+"  set cmdheight=0
+"catch
+"  set cmdheight=1
+"endtry
 " Not show command on statusline.
-" set noshowcmd
+set noshowcmd
+
 " Show title.
 set title
 " Title length.
@@ -223,16 +225,15 @@ set t_vb=
 set novisualbell
 set belloff=all
 
-if has('nvim')
-  " Display candidates by popup menu.
-  set wildmenu
-  set wildmode=full
-  set wildoptions+=pum
-else
-  " Display candidates by list.
-  set nowildmenu
-  set wildmode=list:longest,full
-endif
+" Display candidates by popup menu.
+set wildmenu
+set wildmode=full
+set wildoptions+=pum
+
+" Display candidates by list.
+"set nowildmenu
+"set wildmode=list:longest,full
+
 " Display all the information of the tag by the supplement of the Insert mode.
 set showfulltag
 " Can supplement a tag in a command-line.
@@ -323,4 +324,3 @@ endif
 
 " Colorscheme
 colorscheme candy
-
