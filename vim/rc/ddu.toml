@@ -105,6 +105,8 @@ nnoremap <buffer><silent> v
 nnoremap <buffer><silent> N
 \ <Cmd>call ddu#ui#ff#do_action('itemAction', {'name': 'new'})<CR>
 nnoremap <buffer><silent> r
+\ <Cmd>call ddu#ui#ff#do_action('itemAction', {'name': 'quickfix'})<CR>
+nnoremap <buffer><silent> u
 \ <Cmd>call ddu#ui#ff#do_action('updateOptions', {
 \   'sourceOptions': {
 \     '_': {

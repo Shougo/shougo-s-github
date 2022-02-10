@@ -107,28 +107,6 @@ defx = '''
   \ '<Cmd>Defx -buffer-name=temp -split=vertical<CR>'
 '''
 
-#[[plugins]]
-#repo = 'Shougo/deoppet.nvim'
-#depends = ['neosnippet-snippets', 'context_filetype.vim']
-#on_event = 'InsertEnter'
-#on_source = 'ddc.vim'
-#if = 'has("nvim")'
-#hook_source = '''
-#  imap <expr> L  deoppet#expandable() ? '<Plug>(deoppet_expand)' : ''
-#  imap <C-f>  <Plug>(deoppet_jump_forward)
-#  imap <C-b>  <Plug>(deoppet_jump_backward)
-#  smap <C-f>  <Plug>(deoppet_jump_forward)
-#  smap <C-b>  <Plug>(deoppet_jump_backward)
-#  xmap <C-l>  <Plug>(deoppet_select_text)
-#  xmap <C-x>  <Plug>(deoppet_cut_text)
-#  call deoppet#initialize()
-#
-#  call deoppet#custom#option('snippets',
-#          \ [{ 'path': expand('~/.vim/my-snippets')}] +
-#          \ map(globpath(&runtimepath, 'neosnippets', 1, 1),
-#          \     { _, val -> { 'path': val } }))
-#'''
-
 [[plugins]]
 repo = 'Shougo/neosnippet-snippets'
 
@@ -137,13 +115,6 @@ repo = 'Shougo/denite.nvim'
 on_cmd = 'Denite'
 hook_source = '''
   execute 'source' fnamemodify($MYVIMRC, ':h').'/rc/plugins/denite.rc.vim'
-'''
-hook_add = '''
-  "nnoremap <silent><expr> ss finddir('.git', ';') != '' ?
-  "\ '<Cmd>Denite -sorters=sorter/rank -unique -buffer-name=files
-  "\  file/point file/old file/git file<CR>' :
-  "\ '<Cmd>Denite -sorters=sorter/rank -unique -buffer-name=files
-  "\  file/point file/old file<CR>'
 '''
 
 [plugins.ftplugin]
@@ -281,7 +252,6 @@ zsh = '''
 repo = 'Shougo/junkfile.vim'
 on_source = ['denite.nvim', 'ddu.vim']
 hook_add = '''
-  "nnoremap <silent> se <Cmd>Denite junkfile:new junkfile<CR>
   nnoremap <silent> se <Cmd>Ddu junkfile -volatile<CR>
 '''
 
