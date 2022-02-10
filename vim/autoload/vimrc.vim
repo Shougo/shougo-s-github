@@ -83,20 +83,6 @@ function! vimrc#on_filetype() abort
   endif
 endfunction
 
-function! vimrc#visual_paste(direction) range abort
-  let registers = {}
-
-  for name in ['"', '0']
-    let registers[name] = {'type': getregtype(name), 'value': getreg(name)}
-  endfor
-
-  execute 'normal!' a:direction
-
-  for [name, register] in items(registers)
-    call setreg(name, register.value, register.type)
-  endfor
-endfunction
-
 " Todo: support vim-treesitter plugin
 function! vimrc#enable_syntax() abort
   if has('nvim') && exists(':TSEnableAll')

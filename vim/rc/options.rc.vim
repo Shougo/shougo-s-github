@@ -57,15 +57,6 @@ set nomodeline
 " For only Vim help files.
 autocmd MyAutoCmd BufRead,BufWritePost *.txt setlocal modelines=2 modeline
 
-" Use clipboard register.
-if (!has('nvim') || $DISPLAY !=# '') && has('clipboard')
-  if has('unnamedplus')
-     set clipboard& clipboard+=unnamedplus
-  else
-     set clipboard& clipboard+=unnamed
-  endif
-endif
-
 " Enable backspace delete indent and newline.
 set backspace=indent,eol,nostop
 

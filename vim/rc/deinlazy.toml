@@ -335,14 +335,6 @@ hook_add = '''
 '''
 
 [[plugins]]
-repo = 'kana/vim-operator-replace'
-depends = 'vim-operator-user'
-on_map = {n = '<Plug>', x = '<Plug>'}
-hook_add = '''
-  map R <Plug>(operator-replace)
-'''
-
-[[plugins]]
 repo = 'kannokanno/previm'
 on_cmd = 'PrevimOpen'
 depends = 'open-browser.vim'

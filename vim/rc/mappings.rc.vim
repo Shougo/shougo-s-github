@@ -178,11 +178,8 @@ endif
 " Wordcount
 command! WordCount echo strchars(join(getline(1, '$')))
 
-" {visual}P to put without yank to unnamed register
-" https://github.com/neovim/neovim/pull/12383#issuecomment-695768082
-xnoremap <silent> p <Cmd>call vimrc#visual_paste('p')<CR>
-xnoremap <silent> P <Cmd>call vimrc#visual_paste('P')<CR>
-
+" {visual}p to put without yank to unnamed register
+xnoremap p   P
 
 " Command group opening with a specific character code again.
 " In particular effective when I am garbled in a terminal.
