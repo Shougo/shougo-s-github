@@ -3,8 +3,8 @@ repo = 'Shougo/ddu.vim'
 depends = 'denops.vim'
 on_source = 'denops.vim'
 hook_add = '''
-  nnoremap <silent> s<Space>
-  \ <Cmd>Ddu -name=files file_rec
+  nnoremap <silent> s<Space> <Cmd>Ddu
+  \ -name=files file_rec
   \ -source-param-path='`fnamemodify($MYVIMRC, ':h').'/rc'`'<CR>
   nnoremap <silent> ss
   \ <Cmd>Ddu -name=files file_point file_old
@@ -25,6 +25,8 @@ hook_add = '''
   nnoremap <silent> ;r <Cmd>Ddu
   \ -buffer-name=register register
   \ -ui-param-autoResize<CR>
+  nnoremap <silent> sg <Cmd>Ddu
+  \ dein<CR>
 '''
 hook_source = '''
 call ddu#custom#patch_global({
@@ -43,6 +45,9 @@ call ddu#custom#patch_global({
     \       'matchers': [
     \         'matcher_substring', 'matcher_hidden',
     \       ],
+    \     },
+    \     'dein': {
+    \       'defaultAction': 'cd',
     \     },
     \   },
     \   'sourceParams': {
@@ -64,6 +69,9 @@ call ddu#custom#patch_global({
     \     },
     \     'deol': {
     \       'defaultAction': 'switch',
+    \     },
+    \     'action': {
+    \       'defaultAction': 'do',
     \     },
     \   }
     \ })
@@ -95,6 +103,10 @@ nnoremap <buffer><silent> p
 \ <Cmd>call ddu#ui#ff#do_action('preview')<CR>
 nnoremap <buffer><silent> q
 \ <Cmd>call ddu#ui#ff#do_action('quit')<CR>
+nnoremap <buffer><silent> a
+\ <Cmd>call ddu#ui#ff#do_action('chooseAction')<CR>
+nnoremap <buffer><silent> c
+\ <Cmd>call ddu#ui#ff#do_action('itemAction', {'name': 'cd'})<CR>
 nnoremap <buffer><silent> d
 \ <Cmd>call ddu#ui#ff#do_action('itemAction', {'name': 'delete'})<CR>
 nnoremap <buffer><silent> e
@@ -153,6 +165,10 @@ on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-source-register'
+on_source = 'ddu.vim'
+
+[[plugins]]
+repo = 'Shougo/ddu-source-action'
 on_source = 'ddu.vim'
 
 [[plugins]]

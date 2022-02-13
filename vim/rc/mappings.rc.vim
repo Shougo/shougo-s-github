@@ -89,7 +89,9 @@ nnoremap <silent> <Leader><Leader> <Cmd>silent update<CR>
 nnoremap <silent> sp  <Cmd>vsplit<CR>:wincmd w<CR>
 nnoremap <silent> so  <Cmd>only<CR>
 nnoremap <silent> <Tab>      <cmd>wincmd w<CR>
-nnoremap <silent><expr> q winnr('$') != 1 ? '<Cmd>close<CR>' : ''
+nnoremap <silent><expr> q
+      \ &l:filetype ==# 'qf' ? '<Cmd>cclose<CR>' :
+      \ winnr('$') != 1 ? '<Cmd>close<CR>' : ''
 
 " Original search
 nnoremap s/    /
