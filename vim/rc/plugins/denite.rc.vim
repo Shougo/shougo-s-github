@@ -17,6 +17,9 @@ else
         \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
 endif
 
+"call denite#custom#var('file/rec', 'command',
+"      \ ['scantree.py'])
+
 call denite#custom#source('file/old', 'matchers', [
       \ 'matcher/clap', 'matcher/project_files', 'matcher/ignore_globs',
       \ ])
