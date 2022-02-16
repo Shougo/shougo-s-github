@@ -90,6 +90,7 @@ call ddu#custom#patch_global({
     \     'file_rg': {
     \       'cmd': ['rg', '--files', '--glob', '!.git',
     \               '--color', 'never', '--no-messages'],
+    \       'updateItems': 50000,
     \     },
     \   }
     \ })
