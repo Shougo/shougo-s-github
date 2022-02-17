@@ -111,46 +111,6 @@ defx = '''
 repo = 'Shougo/neosnippet-snippets'
 
 [[plugins]]
-repo = 'Shougo/denite.nvim'
-on_cmd = 'Denite'
-hook_source = '''
-  execute 'source' fnamemodify($MYVIMRC, ':h').'/rc/plugins/denite.rc.vim'
-'''
-
-[plugins.ftplugin]
-denite = '''
-  " Define mappings
-  nnoremap <silent><buffer><expr> <CR>
-  \ denite#do_map('do_action')
-  nnoremap <silent><buffer><expr> a
-  \ denite#do_map('choose_action')
-  nnoremap <silent><buffer><expr> d
-  \ denite#do_map('do_action', 'delete')
-  nnoremap <silent><buffer><expr> e
-  \ denite#do_map('do_action', 'edit')
-  nnoremap <silent><buffer><expr> p
-  \ denite#do_map('do_action', 'preview')
-  nnoremap <silent><buffer><expr> P
-  \ denite#do_map('do_action', 'preview_bat')
-  nnoremap <silent><buffer><expr> N
-  \ denite#do_map('do_action', 'new')
-  nnoremap <silent><buffer><expr> q
-  \ denite#do_map('quit')
-  nnoremap <silent><buffer><expr> '
-  \ denite#do_map('quick_move')
-  nnoremap <silent><buffer><expr> i
-  \ denite#do_map('open_filter_buffer')
-  nnoremap <silent><buffer><expr> <Space>
-  \ denite#do_map('toggle_select').'j'
-  nnoremap <silent><buffer><expr> r
-  \ denite#do_map('do_action', 'quickfix')
-  nnoremap <silent><buffer><expr> <C-r>
-  \ denite#do_map('restore_sources')
-  nnoremap <silent><buffer><expr> <C-l>
-  \ denite#do_map('redraw')
-'''
-
-[[plugins]]
 repo = 'Shougo/context_filetype.vim'
 hook_source = '''
 let g:context_filetype#ignore_patterns = {
@@ -250,7 +210,7 @@ zsh = '''
 
 [[plugins]]
 repo = 'Shougo/junkfile.vim'
-on_source = ['denite.nvim', 'ddu.vim']
+on_source = ['ddu.vim']
 hook_add = '''
   nnoremap <silent> se <Cmd>Ddu junkfile -volatile<CR>
 '''
