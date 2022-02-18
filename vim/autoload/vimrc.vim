@@ -91,7 +91,9 @@ function! vimrc#enable_syntax() abort
   endif
 endfunction
 function! vimrc#disable_syntax() abort
-  syntax off
+  if &l:syntax !=# ''
+    syntax off
+  endif
   if has('nvim') && exists(':TSEnableAll')
     TSBufDisable highlight
     TSBufDisable context_commentstring

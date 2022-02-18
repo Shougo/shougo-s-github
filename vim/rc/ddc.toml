@@ -129,7 +129,7 @@ hook_add = '''
     "set cmdheight=1
 
     " Overwrite sources
-    let s:prev_buffer_config = ddc#custom#get_buffer()
+    let b:prev_buffer_config = ddc#custom#get_buffer()
     if a:mode ==# ':'
       call ddc#custom#patch_buffer('sources',
               \ ['cmdline', 'cmdline-history', 'around'])
@@ -139,7 +139,7 @@ hook_add = '''
               \ ['around', 'line'])
     endif
 
-    autocmd MyAutoCmd User DDCCmdlineLeave ++once call CommandlinePost()
+    autocmd MyAutoCmd User DDCCmdlineLeave call CommandlinePost()
 
     " Enable command line completion
     call ddc#enable_cmdline_completion()
@@ -147,7 +147,11 @@ hook_add = '''
   endfunction
   function! CommandlinePost() abort
     " Restore sources
-    call ddc#custom#set_buffer(s:prev_buffer_config)
+    if exists('b:prev_buffer_config')
+      call ddc#custom#set_buffer(b:prev_buffer_config)
+      unlet b:prev_buffer_config
+    endif
+
     silent! cunmap <Tab>
     set wildchar=<Tab>
 
