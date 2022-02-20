@@ -56,6 +56,7 @@ let g:dein#install_check_diff = v:true
 let g:dein#enable_notification = v:true
 let g:dein#install_check_remote_threshold = 24 * 60 * 60
 let g:dein#auto_remote_plugins = v:false
+let g:dein#install_copy_vim = has('nvim')
 
 let s:path = $CACHE . '/dein'
 if dein#min#load_state(s:path)
