@@ -46,7 +46,12 @@ call ddu#custom#patch_global({
     \         'matcher_substring', 'matcher_relative', 'matcher_hidden',
     \       ],
     \     },
-    \     'file_external,file_rec': {
+    \     'file_external': {
+    \       'matchers': [
+    \         'matcher_substring', 'matcher_hidden',
+    \       ],
+    \     },
+    \     'file_rec': {
     \       'matchers': [
     \         'matcher_substring', 'matcher_hidden',
     \       ],
