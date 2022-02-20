@@ -108,9 +108,6 @@ defx = '''
 '''
 
 [[plugins]]
-repo = 'Shougo/neosnippet-snippets'
-
-[[plugins]]
 repo = 'Shougo/context_filetype.vim'
 hook_source = '''
 let g:context_filetype#ignore_patterns = {
@@ -450,11 +447,6 @@ build = 'cd server && go build'
 if = '!has("nvim")'
 
 [[plugins]]
-repo = 'gamoutatsumi/dps-ghosttext.vim'
-depends = 'denops.vim'
-on_cmd = 'GhostStart'
-
-[[plugins]]
 repo = 'Shougo/echodoc.vim'
 on_event = 'InsertEnter'
 hook_source = '''
@@ -471,12 +463,12 @@ hook_source = '''
   let g:did_load_filetypes = 1
 '''
 
-[[plugins]]
-repo = 'github/copilot.vim'
-hook_source = '''
-let g:copilot_no_maps = v:true
-imap <script><silent><nowait><expr> <C-g> copilot#Accept()
-'''
+#[[plugins]]
+#repo = 'github/copilot.vim'
+#hook_source = '''
+#let g:copilot_no_maps = v:true
+#imap <script><silent><nowait><expr> <C-g> copilot#Accept()
+#'''
 
 [[plugins]]
 repo = 'VonHeikemen/fine-cmdline.nvim'

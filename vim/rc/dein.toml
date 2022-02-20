@@ -10,8 +10,8 @@ repo = 'kana/vim-operator-user'
 [[plugins]]
 repo = 'JesseKPhillips/d.vim'
 
-[[plugins]]
-repo = 'vim-jp/vimdoc-ja'
+#[[plugins]]
+#repo = 'vim-jp/vimdoc-ja'
 
 [[plugins]]
 repo = 'Shirk/vim-gas'
