@@ -203,6 +203,10 @@ repo = 'Shougo/ddu-filter-matcher_relative'
 on_source = 'ddu.vim'
 
 [[plugins]]
+repo = 'Shougo/ddu-filter-matcher_hidden'
+on_source = 'ddu.vim'
+
+[[plugins]]
 repo = 'Shougo/ddu-kind-file'
 on_source = 'ddu.vim'
 
