@@ -12,7 +12,6 @@ repo = 'JesseKPhillips/d.vim'
 
 [[plugins]]
 repo = 'vim-jp/vimdoc-ja'
-merged = 0
 
 [[plugins]]
 repo = 'Shirk/vim-gas'

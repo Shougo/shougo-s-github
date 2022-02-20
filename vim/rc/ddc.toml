@@ -1,8 +1,7 @@
 [[plugins]]
 repo = 'Shougo/ddc.vim'
 depends = ['context_filetype.vim', 'denops.vim', 'pum.vim']
-on_source = 'denops.vim'
-on_event = 'InsertEnter'
+on_event = ['InsertEnter']
 hook_source = '''
   inoremap <silent><expr> <C-l> ddc#complete_common_string()
 
@@ -116,8 +115,6 @@ hook_add = '''
   nnoremap ?       <Cmd>call CommandlinePre('/')<CR>?
 
   function! CommandlinePre(mode) abort
-    call dein#source('ddc.vim')
-
     " Note: It disables default command line completion!
     cnoremap <expr> <Tab>
     \ pum#visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' :
@@ -291,16 +288,4 @@ hook_source = '''
     " Restore sources
     call ddc#custom#set_buffer(s:prev_buffer_config)
   endfunction
-
-  "let &g:titlestring = "
-  "    \ %(%m%r%w%)%{skkeleton#mode().expand('%:p:~:.')}
-  "    \ %<\(%{fnamemodify(getcwd(), ':~')}\)"
 '''
-
-#[[plugins]]
-#repo = 'delphinus/skkeleton_indicator.nvim'
-#if = 'has("nvim")'
-#on_source = 'skkeleton'
-#hook_source = '''
-#lua require'skkeleton_indicator'.setup{}
-#'''
