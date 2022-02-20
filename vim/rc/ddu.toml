@@ -25,6 +25,9 @@ hook_add = '''
   nnoremap <silent> ;r <Cmd>Ddu
   \ -buffer-name=register register
   \ -ui-param-autoResize<CR>
+  xnoremap <expr><silent> ;r (mode() ==# 'V' ? '"_R<Esc>' : '"_d') .
+  \ '<Cmd>Ddu -buffer-name=register register
+  \  -source-option-defaultAction=insert -ui-param-autoResize<CR>'
   nnoremap <silent> sg <Cmd>Ddu
   \ dein<CR>
 '''
