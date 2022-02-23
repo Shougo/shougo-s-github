@@ -102,6 +102,13 @@ call ddu#custom#patch_global({
     \     },
     \   }
     \ })
+call ddu#custom#patch_global({
+    \   'filterParams': {
+    \     'matcher_substring': {
+    \       'highlightMatched': 'Search',
+    \     },
+    \   }
+    \ })
 
 "call ddu#custom#action('kind', 'file', 'test',
 "    \ { args -> execute('let g:foo = 1') })
