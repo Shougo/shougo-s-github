@@ -18,7 +18,7 @@ hook_add = '''
   \ -ui-param-startFilter=v:false<CR>
   nnoremap <silent> ;g <Cmd>Ddu
   \ -name=search rg
-  \ -ui-param-quitEmpty
+  \ -ui-param-ignoreEmpty
   \ -source-param-input=`input('Pattern: ')`<CR>
   nnoremap <silent> n <Cmd>Ddu
   \ -name=search -resume
