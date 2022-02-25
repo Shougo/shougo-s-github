@@ -3,33 +3,33 @@ repo = 'Shougo/ddu.vim'
 depends = 'denops.vim'
 on_source = 'denops.vim'
 hook_add = '''
-  nnoremap <silent> s<Space> <Cmd>Ddu
+  nnoremap s<Space> <Cmd>Ddu
   \ -name=files file_rec
   \ -source-param-path='`fnamemodify($MYVIMRC, ':h').'/rc'`'<CR>
-  nnoremap <silent> ss
+  nnoremap ss
   \ <Cmd>Ddu -name=files file_point file_old
   \ `finddir('.git', ';') != '' ? 'file_external' : 'file_rec'`
   \ -ui-param-displaySourceName=short<CR>
-  nnoremap <silent> / <Cmd>Ddu
+  nnoremap / <Cmd>Ddu
   \ -name=search line
   \ -ui-param-startFilter<CR>
-  nnoremap <silent> * <Cmd>Ddu
+  nnoremap * <Cmd>Ddu
   \ -name=search line -input=`expand('<cword>')`
   \ -ui-param-startFilter=v:false<CR>
-  nnoremap <silent> ;g <Cmd>Ddu
+  nnoremap ;g <Cmd>Ddu
   \ -name=search rg
   \ -ui-param-ignoreEmpty
   \ -source-param-input=`input('Pattern: ')`<CR>
-  nnoremap <silent> n <Cmd>Ddu
+  nnoremap n <Cmd>Ddu
   \ -name=search -resume
   \ -ui-param-startFilter=v:false<CR>
-  nnoremap <silent> ;r <Cmd>Ddu
+  nnoremap ;r <Cmd>Ddu
   \ -buffer-name=register register
   \ -ui-param-autoResize<CR>
-  xnoremap <expr><silent> ;r (mode() ==# 'V' ? '"_R<Esc>' : '"_d') .
+  xnoremap <expr> ;r (mode() ==# 'V' ? '"_R<Esc>' : '"_d') .
   \ '<Cmd>Ddu -buffer-name=register register
   \  -source-option-defaultAction=insert -ui-param-autoResize<CR>'
-  nnoremap <silent> sg <Cmd>Ddu
+  nnoremap sg <Cmd>Ddu
   \ dein<CR>
 '''
 hook_source = '''
@@ -119,34 +119,34 @@ call ddu#custom#patch_global({
 
 [plugins.ftplugin]
 ddu-ff = '''
-nnoremap <buffer><silent> <CR>
+nnoremap <buffer> <CR>
 \ <Cmd>call ddu#ui#ff#do_action('itemAction')<CR>
-nnoremap <buffer><silent> <Space>
+nnoremap <buffer> <Space>
 \ <Cmd>call ddu#ui#ff#do_action('toggleSelectItem')<CR>
-nnoremap <buffer><silent> i
+nnoremap <buffer> i
 \ <Cmd>call ddu#ui#ff#do_action('openFilterWindow')<CR>
-nnoremap <buffer><silent> <C-l>
+nnoremap <buffer> <C-l>
 \ <Cmd>call ddu#ui#ff#do_action('refreshItems')<CR>
-nnoremap <buffer><silent> p
+nnoremap <buffer> p
 \ <Cmd>call ddu#ui#ff#do_action('preview')<CR>
-nnoremap <buffer><silent> q
+nnoremap <buffer> q
 \ <Cmd>call ddu#ui#ff#do_action('quit')<CR>
-nnoremap <buffer><silent> a
+nnoremap <buffer> a
 \ <Cmd>call ddu#ui#ff#do_action('chooseAction')<CR>
-nnoremap <buffer><silent> c
+nnoremap <buffer> c
 \ <Cmd>call ddu#ui#ff#do_action('itemAction', {'name': 'cd'})<CR>
-nnoremap <buffer><silent> d
+nnoremap <buffer> d
 \ <Cmd>call ddu#ui#ff#do_action('itemAction', {'name': 'delete'})<CR>
-nnoremap <buffer><silent> e
+nnoremap <buffer> e
 \ <Cmd>call ddu#ui#ff#do_action('itemAction', {'name': 'edit'})<CR>
-nnoremap <buffer><silent> v
+nnoremap <buffer> v
 \ <Cmd>call ddu#ui#ff#do_action('itemAction',
 \ {'name': 'open', 'params': {'command': 'vsplit'}})<CR>
-nnoremap <buffer><silent> N
+nnoremap <buffer> N
 \ <Cmd>call ddu#ui#ff#do_action('itemAction', {'name': 'new'})<CR>
-nnoremap <buffer><silent> r
+nnoremap <buffer> r
 \ <Cmd>call ddu#ui#ff#do_action('itemAction', {'name': 'quickfix'})<CR>
-nnoremap <buffer><silent> u
+nnoremap <buffer> u
 \ <Cmd>call ddu#ui#ff#do_action('updateOptions', {
 \   'sourceOptions': {
 \     '_': {
@@ -156,9 +156,9 @@ nnoremap <buffer><silent> u
 \ })<CR>
 '''
 ddu-ff-filter = '''
-inoremap <buffer><silent> <CR>
+inoremap <buffer> <CR>
 \ <Esc><Cmd>close<CR>
-nnoremap <buffer><silent> <CR>
+nnoremap <buffer> <CR>
 \ <Cmd>close<CR>
 '''
 
