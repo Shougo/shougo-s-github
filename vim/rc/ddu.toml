@@ -97,7 +97,7 @@ call ddu#custom#patch_local('files', {
 call ddu#custom#patch_global({
     \   'sourceParams': {
     \     'file_rg': {
-    \       'cmd': ['rg', '--files', '--glob', '!.git',
+    \       'cmd': ['rg', '--ignore-case', '--files', '--glob', '!.git',
     \               '--color', 'never', '--no-messages'],
     \       'updateItems': 50000,
     \     },
