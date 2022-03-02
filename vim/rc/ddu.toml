@@ -5,7 +5,7 @@ on_source = 'denops.vim'
 hook_add = '''
   nnoremap s<Space> <Cmd>Ddu
   \ -name=files file_rec
-  \ -source-param-path='`fnamemodify($MYVIMRC, ':h').'/rc'`'<CR>
+  \ -source-option-path='`fnamemodify($MYVIMRC, ':h').'/rc'`'<CR>
   nnoremap ss
   \ <Cmd>Ddu -name=files file_point file_old
   \ `finddir('.git', ';') != '' ? 'file_external' : 'file_rec'`
