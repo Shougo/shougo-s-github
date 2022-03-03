@@ -86,7 +86,7 @@ hook_source = '''
 
   call ddc#custom#patch_filetype(['FineCmdlinePrompt'], {
       \ 'keywordPattern': '[0-9a-zA-Z_:#]*',
-      \ 'sources': ['cmdline', 'cmdline-history', 'around'],
+      \ 'sources': ['cmdline-history', 'cmdline', 'around'],
       \ 'specialBufferCompletion': v:true,
       \ })
 
@@ -138,7 +138,7 @@ hook_add = '''
     let b:prev_buffer_config = ddc#custom#get_buffer()
     if a:mode ==# ':'
       call ddc#custom#patch_buffer('sources',
-              \ ['cmdline', 'cmdline-history', 'around'])
+              \ ['cmdline-history', 'cmdline', 'around'])
       call ddc#custom#patch_buffer('keywordPattern', '[0-9a-zA-Z_:#]*')
     else
       call ddc#custom#patch_buffer('sources',
