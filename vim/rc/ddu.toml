@@ -122,6 +122,14 @@ call ddu#custom#patch_global({
 "    \ { args -> execute('let g:bar = 1') })
 '''
 
+[[plugins]]
+repo = 'Shougo/ddu-commands.vim'
+depends = 'ddu.vim'
+on_cmd = 'Ddu'
+
+[[plugins]]
+repo = 'Shougo/ddu-ui-ff'
+on_source = 'ddu.vim'
 [plugins.ftplugin]
 ddu-ff = '''
 nnoremap <buffer> <CR>
@@ -171,13 +179,17 @@ nnoremap <buffer> <CR>
 '''
 
 [[plugins]]
-repo = 'Shougo/ddu-commands.vim'
-depends = 'ddu.vim'
-on_cmd = 'Ddu'
-
-[[plugins]]
-repo = 'Shougo/ddu-ui-ff'
+repo = 'Shougo/ddu-ui-filer'
 on_source = 'ddu.vim'
+[plugins.ftplugin]
+ddu-filer = '''
+nnoremap <buffer> q
+\ <Cmd>call ddu#ui#filer#do_action('quit')<CR>
+nnoremap <buffer><expr> <CR>
+\ ddu#ui#filer#is_directory() ?
+\ "<Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'narrow'})<CR>" :
+\ "<Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'open'})<CR>"
+'''
 
 [[plugins]]
 repo = 'Shougo/ddu-source-file'
