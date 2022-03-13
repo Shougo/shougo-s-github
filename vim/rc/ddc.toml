@@ -135,7 +135,9 @@ hook_add = '''
     "set cmdheight=1
 
     " Overwrite sources
-    let b:prev_buffer_config = ddc#custom#get_buffer()
+    if !exists('b:prev_buffer_config')
+      let b:prev_buffer_config = ddc#custom#get_buffer()
+    endif
     if a:mode ==# ':'
       call ddc#custom#patch_buffer('sources',
               \ ['cmdline-history', 'cmdline', 'around'])

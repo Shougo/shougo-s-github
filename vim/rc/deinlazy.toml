@@ -137,6 +137,7 @@ hook_source = '''
       \ 'term_kill': 'kill',
       \ }
   "let g:deol#enable_ddc_completion = v:true
+  let g:deol#nvim_server = '~/.cache/nvim/server.pipe'
 
   call ddu#custom#patch_global({
       \   'sourceParams': {
