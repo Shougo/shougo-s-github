@@ -147,7 +147,7 @@ hook_add = '''
               \ ['around', 'line'])
     endif
 
-    autocmd MyAutoCmd User DDCCmdlineLeave call CommandlinePost()
+    autocmd MyAutoCmd User DDCCmdlineLeave ++once call CommandlinePost()
 
     " Enable command line completion
     call ddc#enable_cmdline_completion()

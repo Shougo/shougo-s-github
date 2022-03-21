@@ -229,6 +229,10 @@ repo = 'matsui54/ddu-source-file_external'
 on_source = 'ddu.vim'
 
 [[plugins]]
+repo = 'matsui54/ddu-source-command_history'
+on_source = 'ddu.vim'
+
+[[plugins]]
 repo = 'shun/ddu-source-rg'
 on_source = 'ddu.vim'
 
