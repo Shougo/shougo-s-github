@@ -127,23 +127,18 @@ function! vimrc#diagnostics_to_qf() abort
     return
   endif
 
-  lua <<END
-  -- Send diagnostics to quickfix list
-  local diagnostics = vim.diagnostic.get(nil)
-  local qflist = {}
-  for bufnr, diagnostic in pairs(diagnostics) do
-    for _, d in ipairs(diagnostic) do
-      d.bufnr = bufnr
-      d.lnum = d.range.start.line + 1
-      d.col = d.range.start.character + 1
-      d.text = d.message
-      table.insert(qflist, d)
-    end
-  end
+  let qflist = []
+  for diagnostic in v:lua.vim.diagnostic.get()
+    call add(qflist, {
+          \ 'bufnr': diagnostic.bufnr,
+          \ 'lnum': diagnostic.lnum,
+          \ 'col': diagnostic.col,
+          \ 'text': diagnostic.message,
+          \ })
+  endfor
 
-  if #qflist > 0 then
-    vim.diagnostic.setqflist(qflist)
-    vim.api.nvim_command('copen')
-  end
-END
+  if !empty(qflist)
+    call setqflist(qflist)
+    copen
+  endif
 endfunction

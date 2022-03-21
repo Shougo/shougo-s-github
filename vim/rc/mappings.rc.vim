@@ -81,6 +81,10 @@ nnoremap [Space]l
 nnoremap <silent><expr> [Space]e
       \ bufname('%') !=# '' ? '<Cmd>edit %<CR>' : ''
 
+" Quickfix
+nnoremap [Space]q
+      \ <Cmd>call vimrc#diagnostics_to_qf()<CR>
+
 " Useful save mappings.
 nnoremap <silent> <Leader><Leader> <Cmd>silent update<CR>
 
