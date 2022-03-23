@@ -131,7 +131,10 @@ hook_add = '''
     \ pum#visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' :
     \ ddc#manual_complete()
     cnoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
-    cnoremap <C-e>   <Cmd>call pum#map#cancel()<CR>
+    cnoremap <C-c>   <Cmd>call pum#map#cancel()<CR>
+    cnoremap <C-j>   <Cmd>call pum#map#select_relative(+1)<CR>
+    cnoremap <C-k>   <Cmd>call pum#map#select_relative(-1)<CR>
+    cnoremap <C-o>   <Cmd>call pum#map#confirm()<CR>
 
     set wildchar=<C-t>
     "set cmdheight=1
@@ -252,6 +255,7 @@ hook_source = '''
 require'lspconfig'.denols.setup{}
 require'lspconfig'.gopls.setup{}
 require'lspconfig'.pylsp.setup{}
+require'lspconfig'.sumneko.setup{}
 EOF
 '''
 
