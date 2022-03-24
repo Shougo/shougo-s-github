@@ -100,6 +100,10 @@ function! vimrc#disable_syntax() abort
   endif
 endfunction
 function! vimrc#check_syntax() abort
+  if exists('b:vimrc_check_syntax')
+    return
+  endif
+
   let max_size = 1000000
   let max_head_size = 10000
   let max_line = line('$')
@@ -120,6 +124,8 @@ function! vimrc#check_syntax() abort
   else
     call vimrc#disable_syntax()
   endif
+
+  let b:vimrc_check_syntax = 1
 endfunction
 
 function! vimrc#diagnostics_to_qf() abort
