@@ -153,6 +153,7 @@ hook_add = '''
     endif
 
     autocmd MyAutoCmd User DDCCmdlineLeave ++once call CommandlinePost()
+    autocmd MyAutoCmd InsertEnter <buffer> ++once call CommandlinePost()
 
     " Enable command line completion
     call ddc#enable_cmdline_completion()
