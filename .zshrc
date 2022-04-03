@@ -269,7 +269,7 @@ alias df='df -h'
 alias od='od -Ax -tx1z'
 alias hexdump='hexdump -C'
 
-alias vim='TERM=xterm-256color nvim --listen ~/.cache/nvim/server.pipe'
+alias vim="TERM=xterm-256color nvim --listen $HOME/.cache/nvim/server.pipe"
 #alias goneovim='~/Downloads/goneovim/goneovim &>/dev/null &'
 #alias gn=goneovim
 alias nvui='nvui &'

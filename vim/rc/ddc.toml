@@ -137,7 +137,6 @@ hook_add = '''
     cnoremap <C-o>   <Cmd>call pum#map#confirm()<CR>
 
     set wildchar=<C-t>
-    "set cmdheight=1
 
     " Overwrite sources
     if !exists('b:prev_buffer_config')
@@ -170,12 +169,6 @@ hook_add = '''
 
     silent! cunmap <Tab>
     set wildchar=<Tab>
-
-    "try
-    "  set cmdheight=0
-    "catch
-    "  set cmdheight=1
-    "endtry
   endfunction
 '''
 
