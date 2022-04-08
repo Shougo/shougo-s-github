@@ -190,6 +190,10 @@ on_source = 'ddu.vim'
 ddu-filer = '''
 nnoremap <buffer> q
 \ <Cmd>call ddu#ui#filer#do_action('quit')<CR>
+nnoremap <buffer> o
+\ <Cmd>call ddu#ui#filer#do_action('expandItem')<CR>
+nnoremap <buffer> O
+\ <Cmd>call ddu#ui#filer#do_action('collapseItem')<CR>
 nnoremap <buffer><expr> <CR>
 \ ddu#ui#filer#is_directory() ?
 \ "<Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'narrow'})<CR>" :

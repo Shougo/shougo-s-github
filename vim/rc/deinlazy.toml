@@ -230,6 +230,9 @@ hook_add = '''
 '''
 
 [[plugins]]
+repo = 'Shougo/ddx.vim'
+
+[[plugins]]
 repo = 'kana/vim-niceblock'
 on_map = {x = '<Plug>'}
 hook_add = '''
