@@ -194,6 +194,8 @@ nnoremap <buffer> o
 \ <Cmd>call ddu#ui#filer#do_action('expandItem')<CR>
 nnoremap <buffer> O
 \ <Cmd>call ddu#ui#filer#do_action('collapseItem')<CR>
+nnoremap <buffer> K
+\ <Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'newDirectory'})<CR>
 nnoremap <buffer><expr> <CR>
 \ ddu#ui#filer#is_directory() ?
 \ "<Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'narrow'})<CR>" :
