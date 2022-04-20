@@ -12,8 +12,8 @@ endif
 
 if has('nvim')
   " Use filetype.lua instead
-  let g:do_filetype_lua = v:true
-  let g:did_load_filetypes = v:false
+  let g:do_filetype_lua = 1
+  let g:did_load_filetypes = 0
 endif
 
 " Set augroup.

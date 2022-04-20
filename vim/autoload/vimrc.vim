@@ -71,13 +71,15 @@ function! vimrc#toggle_option(option_name) abort
 endfunction
 
 function! vimrc#on_filetype() abort
-  if execute('filetype') =~# 'OFF'
-    silent! filetype plugin indent on
-    syntax enable
-
-    " Note: filetype detect does not work on startup
-    silent! filetype detect
+  if execute('filetype') !~# 'OFF'
+    return
   endif
+
+  filetype plugin indent on
+  syntax enable
+
+  " Note: filetype detect does not work on startup
+  filetype detect
 endfunction
 
 " Todo: support vim-treesitter plugin

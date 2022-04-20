@@ -453,6 +453,13 @@ on_ft = 'markdown'
 [[plugins]]
 repo = 'rcarriga/nvim-notify'
 on_lua = 'notify'
+on_source = '''
+lua vim.notify = require('notify')
+'''
+
+[[plugins]]
+repo = 'mattn/vim-notification'
+if = '!has("nvim")'
 
 [[plugins]]
 repo = 'mattn/vim-treesitter'
