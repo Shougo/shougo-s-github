@@ -72,9 +72,6 @@ endfunction
 
 function! vimrc#on_filetype() abort
   if execute('filetype') =~# 'OFF'
-    " Lazy loading
-    call dein#source('filetype.nvim')
-
     silent! filetype plugin indent on
     syntax enable
 
