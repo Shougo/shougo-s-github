@@ -21,7 +21,6 @@ augroup MyAutoCmd
   autocmd!
   autocmd FileType,Syntax,BufNewFile,BufNew,BufRead *?
         \ call vimrc#on_filetype()
-  autocmd BufRead *? call vimrc#check_syntax()
 augroup END
 
 let $CACHE = expand('~/.cache')

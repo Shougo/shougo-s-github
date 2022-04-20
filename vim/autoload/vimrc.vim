@@ -82,8 +82,9 @@ function! vimrc#on_filetype() abort
   filetype detect
 endfunction
 
-" Todo: support vim-treesitter plugin
 function! vimrc#enable_syntax() abort
+  syntax enable
+
   if has('nvim') && exists(':TSEnableAll')
     TSBufEnable highlight
     TSBufEnable context_commentstring
@@ -93,38 +94,11 @@ function! vimrc#disable_syntax() abort
   if &l:syntax !=# ''
     syntax off
   endif
+
   if has('nvim') && exists(':TSEnableAll')
     TSBufDisable highlight
     TSBufDisable context_commentstring
   endif
-endfunction
-function! vimrc#check_syntax() abort
-  if exists('b:vimrc_check_syntax')
-    return
-  endif
-
-  let max_size = 1000000
-  let max_head_size = 10000
-  let max_line = line('$')
-  let fsize = line2byte(max_line + 1)
-  let head_size = line2byte(min([max_line + 1, 5]))
-
-  if fsize <= max_size && head_size <= max_head_size
-    return
-  endif
-
-  let confirm = confirm(printf(
-        \ '"%s" is too large.(%d lines, %s bytes) Enable syntax?',
-        \ bufname('%'), max_line, fsize), "&Yes\n&No", 2)
-  redraw
-
-  if confirm == 1
-    call vimrc#enable_syntax()
-  else
-    call vimrc#disable_syntax()
-  endif
-
-  let b:vimrc_check_syntax = 1
 endfunction
 
 function! vimrc#diagnostics_to_qf() abort

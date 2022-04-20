@@ -4,6 +4,7 @@ depends = ['context_filetype.vim', 'denops.vim', 'pum.vim']
 on_event = ['InsertEnter', 'CursorHold']
 hook_source = '''
   inoremap <silent><expr> <C-l> ddc#complete_common_string()
+  inoremap <silent><expr> <C-x><C-f> ddc#manual_complete('path')
 
   call ddc#custom#patch_global(
       \ 'sources', ['around', 'file', 'rg']
@@ -71,7 +72,7 @@ hook_source = '''
       \ }})
   call ddc#custom#patch_filetype(
       \ ['help', 'markdown', 'gitcommit'], 'sources',
-      \ ['mocword', 'around']
+      \ ['mocword', 'around', 'rg']
       \ )
 
   if has('nvim')
