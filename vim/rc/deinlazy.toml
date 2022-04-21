@@ -360,7 +360,7 @@ require'nvim-treesitter.configs'.setup {
 EOF
 
 " Enable syntax for non treesitter highlights
-autocmd MyAutoCmd FileType c,help
+autocmd MyAutoCmd FileType c,help,gitcommit
 \ if &l:syntax == '' | syntax enable | endif
 
 " Custom colors
