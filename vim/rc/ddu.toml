@@ -188,6 +188,8 @@ repo = 'Shougo/ddu-ui-filer'
 on_source = 'ddu.vim'
 [plugins.ftplugin]
 ddu-filer = '''
+nnoremap <buffer> <Space>
+\ <Cmd>call ddu#ui#filer#do_action('toggleSelectItem')<CR>
 nnoremap <buffer> q
 \ <Cmd>call ddu#ui#filer#do_action('quit')<CR>
 nnoremap <buffer> o
