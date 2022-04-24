@@ -155,9 +155,7 @@ hook_add = '''
     autocmd MyAutoCmd User DDCCmdlineLeave ++once call CommandlinePost()
     autocmd MyAutoCmd InsertEnter <buffer> ++once call CommandlinePost()
 
-    " Enable command line completion
     call ddc#enable_cmdline_completion()
-    call ddc#enable()
   endfunction
   function! CommandlinePost() abort
     " Restore sources
@@ -169,6 +167,10 @@ hook_add = '''
     endif
 
     silent! cunmap <Tab>
+    silent! cunmap <S-Tab>
+    silent! cunmap <C-j>
+    silent! cunmap <C-k>
+    silent! cunmap <C-o>
     set wildchar=<Tab>
   endfunction
 '''

@@ -197,11 +197,17 @@ nnoremap <buffer> o
 nnoremap <buffer> O
 \ <Cmd>call ddu#ui#filer#do_action('collapseItem')<CR>
 nnoremap <buffer> d
-\ <Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'delete'})<CR>
+\ <Cmd>call ddu#ui#filer#do_action('itemAction',
+\ {'name': 'delete'})<CR>
+nnoremap <buffer> x
+\ <Cmd>call ddu#ui#filer#do_action('itemAction',
+\ {'name': 'executeSystem'})<CR>
 nnoremap <buffer> K
-\ <Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'newDirectory'})<CR>
+\ <Cmd>call ddu#ui#filer#do_action('itemAction',
+\ {'name': 'newDirectory'})<CR>
 nnoremap <buffer> N
-\ <Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'newFile'})<CR>
+\ <Cmd>call ddu#ui#filer#do_action('itemAction',
+\ {'name': 'newFile'})<CR>
 nnoremap <buffer><expr> <CR>
 \ ddu#ui#filer#is_directory() ?
 \ "<Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'narrow'})<CR>" :
