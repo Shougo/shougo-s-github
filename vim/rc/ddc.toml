@@ -252,7 +252,7 @@ hook_source = '''
 require'lspconfig'.denols.setup{}
 require'lspconfig'.gopls.setup{}
 require'lspconfig'.pylsp.setup{}
-require'lspconfig'.sumneko.setup{}
+--require'lspconfig'.sumneko.setup{}
 EOF
 '''
 

@@ -208,6 +208,12 @@ nnoremap <buffer> K
 nnoremap <buffer> N
 \ <Cmd>call ddu#ui#filer#do_action('itemAction',
 \ {'name': 'newFile'})<CR>
+nnoremap <buffer> ~
+\ <Cmd>call ddu#ui#filer#do_action('itemAction',
+\ {'name': 'narrow', 'params': {'path': expand('~')}})<CR>
+nnoremap <buffer> h
+\ <Cmd>call ddu#ui#filer#do_action('itemAction',
+\ {'name': 'narrow', 'params': {'path': ".."}})<CR>
 nnoremap <buffer><expr> <CR>
 \ ddu#ui#filer#is_directory() ?
 \ "<Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'narrow'})<CR>" :
