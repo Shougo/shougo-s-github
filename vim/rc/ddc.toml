@@ -27,6 +27,7 @@ hook_source = '''
       \ 'cmdline': {
       \   'mark': 'cmdline',
       \   'forceCompletionPattern': '\S/\S*',
+      \   'isVolatile': v:true,
       \ },
       \ 'mocword': {
       \   'mark': 'mocword',
@@ -60,7 +61,7 @@ hook_source = '''
       \ 'rg': {
       \   'mark': 'rg',
       \   'matchers': ['matcher_head', 'matcher_length'],
-      \   'minAutoCompleteLength': 4,
+      \   'minAutoCompleteLength': 5,
       \ },
       \ })
   call ddc#custom#patch_global('sourceOptions', {
@@ -73,6 +74,10 @@ hook_source = '''
   call ddc#custom#patch_filetype(
       \ ['help', 'markdown', 'gitcommit'], 'sources',
       \ ['around', 'rg', 'mocword']
+      \ )
+  call ddc#custom#patch_filetype(
+      \ ['defx', 'ddu'], 'sources',
+      \ ['around', 'cmdline', 'file']
       \ )
 
   if has('nvim')
