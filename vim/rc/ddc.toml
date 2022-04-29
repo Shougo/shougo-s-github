@@ -75,8 +75,10 @@ hook_source = '''
       \ ['help', 'markdown', 'gitcommit'], 'sources',
       \ ['around', 'rg', 'mocword']
       \ )
+
+  " Enable command line mode completions for some file types
   call ddc#custom#patch_filetype(
-      \ ['defx', 'ddu'], 'sources',
+      \ ['defx', 'ddu', 'deol'], 'sources',
       \ ['around', 'cmdline', 'file']
       \ )
 
@@ -87,10 +89,11 @@ hook_source = '''
             \ )
   endif
 
-  call ddc#custom#patch_filetype(['deol'], {
-      \ 'keywordPattern': '[0-9a-zA-Z_./-]',
-      \ 'sources': ['zsh', 'shell-history', 'around'],
-      \ })
+  " Note: Test for terminal completion
+  "call ddc#custom#patch_filetype(['deol'], {
+  "    \ 'keywordPattern': '[0-9a-zA-Z_./-]',
+  "    \ 'sources': ['zsh', 'shell-history', 'around'],
+  "    \ })
 
   call ddc#custom#patch_filetype(['FineCmdlinePrompt'], {
       \ 'keywordPattern': '[0-9a-zA-Z_:#]*',
