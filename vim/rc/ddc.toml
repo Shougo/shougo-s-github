@@ -7,7 +7,7 @@ hook_source = '''
   inoremap <silent><expr> <C-x><C-f> ddc#manual_complete('path')
 
   call ddc#custom#patch_global(
-      \ 'sources', ['around', 'file', 'rg']
+      \ 'sources', ['input', 'around', 'file', 'rg']
       \ )
   call ddc#custom#patch_global('sourceOptions', {
       \ '_': {
@@ -26,6 +26,10 @@ hook_source = '''
       \ 'necovim': {'mark': 'vim'},
       \ 'cmdline': {
       \   'mark': 'cmdline',
+      \   'forceCompletionPattern': '\S/\S*',
+      \ },
+      \ 'input': {
+      \   'mark': 'input',
       \   'forceCompletionPattern': '\S/\S*',
       \   'isVolatile': v:true,
       \ },
@@ -73,19 +77,13 @@ hook_source = '''
       \ }})
   call ddc#custom#patch_filetype(
       \ ['help', 'markdown', 'gitcommit'], 'sources',
-      \ ['around', 'rg', 'mocword']
-      \ )
-
-  " Enable command line mode completions for some file types
-  call ddc#custom#patch_filetype(
-      \ ['defx', 'ddu', 'deol'], 'sources',
-      \ ['around', 'cmdline', 'file']
+      \ ['input', 'around', 'rg', 'mocword']
       \ )
 
   if has('nvim')
     call ddc#custom#patch_filetype(
             \ ['typescript', 'go', 'python'], 'sources',
-            \ ['nvim-lsp', 'around']
+            \ ['input', 'nvim-lsp', 'around']
             \ )
   endif
 
@@ -153,7 +151,7 @@ hook_add = '''
     endif
     if a:mode ==# ':'
       call ddc#custom#patch_buffer('sources',
-              \ ['cmdline-history', 'cmdline', 'around'])
+              \ ['input', 'cmdline-history', 'cmdline', 'around'])
       call ddc#custom#patch_buffer('keywordPattern', '[0-9a-zA-Z_:#]*')
     else
       call ddc#custom#patch_buffer('sources',
@@ -206,6 +204,10 @@ hook_source = '''
 
 [[plugins]]
 repo = 'Shougo/ddc-cmdline'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc-input'
 on_source = 'ddc.vim'
 
 [[plugins]]

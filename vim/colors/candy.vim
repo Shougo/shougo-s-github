@@ -40,6 +40,7 @@ else
   highlight StatusLineNC  gui=NONE guibg=#1c1c1c guifg=#1c1c1c
 endif
 highlight VertSplit     gui=NONE guibg=#1c1c1c guifg=#1c1c1c
+highlight WinSeparator  gui=NONE guibg=#1c1c1c guifg=#1c1c1c
 highlight WildMenu      gui=NONE guibg=#a0a0ff guifg=#252525
 highlight FloatBorder   gui=NONE guibg=#1c1c1c guifg=#a0d0ff
 
