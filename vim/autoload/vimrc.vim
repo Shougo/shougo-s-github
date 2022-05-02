@@ -72,6 +72,7 @@ endfunction
 
 function! vimrc#on_filetype() abort
   if execute('filetype') !~# 'OFF'
+    filetype plugin indent on
     return
   endif
 
