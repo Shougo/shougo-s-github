@@ -6,9 +6,13 @@ hook_source = '''
   inoremap <silent><expr> <C-l> ddc#complete_common_string()
   inoremap <silent><expr> <C-x><C-f> ddc#manual_complete('path')
 
-  call ddc#custom#patch_global(
-      \ 'sources', ['input', 'around', 'file', 'rg']
+  call ddc#custom#patch_global('sources',
+      \ ['around', 'file', 'rg']
       \ )
+  call ddc#custom#patch_global('cmdlineSources',
+      \ ['cmdline-history', 'input', 'file', 'around', 'rg']
+      \ )
+
   call ddc#custom#patch_global('sourceOptions', {
       \ '_': {
       \   'ignoreCase': v:true,
@@ -150,11 +154,11 @@ hook_add = '''
       let b:prev_buffer_config = ddc#custom#get_buffer()
     endif
     if a:mode ==# ':'
-      call ddc#custom#patch_buffer('sources',
-              \ ['input', 'cmdline-history', 'cmdline', 'around'])
+      call ddc#custom#patch_buffer('cmdlineSources',
+              \ ['cmdline-history', 'cmdline', 'around'])
       call ddc#custom#patch_buffer('keywordPattern', '[0-9a-zA-Z_:#]*')
     else
-      call ddc#custom#patch_buffer('sources',
+      call ddc#custom#patch_buffer('cmdlineSources',
               \ ['around', 'line'])
     endif
 
