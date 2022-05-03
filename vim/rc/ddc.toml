@@ -172,7 +172,7 @@ hook_add = '''
     call ddc#enable_cmdline_completion()
   endfunction
   function! CommandlinePost() abort
-    cunmap <buffer> <Tab>
+    silent! cunmap <buffer> <Tab>
 
     " Restore sources
     if exists('b:prev_buffer_config')

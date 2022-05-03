@@ -3,13 +3,13 @@ repo = 'vim-denops/denops.vim'
 on_event = 'CursorHold'
 hook_source = '''
   " Note: for profile
-  let g:denops#server#deno_args = [
-      \ '-q',
-      \ '--no-check',
-      \ '--unstable',
-      \ '-A',
-      \ '--inspect',
-      \ ]
+  "let g:denops#server#deno_args = [
+  "    \ '-q',
+  "    \ '--no-check',
+  "    \ '--unstable',
+  "    \ '-A',
+  "    \ '--inspect',
+  "    \ ]
 '''
 
 [[plugins]]
