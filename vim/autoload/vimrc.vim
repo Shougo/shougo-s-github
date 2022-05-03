@@ -72,7 +72,10 @@ endfunction
 
 function! vimrc#on_filetype() abort
   if execute('filetype') !~# 'OFF'
-    filetype plugin indent on
+    if !exists('b:did_ftplugin')
+      runtime! after/ftplugin.vim
+    endif
+
     return
   endif
 
