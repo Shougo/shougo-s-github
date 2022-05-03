@@ -1,4 +1,18 @@
 [[plugins]]
+repo = 'vim-denops/denops.vim'
+on_event = 'CursorHold'
+hook_source = '''
+  " Note: for profile
+  let g:denops#server#deno_args = [
+      \ '-q',
+      \ '--no-check',
+      \ '--unstable',
+      \ '-A',
+      \ '--inspect',
+      \ ]
+'''
+
+[[plugins]]
 repo = 'Shougo/defx.nvim'
 hook_add = '''
   nnoremap <silent>   [Space]f
@@ -305,20 +319,6 @@ on_ft = 'help'
 [plugins.ftplugin]
 help = '''
   nnoremap <silent><buffer> ,r  <Cmd>VimhelpLint!<CR>
-'''
-
-[[plugins]]
-repo = 'vim-denops/denops.vim'
-on_event = 'CursorHold'
-hook_source = '''
-  " Note: for profile
-  "let g:denops#server#deno_args = [
-  "    \ '-q',
-  "    \ '--no-check',
-  "    \ '--unstable',
-  "    \ '-A',
-  "    \ '--inspect',
-  "    \ ]
 '''
 
 #[[plugins]]
