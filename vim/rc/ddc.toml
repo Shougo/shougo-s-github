@@ -31,11 +31,13 @@ hook_source = '''
       \ 'cmdline': {
       \   'mark': 'cmdline',
       \   'forceCompletionPattern': '\S/\S*',
+      \   'dup': v:true,
       \ },
       \ 'input': {
       \   'mark': 'input',
       \   'forceCompletionPattern': '\S/\S*',
       \   'isVolatile': v:true,
+      \   'dup': v:true,
       \ },
       \ 'mocword': {
       \   'mark': 'mocword',
