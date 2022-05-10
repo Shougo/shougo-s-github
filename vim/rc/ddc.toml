@@ -136,7 +136,8 @@ hook_source = '''
   " For command line mode completion
   cnoremap <expr> <Tab>
   \ pum#visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' :
-  \ exists('b:ddc_cmdline_completion') ? ddc#manual_complete() : "\<Tab>"
+  \ exists('b:ddc_cmdline_completion') ?
+  \ ddc#manual_complete() : nr2char(&wildchar)
   cnoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
   cnoremap <C-c>   <Cmd>call pum#map#cancel()<CR>
   cnoremap <C-o>   <Cmd>call pum#map#confirm()<CR>
