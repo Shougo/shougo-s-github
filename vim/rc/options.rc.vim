@@ -165,15 +165,16 @@ endif
 
 " Always disable statusline.
 set laststatus=0
-" Height of command line.
-set cmdheight=1
-"try
-"  set cmdheight=0
-"catch
-"  set cmdheight=1
-"endtry
+" Height of the command line.
+try
+  set cmdheight=0
+catch
+  set cmdheight=1
+endtry
 " Not show command on statusline.
 set noshowcmd
+" Disable ruler
+set noruler
 
 " Show title.
 set title
