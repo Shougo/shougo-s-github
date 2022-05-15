@@ -149,6 +149,8 @@ nnoremap <buffer> p
 \ <Cmd>call ddu#ui#ff#do_action('preview')<CR>
 nnoremap <buffer> q
 \ <Cmd>call ddu#ui#ff#do_action('quit')<CR>
+nnoremap <buffer> <C-h>
+\ <Cmd>call ddu#ui#ff#do_action('cancel')<CR>
 nnoremap <buffer> a
 \ <Cmd>call ddu#ui#ff#do_action('chooseAction')<CR>
 nnoremap <buffer> c

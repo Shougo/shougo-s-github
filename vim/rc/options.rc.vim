@@ -200,10 +200,8 @@ set breakat=\ \	;:,!?
 set whichwrap+=h,l,<,>,[,],b,s,~
 set breakindent
 
-" Do not display the greetings message at the time of Vim start.
-" Do not display the completion messages
-" Do not display the edit messages
-set shortmess=aTIcF
+" Short messages
+set shortmess=aTIcFoOsSW
 set noshowmode
 
 " Don't create backup.
