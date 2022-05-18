@@ -69,6 +69,7 @@ call ddu#custom#patch_global({
     \   'uiParams': {
     \     'ff': {
     \       'filterSplitDirection': 'floating',
+    \       'previewFloating': v:true,
     \     }
     \   },
     \   'kindOptions': {

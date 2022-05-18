@@ -321,13 +321,6 @@ help = '''
   nnoremap <silent><buffer> ,r  <Cmd>VimhelpLint!<CR>
 '''
 
-#[[plugins]]
-#repo = 'lambdalisue/suda.vim'
-#on_event = 'BufRead'
-#hook_add = '''
-#  let g:suda_smart_edit = v:true
-#'''
-
 [[plugins]]
 repo = 'mattn/vim-goimports'
 on_ft = 'go'
