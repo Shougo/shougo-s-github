@@ -142,6 +142,8 @@ nnoremap <buffer> <CR>
 \ <Cmd>call ddu#ui#ff#do_action('itemAction')<CR>
 nnoremap <buffer> <Space>
 \ <Cmd>call ddu#ui#ff#do_action('toggleSelectItem')<CR>
+nnoremap <buffer> *
+\ <Cmd>call ddu#ui#ff#do_action('toggleAllItems')<CR>
 nnoremap <buffer> i
 \ <Cmd>call ddu#ui#ff#do_action('openFilterWindow')<CR>
 nnoremap <buffer> <C-l>
@@ -170,6 +172,8 @@ nnoremap <buffer> N
 \ <Cmd>call ddu#ui#ff#do_action('itemAction', {'name': 'new'})<CR>
 nnoremap <buffer> r
 \ <Cmd>call ddu#ui#ff#do_action('itemAction', {'name': 'quickfix'})<CR>
+nnoremap <buffer> yy
+\ <Cmd>call ddu#ui#ff#do_action('itemAction', {'name': 'yank'})<CR>
 nnoremap <buffer> u
 \ <Cmd>call ddu#ui#ff#do_action('updateOptions', {
 \   'sourceOptions': {
