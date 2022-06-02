@@ -240,10 +240,26 @@ nnoremap <buffer> ~
 nnoremap <buffer> h
 \ <Cmd>call ddu#ui#filer#do_action('itemAction',
 \ {'name': 'narrow', 'params': {'path': ".."}})<CR>
+nnoremap <buffer> >
+\ <Cmd>call ddu#ui#filer#do_action('updateOptions', {
+\   'sourceOptions': {
+\     '_': {
+\       'matchers': ToggleHidden(),
+\     },
+\   },
+\ })<CR>
 nnoremap <buffer><expr> <CR>
 \ ddu#ui#filer#is_directory() ?
 \ "<Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'narrow'})<CR>" :
 \ "<Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'open'})<CR>"
+
+function! ToggleHidden()
+  let current = ddu#custom#get_current(b:ddu_ui_name)
+  let source_options = get(current, 'sourceOptions', {})
+  let source_options_all = get(source_options, '_', {})
+  let matchers = get(source_options_all, 'matchers', [])
+  return empty(matchers) ? ['matcher_hidden'] : []
+endfunction
 '''
 
 [[plugins]]
