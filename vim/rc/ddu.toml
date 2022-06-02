@@ -70,7 +70,10 @@ call ddu#custom#patch_global({
     \     'ff': {
     \       'filterSplitDirection': 'floating',
     \       'previewFloating': v:true,
-    \     }
+    \     },
+    \     'filer': {
+    \       'split': 'no',
+    \     },
     \   },
     \   'kindOptions': {
     \     'file': {
@@ -136,6 +139,10 @@ on_cmd = 'Ddu'
 [[plugins]]
 repo = 'Shougo/ddu-ui-ff'
 on_source = 'ddu.vim'
+hook_add = '''
+  nnoremap <Space>g <Cmd>Ddu
+  \ -name=filer-`win_getid()` -ui=filer file<CR>
+'''
 [plugins.ftplugin]
 ddu-ff = '''
 nnoremap <buffer> <CR>
@@ -203,12 +210,24 @@ nnoremap <buffer> o
 \ <Cmd>call ddu#ui#filer#do_action('expandItem')<CR>
 nnoremap <buffer> O
 \ <Cmd>call ddu#ui#filer#do_action('collapseItem')<CR>
+nnoremap <buffer> c
+\ <Cmd>call ddu#ui#filer#do_action('itemAction',
+\ {'name': 'copy'})<CR>
 nnoremap <buffer> d
 \ <Cmd>call ddu#ui#filer#do_action('itemAction',
 \ {'name': 'delete'})<CR>
+nnoremap <buffer> m
+\ <Cmd>call ddu#ui#filer#do_action('itemAction',
+\ {'name': 'move'})<CR>
+nnoremap <buffer> r
+\ <Cmd>call ddu#ui#filer#do_action('itemAction',
+\ {'name': 'rename'})<CR>
 nnoremap <buffer> x
 \ <Cmd>call ddu#ui#filer#do_action('itemAction',
 \ {'name': 'executeSystem'})<CR>
+nnoremap <buffer> p
+\ <Cmd>call ddu#ui#filer#do_action('itemAction',
+\ {'name': 'paste'})<CR>
 nnoremap <buffer> K
 \ <Cmd>call ddu#ui#filer#do_action('itemAction',
 \ {'name': 'newDirectory'})<CR>

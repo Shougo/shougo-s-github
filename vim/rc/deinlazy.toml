@@ -533,3 +533,6 @@ let g:registers_paste_in_normal_mode = 1
 let g:registers_hide_only_whitespace = 1
 let g:registers_show_empty_registers = 0
 '''
+
+[[plugins]]
+repo = 'Shougo/qselect.vim'

@@ -16,8 +16,8 @@ repo = 'vim-jp/vimdoc-ja'
 [[plugins]]
 repo = 'Shirk/vim-gas'
 
-[[plugins]]
-repo = 'chrisbra/vim-zsh'
+#[[plugins]]
+#repo = 'chrisbra/vim-zsh'
 
 [[plugins]]
 repo = 'roxma/vim-hug-neovim-rpc'
