@@ -140,7 +140,7 @@ on_cmd = 'Ddu'
 repo = 'Shougo/ddu-ui-ff'
 on_source = 'ddu.vim'
 hook_add = '''
-  nnoremap <Space>g <Cmd>Ddu
+  nnoremap [Space]v <Cmd>Ddu
   \ -name=filer-`win_getid()` -ui=filer file<CR>
 '''
 [plugins.ftplugin]
