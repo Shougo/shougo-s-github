@@ -15,8 +15,8 @@ hook_source = '''
 [[plugins]]
 repo = 'Shougo/defx.nvim'
 hook_add = '''
-  nnoremap <silent>   [Space]f
-  \ <Cmd>Defx -listed -resume -buffer-name=win-`win_getid()`<CR>
+  "nnoremap <silent>   [Space]f
+  "\ <Cmd>Defx -listed -resume -buffer-name=win-`win_getid()`<CR>
 '''
 hook_source = '''
   call defx#custom#column('mark', {
