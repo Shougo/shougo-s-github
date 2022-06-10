@@ -69,6 +69,7 @@ hook_source = '''
       \   'mark': 'rg',
       \   'matchers': ['matcher_head', 'matcher_length'],
       \   'minAutoCompleteLength': 5,
+      \   'enabledIf': "finddir('.git', ';') != ''",
       \ },
       \ })
   call ddc#custom#patch_global('sourceOptions', {
