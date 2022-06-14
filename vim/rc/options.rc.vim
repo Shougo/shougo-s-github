@@ -187,8 +187,7 @@ let &g:titlestring =
 set showtabline=0
 
 " Set statusline.
-let &g:statusline =
-      \ " %=%{printf('%'.(len(line('$'))+2).'d/%d',line('.'),line('$'))}"
+set statusline=%{repeat('─',winwidth('.'))}
 
 " Note: wrap option is very slow!
 set nowrap
