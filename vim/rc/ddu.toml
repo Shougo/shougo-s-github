@@ -208,7 +208,8 @@ nnoremap <buffer> <Space>
 nnoremap <buffer> q
 \ <Cmd>call ddu#ui#filer#do_action('quit')<CR>
 nnoremap <buffer> o
-\ <Cmd>call ddu#ui#filer#do_action('expandItem')<CR>
+\ <Cmd>call ddu#ui#filer#do_action('expandItem',
+\ {'mode': 'toggle'})<CR>
 nnoremap <buffer> O
 \ <Cmd>call ddu#ui#filer#do_action('collapseItem')<CR>
 nnoremap <buffer> c
