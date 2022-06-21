@@ -193,9 +193,9 @@ nnoremap <buffer> u
 '''
 ddu-ff-filter = '''
 inoremap <buffer> <CR>
-\ <Esc><Cmd>close<CR>
+\ <Esc><Cmd>call ddu#ui#ff#close()<CR>
 nnoremap <buffer> <CR>
-\ <Cmd>close<CR>
+\ <Cmd>call ddu#ui#ff#close()<CR>
 '''
 
 [[plugins]]
@@ -242,6 +242,10 @@ nnoremap <buffer> ~
 nnoremap <buffer> h
 \ <Cmd>call ddu#ui#filer#do_action('itemAction',
 \ {'name': 'narrow', 'params': {'path': ".."}})<CR>
+nnoremap <buffer> I
+\ <Cmd>call ddu#ui#filer#do_action('itemAction',
+\ {'name': 'narrow', 'params': {'path':
+\  fnamemodify(input('New cwd: ', b:ddu_ui_filer_path, 'dir'), ':p')}})<CR>
 nnoremap <buffer> >
 \ <Cmd>call ddu#ui#filer#do_action('updateOptions', {
 \   'sourceOptions': {
