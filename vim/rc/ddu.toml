@@ -217,6 +217,9 @@ nnoremap <buffer> c
 \ {'name': 'copy'})<CR>
 nnoremap <buffer> d
 \ <Cmd>call ddu#ui#filer#do_action('itemAction',
+\ {'name': 'trash'})<CR>
+nnoremap <buffer> D
+\ <Cmd>call ddu#ui#filer#do_action('itemAction',
 \ {'name': 'delete'})<CR>
 nnoremap <buffer> m
 \ <Cmd>call ddu#ui#filer#do_action('itemAction',
@@ -254,6 +257,8 @@ nnoremap <buffer> >
 \     },
 \   },
 \ })<CR>
+nnoremap <buffer> <C-l>
+\ <Cmd>call ddu#ui#filer#do_action('checkItems')<CR>
 nnoremap <buffer><expr> <CR>
 \ ddu#ui#filer#is_directory() ?
 \ "<Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'narrow'})<CR>" :
@@ -270,6 +275,9 @@ function! ToggleHidden()
   let matchers = get(source_options_all, 'matchers', [])
   return empty(matchers) ? ['matcher_hidden'] : []
 endfunction
+
+autocmd TabEnter,CursorHold,FocusGained <buffer>
+\ call ddu#ui#filer#do_action('checkItems')
 '''
 
 [[plugins]]

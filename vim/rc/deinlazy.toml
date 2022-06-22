@@ -468,12 +468,12 @@ hook_source = '''
   let g:echodoc#events = ['PumCompleteDone', 'TextChangedP', 'PumCompleteChanged']
 '''
 
-#[[plugins]]
-#repo = 'github/copilot.vim'
-#hook_source = '''
-#let g:copilot_no_maps = v:true
-#imap <script><silent><nowait><expr> <C-g> copilot#Accept()
-#'''
+[[plugins]]
+repo = 'github/copilot.vim'
+hook_source = '''
+let g:copilot_no_maps = v:true
+imap <script><silent><nowait><expr> <C-g> copilot#Accept()
+'''
 
 [[plugins]]
 repo = 'VonHeikemen/fine-cmdline.nvim'
