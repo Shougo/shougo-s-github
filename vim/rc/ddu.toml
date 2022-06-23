@@ -57,6 +57,11 @@ call ddu#custom#patch_global({
     \         'matcher_substring', 'matcher_hidden',
     \       ],
     \     },
+    \     'file': {
+    \       'matchers': [
+    \         'matcher_substring', 'matcher_hidden',
+    \       ],
+    \     },
     \     'dein': {
     \       'defaultAction': 'cd',
     \     },
