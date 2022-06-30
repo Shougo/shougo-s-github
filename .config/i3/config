@@ -210,6 +210,9 @@ client.urgent    #274D01 #900000 #FFFFFF #900000
 # Use US keymap
 exec --no-startup-id setxkbmap -option ctrl:nocaps -rules evdev -model us -layout us
 
+# Accelarate keyboard repeat
+exec xset r rate 210 40
+
 # My mappings
 bindsym $mod+x exec firefox
 
