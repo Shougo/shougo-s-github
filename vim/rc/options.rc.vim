@@ -175,6 +175,8 @@ endtry
 set noshowcmd
 " Disable ruler
 set noruler
+" Does not report lines
+set report=1000
 
 " Show title.
 set title
@@ -260,9 +262,6 @@ if exists('+pumwidth')
 endif
 " Use "/" for path completion
 set completeslash=slash
-
-" Report changes.
-set report=0
 
 " Maintain a current line at the time of movement as much as possible.
 set nostartofline
