@@ -10,12 +10,6 @@ if &compatible
   set nocompatible
 endif
 
-if has('nvim')
-  " Use filetype.lua instead
-  let g:do_filetype_lua = 1
-  let g:did_load_filetypes = 0
-endif
-
 " Set augroup.
 augroup MyAutoCmd
   autocmd!
