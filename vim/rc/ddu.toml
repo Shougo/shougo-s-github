@@ -11,10 +11,11 @@ hook_add = '''
   \ `finddir('.git', ';') != '' ? 'file_external' : 'file_rec'`
   \ -sync -ui-param-displaySourceName=short<CR>
   nnoremap / <Cmd>Ddu
-  \ -name=search line
+  \ -name=search line -resume=v:false
   \ -ui-param-startFilter<CR>
   nnoremap * <Cmd>Ddu
-  \ -name=search line -input=`expand('<cword>')`
+  \ -name=search line -resume=v:false
+  \ -input=`expand('<cword>')`
   \ -ui-param-startFilter=v:false<CR>
   nnoremap ;g <Cmd>Ddu
   \ -name=search rg
@@ -71,6 +72,11 @@ call ddu#custom#patch_global({
     \       'cmd': ['git', 'ls-files', '-co', '--exclude-standard'],
     \     },
     \   },
+    \   'uiOptions': {
+    \     'filer': {
+    \       'toggle': v:true,
+    \     },
+    \   },
     \   'uiParams': {
     \     'ff': {
     \       'filterSplitDirection': 'floating',
@@ -78,6 +84,7 @@ call ddu#custom#patch_global({
     \     },
     \     'filer': {
     \       'split': 'no',
+    \       'toggle': v:true,
     \     },
     \   },
     \   'kindOptions': {
@@ -146,7 +153,7 @@ repo = 'Shougo/ddu-ui-ff'
 on_source = 'ddu.vim'
 hook_add = '''
   nnoremap [Space]f <Cmd>Ddu
-  \ -name=filer-`win_getid()` -ui=filer
+  \ -name=filer-`win_getid()` -ui=filer -resume
   \ -source-option-columns=filename file<CR>
 '''
 [plugins.ftplugin]
@@ -262,8 +269,8 @@ nnoremap <buffer> I
 nnoremap <buffer> >
 \ <Cmd>call ddu#ui#filer#do_action('updateOptions', {
 \   'sourceOptions': {
-\     '_': {
-\       'matchers': ToggleHidden(),
+\     'file': {
+\       'matchers': ToggleHidden('file'),
 \     },
 \   },
 \ })<CR>
@@ -278,11 +285,11 @@ nnoremap <buffer><expr> l
 \ "<Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'narrow'})<CR>" :
 \ "<Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'open'})<CR>"
 
-function! ToggleHidden()
+function! ToggleHidden(name)
   let current = ddu#custom#get_current(b:ddu_ui_name)
   let source_options = get(current, 'sourceOptions', {})
-  let source_options_all = get(source_options, '_', {})
-  let matchers = get(source_options_all, 'matchers', [])
+  let source_options_name = get(source_options, a:name, {})
+  let matchers = get(source_options_name, 'matchers', [])
   return empty(matchers) ? ['matcher_hidden'] : []
 endfunction
 

@@ -261,6 +261,11 @@ hook_add = '''
 repo = 'Shougo/ddx.vim'
 
 [[plugins]]
+repo = 'Shougo/ddx-commands.vim'
+depends = 'ddx.vim'
+on_cmd = 'Ddx'
+
+[[plugins]]
 repo = 'kana/vim-niceblock'
 on_map = {x = '<Plug>'}
 hook_add = '''
