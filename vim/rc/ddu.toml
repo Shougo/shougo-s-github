@@ -18,7 +18,7 @@ hook_add = '''
   \ -input=`expand('<cword>')`
   \ -ui-param-startFilter=v:false<CR>
   nnoremap ;g <Cmd>Ddu
-  \ -name=search rg
+  \ -name=search rg -resume=v:false
   \ -ui-param-ignoreEmpty
   \ -source-param-input=`input('Pattern: ')`<CR>
   nnoremap n <Cmd>Ddu
