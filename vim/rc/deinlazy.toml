@@ -486,8 +486,11 @@ hook_source = '''
 
 [[plugins]]
 repo = 'github/copilot.vim'
+on_cmd = 'Copilot'
 hook_source = '''
 let g:copilot_no_maps = v:true
+let g:copilot_node_command = '/snap/bin/node'
+let g:copilot_hide_during_completion = 0
 imap <script><silent><nowait><expr> <C-g> copilot#Accept()
 '''
 
