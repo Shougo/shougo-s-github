@@ -32,6 +32,10 @@ hook_add = '''
   \  -source-option-defaultAction=insert -ui-param-autoResize<CR>'
   nnoremap sg <Cmd>Ddu
   \ dein<CR>
+  nnoremap [Space]<Space> <Cmd>Ddu
+  \ -name=search line -resume=v:false
+  \ -source-param-range=window
+  \ -ui-param-startFilter<CR>
 '''
 hook_source = '''
 call ddu#custom#alias('source', 'file_rg', 'file_external')
