@@ -35,6 +35,10 @@ let g:terminal_scrollback_buffer_size = 3000
 autocmd MyAutoCmd TextYankPost * lua require'vim.highlight'.on_yank
      \ {higroup='IncSearch', timeout=100}
 
+" Disable diagnostic in Insert mode
+autocmd MyAutoCmd InsertEnter * lua vim.diagnostic.hide()
+autocmd MyAutoCmd ModeChanged i:* lua vim.diagnostic.show()
+
 " For neovide
 let g:neovide_no_idle = v:true
 let g:neovide_cursor_animation_length = 0
