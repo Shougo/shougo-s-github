@@ -9,6 +9,7 @@ hook_add = '''
   nnoremap ss
   \ <Cmd>Ddu -name=files file_point file_old
   \ `finddir('.git', ';') != '' ? 'file_external' : 'file_rec'`
+  \ file
   \ -sync -ui-param-displaySourceName=short<CR>
   nnoremap / <Cmd>Ddu
   \ -name=search line -resume=v:false
