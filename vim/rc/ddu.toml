@@ -222,6 +222,8 @@ on_source = 'ddu.vim'
 ddu-filer = '''
 nnoremap <buffer> <Space>
 \ <Cmd>call ddu#ui#filer#do_action('toggleSelectItem')<CR>
+nnoremap <buffer> *
+\ <Cmd>call ddu#ui#filer#do_action('toggleAllItems')<CR>
 nnoremap <buffer> a
 \ <Cmd>call ddu#ui#filer#do_action('chooseAction')<CR>
 nnoremap <buffer> q

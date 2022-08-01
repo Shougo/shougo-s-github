@@ -165,6 +165,11 @@ endif
 
 " Always disable statusline.
 set laststatus=0
+
+" Disable statusline when command line
+"autocmd MyAutoCmd CmdlineEnter * set laststatus=0 | redrawstatus
+"autocmd MyAutoCmd CmdlineLeave * set laststatus=2
+
 " Height of the command line.
 try
   set cmdheight=0
