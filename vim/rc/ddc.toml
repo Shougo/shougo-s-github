@@ -193,6 +193,7 @@ hook_add = '''
 repo = 'Shougo/pum.vim'
 hook_source = '''
   call pum#set_option('max_width', 80)
+  call pum#set_option('use_complete', v:true)
 '''
 
 [[plugins]]
