@@ -330,3 +330,7 @@ hook_source = '''
     call ddc#custom#set_buffer(s:prev_buffer_config)
   endfunction
 '''
+
+[[plugins]]
+repo = 'Matts966/skk-vconv.vim'
+on_source = ['skkeleton']
