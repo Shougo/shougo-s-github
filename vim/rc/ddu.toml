@@ -159,6 +159,7 @@ on_source = 'ddu.vim'
 hook_add = '''
   nnoremap [Space]f <Cmd>Ddu
   \ -name=filer-`win_getid()` -ui=filer -resume
+  \ -source-option-path=`getcwd()`
   \ -source-option-columns=filename file<CR>
 '''
 [plugins.ftplugin]
@@ -182,7 +183,7 @@ nnoremap <buffer> <C-h>
 nnoremap <buffer> a
 \ <Cmd>call ddu#ui#ff#do_action('chooseAction')<CR>
 nnoremap <buffer> c
-\ <Cmd>call ddu#ui#ff#do_action('itemAction', {'name': 'cd'})<CR>
+\ <Cmd>call ddu#ui#ff#multi_actions('itemAction', {'name': 'cd'})<CR>
 nnoremap <buffer> d
 \ <Cmd>call ddu#ui#ff#do_action('itemAction', {'name': 'delete'})<CR>
 nnoremap <buffer> e
@@ -237,8 +238,10 @@ nnoremap <buffer> O
 "nnoremap <buffer> O
 "\ <Cmd>call ddu#ui#filer#do_action('collapseItem')<CR>
 nnoremap <buffer> c
-\ <Cmd>call ddu#ui#filer#do_action('itemAction',
-\ {'name': 'copy'})<CR>
+\ <Cmd>call ddu#ui#filer#multi_actions([
+\ ['itemAction', {'name': 'copy'}],
+\ ['clearSelectAllItems'],
+\ ])<CR>
 nnoremap <buffer> d
 \ <Cmd>call ddu#ui#filer#do_action('itemAction',
 \ {'name': 'trash'})<CR>
