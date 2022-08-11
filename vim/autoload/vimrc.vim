@@ -89,7 +89,7 @@ endfunction
 function! vimrc#enable_syntax() abort
   syntax enable
 
-  if has('nvim') && exists(':TSEnableAll')
+  if has('nvim') && exists(':TSEnable')
     TSBufEnable highlight
     TSBufEnable context_commentstring
   endif
@@ -99,7 +99,7 @@ function! vimrc#disable_syntax() abort
     syntax off
   endif
 
-  if has('nvim') && exists(':TSEnableAll')
+  if has('nvim') && exists(':TSEnable')
     TSBufDisable highlight
     TSBufDisable context_commentstring
   endif
