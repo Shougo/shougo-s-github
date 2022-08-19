@@ -208,6 +208,8 @@ nnoremap <buffer> u
 \     },
 \   },
 \ })<CR>
+xnoremap <silent><buffer> <Space>
+\ :call ddu#ui#ff#do_action('toggleSelectItem')<CR>
 '''
 ddu-ff-filter = '''
 inoremap <buffer> <CR>
