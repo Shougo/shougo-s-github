@@ -78,6 +78,7 @@ hook_source = '''
       \   'matchers': ['skkeleton'],
       \   'sorters': [],
       \   'minAutoCompleteLength': 2,
+      \   'isVolatile': v:true,
       \ }})
   call ddc#custom#patch_filetype(
       \ ['help', 'markdown', 'gitcommit'], 'sources',
