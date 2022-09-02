@@ -246,10 +246,10 @@ nnoremap <buffer> c
 \ ])<CR>
 nnoremap <buffer> d
 \ <Cmd>call ddu#ui#filer#do_action('itemAction',
-\ {'name': 'trash'})<CR>
+\ {'name': 'delete'})<CR>
 nnoremap <buffer> D
 \ <Cmd>call ddu#ui#filer#do_action('itemAction',
-\ {'name': 'delete'})<CR>
+\ {'name': 'trash'})<CR>
 nnoremap <buffer> m
 \ <Cmd>call ddu#ui#filer#do_action('itemAction',
 \ {'name': 'move'})<CR>
