@@ -142,10 +142,27 @@ call ddu#custom#patch_global({
     \   }
     \ })
 
-"call ddu#custom#action('kind', 'file', 'test',
-"    \ { args -> execute('let g:foo = 1') })
-"call ddu#custom#action('source', 'file_old', 'test2',
-"    \ { args -> execute('let g:bar = 1') })
+call ddu#custom#action('kind', 'file', 'grep',
+    \ { args -> GrepAction(args) })
+function! GrepAction(args)
+  " NOTE: param "path" must be one directory
+  let path = a:args.items[0].action.path
+  let directory = isdirectory(path) ? path : fnamemodify(path, ':h')
+
+  call ddu#start({
+      \ "name": a:args.options.name,
+      \ "push": v:true,
+      \ "sources": [
+      \   {
+      \     "name": "rg",
+      \     "params": {
+      \       "path": path,
+      \       "input": input('Pattern: '),
+      \     },
+      \   },
+      \ ],
+      \ })
+endfunction
 '''
 
 [[plugins]]
@@ -200,6 +217,8 @@ nnoremap <buffer> r
 \ <Cmd>call ddu#ui#ff#do_action('itemAction', {'name': 'quickfix'})<CR>
 nnoremap <buffer> yy
 \ <Cmd>call ddu#ui#ff#do_action('itemAction', {'name': 'yank'})<CR>
+nnoremap <buffer> gr
+\ <Cmd>call ddu#ui#ff#do_action('itemAction', {'name': 'grep'})<CR>
 nnoremap <buffer> u
 \ <Cmd>call ddu#ui#ff#do_action('updateOptions', {
 \   'sourceOptions': {
