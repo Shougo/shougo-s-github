@@ -315,6 +315,8 @@ nnoremap <buffer><expr> l
 \ ddu#ui#filer#is_directory() ?
 \ "<Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'narrow'})<CR>" :
 \ "<Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'open'})<CR>"
+nnoremap <buffer> gr
+\ <Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'grep'})<CR>
 
 function! ToggleHidden(name)
   let current = ddu#custom#get_current(b:ddu_ui_name)
