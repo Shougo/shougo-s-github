@@ -82,13 +82,13 @@ hook_source = '''
       \ }})
   call ddc#custom#patch_filetype(
       \ ['help', 'markdown', 'gitcommit'], 'sources',
-      \ ['input', 'around', 'rg', 'mocword']
+      \ ['around', 'rg', 'mocword']
       \ )
 
   if has('nvim')
     call ddc#custom#patch_filetype(
             \ ['typescript', 'go', 'python'], 'sources',
-            \ ['input', 'nvim-lsp', 'around']
+            \ ['nvim-lsp', 'around']
             \ )
   endif
 
