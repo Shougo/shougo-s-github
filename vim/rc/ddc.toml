@@ -4,10 +4,10 @@ depends = ['context_filetype.vim', 'denops.vim', 'pum.vim']
 on_event = ['InsertEnter', 'CursorHold']
 hook_source = '''
   call ddc#custom#patch_global('sources',
-      \ ['around', 'file', 'rg']
+      \ ['around', 'file', 'rg'],
       \ )
   call ddc#custom#patch_global('cmdlineSources',
-      \ ['cmdline-history', 'input', 'file', 'around']
+      \ ['cmdline-history', 'input', 'file', 'around'],
       \ )
 
   call ddc#custom#patch_global('sourceOptions', {
@@ -16,7 +16,7 @@ hook_source = '''
       \   'matchers': ['matcher_head'],
       \   'sorters': ['sorter_rank'],
       \   'converters': [
-      \     'converter_remove_overlap', 'converter_truncate_abbr'
+      \     'converter_remove_overlap', 'converter_truncate_abbr',
       \   ],
       \ },
       \ 'around': {
@@ -28,13 +28,13 @@ hook_source = '''
       \ 'cmdline': {
       \   'mark': 'cmdline',
       \   'forceCompletionPattern': '\S/\S*',
-      \   'dup': v:true,
+      \   'dup': 'force',
       \ },
       \ 'input': {
       \   'mark': 'input',
       \   'forceCompletionPattern': '\S/\S*',
       \   'isVolatile': v:true,
-      \   'dup': v:true,
+      \   'dup': 'force',
       \ },
       \ 'mocword': {
       \   'mark': 'mocword',
@@ -43,17 +43,18 @@ hook_source = '''
       \ },
       \ 'nvim-lsp': {
       \   'mark': 'lsp',
-      \   'forceCompletionPattern': '\.\w*|:\w*|->\w*'
+      \   'forceCompletionPattern': '\.\w*|:\w*|->\w*',
+      \   'dup': 'force',
       \ },
       \ 'rtags': {
       \   'mark': 'R',
-      \   'forceCompletionPattern': '\.\w*|:\w*|->\w*'
+      \   'forceCompletionPattern': '\.\w*|:\w*|->\w*',
       \ },
       \ 'file': {
       \   'mark': 'F',
       \   'isVolatile': v:true,
       \   'minAutoCompleteLength': 1000,
-      \   'forceCompletionPattern': '\S/\S*'
+      \   'forceCompletionPattern': '\S/\S*',
       \ },
       \ 'cmdline-history': {
       \   'mark': 'history',
@@ -63,7 +64,7 @@ hook_source = '''
       \ 'zsh': {
       \   'mark': 'zsh',
       \   'isVolatile': v:true,
-      \   'forceCompletionPattern': '\S/\S*'
+      \   'forceCompletionPattern': '\S/\S*',
       \ },
       \ 'rg': {
       \   'mark': 'rg',
@@ -88,7 +89,7 @@ hook_source = '''
   if has('nvim')
     call ddc#custom#patch_filetype(
             \ ['typescript', 'go', 'python'], 'sources',
-            \ ['nvim-lsp', 'around']
+            \ ['around', 'nvim-lsp']
             \ )
   endif
 
