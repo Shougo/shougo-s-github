@@ -27,115 +27,6 @@ hook_source = '''
 '''
 
 [[plugins]]
-repo = 'Shougo/defx.nvim'
-hook_add = '''
-  "nnoremap <silent>   [Space]f
-  "\ <Cmd>Defx -listed -resume -buffer-name=win-`win_getid()`<CR>
-'''
-hook_source = '''
-  call defx#custom#column('mark', {
-          \ 'readonly_icon': '✗',
-          \ 'selected_icon': '✓',
-          \ })
-  call defx#custom#column('icon', {
-          \ 'directory_icon': '+',
-          \ 'opened_icon': '-',
-          \ 'root_icon': ' ',
-          \ })
-  call defx#custom#column('icon', {
-        \ 'directory_icon': '▸ ',
-        \ 'file_icon': '  ',
-        \ 'opened_icon': '▾ ',
-        \ 'root_icon': '  ',
-        \ })
-'''
-[plugins.ftplugin]
-defx = '''
-  " Define mappings
-  nnoremap <silent><buffer><expr> <CR>
-  \ defx#is_binary() ?
-  \ defx#do_action('execute_system') :
-  \ defx#do_action('open')
-  nnoremap <silent><buffer><expr> +
-  \ defx#do_action('open', 'choose')
-  nnoremap <silent><buffer><expr> c
-  \ defx#do_action('copy')
-  nnoremap <silent><buffer><expr> !
-  \ defx#do_action('execute_command')
-  nnoremap <silent><buffer><expr> &
-  \ defx#do_action('execute_command', ['', 'async'])
-  nnoremap <silent><buffer><expr> m
-  \ defx#do_action('move')
-  nnoremap <silent><buffer><expr> p
-  \ defx#do_action('paste')
-  nnoremap <silent><buffer><expr> l
-  \ defx#do_action('open')
-  nnoremap <silent><buffer><expr> E
-  \ defx#do_action('open', 'vsplit')
-  nnoremap <silent><buffer><expr> L
-  \ defx#do_action('link')
-  nnoremap <silent><buffer><expr> P
-  \ defx#do_action('preview')
-  nnoremap <silent><buffer><expr> o
-  \ defx#do_action('open_tree', ['nested', 'toggle'])
-  nnoremap <silent><buffer><expr> O
-  \ defx#do_action('open_tree', 'recursive')
-  nnoremap <silent><buffer><expr> K
-  \ defx#do_action('new_directory', ['open', 'open_tree'])
-  nnoremap <silent><buffer><expr> N
-  \ defx#do_action('new_file', ['open', 'drop'])
-  nnoremap <silent><buffer><expr> M
-  \ defx#do_action('new_multiple_files')
-  nnoremap <silent><buffer><expr> C
-  \ defx#do_action('toggle_columns', 'mark:filename:type:size:time')
-  nnoremap <silent><buffer><expr> S
-  \ defx#do_action('toggle_sort', 'Time')
-  nnoremap <silent><buffer><expr> se
-  \ defx#do_action('add_session')
-  nnoremap <silent><buffer><expr> sl
-  \ defx#do_action('load_session')
-  nnoremap <silent><buffer><expr> d
-  \ defx#do_action('remove_trash')
-  nnoremap <silent><buffer><expr> r
-  \ defx#do_action('rename')
-  nnoremap <silent><buffer><expr> x
-  \ defx#do_action('execute_system')
-  nnoremap <silent><buffer><expr> >
-  \ defx#do_action('toggle_ignored_files')
-  nnoremap <silent><buffer><expr> <
-  \ defx#do_action('change_ignored_files')
-  nnoremap <silent><buffer><expr> .
-  \ defx#do_action('repeat')
-  nnoremap <silent><buffer><expr> yy
-  \ defx#do_action('yank_path')
-  nnoremap <silent><buffer><expr> h
-  \ defx#do_action('cd', ['..', '', 'nohist'])
-  nnoremap <silent><buffer><expr> ~
-  \ defx#do_action('cd')
-  nnoremap <silent><buffer><expr> \
-  \ defx#do_action('cd', getcwd())
-  nnoremap <silent><buffer><expr> q
-  \ defx#do_action('quit')
-  nnoremap <silent><buffer><expr> <Space>
-  \ defx#do_action('toggle_select') . 'j'
-  nnoremap <silent><buffer><expr> *
-  \ defx#do_action('toggle_select_all')
-  nnoremap <silent><buffer><expr> j
-  \ line('.') == line('$') ? 'gg' : 'j'
-  nnoremap <silent><buffer><expr> k
-  \ line('.') == 1 ? 'G' : 'k'
-  nnoremap <silent><buffer><expr> <C-l>
-  \ defx#do_action('redraw')
-  xnoremap <silent><buffer><expr> <CR>
-  \ defx#do_action('toggle_select_visual')
-  nnoremap <silent><buffer><expr> <C-g>
-  \ defx#do_action('print')
-  nnoremap <silent><buffer><expr> <Tab> winnr('$') != 1 ?
-  \ '<Cmd>wincmd w<CR>' :
-  \ '<Cmd>Defx -buffer-name=temp -split=vertical<CR>'
-'''
-
-[[plugins]]
 repo = 'Shougo/context_filetype.vim'
 hook_source = '''
 let g:context_filetype#ignore_patterns = {
@@ -280,9 +171,6 @@ on_ft = ['qf']
 qf = '''
   nnoremap <buffer> r <Cmd>Qfreplace<CR>
 '''
-
-[[plugins]]
-repo = 'thinca/vim-scouter'
 
 [[plugins]]
 repo = 'tyru/open-browser.vim'
@@ -444,9 +332,6 @@ xmap ;; <Plug>(eft-repeat)
 nmap f <Plug>(eft-f)
 xmap f <Plug>(eft-f)
 omap f <Plug>(eft-f)
-nmap F <Plug>(eft-F)
-xmap F <Plug>(eft-F)
-omap F <Plug>(eft-F)
 '''
 on_map = {n = '<Plug>', x = '<Plug>', o = '<Plug>'}
 
@@ -474,15 +359,6 @@ repo = 'mattn/vim-treesitter'
 build = 'cd server && go build'
 if = '!has("nvim")'
 #on_event = 'BufRead'
-
-[[plugins]]
-repo = 'Shougo/echodoc.vim'
-on_event = 'InsertEnter'
-hook_source = '''
-  call echodoc#enable()
-  let g:echodoc#type = has('nvim') ? 'floating' : 'popup'
-  let g:echodoc#events = ['PumCompleteDone', 'TextChangedP', 'PumCompleteChanged']
-'''
 
 [[plugins]]
 repo = 'github/copilot.vim'
@@ -526,26 +402,12 @@ nnoremap <C-p> <Cmd>lua require'fine-cmdline'.setup({
 '''
 
 [[plugins]]
-repo = 'MunifTanjim/nui.nvim'
-
-[[plugins]]
 repo = 'yuki-yano/fuzzy-motion.vim'
 depends = 'denops.vim'
 if = 'has("nvim")'
 on_cmd = 'FuzzyMotion'
 hook_add = '''
   nnoremap F   <Cmd>FuzzyMotion<CR>
-'''
-
-[[plugins]]
-repo = 'tversteeg/registers.nvim'
-depends = 'denops.vim'
-if = 'has("nvim")'
-on_map = '"'
-hook_source = '''
-let g:registers_paste_in_normal_mode = 1
-let g:registers_hide_only_whitespace = 1
-let g:registers_show_empty_registers = 0
 '''
 
 [[plugins]]
