@@ -1,0 +1,272 @@
+modkey = "Alt"
+mousekey = "Alt"
+workspaces = []
+tags = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+layouts = ["MainAndVertStack", "MainAndHorizontalStack", "MainAndDeck", "GridHorizontal", "EvenHorizontal", "EvenVertical", "Fibonacci", "LeftMain", "CenterMain", "CenterMainBalanced", "CenterMainFluid", "Monocle", "RightWiderLeftStack", "LeftWiderRightStack"]
+layout_mode = "Workspace"
+insert_behavior = "Bottom"
+scratchpad = []
+window_rules = []
+disable_current_tag_swap = false
+disable_tile_drag = false
+focus_behaviour = "Sloppy"
+focus_new_windows = true
+max_window_width = 1.0
+
+[[keybind]]
+command = "Execute"
+value = "dmenu_run"
+modifier = ["modkey"]
+key = "p"
+
+[[keybind]]
+command = "Execute"
+value = "alacritty"
+modifier = ["modkey"]
+key = "Return"
+
+[[keybind]]
+command = "CloseWindow"
+value = ""
+modifier = ["modkey"]
+key = "q"
+
+[[keybind]]
+command = "SoftReload"
+value = ""
+modifier = ["modkey", "Shift"]
+key = "r"
+
+[[keybind]]
+command = "Execute"
+value = "loginctl kill-session $XDG_SESSION_ID"
+modifier = ["modkey", "Shift"]
+key = "x"
+
+[[keybind]]
+command = "Execute"
+value = "slock"
+modifier = ["modkey", "Control"]
+key = "l"
+
+[[keybind]]
+command = "MoveToLastWorkspace"
+value = ""
+modifier = ["modkey", "Shift"]
+key = "w"
+
+[[keybind]]
+command = "SwapTags"
+value = ""
+modifier = ["modkey"]
+key = "w"
+
+[[keybind]]
+command = "MoveWindowUp"
+value = ""
+modifier = ["modkey", "Shift"]
+key = "k"
+
+[[keybind]]
+command = "MoveWindowDown"
+value = ""
+modifier = ["modkey", "Shift"]
+key = "j"
+
+[[keybind]]
+command = "MoveWindowTop"
+value = ""
+modifier = ["modkey", "Shift"]
+key = "Return"
+
+[[keybind]]
+command = "FocusWindowUp"
+value = ""
+modifier = ["modkey"]
+key = "k"
+
+[[keybind]]
+command = "FocusWindowDown"
+value = ""
+modifier = ["modkey"]
+key = "j"
+
+[[keybind]]
+command = "NextLayout"
+value = ""
+modifier = ["modkey", "Control"]
+key = "k"
+
+[[keybind]]
+command = "PreviousLayout"
+value = ""
+modifier = ["modkey", "Control"]
+key = "j"
+
+[[keybind]]
+command = "FocusWorkspaceNext"
+value = ""
+modifier = ["modkey"]
+key = "l"
+
+[[keybind]]
+command = "FocusWorkspacePrevious"
+value = ""
+modifier = ["modkey"]
+key = "h"
+
+[[keybind]]
+command = "MoveWindowUp"
+value = ""
+modifier = ["modkey", "Shift"]
+key = "Up"
+
+[[keybind]]
+command = "MoveWindowDown"
+value = ""
+modifier = ["modkey", "Shift"]
+key = "Down"
+
+[[keybind]]
+command = "FocusWindowUp"
+value = ""
+modifier = ["modkey"]
+key = "Up"
+
+[[keybind]]
+command = "FocusWindowDown"
+value = ""
+modifier = ["modkey"]
+key = "Down"
+
+[[keybind]]
+command = "NextLayout"
+value = ""
+modifier = ["modkey", "Control"]
+key = "Up"
+
+[[keybind]]
+command = "PreviousLayout"
+value = ""
+modifier = ["modkey", "Control"]
+key = "Down"
+
+[[keybind]]
+command = "FocusWorkspaceNext"
+value = ""
+modifier = ["modkey"]
+key = "Right"
+
+[[keybind]]
+command = "FocusWorkspacePrevious"
+value = ""
+modifier = ["modkey"]
+key = "Left"
+
+[[keybind]]
+command = "GotoTag"
+value = "1"
+modifier = ["modkey"]
+key = "1"
+
+[[keybind]]
+command = "GotoTag"
+value = "2"
+modifier = ["modkey"]
+key = "2"
+
+[[keybind]]
+command = "GotoTag"
+value = "3"
+modifier = ["modkey"]
+key = "3"
+
+[[keybind]]
+command = "GotoTag"
+value = "4"
+modifier = ["modkey"]
+key = "4"
+
+[[keybind]]
+command = "GotoTag"
+value = "5"
+modifier = ["modkey"]
+key = "5"
+
+[[keybind]]
+command = "GotoTag"
+value = "6"
+modifier = ["modkey"]
+key = "6"
+
+[[keybind]]
+command = "GotoTag"
+value = "7"
+modifier = ["modkey"]
+key = "7"
+
+[[keybind]]
+command = "GotoTag"
+value = "8"
+modifier = ["modkey"]
+key = "8"
+
+[[keybind]]
+command = "GotoTag"
+value = "9"
+modifier = ["modkey"]
+key = "9"
+
+[[keybind]]
+command = "MoveToTag"
+value = "1"
+modifier = ["modkey", "Shift"]
+key = "1"
+
+[[keybind]]
+command = "MoveToTag"
+value = "2"
+modifier = ["modkey", "Shift"]
+key = "2"
+
+[[keybind]]
+command = "MoveToTag"
+value = "3"
+modifier = ["modkey", "Shift"]
+key = "3"
+
+[[keybind]]
+command = "MoveToTag"
+value = "4"
+modifier = ["modkey", "Shift"]
+key = "4"
+
+[[keybind]]
+command = "MoveToTag"
+value = "5"
+modifier = ["modkey", "Shift"]
+key = "5"
+
+[[keybind]]
+command = "MoveToTag"
+value = "6"
+modifier = ["modkey", "Shift"]
+key = "6"
+
+[[keybind]]
+command = "MoveToTag"
+value = "7"
+modifier = ["modkey", "Shift"]
+key = "7"
+
+[[keybind]]
+command = "MoveToTag"
+value = "8"
+modifier = ["modkey", "Shift"]
+key = "8"
+
+[[keybind]]
+command = "MoveToTag"
+value = "9"
+modifier = ["modkey", "Shift"]
+key = "9"
