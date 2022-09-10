@@ -41,6 +41,12 @@ key = "r"
 command = "Execute"
 value = "loginctl kill-session $XDG_SESSION_ID"
 modifier = ["modkey", "Shift"]
+key = "e"
+
+[[keybind]]
+command = "Execute"
+value = "firefox"
+modifier = ["modkey""]
 key = "x"
 
 [[keybind]]
