@@ -1,0 +1,123 @@
+[[plugins]]
+repo = 'nvim-treesitter/nvim-treesitter'
+if = '!has("win32")'
+on_event = 'BufRead'
+hook_post_update = 'TSUpdate'
+hook_source = '''
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+    ensure_installed = 'all',
+    additional_vim_regex_highlighting = false,
+    highlight = {
+        enable = true,
+        disable = {'c', 'help'},
+    },
+}
+EOF
+
+" Enable syntax for non treesitter highlights
+autocmd MyAutoCmd FileType c,help,gitcommit
+\ if &l:syntax == '' | syntax enable | endif
+
+" Custom colors
+highlight CandyBlue         gui=NONE guibg=#2c2c2c guifg=#1e95fd
+highlight CandyCranberry    gui=NONE guibg=#2c2c2c guifg=#4ae2e2
+highlight CandyEmerald      gui=NONE guibg=#2c2c2c guifg=#44ff44
+highlight CandyGreen        gui=NONE guibg=#2c2c2c guifg=#66ff66
+highlight CandyLime         gui=NONE guibg=#2c2c2c guifg=#4ae2e2
+highlight CandyOrange       gui=NONE guibg=#2c2c2c guifg=#ffb30a
+highlight CandyRed          gui=NONE guibg=#2c2c2c guifg=#ff6666
+highlight CandySky          gui=NONE guibg=#2c2c2c guifg=#6699ff
+highlight CandyViolet       gui=NONE guibg=#2c2c2c guifg=#ff13ff
+highlight CandyWhite        gui=NONE guibg=#2c2c2c guifg=#cccccc
+highlight CandyYellow       gui=NONE guibg=#2c2c2c guifg=#ffd30a
+highlight CandyCoral        gui=NONE guibg=#2c2c2c guifg=#f820ff
+highlight CandyTurquoise    gui=NONE guibg=#2c2c2c guifg=#1bc8c8
+highlight CandyCrimson      gui=NONE guibg=#2c2c2c guifg=#ff4444
+
+" neovim treesitter colors
+highlight! link TSAnnotation      CandyViolet
+highlight! link TSAttribute       CandySky
+highlight! link TSBoolean         Boolean
+highlight! link TSCharacter       Character
+highlight! link TSConditional     CandyCoral
+highlight! link TSConstBuiltin    CandyGreen
+highlight! link TSConstMacro      CandyViolet
+highlight! link TSConstant        Constant
+highlight! link TSConstructor     CandyEmerald
+highlight! link TSError           Error
+highlight! link TSException       Exception
+highlight! link TSField           CandyBlue
+highlight! link TSFloat           Float
+highlight! link TSFuncBuiltin     CandySky
+highlight! link TSFuncMacro       CandySky
+highlight! link TSFunction        CandyCranberry
+highlight! link TSInclude         CandyCranberry
+highlight! link TSKeyword         CandyEmerald
+highlight! link TSKeywordFunction Keyword
+highlight! link TSKeywordOperator CandyViolet
+highlight! link TSLabel           Label
+highlight! link TSLiteral         CandyYellow
+highlight! link TSMethod          CandyTurquoise
+highlight! link TSNamespace       CandyBlue
+highlight! link TSNone            Normal
+highlight! link TSNumber          Number
+highlight! link TSOperator        Operator
+highlight! link TSParameter       CandyWhite
+highlight! link TSParameterReference CandyWhite
+highlight! link TSProperty        Identifier
+highlight! link TSPunctBracket    CandyOrange
+highlight! link TSPunctDelimiter  CandyLime
+highlight! link TSPunctSpecial    Special
+highlight! link TSRepeat          Repeat
+highlight! link TSString          String
+highlight! link TSStringEscape    SpecialChar
+highlight! link TSStringRegex     String
+highlight! link TSTag             CandyBlue
+highlight! link TSTagDelimiter    CandyLime
+highlight! link TSText            TSNone
+highlight! link TSTitle           Title
+highlight! link TSType            Type
+highlight! link TSTypeBuiltin     Type
+highlight! link TSURL             Underlined
+highlight! link TSUnderline       Underlined
+highlight! link TSVariableBuiltin CandyLime
+'''
+
+[[plugins]]
+repo = 'VonHeikemen/fine-cmdline.nvim'
+depends = 'nui.nvim'
+on_lua = 'fine-cmdline'
+hook_add = '''
+nnoremap <C-p> <Cmd>lua require'fine-cmdline'.setup({
+\  cmdline = {
+\    enable_keymaps = false
+\  },
+\  popup = {
+\    buf_options = {
+\      filetype = 'FineCmdlinePrompt'
+\    },
+\  },
+\  hooks = {
+\    before_mount = function(input)
+\      input.input_props.prompt = ''
+\    end,
+\    set_keymaps = function(imap, feedkeys)
+\      local fn = require('fine-cmdline').fn
+\      imap('<Esc'..'>', fn.close)
+\      imap('<C-c>', fn.close)
+\      imap('jj', fn.close)
+\      imap('<C-p>', fn.up_history)
+\      imap('<C-n>', fn.down_history)
+\    end,
+\  },
+\})<CR><Cmd>lua require('fine-cmdline').open()<CR>
+'''
+
+[[plugins]]
+repo = 'yuki-yano/fuzzy-motion.vim'
+depends = 'denops.vim'
+on_cmd = 'FuzzyMotion'
+hook_add = '''
+  nnoremap F   <Cmd>FuzzyMotion<CR>
+'''

@@ -20,13 +20,6 @@ repo = 'Shirk/vim-gas'
 #repo = 'chrisbra/vim-zsh'
 
 [[plugins]]
-repo = 'roxma/vim-hug-neovim-rpc'
-on_if = '!has("nvim")'
-
-[[plugins]]
-repo = 'roxma/nvim-yarp'
-
-[[plugins]]
 repo = 'vim-jp/syntax-vim-ex'
 
 [[plugins]]

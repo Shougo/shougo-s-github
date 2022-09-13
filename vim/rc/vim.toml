@@ -1,0 +1,7 @@
+[[plugins]]
+repo = 'mattn/vim-notification'
+
+[[plugins]]
+repo = 'mattn/vim-treesitter'
+build = 'cd server && go build'
+#on_event = 'BufRead'

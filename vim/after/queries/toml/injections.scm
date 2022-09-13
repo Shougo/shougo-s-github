@@ -1,3 +1,4 @@
+;; extends
 ((pair
   (bare_key) @_key
   (string) @vim)
