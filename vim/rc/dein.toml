@@ -37,5 +37,5 @@ repo = 'rbtnn/vim-vimscript_indentexpr'
 [[plugins]]
 repo = 'mboughaba/i3config.vim'
 hook_add = '''
-autocmd MyAutoCmd BufNewFile,BufRead *i3/config set filetype=i3config
+  autocmd MyAutoCmd BufNewFile,BufRead *i3/config set filetype=i3config
 '''

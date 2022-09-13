@@ -4,6 +4,11 @@
   (string) @none)
  (#vim-match? @_key "^hook_\w*")
  (#offset! @none 0 3 0 -3))
+((pair
+  (bare_key) @_key
+  (string) @none)
+ (#lua-match? @_key "^lua_\w*")
+ (#offset! @none 0 3 0 -3))
 ((table
   (bare_key) @_key
   (pair

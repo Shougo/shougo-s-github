@@ -266,21 +266,6 @@ repo = 'Shougo/ddc-converter_truncate_abbr'
 on_source = 'ddc.vim'
 
 [[plugins]]
-repo = 'neovim/nvim-lspconfig'
-depends = 'impatient.nvim'
-on_ft = ['typescript', 'go', 'python']
-if = 'has("nvim")'
-depends = 'ddc.vim'
-hook_source = '''
-  lua << EOF
-require'lspconfig'.denols.setup{}
-require'lspconfig'.gopls.setup{}
-require'lspconfig'.pylsp.setup{}
---require'lspconfig'.sumneko.setup{}
-EOF
-'''
-
-[[plugins]]
 repo = 'LumaKernel/ddc-file'
 on_source = 'ddc.vim'
 
