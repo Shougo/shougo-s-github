@@ -317,6 +317,9 @@ hook_source = '''
     " Restore sources
     call ddc#custom#set_buffer(s:prev_buffer_config)
   endfunction
+
+  " :mode is needed to redraw screen
+  autocmd MyAutoCmd InsertLeave * mode
 '''
 
 [[plugins]]
