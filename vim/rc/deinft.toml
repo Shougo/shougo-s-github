@@ -26,7 +26,7 @@ hook_add = '''
   autocmd MyAutoCmd BufRead,BufNewFile *.jax setfiletype help
 
   " Enable dein toml synatx
-  " Note: For neovim use nvim-treesitter syntax instead.
+  " NOTE: For neovim use nvim-treesitter syntax instead.
   if !has('nvim')
     autocmd MyAutoCmd CursorHold */rc/*.toml call dein#toml#syntax()
   endif

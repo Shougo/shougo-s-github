@@ -50,7 +50,7 @@ if exists('g:nvui')
   call rpcnotify(1, 'NVUI_ANIMATIONS_ENABLED', v:false)
   call rpcnotify(1, 'NVUI_CURSOR_HIDE_TYPE', v:true)
 
-  " Note: nvui does not use 'titlestring'
+  " NOTE: nvui does not use 'titlestring'
   autocmd MyAutoCmd
         \ BufWritePost,TextChanged,TextChangedI,BufEnter,DirChanged *
         \ call rpcnotify(1, 'NVUI_TB_TITLE', printf('%s%s%s (%s)',

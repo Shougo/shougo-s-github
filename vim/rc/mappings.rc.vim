@@ -171,7 +171,7 @@ command! -range -nargs=1 AddNumbers
 nnoremap <silent> #    <C-^>
 
 if exists(':tnoremap')
-  " Note: Does not overwrite <ESC> behavior
+  " NOTE: Does not overwrite <ESC> behavior
   if has('nvim')
     tnoremap   jj         <C-\><C-n>
   else

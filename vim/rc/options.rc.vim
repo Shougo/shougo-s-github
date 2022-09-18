@@ -132,7 +132,7 @@ endfunction
 set formatexpr=autofmt#japanese#formatexpr()
 
 " Use blowfish2
-" Note: It seems 15ms overhead.
+" NOTE: It seems 15ms overhead.
 " https://dgl.cx/2014/10/vim-blowfish
 " if has('cryptv')
   "  set cryptmethod=blowfish2
@@ -199,7 +199,7 @@ set showtabline=0
 " Set statusline.
 set statusline=%{repeat('─',winwidth('.'))}
 
-" Note: wrap option is very slow!
+" NOTE: wrap option is very slow!
 set nowrap
 " Turn down a long line appointed in 'breakat'
 set linebreak
