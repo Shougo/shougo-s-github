@@ -7,7 +7,7 @@
 ((pair
   (bare_key) @_key
   (string) @none)
- (#lua-match? @_key "^lua_\w*")
+ (#vim-match? @_key "^lua_\w*")
  (#offset! @none 0 3 0 -3))
 ((table
   (bare_key) @_key

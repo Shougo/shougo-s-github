@@ -171,11 +171,14 @@ set laststatus=0
 "autocmd MyAutoCmd CmdlineLeave * set laststatus=2
 
 " Height of the command line.
-try
-  set cmdheight=0
-catch
-  set cmdheight=1
-endtry
+"try
+"  set cmdheight=0
+"catch
+"  set cmdheight=1
+"endtry
+" NOTE: broken cmdheight=0 now
+set cmdheight=1
+
 " Not show command on statusline.
 set noshowcmd
 " Disable ruler
