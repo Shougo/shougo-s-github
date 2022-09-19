@@ -104,6 +104,9 @@ hook_source = '''
       \     'action': {
       \       'defaultAction': 'do',
       \     },
+      \     'readme_viewer': {
+      \       'defaultAction': 'open',
+      \     },
       \   },
       \   'actionOptions': {
       \     'narrow': {
