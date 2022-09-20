@@ -287,4 +287,4 @@ hook_add = '''
   let g:readme_viewer#plugin_manager = 'dein.vim'
   nnoremap <silent> sr <Cmd>Ddu readme_viewer<CR>
 '''
-on_cmd = 'DeinReadme'
+on_cmd = 'DeinOpen'
