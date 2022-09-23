@@ -58,6 +58,7 @@ hook_source = '''
       \ },
       \ 'cmdline-history': {
       \   'mark': 'history',
+      \   'matchers': ['matcher_head', 'matcher_length'],
       \   'sorters': [],
       \ },
       \ 'shell-history': {'mark': 'shell'},
@@ -154,8 +155,11 @@ hook_add = '''
     set wildchar=<C-t>
     set wildcharm=<C-t>
 
+    "cnoremap <expr><buffer> <Tab>
+    "\ pum#visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' :
+    "\ exists('b:ddc_cmdline_completion') ? ddc#manual_complete() : "\<C-t>"
     cnoremap <expr><buffer> <Tab>
-    \ pum#visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' :
+    \ pum#visible() ? '<Cmd>call pum#map#longest_relative(+1)<CR>' :
     \ exists('b:ddc_cmdline_completion') ? ddc#manual_complete() : "\<C-t>"
 
     " Overwrite sources
