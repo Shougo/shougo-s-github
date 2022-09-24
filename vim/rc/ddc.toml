@@ -124,7 +124,7 @@ hook_source = '''
 
   " For insert mode completion
   inoremap <silent><expr> <TAB>
-        \ pum#visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' :
+        \ pum#visible() ? '<Cmd>call pum#map#longest_relative(+1)<CR>' :
         \ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
         \ '<TAB>' : ddc#manual_complete()
   inoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
