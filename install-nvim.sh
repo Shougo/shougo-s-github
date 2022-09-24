@@ -6,7 +6,6 @@ make install
 if [ -d /usr/local/share/nvim/runtime/plugin ]; then
     rm /usr/local/share/nvim/runtime/plugin/gzip.vim
     rm /usr/local/share/nvim/runtime/plugin/health.vim
-    rm /usr/local/share/nvim/runtime/plugin/man.vim
     rm /usr/local/share/nvim/runtime/plugin/matchit.vim
     rm /usr/local/share/nvim/runtime/plugin/matchparen.vim
     rm /usr/local/share/nvim/runtime/plugin/netrwPlugin.vim
