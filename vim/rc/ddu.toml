@@ -4,7 +4,7 @@ depends = 'denops.vim'
 on_source = 'denops.vim'
 hook_add = '''
   nnoremap s<Space> <Cmd>Ddu
-  \ -name=files file_rec
+  \ -name=files file
   \ -source-option-path='`fnamemodify($MYVIMRC, ':h').'/rc'`'<CR>
   nnoremap ss
   \ <Cmd>Ddu -name=files file_point file_old
@@ -66,6 +66,7 @@ hook_source = '''
       \       'matchers': [
       \         'matcher_substring', 'matcher_hidden',
       \       ],
+      \       'sorters': ['sorter_alpha'],
       \     },
       \     'dein': {
       \       'defaultAction': 'cd',
@@ -382,6 +383,10 @@ on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-filter-matcher_hidden'
+on_source = 'ddu.vim'
+
+[[plugins]]
+repo = 'Shougo/ddu-filter-sorter_alpha'
 on_source = 'ddu.vim'
 
 [[plugins]]

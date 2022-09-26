@@ -317,7 +317,6 @@ set signcolumn=no
 
 " Disable cmdwin
 set cedit=
-"set cedit=<C-q>
 
 set redrawtime=0
 
