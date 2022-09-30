@@ -136,6 +136,7 @@ lua_source = '''
   require'lspconfig'.denols.setup{}
   require'lspconfig'.gopls.setup{}
   require'lspconfig'.pylsp.setup{}
+  --require'lspconfig'.vimls.setup{}
   --require'lspconfig'.tailwindcss.setup{}
   --require'lspconfig'.sumneko.setup{}
 '''
