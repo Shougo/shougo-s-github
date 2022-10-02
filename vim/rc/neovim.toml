@@ -146,15 +146,39 @@ repo = 'folke/noice.nvim'
 depends = ['nui.nvim', 'nvim-notify']
 #on_event = 'VimEnter'
 lua_source = '''
-  require'noice'.setup {
+  local noice_config_status_ok, noice_config = pcall(require, "noice.config")
+  if not noice_config_status_ok then
+      return
+  end
+  local noice_hacks_status_ok, noice_hacks = pcall(require, "noice.hacks")
+  if not noice_hacks_status_ok then
+      return
+  end
+  local noice_commands_status_ok, noice_commands = pcall(require, "noice.commands")
+  if not noice_commands_status_ok then
+      return
+  end
+  local noice_router_status_ok, noice_router = pcall(require, "noice.router")
+  if not noice_router_status_ok then
+      return
+  end
+  local noice_ui_status_ok, noice_ui = pcall(require, "noice.ui")
+  if not noice_ui_status_ok then
+      return
+  end
+  noice_config.setup({
     cmdline = {
       enabled = true,
       menu = 'popup',
       icons = {
-        ['/'] = { icon = '/', hl_group = 'DiagnosticWarn' },
-        ['?'] = { icon = '?', hl_group = 'DiagnosticWarn' },
+        ['/'] = { icon = '', hl_group = 'DiagnosticWarn' },
+        ['?'] = { icon = '', hl_group = 'DiagnosticWarn' },
         [':'] = { icon = ':', hl_group = 'DiagnosticInfo', firstc = false },
       },
     },
-  }
+  })
+  noice_hacks.setup()
+  noice_commands.setup()
+  noice_router.setup()
+  noice_ui.setup()
 '''

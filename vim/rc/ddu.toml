@@ -189,6 +189,8 @@ ddu-ff = '''
   nnoremap <buffer> <C-l>
   \ <Cmd>call ddu#ui#ff#do_action('refreshItems')<CR>
   nnoremap <buffer> p
+  \ <Cmd>call ddu#ui#ff#do_action('previewPath')<CR>
+  nnoremap <buffer> P
   \ <Cmd>call ddu#ui#ff#do_action('preview')<CR>
   nnoremap <buffer> q
   \ <Cmd>call ddu#ui#ff#do_action('quit')<CR>
