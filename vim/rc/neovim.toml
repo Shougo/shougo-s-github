@@ -140,3 +140,21 @@ lua_source = '''
   --require'lspconfig'.tailwindcss.setup{}
   --require'lspconfig'.sumneko.setup{}
 '''
+
+[[plugins]]
+repo = 'folke/noice.nvim'
+depends = ['nui.nvim', 'nvim-notify']
+#on_event = 'VimEnter'
+lua_source = '''
+  require'noice'.setup {
+    cmdline = {
+      enabled = true,
+      menu = 'popup',
+      icons = {
+        ['/'] = { icon = '/', hl_group = 'DiagnosticWarn' },
+        ['?'] = { icon = '?', hl_group = 'DiagnosticWarn' },
+        [':'] = { icon = ':', hl_group = 'DiagnosticInfo', firstc = false },
+      },
+    },
+  }
+'''

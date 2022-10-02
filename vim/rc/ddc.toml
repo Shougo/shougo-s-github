@@ -327,9 +327,9 @@ hook_source = '''
 repo = 'Matts966/skk-vconv.vim'
 on_source = ['skkeleton']
 
-[[plugins]]
-repo = 'matsui54/denops-popup-preview.vim'
-on_source = ['ddc.vim']
-hook_source = '''
-  autocmd MyAutoCmd User PumCompleteChanged call popup_preview#enable()
-'''
+#[[plugins]]
+#repo = 'matsui54/denops-popup-preview.vim'
+#on_source = ['ddc.vim']
+#hook_source = '''
+#  autocmd MyAutoCmd User PumCompleteChanged call popup_preview#enable()
+#'''
