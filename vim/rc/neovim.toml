@@ -83,38 +83,38 @@ hook_source = '''
   highlight! link TSVariableBuiltin CandyLime
 '''
 
-[[plugins]]
-repo = 'VonHeikemen/fine-cmdline.nvim'
-depends = 'nui.nvim'
-on_lua = 'fine-cmdline'
-lua_source = '''
-  require'fine-cmdline'.setup {
-    cmdline = {
-      enable_keymaps = false
-    },
-    popup = {
-      buf_options = {
-        filetype = 'FineCmdlinePrompt'
-      },
-    },
-    hooks = {
-      before_mount = function(input)
-        input.input_props.prompt = ''
-      end,
-      set_keymaps = function(imap, feedkeys)
-        local fn = require('fine-cmdline').fn
-        imap('<Esc'..'>', fn.close)
-        imap('<C-c>', fn.close)
-        imap('jj', fn.close)
-        imap('<C-p>', fn.up_history)
-        imap('<C-n>', fn.down_history)
-      end,
-    },
-  }
-'''
-hook_add = '''
-  nnoremap <C-p> <Cmd>lua require('fine-cmdline').open()<CR>
-'''
+#[[plugins]]
+#repo = 'VonHeikemen/fine-cmdline.nvim'
+#depends = 'nui.nvim'
+#on_lua = 'fine-cmdline'
+#lua_source = '''
+#  require'fine-cmdline'.setup {
+#    cmdline = {
+#      enable_keymaps = false
+#    },
+#    popup = {
+#      buf_options = {
+#        filetype = 'FineCmdlinePrompt'
+#      },
+#    },
+#    hooks = {
+#      before_mount = function(input)
+#        input.input_props.prompt = ''
+#      end,
+#      set_keymaps = function(imap, feedkeys)
+#        local fn = require('fine-cmdline').fn
+#        imap('<Esc'..'>', fn.close)
+#        imap('<C-c>', fn.close)
+#        imap('jj', fn.close)
+#        imap('<C-p>', fn.up_history)
+#        imap('<C-n>', fn.down_history)
+#      end,
+#    },
+#  }
+#'''
+#hook_add = '''
+#  nnoremap <C-p> <Cmd>lua require('fine-cmdline').open()<CR>
+#'''
 
 [[plugins]]
 repo = 'yuki-yano/fuzzy-motion.vim'
@@ -146,39 +146,18 @@ repo = 'folke/noice.nvim'
 depends = ['nui.nvim', 'nvim-notify']
 #on_event = 'VimEnter'
 lua_source = '''
-  local noice_config_status_ok, noice_config = pcall(require, "noice.config")
-  if not noice_config_status_ok then
-      return
-  end
-  local noice_hacks_status_ok, noice_hacks = pcall(require, "noice.hacks")
-  if not noice_hacks_status_ok then
-      return
-  end
-  local noice_commands_status_ok, noice_commands = pcall(require, "noice.commands")
-  if not noice_commands_status_ok then
-      return
-  end
-  local noice_router_status_ok, noice_router = pcall(require, "noice.router")
-  if not noice_router_status_ok then
-      return
-  end
-  local noice_ui_status_ok, noice_ui = pcall(require, "noice.ui")
-  if not noice_ui_status_ok then
-      return
-  end
-  noice_config.setup({
+  require'noice'.setup {
     cmdline = {
       enabled = true,
       menu = 'popup',
       icons = {
-        ['/'] = { icon = '', hl_group = 'DiagnosticWarn' },
-        ['?'] = { icon = '', hl_group = 'DiagnosticWarn' },
+        ['/'] = { icon = '/', hl_group = 'DiagnosticWarn' },
+        ['?'] = { icon = '?', hl_group = 'DiagnosticWarn' },
         [':'] = { icon = ':', hl_group = 'DiagnosticInfo', firstc = false },
       },
     },
-  })
-  noice_hacks.setup()
-  noice_commands.setup()
-  noice_router.setup()
-  noice_ui.setup()
+    popupmenu = {
+      enabled = false,
+    },
+  }
 '''
