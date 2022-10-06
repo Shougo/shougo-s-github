@@ -258,13 +258,6 @@ repo = 'joker1007/vim-markdown-quote-syntax'
 on_ft = 'markdown'
 
 [[plugins]]
-repo = 'rcarriga/nvim-notify'
-on_lua = 'notify'
-on_source = '''
-lua vim.notify = require('notify')
-'''
-
-[[plugins]]
 repo = 'github/copilot.vim'
 on_cmd = 'Copilot'
 hook_source = '''
