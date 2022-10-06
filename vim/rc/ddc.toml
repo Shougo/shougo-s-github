@@ -228,6 +228,10 @@ repo = 'Shougo/ddc-cmdline'
 on_source = 'ddc.vim'
 
 [[plugins]]
+repo = 'Shougo/ddc-copilot'
+on_source = 'ddc.vim'
+
+[[plugins]]
 repo = 'Shougo/ddc-input'
 on_source = 'ddc.vim'
 
