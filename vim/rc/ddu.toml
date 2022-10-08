@@ -201,7 +201,8 @@ ddu-ff = '''
   nnoremap <buffer> c
   \ <Cmd>call ddu#ui#ff#multi_actions('itemAction', {'name': 'cd'})<CR>
   nnoremap <buffer> d
-  \ <Cmd>call ddu#ui#ff#do_action('itemAction', {'name': 'trash'})<CR>
+  \ <Cmd>call ddu#ui#ff#do_action('itemAction',
+  \ b:ddu_ui_name ==# 'filer' ? {'name': 'trash'} : {'name': 'delete'})<CR>
   nnoremap <buffer> e
   \ <Cmd>call ddu#ui#ff#do_action('itemAction', {'name': 'edit'})<CR>
   nnoremap <buffer> E

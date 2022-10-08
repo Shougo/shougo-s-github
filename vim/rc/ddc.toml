@@ -94,12 +94,6 @@ hook_source = '''
             \ )
   endif
 
-  " NOTE: Test for terminal completion
-  "call ddc#custom#patch_filetype(['deol'], {
-  "    \ 'keywordPattern': '[0-9a-zA-Z_./-]',
-  "    \ 'sources': ['zsh', 'shell-history', 'around'],
-  "    \ })
-
   call ddc#custom#patch_filetype(['FineCmdlinePrompt'], {
       \ 'keywordPattern': '[0-9a-zA-Z_:#]*',
       \ 'sources': ['cmdline-history', 'cmdline', 'around'],
@@ -143,6 +137,14 @@ hook_source = '''
   cnoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
   cnoremap <C-c>   <Cmd>call pum#map#cancel()<CR>
   cnoremap <C-o>   <Cmd>call pum#map#confirm()<CR>
+
+  " NOTE: Test for terminal completion
+  call ddc#custom#patch_filetype(['deol'], {
+      \ 'specialBufferCompletion': v:true,
+      \ 'keywordPattern': '[0-9a-zA-Z_./-]',
+      \ 'sources': ['zsh', 'shell-history', 'around'],
+      \ })
+  tnoremap <silent><expr> <C-g>   ddc#manual_complete()
 
   call ddc#enable()
 '''

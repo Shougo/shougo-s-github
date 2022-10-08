@@ -149,7 +149,6 @@ lua_source = '''
   require'noice'.setup {
     cmdline = {
       enabled = true,
-      menu = 'popup',
       icons = {
         ['/'] = { icon = '/', hl_group = 'DiagnosticWarn' },
         ['?'] = { icon = '?', hl_group = 'DiagnosticWarn' },
@@ -159,14 +158,18 @@ lua_source = '''
     popupmenu = {
       enabled = false,
     },
+    messages = {
+      enabled = true,
+    },
   }
 '''
 
 [[plugins]]
 repo = 'rcarriga/nvim-notify'
 on_lua = 'notify'
-hook_source = '''
-lua vim.notify = require('notify')
+lua_source = '''
+  require('notify').setup({})
+  vim.notify = require('notify')
 '''
 
 #[[plugins]]
