@@ -168,8 +168,11 @@ lua_source = '''
 repo = 'rcarriga/nvim-notify'
 on_lua = 'notify'
 lua_source = '''
-  require('notify').setup({})
-  vim.notify = require('notify')
+  require('notify').setup({
+    render = "minimal",
+    stages = "static",
+    timeout = 1000,
+  })
 '''
 
 #[[plugins]]
