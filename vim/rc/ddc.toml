@@ -95,15 +95,15 @@ hook_source = '''
   endif
 
   call ddc#custom#patch_filetype(['FineCmdlinePrompt'], {
-      \ 'keywordPattern': '[0-9a-zA-Z_:#]*',
-      \ 'sources': ['cmdline-history', 'cmdline', 'around'],
+      \ 'keywordPattern': '[0-9a-zA-Z_:#-]*',
+      \ 'sources': ['cmdline-history', 'around'],
       \ 'specialBufferCompletion': v:true,
       \ })
 
   " Use pum.vim
   call ddc#custom#patch_global('autoCompleteEvents', [
       \ 'InsertEnter', 'TextChangedI', 'TextChangedP',
-      \ 'CmdlineEnter', 'CmdlineChanged',
+      \ 'CmdlineEnter', 'CmdlineChanged', 'TermOutput',
       \ ])
   call ddc#custom#patch_global('completionMenu', 'pum.vim')
 
@@ -141,7 +141,7 @@ hook_source = '''
   " NOTE: Test for terminal completion
   call ddc#custom#patch_filetype(['deol'], {
       \ 'specialBufferCompletion': v:true,
-      \ 'keywordPattern': '[0-9a-zA-Z_./-]',
+      \ 'keywordPattern': '[0-9a-zA-Z_./#:-]*',
       \ 'sources': ['zsh', 'shell-history', 'around'],
       \ })
   tnoremap <silent><expr> <C-g>   ddc#manual_complete()
@@ -168,7 +168,7 @@ hook_add = '''
     if a:mode ==# ':'
       call ddc#custom#patch_buffer('cmdlineSources',
               \ ['cmdline-history', 'cmdline', 'around'])
-      call ddc#custom#patch_buffer('keywordPattern', '[0-9a-zA-Z_:#]*')
+      call ddc#custom#patch_buffer('keywordPattern', '[0-9a-zA-Z_:#-]*')
     else
       call ddc#custom#patch_buffer('cmdlineSources',
               \ ['around', 'line'])

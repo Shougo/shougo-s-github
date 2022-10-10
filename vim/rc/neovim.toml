@@ -161,6 +161,12 @@ lua_source = '''
     messages = {
       enabled = true,
     },
+    routes = {
+      {
+        view = "split",
+        filter = { min_width = 500 },
+      },
+    },
   }
 '''
 
