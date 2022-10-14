@@ -119,7 +119,7 @@ hook_source = '''
   " Use pum.vim
   call ddc#custom#patch_global('autoCompleteEvents', [
       \ 'InsertEnter', 'TextChangedI', 'TextChangedP',
-      \ 'CmdlineEnter', 'CmdlineChanged', 'TermOutput',
+      \ 'CmdlineEnter', 'CmdlineChanged', 'TextChangedT',
       \ ])
   call ddc#custom#patch_global('completionMenu', 'pum.vim')
 

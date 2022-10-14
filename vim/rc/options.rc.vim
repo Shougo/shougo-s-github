@@ -173,6 +173,10 @@ set laststatus=0
 " Height of the command line.
 try
   set cmdheight=0
+
+  " For recording messages
+  autocmd MyAutoCmd RecordingEnter * set cmdheight=1
+  autocmd MyAutoCmd RecordingLeave * set cmdheight=0
 catch
   set cmdheight=1
 endtry
@@ -321,6 +325,11 @@ set redrawtime=0
 " Enable true color
 if exists('+termguicolors') && !has('gui_running')
   set termguicolors
+endif
+
+" I use <C-w> in terminal mode
+if exists('+termwinkey')
+  set termwinkey=<C-L>
 endif
 
 " Colorscheme

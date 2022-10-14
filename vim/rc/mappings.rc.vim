@@ -175,8 +175,8 @@ if exists(':tnoremap')
   if has('nvim')
     tnoremap   jj         <C-\><C-n>
   else
-    tnoremap   <ESC><ESC>  <C-w>N
-    tnoremap   jj          <C-w>N
+    tnoremap   <ESC><ESC>  <C-l>N
+    tnoremap   jj          <C-l>N
   endif
   tnoremap   j<Space>   j
   tnoremap <expr> ;  vimrc#sticky_func()
