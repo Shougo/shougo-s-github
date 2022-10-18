@@ -104,6 +104,8 @@ highlight SpecialKey    gui=bold guibg=#2c2c2c guifg=#8080ff
 highlight Title         gui=bold guibg=#2c2c2c guifg=#f0f0f8
 highlight Visual        gui=NONE guibg=#707080 guifg=#e0e0f0
 highlight VisualNOS     gui=bold,underline guibg=bg guifg=fg
+highlight Bold          gui=bold guibg=bg guifg=fg
+highlight Italic        gui=italic guibg=bg guifg=fg
 highlight ColorColumn   gui=NONE guibg=#444444 guifg=fg
 highlight SignColumn    gui=NONE guibg=#2c2c2c guifg=fg
 highlight MatchParen    gui=NONE guibg=#008b8b guifg=fg

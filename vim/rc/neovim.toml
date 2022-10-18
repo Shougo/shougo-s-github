@@ -9,15 +9,21 @@ lua_source = '''
       additional_vim_regex_highlighting = false,
       highlight = {
           enable = true,
-          disable = {'c', 'help'},
+            disable = function(lang, buf)
+                if lang == 'help' then
+                  return true
+                end
+                local max_filesize = 100 * 1024 -- 100 KB
+                local ok, stats = pcall(vim.loop.fs_stat,
+                                        vim.api.nvim_buf_get_name(buf))
+                if ok and stats and stats.size > max_filesize then
+                    return true
+                end
+            end,
       },
   }
 '''
 hook_source = '''
-  " Enable syntax for non treesitter highlights
-  autocmd MyAutoCmd FileType c,help,gitcommit
-  \ if &l:syntax == '' | syntax enable | endif
-
   " Custom colors
   highlight CandyBlue         gui=NONE guibg=#2c2c2c guifg=#1e95fd
   highlight CandyCranberry    gui=NONE guibg=#2c2c2c guifg=#4ae2e2
@@ -35,52 +41,74 @@ hook_source = '''
   highlight CandyCrimson      gui=NONE guibg=#2c2c2c guifg=#ff4444
 
   " neovim treesitter colors
-  highlight! link TSAnnotation      CandyViolet
-  highlight! link TSAttribute       CandySky
-  highlight! link TSBoolean         Boolean
-  highlight! link TSCharacter       Character
-  highlight! link TSConditional     CandyCoral
-  highlight! link TSConstBuiltin    CandyGreen
-  highlight! link TSConstMacro      CandyViolet
-  highlight! link TSConstant        Constant
-  highlight! link TSConstructor     CandyEmerald
-  highlight! link TSError           Error
-  highlight! link TSException       Exception
-  highlight! link TSField           CandyBlue
-  highlight! link TSFloat           Float
-  highlight! link TSFuncBuiltin     CandySky
-  highlight! link TSFuncMacro       CandySky
-  highlight! link TSFunction        CandyCranberry
-  highlight! link TSInclude         CandyCranberry
-  highlight! link TSKeyword         CandyEmerald
-  highlight! link TSKeywordFunction Keyword
-  highlight! link TSKeywordOperator CandyViolet
-  highlight! link TSLabel           Label
-  highlight! link TSLiteral         CandyYellow
-  highlight! link TSMethod          CandyTurquoise
-  highlight! link TSNamespace       CandyBlue
-  highlight! link TSNone            Normal
-  highlight! link TSNumber          Number
-  highlight! link TSOperator        Operator
-  highlight! link TSParameter       CandyWhite
-  highlight! link TSParameterReference CandyWhite
-  highlight! link TSProperty        Identifier
-  highlight! link TSPunctBracket    CandyOrange
-  highlight! link TSPunctDelimiter  CandyLime
-  highlight! link TSPunctSpecial    Special
-  highlight! link TSRepeat          Repeat
-  highlight! link TSString          String
-  highlight! link TSStringEscape    SpecialChar
-  highlight! link TSStringRegex     String
-  highlight! link TSTag             CandyBlue
-  highlight! link TSTagDelimiter    CandyLime
-  highlight! link TSText            TSNone
-  highlight! link TSTitle           Title
-  highlight! link TSType            Type
-  highlight! link TSTypeBuiltin     Type
-  highlight! link TSURL             Underlined
-  highlight! link TSUnderline       Underlined
-  highlight! link TSVariableBuiltin CandyLime
+  highlight! link @boolean          Boolean
+  highlight! link @character        Character
+  highlight! link @character.special SpecialChar
+  highlight! link @comment          Comment
+  highlight! link @conditional      CandyCoral
+  highlight! link @constant         Constant
+  highlight! link @constant.builtin CandyGreen
+  highlight! link @constant.macro   CandyViolet
+  highlight! link @constructor      CandyEmerald
+  highlight! link @debug            Character
+  highlight! link @error            Error
+  highlight! link @exception        Exception
+  highlight! link @field            CandyBlue
+  highlight! link @float            Float
+  highlight! link @function         CandyCranberry
+  highlight! link @function.builtin CandySky
+  highlight! link @function.call    CandySky
+  highlight! link @function.macro   CandySky
+  highlight! link @include          CandyCranberry
+  highlight! link @keyword          CandyEmerald
+  highlight! link @keyword.function Keyword
+  highlight! link @keyword.operator CandyViolet
+  highlight! link @keyword.return   CandyRed
+  highlight! link @label            Label
+  highlight! link @method           CandyTurquoise
+  highlight! link @method.call      CandyTurquoise
+  highlight! link @none             Normal
+  highlight! link @number           Number
+  highlight! link @operator         Operator
+  highlight! link @parameter        CandyWhite
+  highlight! link @preproc          PreProc
+  highlight! link @property         Identifier
+  highlight! link @punctuation.special Special
+  highlight! link @repeat           Repeat
+  highlight! link @string           String
+  highlight! link @string.escape    SpecialChar
+  highlight! link @string.regex     String
+  highlight! link @tag              CandyBlue
+  highlight! link @tag.attribute    CandyBlue
+  highlight! link @tag.delimiter    CandyLime
+  highlight! link @text             None
+  highlight! link @text.tile        Title
+  highlight! link @text.literal     CandyYellow
+  highlight! link @todo             Todo
+  highlight! link @namespace        CandyBlue
+  highlight! link @type             Type
+  highlight! link @type.builtin     Type
+  highlight! link @type.definition  Type
+  highlight! link @type.qualifier   Type
+  highlight! link @attribute        CandyViolet
+  highlight! link @storageclass     CandyBlue
+  highlight! link @symbol           Identifier
+  highlight! link @variable         Identifier
+  highlight! link @variable.builtin CandyLime
+  highlight! link @variable.global  CandyViolet
+  highlight! link @text.strong      Bold
+  highlight! link @text.underline   Underlined
+  highlight! link @text.strike      Underlined
+  highlight! link @text.emphasis    Italic
+  highlight! link @text.uri         Underlined
+  highlight! link @text.note        Todo
+  highlight! link @text.warning     WarningMsg
+  highlight! link @text.danger      ErrorMsg
+
+  highlight! link @text.math        CandyBlue
+  highlight! link @text.environment CandyGreen
+  highlight! link @text.environment.name CandyLime
+  highlight! link @text.reference   CandySky
 '''
 
 #[[plugins]]
@@ -143,7 +171,7 @@ lua_source = '''
 
 [[plugins]]
 repo = 'folke/noice.nvim'
-depends = ['nui.nvim', 'nvim-notify']
+depends = ['nui.nvim']
 #on_event = 'VimEnter'
 lua_source = '''
   require'noice'.setup {
@@ -163,8 +191,13 @@ lua_source = '''
     },
     routes = {
       {
-        view = "split",
-        filter = { min_width = 500 },
+        view = "mini",
+        filter = {
+          event = "msg_show",
+          ["not"] = {
+            kind = { "confirm", "confirm_sub" },
+          },
+        },
       },
     },
   }
