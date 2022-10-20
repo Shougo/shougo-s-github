@@ -193,7 +193,7 @@ lua_source = '''
       {
         view = "mini",
         filter = {
-          event = "msg_show",
+          event = { "msg_show", "msg_showmode" },
           ["not"] = {
             kind = { "confirm", "confirm_sub" },
           },
