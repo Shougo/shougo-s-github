@@ -182,6 +182,7 @@ lua_source = '''
         ['?'] = { icon = '?', hl_group = 'DiagnosticWarn' },
         [':'] = { icon = ':', hl_group = 'DiagnosticInfo', firstc = false },
       },
+      view = "cmdline",
     },
     popupmenu = {
       enabled = false,
@@ -198,6 +199,13 @@ lua_source = '''
             kind = { "confirm", "confirm_sub" },
           },
         },
+      },
+      {
+        filter = {
+          event = "cmdline",
+          find = "^%s*[/?]",
+        },
+        view = "cmdline",
       },
     },
   }
