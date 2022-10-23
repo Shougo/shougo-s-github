@@ -247,7 +247,7 @@ hook_add = '''
   \ -source-option-columns=filename<CR>
 '''
 hook_source = '''
-  autocmd MyAutoCmd TabEnter,WinEnter,CursorHold,FocusGained
+  autocmd MyAutoCmd TabEnter,WinEnter,CursorHold,FocusGained *
   \ call ddu#ui#filer#do_action('checkItems')
 '''
 [plugins.ftplugin]

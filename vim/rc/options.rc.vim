@@ -90,7 +90,7 @@ set isfname+=@-@
 set timeout timeoutlen=3000 ttimeoutlen=100
 
 " CursorHold time.
-set updatetime=100
+set updatetime=500
 
 " Set swap directory.
 set directory-=.

@@ -37,6 +37,7 @@ hook_source = '''
 [[plugins]]
 repo = 'Shougo/deol.nvim'
 depends = ['ddu.vim', 'ddc.vim']
+on_source = ['ddu.vim']
 hook_add = '''
   nnoremap <expr><silent> [Space]s
   \ printf('<Cmd>Deol %s -no-start-insert -toggle<CR>',
