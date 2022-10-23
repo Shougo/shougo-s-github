@@ -246,6 +246,10 @@ hook_add = '''
   \ -source-option-path=`getcwd()`
   \ -source-option-columns=filename<CR>
 '''
+hook_source = '''
+  autocmd MyAutoCmd TabEnter,WinEnter,CursorHold,FocusGained
+  \ call ddu#ui#filer#do_action('checkItems')
+'''
 [plugins.ftplugin]
 ddu-filer = '''
   nnoremap <buffer> <Space>
@@ -331,9 +335,6 @@ ddu-filer = '''
     let matchers = get(source_options_name, 'matchers', [])
     return empty(matchers) ? ['matcher_hidden'] : []
   endfunction
-
-  autocmd TabEnter,CursorHold,FocusGained <buffer>
-  \ call ddu#ui#filer#do_action('checkItems')
 '''
 
 [[plugins]]
