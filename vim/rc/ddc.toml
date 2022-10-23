@@ -232,6 +232,10 @@ repo = 'Shougo/ddc-ui-inline'
 on_source = 'ddc.vim'
 
 [[plugins]]
+repo = 'Shougo/ddc-ui-none'
+on_source = 'ddc.vim'
+
+[[plugins]]
 repo = 'Shougo/ddc-around'
 on_source = 'ddc.vim'
 
