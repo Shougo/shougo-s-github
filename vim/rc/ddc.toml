@@ -236,51 +236,60 @@ repo = 'Shougo/ddc-ui-none'
 on_source = 'ddc.vim'
 
 [[plugins]]
-repo = 'Shougo/ddc-around'
+repo = 'Shougo/ddc-source-around'
 on_source = 'ddc.vim'
 
 [[plugins]]
-repo = 'Shougo/ddc-mocword'
+repo = 'Shougo/ddc-source-mocword'
 on_source = 'ddc.vim'
 
 [[plugins]]
-repo = 'Shougo/ddc-zsh'
+repo = 'Shougo/ddc-source-zsh'
 on_source = 'ddc.vim'
 depends = 'ddc.vim'
 
 [[plugins]]
-repo = 'Shougo/neco-vim'
-on_ft = ['vim', 'toml', 'markdown']
-depends = 'ddc.vim'
-hook_source = '''
-  call ddc#custom#patch_filetype(
-          \ ['vim'], 'sources', ['necovim', 'around', 'file']
-          \ )
-'''
-
-[[plugins]]
-repo = 'Shougo/ddc-cmdline'
+repo = 'Shougo/ddc-source-copilot'
 on_source = 'ddc.vim'
 
 [[plugins]]
-repo = 'Shougo/ddc-copilot'
+repo = 'Shougo/ddc-source-input'
 on_source = 'ddc.vim'
 
 [[plugins]]
-repo = 'Shougo/ddc-input'
+repo = 'Shougo/ddc-source-rg'
 on_source = 'ddc.vim'
 
 [[plugins]]
-repo = 'Shougo/ddc-rg'
+repo = 'Shougo/ddc-source-line'
 on_source = 'ddc.vim'
 
 [[plugins]]
-repo = 'Shougo/ddc-line'
-on_source = 'ddc.vim'
-
-[[plugins]]
-repo = 'Shougo/ddc-nvim-lsp'
+repo = 'Shougo/ddc-source-nvim-lsp'
 on_source = 'nvim-lspconfig'
+
+[[plugins]]
+repo = 'Shougo/ddc-source-cmdline'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc-source-cmdline-history'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc-source-omni'
+
+[[plugins]]
+repo = 'Shougo/ddc-source-rtags'
+on_ft = ['c', 'cpp']
+
+[[plugins]]
+repo = 'matsui54/ddc-buffer'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'LumaKernel/ddc-file'
+on_source = 'ddc.vim'
 
 [[plugins]]
 repo = 'Shougo/ddc-matcher_head'
@@ -295,10 +304,6 @@ repo = 'Shougo/ddc-sorter_rank'
 on_source = 'ddc.vim'
 
 [[plugins]]
-repo = 'Shougo/ddc-cmdline-history'
-on_source = 'ddc.vim'
-
-[[plugins]]
 repo = 'Shougo/ddc-converter_remove_overlap'
 on_source = 'ddc.vim'
 
@@ -307,20 +312,14 @@ repo = 'Shougo/ddc-converter_truncate_abbr'
 on_source = 'ddc.vim'
 
 [[plugins]]
-repo = 'LumaKernel/ddc-file'
-on_source = 'ddc.vim'
-
-[[plugins]]
-repo = 'Shougo/ddc-omni'
-
-[[plugins]]
-repo = 'Shougo/ddc-rtags'
-on_ft = ['c', 'cpp']
-
-[[plugins]]
-repo = 'matsui54/ddc-buffer'
-on_source = 'ddc.vim'
-
+repo = 'Shougo/neco-vim'
+on_ft = ['vim', 'toml', 'markdown']
+depends = 'ddc.vim'
+hook_source = '''
+  call ddc#custom#patch_filetype(
+          \ ['vim'], 'sources', ['necovim', 'around', 'file']
+          \ )
+'''
 
 [[plugins]]
 repo = 'vim-skk/skkeleton'
