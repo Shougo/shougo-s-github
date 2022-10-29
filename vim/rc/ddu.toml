@@ -71,6 +71,9 @@ hook_source = '''
       \     'dein': {
       \       'defaultAction': 'cd',
       \     },
+      \     'markdown': {
+      \       'sorters': [],
+      \     },
       \   },
       \   'sourceParams': {
       \     'file_external': {
