@@ -145,6 +145,10 @@ hook_source = '''
   inoremap <C-e>   <Cmd>call pum#map#cancel()<CR>
   inoremap <silent><expr> <C-l>   ddc#map#extend(pum#map#confirm())
   inoremap <silent><expr> <C-x><C-f> ddc#manual_complete('path')
+  inoremap <expr> l   pum#entered() ?
+        \ '<Cmd> call pum#map#insert_relative(+1)<CR>' : 'l'
+  inoremap <expr> h   pum#entered() ?
+        \ '<Cmd> call pum#map#insert_relative(-1)<CR>' : 'h'
 
   " For command line mode completion
   cnoremap <expr> <Tab>

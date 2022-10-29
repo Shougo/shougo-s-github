@@ -87,7 +87,7 @@ set isfname-==
 set isfname+=@-@
 
 " Keymapping timeout.
-set timeout timeoutlen=3000 ttimeoutlen=100
+set timeout timeoutlen=500 ttimeoutlen=100
 
 " CursorHold time.
 set updatetime=500

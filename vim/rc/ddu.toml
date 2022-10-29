@@ -378,6 +378,10 @@ repo = 'shun/ddu-source-rg'
 on_source = 'ddu.vim'
 
 [[plugins]]
+repo = 'mikanIchinose/ddu-source-markdown'
+on_source = 'ddu.vim'
+
+[[plugins]]
 repo = 'Shougo/ddu-filter-matcher_substring'
 on_source = 'ddu.vim'
 
