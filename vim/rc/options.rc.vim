@@ -141,6 +141,9 @@ set formatexpr=autofmt#japanese#formatexpr()
 " If true Vim master, use English help file.
 set helplang& helplang=en,ja
 
+set spelllang+=cjk
+set spelloptions+=camel
+
 " Default fileformat.
 set fileformat=unix
 " Automatic recognition of a new line cord.
