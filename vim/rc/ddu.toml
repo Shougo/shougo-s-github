@@ -5,28 +5,39 @@ on_source = 'denops.vim'
 hook_add = '''
   nnoremap s<Space> <Cmd>Ddu
   \ -name=files file
-  \ -source-option-path='`fnamemodify($MYVIMRC, ':h').'/rc'`'<CR>
+  \ -source-option-path='`fnamemodify($MYVIMRC, ':h').'/rc'`'
+  \ <CR>
   nnoremap ss
   \ <Cmd>Ddu -name=files file_point file_old
   \ `finddir('.git', ';') != '' ? 'file_external' : 'file'`
-  \ -sync -ui-param-displaySourceName=short<CR>
+  \ -sync -ui-param-displaySourceName=short
+  \ <CR>
   nnoremap / <Cmd>Ddu
   \ -name=search line -resume=v:false
-  \ -ui-param-startFilter<CR>
+  \ -ui-param-startFilter
+  \ <CR>
   nnoremap * <Cmd>Ddu
   \ -name=search line -resume=v:false
   \ -input=`expand('<cword>')`
-  \ -ui-param-startFilter=v:false<CR>
+  \ -ui-param-startFilter=v:false
+  \ <CR>
   nnoremap ;g <Cmd>Ddu
   \ -name=search rg -resume=v:false
   \ -ui-param-ignoreEmpty
-  \ -source-param-input=`input('Pattern: ')`<CR>
+  \ -source-param-input=`input('Pattern: ')`
+  \ <CR>
   nnoremap n <Cmd>Ddu
   \ -name=search -resume
-  \ -ui-param-startFilter=v:false<CR>
+  \ -ui-param-startFilter=v:false
+  \ <CR>
   nnoremap ;r <Cmd>Ddu
   \ -buffer-name=register register
-  \ -ui-param-autoResize<CR>
+  \ -ui-param-autoResize
+  \ <CR>
+  nnoremap ;d <Cmd>Ddu
+  \ -name=outline markdown
+  \ -ui-param-ignoreEmpty -ui-param-displayTree
+  \ <CR>
   xnoremap <expr> ;r (mode() ==# 'V' ? '"_R<Esc>' : '"_d') .
   \ '<Cmd>Ddu -buffer-name=register register
   \  -source-option-defaultAction=insert -ui-param-autoResize<CR>'
@@ -35,7 +46,8 @@ hook_add = '''
   nnoremap [Space]<Space> <Cmd>Ddu
   \ -name=search line -resume=v:false
   \ -source-param-range=window
-  \ -ui-param-startFilter<CR>
+  \ -ui-param-startFilter
+  \ <CR>
 '''
 hook_source = '''
   call ddu#custom#alias('source', 'file_rg', 'file_external')
@@ -92,6 +104,8 @@ hook_source = '''
       \     },
       \     'filer': {
       \       'split': 'no',
+      \       'sort': 'filename',
+      \       'sortTreesFirst': v:true,
       \       'toggle': v:true,
       \     },
       \   },
@@ -201,6 +215,8 @@ ddu-ff = '''
   \ <Cmd>call ddu#ui#ff#do_action('quit')<CR>
   nnoremap <buffer> a
   \ <Cmd>call ddu#ui#ff#do_action('chooseAction')<CR>
+  nnoremap <buffer> o
+  \ <Cmd>call ddu#ui#ff#do_action('expandItem', {'mode': 'toggle'})<CR>
   nnoremap <buffer> c
   \ <Cmd>call ddu#ui#ff#multi_actions('itemAction', {'name': 'cd'})<CR>
   nnoremap <buffer> d

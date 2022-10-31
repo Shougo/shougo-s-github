@@ -283,3 +283,11 @@ hook_add = '''
   nnoremap <silent> sr <Cmd>Ddu readme_viewer<CR>
 '''
 on_cmd = 'DeinOpen'
+
+[[plugins]]
+repo = 'uga-rosa/dps-vsctm.vim'
+on_cmd = 'VsctmHl'
+depends = 'denops.vim'
+hook_source = '''
+  let g:vsctmSyntaxesDir = expand('~/.config/syntaxes')
+'''
