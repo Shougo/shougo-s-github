@@ -8,16 +8,10 @@ repo = 'vim-jp/autofmt'
 repo = 'kana/vim-operator-user'
 
 [[plugins]]
-repo = 'JesseKPhillips/d.vim'
-
-[[plugins]]
 repo = 'vim-jp/vimdoc-ja'
 
 [[plugins]]
 repo = 'Shirk/vim-gas'
-
-#[[plugins]]
-#repo = 'chrisbra/vim-zsh'
 
 [[plugins]]
 repo = 'vim-jp/syntax-vim-ex'
@@ -33,9 +27,3 @@ repo = 'leafOfTree/vim-vue-plugin'
 
 [[plugins]]
 repo = 'rbtnn/vim-vimscript_indentexpr'
-
-[[plugins]]
-repo = 'mboughaba/i3config.vim'
-hook_add = '''
-  autocmd MyAutoCmd BufNewFile,BufRead *i3/config set filetype=i3config
-'''
