@@ -1,7 +1,7 @@
 # sway config file
 #
 
-set $mod Mod4
+set $mod Mod1
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -179,15 +179,6 @@ mode "$mode_system" {
 # hide/unhide i3status bar
 bindsym $mod+m bar mode toggle
 
-# Theme colors
-# class          border  backgr. text    indicator
-client.focused   #444444 #444444 #CCCCCC #2ECC71
-client.unfocused #16404B #16404B #2ECC71 #222222
-client.urgent    #274D01 #900000 #FFFFFF #900000
-
-# Use US keymap
-exec --no-startup-id setxkbmap -option ctrl:nocaps -rules evdev -model us -layout us
-
 # My mappings
 bindsym $mod+x exec firefox
 
@@ -196,12 +187,26 @@ bindsym $mod+h workspace prev
 
 bindsym $mod+Tab exec --no-startup-id rofi -i -show window
 bindsym $mod+s exec --no-startup-id rofi -i -show ssl -ternimal st
-bindsym $mod+Shift+l exec --no-startup-id i3exit lock
+bindsym $mod+Shift+l exec --no-startup-id swaylock
 bindsym $mod+Shift+e exec --no-startup-id i3exit logout
 bindsym $mod+Shift+s exec --no-startup-id systemctl suspend
 
-# Accelarate keyboard repeat
 input type:keyboard {
+    # Accelarate keyboard repeat
     repeat_delay 200
     repeat_rate 30
+
+    # Use US
+    xkb_layout us
+
+    # Use ctrl caps keymap
+    xkb_options ctrl:nocaps
 }
+
+# Theme colors
+# class          border  backgr. text    indicator
+client.focused   #444444 #444444 #CCCCCC #2ECC71
+client.unfocused #16404B #16404B #2ECC71 #222222
+client.urgent    #274D01 #900000 #FFFFFF #900000
+# background
+output * bg #000000 solid_color
