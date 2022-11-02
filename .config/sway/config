@@ -4,7 +4,7 @@
 set $mod Mod1
 
 # Use foot terminal
-set $term foot
+set $term footclient
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -30,7 +30,8 @@ bindsym $mod+Return exec $term zsh
 bindsym $mod+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --dmenu='rofi -i -dmenu'
+# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --dmenu='rofi -i -dmenu'
+bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --dmenu='wofi --i --show dmenu'
 
 # change focus
 bindsym $mod+j focus right
@@ -60,7 +61,7 @@ bindsym $mod+Shift+Right move right
 # bindsym $mod+h split h
 
 # split in vertical orientation
-#bindsym $mod+v split v
+# bindsym $mod+v split v
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
@@ -68,7 +69,7 @@ bindsym $mod+f fullscreen toggle
 # change container layout (stacked, tabbed, toggle split)
 # bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
-#bindsym $mod+e layout toggle split
+# bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
@@ -80,7 +81,7 @@ bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent
 
 # focus the child container
-#bindsym $mod+d focus child
+# bindsym $mod+d focus child
 
 # switch to workspace
 bindsym $mod+1 workspace 1
@@ -114,8 +115,8 @@ bindsym $mod+Shift+r restart
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        status_command i3status
-        tray_output primary
+    status_command i3status
+    tray_output primary
 }
 
 # Open applications on specific workspaces
@@ -157,17 +158,29 @@ for_window [urgent=latest] focus
 # hide/unhide i3status bar
 bindsym $mod+m bar mode toggle
 
-# My mappings
-bindsym $mod+x exec firefox
+# Browser
+bindsym $mod+x exec --no-startup-id firefox
 
 bindsym $mod+l workspace next
 bindsym $mod+h workspace prev
 
-bindsym $mod+Tab exec --no-startup-id rofi -i -show window
-bindsym $mod+s exec --no-startup-id rofi -i -show ssl -ternimal st
 bindsym $mod+Shift+l exec --no-startup-id swaylock -f -c 000000
 bindsym $mod+Shift+e exec --no-startup-id sway exit
 bindsym $mod+Shift+s exec --no-startup-id systemctl suspend
+
+# Special keys
+bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+bindsym XF86MonBrightnessUp exec brightnessctl set +5%
+
+## Screenshot
+# Take a screenshot with all output and save it into screenshots
+bindsym Print exec grim -t png ~/Pictures/$(date +%Y-%m-%d_%H-%m-%s).png
+# Take a Screenshot with the region select
+bindsym $mod+Print exec grim -t png -g "$(slurp)" ~/Pictures/$(date +%Y-%m-%d_%H-%m-%s).png
+
+input type:touchpad {
+    pointer_accel 0.7
+}
 
 input type:keyboard {
     # Accelarate keyboard repeat
@@ -190,3 +203,6 @@ client.urgent    #274D01 #900000 #FFFFFF #900000
 # Enable mako
 # https://github.com/emersion/mako
 exec --no-startup-id mako
+
+# foot server mode
+exec foot --server
