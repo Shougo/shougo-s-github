@@ -27,11 +27,6 @@ bindsym $mod+Return exec foot zsh
 bindsym $mod+q kill
 
 # start dmenu (a program launcher)
-# bindsym $mod+d exec dmenu_run -fn 'Droid Sans Mono-12'
-# There also is the (new) i3-dmenu-desktop which only displays applications
-# shipping a .desktop file. It is a wrapper around dmenu, so you need that
-# installed.
-#bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --dmenu='rofi -i -dmenu'
 
 # change focus
@@ -110,10 +105,8 @@ bindsym $mod+Shift+0 move container to workspace 10
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+# restart inplace (preserves your layout/session, can be used to upgrade)
 bindsym $mod+Shift+r restart
-# exit i3 (logs you out of your X session)
-# bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
@@ -135,7 +128,6 @@ for_window [class="Clipgrab"] floating enable
 for_window [title="File Transfer*"] floating enable
 for_window [class="Galculator"] floating enable border pixel 2
 for_window [class="GParted"] floating enable border normal
-for_window [title="i3_help"] floating enable border normal
 for_window [class="Lightdm-gtk-greeter-settings"] floating enable
 for_window [class="Lxappearance"] floating enable border normal
 for_window [class="manjaro-settings-manager-gui"] floating enable border normal
@@ -159,23 +151,6 @@ for_window [class="(?i)virtualbox"] floating enable border normal
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus
 
-# Set shut down, restart and locking features
-#bindsym $mod+0 mode "$mode_system"
-set $mode_system (l)ock, (e)xit, switch_(u)ser, (s)uspend, (h)ibernate, (r)eboot, (Shift+s)hutdown
-mode "$mode_system" {
-    bindsym l exec --no-startup-id i3exit lock, mode "default"
-    bindsym s exec --no-startup-id i3exit suspend, mode "default"
-    bindsym u exec --no-startup-id i3exit switch_user, mode "default"
-    bindsym e exec --no-startup-id i3exit logout, mode "default"
-    bindsym h exec --no-startup-id i3exit hibernate, mode "default"
-    bindsym r exec --no-startup-id i3exit reboot, mode "default"
-    bindsym Shift+s exec --no-startup-id i3exit shutdown, mode "default"
-
-    # exit system mode: "Enter" or "Escape"
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
-
 # hide/unhide i3status bar
 bindsym $mod+m bar mode toggle
 
@@ -188,7 +163,7 @@ bindsym $mod+h workspace prev
 bindsym $mod+Tab exec --no-startup-id rofi -i -show window
 bindsym $mod+s exec --no-startup-id rofi -i -show ssl -ternimal st
 bindsym $mod+Shift+l exec --no-startup-id swaylock
-bindsym $mod+Shift+e exec --no-startup-id i3exit logout
+bindsym $mod+Shift+e exec --no-startup-id sway exit
 bindsym $mod+Shift+s exec --no-startup-id systemctl suspend
 
 input type:keyboard {
@@ -208,5 +183,3 @@ input type:keyboard {
 client.focused   #444444 #444444 #CCCCCC #2ECC71
 client.unfocused #16404B #16404B #2ECC71 #222222
 client.urgent    #274D01 #900000 #FFFFFF #900000
-# background
-output * bg #000000 solid_color
