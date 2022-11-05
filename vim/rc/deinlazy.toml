@@ -286,8 +286,8 @@ on_cmd = 'DeinOpen'
 
 [[plugins]]
 repo = 'uga-rosa/dps-vsctm.vim'
-on_cmd = 'VsctmHl'
+on_cmd = 'VsctmHighlightEnable'
 depends = 'denops.vim'
 hook_source = '''
-  let g:vsctm_extensions_path = expand('~/.config/vsctm/extensions')
+  let g:vsctm_extensions_path = expand('~/.cache/vsctm/extensions')
 '''
