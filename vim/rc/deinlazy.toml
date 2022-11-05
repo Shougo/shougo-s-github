@@ -289,5 +289,5 @@ repo = 'uga-rosa/dps-vsctm.vim'
 on_cmd = 'VsctmHl'
 depends = 'denops.vim'
 hook_source = '''
-  let g:vsctmSyntaxesDir = expand('~/.config/syntaxes')
+  let g:vsctm_extensions_path = expand('~/.config/vsctm/extensions')
 '''

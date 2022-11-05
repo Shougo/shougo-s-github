@@ -61,12 +61,12 @@ hook_source = '''
       \     },
       \     'file_old': {
       \       'matchers': [
-      \         'matcher_substring', 'matcher_relative', 'matcher_hidden',
+      \         'matcher_substring', 'matcher_relative',
       \       ],
       \     },
       \     'file_external': {
       \       'matchers': [
-      \         'matcher_substring', 'matcher_hidden',
+      \         'matcher_substring',
       \       ],
       \     },
       \     'file_rec': {
