@@ -151,6 +151,9 @@ hook_add = '''
 
 [[plugins]]
 repo = 'Shougo/ddx.vim'
+hook_add = '''
+  nnoremap <silent> [Space]x <Cmd>Ddx -path=`expand('%')`<CR>
+'''
 
 [[plugins]]
 repo = 'Shougo/ddx-commands.vim'
