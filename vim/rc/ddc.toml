@@ -141,8 +141,7 @@ hook_source = '''
   inoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
   inoremap <C-n>   <Cmd>call pum#map#select_relative(+1)<CR>
   inoremap <C-p>   <Cmd>call pum#map#select_relative(-1)<CR>
-  inoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
-  inoremap <C-e>   <Cmd>call pum#map#cancel()<CR>
+  inoremap <C-o>   <Cmd>call pum#map#confirm()<CR>
   inoremap <silent><expr> <C-l>   ddc#map#extend(pum#map#confirm())
   inoremap <silent><expr> <C-x><C-f> ddc#map#manual_complete('path')
   inoremap <expr> l   pum#entered() ?
@@ -156,7 +155,6 @@ hook_source = '''
   \ exists('b:ddc_cmdline_completion') ?
   \ ddc#manual_complete() : nr2char(&wildcharm)
   cnoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
-  cnoremap <C-c>   <Cmd>call pum#map#cancel()<CR>
   cnoremap <C-o>   <Cmd>call pum#map#confirm()<CR>
 
   " NOTE: Test for terminal completion
@@ -177,6 +175,9 @@ hook_add = '''
     " NOTE: It disables default command line completion!
     set wildchar=<C-t>
     set wildcharm=<C-t>
+
+    " Better for <C-w> deletion
+    set iskeyword+=.
 
     cnoremap <expr><buffer> <Tab>
     \ pum#visible() ?
@@ -212,6 +213,8 @@ hook_add = '''
     else
       call ddc#custom#set_buffer({})
     endif
+
+    set iskeyword-=.
 
     set wildcharm=<Tab>
   endfunction

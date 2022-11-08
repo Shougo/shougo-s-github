@@ -52,7 +52,7 @@ cnoremap <C-n>          <Down>
 " <C-p>: previous history.
 cnoremap <C-p>          <Up>
 " <C-y>: paste.
-cnoremap <C-y>          <C-r>*
+cnoremap <C-y>          <C-r>+
 " <C-g>: Exit.
 cnoremap <C-g>          <C-c>
 " <C-k>: Delete to the end.
