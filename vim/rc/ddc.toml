@@ -91,7 +91,11 @@ hook_source = '''
       \   'limitBytes': 50000,
       \   'fromAltBuf': v:true,
       \   'forceCollect': v:true,
-      \ }})
+      \ },
+      \ 'file': {
+      \   'filenameChars': '[:keyword:].',
+      \ },
+      \ })
 
   call ddc#custom#patch_filetype(
       \ ['help', 'markdown', 'gitcommit'], 'sources',
@@ -141,13 +145,13 @@ hook_source = '''
   inoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
   inoremap <C-n>   <Cmd>call pum#map#select_relative(+1)<CR>
   inoremap <C-p>   <Cmd>call pum#map#select_relative(-1)<CR>
-  inoremap <C-o>   <Cmd>call pum#map#confirm()<CR>
+  inoremap <C-o>   <Cmd>call pum#map#cancel()<CR>
   inoremap <silent><expr> <C-l>   ddc#map#extend(pum#map#confirm())
   inoremap <silent><expr> <C-x><C-f> ddc#map#manual_complete('path')
   inoremap <expr> l   pum#entered() ?
-        \ '<Cmd> call pum#map#insert_relative(+1)<CR>' : 'l'
+        \ '<Cmd>call pum#map#insert_relative(+1)<CR>' : 'l'
   inoremap <expr> h   pum#entered() ?
-        \ '<Cmd> call pum#map#insert_relative(-1)<CR>' : 'h'
+        \ '<Cmd>call pum#map#insert_relative(-1)<CR>' : 'h'
 
   " For command line mode completion
   cnoremap <expr> <Tab>
@@ -155,7 +159,7 @@ hook_source = '''
   \ exists('b:ddc_cmdline_completion') ?
   \ ddc#manual_complete() : nr2char(&wildcharm)
   cnoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
-  cnoremap <C-o>   <Cmd>call pum#map#confirm()<CR>
+  cnoremap <C-o>   <Cmd>call pum#map#cancel()<CR>
 
   " NOTE: Test for terminal completion
   call ddc#custom#patch_filetype(['deol'], {
@@ -164,6 +168,10 @@ hook_source = '''
       \ 'sources': ['zsh', 'shell-history', 'around'],
       \ })
   tnoremap <silent><expr> <C-g>   ddc#map#manual_complete()
+  tnoremap <expr> <Tab>
+  \ pum#visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' : '<Tab>'
+  tnoremap <S-Tab> <Cmd>call pum#map#select_relative(-1)<CR>
+  tnoremap <C-o>   <Cmd>call pum#map#cancel()<CR>
 
   call ddc#enable()
 '''
