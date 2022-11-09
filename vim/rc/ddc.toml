@@ -184,9 +184,6 @@ hook_add = '''
     set wildchar=<C-t>
     set wildcharm=<C-t>
 
-    " Better for <C-w> deletion
-    set iskeyword+=.
-
     cnoremap <expr><buffer> <Tab>
     \ pum#visible() ?
     \  '<Cmd>call pum#map#insert_relative(+1)<CR>' :
@@ -221,8 +218,6 @@ hook_add = '''
     else
       call ddc#custom#set_buffer({})
     endif
-
-    set iskeyword-=.
 
     set wildcharm=<Tab>
   endfunction
@@ -305,7 +300,7 @@ repo = 'matsui54/ddc-buffer'
 on_source = 'ddc.vim'
 
 [[plugins]]
-repo = 'LumaKernel/ddc-file'
+repo = 'LumaKernel/ddc-source-file'
 on_source = 'ddc.vim'
 
 [[plugins]]
