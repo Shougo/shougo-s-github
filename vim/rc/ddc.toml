@@ -34,7 +34,7 @@ hook_source = '''
       \ 'necovim': {'mark': 'vim'},
       \ 'cmdline': {
       \   'mark': 'cmdline',
-      \   'forceCompletionPattern': '\S/\S*',
+      \   'forceCompletionPattern': '\S/\S*|\.\w*',
       \   'dup': 'force',
       \ },
       \ 'input': {
