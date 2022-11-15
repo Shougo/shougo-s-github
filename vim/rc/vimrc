@@ -82,9 +82,7 @@ if dein#min#load_state(s:path)
   let s:dein_neovim_toml = s:base_dir . 'neovim.toml'
   let s:dein_vim_toml = s:base_dir . 'vim.toml'
 
-  call dein#begin(s:path, [
-        \ expand('<sfile>'), s:dein_toml, s:dein_lazy_toml, s:dein_ft_toml
-        \ ])
+  call dein#begin(s:path, expand('<sfile>'))
 
   call dein#load_toml(s:dein_toml, {'lazy': 0})
   call dein#load_toml(s:dein_lazy_toml, {'lazy' : 1})
