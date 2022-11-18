@@ -29,8 +29,8 @@ hook_source = '''
 [[plugins]]
 repo = 'Shougo/context_filetype.vim'
 hook_source = '''
-  let g:context_filetype#ignore_patterns = {
-      \ 'toml': ['^\s*#\s*'],
+  let g:context_filetype#ignore_patterns = #{
+      \ toml: ['^\s*#\s*'],
       \ }
 '''
 
@@ -59,10 +59,10 @@ hook_source = '''
   "let g:deol#enable_ddc_completion = v:true
   let g:deol#nvim_server = '~/.cache/nvim/server.pipe'
 
-  call ddu#custom#patch_global({
-      \   'sourceParams': {
-      \     'deol': {
-      \       'command': ['zsh'],
+  call ddu#custom#patch_global(#{
+      \   sourceParams: #{
+      \     deol: #{
+      \       command: ['zsh'],
       \     },
       \   }
       \ })
@@ -119,10 +119,10 @@ deol = '''
   nmap <buffer> e <Plug>(deol_edit)
   tmap <buffer> <CR> <Plug>(deol_execute_line)
 
-  call ddc#custom#patch_buffer('sourceOptions', {
-      \ '_': {
-      \   'converters': [],
-      \ },
+  call ddc#custom#patch_buffer('sourceOptions', #{
+      \   _: #{
+      \     converters: [],
+      \   },
       \ })
 '''
 zsh = '''
@@ -251,7 +251,7 @@ hook_add = '''
   xmap f <Plug>(eft-f)
   omap f <Plug>(eft-f)
 '''
-on_map = {n = '<Plug>', x = '<Plug>', o = '<Plug>'}
+on_map = { n = '<Plug>', x = '<Plug>', o = '<Plug>' }
 
 #[[plugins]]
 #repo = 'teal-language/vim-teal'

@@ -16,101 +16,106 @@ hook_source = '''
       \ '=': ['input'],
       \ })
 
-  call ddc#custom#patch_global('sourceOptions', {
-      \ '_': {
-      \   'ignoreCase': v:true,
-      \   'matchers': ['matcher_head', 'matcher_length'],
-      \   'sorters': ['sorter_rank'],
-      \   'converters': [
-      \     'converter_remove_overlap', 'converter_truncate_abbr',
-      \   ],
-      \ },
-      \ 'around': {
-      \   'mark': 'A',
-      \ },
-      \ 'buffer': {
-      \   'mark': 'B',
-      \ },
-      \ 'necovim': {'mark': 'vim'},
-      \ 'cmdline': {
-      \   'mark': 'cmdline',
-      \   'forceCompletionPattern': '\S/\S*|\.\w*',
-      \   'dup': 'force',
-      \ },
-      \ 'input': {
-      \   'mark': 'input',
-      \   'forceCompletionPattern': '\S/\S*',
-      \   'isVolatile': v:true,
-      \   'dup': 'force',
-      \ },
-      \ 'line': {
-      \   'mark': 'line',
-      \ },
-      \ 'mocword': {
-      \   'mark': 'mocword',
-      \   'minAutoCompleteLength': 3,
-      \   'isVolatile': v:true,
-      \ },
-      \ 'nvim-lsp': {
-      \   'mark': 'lsp',
-      \   'forceCompletionPattern': '\.\w*|:\w*|->\w*',
-      \   'dup': 'force',
-      \ },
-      \ 'rtags': {
-      \   'mark': 'R',
-      \   'forceCompletionPattern': '\.\w*|:\w*|->\w*',
-      \ },
-      \ 'file': {
-      \   'mark': 'F',
-      \   'isVolatile': v:true,
-      \   'minAutoCompleteLength': 1000,
-      \   'forceCompletionPattern': '\S/\S*',
-      \ },
-      \ 'cmdline-history': {
-      \   'mark': 'history',
-      \   'sorters': [],
-      \ },
-      \ 'shell-history': {'mark': 'shell'},
-      \ 'zsh': {
-      \   'mark': 'zsh',
-      \   'isVolatile': v:true,
-      \   'forceCompletionPattern': '\S/\S*',
-      \ },
-      \ 'rg': {
-      \   'mark': 'rg',
-      \   'minAutoCompleteLength': 5,
-      \   'enabledIf': "finddir('.git', ';') != ''",
-      \ },
+  call ddc#custom#patch_global('sourceOptions', #{
+      \   _: #{
+      \     ignoreCase: v:true,
+      \     matchers: ['matcher_head', 'matcher_length'],
+      \     sorters: ['sorter_rank'],
+      \     converters: [
+      \       'converter_remove_overlap', 'converter_truncate_abbr',
+      \     ],
+      \   },
+      \   around: #{
+      \     mark: 'A',
+      \   },
+      \   buffer: #{
+      \     mark: 'B',
+      \   },
+      \   necovim: #{
+      \    mark: 'vim'
+      \   },
+      \   cmdline: #{
+      \     mark: 'cmdline',
+      \     forceCompletionPattern: '\S/\S*|\.\w*',
+      \     dup: 'force',
+      \   },
+      \   input: #{
+      \     mark: 'input',
+      \     forceCompletionPattern: '\S/\S*',
+      \     isVolatile: v:true,
+      \     dup: 'force',
+      \   },
+      \   line: #{
+      \     mark: 'line',
+      \   },
+      \   mocword: #{
+      \     mark: 'mocword',
+      \     minAutoCompleteLength: 3,
+      \     isVolatile: v:true,
+      \   },
+      \   nvim-lsp: #{
+      \     mark: 'lsp',
+      \     forceCompletionPattern: '\.\w*|:\w*|->\w*',
+      \     dup: 'force',
+      \   },
+      \   rtags: #{
+      \     mark: 'R',
+      \     forceCompletionPattern: '\.\w*|:\w*|->\w*',
+      \   },
+      \   file: #{
+      \     mark: 'F',
+      \     isVolatile: v:true,
+      \     minAutoCompleteLength: 1000,
+      \     forceCompletionPattern: '\S/\S*',
+      \   },
+      \   cmdline-history: #{
+      \     mark: 'history',
+      \     sorters: [],
+      \   },
+      \   shell-history: #{
+      \     mark: 'shell'
+      \   },
+      \   zsh: #{
+      \     mark: 'zsh',
+      \     isVolatile: v:true,
+      \     forceCompletionPattern: '\S/\S*',
+      \   },
+      \   rg: #{
+      \     mark: 'rg',
+      \     minAutoCompleteLength: 5,
+      \     enabledIf: "finddir('.git', ';') != ''",
+      \   },
       \ })
 
-  call ddc#custom#patch_global('sourceOptions', {
-      \ 'skkeleton': {
-      \   'mark': 'skk',
-      \   'matchers': ['skkeleton'],
-      \   'sorters': [],
-      \   'minAutoCompleteLength': 2,
-      \   'isVolatile': v:true,
-      \ }})
-  call ddc#custom#patch_global('sourceParams', {
-      \ 'buffer': {
-      \   'requireSameFiletype': v:false,
-      \   'limitBytes': 50000,
-      \   'fromAltBuf': v:true,
-      \   'forceCollect': v:true,
-      \ },
-      \ 'file': {
-      \   'filenameChars': '[:keyword:].',
-      \ },
+  call ddc#custom#patch_global('sourceOptions', #{
+      \   skkeleton: #{
+      \     mark: 'skk',
+      \     matchers: ['skkeleton'],
+      \     sorters: [],
+      \     minAutoCompleteLength: 2,
+      \     isVolatile: v:true,
+      \   },
+      \ })
+  call ddc#custom#patch_global('sourceParams', #{
+      \   buffer: #{
+      \     requireSameFiletype: v:false,
+      \     limitBytes: 50000,
+      \     fromAltBuf: v:true,
+      \     forceCollect: v:true,
+      \   },
+      \   file: #{
+      \     filenameChars: '[:keyword:].',
+      \   },
       \ })
 
   call ddc#custom#patch_filetype(
       \ ['help', 'markdown', 'gitcommit'], 'sources',
       \ ['around', 'rg', 'mocword']
       \ )
-  call ddc#custom#patch_filetype(['ddu-ff-filter'], {
-      \ 'keywordPattern': '[0-9a-zA-Z_:#-]*',
-      \ 'sources': ['line', 'buffer'],
-      \ 'specialBufferCompletion': v:true,
+  call ddc#custom#patch_filetype(['ddu-ff-filter'], #{
+      \   keywordPattern: '[0-9a-zA-Z_:#-]*',
+      \   sources: ['line', 'buffer'],
+      \   specialBufferCompletion: v:true,
       \ })
 
   if has('nvim')
@@ -120,10 +125,10 @@ hook_source = '''
             \ )
   endif
 
-  call ddc#custom#patch_filetype(['FineCmdlinePrompt'], {
-      \ 'keywordPattern': '[0-9a-zA-Z_:#-]*',
-      \ 'sources': ['cmdline-history', 'around'],
-      \ 'specialBufferCompletion': v:true,
+  call ddc#custom#patch_filetype(['FineCmdlinePrompt'], #{
+      \   keywordPattern: '[0-9a-zA-Z_:#-]*',
+      \   sources: ['cmdline-history', 'around'],
+      \   specialBufferCompletion: v:true,
       \ })
 
   " Use pum.vim
@@ -168,10 +173,10 @@ hook_source = '''
   cnoremap <C-o>   <Cmd>call pum#map#confirm()<CR>
 
   " NOTE: Test for terminal completion
-  call ddc#custom#patch_filetype(['deol'], {
-      \ 'specialBufferCompletion': v:true,
-      \ 'keywordPattern': '[0-9a-zA-Z_./#:-]*',
-      \ 'sources': ['zsh', 'shell-history', 'around'],
+  call ddc#custom#patch_filetype(['deol'], #{
+      \   specialBufferCompletion: v:true,
+      \   keywordPattern: '[0-9a-zA-Z_./#:-]*',
+      \   sources: ['zsh', 'shell-history', 'around'],
       \ })
   tnoremap <silent><expr> <C-g>   ddc#map#manual_complete()
   tnoremap <expr> <Tab>
@@ -229,7 +234,6 @@ repo = 'Shougo/pum.vim'
 hook_source = '''
   call pum#set_option('max_width', 80)
   call pum#set_option('use_complete', v:true)
-  "call pum#set_option('offset_row', 1)
 '''
 
 [[plugins]]
@@ -344,24 +348,24 @@ hook_add = '''
 '''
 hook_source = '''
   "let g:skkeleton#debug = v:true
-  call skkeleton#config({
-        \ 'globalJisyo': has('win32') ?
+  call skkeleton#config(#{
+        \   globalJisyo: has('win32') ?
         \     '~/.config/SKK-JISYO.L' : '/usr/share/skk/SKK-JISYO.L',
-        \ 'eggLikeNewline': v:true,
-        \ 'registerConvertResult': v:true,
+        \   eggLikeNewline: v:true,
+        \   registerConvertResult: v:true,
         \ })
 
   if &term !=# 'gui' && &term !=# 'nvim' && &term !~# '^xterm'
-    call skkeleton#config({
-            \ 'markerHenkan': '<>',
-            \ 'markerHenkanSelect': '>>',
+    call skkeleton#config(#{
+            \   markerHenkan: '<>',
+            \   markerHenkanSelect: '>>',
             \ })
   endif
 
   call skkeleton#register_kanatable('rom', {
-        \ 'jj': 'escape',
-        \ '~': ['〜', ''],
-        \ "z\<Space>": ["\u3000", ''],
+        \   'jj': 'escape',
+        \   '~': ['〜', ''],
+        \   "z\<Space>": ["\u3000", ''],
         \ })
 
   autocmd MyAutoCmd User skkeleton-enable-pre call s:skkeleton_pre()

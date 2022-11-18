@@ -52,112 +52,112 @@ hook_add = '''
 hook_source = '''
   call ddu#custom#alias('source', 'file_rg', 'file_external')
 
-  call ddu#custom#patch_global({
-      \   'ui': 'ff',
-      \   'sourceOptions': {
-      \     '_': {
-      \       'ignoreCase': v:true,
-      \       'matchers': ['matcher_substring'],
+  call ddu#custom#patch_global(#{
+      \   ui: 'ff',
+      \   sourceOptions: #{
+      \     _: #{
+      \       ignoreCase: v:true,
+      \       matchers: ['matcher_substring'],
       \     },
-      \     'file_old': {
-      \       'matchers': [
+      \     file_old: #{
+      \       matchers: [
       \         'matcher_substring', 'matcher_relative',
       \       ],
       \     },
-      \     'file_external': {
-      \       'matchers': [
+      \     file_external: #{
+      \       matchers: [
       \         'matcher_substring',
       \       ],
       \     },
-      \     'file_rec': {
-      \       'matchers': [
+      \     file_rec: #{
+      \       matchers: [
       \         'matcher_substring', 'matcher_hidden',
       \       ],
       \     },
-      \     'file': {
-      \       'matchers': [
+      \     file: #{
+      \       matchers: [
       \         'matcher_substring', 'matcher_hidden',
       \       ],
-      \       'sorters': ['sorter_alpha'],
+      \       sorters: ['sorter_alpha'],
       \     },
-      \     'dein': {
-      \       'defaultAction': 'cd',
+      \     dein: #{
+      \       defaultAction: 'cd',
       \     },
-      \     'markdown': {
-      \       'sorters': [],
-      \     },
-      \   },
-      \   'sourceParams': {
-      \     'file_external': {
-      \       'cmd': ['git', 'ls-files', '-co', '--exclude-standard'],
+      \     markdown: #{
+      \       sorters: [],
       \     },
       \   },
-      \   'uiOptions': {
-      \     'filer': {
-      \       'toggle': v:true,
+      \   sourceParams: #{
+      \     file_external: #{
+      \       cmd: ['git', 'ls-files', '-co', '--exclude-standard'],
       \     },
       \   },
-      \   'uiParams': {
-      \     'ff': {
-      \       'filterSplitDirection': 'floating',
-      \       'previewFloating': v:true,
-      \     },
-      \     'filer': {
-      \       'split': 'no',
-      \       'sort': 'filename',
-      \       'sortTreesFirst': v:true,
-      \       'toggle': v:true,
+      \   uiOptions: #{
+      \     filer: #{
+      \       toggle: v:true,
       \     },
       \   },
-      \   'kindOptions': {
-      \     'file': {
-      \       'defaultAction': 'open',
+      \   uiParams: #{
+      \     ff: #{
+      \       filterSplitDirection: 'floating',
+      \       previewFloating: v:true,
       \     },
-      \     'word': {
-      \       'defaultAction': 'append',
-      \     },
-      \     'deol': {
-      \       'defaultAction': 'switch',
-      \     },
-      \     'action': {
-      \       'defaultAction': 'do',
-      \     },
-      \     'readme_viewer': {
-      \       'defaultAction': 'open',
+      \     filer: #{
+      \       split: 'no',
+      \       sort: 'filename',
+      \       sortTreesFirst: v:true,
+      \       toggle: v:true,
       \     },
       \   },
-      \   'actionOptions': {
-      \     'narrow': {
-      \       'quit': v:false,
+      \   kindOptions: #{
+      \     file: #{
+      \       defaultAction: 'open',
+      \     },
+      \     word: #{
+      \       defaultAction: 'append',
+      \     },
+      \     deol: #{
+      \       defaultAction: 'switch',
+      \     },
+      \     action: #{
+      \       defaultAction: 'do',
+      \     },
+      \     readme_viewer: #{
+      \       defaultAction: 'open',
+      \     },
+      \   },
+      \   actionOptions: #{
+      \     narrow: #{
+      \       quit: v:false,
       \     },
       \   },
       \ })
-  call ddu#custom#patch_local('files', {
-      \   'uiParams': {
-      \     'ff': {
-      \       'split': has('nvim') ? 'floating' : 'horizontal',
+  call ddu#custom#patch_local('files', #{
+      \   uiParams: #{
+      \     ff: #{
+      \       split: has('nvim') ? 'floating' : 'horizontal',
       \     }
       \   },
       \ })
 
-  call ddu#custom#patch_global({
-      \   'sourceParams': {
-      \     'file_rg': {
-      \       'cmd': ['rg', '--files', '--glob', '!.git',
+  call ddu#custom#patch_global(#{
+      \   sourceParams: #{
+      \     file_rg: #{
+      \       cmd: ['rg', '--files', '--glob', '!.git',
       \               '--color', 'never', '--no-messages'],
-      \       'updateItems': 50000,
+      \       updateItems: 50000,
       \     },
-      \     'rg': {
-      \       'args': [
+      \     rg: #{
+      \       args: [
       \         '--ignore-case', '--column', '--no-heading', '--color', 'never',
       \       ],
       \     },
       \   }
       \ })
-  call ddu#custom#patch_global({
-      \   'filterParams': {
-      \     'matcher_substring': {
-      \       'highlightMatched': 'Search',
+  call ddu#custom#patch_global(#{
+      \   filterParams: #{
+      \     matcher_substring: #{
+      \       highlightMatched: 'Search',
       \     },
       \   }
       \ })
@@ -169,18 +169,18 @@ hook_source = '''
     let path = a:args.items[0].action.path
     let directory = isdirectory(path) ? path : fnamemodify(path, ':h')
 
-    call ddu#start({
-        \ "name": a:args.options.name,
-        \ "push": v:true,
-        \ "sources": [
-        \   {
-        \     "name": "rg",
-        \     "params": {
-        \       "path": path,
-        \       "input": input('Pattern: '),
+    call ddu#start(#{
+        \   name: a:args.options.name,
+        \   push: v:true,
+        \   sources: [
+        \     {
+        \       name: 'rg',
+        \       params: {
+        \         path: path,
+        \         input: input('Pattern: '),
+        \       },
         \     },
-        \   },
-        \ ],
+        \   ],
         \ })
   endfunction
 '''
@@ -216,33 +216,36 @@ ddu-ff = '''
   nnoremap <buffer> a
   \ <Cmd>call ddu#ui#ff#do_action('chooseAction')<CR>
   nnoremap <buffer> o
-  \ <Cmd>call ddu#ui#ff#do_action('expandItem', {'mode': 'toggle'})<CR>
+  \ <Cmd>call ddu#ui#ff#do_action('expandItem',
+  \ #{ mode: 'toggle' })<CR>
   nnoremap <buffer> c
-  \ <Cmd>call ddu#ui#ff#multi_actions('itemAction', {'name': 'cd'})<CR>
+  \ <Cmd>call ddu#ui#ff#multi_actions('itemAction',
+  \ #{ name: 'cd' })<CR>
   nnoremap <buffer> d
   \ <Cmd>call ddu#ui#ff#do_action('itemAction',
-  \ b:ddu_ui_name ==# 'filer' ? {'name': 'trash'} : {'name': 'delete'})<CR>
+  \ b:ddu_ui_name ==# 'filer' ? #{ name: 'trash' } : #{ name: 'delete' })<CR>
   nnoremap <buffer> e
-  \ <Cmd>call ddu#ui#ff#do_action('itemAction', {'name': 'edit'})<CR>
+  \ <Cmd>call ddu#ui#ff#do_action('itemAction',
+  \ #{ name: 'edit' })<CR>
   nnoremap <buffer> E
   \ <Cmd>call ddu#ui#ff#do_action('itemAction',
-  \ {'params': eval(input('params: '))})<CR>
+  \ #{ params: eval(input('params: ')) })<CR>
   nnoremap <buffer> v
   \ <Cmd>call ddu#ui#ff#do_action('itemAction',
-  \ {'name': 'open', 'params': {'command': 'vsplit'}})<CR>
+  \ #{ name: 'open', params: #{ command: 'vsplit' } })<CR>
   nnoremap <buffer> N
-  \ <Cmd>call ddu#ui#ff#do_action('itemAction', {'name': 'new'})<CR>
+  \ <Cmd>call ddu#ui#ff#do_action('itemAction', #{ name: 'new' })<CR>
   nnoremap <buffer> r
-  \ <Cmd>call ddu#ui#ff#do_action('itemAction', {'name': 'quickfix'})<CR>
+  \ <Cmd>call ddu#ui#ff#do_action('itemAction', #{ name: 'quickfix' })<CR>
   nnoremap <buffer> yy
-  \ <Cmd>call ddu#ui#ff#do_action('itemAction', {'name': 'yank'})<CR>
+  \ <Cmd>call ddu#ui#ff#do_action('itemAction', #{ name: 'yank' })<CR>
   nnoremap <buffer> gr
-  \ <Cmd>call ddu#ui#ff#do_action('itemAction', {'name': 'grep'})<CR>
+  \ <Cmd>call ddu#ui#ff#do_action('itemAction', #{ name: 'grep' })<CR>
   nnoremap <buffer> u
-  \ <Cmd>call ddu#ui#ff#do_action('updateOptions', {
-  \   'sourceOptions': {
-  \     '_': {
-  \       'matchers': [],
+  \ <Cmd>call ddu#ui#ff#do_action('updateOptions', #{
+  \   sourceOptions: #{
+  \     _: #{
+  \       matchers: [],
   \     },
   \   },
   \ })<CR>
@@ -289,48 +292,52 @@ ddu-filer = '''
   "\ <Cmd>call ddu#ui#filer#do_action('collapseItem')<CR>
   nnoremap <buffer> c
   \ <Cmd>call ddu#ui#filer#multi_actions([
-  \ ['itemAction', {'name': 'copy'}],
-  \ ['clearSelectAllItems'],
+  \   ['itemAction', {'name': 'copy'}],
+  \   ['clearSelectAllItems'],
   \ ])<CR>
   nnoremap <buffer> d
   \ <Cmd>call ddu#ui#filer#do_action('itemAction',
-  \ {'name': 'delete'})<CR>
+  \ #{ name: 'delete' })<CR>
   nnoremap <buffer> D
   \ <Cmd>call ddu#ui#filer#do_action('itemAction',
-  \ {'name': 'trash'})<CR>
+  \ #{ name: 'trash' })<CR>
   nnoremap <buffer> m
   \ <Cmd>call ddu#ui#filer#do_action('itemAction',
-  \ {'name': 'move'})<CR>
+  \ #{ name: 'move' })<CR>
   nnoremap <buffer> r
   \ <Cmd>call ddu#ui#filer#do_action('itemAction',
-  \ {'name': 'rename'})<CR>
+  \ #{ name: 'rename' })<CR>
   nnoremap <buffer> x
   \ <Cmd>call ddu#ui#filer#do_action('itemAction',
-  \ {'name': 'executeSystem'})<CR>
+  \ #{ name: 'executeSystem' })<CR>
   nnoremap <buffer> p
   \ <Cmd>call ddu#ui#filer#do_action('itemAction',
-  \ {'name': 'paste'})<CR>
+  \ #{ name: 'paste' })<CR>
   nnoremap <buffer> K
   \ <Cmd>call ddu#ui#filer#do_action('itemAction',
-  \ {'name': 'newDirectory'})<CR>
+  \ #{ name: 'newDirectory' })<CR>
   nnoremap <buffer> N
   \ <Cmd>call ddu#ui#filer#do_action('itemAction',
-  \ {'name': 'newFile'})<CR>
+  \ #{ name: 'newFile' })<CR>
   nnoremap <buffer> ~
   \ <Cmd>call ddu#ui#filer#do_action('itemAction',
-  \ {'name': 'narrow', 'params': {'path': expand('~')}})<CR>
+  \ #{ name: 'narrow', params: #{ path: expand('~') } })<CR>
   nnoremap <buffer> h
   \ <Cmd>call ddu#ui#filer#do_action('itemAction',
-  \ {'name': 'narrow', 'params': {'path': ".."}})<CR>
+  \ #{ name: 'narrow', params: #{ path: '..' } })<CR>
   nnoremap <buffer> I
   \ <Cmd>call ddu#ui#filer#do_action('itemAction',
-  \ {'name': 'narrow', 'params': {'path':
-  \  fnamemodify(input('New cwd: ', b:ddu_ui_filer_path, 'dir'), ':p')}})<CR>
+  \ #{
+  \   name: 'narrow',
+  \   params: #{
+  \     path: fnamemodify(input('cwd: ', b:ddu_ui_filer_path, 'dir'), ':p')
+  \   }
+  \ })<CR>
   nnoremap <buffer> >
-  \ <Cmd>call ddu#ui#filer#do_action('updateOptions', {
-  \   'sourceOptions': {
-  \     'file': {
-  \       'matchers': ToggleHidden('file'),
+  \ <Cmd>call ddu#ui#filer#do_action('updateOptions', #{
+  \   sourceOptions: #{
+  \     file: #{
+  \       matchers: ToggleHidden('file'),
   \     },
   \   },
   \ })<CR>
@@ -338,14 +345,14 @@ ddu-filer = '''
   \ <Cmd>call ddu#ui#filer#do_action('checkItems')<CR>
   nnoremap <buffer><expr> <CR>
   \ ddu#ui#filer#is_tree() ?
-  \ "<Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'narrow'})<CR>" :
-  \ "<Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'open'})<CR>"
+  \ "<Cmd>call ddu#ui#filer#do_action('itemAction', #{ name: 'narrow' })<CR>" :
+  \ "<Cmd>call ddu#ui#filer#do_action('itemAction', #{ name: 'open' })<CR>"
   nnoremap <buffer><expr> l
   \ ddu#ui#filer#is_tree() ?
-  \ "<Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'narrow'})<CR>" :
-  \ "<Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'open'})<CR>"
+  \ "<Cmd>call ddu#ui#filer#do_action('itemAction', #{ name: 'narrow' })<CR>" :
+  \ "<Cmd>call ddu#ui#filer#do_action('itemAction', #{ name: 'open' })<CR>"
   nnoremap <buffer> gr
-  \ <Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'grep'})<CR>
+  \ <Cmd>call ddu#ui#filer#do_action('itemAction', #{ name: 'grep' })<CR>
 
   function! ToggleHidden(name)
     let current = ddu#custom#get_current(b:ddu_ui_name)

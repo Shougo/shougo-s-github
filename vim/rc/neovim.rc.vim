@@ -21,7 +21,8 @@ set pumblend=20
 set winblend=20
 
 " Use cursor shape feature
-set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor
+set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,
+      \i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor
 
 " Modifiable terminal
 autocmd MyAutoCmd TermOpen * setlocal modifiable
@@ -29,7 +30,7 @@ autocmd MyAutoCmd TermOpen * setlocal modifiable
 let g:terminal_scrollback_buffer_size = 3000
 
 autocmd MyAutoCmd TextYankPost * lua require'vim.highlight'.on_yank
-     \ {higroup='IncSearch', timeout=100}
+     \ { higroup='IncSearch', timeout=100 }
 
 " For neovide
 let g:neovide_no_idle = v:true
