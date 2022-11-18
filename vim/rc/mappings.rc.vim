@@ -25,7 +25,7 @@ xnoremap > >gv
 xnoremap < <gv
 
 if (!has('nvim') || $DISPLAY !=# '') && has('clipboard')
-  xnoremap <silent> y "*y:let [@+,@"]=[@*,@*]<CR>
+  xnoremap y "*y<Cmd>let [@+,@"]=[@*,@*]<CR>
 endif
 
 " Insert mode keymappings:
@@ -78,7 +78,7 @@ nnoremap [Space]l
       \ <Cmd>call vimrc#toggle_option('laststatus')<CR>
 
 " Easily edit current buffer
-nnoremap <silent><expr> [Space]e
+nnoremap <expr> [Space]e
       \ bufname('%') !=# '' ? '<Cmd>edit %<CR>' : ''
 
 " Quickfix
@@ -86,15 +86,15 @@ nnoremap [Space]q
       \ <Cmd>call vimrc#diagnostics_to_qf()<CR>
 
 " Useful save mappings.
-nnoremap <silent> <Leader><Leader> <Cmd>silent update<CR>
+nnoremap <Leader><Leader> <Cmd>silent update<CR>
 
 " s: Windows and buffers(High priority)
 " The prefix key.
 nnoremap s    <Nop>
-nnoremap <silent> sp  <Cmd>vsplit<CR>:wincmd w<CR>
-nnoremap <silent> so  <Cmd>only<CR>
-nnoremap <silent> <Tab>      <cmd>wincmd w<CR>
-nnoremap <silent><expr> q
+nnoremap sp  <Cmd>vsplit<CR><Cmd>wincmd w<CR>
+nnoremap so  <Cmd>only<CR>
+nnoremap <Tab>      <cmd>wincmd w<CR>
+nnoremap <expr> q
       \ &l:filetype ==# 'qf' ? '<Cmd>cclose<CR>' :
       \ winnr('$') != 1 ? '<Cmd>close<CR>' : ''
 
@@ -124,7 +124,7 @@ nnoremap ZZ  <Nop>
 xnoremap r <C-v>
 
 " Redraw.
-nnoremap <silent> <C-l>    <Cmd>redraw!<CR>
+nnoremap <C-l>    <Cmd>redraw!<CR>
 
 " If press l on fold, fold open.
 nnoremap <expr> l foldclosed(line('.')) != -1 ? 'zo0' : 'l'
@@ -163,12 +163,12 @@ xnoremap ir  i]
 " Improved increment.
 nmap <C-a> <SID>(increment)
 nmap <C-x> <SID>(decrement)
-nnoremap <silent> <SID>(increment)    <Cmd>AddNumbers 1<CR>
-nnoremap <silent> <SID>(decrement)    <Cmd>AddNumbers -1<CR>
+nnoremap <SID>(increment)    <Cmd>AddNumbers 1<CR>
+nnoremap <SID>(decrement)    <Cmd>AddNumbers -1<CR>
 command! -range -nargs=1 AddNumbers
       \ call vimrc#add_numbers((<line2>-<line1>+1) * eval(<args>))
 
-nnoremap <silent> #    <C-^>
+nnoremap #    <C-^>
 
 " NOTE: Does not overwrite <ESC> behavior
 if has('nvim')

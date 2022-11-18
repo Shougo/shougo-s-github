@@ -7,13 +7,13 @@ hook_source = '''
       \ ['around', 'file', 'rg'],
       \ )
   call ddc#custom#patch_global('cmdlineSources', {
-      \ ':': ['cmdline-history', 'cmdline', 'around'],
-      \ '@': ['cmdline-history', 'input', 'file', 'around'],
-      \ '>': ['cmdline-history', 'input', 'file', 'around'],
-      \ '/': ['around', 'line'],
-      \ '?': ['around', 'line'],
-      \ '-': ['around', 'line'],
-      \ '=': ['input'],
+      \   ':': ['cmdline-history', 'cmdline', 'around'],
+      \   '@': ['cmdline-history', 'input', 'file', 'around'],
+      \   '>': ['cmdline-history', 'input', 'file', 'around'],
+      \   '/': ['around', 'line'],
+      \   '?': ['around', 'line'],
+      \   '-': ['around', 'line'],
+      \   '=': ['input'],
       \ })
 
   call ddc#custom#patch_global('sourceOptions', #{
@@ -149,7 +149,7 @@ hook_source = '''
       \ } : {} })
 
   " For insert mode completion
-  inoremap <silent><expr> <TAB>
+  inoremap <expr> <TAB>
         \ pum#visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' :
         \ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
         \ '<TAB>' : ddc#map#manual_complete()
@@ -157,8 +157,8 @@ hook_source = '''
   inoremap <C-n>   <Cmd>call pum#map#select_relative(+1)<CR>
   inoremap <C-p>   <Cmd>call pum#map#select_relative(-1)<CR>
   inoremap <C-o>   <Cmd>call pum#map#confirm()<CR>
-  inoremap <silent><expr> <C-l>   ddc#map#extend(pum#map#confirm())
-  inoremap <silent><expr> <C-x><C-f> ddc#map#manual_complete('path')
+  inoremap <expr> <C-l>   ddc#map#extend(pum#map#confirm())
+  inoremap <expr> <C-x><C-f> ddc#map#manual_complete('path')
   inoremap <expr> l   pum#entered() ?
         \ '<Cmd>call pum#map#insert_relative(+1)<CR>' : 'l'
   inoremap <expr> h   pum#entered() ?
@@ -178,11 +178,6 @@ hook_source = '''
       \   keywordPattern: '[0-9a-zA-Z_./#:-]*',
       \   sources: ['zsh', 'shell-history', 'around'],
       \ })
-  tnoremap <silent><expr> <C-g>   ddc#map#manual_complete()
-  tnoremap <expr> <Tab>
-  \ pum#visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' : '<Tab>'
-  tnoremap <S-Tab> <Cmd>call pum#map#select_relative(-1)<CR>
-  tnoremap <C-o>   <Cmd>call pum#map#confirm()<CR>
 
   call ddc#enable()
 '''

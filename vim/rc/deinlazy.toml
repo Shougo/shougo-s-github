@@ -39,11 +39,11 @@ repo = 'Shougo/deol.nvim'
 depends = ['ddu.vim', 'ddc.vim']
 on_source = ['ddu.vim']
 hook_add = '''
-  nnoremap <expr><silent> [Space]s
+  nnoremap <expr> [Space]s
   \ printf('<Cmd>Deol %s -no-start-insert -toggle<CR>',
   \        has('win32') ? 'cmd': 'zsh')
-  nnoremap <silent> sD  <Cmd>call deol#kill_editor()<CR>
-  nnoremap <silent> <C-t> <Cmd>Ddu -name=deol
+  nnoremap sD  <Cmd>call deol#kill_editor()<CR>
+  nnoremap <C-t> <Cmd>Ddu -name=deol
   \ -ui-param-split=`has('nvim') ? 'floating' : 'horizontal'`
   \ -ui-param-winRow=1 -ui-param-autoResize
   \ -ui-param-cursorPos=`tabpagenr()-1`
@@ -95,42 +95,46 @@ hook_source = '''
   endif
 
   tnoremap <expr><C-t> ddc#manual_complete()
-  tnoremap <silent><expr> <Tab> pum#visible() ?
-        \ '<Cmd>call pum#map#insert_relative(+1)<CR>' :
-        \ '<Tab>'
-  tnoremap <silent><expr> <S-Tab> pum#visible() ?
-        \ '<Cmd>call pum#map#insert_relative(-1)<CR>' :
-        \ '<S-Tab>'
+  tnoremap <expr> <Tab> pum#visible() ?
+  \ '<Cmd>call pum#map#insert_relative(+1)<CR>' :
+  \ '<Tab>'
+  tnoremap <expr> <S-Tab> pum#visible() ?
+  \ '<Cmd>call pum#map#insert_relative(-1)<CR>' :
+  \ '<S-Tab>'
   tnoremap <Down>   <Cmd>call pum#map#select_relative(+1)<CR>
   tnoremap <Up>     <Cmd>call pum#map#select_relative(-1)<CR>
-  tnoremap <silent><expr> <C-y>
-        \ pum#visible() ? '<Cmd>call pum#map#confirm()<CR>' : '<C-y>'
-  tnoremap <silent><expr> <C-e>
-        \ pum#visible() ? '<Cmd>call pum#map#cancel()<CR>' : '<C-e>'
+  tnoremap <expr> <C-y>
+  \ pum#visible() ? '<Cmd>call pum#map#confirm()<CR>' : '<C-y>'
+  tnoremap <expr> <C-e>
+    \ pum#visible() ? '<Cmd>call pum#map#cancel()<CR>' : '<C-e>'
+  tnoremap <expr> <C-g>   ddc#map#manual_complete()
+  tnoremap <C-o>   <Cmd>call pum#map#confirm()<CR>
 '''
 [plugins.ftplugin]
 deol = '''
-  nnoremap <buffer><silent> [Space]gc
+  nnoremap <buffer> [Space]gc
   \ <Cmd>call deol#send('git commit')<CR>
-  nnoremap <buffer><silent> [Space]gs
+  nnoremap <buffer> [Space]gs
   \ <Cmd>call deol#send('git status')<CR>
-  nnoremap <buffer><silent> [Space]gA
+  nnoremap <buffer> [Space]gA
   \ <Cmd>call deol#send('git commit --amend')<CR>
   nmap <buffer> e <Plug>(deol_edit)
-  tmap <buffer> <CR> <Plug>(deol_execute_line)
+  tmap <buffer><expr> <CR>
+  \ (pum#visible() ? '<Cmd>call pum#map#confirm()<CR>' : '')
+  \ . '<Plug>(deol_execute_line)'
 
   call ddc#custom#patch_buffer('sourceOptions', #{
-      \   _: #{
-      \     converters: [],
-      \   },
-      \ })
+          \   _: #{
+          \     converters: [],
+          \   },
+          \ })
 '''
 zsh = '''
-  nnoremap <buffer><silent> [Space]gc
+  nnoremap <buffer> [Space]gc
   \ <Cmd>call deol#send('git commit')<CR>
-  nnoremap <buffer><silent> [Space]gs
+  nnoremap <buffer> [Space]gs
   \ <Cmd>call deol#send('git status')<CR>
-  nnoremap <buffer><silent> [Space]gA
+  nnoremap <buffer> [Space]gA
   \ <Cmd>call deol#send('git commit --amend')<CR>
 '''
 
@@ -138,7 +142,7 @@ zsh = '''
 repo = 'Shougo/junkfile.vim'
 on_source = ['ddu.vim']
 hook_add = '''
-  nnoremap <silent> se <Cmd>Ddu junkfile -volatile<CR>
+  nnoremap se <Cmd>Ddu junkfile -volatile<CR>
 '''
 
 [[plugins]]
@@ -152,7 +156,7 @@ hook_add = '''
 [[plugins]]
 repo = 'Shougo/ddx.vim'
 hook_add = '''
-  nnoremap <silent> [Space]x <Cmd>Ddx -path=`expand('%')`<CR>
+  nnoremap [Space]x <Cmd>Ddx -path=`expand('%')`<CR>
 '''
 
 [[plugins]]
@@ -184,10 +188,10 @@ repo = 'rhysd/vim-operator-surround'
 depends = 'vim-operator-user'
 on_map = {n = '<Plug>'}
 hook_add = '''
-  nmap <silent>sa <Plug>(operator-surround-append)
-  nmap <silent>sd <Plug>(operator-surround-delete)a
-  nmap <silent>sr <Plug>(operator-surround-replace)a
-  nmap <silent>sc <Plug>(operator-surround-replace)a
+  nmap sa <Plug>(operator-surround-append)
+  nmap sd <Plug>(operator-surround-delete)a
+  nmap sr <Plug>(operator-surround-replace)a
+  nmap sc <Plug>(operator-surround-replace)a
 '''
 
 [[plugins]]
@@ -221,7 +225,7 @@ repo = 'machakann/vim-vimhelplint'
 on_ft = 'help'
 [plugins.ftplugin]
 help = '''
-  nnoremap <silent><buffer> ,r  <Cmd>VimhelpLint!<CR>
+  nnoremap <buffer> ,r  <Cmd>VimhelpLint!<CR>
 '''
 
 [[plugins]]
@@ -269,7 +273,7 @@ hook_source = '''
   let g:copilot_no_maps = v:true
   let g:copilot_node_command = '/snap/bin/node'
   let g:copilot_hide_during_completion = 0
-  imap <script><silent><nowait><expr> <C-g> copilot#Accept()
+  imap <silent><expr> <C-g> copilot#Accept()
 '''
 
 [[plugins]]
@@ -283,7 +287,7 @@ repo = '4513ECHO/vim-readme-viewer'
 on_source = ['ddu.vim']
 hook_add = '''
   let g:readme_viewer#plugin_manager = 'dein.vim'
-  nnoremap <silent> sr <Cmd>Ddu readme_viewer<CR>
+  nnoremap sr <Cmd>Ddu readme_viewer<CR>
 '''
 on_cmd = 'DeinOpen'
 
