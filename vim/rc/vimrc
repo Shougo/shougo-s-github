@@ -84,23 +84,25 @@ if dein#min#load_state(s:path)
 
   call dein#begin(s:path, expand('<sfile>'))
 
-  call dein#load_toml(s:dein_toml, {'lazy': 0})
-  call dein#load_toml(s:dein_lazy_toml, {'lazy' : 1})
-  call dein#load_toml(s:dein_ddc_toml, {'lazy' : 1})
-  call dein#load_toml(s:dein_ddu_toml, {'lazy' : 1})
+  call dein#load_toml(s:dein_toml, #{ lazy: 0 })
+  call dein#load_toml(s:dein_lazy_toml, #{ lazy: 1 })
+  call dein#load_toml(s:dein_ddc_toml, #{ lazy: 1 })
+  call dein#load_toml(s:dein_ddu_toml, #{ lazy: 1 })
   if has('nvim')
-    call dein#load_toml(s:dein_neovim_toml, {'lazy' : 1})
+    call dein#load_toml(s:dein_neovim_toml, #{ lazy : 1 })
   else
-    call dein#load_toml(s:dein_vim_toml, {'lazy' : 1})
+    call dein#load_toml(s:dein_vim_toml, #{ lazy : 1 })
   endif
   call dein#load_toml(s:dein_ft_toml)
 
-  if filereadable('vimrc_local.vim')
+  let work_directory = expand('~/work')
+  if isdirectory(work_directory)
     " Load develop version plugins.
-    call dein#local(getcwd(),
-          \ {'frozen': 1, 'merged': 0}, [
-          \ 'ddc-*', 'ddu-*', 'vim*', 'nvim-*', 'neco-*',
-          \ '*.vim', '*.nvim', 'skkeleton',
+    call dein#local(work_directory,
+          \ #{ frozen: 1, merged: 0 }, [
+          \   'vim*', 'nvim-*', '*.vim', '*.nvim',
+          \   'ddc-*', 'ddu-*',
+          \   'skkeleton', 'neco-vim',
           \ ])
   endif
 
