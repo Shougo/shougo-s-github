@@ -31,7 +31,7 @@ hook_add = '''
   \ -ui-param-startFilter=v:false
   \ <CR>
   nnoremap ;r <Cmd>Ddu
-  \ -buffer-name=register register
+  \ -name=register register
   \ -ui-param-autoResize
   \ <CR>
   nnoremap ;d <Cmd>Ddu
@@ -39,7 +39,7 @@ hook_add = '''
   \ -ui-param-ignoreEmpty -ui-param-displayTree
   \ <CR>
   xnoremap <expr> ;r (mode() ==# 'V' ? '"_R<Esc>' : '"_d') .
-  \ '<Cmd>Ddu -buffer-name=register register
+  \ '<Cmd>Ddu -name=register register
   \  -source-option-defaultAction=insert -ui-param-autoResize<CR>'
   nnoremap sg <Cmd>Ddu
   \ dein<CR>
@@ -48,6 +48,21 @@ hook_add = '''
   \ -source-param-range=window
   \ -ui-param-startFilter
   \ <CR>
+
+  inoremap <C-q> <Cmd>Ddu
+  \ -name=register register
+  \ -source-option-defaultAction=insert
+  \ -source-param-range=window
+  \ -ui-param-startFilter=v:false
+  \ <CR>
+  cnoremap <C-q> <Cmd>Ddu
+  \ -name=register register
+  \ -source-option-defaultAction=feedkeys
+  \ -source-param-range=window
+  \ -ui-param-startFilter=v:false
+  \ -ui-param-previousCmdline=`getcmdline()`
+  \ -ui-param-previousCmdpos=`getcmdpos()`<CR>
+  \ <Cmd>call setcmdline('')<CR><CR>
 '''
 hook_source = '''
   call ddu#custom#alias('source', 'file_rg', 'file_external')
