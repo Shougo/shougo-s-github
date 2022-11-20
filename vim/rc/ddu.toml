@@ -34,6 +34,8 @@ hook_add = '''
   \ <CR>
   nnoremap ;r <Cmd>Ddu
   \ -name=register register
+  \ -source-option-defaultAction=
+  \`col('.') == col('$') - 1 ? 'append' : 'insert'`
   \ -ui-param-autoResize
   \ <CR>
   nnoremap ;d <Cmd>Ddu
