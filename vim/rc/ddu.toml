@@ -10,7 +10,9 @@ hook_add = '''
   nnoremap ss
   \ <Cmd>Ddu -name=files file_point file_old
   \ `finddir('.git', ';') != '' ? 'file_external' : 'file'`
-  \ -sync -ui-param-displaySourceName=short
+  \ file -source-param-new
+  \ -volatile -sync
+  \ -ui-param-displaySourceName=short
   \ <CR>
   nnoremap / <Cmd>Ddu
   \ -name=search line -resume=v:false
@@ -55,14 +57,17 @@ hook_add = '''
   \ -source-param-range=window
   \ -ui-param-startFilter=v:false
   \ <CR>
+  "cnoremap <C-q> <Cmd>Ddu
+  "\ -name=register register
+  "\ -source-option-defaultAction=feedkeys
+  "\ -source-param-range=window
+  "\ -ui-param-startFilter=v:false
+  "\ <CR><Cmd>call setcmdline('')<CR><CR>
   cnoremap <C-q> <Cmd>Ddu
-  \ -name=register register
+  \ -name=file file
   \ -source-option-defaultAction=feedkeys
-  \ -source-param-range=window
-  \ -ui-param-startFilter=v:false
-  \ -ui-param-previousCmdline=`getcmdline()`
-  \ -ui-param-previousCmdpos=`getcmdpos()`<CR>
-  \ <Cmd>call setcmdline('')<CR><CR>
+  \ -ui-param-startFilter
+  \ <CR><Cmd>call setcmdline('')<CR><CR>
 '''
 hook_source = '''
   call ddu#custom#alias('source', 'file_rg', 'file_external')
