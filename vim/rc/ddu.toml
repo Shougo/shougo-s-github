@@ -53,7 +53,7 @@ hook_add = '''
 
   inoremap <C-q> <Cmd>Ddu
   \ -name=register register
-  \ -source-option-defaultAction=insert
+  \ -source-option-defaultAction=`col('.') == col('$') ? 'append' : 'insert'`
   \ -source-param-range=window
   \ -ui-param-startFilter=v:false
   \ <CR>
