@@ -105,6 +105,12 @@ function! vimrc#disable_syntax() abort
   endif
 endfunction
 
+function! vimrc#check_syntax() abort
+  if getfsize(@%) > 512 * 1000
+    syntax off
+  endif
+endfunction
+
 function! vimrc#diagnostics_to_qf() abort
   if !has('nvim')
     return
