@@ -53,23 +53,46 @@ hook_add = '''
   \ -ui-param-startFilter
   \ <CR>
 
-  inoremap <C-q> <Cmd>Ddu
-  \ -name=register register
-  \ -source-option-defaultAction=`col('.') == col('$') ? 'append' : 'insert'`
-  \ -source-param-range=window
-  \ -ui-param-startFilter=v:false
-  \ <CR>
+  "inoremap <C-q> <Cmd>Ddu
+  "\ -name=register register
+  "\ -source-option-defaultAction=`col('.') == col('$') ? 'append' : 'insert'`
+  "\ -source-param-range=window
+  "\ -ui-param-startFilter=v:false
+  "\ <CR>
+  inoremap <C-q> <Cmd>call ddu#start(#{
+  \   name: 'file',
+  \   ui: 'ff',
+  \   input: matchstr(getline('.')[: col('.') - 1], '\f*$'),
+  \   sources: [
+  \     #{ name: 'file', options: #{ defaultAction: 'feedkeys' } },
+  \   ],
+  \   uiParams: #{
+  \     ff: #{
+  \       startFilter: v:true,
+  \       replaceCol: match(getline('.')[: col('.') - 1], '\f*$') + 1,
+  \     },
+  \   },
+  \ })<CR>
   "cnoremap <C-q> <Cmd>Ddu
   "\ -name=register register
   "\ -source-option-defaultAction=feedkeys
   "\ -source-param-range=window
   "\ -ui-param-startFilter=v:false
   "\ <CR><Cmd>call setcmdline('')<CR><CR>
-  cnoremap <C-q> <Cmd>Ddu
-  \ -name=file file
-  \ -source-option-defaultAction=feedkeys
-  \ -ui-param-startFilter
-  \ <CR><Cmd>call setcmdline('')<CR><CR>
+  cnoremap <C-q> <Cmd>call ddu#start(#{
+  \   name: 'file',
+  \   ui: 'ff',
+  \   input: matchstr(getcmdline()[: getcmdpos() - 2], '\f*$'),
+  \   sources: [
+  \     #{ name: 'file', options: #{ defaultAction: 'feedkeys' } },
+  \   ],
+  \   uiParams: #{
+  \     ff: #{
+  \       startFilter: v:true,
+  \       replaceCol: match(getcmdline()[: getcmdpos() - 2], '\f*$') + 1,
+  \     },
+  \   },
+  \ })<CR><Cmd>call setcmdline('')<CR><CR>
 '''
 hook_source = '''
   call ddu#custom#alias('source', 'file_rg', 'file_external')

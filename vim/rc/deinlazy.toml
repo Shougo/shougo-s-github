@@ -242,21 +242,6 @@ hook_source = '''
   let g:haskell_conceal = v:false
 '''
 
-[[plugins]]
-repo = 'hrsh7th/vim-eft'
-hook_source = '''
-  let g:eft_ignorecase = v:true
-'''
-hook_add = '''
-  nmap ;; <Plug>(eft-repeat)
-  xmap ;; <Plug>(eft-repeat)
-
-  nmap f <Plug>(eft-f)
-  xmap f <Plug>(eft-f)
-  omap f <Plug>(eft-f)
-'''
-on_map = { n = '<Plug>', x = '<Plug>', o = '<Plug>' }
-
 #[[plugins]]
 #repo = 'teal-language/vim-teal'
 #on_ft = 'teal'
