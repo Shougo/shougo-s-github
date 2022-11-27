@@ -159,11 +159,14 @@ hook_source = '''
   inoremap <C-o>   <Cmd>call pum#map#confirm()<CR>
   inoremap <expr> <C-l>   ddc#map#extend(pum#map#confirm())
   inoremap <expr> <C-x><C-f> ddc#map#manual_complete('path')
-  inoremap <expr> l   pum#entered() ?
+  inoremap <expr> l
+        \ pum#entered() ?
         \ '<Cmd>call pum#map#insert_relative(+1)<CR>' : 'l'
-  inoremap <expr> h   pum#entered() ?
+  inoremap <expr> h
+        \ pum#entered() ?
         \ '<Cmd>call pum#map#insert_relative(-1)<CR>' : 'h'
-  inoremap <expr><C-e>       ddc#map#insert_item(0, "\<C-e>")
+  inoremap <expr> <C-e>
+        \ ddc#map#insert_item(0, "")
   inoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
 
   " For command line mode completion
@@ -173,6 +176,8 @@ hook_source = '''
   \ ddc#manual_complete() : nr2char(&wildcharm)
   cnoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
   cnoremap <C-o>   <Cmd>call pum#map#confirm()<CR>
+  cnoremap <expr> <C-e>
+        \ ddc#map#insert_item(0, "")
 
   " NOTE: Test for terminal completion
   call ddc#custom#patch_filetype(['deol'], #{
