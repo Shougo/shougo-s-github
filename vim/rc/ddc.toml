@@ -163,7 +163,7 @@ hook_source = '''
         \ '<Cmd>call pum#map#insert_relative(+1)<CR>' : 'l'
   inoremap <expr> h   pum#entered() ?
         \ '<Cmd>call pum#map#insert_relative(-1)<CR>' : 'h'
-  inoremap <C-e>   <Cmd>call pum#map#cancel()<CR>
+  inoremap <expr><C-e>       ddc#map#insert_item(0, "\<C-e>")
   inoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
 
   " For command line mode completion
