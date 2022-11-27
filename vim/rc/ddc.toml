@@ -166,7 +166,7 @@ hook_source = '''
         \ pum#entered() ?
         \ '<Cmd>call pum#map#insert_relative(-1)<CR>' : 'h'
   inoremap <expr> <C-e>
-        \ ddc#map#insert_item(0, "")
+        \ ddc#map#insert_item(0, '<Cmd>call pum#map#cancel()<CR>')
   inoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
 
   " For command line mode completion
@@ -177,7 +177,7 @@ hook_source = '''
   cnoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
   cnoremap <C-o>   <Cmd>call pum#map#confirm()<CR>
   cnoremap <expr> <C-e>
-        \ ddc#map#insert_item(0, "")
+        \ ddc#map#insert_item(0, '<Cmd>call pum#map#cancel()<CR>')
 
   " NOTE: Test for terminal completion
   call ddc#custom#patch_filetype(['deol'], #{
