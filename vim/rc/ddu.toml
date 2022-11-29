@@ -34,7 +34,7 @@ hook_add = '''
   \ <CR>
   nnoremap ;r <Cmd>Ddu
   \ -name=register register
-  \ -source-option-defaultAction=append
+  \ -source-option-defaultAction=`col('.') == 1 ? 'insert' : 'append'`
   \ -ui-param-autoResize
   \ <CR>
   nnoremap ;d <Cmd>Ddu
@@ -43,7 +43,8 @@ hook_add = '''
   \ <CR>
   xnoremap <expr> ;r (mode() ==# 'V' ? '"_R<Esc>' : '"_d') .
   \ '<Cmd>Ddu -name=register register
-  \  -source-option-defaultAction=insert -ui-param-autoResize<CR>'
+  \ -source-option-defaultAction=insert
+  \ -ui-param-autoResize<CR>'
   nnoremap sg <Cmd>Ddu
   \ dein<CR>
   nnoremap [Space]<Space> <Cmd>Ddu
