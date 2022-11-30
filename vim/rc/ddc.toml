@@ -173,7 +173,7 @@ hook_source = '''
   cnoremap <expr> <Tab>
   \ pum#visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' :
   \ exists('b:ddc_cmdline_completion') ?
-  \ ddc#manual_complete() : nr2char(&wildcharm)
+  \ ddc#map#manual_complete() : nr2char(&wildcharm)
   cnoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
   cnoremap <C-o>   <Cmd>call pum#map#confirm()<CR>
   cnoremap <expr> <C-e>
