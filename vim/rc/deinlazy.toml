@@ -181,6 +181,10 @@ qf = '''
 '''
 
 [[plugins]]
+repo = 'itchyny/vim-qfedit'
+on_ft = ['qf']
+
+[[plugins]]
 repo = 'tyru/open-browser.vim'
 
 [[plugins]]
