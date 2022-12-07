@@ -1,6 +1,9 @@
 # sway config file
 #
 
+# Load default config
+include /etc/sway/config.d/*
+
 set $mod Mod1
 
 # Use foot terminal
