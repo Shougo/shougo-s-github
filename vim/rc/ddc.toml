@@ -355,14 +355,9 @@ hook_source = '''
         \     '~/.config/SKK-JISYO.L' : '/usr/share/skk/SKK-JISYO.L',
         \   eggLikeNewline: v:true,
         \   registerConvertResult: v:true,
+        \   markerHenkan: '',
+        \   markerHenkanSelect: '',
         \ })
-
-  if &term !=# 'gui' && &term !=# 'nvim' && &term !~# '^xterm'
-    call skkeleton#config(#{
-            \   markerHenkan: '<>',
-            \   markerHenkanSelect: '>>',
-            \ })
-  endif
 
   call skkeleton#register_kanatable('rom', {
         \   'jj': 'escape',
