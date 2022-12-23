@@ -5,10 +5,18 @@ hook_source = '''
   " NOTE: for profile
   "let g:denops#server#deno_args = [
   "    \ '-q',
-  "    \ '--no-check',
-  "    \ '--unstable',
   "    \ '-A',
+  "    \ '--unstable',
+  "    \ '--no-lock',
   "    \ '--inspect',
+  "    \ ]
+
+  " NOTE: for test
+  "let g:denops#server#deno_args = [
+  "    \ '-q',
+  "    \ '-A',
+  "    \ '--unstable',
+  "    \ '--no-lock',
   "    \ ]
 
   " Use background server
