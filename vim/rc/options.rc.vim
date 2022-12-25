@@ -205,8 +205,6 @@ set titlelen=95
 " Title string.
 let &g:titlestring =
       \ "%{expand('%:p:~:.')} %<\(%{fnamemodify(getcwd(), ':~')}\)%(%m%r%w%)"
-" Disable tabline.
-set showtabline=0
 
 " Set statusline.
 set statusline=%{repeat('─',winwidth('.'))}
@@ -221,8 +219,6 @@ set breakat=\ \	;:,!?
 set whichwrap+=h,l,<,>,[,],b,s,~
 set breakindent
 
-" Short messages
-set shortmess=aTIcFoOsSW
 set noshowmode
 
 " Don't create backup.
@@ -332,15 +328,7 @@ set cedit=
 
 set redrawtime=0
 
-" Enable true color
-if exists('+termguicolors') && !has('gui_running')
-  set termguicolors
-endif
-
 " I use <C-w> in terminal mode
 if exists('+termwinkey')
   set termwinkey=<C-L>
 endif
-
-" Colorscheme
-colorscheme candy
