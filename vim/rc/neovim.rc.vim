@@ -19,10 +19,6 @@ set inccommand=nosplit
 set pumblend=20
 set winblend=20
 
-" Use cursor shape feature
-set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,
-      \i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor
-
 " Modifiable terminal
 autocmd MyAutoCmd TermOpen * setlocal modifiable
 
