@@ -23,15 +23,10 @@ augroup END
 if exists('+termguicolors') && !has('gui_running')
   set termguicolors
 endif
-set shortmess=aTIcFoOsSW
-set showtabline=0
-" Always disable statusline.
-set laststatus=0
+set shortmess=aTIcFoOsSW showtabline=0 laststatus=0
 
 " Show title.
-set title
-" Title length.
-set titlelen=95
+set title titlelen=95
 " Title string.
 let &g:titlestring =
       \ "%{expand('%:p:~:.')} %<\(%{fnamemodify(getcwd(), ':~')}\)%(%m%r%w%)"
@@ -54,6 +49,7 @@ endif
 
 let s:base_dir = fnamemodify(expand('<sfile>'), ':h') . '/'
 
+" Lazy load plugins
 call timer_start(1, { _ -> execute("source `=s:base_dir . 'dein.vim'`") })
 
 "---------------------------------------------------------------------------
