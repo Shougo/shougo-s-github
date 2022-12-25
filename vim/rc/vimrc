@@ -24,6 +24,18 @@ if exists('+termguicolors') && !has('gui_running')
   set termguicolors
 endif
 set shortmess=aTIcFoOsSW showtabline=0 laststatus=0
+set noruler noshowcmd noshowmode
+
+" Height of the command line.
+try
+  set cmdheight=0
+
+  " For recording messages
+  autocmd MyAutoCmd RecordingEnter * set cmdheight=1
+  autocmd MyAutoCmd RecordingLeave * set cmdheight=0
+catch
+  set cmdheight=1
+endtry
 
 " Show title.
 set title titlelen=95
@@ -50,7 +62,11 @@ endif
 let s:base_dir = fnamemodify(expand('<sfile>'), ':h') . '/'
 
 " Lazy load plugins
-call timer_start(1, { _ -> execute("source `=s:base_dir . 'dein.vim'`") })
+if 0
+  call timer_start(1, { _ -> execute("source `=s:base_dir . 'dein.vim'`") })
+else
+  source `=s:base_dir . 'dein.vim'`
+endif
 
 "---------------------------------------------------------------------------
 

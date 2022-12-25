@@ -173,38 +173,12 @@ else
    set listchars=tab:▸\ ,trail:-,precedes:«,nbsp:%
 endif
 
-" Always disable statusline.
-set laststatus=0
-
 " Disable statusline when command line
 "autocmd MyAutoCmd CmdlineEnter * set laststatus=0 | redrawstatus
 "autocmd MyAutoCmd CmdlineLeave * set laststatus=2
 
-" Height of the command line.
-try
-  set cmdheight=0
-
-  " For recording messages
-  autocmd MyAutoCmd RecordingEnter * set cmdheight=1
-  autocmd MyAutoCmd RecordingLeave * set cmdheight=0
-catch
-  set cmdheight=1
-endtry
-
-" Not show command on statusline.
-set noshowcmd
-" Disable ruler
-set noruler
 " Does not report lines
 set report=1000
-
-" Show title.
-set title
-" Title length.
-set titlelen=95
-" Title string.
-let &g:titlestring =
-      \ "%{expand('%:p:~:.')} %<\(%{fnamemodify(getcwd(), ':~')}\)%(%m%r%w%)"
 
 " Set statusline.
 set statusline=%{repeat('─',winwidth('.'))}
@@ -218,8 +192,6 @@ set breakat=\ \	;:,!?
 " Wrap conditions.
 set whichwrap+=h,l,<,>,[,],b,s,~
 set breakindent
-
-set noshowmode
 
 " Don't create backup.
 set nowritebackup
