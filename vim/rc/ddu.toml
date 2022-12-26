@@ -5,7 +5,7 @@ on_source = 'denops.vim'
 hook_add = '''
   nnoremap s<Space> <Cmd>Ddu
   \ -name=files file
-  \ -source-option-path='`fnamemodify($MYVIMRC, ':h').'/rc'`'
+  \ -source-option-path='`fnamemodify(dein#util#_get_myvimrc(), ':p:h').'/rc'`'
   \ <CR>
   nnoremap ss
   \ <Cmd>Ddu -name=files file_point file_old
