@@ -146,6 +146,9 @@ hook_source = '''
       \     ff: #{
       \       filterSplitDirection: 'floating',
       \       previewFloating: v:true,
+      \       highlights: #{
+      \         floating: 'Normal',
+      \       },
       \     },
       \     filer: #{
       \       split: 'no',
