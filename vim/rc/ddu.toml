@@ -26,7 +26,13 @@ hook_add = '''
   nnoremap ;g <Cmd>Ddu
   \ -name=search rg -resume=v:false
   \ -ui-param-ignoreEmpty
-  \ -source-param-input=`input('Pattern: ')`
+  \ -source-param-input=`input('Pattern: ', expand('<cword>'))`
+  \ <CR>
+  nnoremap ;f <Cmd>Ddu
+  \ -name=search rg -resume=v:false
+  \ -ui-param-ignoreEmpty
+  \ -source-param-input=`input('Pattern: ', expand('<cword>'))`
+  \ -source-param-path=`input('Directory: ', '', 'dir')`
   \ <CR>
   nnoremap n <Cmd>Ddu
   \ -name=search -resume
