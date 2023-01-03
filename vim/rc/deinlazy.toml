@@ -166,6 +166,11 @@ repo = 'Shougo/ddx.vim'
 hook_add = '''
   nnoremap [Space]x <Cmd>Ddx -path=`expand('%')`<CR>
 '''
+hook_source = '''
+  call ddu#custom#patch_global(#{
+      \   ui: 'hex',
+      \ })
+'''
 [plugins.ftplugin]
 ddx-hex = '''
   nnoremap <buffer> q

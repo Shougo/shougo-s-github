@@ -32,7 +32,11 @@ hook_source = '''
       \     mark: 'B',
       \   },
       \   necovim: #{
-      \    mark: 'vim'
+      \     mark: 'vim',
+      \   },
+      \   nvim-lua: #{
+      \     mark: 'lua',
+      \     forceCompletionPattern: '\.\w*|:\w*|->\w*',
       \   },
       \   cmdline: #{
       \     mark: 'cmdline',
@@ -122,6 +126,10 @@ hook_source = '''
     call ddc#custom#patch_filetype(
             \ ['typescript', 'go', 'python'], 'sources',
             \ ['around', 'nvim-lsp']
+            \ )
+    call ddc#custom#patch_filetype(
+            \ ['lua'], 'sources',
+            \ ['nvim-lua', 'around']
             \ )
   endif
 
