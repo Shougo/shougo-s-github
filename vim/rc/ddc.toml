@@ -165,7 +165,6 @@ hook_source = '''
   inoremap <C-n>   <Cmd>call pum#map#select_relative(+1)<CR>
   inoremap <C-p>   <Cmd>call pum#map#select_relative(-1)<CR>
   inoremap <C-o>   <Cmd>call pum#map#confirm()<CR>
-  inoremap <expr> <C-l>   ddc#map#extend(pum#map#confirm())
   inoremap <C-x><C-f> <Cmd>call ddc#map#manual_complete('file')<CR>
   inoremap <expr> l
         \ pum#entered() ?
@@ -193,6 +192,22 @@ hook_source = '''
       \   keywordPattern: '[0-9a-zA-Z_./#:-]*',
       \   sources: ['zsh', 'shell-history', 'around'],
       \ })
+
+  " Narrowing by ddu
+  inoremap <C-l> <Cmd>call ddu#start(#{
+  \   name: 'ddc',
+  \   ui: 'ff',
+  \   input: matchstr(getline('.')[: col('.') - 1], '\k*$'),
+  \   sources: [
+  \     #{ name: 'ddc', options: #{ defaultAction: 'feedkeys' } },
+  \   ],
+  \   uiParams: #{
+  \     ff: #{
+  \       startFilter: v:true,
+  \       replaceCol: match(getline('.')[: col('.') - 1], '\k*$') + 1,
+  \     },
+  \   },
+  \ })<CR>
 
   call ddc#enable()
 '''
