@@ -166,7 +166,7 @@ hook_source = '''
   inoremap <C-p>   <Cmd>call pum#map#select_relative(-1)<CR>
   inoremap <C-o>   <Cmd>call pum#map#confirm()<CR>
   inoremap <expr> <C-l>   ddc#map#extend(pum#map#confirm())
-  inoremap <expr> <C-x><C-f> ddc#map#manual_complete('path')
+  inoremap <C-x><C-f> <Cmd>call ddc#map#manual_complete('file')<CR>
   inoremap <expr> l
         \ pum#entered() ?
         \ '<Cmd>call pum#map#insert_relative(+1)<CR>' : 'l'
