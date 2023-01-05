@@ -199,7 +199,7 @@ hook_source = '''
   \   ui: 'ff',
   \   input: matchstr(getline('.')[: col('.') - 1], '\k*$'),
   \   sources: [
-  \     #{ name: 'ddc', options: #{ defaultAction: 'feedkeys' } },
+  \     #{ name: 'ddc', options: #{ defaultAction: 'complete' } },
   \   ],
   \   uiParams: #{
   \     ff: #{

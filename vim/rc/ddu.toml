@@ -307,10 +307,11 @@ ddu-ff = '''
   \ :call ddu#ui#ff#do_action('toggleSelectItem')<CR>
 '''
 ddu-ff-filter = '''
-inoremap <buffer> <CR>
-\ <Esc><Cmd>call ddu#ui#ff#close()<CR>
-nnoremap <buffer> <CR>
-\ <Cmd>call ddu#ui#ff#close()<CR>
+  inoremap <buffer> <CR>
+  \ <Esc><Cmd>call ddu#ui#ff#close()<CR>
+  \ <Cmd>call ddu#ui#ff#do_action('itemAction')<CR>
+  nnoremap <buffer> <CR>
+  \ <Esc><Cmd>call ddu#ui#ff#close()<CR>
 '''
 
 [[plugins]]
