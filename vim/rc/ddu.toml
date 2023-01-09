@@ -295,6 +295,11 @@ ddu-ff = '''
   \ <Cmd>call ddu#ui#ff#do_action('itemAction', #{ name: 'yank' })<CR>
   nnoremap <buffer> gr
   \ <Cmd>call ddu#ui#ff#do_action('itemAction', #{ name: 'grep' })<CR>
+
+  xnoremap <silent><buffer> <Space>
+  \ :call ddu#ui#ff#do_action('toggleSelectItem')<CR>
+
+  " Switch options
   nnoremap <buffer> u
   \ <Cmd>call ddu#ui#ff#do_action('updateOptions', #{
   \   sourceOptions: #{
@@ -303,13 +308,18 @@ ddu-ff = '''
   \     },
   \   },
   \ })<CR>
-  xnoremap <silent><buffer> <Space>
-  \ :call ddu#ui#ff#do_action('toggleSelectItem')<CR>
+
+  " Switch sources
+  nnoremap <buffer> ff
+  \ <Cmd>call ddu#ui#ff#do_action('updateOptions', #{
+  \   sources: [
+  \     #{ name: 'file' },
+  \   ],
+  \ })<CR>
 '''
 ddu-ff-filter = '''
   inoremap <buffer> <CR>
   \ <Esc><Cmd>call ddu#ui#ff#close()<CR>
-  \ <Cmd>call ddu#ui#ff#do_action('itemAction')<CR>
   nnoremap <buffer> <CR>
   \ <Esc><Cmd>call ddu#ui#ff#close()<CR>
 '''
