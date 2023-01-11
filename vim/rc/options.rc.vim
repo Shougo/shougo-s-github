@@ -97,7 +97,7 @@ autocmd MyAutoCmd CmdlineLeave *
 set timeout timeoutlen=500 ttimeoutlen=100
 
 " CursorHold time.
-set updatetime=500
+set updatetime=1000
 
 " Set swap directory.
 set directory-=.
