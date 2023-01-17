@@ -137,6 +137,11 @@ hook_source = '''
       \     markdown: #{
       \       sorters: [],
       \     },
+      \     line: #{
+      \       matchers: [
+      \         'matcher_kensaku',
+      \       ],
+      \     },
       \   },
       \   sourceParams: #{
       \     file_external: #{
@@ -178,6 +183,11 @@ hook_source = '''
       \     },
       \     readme_viewer: #{
       \       defaultAction: 'open',
+      \     },
+      \   },
+      \   kindParams: #{
+      \     action: #{
+      \       quit: v:true,
       \     },
       \   },
       \   actionOptions: #{
@@ -295,6 +305,8 @@ ddu-ff = '''
   \ <Cmd>call ddu#ui#ff#do_action('itemAction', #{ name: 'yank' })<CR>
   nnoremap <buffer> gr
   \ <Cmd>call ddu#ui#ff#do_action('itemAction', #{ name: 'grep' })<CR>
+  nnoremap <buffer> n
+  \ <Cmd>call ddu#ui#ff#do_action('itemAction', #{ name: 'narrow' })<CR>
 
   xnoremap <silent><buffer> <Space>
   \ :call ddu#ui#ff#do_action('toggleSelectItem')<CR>
@@ -490,6 +502,11 @@ on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-filter-converter_display_word'
+on_source = 'ddu.vim'
+
+[[plugins]]
+repo = 'Milly/ddu-filter-kensaku'
+depends = 'kensaku.vim'
 on_source = 'ddu.vim'
 
 [[plugins]]

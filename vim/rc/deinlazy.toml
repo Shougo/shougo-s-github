@@ -326,3 +326,6 @@ depends = 'denops.vim'
 hook_source = '''
   let g:scorpeon_extensions_path = expand('~/.cache/scorpeon/extensions')
 '''
+
+[[plugins]]
+repo = 'lambdalisue/kensaku.vim'
