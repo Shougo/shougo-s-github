@@ -400,7 +400,10 @@ hook_source = '''
   function! s:skkeleton_pre() abort
     " Overwrite sources
     let s:prev_buffer_config = ddc#custom#get_buffer()
-    call ddc#custom#patch_buffer('sources', ['skkeleton'])
+    call ddc#custom#patch_buffer(#{
+            \   sources: ['around', 'skkeleton'],
+            \   keywordPattern: '[ァ-ヮア-ン]+',
+            \ })
   endfunction
   autocmd MyAutoCmd User skkeleton-disable-pre call s:skkeleton_post()
   function! s:skkeleton_post() abort

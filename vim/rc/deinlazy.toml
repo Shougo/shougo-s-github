@@ -329,3 +329,4 @@ hook_source = '''
 
 [[plugins]]
 repo = 'lambdalisue/kensaku.vim'
+denops_wait = false
