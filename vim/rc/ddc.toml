@@ -165,7 +165,8 @@ hook_source = '''
   inoremap <C-n>   <Cmd>call pum#map#select_relative(+1)<CR>
   inoremap <C-p>   <Cmd>call pum#map#select_relative(-1)<CR>
   inoremap <C-o>   <Cmd>call pum#map#confirm()<CR>
-  inoremap <C-x><C-f> <Cmd>call ddc#map#manual_complete('file')<CR>
+  inoremap <C-x><C-f>
+        \ <Cmd>call ddc#map#manual_complete(#{ sources: ['file'] })<CR>
   inoremap <expr> l
         \ pum#entered() ?
         \ '<Cmd>call pum#map#insert_relative(+1)<CR>' : 'l'
