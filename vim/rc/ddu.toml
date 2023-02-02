@@ -11,7 +11,7 @@ hook_add = '''
   \ <Cmd>Ddu -name=files file_point file_old
   \ `finddir('.git', ';') != '' ? 'file_external' : 'file'`
   \ file -source-param-new
-  \ -volatile -sync
+  \ -volatile -sync -unique
   \ -ui-param-displaySourceName=short
   \ <CR>
   nnoremap / <Cmd>Ddu
