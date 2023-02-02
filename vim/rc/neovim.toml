@@ -150,7 +150,7 @@ repo = 'MunifTanjim/nui.nvim'
 [[plugins]]
 repo = 'neovim/nvim-lspconfig'
 depends = ['impatient.nvim', 'ddc.vim']
-on_ft = ['typescript', 'go', 'python']
+on_ft = ['typescript', 'go', 'python', 'markdown']
 if = 'has("nvim")'
 lua_source = '''
   require'lspconfig'.denols.setup{}
@@ -184,12 +184,16 @@ lua_source = '''
   require'noice'.setup {
     cmdline = {
       enabled = true,
-      icons = {
-        ['/'] = { icon = '/', hl_group = 'DiagnosticWarn' },
-        ['?'] = { icon = '?', hl_group = 'DiagnosticWarn' },
-        [':'] = { icon = ':', hl_group = 'DiagnosticInfo', firstc = false },
+      format = {
+        cmdline = { pattern = "^:", icon = ":", lang = "vim" },
+        search_down = { kind = "search", pattern = "^/", icon = "/", lang = "regex" },
+        search_up = { kind = "search", pattern = "^%?", icon = "?", lang = "regex" },
+        filter = { pattern = "^:%s*!", icon = "$", lang = "bash" },
+        lua = { pattern = "^:%s*lua%s+", icon = "", lang = "lua" },
+        help = { pattern = "^:%s*he?l?p?%s+", icon = "" },
+        input = {}, -- Used by input()
+        -- lua = false, -- to disable a format, set to `false`
       },
-      view = "cmdline",
     },
     popupmenu = {
       enabled = false,
