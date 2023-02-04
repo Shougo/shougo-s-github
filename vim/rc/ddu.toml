@@ -342,7 +342,7 @@ on_source = 'ddu.vim'
 hook_add = '''
   nnoremap [Space]f <Cmd>Ddu
   \ -name=filer-`win_getid()` -ui=filer -resume -sync file
-  \ -source-option-path=`getcwd()`
+  \ -source-option-path=`get(t:, 'ddu_ui_filer_path', '')`
   \ -source-option-columns=filename<CR>
 '''
 hook_source = '''
