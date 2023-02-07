@@ -157,6 +157,7 @@ hook_source = '''
       \     ff: #{
       \       filterSplitDirection: 'floating',
       \       previewFloating: v:true,
+      \       previewVertical: v:true,
       \       highlights: #{
       \         floating: 'Normal',
       \       },
