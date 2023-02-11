@@ -391,6 +391,8 @@ ddu-filer = '''
   nnoremap <buffer> p
   \ <Cmd>call ddu#ui#filer#do_action('itemAction',
   \ #{ name: 'paste' })<CR>
+  nnoremap <buffer> P
+  \ <Cmd>call ddu#ui#filer#do_action('preview')<CR>
   nnoremap <buffer> K
   \ <Cmd>call ddu#ui#filer#do_action('itemAction',
   \ #{ name: 'newDirectory' })<CR>

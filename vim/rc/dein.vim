@@ -27,7 +27,6 @@ let g:dein#auto_remote_plugins = v:false
 let g:dein#enable_notification = v:true
 let g:dein#install_check_diff = v:true
 let g:dein#install_check_remote_threshold = 24 * 60 * 60
-let g:dein#install_copy_vim = has('nvim')
 let g:dein#install_progress_type = 'floating'
 let g:dein#lazy_rplugins = v:true
 let g:dein#types#git#enable_partial_clone = v:true
