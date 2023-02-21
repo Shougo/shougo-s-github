@@ -187,7 +187,8 @@ hook_source = '''
   cnoremap <expr> <C-e>
         \ ddc#map#insert_item(0, '<Cmd>call pum#map#cancel()<CR>')
 
-  " NOTE: Test for terminal completion
+  " For terminal completion
+  call ddc#enable_terminal_completion()
   call ddc#custom#patch_filetype(['deol'], #{
       \   specialBufferCompletion: v:true,
       \   keywordPattern: '[0-9a-zA-Z_./#:-]*',
@@ -261,7 +262,7 @@ hook_source = '''
   call pum#set_option(#{
     \   auto_confirm_time: 1500,
     \   max_width: 80,
-    \   use_complete: v:true,
+    \   use_setline: v:true,
     \ })
 '''
 
