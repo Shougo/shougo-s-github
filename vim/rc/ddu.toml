@@ -299,7 +299,8 @@ ddu-ff = '''
   \ <Cmd>call ddu#ui#ff#do_action('itemAction',
   \ #{ name: 'open', params: #{ command: 'vsplit' } })<CR>
   nnoremap <buffer> N
-  \ <Cmd>call ddu#ui#ff#do_action('itemAction', #{ name: 'new' })<CR>
+  \ <Cmd>call ddu#ui#ff#do_action('itemAction',
+  \ b:ddu_ui_name ==# 'file' ? #{ name: 'newFile' } : #{ name: 'new' })<CR>
   nnoremap <buffer> r
   \ <Cmd>call ddu#ui#ff#do_action('itemAction', #{ name: 'quickfix' })<CR>
   nnoremap <buffer> yy
