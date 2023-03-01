@@ -51,6 +51,7 @@ hook_source = '''
       \   },
       \   line: #{
       \     mark: 'line',
+      \     matchers: ['matcher_vimregexp'],
       \   },
       \   mocword: #{
       \     mark: 'mocword',
@@ -344,23 +345,27 @@ repo = 'LumaKernel/ddc-source-file'
 on_source = 'ddc.vim'
 
 [[plugins]]
-repo = 'Shougo/ddc-matcher_head'
+repo = 'Shougo/ddc-filter-matcher_head'
 on_source = 'ddc.vim'
 
 [[plugins]]
-repo = 'Shougo/ddc-matcher_length'
+repo = 'Shougo/ddc-filter-matcher_length'
 on_source = 'ddc.vim'
 
 [[plugins]]
-repo = 'Shougo/ddc-sorter_rank'
+repo = 'Shougo/ddc-filter-matcher_vimregexp'
 on_source = 'ddc.vim'
 
 [[plugins]]
-repo = 'Shougo/ddc-converter_remove_overlap'
+repo = 'Shougo/ddc-filter-sorter_rank'
 on_source = 'ddc.vim'
 
 [[plugins]]
-repo = 'Shougo/ddc-converter_truncate_abbr'
+repo = 'Shougo/ddc-filter-converter_remove_overlap'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc-filter-converter_truncate_abbr'
 on_source = 'ddc.vim'
 
 [[plugins]]
