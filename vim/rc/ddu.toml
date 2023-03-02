@@ -5,11 +5,11 @@ on_source = 'denops.vim'
 hook_add = '''
   nnoremap s<Space> <Cmd>Ddu
   \ -name=files file
-  \ -source-option-path='`fnamemodify(dein#util#_get_myvimrc(), ':p:h').'/rc'`'
+  \ -source-option-path='`dein#util#_get_myvimrc()->fnamemodify(':p:h').'/rc'`'
   \ <CR>
   nnoremap ss
   \ <Cmd>Ddu -name=files file_point file_old
-  \ `finddir('.git', ';') != '' ? 'file_external' : 'file'`
+  \ `'.git'->finddir(';') != '' ? 'file_external' : 'file'`
   \ file -source-param-new
   \ -volatile -sync -unique
   \ -ui-param-displaySourceName=short
@@ -26,13 +26,13 @@ hook_add = '''
   nnoremap ;g <Cmd>Ddu
   \ -name=search rg -resume=v:false
   \ -ui-param-ignoreEmpty
-  \ -source-param-input=`input('Pattern: ', expand('<cword>'))`
+  \ -source-param-input=`'Pattern: '->input('<cword>'->expand())`
   \ <CR>
   nnoremap ;f <Cmd>Ddu
   \ -name=search rg -resume=v:false
   \ -ui-param-ignoreEmpty
-  \ -source-param-input=`input('Pattern: ', expand('<cword>'))`
-  \ -source-param-path=`input('Directory: ', '', 'dir')`
+  \ -source-param-input=`'Pattern: '->input('<cword>'->expand())`
+  \ -source-param-path=`'Directory: '->input('', 'dir')`
   \ <CR>
   nnoremap n <Cmd>Ddu
   \ -name=search -resume
@@ -40,7 +40,7 @@ hook_add = '''
   \ <CR>
   nnoremap ;r <Cmd>Ddu
   \ -name=register register
-  \ -source-option-defaultAction=`col('.') == 1 ? 'insert' : 'append'`
+  \ -source-option-defaultAction=`'.'->col() == 1 ? 'insert' : 'append'`
   \ -ui-param-autoResize
   \ <CR>
   nnoremap ;d <Cmd>Ddu
@@ -68,14 +68,14 @@ hook_add = '''
   inoremap <C-q> <Cmd>call ddu#start(#{
   \   name: 'file',
   \   ui: 'ff',
-  \   input: matchstr(getline('.')[: col('.') - 1], '\f*$'),
+  \   input: '.'->getline()[: '.'->col() - 1]->matchstr('\f*$'),
   \   sources: [
   \     #{ name: 'file', options: #{ defaultAction: 'feedkeys' } },
   \   ],
   \   uiParams: #{
   \     ff: #{
   \       startFilter: v:true,
-  \       replaceCol: match(getline('.')[: col('.') - 1], '\f*$') + 1,
+  \       replaceCol: '.'->getline()[: '.'->col() - 1]->match('\f*$') + 1,
   \     },
   \   },
   \ })<CR>
@@ -88,14 +88,14 @@ hook_add = '''
   cnoremap <C-q> <Cmd>call ddu#start(#{
   \   name: 'file',
   \   ui: 'ff',
-  \   input: matchstr(getcmdline()[: getcmdpos() - 2], '\f*$'),
+  \   input: getcmdline()[: getcmdpos() - 2]->matchstr('\f*$'),
   \   sources: [
   \     #{ name: 'file', options: #{ defaultAction: 'feedkeys' } },
   \   ],
   \   uiParams: #{
   \     ff: #{
   \       startFilter: v:true,
-  \       replaceCol: match(getcmdline()[: getcmdpos() - 2], '\f*$') + 1,
+  \       replaceCol: getcmdline()[: getcmdpos() - 2]->match('\f*$') + 1,
   \     },
   \   },
   \ })<CR><Cmd>call setcmdline('')<CR><CR>
@@ -232,7 +232,7 @@ hook_source = '''
   function! GrepAction(args)
     " NOTE: param "path" must be one directory
     let path = a:args.items[0].action.path
-    let directory = isdirectory(path) ? path : fnamemodify(path, ':h')
+    let directory = path->isdirectory() ? path : path->fnamemodify(':h')
 
     call ddu#start(#{
         \   name: a:args.options.name,
@@ -242,7 +242,7 @@ hook_source = '''
         \       name: 'rg',
         \       params: {
         \         path: path,
-        \         input: input('Pattern: '),
+        \         input: 'Pattern: '->input(),
         \       },
         \     },
         \   ],
@@ -344,7 +344,7 @@ on_source = 'ddu.vim'
 hook_add = '''
   nnoremap [Space]f <Cmd>Ddu
   \ -name=filer-`win_getid()` -ui=filer -resume -sync file
-  \ -source-option-path=`get(t:, 'ddu_ui_filer_path', '')`
+  \ -source-option-path=`t:->get('ddu_ui_filer_path', '')`
   \ -source-option-columns=filename<CR>
 '''
 hook_source = '''
@@ -411,7 +411,7 @@ ddu-filer = '''
   \ #{
   \   name: 'narrow',
   \   params: #{
-  \     path: fnamemodify(input('cwd: ', b:ddu_ui_filer_path, 'dir'), ':p')
+  \     path: 'cwd: '->input(b:ddu_ui_filer_path, 'dir')->fnamemodify(':p'),
   \   }
   \ })<CR>
   nnoremap <buffer> >
@@ -437,10 +437,10 @@ ddu-filer = '''
 
   function! ToggleHidden(name)
     let current = ddu#custom#get_current(b:ddu_ui_name)
-    let source_options = get(current, 'sourceOptions', {})
-    let source_options_name = get(source_options, a:name, {})
-    let matchers = get(source_options_name, 'matchers', [])
-    return empty(matchers) ? ['matcher_hidden'] : []
+    let source_options = current->get('sourceOptions', {})
+    let source_options_name = source_options->get(a:name, {})
+    let matchers = source_options_name->get('matchers', [])
+    return matchers->empty() ? ['matcher_hidden'] : []
   endfunction
 '''
 

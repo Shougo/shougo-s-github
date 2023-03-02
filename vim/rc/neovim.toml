@@ -11,7 +11,7 @@ lua_source = '''
       highlight = {
           enable = true,
             disable = function(lang, buf)
-                if lang == 'help' then
+                if lang == 'help' or lang == 'vim' then
                   return true
                 end
                 local max_filesize = 50 * 1024 -- 50 KB

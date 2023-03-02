@@ -36,7 +36,7 @@ hook_add = '''
 
   " Update filetype.
   autocmd MyAutoCmd BufWritePost * nested
-  \ if &l:filetype ==# '' || exists('b:ftdetect')
+  \ if &l:filetype ==# '' || 'b:ftdetect'->exists()
   \ |   unlet! b:ftdetect
   \ |   filetype detect
   \ | endif
@@ -97,7 +97,7 @@ python = '''
 '''
 
 html = '''
-  setlocal includeexpr=substitute(v:fname,'^\\/','','')
+  setlocal includeexpr=v:fname->substitute('^\\/','','')
   setlocal path+=./;/
 '''
 

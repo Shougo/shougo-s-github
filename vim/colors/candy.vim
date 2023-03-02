@@ -10,7 +10,7 @@
 if !has('vim_starting')
   set background=dark
   highlight clear
-  if exists('syntax_on')
+  if 'syntax_on'->exists()
     syntax reset
   endif
 endif

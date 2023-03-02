@@ -17,15 +17,15 @@ function! vimrc#sticky_func() abort
   let char = ''
 
   while 1
-    silent! let char = nr2char(getchar())
+    silent! let char = getchar()->nr2char()
 
     if char =~# '\l'
-      let char = toupper(char)
+      let char = char->toupper()
       break
-    elseif has_key(sticky_table, char)
+    elseif sticky_table->has_key(char)
       let char = sticky_table[char]
       break
-    elseif has_key(special_table, char)
+    elseif special_table->has_key(char)
       let char = special_table[char]
       break
     endif
@@ -35,23 +35,23 @@ function! vimrc#sticky_func() abort
 endfunction
 
 function! vimrc#add_numbers(num) abort
-  let prev_line = getline('.')[: col('.')-1]
-  let next_line = getline('.')[col('.') :]
-  let prev_num = matchstr(prev_line, '\d\+$')
+  let prev_line = '.'->getline()[: '.'->col()-1]
+  let next_line = '.'->getline()['.'->col() :]
+  let prev_num = prev_line->matchstr('\d\+$')
   if prev_num !=# ''
-    let next_num = matchstr(next_line, '^\d\+')
-    let new_line = prev_line[: -len(prev_num)-1] .
-          \ printf('%0'.len(prev_num . next_num).'d',
-          \    max([0, substitute(prev_num . next_num, '^0\+', '', '')
+    let next_num = next_line->matchstr('^\d\+')
+    let new_line = prev_line[: -prev_num->len()-1] .
+          \ printf('%0' . (prev_num . next_num)->len() . 'd',
+          \    max([0, (prev_num . next_num)->substitute('^0\+', '', '')
           \         + a:num])) . next_line[len(next_num):]
   else
-    let new_line = prev_line . substitute(next_line, '\d\+',
-          \ "\\=printf('%0'.len(submatch(0)).'d',
-          \         max([0, substitute(submatch(0), '^0\+', '', '')
+    let new_line = prev_line . next_line->substitute('\d\+',
+          \ "\\=printf('%0' . submatch(0)->len() . 'd',
+          \         max([0, submatch(0)->substitute('^0\+', '', '')
           \              + a:num]))", '')
   endif
 
-  if getline('.') !=# new_line
+  if '.'->getline() !=# new_line
     call setline('.', new_line)
   endif
 endfunction
@@ -71,8 +71,8 @@ function! vimrc#toggle_option(option_name) abort
 endfunction
 
 function! vimrc#on_filetype() abort
-  if execute('filetype') !~# 'OFF'
-    if !exists('b:did_ftplugin')
+  if 'filetype'->execute() !~# 'OFF'
+    if !('b:did_ftplugin'->exists())
       runtime! after/ftplugin.vim
     endif
 
@@ -89,7 +89,7 @@ endfunction
 function! vimrc#enable_syntax() abort
   syntax enable
 
-  if has('nvim') && exists(':TSEnable')
+  if has('nvim') && ':TSEnable'->exists()
     TSBufEnable highlight
     TSBufEnable context_commentstring
   endif
@@ -99,14 +99,14 @@ function! vimrc#disable_syntax() abort
     syntax off
   endif
 
-  if has('nvim') && exists(':TSEnable')
+  if has('nvim') && ':TSEnable'->exists()
     TSBufDisable highlight
     TSBufDisable context_commentstring
   endif
 endfunction
 
 function! vimrc#check_syntax() abort
-  if getfsize(@%) > 512 * 1000
+  if @%->getfsize() > 512 * 1000
     syntax off
   endif
 endfunction
@@ -126,7 +126,7 @@ function! vimrc#diagnostics_to_qf() abort
           \ })
   endfor
 
-  if !empty(qflist)
+  if !(qflist->empty())
     call setqflist(qflist)
     copen
   endif

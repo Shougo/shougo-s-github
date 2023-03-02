@@ -57,7 +57,7 @@ cnoremap <C-y>          <C-r>+
 cnoremap <C-g>          <C-c>
 " <C-k>: Delete to the end.
 cnoremap <expr><C-k>
-      \ repeat("\<Del>", strchars(getcmdline()[getcmdpos() - 1:]))
+      \ "\<Del>"->repeat(getcmdline()[getcmdpos() - 1:]->strchars())
 
 " [Space]: Other useful commands
 " Smart space mapping.
@@ -79,7 +79,7 @@ nnoremap [Space]l
 
 " Easily edit current buffer
 nnoremap <expr> [Space]e
-      \ bufname('%') !=# '' ? '<Cmd>edit %<CR>' : ''
+      \ '%'->bufname() !=# '' ? '<Cmd>edit %<CR>' : ''
 
 " Quickfix
 nnoremap [Space]q
@@ -96,7 +96,7 @@ nnoremap so  <Cmd>only<CR>
 nnoremap <Tab>      <cmd>wincmd w<CR>
 nnoremap <expr> q
       \ &l:filetype ==# 'qf' ? '<Cmd>cclose<CR>' :
-      \ winnr('$') != 1 ? '<Cmd>close<CR>' : ''
+      \ '$'->winnr() != 1 ? '<Cmd>close<CR>' : ''
 
 " Original search
 nnoremap s/    /
@@ -182,7 +182,7 @@ tnoremap <expr> ;  vimrc#sticky_func()
 tnoremap <C-y>      <C-r>+
 
 " Wordcount
-command! WordCount echo strchars(join(getline(1, '$')))
+command! WordCount echo getline(1, '$')->join()->strchars()
 
 " {visual}p to put without yank to unnamed register
 xnoremap p   P

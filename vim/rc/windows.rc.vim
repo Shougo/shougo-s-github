@@ -3,7 +3,7 @@
 "
 
 " In Windows, can't find exe, when $PATH isn't contained $VIM.
-if $PATH !~? '\(^\|;\)' . escape($VIM, '\\') . '\(;\|$\)'
+if $PATH !~? '\(^\|;\)' . $VIM->escape('\\') . '\(;\|$\)'
   let $PATH = $VIM . ';' . $PATH
 endif
 
@@ -12,7 +12,7 @@ endif
 if !has('gui_running') && !has('nvim')
   set t_Co=256
 
-  if exists('$ConEmuPID')
+  if '$ConEmuPID'->exists()
     " Use ConEmu 256 color mode.
     " https://conemu.github.io/en/VimXterm.html
     set term=xterm

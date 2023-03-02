@@ -1,4 +1,4 @@
-if exists('g:fvim_loaded')
+if 'g:fvim_loaded'->exists()
   " For fvim
   " https://github.com/yatli/fvim
   if g:fvim_os !=# 'windows'
@@ -11,7 +11,7 @@ if exists('g:fvim_loaded')
   FVimFontHintLevel 'full'
   FVimFontLigature v:true
   FVimFontSubpixel v:true
-elseif exists('g:GtkGuiLoaded')
+elseif 'g:GtkGuiLoaded'->exists()
   " For neovim-gtk
   " https://github.com/daa84/neovim-gtk
   call rpcnotify(1, 'Gui', 'Option', 'Tabline', 0)
@@ -22,6 +22,6 @@ elseif exists('g:GtkGuiLoaded')
   NGTransparency 1.0
 
   call rpcnotify(1, 'Gui', 'Font', 'DejaVu Sans Mono 15')
-elseif exists(':GuiFont')
+elseif ':GuiFont'->exists()
   GuiFont! Courier\ 10\ Pitch:h14
 endif

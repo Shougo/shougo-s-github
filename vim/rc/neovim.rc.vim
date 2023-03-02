@@ -2,7 +2,7 @@
 " For neovim:
 "
 
-if has('vim_starting') && empty(argv())
+if has('vim_starting') && argv()->empty()
   " Disable auto syntax loading
   syntax off
 endif
@@ -34,7 +34,7 @@ let g:neovide_cursor_animation_length = 0
 let g:neovide_cursor_trail_length = 0
 
 " For nvui
-if exists('g:nvui')
+if 'g:nvui'->exists()
   set guifont=Courier\ 10\ Pitch:h14,VL\ Gothic:h14
   call rpcnotify(1, 'NVUI_ANIMATIONS_ENABLED', v:false)
   call rpcnotify(1, 'NVUI_CURSOR_HIDE_TYPE', v:true)
@@ -45,8 +45,8 @@ if exists('g:nvui')
         \ call rpcnotify(1, 'NVUI_TB_TITLE', printf('%s%s%s (%s)',
         \ &l:readonly ? '[-]' : '',
         \ &l:modified ? '[+]' : '',
-        \ expand('%:p:~:.'),
-        \ fnamemodify(getcwd(), ':~')))
+        \ '%:p:~:.'->expand(),
+        \ getcwd()->fnamemodify(':~')))
 endif
 
 if has('win32')

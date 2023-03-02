@@ -41,7 +41,7 @@ else
 endif
 
 " Don't override colorscheme.
-if !exists('g:colors_name')
+if !('g:colors_name'->exists())
   colorscheme candy
 endif
 

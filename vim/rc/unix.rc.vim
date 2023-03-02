@@ -6,7 +6,7 @@
 set shell=sh
 
 " Set path.
-let $PATH = expand('~/bin').':/usr/local/bin/:'.$PATH
+let $PATH = '~/bin'->expand().':/usr/local/bin/:'.$PATH
 
 if has('gui_running')
   finish
