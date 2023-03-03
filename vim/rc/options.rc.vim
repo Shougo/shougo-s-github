@@ -128,7 +128,8 @@ autocmd MyAutoCmd BufWritePre *
 function! s:mkdir_as_necessary(dir, force) abort
   if !(a:dir->isdirectory()) && &l:buftype ==# '' &&
         \ (a:force || printf(
-        \ '"%s" does not exist. Create? [y/N] '->input(a:dir)) =~? '^y\%[es]$')
+        \ '"%s" does not exist. Create? [y/N] '
+        \ ->input(a:dir)) =~? '^y\%[es]$')
     call mkdir(a:dir->iconv(&encoding, &termencoding), 'p')
   endif
 endfunction

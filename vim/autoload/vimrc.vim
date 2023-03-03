@@ -45,10 +45,11 @@ function! vimrc#add_numbers(num) abort
           \    max([0, (prev_num . next_num)->substitute('^0\+', '', '')
           \         + a:num])) . next_line[len(next_num):]
   else
-    let new_line = prev_line . next_line->substitute('\d\+',
+    let new_line = prev_line . next_line
+          \ ->substitute('\d\+',
           \ "\\=printf('%0' . submatch(0)->len() . 'd',
-          \         max([0, submatch(0)->substitute('^0\+', '', '')
-          \              + a:num]))", '')
+          \         [0, submatch(0)
+                        ->substitute('^0\+', '', '') + a:num]->max())", '')
   endif
 
   if '.'->getline() !=# new_line
