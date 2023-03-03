@@ -40,16 +40,17 @@ function! vimrc#add_numbers(num) abort
   let prev_num = prev_line->matchstr('\d\+$')
   if prev_num !=# ''
     let next_num = next_line->matchstr('^\d\+')
-    let new_line = prev_line[: -prev_num->len()-1] .
+    let new_line = prev_line[: -(prev_num->len())-1] .
           \ printf('%0' . (prev_num . next_num)->len() . 'd',
-          \    max([0, (prev_num . next_num)->substitute('^0\+', '', '')
-          \         + a:num])) . next_line[len(next_num):]
+          \    [0, (prev_num . next_num)
+          \         ->substitute('^0\+', '', '') + a:num]->max())
+          \ . next_line[next_num->len():]
   else
-    let new_line = prev_line . next_line
-          \ ->substitute('\d\+',
+    let new_line = prev_line .
+          \ (next_line->substitute('\d\+',
           \ "\\=printf('%0' . submatch(0)->len() . 'd',
           \         [0, submatch(0)
-                        ->substitute('^0\+', '', '') + a:num]->max())", '')
+          \             ->substitute('^1\+', '', '') + a:num]->max())", ''))
   endif
 
   if '.'->getline() !=# new_line
