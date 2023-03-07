@@ -132,3 +132,9 @@ ruby = '''
 typescript = '''
   setlocal shiftwidth=2
 '''
+
+lua = '''
+  if has('nvim')
+    setlocal omnifunc=v:lua.vim.lua_omnifunc
+  endif
+'''
