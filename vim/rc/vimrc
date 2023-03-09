@@ -59,13 +59,13 @@ if filereadable(expand('~/.secret_vimrc'))
   source ~/.secret_vimrc
 endif
 
-let s:base_dir = fnamemodify(expand('<sfile>'), ':h') . '/'
+let s:base_dir = fnamemodify(expand('<sfile>'), ':h') .. '/'
 
 " Lazy load plugins
 if 0
-  call timer_start(1, { _ -> execute("source `=s:base_dir . 'dein.vim'`") })
+  call timer_start(1, { _ -> execute("source `=s:base_dir .. 'dein.vim'`") })
 else
-  source `=s:base_dir . 'dein.vim'`
+  source `=s:base_dir .. 'dein.vim'`
 endif
 
 "---------------------------------------------------------------------------

@@ -23,12 +23,12 @@ hook_source = '''
   "if has('nvim')
   "  call jobstart([
   "  \   'deno', 'run', '-A', '--no-check',
-  "  \   g:dein#plugin.path . '/denops/@denops-private/cli.ts',
+  "  \   g:dein#plugin.path .. '/denops/@denops-private/cli.ts',
   "  \ ], {'detach': v:true})
   "else
   "  call job_start([
   "  \   'deno', 'run', '-A', '--no-check',
-  "  \   g:dein#plugin.path . '/denops/@denops-private/cli.ts',
+  "  \   g:dein#plugin.path .. '/denops/@denops-private/cli.ts',
   "  \ ], {'stoponexit': ''})
   "endif
   "let g:denops_server_addr = '127.0.0.1:32123'
@@ -129,7 +129,7 @@ deol = '''
   nmap <buffer> e <Plug>(deol_edit)
   tmap <buffer><expr> <CR>
   \ (pum#visible() ? '<Cmd>call pum#map#confirm()<CR>' : '')
-  \ . '<Plug>(deol_execute_line)'
+  \ .. '<Plug>(deol_execute_line)'
 
   call ddc#custom#patch_buffer('sourceOptions', #{
           \   _: #{
