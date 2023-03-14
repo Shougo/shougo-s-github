@@ -238,11 +238,6 @@ lua_source = '''
 repo = 'lewis6991/impatient.nvim'
 
 [[plugins]]
-repo = 'nvim-neorg/neorg'
-depends = ['plenary.nvim', 'nvim-treesitter']
-on_ft = 'norg'
-
-[[plugins]]
 repo = 'nvim-lua/plenary.nvim'
 
 [[plugins]]
