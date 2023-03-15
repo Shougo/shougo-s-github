@@ -142,6 +142,9 @@ hook_source = '''
       \         'matcher_kensaku',
       \       ],
       \     },
+      \     path_history: #{
+      \       defaultAction: 'uiCd',
+      \     },
       \   },
       \   sourceParams: #{
       \     file_external: #{
@@ -230,7 +233,6 @@ hook_source = '''
   call ddu#custom#action('kind', 'file', 'grep',
       \ { args -> GrepAction(args) })
   function! GrepAction(args)
-    " NOTE: param "path" must be one directory
     let path = a:args.items[0].action.path
     let directory = path->isdirectory() ? path : path->fnamemodify(':h')
 
@@ -247,6 +249,17 @@ hook_source = '''
         \     },
         \   ],
         \ })
+  endfunction
+
+  " Define cd action for "ddu-ui-filer"
+  call ddu#custom#action('kind', 'file', 'uiCd',
+      \ { args -> UiCdAction(args) })
+  function! UiCdAction(args)
+    let path = a:args.items[0].action.path
+    let directory = path->isdirectory() ? path : path->fnamemodify(':h')
+
+    call ddu#ui#filer#do_action('itemAction',
+            \ #{ name: 'narrow', params: #{ path: directory } })
   endfunction
 '''
 
@@ -409,6 +422,8 @@ ddu-filer = '''
   nnoremap <buffer> h
   \ <Cmd>call ddu#ui#filer#do_action('itemAction',
   \ #{ name: 'narrow', params: #{ path: '..' } })<CR>
+  nnoremap <buffer> H
+  \ <Cmd>call ddu#start(#{ sources: [#{ name: 'path_history' }] })<CR>
   nnoremap <buffer> I
   \ <Cmd>call ddu#ui#filer#do_action('itemAction',
   \ #{
@@ -473,6 +488,10 @@ on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-source-action'
+on_source = 'ddu.vim'
+
+[[plugins]]
+repo = 'Shougo/ddu-source-path_history'
 on_source = 'ddu.vim'
 
 [[plugins]]
