@@ -262,9 +262,12 @@ repo = 'Shougo/pum.vim'
 hook_source = '''
   call pum#set_option(#{
     \   auto_confirm_time: 1500,
-    \   horizontal_menu: v:true,
+    \   horizontal_menu: v:false,
     \   max_width: 80,
     \   use_setline: v:true,
+    \ })
+  call pum#set_local_option('c', #{
+    \   horizontal_menu: v:true,
     \ })
 '''
 

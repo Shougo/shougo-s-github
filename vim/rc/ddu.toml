@@ -102,6 +102,7 @@ hook_add = '''
 '''
 hook_source = '''
   call ddu#custom#alias('source', 'file_rg', 'file_external')
+  call ddu#custom#alias('action', 'tabopen', 'open')
 
   call ddu#custom#patch_global(#{
       \   ui: 'ff',
@@ -196,6 +197,9 @@ hook_source = '''
       \   },
       \   actionOptions: #{
       \     narrow: #{
+      \       quit: v:false,
+      \     },
+      \     tabopen: #{
       \       quit: v:false,
       \     },
       \   },
@@ -452,6 +456,11 @@ ddu-filer = '''
   \ "<Cmd>call ddu#ui#filer#do_action('itemAction', #{ name: 'open' })<CR>"
   nnoremap <buffer> gr
   \ <Cmd>call ddu#ui#filer#do_action('itemAction', #{ name: 'grep' })<CR>
+  nnoremap <buffer> t
+  \ <Cmd>call ddu#ui#filer#do_action('itemAction', #{
+  \   name: 'tabopen',
+  \   params: #{ command: 'tabedit' },
+  \ })<CR>
 
   function! ToggleHidden(name)
     let current = ddu#custom#get_current(b:ddu_ui_name)
