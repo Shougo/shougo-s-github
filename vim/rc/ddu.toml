@@ -350,9 +350,9 @@ ddu-ff = '''
 '''
 ddu-ff-filter = '''
   inoremap <buffer> <CR>
-  \ <Esc><Cmd>call ddu#ui#ff#close()<CR>
+  \ <Esc><Cmd>call ddu#ui#ff#do_action('closeFilterWindow')<CR>
   nnoremap <buffer> <CR>
-  \ <Esc><Cmd>call ddu#ui#ff#close()<CR>
+  \ <Cmd>call ddu#ui#ff#do_action('closeFilterWindow')<CR>
 '''
 
 [[plugins]]
