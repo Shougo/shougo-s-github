@@ -106,6 +106,27 @@ hook_source = '''
 
   call ddu#custom#patch_global(#{
       \   ui: 'ff',
+      \   uiOptions: #{
+      \     filer: #{
+      \       toggle: v:true,
+      \     },
+      \   },
+      \   uiParams: #{
+      \     ff: #{
+      \       filterSplitDirection: 'floating',
+      \       previewFloating: v:true,
+      \       previewSplit: 'no',
+      \       highlights: #{
+      \         floating: 'Normal',
+      \       },
+      \     },
+      \     filer: #{
+      \       split: 'no',
+      \       sort: 'filename',
+      \       sortTreesFirst: v:true,
+      \       toggle: v:true,
+      \     },
+      \   },
       \   sourceOptions: #{
       \     _: #{
       \       ignoreCase: v:true,
@@ -151,26 +172,23 @@ hook_source = '''
       \     file_external: #{
       \       cmd: ['git', 'ls-files', '-co', '--exclude-standard'],
       \     },
-      \   },
-      \   uiOptions: #{
-      \     filer: #{
-      \       toggle: v:true,
+      \     rg: #{
+      \       args: [
+      \         '--ignore-case', '--column', '--no-heading', '--color', 'never',
+      \       ],
+      \     },
+      \     file_rg: #{
+      \       cmd: ['rg', '--files', '--glob', '!.git',
+      \               '--color', 'never', '--no-messages'],
+      \       updateItems: 50000,
       \     },
       \   },
-      \   uiParams: #{
-      \     ff: #{
-      \       filterSplitDirection: 'floating',
-      \       previewFloating: v:true,
-      \       previewSplit: 'no',
-      \       highlights: #{
-      \         floating: 'Normal',
-      \       },
+      \   filterParams: #{
+      \     matcher_substring: #{
+      \       highlightMatched: 'Search',
       \     },
-      \     filer: #{
-      \       split: 'no',
-      \       sort: 'filename',
-      \       sortTreesFirst: v:true,
-      \       toggle: v:true,
+      \     matcher_ignore_files: #{
+      \       ignorePatterns: ['/test_[^/]*.vim$'],
       \     },
       \   },
       \   kindOptions: #{
@@ -210,28 +228,6 @@ hook_source = '''
       \       split: has('nvim') ? 'floating' : 'horizontal',
       \     }
       \   },
-      \ })
-
-  call ddu#custom#patch_global(#{
-      \   sourceParams: #{
-      \     file_rg: #{
-      \       cmd: ['rg', '--files', '--glob', '!.git',
-      \               '--color', 'never', '--no-messages'],
-      \       updateItems: 50000,
-      \     },
-      \     rg: #{
-      \       args: [
-      \         '--ignore-case', '--column', '--no-heading', '--color', 'never',
-      \       ],
-      \     },
-      \   }
-      \ })
-  call ddu#custom#patch_global(#{
-      \   filterParams: #{
-      \     matcher_substring: #{
-      \       highlightMatched: 'Search',
-      \     },
-      \   }
       \ })
 
   call ddu#custom#action('kind', 'file', 'grep',
@@ -533,6 +529,10 @@ on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-filter-matcher_hidden'
+on_source = 'ddu.vim'
+
+[[plugins]]
+repo = 'Shougo/ddu-filter-matcher_ignore_files'
 on_source = 'ddu.vim'
 
 [[plugins]]
