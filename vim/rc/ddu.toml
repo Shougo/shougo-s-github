@@ -296,9 +296,6 @@ ddu-ff = '''
   nnoremap <buffer> o
   \ <Cmd>call ddu#ui#do_action('expandItem',
   \ #{ mode: 'toggle' })<CR>
-  nnoremap <buffer> c
-  \ <Cmd>call ddu#ui#multi_actions('itemAction',
-  \ #{ name: 'cd' })<CR>
   nnoremap <buffer> d
   \ <Cmd>call ddu#ui#do_action('itemAction',
   \ b:ddu_ui_name ==# 'filer' ? #{ name: 'trash' } : #{ name: 'delete' })<CR>
