@@ -233,8 +233,8 @@ hook_source = '''
   call ddu#custom#action('kind', 'file', 'grep',
       \ { args -> GrepAction(args) })
   function! GrepAction(args)
-    let path = a:args.items[0].action.path
-    let directory = path->isdirectory() ? path : path->fnamemodify(':h')
+    const path = a:args.items[0].action.path
+    const directory = path->isdirectory() ? path : path->fnamemodify(':h')
 
     call ddu#start(#{
         \   name: a:args.options.name,
@@ -255,8 +255,8 @@ hook_source = '''
   call ddu#custom#action('kind', 'file', 'uiCd',
       \ { args -> UiCdAction(args) })
   function! UiCdAction(args)
-    let path = a:args.items[0].action.path
-    let directory = path->isdirectory() ? path : path->fnamemodify(':h')
+    const path = a:args.items[0].action.path
+    const directory = path->isdirectory() ? path : path->fnamemodify(':h')
 
     call ddu#ui#do_action('itemAction',
             \ #{ name: 'narrow', params: #{ path: directory } })
@@ -456,10 +456,10 @@ ddu-filer = '''
   \ })<CR>
 
   function! ToggleHidden(name)
-    let current = ddu#custom#get_current(b:ddu_ui_name)
-    let source_options = current->get('sourceOptions', {})
-    let source_options_name = source_options->get(a:name, {})
-    let matchers = source_options_name->get('matchers', [])
+    const current = ddu#custom#get_current(b:ddu_ui_name)
+    const source_options = current->get('sourceOptions', {})
+    const source_options_name = source_options->get(a:name, {})
+    const matchers = source_options_name->get('matchers', [])
     return matchers->empty() ? ['matcher_hidden'] : []
   endfunction
 '''

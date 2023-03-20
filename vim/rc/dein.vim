@@ -69,7 +69,7 @@ if dein#min#load_state(s:path)
   endif
   call dein#load_toml(s:dein_ft_toml)
 
-  let work_directory = '~/work'->expand()
+  const work_directory = '~/work'->expand()
   if work_directory->isdirectory()
     " Load develop version plugins.
     call dein#local(work_directory,

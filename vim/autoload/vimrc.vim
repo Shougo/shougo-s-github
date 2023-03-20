@@ -3,14 +3,14 @@
 "
 
 function! vimrc#sticky_func() abort
-  let sticky_table = {
+  const sticky_table = {
         \  ',': '<', '.': '>', '/': '?',
         \  '1': '!', '2': '@', '3': '#', '4': '$', '5': '%',
         \  '6': '^', '7': '&', '8': '*', '9': '(', '0': ')',
         \  '-': '_', '=': '+',
         \  ';': ':', '[': '{', ']': '}', '`': '~', "'": "\"", '\': '|',
         \ }
-  let special_table = {
+  const special_table = {
         \  "\<ESC>": "\<ESC>", "\<Space>": ';', "\<CR>": ";\<CR>",
         \ }
 
@@ -35,18 +35,18 @@ function! vimrc#sticky_func() abort
 endfunction
 
 function! vimrc#add_numbers(num) abort
-  let prev_line = '.'->getline()[: '.'->col()-1]
-  let next_line = '.'->getline()['.'->col() :]
-  let prev_num = prev_line->matchstr('\d\+$')
+  const prev_line = '.'->getline()[: '.'->col()-1]
+  const next_line = '.'->getline()['.'->col() :]
+  const prev_num = prev_line->matchstr('\d\+$')
   if prev_num !=# ''
-    let next_num = next_line->matchstr('^\d\+')
-    let new_line = prev_line[: -(prev_num->len())-1] ..
+    const next_num = next_line->matchstr('^\d\+')
+    const new_line = prev_line[: -(prev_num->len())-1] ..
           \ printf('%0' .. (prev_num .. next_num)->len() .. 'd',
           \    [0, (prev_num .. next_num)
           \         ->substitute('^0\+', '', '') + a:num]->max())
           \ .. next_line[next_num->len():]
   else
-    let new_line = prev_line ..
+    const new_line = prev_line ..
           \ (next_line->substitute('\d\+',
           \ "\\=printf('%0' .. submatch(0)->len() .. 'd',
           \         [0, submatch(0)

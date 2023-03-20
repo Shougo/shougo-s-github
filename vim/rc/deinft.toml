@@ -142,7 +142,7 @@ lua = '''
 toml = '''
   setlocal foldenable foldmethod=expr foldexpr=s:fold_expr(v:lnum)
   function! s:fold_expr(lnum)
-    let line = getline(a:lnum)
+    const line = getline(a:lnum)
     return line ==# '' || line =~# '^\s\+'
   endfunction
 '''
