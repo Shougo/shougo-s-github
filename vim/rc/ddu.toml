@@ -47,8 +47,8 @@ hook_add = '''
   \ -name=outline markdown
   \ -ui-param-ignoreEmpty -ui-param-displayTree
   \ <CR>
-  xnoremap <expr> ;r (mode() ==# 'V' ? '"_R<Esc>' : '"_d') .
-  \ '<Cmd>Ddu -name=register register
+  xnoremap <expr> ;r (mode() ==# 'V' ? '"_R<Esc>' : '"_d')
+  \ .. '<Cmd>Ddu -name=register register
   \ -source-option-defaultAction=insert
   \ -ui-param-autoResize<CR>'
   nnoremap sg <Cmd>Ddu

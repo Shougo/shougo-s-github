@@ -126,10 +126,12 @@ set diffopt=internal,algorithm:patience,indent-heuristic
 autocmd MyAutoCmd BufWritePre *
       \ call s:mkdir_as_necessary('<afile>:p:h'->expand(), v:cmdbang)
 function! s:mkdir_as_necessary(dir, force) abort
-  if !(a:dir->isdirectory()) && &l:buftype ==# '' &&
-        \ (a:force || printf(
-        \ '"%s" does not exist. Create? [y/N] '
-        \ ->input(a:dir)) =~? '^y\%[es]$')
+  if a:dir->isdirectory() || &l:buftype !=# ''
+    return
+  endif
+
+  if a:force || printf('"%s" does not exist. Create? [y/N] '
+        \              ->input(a:dir)) =~? '^y\%[es]$'
     call mkdir(a:dir->iconv(&encoding, &termencoding), 'p')
   endif
 endfunction

@@ -41,8 +41,8 @@ if 'g:nvui'->exists()
 
   " NOTE: nvui does not use 'titlestring'
   autocmd MyAutoCmd
-        \ BufWritePost,TextChanged,TextChangedI,BufEnter,DirChanged *
-        \ call rpcnotify(1, 'NVUI_TB_TITLE', printf('%s%s%s (%s)',
+        \ BufWritePost,TextChanged,TextChangedI,BufEnter,DirChanged
+        \ * call rpcnotify(1, 'NVUI_TB_TITLE', printf('%s%s%s (%s)',
         \ &l:readonly ? '[-]' : '',
         \ &l:modified ? '[+]' : '',
         \ '%:p:~:.'->expand(),

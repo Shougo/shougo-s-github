@@ -40,7 +40,8 @@ function! vimrc#add_numbers(num) abort
   const prev_num = prev_line->matchstr('\d\+$')
   if prev_num !=# ''
     const next_num = next_line->matchstr('^\d\+')
-    const new_line = prev_line[: -(prev_num->len())-1] ..
+    const new_line = prev_line[: -(prev_num->len())-1]
+          \ ..
           \ printf('%0' .. (prev_num .. next_num)->len() .. 'd',
           \    [0, (prev_num .. next_num)
           \         ->substitute('^0\+', '', '') + a:num]->max())
