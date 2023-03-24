@@ -169,6 +169,11 @@ hook_source = '''
       \     path_history: #{
       \       defaultAction: 'uiCd',
       \     },
+      \     rg: #{
+      \       matchers: [
+      \         'matcher_substring', 'matcher_files',
+      \       ],
+      \     },
       \   },
       \   sourceParams: #{
       \     file_external: #{
@@ -329,9 +334,9 @@ ddu-ff = '''
   " Switch options
   nnoremap <buffer> u
   \ <Cmd>call ddu#ui#do_action('updateOptions', #{
-  \   sourceOptions: #{
-  \     _: #{
-  \       matchers: [],
+  \   filterParams: #{
+  \     matcher_files: #{
+  \       globs: 'Filter files: '->input('', 'file')->split(','),
   \     },
   \   },
   \ })<CR>
@@ -529,6 +534,10 @@ on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-filter-matcher_hidden'
+on_source = 'ddu.vim'
+
+[[plugins]]
+repo = 'Shougo/ddu-filter-matcher_files'
 on_source = 'ddu.vim'
 
 [[plugins]]
