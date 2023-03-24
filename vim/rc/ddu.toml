@@ -32,7 +32,7 @@ hook_add = '''
   \ -name=search rg -resume=v:false
   \ -ui-param-ignoreEmpty
   \ -source-param-input=`'Pattern: '->input('<cword>'->expand())`
-  \ -source-param-path=`'Directory: '->input('', 'dir')`
+  \ -source-option-path=`'Directory: '->input(getcwd() .. '/', 'dir')`
   \ <CR>
   nnoremap n <Cmd>Ddu
   \ -name=search -resume
@@ -134,7 +134,9 @@ hook_source = '''
       \     },
       \     file_old: #{
       \       matchers: [
-      \         'matcher_substring', 'matcher_relative',
+      \         'matcher_substring',
+      \         'matcher_relative',
+      \         'matcher_ignore_current_buffer',
       \       ],
       \     },
       \     file_external: #{
@@ -188,7 +190,8 @@ hook_source = '''
       \       highlightMatched: 'Search',
       \     },
       \     matcher_ignore_files: #{
-      \       ignorePatterns: ['/test_[^/]*.vim$'],
+      \       ignoreGlobs: ['test_*.vim'],
+      \       ignorePatterns: [],
       \     },
       \   },
       \   kindOptions: #{
@@ -530,6 +533,10 @@ on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-filter-matcher_ignore_files'
+on_source = 'ddu.vim'
+
+[[plugins]]
+repo = 'Shougo/ddu-filter-matcher_ignore_current_buffer'
 on_source = 'ddu.vim'
 
 [[plugins]]
