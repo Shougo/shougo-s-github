@@ -348,6 +348,14 @@ ddu-ff = '''
   \     #{ name: 'file' },
   \   ],
   \ })<CR>
+
+  " Cursor move
+  nnoremap <C-n>
+  \ <Cmd>call ddu#ui_action('files', 'cursorNext')<CR>
+  \ <Cmd>call ddu#ui_action('files', 'itemAction')<CR>
+  nnoremap <C-p>
+  \ <Cmd>call ddu#ui_action('files', 'cursorPrevious')<CR>
+  \ <Cmd>call ddu#ui_action('files', 'itemAction')<CR>
 '''
 ddu-ff-filter = '''
   inoremap <buffer> <CR>
