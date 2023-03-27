@@ -1,6 +1,5 @@
 [[plugins]]
 repo = 'nvim-treesitter/nvim-treesitter'
-depends = 'impatient.nvim'
 if = '!has("win32")'
 on_event = ['BufRead', 'CursorHold']
 hook_post_update = 'TSUpdate'
@@ -149,7 +148,7 @@ repo = 'MunifTanjim/nui.nvim'
 
 [[plugins]]
 repo = 'neovim/nvim-lspconfig'
-depends = ['impatient.nvim', 'ddc.vim']
+depends = ['ddc.vim']
 on_ft = ['typescript', 'go', 'python', 'markdown']
 if = 'has("nvim")'
 lua_source = '''
@@ -224,7 +223,6 @@ lua_source = '''
 
 [[plugins]]
 repo = 'rcarriga/nvim-notify'
-depends = 'impatient.nvim'
 on_lua = 'notify'
 lua_source = '''
   require('notify').setup({
@@ -233,9 +231,6 @@ lua_source = '''
     timeout = 1000,
   })
 '''
-
-[[plugins]]
-repo = 'lewis6991/impatient.nvim'
 
 [[plugins]]
 repo = 'nvim-lua/plenary.nvim'
