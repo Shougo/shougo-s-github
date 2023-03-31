@@ -271,10 +271,6 @@ hook_source = '''
 #on_ft = 'teal'
 
 [[plugins]]
-repo = 'joker1007/vim-markdown-quote-syntax'
-on_ft = 'markdown'
-
-[[plugins]]
 repo = 'github/copilot.vim'
 on_cmd = 'Copilot'
 hook_source = '''
