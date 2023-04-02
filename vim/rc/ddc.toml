@@ -180,9 +180,9 @@ hook_source = '''
 
   " For command line mode completion
   cnoremap <expr> <Tab>
+  \ wildmenumode() ? &wildcharm->nr2char() :
   \ pum#visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' :
-  \ exists('b:ddc_cmdline_completion') ?
-  \ ddc#map#manual_complete() : &wildcharm->nr2char()
+  \ ddc#map#manual_complete()
   cnoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
   cnoremap <C-o>   <Cmd>call pum#map#confirm()<CR>
   cnoremap <expr> <C-e>
