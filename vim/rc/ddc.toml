@@ -219,12 +219,6 @@ hook_add = '''
   nnoremap ?       <Cmd>call CommandlinePre('/')<CR>?
 
   function! CommandlinePre(mode) abort
-    cnoremap <expr><buffer> <Tab>
-    \ pum#visible() ?
-    \  '<Cmd>call pum#map#insert_relative(+1)<CR>' :
-    \ exists('b:ddc_cmdline_completion') ?
-    \   ddc#map#manual_complete() : "\<C-t>"
-
     " Overwrite sources
     if !('b:prev_buffer_config'->exists())
       let b:prev_buffer_config = ddc#custom#get_buffer()
@@ -239,8 +233,6 @@ hook_add = '''
     call ddc#enable_cmdline_completion()
   endfunction
   function! CommandlinePost() abort
-    silent! cunmap <buffer> <Tab>
-
     " Restore sources
     if 'b:prev_buffer_config'->exists()
       call ddc#custom#set_buffer(b:prev_buffer_config)
