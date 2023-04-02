@@ -201,10 +201,12 @@ set belloff=all
 " Display candidates by popup menu.
 set wildmenu
 set wildmode=full
-set wildoptions+=pum
 if has('patch-8.2.4463')
   set wildoptions+=fuzzy
 endif
+" Use default command line completion by <C-t>
+set wildchar=<C-t>
+set wildcharm=<C-t>
 
 " Display candidates by list.
 "set nowildmenu
