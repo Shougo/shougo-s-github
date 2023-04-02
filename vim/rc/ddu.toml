@@ -248,9 +248,9 @@ hook_source = '''
         \   name: a:args.options.name,
         \   push: v:true,
         \   sources: [
-        \     {
+        \     #{
         \       name: 'rg',
-        \       params: {
+        \       params: #{
         \         path: path,
         \         input: 'Pattern: '->input(),
         \       },
@@ -387,19 +387,21 @@ ddu-filer = '''
   \ <Cmd>call ddu#ui#do_action('toggleAllItems')<CR>
   nnoremap <buffer> a
   \ <Cmd>call ddu#ui#do_action('chooseAction')<CR>
+  nnoremap <buffer> A
+  \ <Cmd>call ddu#ui#do_action('inputAction')<CR>
   nnoremap <buffer> q
   \ <Cmd>call ddu#ui#do_action('quit')<CR>
   nnoremap <buffer> o
   \ <Cmd>call ddu#ui#do_action('expandItem',
-  \ {'mode': 'toggle'})<CR>
+  \ #{ mode: 'toggle' })<CR>
   nnoremap <buffer> O
   \ <Cmd>call ddu#ui#do_action('expandItem',
-  \ {'maxLevel': -1})<CR>
+  \ #{ maxLevel: -1 })<CR>
   "nnoremap <buffer> O
   "\ <Cmd>call ddu#ui#do_action('collapseItem')<CR>
   nnoremap <buffer> c
   \ <Cmd>call ddu#ui#multi_actions([
-  \   ['itemAction', {'name': 'copy'}],
+  \   ['itemAction', #{ name: 'copy' }],
   \   ['clearSelectAllItems'],
   \ ])<CR>
   nnoremap <buffer> d
