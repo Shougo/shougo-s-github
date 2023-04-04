@@ -168,12 +168,6 @@ hook_source = '''
   inoremap <C-o>   <Cmd>call pum#map#confirm()<CR>
   inoremap <C-x><C-f>
         \ <Cmd>call ddc#map#manual_complete(#{ sources: ['file'] })<CR>
-  inoremap <expr> l
-        \ pum#entered() ?
-        \ '<Cmd>call pum#map#insert_relative(+1)<CR>' : 'l'
-  inoremap <expr> h
-        \ pum#entered() ?
-        \ '<Cmd>call pum#map#insert_relative(-1)<CR>' : 'h'
   inoremap <expr> <C-e>
         \ ddc#map#insert_item(0, '<Cmd>call pum#map#cancel()<CR>')
   inoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
@@ -251,6 +245,7 @@ hook_source = '''
     \   horizontal_menu: v:false,
     \   max_width: 80,
     \   use_setline: v:false,
+    \   use_complete: v:true,
     \ })
   call pum#set_local_option('c', #{
     \   horizontal_menu: v:false,
