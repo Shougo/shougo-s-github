@@ -114,6 +114,7 @@ hook_source = '''
       \   uiParams: #{
       \     ff: #{
       \       filterSplitDirection: 'floating',
+      \       ignoreEmpty: v:true,
       \       previewFloating: v:true,
       \       previewSplit: 'no',
       \       highlights: #{

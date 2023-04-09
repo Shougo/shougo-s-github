@@ -9,17 +9,17 @@ lua_source = '''
       additional_vim_regex_highlighting = false,
       highlight = {
           enable = true,
-            disable = function(lang, buf)
-                if lang == 'help' or lang == 'vim' then
+          disable = function(lang, buf)
+              if lang == 'help' then
+                return true
+              end
+              local max_filesize = 50 * 1024 -- 50 KB
+              local ok, stats = pcall(vim.loop.fs_stat,
+                                      vim.api.nvim_buf_get_name(buf))
+              if ok and stats and stats.size > max_filesize then
                   return true
-                end
-                local max_filesize = 50 * 1024 -- 50 KB
-                local ok, stats = pcall(vim.loop.fs_stat,
-                                        vim.api.nvim_buf_get_name(buf))
-                if ok and stats and stats.size > max_filesize then
-                    return true
-                end
-            end,
+              end
+          end,
       },
   }
 '''
