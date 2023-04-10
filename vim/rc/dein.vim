@@ -33,41 +33,35 @@ let g:dein#types#git#enable_partial_clone = v:true
 
 let s:path = $CACHE .. '/dein'
 if dein#min#load_state(s:path)
-  let s:base_dir = '<sfile>'->expand()->fnamemodify(':h') .. '/'
+  let $BASE_DIR = '<sfile>'->expand()->fnamemodify(':h')
 
-  let g:dein#inline_vimrcs = ['options.rc.vim', 'mappings.rc.vim']
+  let g:dein#inline_vimrcs = [
+        \ '$BASE_DIR/options.rc.vim',
+        \ '$BASE_DIR/mappings.rc.vim',
+        \ ]
   if has('nvim')
-    call add(g:dein#inline_vimrcs, 'neovim.rc.vim')
+    call add(g:dein#inline_vimrcs, '$BASE_DIR/neovim.rc.vim')
   elseif has('gui_running')
-    call add(g:dein#inline_vimrcs, 'gui.rc.vim')
+    call add(g:dein#inline_vimrcs, '$BASE_DIR/gui.rc.vim')
   endif
   if has('win32')
-    call add(g:dein#inline_vimrcs, 'windows.rc.vim')
+    call add(g:dein#inline_vimrcs, '$BASE_DIR/windows.rc.vim')
   else
-    call add(g:dein#inline_vimrcs, 'unix.rc.vim')
+    call add(g:dein#inline_vimrcs, '$BASE_DIR/unix.rc.vim')
   endif
-  call map(g:dein#inline_vimrcs, { _, val -> s:base_dir .. val })
-
-  let s:dein_toml = s:base_dir .. 'dein.toml'
-  let s:dein_lazy_toml = s:base_dir .. 'deinlazy.toml'
-  let s:dein_ddc_toml = s:base_dir .. 'ddc.toml'
-  let s:dein_ddu_toml = s:base_dir .. 'ddu.toml'
-  let s:dein_ft_toml = s:base_dir .. 'deinft.toml'
-  let s:dein_neovim_toml = s:base_dir .. 'neovim.toml'
-  let s:dein_vim_toml = s:base_dir .. 'vim.toml'
 
   call dein#begin(s:path, '<sfile>'->expand())
 
-  call dein#load_toml(s:dein_toml, #{ lazy: 0 })
-  call dein#load_toml(s:dein_lazy_toml, #{ lazy: 1 })
-  call dein#load_toml(s:dein_ddc_toml, #{ lazy: 1 })
-  call dein#load_toml(s:dein_ddu_toml, #{ lazy: 1 })
+  call dein#load_toml('$BASE_DIR/dein.toml', #{ lazy: 0 })
+  call dein#load_toml('$BASE_DIR/deinlazy.toml', #{ lazy: 1 })
+  call dein#load_toml('$BASE_DIR/ddc.toml', #{ lazy: 1 })
+  call dein#load_toml('$BASE_DIR/ddu.toml', #{ lazy: 1 })
   if has('nvim')
-    call dein#load_toml(s:dein_neovim_toml, #{ lazy : 1 })
+    call dein#load_toml('$BASE_DIR/neovim.toml', #{ lazy : 1 })
   else
-    call dein#load_toml(s:dein_vim_toml, #{ lazy : 1 })
+    call dein#load_toml('$BASE_DIR/vim.toml', #{ lazy : 1 })
   endif
-  call dein#load_toml(s:dein_ft_toml)
+  call dein#load_toml('$BASE_DIR/deinft.toml')
 
   const work_directory = '~/work'->expand()
   if work_directory->isdirectory()
