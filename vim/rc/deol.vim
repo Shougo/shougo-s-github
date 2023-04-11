@@ -14,10 +14,9 @@ nnoremap <C-t> <Cmd>Ddu -name=deol
 let g:deol#enable_dir_changed = v:false
 let g:deol#prompt_pattern = '\w*% \?'
 let g:deol#shell_history_path = '~/.zsh-history'
-let g:deol#extra_options = {
-      \ 'term_kill': 'kill',
+let g:deol#extra_options = #{
+      \   term_kill: 'kill',
       \ }
-"let g:deol#enable_ddc_completion = v:true
 let g:deol#nvim_server = '~/.cache/nvim/server.pipe'
 
 call ddu#custom#patch_global(#{
