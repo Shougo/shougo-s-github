@@ -31,10 +31,10 @@ let g:dein#install_progress_type = 'floating'
 let g:dein#lazy_rplugins = v:true
 let g:dein#types#git#enable_partial_clone = v:true
 
+let $BASE_DIR = '<sfile>'->expand()->fnamemodify(':h')
+
 let s:path = $CACHE .. '/dein'
 if dein#min#load_state(s:path)
-  let $BASE_DIR = '<sfile>'->expand()->fnamemodify(':h')
-
   let g:dein#inline_vimrcs = [
         \ '$BASE_DIR/options.rc.vim',
         \ '$BASE_DIR/mappings.rc.vim',
