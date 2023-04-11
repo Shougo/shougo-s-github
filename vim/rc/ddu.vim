@@ -6,8 +6,8 @@ nnoremap s<Space> <Cmd>Ddu
 nnoremap ss
       \ <Cmd>Ddu -name=files file_point file_old
       \ `'.git'->finddir(';') != '' ? 'file_external' : 'file'`
-      \ file -source-param-new
-      \ -volatile -sync -unique
+      \ file -source-param-new -source-option-volatile
+      \ -sync -unique
       \ -ui-param-displaySourceName=short
       \ <CR>
 nnoremap / <Cmd>Ddu
@@ -117,6 +117,7 @@ call ddu#custom#patch_global(#{
       \       highlights: #{
       \         floating: 'Normal',
       \       },
+      \       updateTime: 0,
       \     },
       \     filer: #{
       \       split: 'no',
