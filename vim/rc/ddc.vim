@@ -1,7 +1,5 @@
 " hook_source {{{
-call ddc#custom#patch_global('sources',
-      \ ['around', 'file', 'rg'],
-      \ )
+call ddc#custom#patch_global('sources', ['around', 'file', 'rg'])
 call ddc#custom#patch_global('cmdlineSources', {
       \   ':': ['cmdline-history', 'cmdline', 'around'],
       \   '@': ['cmdline-history', 'input', 'file', 'around'],
@@ -110,8 +108,9 @@ call ddc#custom#patch_global('sourceParams', #{
       \ })
 
 call ddc#custom#patch_filetype(
-      \ ['help', 'markdown', 'gitcommit'], 'sources',
-      \ ['around', 'rg', 'mocword']
+      \   ['help', 'markdown', 'gitcommit'],
+      \   'sources',
+      \   ['around', 'rg', 'mocword']
       \ )
 call ddc#custom#patch_filetype(['ddu-ff-filter'], #{
       \   keywordPattern: '[0-9a-zA-Z_:#-]*',
@@ -121,12 +120,14 @@ call ddc#custom#patch_filetype(['ddu-ff-filter'], #{
 
 if has('nvim')
   call ddc#custom#patch_filetype(
-        \ ['typescript', 'go', 'python'], 'sources',
-        \ ['around', 'nvim-lsp']
+        \   ['typescript', 'go', 'python'],
+        \   'sources',
+        \   ['around', 'nvim-lsp']
         \ )
   call ddc#custom#patch_filetype(
-        \ ['lua'], 'sources',
-        \ ['nvim-lua', 'around']
+        \   ['lua'],
+        \   'sources',
+        \   ['nvim-lua', 'around']
         \ )
 endif
 
@@ -138,20 +139,20 @@ call ddc#custom#patch_filetype(['FineCmdlinePrompt'], #{
 
 " Use pum.vim
 call ddc#custom#patch_global('autoCompleteEvents', [
-      \ 'InsertEnter', 'TextChangedI', 'TextChangedP',
-      \ 'CmdlineEnter', 'CmdlineChanged', 'TextChangedT',
+      \   'InsertEnter', 'TextChangedI', 'TextChangedP',
+      \   'CmdlineEnter', 'CmdlineChanged', 'TextChangedT',
       \ ])
 call ddc#custom#patch_global('ui', 'pum')
 
 " Context config
 call ddc#custom#set_context_filetype('go', { ->
-      \ ddc#syntax#in('TSComment') ? {
-      \   'sources': ['around', 'mocword'],
-      \ } : {} })
+      \   ddc#syntax#in('TSComment') ?
+      \   #{ sources: ['around', 'mocword'] } : {}
+      \ })
 call ddc#custom#set_context_filetype('c', { ->
-      \ ddc#syntax#in('Comment') ? {
-      \   'sources': ['around', 'mocword'],
-      \ } : {} })
+      \   ddc#syntax#in('Comment') ?
+      \   #{ sources: ['around', 'mocword'] } : {}
+      \ })
 
 " For insert mode completion
 inoremap <expr> <TAB>

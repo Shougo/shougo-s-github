@@ -121,11 +121,11 @@ function! vimrc#diagnostics_to_qf() abort
 
   let qflist = []
   for diagnostic in v:lua.vim.diagnostic.get()
-    call add(qflist, {
-          \ 'bufnr': diagnostic.bufnr,
-          \ 'lnum': diagnostic.lnum,
-          \ 'col': diagnostic.col,
-          \ 'text': diagnostic.message,
+    call add(qflist, #{
+          \   bufnr: diagnostic.bufnr,
+          \   lnum: diagnostic.lnum,
+          \   col: diagnostic.col,
+          \   text: diagnostic.message,
           \ })
   endfor
 

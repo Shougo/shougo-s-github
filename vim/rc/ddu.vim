@@ -43,12 +43,12 @@ nnoremap ;d <Cmd>Ddu
       \ -name=outline markdown
       \ -ui-param-ignoreEmpty -ui-param-displayTree
       \ <CR>
-xnoremap <expr> ;r (mode() ==# 'V' ? '"_R<Esc>' : '"_d')
+xnoremap <expr> ;r
+      \ (mode() ==# 'V' ? '"_R<Esc>' : '"_d')
       \ .. '<Cmd>Ddu -name=register register
       \ -source-option-defaultAction=insert
       \ -ui-param-autoResize<CR>'
-nnoremap sg <Cmd>Ddu
-      \ dein<CR>
+nnoremap sg <Cmd>Ddu dein<CR>
 nnoremap [Space]<Space> <Cmd>Ddu
       \ -name=search line -resume=v:false
       \ -source-param-range=window
@@ -179,12 +179,14 @@ call ddu#custom#patch_global(#{
       \     },
       \     rg: #{
       \       args: [
-      \         '--ignore-case', '--column', '--no-heading', '--color', 'never',
+      \         '--ignore-case', '--column', '--no-heading',
+      \         '--color', 'never',
       \       ],
       \     },
       \     file_rg: #{
-      \       cmd: ['rg', '--files', '--glob', '!.git',
-      \               '--color', 'never', '--no-messages'],
+      \       cmd: [
+      \         'rg', '--files', '--glob', '!.git',
+      \         '--color', 'never', '--no-messages'],
       \       updateItems: 50000,
       \     },
       \   },
@@ -236,12 +238,8 @@ call ddu#custom#patch_local('files', #{
       \   },
       \ })
 
-call ddu#custom#action('kind', 'file', 'grep',
-      \ { args -> GrepAction(args) })
+call ddu#custom#action('kind', 'file', 'grep', { args -> GrepAction(args) })
 function! GrepAction(args)
-  const path = a:args.items[0].action.path
-  const directory = path->isdirectory() ? path : path->fnamemodify(':h')
-
   call ddu#start(#{
         \   name: a:args.options.name,
         \   push: v:true,
@@ -249,7 +247,7 @@ function! GrepAction(args)
         \     #{
         \       name: 'rg',
         \       params: #{
-        \         path: path,
+        \         path: a:args.items[0].action.path,
         \         input: 'Pattern: '->input(),
         \       },
         \     },
@@ -258,8 +256,7 @@ function! GrepAction(args)
 endfunction
 
 " Define cd action for "ddu-ui-filer"
-call ddu#custom#action('kind', 'file', 'uiCd',
-      \ { args -> UiCdAction(args) })
+call ddu#custom#action('kind', 'file', 'uiCd', { args -> UiCdAction(args) })
 function! UiCdAction(args)
   const path = a:args.items[0].action.path
   const directory = path->isdirectory() ? path : path->fnamemodify(':h')
