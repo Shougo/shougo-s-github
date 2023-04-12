@@ -111,7 +111,6 @@ call ddu#custom#patch_global(#{
       \   uiParams: #{
       \     ff: #{
       \       filterSplitDirection: 'floating',
-      \       ignoreEmpty: v:true,
       \       previewFloating: v:true,
       \       previewSplit: 'no',
       \       highlights: #{
@@ -192,6 +191,9 @@ call ddu#custom#patch_global(#{
       \     },
       \   },
       \   filterParams: #{
+      \     matcher_kensaku: #{
+      \       highlightMatched: 'Search',
+      \     },
       \     matcher_substring: #{
       \       highlightMatched: 'Search',
       \     },
