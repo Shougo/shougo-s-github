@@ -1,13 +1,20 @@
 " hook_source {{{
-call ddc#custom#patch_global('sources', ['around', 'file', 'rg'])
-call ddc#custom#patch_global('cmdlineSources', {
-      \   ':': ['cmdline-history', 'cmdline', 'around'],
-      \   '@': ['cmdline-history', 'input', 'file', 'around'],
-      \   '>': ['cmdline-history', 'input', 'file', 'around'],
-      \   '/': ['around', 'line'],
-      \   '?': ['around', 'line'],
-      \   '-': ['around', 'line'],
-      \   '=': ['input'],
+call ddc#custom#patch_global(#{
+      \   ui: 'pum',
+      \   sources: ['around', 'file', 'rg'],
+      \   autoCompleteEvents: [
+      \     'InsertEnter', 'TextChangedI', 'TextChangedP',
+      \     'CmdlineEnter', 'CmdlineChanged', 'TextChangedT',
+      \   ],
+      \   cmdlineSources: {
+      \     ':': ['cmdline-history', 'cmdline', 'around'],
+      \     '@': ['cmdline-history', 'input', 'file', 'around'],
+      \     '>': ['cmdline-history', 'input', 'file', 'around'],
+      \     '/': ['around', 'line'],
+      \     '?': ['around', 'line'],
+      \     '-': ['around', 'line'],
+      \     '=': ['input'],
+      \   },
       \ })
 
 call ddc#custom#patch_global('sourceOptions', #{
@@ -84,9 +91,6 @@ call ddc#custom#patch_global('sourceOptions', #{
       \     minAutoCompleteLength: 5,
       \     enabledIf: "finddir('.git', ';') != ''",
       \   },
-      \ })
-
-call ddc#custom#patch_global('sourceOptions', #{
       \   skkeleton: #{
       \     mark: 'skk',
       \     matchers: ['skkeleton'],
@@ -95,6 +99,7 @@ call ddc#custom#patch_global('sourceOptions', #{
       \     isVolatile: v:true,
       \   },
       \ })
+
 call ddc#custom#patch_global('sourceParams', #{
       \   buffer: #{
       \     requireSameFiletype: v:false,
@@ -136,13 +141,6 @@ call ddc#custom#patch_filetype(['FineCmdlinePrompt'], #{
       \   sources: ['cmdline-history', 'around'],
       \   specialBufferCompletion: v:true,
       \ })
-
-" Use pum.vim
-call ddc#custom#patch_global('autoCompleteEvents', [
-      \   'InsertEnter', 'TextChangedI', 'TextChangedP',
-      \   'CmdlineEnter', 'CmdlineChanged', 'TextChangedT',
-      \ ])
-call ddc#custom#patch_global('ui', 'pum')
 
 " Context config
 call ddc#custom#set_context_filetype('go', { ->
