@@ -87,6 +87,15 @@ nnoremap <buffer> >
       \     },
       \   },
       \ })<CR>
+nnoremap <buffer> <
+      \ <Cmd>call ddu#ui#do_action('updateOptions', #{
+      \   ui: 'ff',
+      \   uiParams: #{
+      \     ff: #{
+      \       split: 'vertical',
+      \     },
+      \   },
+      \ })<CR>
 nnoremap <buffer> <C-l>
       \ <Cmd>call ddu#ui#do_action('checkItems')<CR>
 nnoremap <buffer><expr> <CR>

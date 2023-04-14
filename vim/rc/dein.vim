@@ -76,4 +76,9 @@ if dein#min#load_state(s:path)
 
   call dein#end()
   call dein#save_state()
+
+  " NOTE: filetype detection is needed
+  if '%'->bufname() !=# ''
+    filetype detect
+  endif
 endif
