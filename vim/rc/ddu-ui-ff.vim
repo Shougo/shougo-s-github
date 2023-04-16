@@ -85,4 +85,10 @@ inoremap <buffer> <CR>
       \ <Esc><Cmd>call ddu#ui#do_action('closeFilterWindow')<CR>
 nnoremap <buffer> <CR>
       \ <Cmd>call ddu#ui#do_action('closeFilterWindow')<CR>
+nnoremap <buffer> ff
+      \ <Cmd>call ddu#ui#do_action('updateOptions', #{
+      \   sources: [
+      \     #{ name: 'file' },
+      \   ],
+      \ })<CR>
 " }}}

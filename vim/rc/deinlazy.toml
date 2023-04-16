@@ -52,7 +52,7 @@ hooks_file = '$BASE_DIR/deol.vim'
 repo = 'Shougo/junkfile.vim'
 on_source = ['ddu.vim']
 hook_add = '''
-  nnoremap se <Cmd>Ddu junkfile -volatile<CR>
+  nnoremap se <Cmd>Ddu junkfile -source-option-volatile<CR>
 '''
 
 [[plugins]]

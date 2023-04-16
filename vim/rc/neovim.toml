@@ -250,3 +250,7 @@ lua_source = '''
     end,
   })
 '''
+
+[[plugins]]
+repo = 'aduros/ai.vim'
+on_cmd = 'AI'

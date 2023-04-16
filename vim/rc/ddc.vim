@@ -207,6 +207,7 @@ call ddc#enable()
 " hook_add {{{
 nnoremap :       <Cmd>call CommandlinePre(':')<CR>:
 nnoremap ?       <Cmd>call CommandlinePre('/')<CR>?
+xnoremap :       <Cmd>call CommandlinePre(':')<CR>:
 
 function! CommandlinePre(mode) abort
   " Overwrite sources
@@ -218,7 +219,6 @@ function! CommandlinePre(mode) abort
   endif
 
   autocmd MyAutoCmd User DDCCmdlineLeave ++once call CommandlinePost()
-  autocmd MyAutoCmd InsertEnter <buffer> ++once call CommandlinePost()
 
   call ddc#enable_cmdline_completion()
 endfunction
