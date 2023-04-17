@@ -328,6 +328,11 @@ esac
 # dtach command, dtach -A command, dtach -a session
 # adbuco -c session,abduco -c session command, abduco -a command
 
+# For nvm initialization
+if [ -e /usr/share/nvm/init-nvm.sh ]; then
+    source /usr/share/nvm/init-nvm.sh
+fi
+
 if ( which zprof > /dev/null ); then
     zprof | less
 fi

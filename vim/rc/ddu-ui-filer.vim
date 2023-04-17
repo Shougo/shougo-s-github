@@ -60,6 +60,9 @@ nnoremap <buffer> K
 nnoremap <buffer> N
       \ <Cmd>call ddu#ui#do_action('itemAction',
       \ #{ name: 'newFile' })<CR>
+nnoremap <buffer> u
+      \ <Cmd>call ddu#ui#do_action('itemAction',
+      \ #{ name: 'undo' })<CR>
 nnoremap <buffer> ~
       \ <Cmd>call ddu#ui#do_action('itemAction',
       \ #{ name: 'narrow', params: #{ path: expand('~') } })<CR>
