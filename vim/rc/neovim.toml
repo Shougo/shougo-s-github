@@ -10,7 +10,7 @@ lua_source = '''
       highlight = {
           enable = true,
           disable = function(lang, buf)
-              if lang == 'vimdoc' then
+              if lang == 'vimdoc' or lang == 'diff' then
                 return true
               end
               local max_filesize = 50 * 1024 -- 50 KB
