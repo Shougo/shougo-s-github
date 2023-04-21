@@ -86,6 +86,45 @@ repo = 'Shougo/ddx-commands.vim'
 depends = 'ddx.vim'
 on_cmd = 'Ddx'
 
+
+[[plugins]]
+repo = 'Shougo/dda.vim'
+hook_add = '''
+" completion with prompt
+command! -nargs=* -range -bar
+\ Dda call RangeCompletion(<line1>, <line2>, <range>, <q-args>)
+function! RangeCompletion(line1, line2, range, prompt)
+  const offset = 20
+
+  if a:range > 0
+    " Visual mode
+    const selected = getline(a:line1, a:line2)->join("\n")
+    if a:prompt !=# ''
+      silent call deletebufline('%'->bufnr(), a:line1, a:line2)
+      call dda#edit(selected, a:prompt)
+    else
+      call dda#completion(selected)
+    endif
+  else
+    if a:prompt !=# ''
+      call dda#completion(a:prompt)
+    else
+      " Use current buffer
+      call dda#completion(
+              \   getline([1, line('.') - offset]->max(), line('.') - 1)
+              \   ->add(dda#util#get_input())->join("\n"),
+              \   getline(line('.') + 1, line('.') + offset)
+              \   ->insert(dda#util#get_next_input())->join("\n")
+              \ )
+    endif
+  endif
+endfunction
+
+" completion with current buffer
+inoremap <C-a>  <Cmd>Dda<CR>
+'''
+hook_source = '''
+'''
 [[plugins]]
 repo = 'kana/vim-niceblock'
 on_map = { x = '<Plug>' }
