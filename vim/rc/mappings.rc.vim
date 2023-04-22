@@ -56,8 +56,8 @@ cnoremap <C-y>          <C-r>+
 " <C-g>: Exit.
 cnoremap <C-g>          <C-c>
 " <C-k>: Delete to the end.
-cnoremap <expr><C-k>
-      \ "\<Del>"->repeat(getcmdline()[getcmdpos() - 1:]->strchars())
+cnoremap <C-k> <Cmd>call setcmdline(
+      \ getcmdpos() ==# 1 ? '' : getcmdline()[:getcmdpos() - 2])<CR>
 
 " [Space]: Other useful commands
 " Smart space mapping.
@@ -161,10 +161,8 @@ onoremap ir  i]
 xnoremap ir  i]
 
 " Improved increment.
-nmap <C-a> <SID>(increment)
-nmap <C-x> <SID>(decrement)
-nnoremap <SID>(increment)    <Cmd>AddNumbers 1<CR>
-nnoremap <SID>(decrement)    <Cmd>AddNumbers -1<CR>
+nnoremap <C-a> <Cmd>AddNumbers 1<CR>
+nmnoreap <C-x> <Cmd>AddNumbers -1<CR>
 command! -range -nargs=1 AddNumbers
       \ call vimrc#add_numbers((<line2>-<line1>+1) * eval(<args>))
 

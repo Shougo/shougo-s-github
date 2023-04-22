@@ -36,7 +36,7 @@ hook_add = '''
 
   " Update filetype.
   autocmd MyAutoCmd BufWritePost * nested
-  \ if &l:filetype ==# '' || 'b:ftdetect'->exists()
+  \ : if &l:filetype ==# '' || 'b:ftdetect'->exists()
   \ |   unlet! b:ftdetect
   \ |   filetype detect
   \ | endif

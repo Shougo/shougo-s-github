@@ -163,8 +163,8 @@ inoremap <C-p>   <Cmd>call pum#map#select_relative(-1)<CR>
 inoremap <C-o>   <Cmd>call pum#map#confirm()<CR>
 inoremap <C-x><C-f>
       \ <Cmd>call ddc#map#manual_complete(#{ sources: ['file'] })<CR>
-inoremap <expr> <C-e>
-      \ ddc#map#insert_item(0, '<Cmd>call pum#map#cancel()<CR>')
+"inoremap <expr> <C-e>
+"      \ ddc#map#insert_item(0, '<Cmd>call pum#map#cancel()<CR>')
 inoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
 
 " For command line mode completion
@@ -174,8 +174,8 @@ cnoremap <expr> <Tab>
       \ ddc#map#manual_complete()
 cnoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
 cnoremap <C-o>   <Cmd>call pum#map#confirm()<CR>
-cnoremap <expr> <C-e>
-      \ ddc#map#insert_item(0, '<Cmd>call pum#map#cancel()<CR>')
+"cnoremap <expr> <C-e>
+"      \ ddc#map#insert_item(0, '<Cmd>call pum#map#cancel()<CR>')
 
 " For terminal completion
 call ddc#enable_terminal_completion()

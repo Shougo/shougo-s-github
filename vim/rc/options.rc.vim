@@ -88,8 +88,9 @@ set isfname+=@-@
 
 " Better for <C-w> deletion
 autocmd MyAutoCmd CmdlineEnter *
-      \ let s:save_iskeyword = &l:iskeyword |
-      \ setlocal iskeyword+=. | setlocal iskeyword+=-
+      \ : let s:save_iskeyword = &l:iskeyword
+      \ | setlocal iskeyword+=.
+      \ | setlocal iskeyword+=-
 autocmd MyAutoCmd CmdlineLeave *
       \ let &l:iskeyword = s:save_iskeyword
 
@@ -114,11 +115,19 @@ set keywordprg=:help
 
 " Disable paste.
 autocmd MyAutoCmd InsertLeave *
-      \ if &paste | setlocal nopaste | echo 'nopaste' | endif |
-      \ if &l:diff | diffupdate | endif
+      \ : if &paste
+      \ |   setlocal nopaste
+      \ |   echo 'nopaste'
+      \ | endif
+      \ | if &l:diff
+      \ |   diffupdate
+      \ | endif
 
 " Update diff.
-autocmd MyAutoCmd InsertLeave * if &l:diff | diffupdate | endif
+autocmd MyAutoCmd InsertLeave *
+      \ : if &l:diff
+      \ |   diffupdate
+      \ | endif
 
 set diffopt=internal,algorithm:patience,indent-heuristic
 
