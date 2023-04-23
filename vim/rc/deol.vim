@@ -1,7 +1,6 @@
 " hook_add {{{
 nnoremap <expr> [Space]s
-      \ printf('<Cmd>Deol %s -no-start-insert -toggle<CR>',
-      \        has('win32') ? 'cmd': 'zsh')
+      \ $'<Cmd>Deol {has('win32') ? 'cmd': 'zsh'} -no-start-insert -toggle<CR>'
 nnoremap sD  <Cmd>call deol#kill_editor()<CR>
 nnoremap <C-t> <Cmd>Ddu -name=deol
       \ -ui-param-split=`has('nvim') ? 'floating' : 'horizontal'`

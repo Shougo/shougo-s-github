@@ -139,8 +139,8 @@ function! s:mkdir_as_necessary(dir, force) abort
     return
   endif
 
-  if a:force || printf('"%s" does not exist. Create? [y/N] '
-        \              ->input(a:dir)) =~? '^y\%[es]$'
+  if a:force || $'"{a:dir}" does not exist. Create? [y/N] '
+        \       ->input() =~? '^y\%[es]$'
     call mkdir(a:dir->iconv(&encoding, &termencoding), 'p')
   endif
 endfunction

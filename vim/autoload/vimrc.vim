@@ -42,14 +42,14 @@ function! vimrc#add_numbers(num) abort
     const next_num = next_line->matchstr('^\d\+')
     const new_line = prev_line[: -(prev_num->len())-1]
           \ ..
-          \ printf('%0' .. (prev_num .. next_num)->len() .. 'd',
+          \ printf($'%0{(prev_num .. next_num)->len()}d',
           \    [0, (prev_num .. next_num)
           \         ->substitute('^0\+', '', '') + a:num]->max())
           \ .. next_line[next_num->len():]
   else
-    const new_line = prev_line ..
-          \ (next_line->substitute('\d\+',
-          \ "\\=printf('%0' .. submatch(0)->len() .. 'd',
+    const new_line = prev_line
+          \ .. (next_line->substitute('\d\+',
+          \     "\\=printf($'%0{submatch(0)->len()}d',
           \         [0, submatch(0)
           \             ->substitute('^1\+', '', '') + a:num]->max())", ''))
   endif

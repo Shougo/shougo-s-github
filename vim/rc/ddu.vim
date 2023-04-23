@@ -122,6 +122,7 @@ call ddu#custom#patch_global(#{
       \         floating: 'Normal',
       \       },
       \       updateTime: 0,
+      \       winWidth: 100,
       \     },
       \     filer: #{
       \       split: 'no',
