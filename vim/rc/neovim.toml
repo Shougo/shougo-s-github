@@ -6,7 +6,7 @@ hook_post_update = 'TSUpdate'
 lua_source = '''
   require'nvim-treesitter.configs'.setup {
       ensure_installed = 'all',
-      additional_vim_regex_highlighting = false,
+      additional_vim_regex_highlighting = true,
       highlight = {
           enable = true,
           disable = function(lang, buf)
@@ -149,10 +149,8 @@ repo = 'MunifTanjim/nui.nvim'
 [[plugins]]
 repo = 'neovim/nvim-lspconfig'
 depends = ['ddc.vim']
-on_ft = ['typescript', 'go', 'python', 'markdown']
-if = 'has("nvim")'
 lua_source = '''
-  require'lspconfig'.denols.setup{}
+  --require'lspconfig'.denols.setup{}
   require'lspconfig'.gopls.setup{}
   require'lspconfig'.pylsp.setup{}
   --require'lspconfig'.vimls.setup{}
@@ -173,6 +171,59 @@ lua_source = '''
         end
       },
   })
+'''
+
+[[plugins]]
+repo = 'williamboman/mason-lspconfig.nvim'
+lua_source = '''
+-- https://zenn.dev/kawarimidoll/articles/2b57745045b225
+require('mason-lspconfig').setup_handlers({
+  function(server_name)
+    local nvim_lsp = require('lspconfig')
+    local node_root_dir = nvim_lsp.util.root_pattern('package.json')
+    local is_node_repo = node_root_dir(vim.api.nvim_buf_get_name(0)) ~= nil
+
+    local opts = {}
+
+    if server_name == 'vtsls' then
+      -- Must be node directory
+      if not is_node_repo then
+        return
+      end
+
+      opts.root_dir = node_root_dir
+    elseif server_name == 'denols' then
+      -- Must not be node directory
+      if is_node_repo then
+        return
+      end
+
+      opts.init_options = {
+        lint = true,
+        unstable = true,
+        suggest = {
+          imports = {
+            hosts = {
+              ['https://deno.land'] = true,
+              ['https://cdn.nest.land'] = true,
+              ['https://crux.land'] = true
+            }
+          }
+        }
+      }
+    end
+
+    nvim_lsp[server_name].setup(opts)
+  end
+})
+'''
+
+[[plugins]]
+repo = 'williamboman/mason.nvim'
+depends = ['nvim-lspconfig', 'mason-lspconfig.nvim']
+on_ft = ['typescript', 'go', 'python', 'markdown']
+lua_source = '''
+require('mason').setup()
 '''
 
 [[plugins]]
