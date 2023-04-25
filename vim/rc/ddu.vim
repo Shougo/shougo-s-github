@@ -7,7 +7,6 @@ nnoremap ss
       \ <Cmd>Ddu -name=files file_point file_old
       \ `'.git'->finddir(';') != '' ? 'file_external' : 'file'`
       \ file -source-param-new -source-option-volatile
-      \ -input=`'.'->getline() =~# '^\f\+:' ? expand('<cfile>') : ''`
       \ -sync -unique
       \ -ui-param-displaySourceName=short
       \ <CR>
