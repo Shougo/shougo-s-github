@@ -10,6 +10,8 @@ nnoremap ss
       \ -sync -unique
       \ -ui-param-displaySourceName=short
       \ <CR>
+nnoremap sr
+      \ <Cmd>Ddu -name=files -resume<CR>
 nnoremap / <Cmd>Ddu
       \ -name=search line -resume=v:false
       \ -ui-param-startFilter

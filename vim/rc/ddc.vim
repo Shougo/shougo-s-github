@@ -1,7 +1,7 @@
 " hook_source {{{
 call ddc#custom#patch_global(#{
       \   ui: 'pum',
-      \   sources: ['around', 'file', 'rg'],
+      \   sources: ['around', 'copilot', 'file', 'rg'],
       \   autoCompleteEvents: [
       \     'InsertEnter', 'TextChangedI', 'TextChangedP',
       \     'CmdlineEnter', 'CmdlineChanged', 'TextChangedT',
@@ -43,6 +43,11 @@ call ddc#custom#patch_global('sourceOptions', #{
       \     mark: 'cmdline',
       \     forceCompletionPattern: '\S/\S*|\.\w*',
       \     dup: 'force',
+      \   },
+      \   copilot: #{
+      \     mark: 'cop',
+      \     matchers: [],
+      \     minAutoCompleteLength: 0,
       \   },
       \   input: #{
       \     mark: 'input',
@@ -115,7 +120,7 @@ call ddc#custom#patch_global('sourceParams', #{
 call ddc#custom#patch_filetype(
       \   ['help', 'markdown', 'gitcommit'],
       \   'sources',
-      \   ['around', 'rg', 'mocword']
+      \   ['around', 'copilot', 'rg', 'mocword']
       \ )
 call ddc#custom#patch_filetype(['ddu-ff-filter'], #{
       \   keywordPattern: '[0-9a-zA-Z_:#-]*',
@@ -127,12 +132,12 @@ if has('nvim')
   call ddc#custom#patch_filetype(
         \   ['typescript', 'go', 'python'],
         \   'sources',
-        \   ['around', 'nvim-lsp']
+        \   ['copilot', 'nvim-lsp', 'around']
         \ )
   call ddc#custom#patch_filetype(
         \   ['lua'],
         \   'sources',
-        \   ['nvim-lua', 'around']
+        \   ['copilot', 'nvim-lua', 'around']
         \ )
 endif
 

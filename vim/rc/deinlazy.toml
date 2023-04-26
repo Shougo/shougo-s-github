@@ -215,11 +215,38 @@ hook_source = '''
 repo = 'github/copilot.vim'
 on_cmd = 'Copilot'
 hook_source = '''
-  let g:copilot_enabled = v:false
   let g:copilot_no_maps = v:true
-  let g:copilot_node_command = '/snap/bin/node'
+  "let g:copilot_node_command = '/snap/bin/node'
   let g:copilot_hide_during_completion = 0
   imap <silent><expr> <C-g> copilot#Accept()
+  imap <silent><expr> <C-n> copilot#Next()
+  imap <silent><expr> <C-p> copilot#Previous()
+
+
+  " Enable copilot for text files
+  let g:copilot_filetypes = #{
+    \   gitcommit: v:true,
+    \   markdown: v:true,
+    \   text: v:true,
+    \   yaml: v:true,
+    \   ddu-ff-filter: v:false,
+    \ }
+
+  function s:append_diff() abort
+    " Get the Git repository root directory
+    let git_root = '.git'->finddir('.;')->fnamemodify(':h')
+
+    " Get the diff of the staged changes relative to the Git repository root
+    let diff = $'git -C {git_root} diff --cached'->system()
+
+    " Add a comment character to each line of the diff
+    let comment_diff = diff->split('\n')->map({ idx, line -> $'# {line}' })
+
+    " Append the diff to the commit message
+    call append(line('$'), comment_diff)
+  endfunction
+
+  autocmd BufReadPost COMMIT_EDITMSG call s:append_diff()
 '''
 
 [[plugins]]
