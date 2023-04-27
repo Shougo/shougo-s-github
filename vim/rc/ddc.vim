@@ -1,7 +1,7 @@
 " hook_source {{{
 call ddc#custom#patch_global(#{
       \   ui: 'pum',
-      \   sources: ['around', 'copilot', 'file', 'rg'],
+      \   sources: ['copilot', 'around', 'file', 'rg'],
       \   autoCompleteEvents: [
       \     'InsertEnter', 'TextChangedI', 'TextChangedP',
       \     'CmdlineEnter', 'CmdlineChanged', 'TextChangedT',
@@ -48,6 +48,7 @@ call ddc#custom#patch_global('sourceOptions', #{
       \     mark: 'cop',
       \     matchers: [],
       \     minAutoCompleteLength: 0,
+      \     isVolatile: v:false,
       \   },
       \   input: #{
       \     mark: 'input',
@@ -165,12 +166,15 @@ inoremap <expr> <TAB>
 inoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
 inoremap <C-n>   <Cmd>call pum#map#select_relative(+1)<CR>
 inoremap <C-p>   <Cmd>call pum#map#select_relative(-1)<CR>
-inoremap <C-o>   <Cmd>call pum#map#confirm()<CR>
 inoremap <C-x><C-f>
       \ <Cmd>call ddc#map#manual_complete(#{ sources: ['file'] })<CR>
 "inoremap <expr> <C-e>
 "      \ ddc#map#insert_item(0, '<Cmd>call pum#map#cancel()<CR>')
 inoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
+inoremap <C-o>   <Cmd>call pum#map#confirm_word()<CR>
+
+" Refresh the completion
+inoremap <expr> <C-l>  ddc#map#manual_complete()
 
 " For command line mode completion
 cnoremap <expr> <Tab>
@@ -191,20 +195,20 @@ call ddc#custom#patch_filetype(['deol'], #{
       \ })
 
 " Narrowing by ddu
-inoremap <C-l> <Cmd>call ddu#start(#{
-      \   name: 'ddc',
-      \   ui: 'ff',
-      \   input: matchstr(getline('.')[: col('.') - 1], '\k*$'),
-      \   sources: [
-      \     #{ name: 'ddc', options: #{ defaultAction: 'complete' } },
-      \   ],
-      \   uiParams: #{
-      \     ff: #{
-      \       startFilter: v:true,
-      \       replaceCol: match(getline('.')[: col('.') - 1], '\k*$') + 1,
-      \     },
-      \   },
-      \ })<CR>
+"inoremap <C-l> <Cmd>call ddu#start(#{
+"      \   name: 'ddc',
+"      \   ui: 'ff',
+"      \   input: matchstr(getline('.')[: col('.') - 1], '\k*$'),
+"      \   sources: [
+"      \     #{ name: 'ddc', options: #{ defaultAction: 'complete' } },
+"      \   ],
+"      \   uiParams: #{
+"      \     ff: #{
+"      \       startFilter: v:true,
+"      \       replaceCol: match(getline('.')[: col('.') - 1], '\k*$') + 1,
+"      \     },
+"      \   },
+"      \ })<CR>
 
 call ddc#enable()
 " }}}
