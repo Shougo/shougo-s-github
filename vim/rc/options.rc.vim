@@ -159,6 +159,10 @@ set fileformat=unix
 " Automatic recognition of a new line cord.
 set fileformats=unix,dos,mac
 
+" Disable editorconfig
+let g:editorconfig = v:false
+
+
 "---------------------------------------------------------------------------
 " View:
 "
