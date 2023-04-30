@@ -90,7 +90,7 @@ on_cmd = 'Ddx'
 [[plugins]]
 repo = 'Shougo/dda.vim'
 hook_add = '''
-" completion with prompt
+" Completion with prompt
 command! -nargs=* -range -bar
 \ Dda call RangeCompletion(<line1>, <line2>, <range>, <q-args>)
 function! RangeCompletion(line1, line2, range, prompt)
@@ -120,7 +120,7 @@ function! RangeCompletion(line1, line2, range, prompt)
   endif
 endfunction
 
-" completion with current buffer
+" Completion with current buffer
 inoremap <C-a>  <Cmd>Dda<CR>
 '''
 hook_source = '''

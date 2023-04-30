@@ -9,3 +9,4 @@ vim9script
 repo = 'mattn/vim-treesitter'
 build = 'cd server && go build'
 #on_event = ['BufRead', 'CursorHold']
+hooks_file = '$BASE_DIR/vim9.vim'
