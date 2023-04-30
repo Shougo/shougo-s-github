@@ -118,6 +118,14 @@ setlocal nofoldenable
 setlocal iskeyword+=:
 setlocal iskeyword+=#
 setlocal iskeyword+=-
+setlocal conceallevel=0
+
+function! s:set_highlight(group) abort
+  for group in ['helpBar', 'helpBacktick', 'helpStar', 'helpIgnore']
+    execute 'highlight link' group a:group
+  endfor
+endfunction
+call s:set_highlight('Special')
 " }}}
 
 " ruby {{{
