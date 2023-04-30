@@ -61,7 +61,6 @@ if dein#min#load_state(s:path)
   else
     call dein#load_toml('$BASE_DIR/vim.toml', #{ lazy : 1 })
   endif
-  call dein#load_toml('$BASE_DIR/deinft.toml')
 
   const work_directory = '~/work'->expand()
   if work_directory->isdirectory()
