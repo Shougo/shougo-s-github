@@ -121,7 +121,7 @@ call ddc#custom#patch_global('sourceParams', #{
 call ddc#custom#patch_filetype(
       \   ['help', 'markdown', 'gitcommit'],
       \   'sources',
-      \   ['around', 'copilot', 'rg', 'mocword']
+      \   ['around', 'copilot', 'mocword']
       \ )
 call ddc#custom#patch_filetype(['ddu-ff-filter'], #{
       \   keywordPattern: '[0-9a-zA-Z_:#-]*',
