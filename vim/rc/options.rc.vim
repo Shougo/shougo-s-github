@@ -311,3 +311,7 @@ set redrawtime=0
 if '+termwinkey'->exists()
   set termwinkey=<C-L>
 endif
+
+if '+smoothscroll'->exists()
+  set smoothscroll
+endif

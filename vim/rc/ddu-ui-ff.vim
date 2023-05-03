@@ -81,8 +81,20 @@ nnoremap <C-p>
 " }}}
 
 " ddu-ff-filter {{{
-inoremap <buffer> <CR>
-      \ <Esc><Cmd>call ddu#ui#do_action('closeFilterWindow')<CR>
+if has('nvim')
+  inoremap <buffer> <CR>
+        \ <Esc><Cmd>call ddu#ui#do_action('closeFilterWindow')<CR>
+else
+  inoremap <buffer> <CR>
+        \ <Cmd>call ddu#ui#do_action('itemAction')<CR>
+  inoremap <buffer> <C-j>
+        \ <Cmd>call ddu#ui#ff#execute(
+        \ "call cursor(line('.')+1,0)<Bar>redraw")<CR>
+  inoremap <buffer> <C-k>
+        \ <Cmd>call ddu#ui#ff#execute(
+        \ "call cursor(line('.')-1,0)<Bar>redraw")<CR>
+endif
+
 nnoremap <buffer> <CR>
       \ <Cmd>call ddu#ui#do_action('closeFilterWindow')<CR>
 nnoremap <buffer> ff

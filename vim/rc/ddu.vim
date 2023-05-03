@@ -244,7 +244,7 @@ call ddu#custom#patch_global(#{
 call ddu#custom#patch_local('files', #{
       \   uiParams: #{
       \     ff: #{
-      \       split: has('nvim') ? 'floating' : 'horizontal',
+      \       split: 'floating',
       \     }
       \   },
       \ })
