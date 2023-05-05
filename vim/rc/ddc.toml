@@ -11,8 +11,8 @@ hook_source = '''
     \   auto_confirm_time: 3000,
     \   horizontal_menu: v:false,
     \   max_width: 80,
-    \   use_setline: v:false,
     \   use_complete: v:true,
+    \   use_setline: v:false,
     \ })
   call pum#set_local_option('c', #{
     \   horizontal_menu: v:false,

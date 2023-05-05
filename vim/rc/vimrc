@@ -13,8 +13,6 @@ endif
 " Set augroup.
 augroup MyAutoCmd
   autocmd!
-  autocmd BufReadPre *?
-        \ call vimrc#check_syntax()
   autocmd FileType,Syntax,BufNewFile,BufNew,BufRead *?
         \ call vimrc#on_filetype()
 augroup END
