@@ -34,50 +34,52 @@ let g:dein#types#git#enable_partial_clone = v:true
 let $BASE_DIR = '<sfile>'->expand()->fnamemodify(':h')
 
 let s:path = $CACHE .. '/dein'
-if dein#min#load_state(s:path)
-  let g:dein#inline_vimrcs = [
-        \ '$BASE_DIR/options.rc.vim',
-        \ '$BASE_DIR/mappings.rc.vim',
-        \ ]
-  if has('nvim')
-    call add(g:dein#inline_vimrcs, '$BASE_DIR/neovim.rc.vim')
-  elseif has('gui_running')
-    call add(g:dein#inline_vimrcs, '$BASE_DIR/gui.rc.vim')
-  endif
-  if has('win32')
-    call add(g:dein#inline_vimrcs, '$BASE_DIR/windows.rc.vim')
-  else
-    call add(g:dein#inline_vimrcs, '$BASE_DIR/unix.rc.vim')
-  endif
+if !dein#min#load_state(s:path)
+  finish
+endif
 
-  call dein#begin(s:path, '<sfile>'->expand())
+let g:dein#inline_vimrcs = [
+      \ '$BASE_DIR/options.rc.vim',
+      \ '$BASE_DIR/mappings.rc.vim',
+      \ ]
+if has('nvim')
+  call add(g:dein#inline_vimrcs, '$BASE_DIR/neovim.rc.vim')
+elseif has('gui_running')
+  call add(g:dein#inline_vimrcs, '$BASE_DIR/gui.rc.vim')
+endif
+if has('win32')
+  call add(g:dein#inline_vimrcs, '$BASE_DIR/windows.rc.vim')
+else
+  call add(g:dein#inline_vimrcs, '$BASE_DIR/unix.rc.vim')
+endif
 
-  call dein#load_toml('$BASE_DIR/dein.toml', #{ lazy: 0 })
-  call dein#load_toml('$BASE_DIR/deinlazy.toml', #{ lazy: 1 })
-  call dein#load_toml('$BASE_DIR/ddc.toml', #{ lazy: 1 })
-  call dein#load_toml('$BASE_DIR/ddu.toml', #{ lazy: 1 })
-  if has('nvim')
-    call dein#load_toml('$BASE_DIR/neovim.toml', #{ lazy : 1 })
-  else
-    call dein#load_toml('$BASE_DIR/vim.toml', #{ lazy : 1 })
-  endif
+call dein#begin(s:path, '<sfile>'->expand())
 
-  const work_directory = '~/work'->expand()
-  if work_directory->isdirectory()
-    " Load develop version plugins.
-    call dein#local(work_directory,
-          \ #{ frozen: 1, merged: 0 }, [
-          \   'vim*', 'nvim-*', '*.vim', '*.nvim',
-          \   'ddc-*', 'ddu-*',
-          \   'skkeleton', 'neco-vim',
-          \ ])
-  endif
+call dein#load_toml('$BASE_DIR/dein.toml', #{ lazy: 0 })
+call dein#load_toml('$BASE_DIR/deinlazy.toml', #{ lazy: 1 })
+call dein#load_toml('$BASE_DIR/ddc.toml', #{ lazy: 1 })
+call dein#load_toml('$BASE_DIR/ddu.toml', #{ lazy: 1 })
+if has('nvim')
+  call dein#load_toml('$BASE_DIR/neovim.toml', #{ lazy : 1 })
+else
+  call dein#load_toml('$BASE_DIR/vim.toml', #{ lazy : 1 })
+endif
 
-  call dein#end()
-  call dein#save_state()
+const work_directory = '~/work'->expand()
+if work_directory->isdirectory()
+  " Load develop version plugins.
+  call dein#local(work_directory,
+        \ #{ frozen: 1, merged: 0 }, [
+        \   'vim*', 'nvim-*', '*.vim', '*.nvim',
+        \   'ddc-*', 'ddu-*',
+        \   'skkeleton', 'neco-vim',
+        \ ])
+endif
 
-  " NOTE: filetype detection is needed
-  if '%'->bufname() !=# ''
-    filetype detect
-  endif
+call dein#end()
+call dein#save_state()
+
+" NOTE: filetype detection is needed
+if '%'->bufname() !=# ''
+  filetype detect
 endif
