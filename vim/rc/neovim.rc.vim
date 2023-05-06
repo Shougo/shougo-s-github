@@ -33,25 +33,6 @@ let g:neovide_no_idle = v:true
 let g:neovide_cursor_animation_length = 0
 let g:neovide_cursor_trail_length = 0
 
-" For nvui
-if 'g:nvui'->exists()
-  set guifont=Courier\ 10\ Pitch:h14,VL\ Gothic:h14
-  call rpcnotify(1, 'NVUI_ANIMATIONS_ENABLED', v:false)
-  call rpcnotify(1, 'NVUI_CURSOR_HIDE_TYPE', v:true)
-
-  " NOTE: nvui does not use 'titlestring'
-  autocmd MyAutoCmd
-        \ BufWritePost,TextChanged,TextChangedI,BufEnter,DirChanged *
-        \ call rpcnotify(1, 'NVUI_TB_TITLE',
-        \   printf('%s%s%s (%s)',
-        \     &l:readonly ? '[-]' : '',
-        \     &l:modified ? '[+]' : '',
-        \     '%:p:~:.'->expand(),
-        \     getcwd()->fnamemodify(':~')
-        \   )
-        \ )
-endif
-
 if has('win32')
   set guifont=Firge:h13
 else

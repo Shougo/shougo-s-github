@@ -67,10 +67,10 @@ function! vimrc#toggle_option(option_name) abort
       setlocal laststatus=0
     endif
   else
-    execute 'setlocal' a:option_name.'!'
+    execute $'setlocal {a:option_name}!'
   endif
 
-  execute 'setlocal' a:option_name.'?'
+  execute $'setlocal {a:option_name}?'
 endfunction
 
 function! vimrc#on_filetype() abort
