@@ -39,7 +39,7 @@ endtry
 set title titlelen=95
 " Title string.
 let &g:titlestring =
-      \ "%{expand('%:p:~:.')} %<\(%{fnamemodify(getcwd(), ':~')}\)%(%m%r%w%)"
+      \ "%{expand('%:p:~:.')} %<\(%{fnamemodify(getcwd(), ':~')}\)%(%y%m%r%)"
 
 if has('nvim')
   " Use cursor shape feature
