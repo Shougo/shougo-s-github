@@ -250,6 +250,43 @@ hook_source = '''
 '''
 
 [[plugins]]
+repo = 'Exafunction/codeium.vim'
+on_cmd = ['Codeium']
+hook_source = '''
+  let g:codeium_disable_bindings = 1
+  inoremap <expr><C-g> codeium#Accept()
+  inoremap <C-x> <Cmd>call codeium#Clear()<CR>
+  inoremap <C-n> <Cmd>call codeium#CycleCompletions(1)<CR>
+  inoremap <C-p> <Cmd>call codeium#CycleCompletions(-1)<CR>
+
+
+  " Enable copilot for text files
+  let g:codeium_filetypes = #{
+    \   gitcommit: v:true,
+    \   markdown: v:true,
+    \   text: v:true,
+    \   yaml: v:true,
+    \   ddu-ff-filter: v:false,
+    \ }
+
+  function s:append_diff() abort
+    " Get the Git repository root directory
+    let git_root = '.git'->finddir('.;')->fnamemodify(':h')
+
+    " Get the diff of the staged changes relative to the Git repository root
+    let diff = $'git -C {git_root} diff --cached'->system()
+
+    " Add a comment character to each line of the diff
+    let comment_diff = diff->split('\n')->map({ idx, line -> $'# {line}' })
+
+    " Append the diff to the commit message
+    call append(line('$'), comment_diff)
+  endfunction
+
+  autocmd BufReadPost COMMIT_EDITMSG call s:append_diff()
+'''
+
+[[plugins]]
 repo = 'Shougo/qselect.vim'
 
 [[plugins]]

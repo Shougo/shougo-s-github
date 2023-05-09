@@ -73,11 +73,15 @@ nnoremap <buffer> ff
 
 " Cursor move
 nnoremap <C-n>
-      \ <Cmd>call ddu#ui_action('files', 'cursorNext')<CR>
-      \ <Cmd>call ddu#ui_action('files', 'itemAction')<CR>
+      \ <Cmd>call ddu#ui_sync_action('files', 'cursorNext')<CR>
+      \ <Cmd>call ddu#ui_sync_action('files', 'itemAction')<CR>
 nnoremap <C-p>
-      \ <Cmd>call ddu#ui_action('files', 'cursorPrevious')<CR>
-      \ <Cmd>call ddu#ui_action('files', 'itemAction')<CR>
+      \ <Cmd>call ddu#ui_sync_action('files', 'cursorPrevious')<CR>
+      \ <Cmd>call ddu#ui_sync_action('files', 'itemAction')<CR>
+nnoremap <C-j>
+      \ <Cmd>call ddu#ui#do_action('cursorNext')<CR>
+nnoremap <C-k>
+      \ <Cmd>call ddu#ui#do_action('cursorPrevious')<CR>
 " }}}
 
 " ddu-ff-filter {{{
@@ -87,13 +91,11 @@ if has('nvim')
 else
   inoremap <buffer> <CR>
         \ <Cmd>call ddu#ui#do_action('itemAction')<CR>
-  inoremap <buffer> <C-j>
-        \ <Cmd>call ddu#ui#ff#execute(
-        \ "call cursor(line('.')+1,0)<Bar>redraw")<CR>
-  inoremap <buffer> <C-k>
-        \ <Cmd>call ddu#ui#ff#execute(
-        \ "call cursor(line('.')-1,0)<Bar>redraw")<CR>
 endif
+inoremap <C-j>
+      \ <Cmd>call ddu#ui#do_action('cursorNext')<CR>
+inoremap <C-k>
+      \ <Cmd>call ddu#ui#do_action('cursorPrevious')<CR>
 
 nnoremap <buffer> <CR>
       \ <Cmd>call ddu#ui#do_action('closeFilterWindow')<CR>
