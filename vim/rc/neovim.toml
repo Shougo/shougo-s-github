@@ -221,7 +221,7 @@ require('mason-lspconfig').setup_handlers({
 [[plugins]]
 repo = 'williamboman/mason.nvim'
 depends = ['nvim-lspconfig', 'mason-lspconfig.nvim']
-on_ft = ['typescript', 'go', 'python', 'markdown']
+on_ft = ['typescript', 'typescriptreact', 'go', 'python', 'markdown']
 lua_source = '''
 require('mason').setup()
 '''

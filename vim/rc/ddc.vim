@@ -131,7 +131,7 @@ call ddc#custom#patch_filetype(['ddu-ff-filter'], #{
 
 if has('nvim')
   call ddc#custom#patch_filetype(
-        \   ['typescript', 'go', 'python'],
+        \   ['typescript', 'typescriptreact', 'go', 'python'],
         \   'sources',
         \   ['copilot', 'nvim-lsp', 'around']
         \ )
