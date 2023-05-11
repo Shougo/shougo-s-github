@@ -254,11 +254,10 @@ repo = 'Exafunction/codeium.vim'
 on_cmd = ['Codeium']
 hook_source = '''
   let g:codeium_disable_bindings = 1
-  inoremap <expr><C-g> codeium#Accept()
-  inoremap <C-x> <Cmd>call codeium#Clear()<CR>
-  inoremap <C-n> <Cmd>call codeium#CycleCompletions(1)<CR>
-  inoremap <C-p> <Cmd>call codeium#CycleCompletions(-1)<CR>
+  let g:codeium_render = v:false
 
+  "inoremap <expr><C-g> codeium#Accept()
+  "inoremap <C-x> <Cmd>call codeium#Clear()<CR>
 
   " Enable copilot for text files
   let g:codeium_filetypes = #{
