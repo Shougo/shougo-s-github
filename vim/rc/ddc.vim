@@ -54,7 +54,7 @@ call ddc#custom#patch_global('sourceOptions', #{
       \     mark: 'cod',
       \     matchers: [],
       \     minAutoCompleteLength: 0,
-      \     isVolatile: v:false,
+      \     isVolatile: v:true,
       \   },
       \   input: #{
       \     mark: 'input',
