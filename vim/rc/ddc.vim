@@ -37,7 +37,7 @@ call ddc#custom#patch_global('sourceOptions', #{
       \   },
       \   nvim-lua: #{
       \     mark: 'lua',
-      \     forceCompletionPattern: '\.\w*|:\w*|->\w*',
+      \     forceCompletionPattern: '\.\w*',
       \   },
       \   cmdline: #{
       \     mark: 'cmdline',
@@ -52,7 +52,7 @@ call ddc#custom#patch_global('sourceOptions', #{
       \   },
       \   codeium: #{
       \     mark: 'cod',
-      \     matchers: [],
+      \     matchers: ['matcher_length'],
       \     minAutoCompleteLength: 0,
       \     isVolatile: v:true,
       \   },
@@ -73,12 +73,12 @@ call ddc#custom#patch_global('sourceOptions', #{
       \   },
       \   nvim-lsp: #{
       \     mark: 'lsp',
-      \     forceCompletionPattern: '\.\w*|:\w*|->\w*',
+      \     forceCompletionPattern: '\.\w*|::\w*|->\w*',
       \     dup: 'force',
       \   },
       \   rtags: #{
       \     mark: 'R',
-      \     forceCompletionPattern: '\.\w*|:\w*|->\w*',
+      \     forceCompletionPattern: '\.\w*|::\w*|->\w*',
       \   },
       \   file: #{
       \     mark: 'F',
