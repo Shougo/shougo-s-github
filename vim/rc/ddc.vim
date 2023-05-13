@@ -1,7 +1,7 @@
 " hook_source {{{
 call ddc#custom#patch_global(#{
       \   ui: 'pum',
-      \   sources: ['codeium', 'around', 'file', 'rg'],
+      \   sources: ['codeium', 'around', 'file'],
       \   autoCompleteEvents: [
       \     'InsertEnter', 'TextChangedI', 'TextChangedP',
       \     'CmdlineEnter', 'CmdlineChanged', 'TextChangedT',

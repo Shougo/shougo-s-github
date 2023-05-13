@@ -78,9 +78,9 @@ nnoremap <C-n>
 nnoremap <C-p>
       \ <Cmd>call ddu#ui_sync_action('files', 'cursorPrevious')<CR>
       \ <Cmd>call ddu#ui_sync_action('files', 'itemAction')<CR>
-nnoremap <C-j>
+nnoremap <buffer> <C-j>
       \ <Cmd>call ddu#ui#do_action('cursorNext')<CR>
-nnoremap <C-k>
+nnoremap <buffer> <C-k>
       \ <Cmd>call ddu#ui#do_action('cursorPrevious')<CR>
 " }}}
 
@@ -92,9 +92,9 @@ else
   inoremap <buffer> <CR>
         \ <Cmd>call ddu#ui#do_action('itemAction')<CR>
 endif
-inoremap <C-j>
+inoremap <buffer> <C-j>
       \ <Cmd>call ddu#ui#do_action('cursorNext')<CR>
-inoremap <C-k>
+inoremap <buffer> <C-k>
       \ <Cmd>call ddu#ui#do_action('cursorPrevious')<CR>
 
 nnoremap <buffer> <CR>
