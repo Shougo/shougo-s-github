@@ -137,7 +137,8 @@ function! vimrc#append_diff() abort
   let diff = $'git -C {git_root} diff --cached'->system()
 
   " Add a comment character to each line of the diff
-  let comment_diff = diff->split('\n')->map({ idx, line -> $'# {line}' })
+  let comment_diff = diff->split('\n')[: 200]
+        \ ->map({ idx, line -> $'# {line}' })
 
   " Append the diff to the commit message
   call append(line('$'), comment_diff)
