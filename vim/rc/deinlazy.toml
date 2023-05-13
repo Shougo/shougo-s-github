@@ -239,7 +239,7 @@ hook_source = '''
   let g:codeium_disable_bindings = 1
   let g:codeium_render = v:false
 
-  "inoremap <expr><C-g> codeium#Accept()
+  "inoremap <expr> <C-g> codeium#Accept()
   "inoremap <C-x> <Cmd>call codeium#Clear()<CR>
 
   " Enable copilot for text files

@@ -53,7 +53,7 @@ else
         \ ]
 endif
 
-tnoremap <expr><C-t> ddc#map#manual_complete()
+tnoremap <expr> <C-t> ddc#map#manual_complete()
 tnoremap <expr> <Tab> pum#visible() ?
       \ '<Cmd>call pum#map#insert_relative(+1)<CR>' :
       \ '<Tab>'
