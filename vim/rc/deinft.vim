@@ -35,6 +35,9 @@ endif
 " Disable quotes keyword
 autocmd MyAutoCmd BufEnter,BufRead,BufNewFile *.md setlocal iskeyword-='
 
+" For auto completion in gitcommit buffer
+autocmd MyAutoCmd BufReadPost COMMIT_EDITMSG call vimrc#append_diff()
+
 " Update filetype.
 autocmd MyAutoCmd BufWritePost * nested
 \ : if &l:filetype ==# '' || 'b:ftdetect'->exists()

@@ -128,3 +128,17 @@ function! vimrc#diagnostics_to_qf() abort
     copen
   endif
 endfunction
+
+function! vimrc#append_diff() abort
+  " Get the Git repository root directory
+  let git_root = '.git'->finddir('.;')->fnamemodify(':h')
+
+  " Get the diff of the staged changes relative to the Git repository root
+  let diff = $'git -C {git_root} diff --cached'->system()
+
+  " Add a comment character to each line of the diff
+  let comment_diff = diff->split('\n')->map({ idx, line -> $'# {line}' })
+
+  " Append the diff to the commit message
+  call append(line('$'), comment_diff)
+endfunction
