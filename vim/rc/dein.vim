@@ -3,19 +3,21 @@ if !($CACHE->isdirectory())
   call mkdir($CACHE, 'p')
 endif
 
-" Install plugin manager.
+" Install plugin manager automatically.
 for s:plugin in [
       \ 'Shougo/dein.vim',
       \ ]->filter({ _, val -> &runtimepath !~# $'/{val}' })
-  let s:dein_dir = 'dein.vim'->fnamemodify(':p')
-  if !(s:dein_dir->isdirectory())
-    let s:dein_dir = $'{$CACHE}/dein/repos/github.com/{s:plugin}'
-    if !(s:dein_dir->isdirectory())
-      execute $'!git clone https://github.com/{s:plugin}' s:dein_dir
+  " Search from current directory
+  let s:dir = 'dein.vim'->fnamemodify(':p')
+  if !(s:dir->isdirectory())
+    " Search from $CACHE directory
+    let s:dir = $'{$CACHE}/dein/repos/github.com/{s:plugin}'
+    if !(s:dir->isdirectory())
+      execute $'!git clone https://github.com/{s:plugin}' s:dir
     endif
   endif
   execute 'set runtimepath^='
-        \ .. s:dein_dir->fnamemodify(':p')->substitute('[/\\]$', '', '')
+        \ .. s:dir->fnamemodify(':p')->substitute('[/\\]$', '', '')
 endfor
 
 
