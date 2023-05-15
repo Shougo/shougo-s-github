@@ -42,7 +42,7 @@ autocmd MyAutoCmd BufReadPost COMMIT_EDITMSG call vimrc#append_diff()
 autocmd MyAutoCmd BufWritePost * nested
 \ : if &l:filetype ==# '' || 'b:ftdetect'->exists()
 \ |   unlet! b:ftdetect
-\ |   filetype detect
+\ |   silent filetype detect
 \ | endif
 
 " Disable default plugins

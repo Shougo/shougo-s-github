@@ -86,7 +86,7 @@ function! vimrc#on_filetype() abort
   syntax enable
 
   " NOTE: filetype detect does not work on startup
-  filetype detect
+  silent filetype detect
 endfunction
 
 function! vimrc#enable_syntax() abort
