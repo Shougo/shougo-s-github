@@ -3,8 +3,8 @@
 "
 
 " In Windows, can't find exe, when $PATH isn't contained $VIM.
-if $PATH !~? '\(^\|;\)' .. $VIM->escape('\\') .. '\(;\|$\)'
-  let $PATH = $VIM .. ';' .. $PATH
+if $PATH !~? $'\(^\|;\){$VIM->escape('\\')}\(;\|$\)'
+  let $PATH = $'{$VIM};{$PATH}'
 endif
 
 " Change colorscheme.

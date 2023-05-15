@@ -23,12 +23,12 @@ hook_source = '''
   "if has('nvim')
   "  call jobstart([
   "  \   'deno', 'run', '-A', '--no-check',
-  "  \   g:dein#plugin.path .. '/denops/@denops-private/cli.ts',
+  "  \   $'{g:dein#plugin.path}/denops/@denops-private/cli.ts',
   "  \ ], {'detach': v:true})
   "else
   "  call job_start([
   "  \   'deno', 'run', '-A', '--no-check',
-  "  \   g:dein#plugin.path .. '/denops/@denops-private/cli.ts',
+  "  \   $'{g:dein#plugin.path}/denops/@denops-private/cli.ts',
   "  \ ], {'stoponexit': ''})
   "endif
   "let g:denops_server_addr = '127.0.0.1:32123'

@@ -3,18 +3,20 @@ if !($CACHE->isdirectory())
   call mkdir($CACHE, 'p')
 endif
 
-" Load dein.
-if &runtimepath !~# '/dein.vim'
+" Install plugin manager.
+for s:plugin in [
+      \ 'Shougo/dein.vim',
+      \ ]->filter({ _, val -> &runtimepath !~# $'/{val}' })
   let s:dein_dir = 'dein.vim'->fnamemodify(':p')
   if !(s:dein_dir->isdirectory())
-    let s:dein_dir = $CACHE .. '/dein/repos/github.com/Shougo/dein.vim'
+    let s:dein_dir = $'{$CACHE}/dein/repos/github.com/{s:plugin}'
     if !(s:dein_dir->isdirectory())
-      execute '!git clone https://github.com/Shougo/dein.vim' s:dein_dir
+      execute $'!git clone https://github.com/{s:plugin}' s:dein_dir
     endif
   endif
   execute 'set runtimepath^='
         \ .. s:dein_dir->fnamemodify(':p')->substitute('[/\\]$', '', '')
-endif
+endfor
 
 
 "---------------------------------------------------------------------------
@@ -33,7 +35,7 @@ let g:dein#types#git#enable_partial_clone = v:true
 
 let $BASE_DIR = '<sfile>'->expand()->fnamemodify(':h')
 
-let s:path = $CACHE .. '/dein'
+let s:path = $'{$CACHE}/dein'
 if !dein#min#load_state(s:path)
   finish
 endif

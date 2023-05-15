@@ -130,7 +130,7 @@ hook_source = '''
 #      end,
 #      set_keymaps = function(imap, feedkeys)
 #        local fn = require('fine-cmdline').fn
-#        imap('<Esc'..'>', fn.close)
+#        imap('<Esc>', fn.close)
 #        imap('<C-c>', fn.close)
 #        imap('jj', fn.close)
 #        imap('<C-p>', fn.up_history)

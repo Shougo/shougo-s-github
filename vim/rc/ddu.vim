@@ -36,7 +36,7 @@ nnoremap ;f <Cmd>Ddu
       \ -name=search rg -resume=v:false
       \ -ui-param-ignoreEmpty
       \ -source-param-input=`'Pattern: '->input('<cword>'->expand())`
-      \ -source-option-path=`'Directory: '->input(getcwd() .. '/', 'dir')`
+      \ -source-option-path=`'Directory: '->input($'{getcwd()}/', 'dir')`
       \ <CR>
 nnoremap n <Cmd>Ddu
       \ -name=search -resume
