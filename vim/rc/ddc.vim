@@ -137,7 +137,7 @@ call ddc#custom#patch_filetype(['ddu-ff-filter'], #{
 
 if has('nvim')
   call ddc#custom#patch_filetype(
-        \   ['typescript', 'typescriptreact', 'go', 'python'],
+        \   ['typescript', 'typescriptreact', 'go', 'python', 'css', 'html'],
         \   'sources',
         \   ['codeium', 'nvim-lsp', 'around']
         \ )
@@ -152,6 +152,10 @@ call ddc#custom#patch_filetype(['FineCmdlinePrompt'], #{
       \   keywordPattern: '[0-9a-zA-Z_:#-]*',
       \   sources: ['cmdline-history', 'around'],
       \   specialBufferCompletion: v:true,
+      \ })
+
+call ddc#custom#patch_filetype(['html', 'css'], #{
+      \   keywordPattern: '[0-9a-zA-Z_:#-]*',
       \ })
 
 " Context config
