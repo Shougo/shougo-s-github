@@ -180,8 +180,7 @@ lua_source = '''
 require('mason-lspconfig').setup_handlers({
   function(server_name)
     local nvim_lsp = require('lspconfig')
-    local node_root_dir = nvim_lsp.util.root_pattern('package.json')
-    local is_node_repo = node_root_dir(vim.api.nvim_buf_get_name(0)) ~= nil
+    local is_node_repo = vim.fn.findfile('package.json', '.;') ~= ''
 
     local opts = {}
 
@@ -191,7 +190,7 @@ require('mason-lspconfig').setup_handlers({
         return
       end
 
-      opts.root_dir = node_root_dir
+      opts.root_dir = nvim_lsp.util.root_pattern('package.json')
     elseif server_name == 'denols' then
       -- Must not be node directory
       if is_node_repo then
