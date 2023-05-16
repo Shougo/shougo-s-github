@@ -7,9 +7,9 @@ call ddc#custom#patch_global(#{
       \     'CmdlineEnter', 'CmdlineChanged', 'TextChangedT',
       \   ],
       \   cmdlineSources: {
-      \     ':': ['cmdline-history', 'cmdline', 'around'],
-      \     '@': ['cmdline-history', 'input', 'file', 'around'],
-      \     '>': ['cmdline-history', 'input', 'file', 'around'],
+      \     ':': ['cmdline', 'cmdline-history', 'around'],
+      \     '@': ['input', 'cmdline-history', 'file', 'around'],
+      \     '>': ['input', 'cmdline-history', 'file', 'around'],
       \     '/': ['around', 'line'],
       \     '?': ['around', 'line'],
       \     '-': ['around', 'line'],
@@ -43,7 +43,6 @@ call ddc#custom#patch_global('sourceOptions', #{
       \   cmdline: #{
       \     mark: 'cmdline',
       \     forceCompletionPattern: '\S/\S*|\.\w*',
-      \     dup: 'force',
       \   },
       \   copilot: #{
       \     mark: 'cop',
@@ -61,7 +60,6 @@ call ddc#custom#patch_global('sourceOptions', #{
       \     mark: 'input',
       \     forceCompletionPattern: '\S/\S*',
       \     isVolatile: v:true,
-      \     dup: 'force',
       \   },
       \   line: #{
       \     mark: 'line',
