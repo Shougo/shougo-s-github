@@ -68,7 +68,7 @@ call ddc#custom#patch_global('sourceOptions', #{
       \   },
       \   mocword: #{
       \     mark: 'mocword',
-      \     minAutoCompleteLength: 3,
+      \     minAutoCompleteLength: 4,
       \     isVolatile: v:true,
       \   },
       \   nvim-lsp: #{
@@ -159,14 +159,14 @@ call ddc#custom#patch_filetype(['html', 'css'], #{
       \ })
 
 " Context config
-call ddc#custom#set_context_filetype('go', { ->
-      \   ddc#syntax#in('TSComment') ?
-      \   #{ sources: ['around', 'mocword'] } : {}
-      \ })
-call ddc#custom#set_context_filetype('c', { ->
-      \   ddc#syntax#in('Comment') ?
-      \   #{ sources: ['around', 'mocword'] } : {}
-      \ })
+"call ddc#custom#set_context_filetype('go', { ->
+"      \   ddc#syntax#in('TSComment') ?
+"      \   #{ sources: ['around', 'mocword'] } : {}
+"      \ })
+"call ddc#custom#set_context_filetype('c', { ->
+"      \   ddc#syntax#in('Comment') ?
+"      \   #{ sources: ['around', 'mocword'] } : {}
+"      \ })
 
 " For insert mode completion
 inoremap <expr> <TAB>
@@ -220,7 +220,9 @@ call ddc#custom#patch_filetype(['deol'], #{
 "      \   },
 "      \ })<CR>
 
-call ddc#enable()
+call ddc#enable(#{
+      \   context_filetype: has('nvim') ? 'treesitter' : 'context_filetype',
+      \ })
 " }}}
 
 " hook_add {{{
