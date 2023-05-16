@@ -138,7 +138,10 @@ call ddc#custom#patch_filetype(['ddu-ff-filter'], #{
 
 if has('nvim')
   call ddc#custom#patch_filetype(
-        \   ['typescript', 'typescriptreact', 'go', 'python', 'css', 'html'],
+        \   [
+        \     'typescript', 'typescriptreact', 'go',
+        \     'python', 'css', 'html',
+        \   ],
         \   'sources',
         \   ['codeium', 'nvim-lsp', 'around']
         \ )
@@ -194,6 +197,9 @@ cnoremap <expr> <Tab>
       \ ddc#map#manual_complete()
 cnoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
 cnoremap <C-o>   <Cmd>call pum#map#confirm()<CR>
+cnoremap <expr> <C-e> pum#visible()
+      \ ? '<Cmd>call pum#map#cancel()<CR>'
+      \ : '<End>'
 "cnoremap <expr> <C-e>
 "      \ ddc#map#insert_item(0, '<Cmd>call pum#map#cancel()<CR>')
 
