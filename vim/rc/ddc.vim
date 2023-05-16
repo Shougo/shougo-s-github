@@ -25,6 +25,7 @@ call ddc#custom#patch_global('sourceOptions', #{
       \     converters: [
       \       'converter_remove_overlap', 'converter_truncate_abbr',
       \     ],
+      \     timeout: 1000,
       \   },
       \   around: #{
       \     mark: 'A',
