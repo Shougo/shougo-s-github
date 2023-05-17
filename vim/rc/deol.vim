@@ -53,20 +53,18 @@ else
         \ ]
 endif
 
-tnoremap <expr> <C-t> ddc#map#manual_complete()
+tnoremap <C-t> <Tab>
 tnoremap <expr> <Tab> pum#visible() ?
-      \ '<Cmd>call pum#map#insert_relative(+1)<CR>' :
+      \ '<Cmd>call pum#map#select_relative(+1)<CR>' :
       \ '<Tab>'
 tnoremap <expr> <S-Tab> pum#visible() ?
-      \ '<Cmd>call pum#map#insert_relative(-1)<CR>' :
+      \ '<Cmd>call pum#map#select_relative(-1)<CR>' :
       \ '<S-Tab>'
-tnoremap <Down>   <Cmd>call pum#map#select_relative(+1)<CR>
-tnoremap <Up>     <Cmd>call pum#map#select_relative(-1)<CR>
+tnoremap <Down>   <Cmd>call pum#map#insert_relative(+1)<CR>
+tnoremap <Up>     <Cmd>call pum#map#insert_relative(-1)<CR>
 tnoremap <expr> <C-y>
-      \ pum#visible() ? '<Cmd>call pum#map#confirm()<CR>' : '<C-y>'
-tnoremap <expr> <C-e>
-      \ pum#visible() ? '<Cmd>call pum#map#cancel()<CR>' : '<C-e>'
-tnoremap <expr> <C-g>   ddc#map#manual_complete()
+      \ pum#entered() ? '<Cmd>call pum#map#confirm()<CR>' : '<C-y>'
+tnoremap <expr> <C-j>   ddc#map#manual_complete()
 tnoremap <C-o>   <Cmd>call pum#map#confirm()<CR>
 " }}}
 

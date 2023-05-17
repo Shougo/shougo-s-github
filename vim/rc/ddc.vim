@@ -195,6 +195,8 @@ cnoremap <expr> <Tab>
       \ ddc#map#manual_complete()
 cnoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
 cnoremap <C-o>   <Cmd>call pum#map#confirm()<CR>
+cnoremap <C-q>   <Cmd>call pum#map#select_relative(+1)<CR>
+cnoremap <C-z>   <Cmd>call pum#map#select_relative(-1)<CR>
 cnoremap <expr> <C-e> pum#visible()
       \ ? '<Cmd>call pum#map#cancel()<CR>'
       \ : '<End>'
