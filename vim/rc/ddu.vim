@@ -119,10 +119,13 @@ call ddu#custom#patch_global(#{
       \   uiParams: #{
       \     ff: #{
       \       filterSplitDirection: 'floating',
+      \       floatingBorder: 'none',
       \       previewFloating: v:true,
+      \       previewFloatingBorder: 'single',
       \       previewSplit: 'no',
       \       highlights: #{
       \         floating: 'Normal',
+      \         floatingBorder: 'Special',
       \       },
       \       updateTime: 0,
       \       winWidth: 100,
