@@ -160,6 +160,11 @@ call ddc#custom#patch_filetype(['html', 'css'], #{
       \   keywordPattern: '[0-9a-zA-Z_:#-]*',
       \ })
 
+call ddc#custom#patch_filetype(['zsh', 'sh', 'bash'], #{
+      \   keywordPattern: '[0-9a-zA-Z_./#:-]*',
+      \   sources: ['zsh', 'around'],
+      \ })
+
 " Context config
 "call ddc#custom#set_context_filetype('go', { ->
 "      \   ddc#syntax#in('TSComment') ?

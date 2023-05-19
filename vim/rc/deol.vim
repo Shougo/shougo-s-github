@@ -88,6 +88,7 @@ call ddc#custom#patch_buffer('sourceOptions', #{
 " }}}
 
 " zsh {{{
+inoreabbrev <buffer> g git
 nnoremap <buffer> [Space]gc
       \ <Cmd>call deol#send('git commit')<CR>
 nnoremap <buffer> [Space]gs

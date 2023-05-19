@@ -29,8 +29,8 @@ try
   set cmdheight=0
 
   " For recording messages
-  autocmd MyAutoCmd RecordingEnter * set cmdheight=1
-  autocmd MyAutoCmd RecordingLeave * set cmdheight=0
+  autocmd MyAutoCmd CmdlineEnter,RecordingEnter * set cmdheight=1
+  autocmd MyAutoCmd CmdlineLeave,RecordingLeave * set cmdheight=0
 catch
   set cmdheight=1
 endtry
