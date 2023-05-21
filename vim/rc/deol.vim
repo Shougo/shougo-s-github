@@ -12,7 +12,11 @@ nnoremap <C-t> <Cmd>Ddu -name=deol -sync
 " hook_source {{{
 let g:deol#enable_dir_changed = v:false
 let g:deol#prompt_pattern = has('win32') ? '\f\+>' : '\w*% \?'
-let g:deol#shell_history_path = '~/.zsh-history'
+if has('win32')
+  let g:deol#internal_history_path = '~/.cache/deol-history'
+else
+  let g:deol#external_history_path = '~/.zsh-history'
+endif
 let g:deol#extra_options = #{
       \   term_kill: 'kill',
       \ }
