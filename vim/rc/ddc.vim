@@ -221,7 +221,11 @@ call ddc#enable_terminal_completion()
 call ddc#custom#patch_filetype(['deol'], #{
       \   specialBufferCompletion: v:true,
       \   keywordPattern: '[0-9a-zA-Z_./#:-]*',
-      \   sources: ['shell', 'shell-history', 'around'],
+      \   sources: [
+      \     has('win32') ? 'shell' : 'zsh',
+      \     'shell-history',
+      \     'around',
+      \   ],
       \ })
 
 " Narrowing by ddu
