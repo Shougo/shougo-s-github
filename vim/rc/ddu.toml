@@ -119,3 +119,12 @@ on_source = 'ddu.vim'
 [[plugins]]
 repo = 'Shougo/ddu-kind-word'
 on_source = 'ddu.vim'
+
+[[plugins]]
+repo = '4513ECHO/vim-readme-viewer'
+on_source = ['ddu.vim']
+hook_add = '''
+  let g:readme_viewer#plugin_manager = 'dein.vim'
+  nnoremap sr <Cmd>Ddu readme_viewer<CR>
+'''
+on_cmd = 'DeinOpen'

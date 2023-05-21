@@ -61,6 +61,7 @@ call dein#begin(s:path, '<sfile>'->expand())
 
 call dein#load_toml('$BASE_DIR/dein.toml', #{ lazy: 0 })
 call dein#load_toml('$BASE_DIR/deinlazy.toml', #{ lazy: 1 })
+call dein#load_toml('$BASE_DIR/denops.toml', #{ lazy: 1 })
 call dein#load_toml('$BASE_DIR/ddc.toml', #{ lazy: 1 })
 call dein#load_toml('$BASE_DIR/ddu.toml', #{ lazy: 1 })
 if has('nvim')

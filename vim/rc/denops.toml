@@ -1,0 +1,130 @@
+[[plugins]]
+repo = 'vim-denops/denops.vim'
+on_event = 'CursorHold'
+hook_source = '''
+  " NOTE: for profile
+  "let g:denops#server#deno_args = [
+  "    \ '-q',
+  "    \ '-A',
+  "    \ '--unstable',
+  "    \ '--inspect',
+  "    \ ]
+
+  " NOTE: for test
+  "let g:denops#server#deno_args = [
+  "    \ '-q',
+  "    \ '-A',
+  "    \ '--unstable',
+  "    \ ]
+
+  " Use background server
+  "if has('nvim')
+  "  call jobstart([
+  "  \   'deno', 'run', '-A', '--no-check',
+  "  \   $'{g:dein#plugin.path}/denops/@denops-private/cli.ts',
+  "  \ ], {'detach': v:true})
+  "else
+  "  call job_start([
+  "  \   'deno', 'run', '-A', '--no-check',
+  "  \   $'{g:dein#plugin.path}/denops/@denops-private/cli.ts',
+  "  \ ], {'stoponexit': ''})
+  "endif
+  "let g:denops_server_addr = '127.0.0.1:32123'
+'''
+
+[[plugins]]
+repo = 'Shougo/ddx.vim'
+hook_add = '''
+  nnoremap [Space]x <Cmd>Ddx -path=`'%'->expand()`<CR>
+'''
+hook_source = '''
+  call ddu#custom#patch_global(#{
+      \   ui: 'hex',
+      \ })
+'''
+[plugins.ftplugin]
+ddx-hex = '''
+  nnoremap <buffer> q
+  \ <Cmd>call ddx#ui#hex#do_action('quit')<CR>
+  nnoremap <buffer> r
+  \ <Cmd>call ddx#ui#hex#do_action('change')<CR>
+'''
+
+[[plugins]]
+repo = 'Shougo/ddx-commands.vim'
+depends = 'ddx.vim'
+on_cmd = 'Ddx'
+
+[[plugins]]
+repo = 'Shougo/dda.vim'
+hook_add = '''
+" Completion with prompt
+command! -nargs=* -range -bar
+\ Dda call RangeCompletion(<line1>, <line2>, <range>, <q-args>)
+function! RangeCompletion(line1, line2, range, prompt)
+  const offset = 20
+
+  if a:range > 0
+    " Visual mode
+    const selected = getline(a:line1, a:line2)->join("\n")
+    if a:prompt !=# ''
+      silent call deletebufline('%'->bufnr(), a:line1, a:line2)
+      call dda#edit(selected, a:prompt)
+    else
+      call dda#completion(selected)
+    endif
+  else
+    if a:prompt !=# ''
+      call dda#completion(a:prompt)
+    else
+      " Use current buffer
+      call dda#completion(
+              \   getline([1, line('.') - offset]->max(), line('.') - 1)
+              \   ->add(dda#util#get_input())->join("\n"),
+              \   getline(line('.') + 1, line('.') + offset)
+              \   ->insert(dda#util#get_next_input())->join("\n")
+              \ )
+    endif
+  endif
+endfunction
+
+" Completion with current buffer
+inoremap <C-a>  <Cmd>Dda<CR>
+'''
+hook_source = '''
+'''
+
+[[plugins]]
+repo = 'skanehira/denops-silicon.vim'
+hook_source = '''
+  let g:silicon_options = #{
+      \   font: 'Courier 10 Pitch',
+      \   no_line_number: v:true,
+      \   no_round_corner: v:false,
+      \   no_window_controls: v:false,
+      \   background_color: '#ffffff',
+      \   line_offset: 1,
+      \   line_pad: 2,
+      \   pad_horiz: 10,
+      \   pad_vert: 10,
+      \   shadow_blur_radius: 0,
+      \   shadow_color: '#555555',
+      \   shadow_offset_x: 0,
+      \   shadow_offset_y: 0,
+      \   tab_width: 4,
+      \   theme: 'Solarized (dark)',
+      \ }
+'''
+
+[[plugins]]
+repo = 'uga-rosa/scorpeon.vim'
+on_cmd = 'VsctmHighlightEnable'
+depends = 'denops.vim'
+hook_source = '''
+  let g:scorpeon_extensions_path = '~/.cache/scorpeon/extensions'->expand()
+'''
+
+[[plugins]]
+repo = 'lambdalisue/kensaku.vim'
+depends = 'denops.vim'
+denops_wait = false
