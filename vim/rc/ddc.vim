@@ -92,6 +92,11 @@ call ddc#custom#patch_global('sourceOptions', #{
       \   shell-history: #{
       \     mark: 'shell'
       \   },
+      \   shell: #{
+      \     mark: 'shell',
+      \     isVolatile: v:true,
+      \     forceCompletionPattern: '\S/\S*',
+      \   },
       \   zsh: #{
       \     mark: 'zsh',
       \     isVolatile: v:true,
@@ -162,7 +167,10 @@ call ddc#custom#patch_filetype(['html', 'css'], #{
 
 call ddc#custom#patch_filetype(['zsh', 'sh', 'bash'], #{
       \   keywordPattern: '[0-9a-zA-Z_./#:-]*',
-      \   sources: ['zsh', 'around'],
+      \   sources: [
+      \     has('win32') ? 'shell' : 'zsh',
+      \     'around',
+      \   ],
       \ })
 
 " Context config
@@ -213,7 +221,7 @@ call ddc#enable_terminal_completion()
 call ddc#custom#patch_filetype(['deol'], #{
       \   specialBufferCompletion: v:true,
       \   keywordPattern: '[0-9a-zA-Z_./#:-]*',
-      \   sources: ['zsh', 'shell-history', 'around'],
+      \   sources: ['shell', 'shell-history', 'around'],
       \ })
 
 " Narrowing by ddu

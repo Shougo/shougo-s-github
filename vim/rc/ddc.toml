@@ -50,6 +50,11 @@ on_source = 'ddc.vim'
 depends = 'ddc.vim'
 
 [[plugins]]
+repo = 'Shougo/ddc-source-shell'
+on_source = 'ddc.vim'
+depends = 'ddc.vim'
+
+[[plugins]]
 repo = 'Shougo/ddc-source-copilot'
 on_source = 'ddc.vim'
 
