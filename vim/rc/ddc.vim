@@ -129,7 +129,7 @@ call ddc#custom#patch_global('sourceParams', #{
       \ })
 
 call ddc#custom#patch_filetype(
-      \   ['help', 'markdown', 'gitcommit'],
+      \   ['help', 'markdown', 'gitcommit', 'comment'],
       \   'sources',
       \   ['around', 'codeium', 'mocword']
       \ )
