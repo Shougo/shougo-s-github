@@ -90,7 +90,7 @@ call ddc#custom#patch_global('sourceOptions', #{
       \     sorters: [],
       \   },
       \   shell-history: #{
-      \     mark: 'shell'
+      \     mark: 'history'
       \   },
       \   shell: #{
       \     mark: 'shell',
