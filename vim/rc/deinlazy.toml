@@ -7,7 +7,6 @@ hook_source = '''
   "    \ '-q',
   "    \ '-A',
   "    \ '--unstable',
-  "    \ '--no-lock',
   "    \ '--inspect',
   "    \ ]
 
@@ -16,7 +15,6 @@ hook_source = '''
   "    \ '-q',
   "    \ '-A',
   "    \ '--unstable',
-  "    \ '--no-lock',
   "    \ ]
 
   " Use background server
