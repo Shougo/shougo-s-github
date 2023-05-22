@@ -155,3 +155,7 @@ function! s:fold_expr(lnum)
   return line ==# '' || line =~# '^\s\+'
 endfunction
 " }}}
+
+" yaml {{{
+setlocal iskeyword+=-
+" }}}

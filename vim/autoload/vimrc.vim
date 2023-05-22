@@ -39,7 +39,7 @@ function! vimrc#add_numbers(num) abort
   const next_line = '.'->getline()['.'->col() :]
 
   " Boolean mode
-  let cword = expand('<cword>')
+  const cword = prev_line->matchstr('\w\+$') .. next_line->matchstr('^\w\+')
   const replace = #{
         \   true: 'false',
         \   false: 'true',

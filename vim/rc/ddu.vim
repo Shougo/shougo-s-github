@@ -13,9 +13,9 @@ nnoremap ss
       \ <CR>
 nnoremap sr
       \ <Cmd>Ddu -name=files -resume<CR>
-nnoremap s/ <Cmd>Ddu
-      \ -name=search line -resume=v:false -sync
-      \ -ui-param-startFilter=v:true
+nnoremap / <Cmd>Ddu
+      \ -name=search line -resume=v:false
+      \ -ui-param-startFilter=v:false
       \ <CR>
 nnoremap * <Cmd>Ddu
       \ -name=search line -resume=v:false
