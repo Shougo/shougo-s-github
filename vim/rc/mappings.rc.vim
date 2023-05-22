@@ -109,10 +109,6 @@ nnoremap <expr> q
       \ &l:filetype ==# 'qf' ? '<Cmd>cclose<CR>' :
       \ '$'->winnr() != 1 ? '<Cmd>close<CR>' : ''
 
-" Original search
-nnoremap s/    /
-nnoremap s?    ?
-
 " Better x
 nnoremap x "_x
 
