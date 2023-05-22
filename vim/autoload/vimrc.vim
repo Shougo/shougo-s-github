@@ -37,6 +37,21 @@ endfunction
 function! vimrc#add_numbers(num) abort
   const prev_line = '.'->getline()[: '.'->col()-1]
   const next_line = '.'->getline()['.'->col() :]
+
+  " Boolean mode
+  let cword = expand('<cword>')
+  if ['true', 'false', 'True', 'False']->index(cword) >= 0
+    let replace =
+          \ cword ==# 'true' ? 'false' :
+          \ cword ==# 'false' ? 'true' :
+          \ cword ==# 'True' ? 'False' :
+          \ 'True'
+    const new_prev = prev_line->substitute('\w\+$', '', '')
+    const new_next = next_line->substitute('^\w\+', '', '')
+    call setline('.', new_prev .. replace .. new_next)
+    return
+  endif
+
   const prev_num = prev_line->matchstr('\d\+$')
   if prev_num !=# ''
     const next_num = next_line->matchstr('^\d\+')

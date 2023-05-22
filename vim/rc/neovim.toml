@@ -150,13 +150,6 @@ repo = 'MunifTanjim/nui.nvim'
 repo = 'neovim/nvim-lspconfig'
 depends = ['ddc.vim']
 lua_source = '''
-  --require'lspconfig'.denols.setup{}
-  require'lspconfig'.gopls.setup{}
-  require'lspconfig'.pylsp.setup{}
-  --require'lspconfig'.vimls.setup{}
-  --require'lspconfig'.tailwindcss.setup{}
-  --require'lspconfig'.sumneko.setup{}
-
   vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
     vim.lsp.diagnostic.on_publish_diagnostics, {
       update_in_insert = false,

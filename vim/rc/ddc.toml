@@ -12,6 +12,7 @@ hook_source = '''
     \   auto_select: v:false,
     \   horizontal_menu: v:false,
     \   max_width: 80,
+    \   offset_cmdcol: 0,
     \   use_complete: v:true,
     \   use_setline: v:false,
     \ })
