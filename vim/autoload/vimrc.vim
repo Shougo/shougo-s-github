@@ -40,15 +40,16 @@ function! vimrc#add_numbers(num) abort
 
   " Boolean mode
   let cword = expand('<cword>')
-  if ['true', 'false', 'True', 'False']->index(cword) >= 0
-    let replace =
-          \ cword ==# 'true' ? 'false' :
-          \ cword ==# 'false' ? 'true' :
-          \ cword ==# 'True' ? 'False' :
-          \ 'True'
+  const replace = #{
+        \   true: 'false',
+        \   false: 'true',
+        \   True: 'False',
+        \   False: 'True',
+        \ }
+  if replace->has_key(cword)
     const new_prev = prev_line->substitute('\w\+$', '', '')
     const new_next = next_line->substitute('^\w\+', '', '')
-    call setline('.', new_prev .. replace .. new_next)
+    call setline('.', new_prev .. replace[cword] .. new_next)
     return
   endif
 
