@@ -66,8 +66,7 @@ tnoremap <expr> <S-Tab> pum#visible() ?
       \ '<S-Tab>'
 tnoremap <Down>   <Cmd>call pum#map#insert_relative(+1)<CR>
 tnoremap <Up>     <Cmd>call pum#map#insert_relative(-1)<CR>
-tnoremap <expr> <C-y>
-      \ pum#entered() ? '<Cmd>call pum#map#confirm()<CR>' : '<C-y>'
+tnoremap <C-y>    <Cmd>call pum#map#confirm()<CR>
 tnoremap <expr> <C-j>   ddc#map#manual_complete()
 tnoremap <C-o>   <Cmd>call pum#map#confirm()<CR>
 " }}}
