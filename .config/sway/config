@@ -161,9 +161,6 @@ for_window [urgent=latest] focus
 # hide/unhide i3status bar
 bindsym $mod+m bar mode toggle
 
-# Browser
-bindsym $mod+x exec --no-startup-id firefox
-
 bindsym $mod+l workspace next
 bindsym $mod+h workspace prev
 
