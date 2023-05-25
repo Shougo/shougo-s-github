@@ -64,11 +64,11 @@ tnoremap <expr> <Tab> pum#visible() ?
 tnoremap <expr> <S-Tab> pum#visible() ?
       \ '<Cmd>call pum#map#select_relative(-1)<CR>' :
       \ '<S-Tab>'
+tnoremap <expr> <C-j>   ddc#map#manual_complete()
 tnoremap <Down>   <Cmd>call pum#map#insert_relative(+1)<CR>
 tnoremap <Up>     <Cmd>call pum#map#insert_relative(-1)<CR>
 tnoremap <C-y>    <Cmd>call pum#map#confirm()<CR>
-tnoremap <expr> <C-j>   ddc#map#manual_complete()
-tnoremap <C-o>   <Cmd>call pum#map#confirm()<CR>
+tnoremap <C-o>    <Cmd>call pum#map#confirm()<CR>
 " }}}
 
 " deol {{{
