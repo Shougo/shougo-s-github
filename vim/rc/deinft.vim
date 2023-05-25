@@ -23,19 +23,19 @@ let g:vim_markdown_toml_frontmatter = v:true
 let g:vim_markdown_json_frontmatter = v:true
 let g:vim_markdown_no_default_key_mappings = v:true
 
-" Set help filetype
+" Set help filetype.
 autocmd MyAutoCmd BufRead,BufNewFile *.jax setfiletype help
 
-" Enable dein toml synatx
+" Enable dein toml synatx.
 " NOTE: For neovim use nvim-treesitter syntax instead.
 if !has('nvim')
   autocmd MyAutoCmd CursorHold */rc/*.toml call dein#toml#syntax()
 endif
 
-" Disable quotes keyword
+" Disable quotes keyword.
 autocmd MyAutoCmd BufEnter,BufRead,BufNewFile *.md setlocal iskeyword-='
 
-" For auto completion in gitcommit buffer
+" For auto completion in gitcommit buffer.
 autocmd MyAutoCmd BufReadPost COMMIT_EDITMSG call vimrc#append_diff()
 
 " Update filetype.
@@ -45,7 +45,10 @@ autocmd MyAutoCmd BufWritePost * nested
 \ |   silent filetype detect
 \ | endif
 
-" Disable default plugins
+" For zsh "edit-command-line".
+autocmd MyAutoCmd BufRead /tmp/* setlocal wrap
+
+" Disable default plugins.
 let g:loaded_2html_plugin      = v:true
 let g:loaded_logiPat           = v:true
 let g:loaded_getscriptPlugin   = v:true

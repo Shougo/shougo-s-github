@@ -2,12 +2,13 @@
 # init
 #####################################################################
 
-# zmodload zsh/zprof && zprof
-# zmodload zsh/datetime
-# setopt promptsubst
-# PS4='+$EPOCHREALTIME %N:%i> '
-# exec 3>&2 2>/tmp/zsh_profile.$$
-# setopt xtrace prompt_subst
+# Profile.
+#zmodload zsh/zprof && zprof
+#zmodload zsh/datetime
+#setopt promptsubst
+#PS4='+$EPOCHREALTIME %N:%i> '
+#exec 3>&2 2>/tmp/zsh_profile.$$
+#setopt xtrace prompt_subst
 
 if [ ! -f ~/.zshrc.zwc -o ~/.zshrc -nt ~/.zshrc.zwc ]; then
     zcompile ~/.zshrc
@@ -334,9 +335,10 @@ esac
 # adbuco -c session,abduco -c session command, abduco -a command
 
 # For nvm initialization
-if [ -e /usr/share/nvm/init-nvm.sh ]; then
-    source /usr/share/nvm/init-nvm.sh
-fi
+# NOTE: It is too slow...
+#if [ -e /usr/share/nvm/init-nvm.sh ]; then
+#    source /usr/share/nvm/init-nvm.sh
+#fi
 
 if ( which zprof > /dev/null ); then
     zprof | less
