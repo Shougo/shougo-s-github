@@ -293,13 +293,18 @@ bindkey "^n" history-beginning-search-forward-end
 # Like bash
 bindkey "^u" backward-kill-line
 
-# Use clipboard
+# Use clipboard for yank
 x-yank () {
   CUTBUFFER=$(xclip -selection clipboard -o -b </dev/null)
   zle yank
 }
 zle -N x-yank
 bindkey "^y" x-yank
+
+# Edit command line by the editor
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey "^O" edit-command-line
 
 # Sticky shift
 # https://github.com/4513ECHO/zsh-sticky-shift
