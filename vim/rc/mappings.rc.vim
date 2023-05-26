@@ -181,7 +181,7 @@ nnoremap #    <C-^>
 
 " NOTE: Does not overwrite <ESC> behavior
 if has('nvim')
-  tnoremap jj         <C-\><C-n>
+  tnoremap jj          <C-\><C-n>
 else
   tnoremap <ESC><ESC>  <C-l>N
   tnoremap jj          <C-l>N
