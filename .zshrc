@@ -320,7 +320,7 @@ fi
 # others
 ######################################################################
 
-# Improve terminal title
+# Improved terminal title.
 case "${TERM}" in
     kterm*|xterm*|vt100|st*|rxvt*|alacritty)
         precmd() {
@@ -334,11 +334,18 @@ esac
 # dtach command, dtach -A command, dtach -a session
 # adbuco -c session,abduco -c session command, abduco -a command
 
-# For nvm initialization
-# NOTE: It is too slow...
-#if [ -e /usr/share/nvm/init-nvm.sh ]; then
-#    source /usr/share/nvm/init-nvm.sh
-#fi
+# Use rtx
+# https://github.com/jdxcode/rtx
+if [ -x ~/bin/rtx ]; then
+  #eval "$(~/bin/rtx activate zsh)"
+
+  if ! [ -f /tmp/rtx.cache ]
+  then
+     ~/bin/rtx activate zsh > /tmp/rtx.cache
+     zcompile /tmp/rtx.cache
+  fi
+  source /tmp/rtx.cache
+fi
 
 if ( which zprof > /dev/null ); then
     zprof | less
