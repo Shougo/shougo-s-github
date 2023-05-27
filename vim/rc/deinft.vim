@@ -23,8 +23,8 @@ let g:vim_markdown_toml_frontmatter = v:true
 let g:vim_markdown_json_frontmatter = v:true
 let g:vim_markdown_no_default_key_mappings = v:true
 
-" Set help filetype.
-autocmd MyAutoCmd BufRead,BufNewFile *.jax setfiletype help
+" Enable modeline for only Vim help files.
+autocmd MyAutoCmd BufRead,BufWritePost *.txt,*.jax setlocal modeline
 
 " Enable dein toml synatx.
 " NOTE: For neovim use nvim-treesitter syntax instead.

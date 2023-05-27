@@ -105,25 +105,6 @@ function! vimrc#on_filetype() abort
   silent filetype detect
 endfunction
 
-function! vimrc#enable_syntax() abort
-  syntax enable
-
-  if has('nvim') && ':TSEnable'->exists()
-    TSBufEnable highlight
-    TSBufEnable context_commentstring
-  endif
-endfunction
-function! vimrc#disable_syntax() abort
-  if &l:syntax !=# ''
-    syntax off
-  endif
-
-  if has('nvim') && ':TSEnable'->exists()
-    TSBufDisable highlight
-    TSBufDisable context_commentstring
-  endif
-endfunction
-
 function! vimrc#diagnostics_to_qf() abort
   if !has('nvim')
     return
