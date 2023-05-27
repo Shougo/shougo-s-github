@@ -54,8 +54,6 @@ set autoindent smartindent
 " Disable modeline.
 set modelines=2
 set nomodeline
-" Enable modeline for only Vim help files.
-autocmd MyAutoCmd BufRead,BufWritePost *.txt setlocal modeline
 
 " Enable backspace delete indent and newline.
 set backspace=indent,eol,nostop
