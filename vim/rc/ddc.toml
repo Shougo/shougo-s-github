@@ -1,7 +1,7 @@
 [[plugins]]
 repo = 'Shougo/ddc.vim'
 depends = ['context_filetype.vim', 'denops.vim', 'pum.vim']
-on_event = ['InsertEnter', 'CursorHold']
+on_event = ['InsertEnter']
 hooks_file = '$BASE_DIR/ddc.vim'
 
 [[plugins]]

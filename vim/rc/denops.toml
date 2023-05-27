@@ -1,6 +1,5 @@
 [[plugins]]
 repo = 'vim-denops/denops.vim'
-on_event = 'CursorHold'
 hook_source = '''
   " NOTE: for profile
   "let g:denops#server#deno_args = [
