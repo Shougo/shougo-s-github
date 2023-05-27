@@ -26,8 +26,8 @@ hook_add = '''
 repo = 'kana/vim-niceblock'
 on_map = { x = '<Plug>' }
 hook_add = '''
-  xmap I  <Plug>(niceblock-I)
-  xmap A  <Plug>(niceblock-A)
+  xnoremap I  <Plug>(niceblock-I)
+  xnoremap A  <Plug>(niceblock-A)
 '''
 
 [[plugins]]
@@ -50,10 +50,10 @@ repo = 'rhysd/vim-operator-surround'
 depends = 'vim-operator-user'
 on_map = { n = '<Plug>' }
 hook_add = '''
-  nmap sa <Plug>(operator-surround-append)
-  nmap sd <Plug>(operator-surround-delete)a
-  nmap sr <Plug>(operator-surround-replace)a
-  nmap sc <Plug>(operator-surround-replace)a
+  nnoremap sa <Plug>(operator-surround-append)
+  nnoremap sd <Plug>(operator-surround-delete)a
+  nnoremap sr <Plug>(operator-surround-replace)a
+  nnoremap sc <Plug>(operator-surround-replace)a
 '''
 
 [[plugins]]
@@ -65,7 +65,7 @@ depends = 'open-browser.vim'
 repo = 'osyo-manga/vim-jplus'
 on_map = { n = '<Plug>' }
 hook_add = '''
-  nmap J <Plug>(jplus)
+  nnoremap J <Plug>(jplus)
 '''
 
 # [[plugins]]

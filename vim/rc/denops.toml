@@ -134,9 +134,9 @@ repo = 'vim-skk/skkeleton'
 on_map = { ict = '<Plug>(skkeleton-toggle)' }
 depends = ['ddc.vim']
 hook_add = '''
-  imap <C-j> <Plug>(skkeleton-toggle)
-  cmap <C-j> <Plug>(skkeleton-toggle)
-  tmap <C-j> <Plug>(skkeleton-toggle)
+  inoremap <C-j> <Plug>(skkeleton-toggle)
+  cnoremap <C-j> <Plug>(skkeleton-toggle)
+  tnoremap <C-j> <Plug>(skkeleton-toggle)
 '''
 hook_source = '''
   "let g:skkeleton#debug = v:true
