@@ -97,7 +97,11 @@ inoremap <buffer> <C-j>
 inoremap <buffer> <C-k>
       \ <Cmd>call ddu#ui#do_action('cursorPrevious')<CR>
 
+nnoremap <buffer> P
+      \ <Cmd>call ddu#ui#do_action('preview')<CR>
 nnoremap <buffer> <CR>
+      \ <Cmd>call ddu#ui#do_action('closeFilterWindow')<CR>
+nnoremap <buffer> q
       \ <Cmd>call ddu#ui#do_action('closeFilterWindow')<CR>
 nnoremap <buffer> ff
       \ <Cmd>call ddu#ui#do_action('updateOptions', #{
