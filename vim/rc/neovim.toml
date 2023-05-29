@@ -150,6 +150,15 @@ repo = 'MunifTanjim/nui.nvim'
 repo = 'neovim/nvim-lspconfig'
 depends = ['ddc.vim']
 lua_source = '''
+  -- NOTE: Disable lsp watcher. Too slow on linux
+  -- https://github.com/neovim/neovim/issues/23725#issuecomment-1561364086
+  local ok, wf = pcall(require, "vim.lsp._watchfiles")
+  if ok then
+     wf._watchfunc = function()
+       return function() end
+     end
+  end
+
   vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
     vim.lsp.diagnostic.on_publish_diagnostics, {
       update_in_insert = false,
