@@ -128,3 +128,28 @@ hook_add = '''
   nnoremap sr <Cmd>Ddu readme_viewer<CR>
 '''
 on_cmd = 'DeinOpen'
+
+[[plugins]]
+repo = 'uga-rosa/ddu-source-nvim_lsp'
+depends = 'nvim-lspconfig'
+on_source = ['ddu.vim']
+hook_add = '''
+  " Jump to definition
+  nnoremap td <Cmd>call ddu#start(#{
+        \   sources: [
+        \     #{
+        \       name: 'nvim_lsp',
+        \       params: #{
+        \         method: 'textDocument/definition',
+        \         autoJump: v:true,
+        \       },
+        \     },
+        \   ],
+        \   uiParams: #{
+        \     ff: #{
+        \       ignoreEmpty: v:true,
+        \       immediateAction: 'default',
+        \     },
+        \   },
+        \ })<CR>
+'''
