@@ -136,7 +136,7 @@ ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg_bold[green]%}✔"
 if [ $UID = "0" ]; then
     PROMPT="%B%{[31m%}%/#%{^[[m%}%b "
     PROMPT2="%B%{[31m%}%_#%{^[[m%}%b "
-elif [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] ; then
+elif [ -n "${REMOTEHOST}${SSH_CONNECTION}" ]; then
     PROMPT="%{[37m%}${HOST%%.*} ${PROMPT}"
 else;
     PROMPT='%{[33m%}[%35<..<%~]%{[m%}$(gitprompt)'
@@ -296,8 +296,8 @@ bindkey "^u" backward-kill-line
 
 # Use clipboard for yank
 x-yank () {
-  CUTBUFFER=$(xclip -selection clipboard -o -b </dev/null)
-  zle yank
+    CUTBUFFER=$(xclip -selection clipboard -o -b </dev/null)
+    zle yank
 }
 zle -N x-yank
 bindkey "^y" x-yank
@@ -337,14 +337,12 @@ esac
 # Use rtx
 # https://github.com/jdxcode/rtx
 if [ -x ~/bin/rtx ]; then
-  #eval "$(~/bin/rtx activate zsh)"
-
-  if ! [ -f /tmp/rtx.cache ]
-  then
-     ~/bin/rtx activate zsh > /tmp/rtx.cache
-     zcompile /tmp/rtx.cache
-  fi
-  source /tmp/rtx.cache
+    #eval "$(~/bin/rtx activate zsh)"
+    if ! [ -f /tmp/rtx.cache ]; then
+        ~/bin/rtx activate zsh > /tmp/rtx.cache
+        zcompile /tmp/rtx.cache
+    fi
+    source /tmp/rtx.cache
 fi
 
 if ( which zprof > /dev/null ); then
