@@ -48,8 +48,6 @@ endif
 "---------------------------------------------------------------------------
 " Options:
 
-set ambiwidth=double
-
 set mouse=
 set mousemodel=
 

@@ -65,6 +65,7 @@ nnoremap [Space]<Space> <Cmd>Ddu
 
 "inoremap <C-q> <Cmd>Ddu
 "\ -name=register register
+"\ -sync
 "\ -source-option-defaultAction=append
 "\ -source-param-range=window
 "\ -ui-param-startFilter=v:false
@@ -72,6 +73,7 @@ nnoremap [Space]<Space> <Cmd>Ddu
 inoremap <C-q> <Cmd>call ddu#start(#{
       \   name: 'file',
       \   ui: 'ff',
+      \   sync: v:true,
       \   input: '.'->getline()[: '.'->col() - 1]->matchstr('\f*$'),
       \   sources: [
       \     #{ name: 'file', options: #{ defaultAction: 'feedkeys' } },
@@ -85,6 +87,7 @@ inoremap <C-q> <Cmd>call ddu#start(#{
       \ })<CR>
 "cnoremap <C-q> <Cmd>Ddu
 "\ -name=register register
+"\ -sync
 "\ -source-option-defaultAction=feedkeys
 "\ -source-param-range=window
 "\ -ui-param-startFilter=v:false
@@ -92,6 +95,7 @@ inoremap <C-q> <Cmd>call ddu#start(#{
 cnoremap <C-q> <Cmd>call ddu#start(#{
       \   name: 'file',
       \   ui: 'ff',
+      \   sync: v:true,
       \   input: getcmdline()[: getcmdpos() - 2]->matchstr('\f*$'),
       \   sources: [
       \     #{ name: 'file', options: #{ defaultAction: 'feedkeys' } },
