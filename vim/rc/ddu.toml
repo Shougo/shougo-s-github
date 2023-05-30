@@ -136,19 +136,19 @@ on_source = ['ddu.vim']
 hook_add = '''
   " Jump to definition
   nnoremap td <Cmd>call ddu#start(#{
+        \   sync: v:true,
         \   sources: [
         \     #{
         \       name: 'nvim_lsp',
         \       params: #{
         \         method: 'textDocument/definition',
-        \         autoJump: v:true,
         \       },
         \     },
         \   ],
         \   uiParams: #{
         \     ff: #{
         \       ignoreEmpty: v:true,
-        \       immediateAction: 'default',
+        \       immediateAction: 'open',
         \     },
         \   },
         \ })<CR>
