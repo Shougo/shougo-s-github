@@ -256,6 +256,11 @@ set pumwidth=0
 " Use "/" for path completion
 set completeslash=slash
 
+" Use nvim-lsp as omnifunc
+if has('nvim')
+  set omnifunc=v:lua.vim.lsp.omnifunc
+endif
+
 " Maintain a current line at the time of movement as much as possible.
 set nostartofline
 

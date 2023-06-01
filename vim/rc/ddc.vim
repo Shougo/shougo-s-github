@@ -192,8 +192,6 @@ inoremap <expr> <TAB>
 inoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
 inoremap <C-n>   <Cmd>call pum#map#select_relative(+1)<CR>
 inoremap <C-p>   <Cmd>call pum#map#select_relative(-1)<CR>
-inoremap <C-x><C-f>
-      \ <Cmd>call ddc#map#manual_complete(#{ sources: ['file'] })<CR>
 "inoremap <expr> <C-e>
 "      \ ddc#map#insert_item(0, '<Cmd>call pum#map#cancel()<CR>')
 inoremap <C-y>   <Cmd>call pum#map#confirm()<CR>

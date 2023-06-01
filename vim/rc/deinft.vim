@@ -137,18 +137,11 @@ call s:set_highlight('Special')
 " ruby {{{
 setlocal iskeyword+=!
 setlocal iskeyword+=?
-setlocal omnifunc=
 setlocal shiftwidth=2 softtabstop=2 tabstop=2
 " }}}
 
 " typescript {{{
 setlocal shiftwidth=2
-" }}}
-
-" lua {{{
-if has('nvim')
-  setlocal omnifunc=v:lua.vim.lua_omnifunc
-endif
 " }}}
 
 " toml {{{

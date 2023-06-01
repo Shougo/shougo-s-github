@@ -159,6 +159,11 @@ lua_source = '''
      end
   end
 
+  require('lspconfig').solargraph.setup {
+    single_file_support = true,
+    capabilities = {},
+  }
+
   vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
     vim.lsp.diagnostic.on_publish_diagnostics, {
       update_in_insert = false,
@@ -178,45 +183,47 @@ lua_source = '''
 [[plugins]]
 repo = 'williamboman/mason-lspconfig.nvim'
 lua_source = '''
--- https://zenn.dev/kawarimidoll/articles/2b57745045b225
-require('mason-lspconfig').setup_handlers({
-  function(server_name)
-    local nvim_lsp = require('lspconfig')
-    local is_node_repo = vim.fn.findfile('package.json', '.;') ~= ''
+  require('mason-lspconfig').setup()
 
-    local opts = {}
+  -- https://zenn.dev/kawarimidoll/articles/2b57745045b225
+  require('mason-lspconfig').setup_handlers({
+    function(server_name)
+      local nvim_lsp = require('lspconfig')
+      local is_node_repo = vim.fn.findfile('package.json', '.;') ~= ''
 
-    if server_name == 'vtsls' then
-      -- Must be node directory
-      if not is_node_repo then
-        return
-      end
+      local opts = {}
 
-      opts.root_dir = nvim_lsp.util.root_pattern('package.json')
-    elseif server_name == 'denols' then
-      -- Must not be node directory
-      if is_node_repo then
-        return
-      end
+      if server_name == 'vtsls' then
+        -- Must be node directory
+        if not is_node_repo then
+          return
+        end
 
-      opts.init_options = {
-        lint = true,
-        unstable = true,
-        suggest = {
-          imports = {
-            hosts = {
-              ['https://deno.land'] = true,
-              ['https://cdn.nest.land'] = true,
-              ['https://crux.land'] = true
+        opts.root_dir = nvim_lsp.util.root_pattern('package.json')
+      elseif server_name == 'denols' then
+        -- Must not be node directory
+        if is_node_repo then
+          return
+        end
+
+        opts.init_options = {
+          lint = true,
+          unstable = true,
+          suggest = {
+            imports = {
+              hosts = {
+                ['https://deno.land'] = true,
+                ['https://cdn.nest.land'] = true,
+                ['https://crux.land'] = true
+              }
             }
           }
         }
-      }
-    end
+      end
 
-    nvim_lsp[server_name].setup(opts)
-  end
-})
+      nvim_lsp[server_name].setup(opts)
+    end
+  })
 '''
 
 [[plugins]]
@@ -224,7 +231,7 @@ repo = 'williamboman/mason.nvim'
 depends = ['nvim-lspconfig', 'mason-lspconfig.nvim']
 on_event = ['BufRead']
 lua_source = '''
-require('mason').setup()
+  require('mason').setup()
 '''
 
 [[plugins]]
