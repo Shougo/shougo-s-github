@@ -143,7 +143,7 @@ if has('nvim')
   call ddc#custom#patch_filetype(
         \   [
         \     'typescript', 'typescriptreact', 'go',
-        \     'python', 'css', 'html',
+        \     'python', 'css', 'html', 'ruby',
         \   ],
         \   'sources',
         \   ['codeium', 'nvim-lsp', 'around']
