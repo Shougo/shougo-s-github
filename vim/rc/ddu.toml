@@ -131,7 +131,6 @@ on_cmd = 'DeinOpen'
 
 [[plugins]]
 repo = 'uga-rosa/ddu-source-nvim_lsp'
-depends = 'nvim-lspconfig'
 on_source = ['ddu.vim']
 hook_add = '''
   " Jump to definition

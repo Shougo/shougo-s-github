@@ -110,45 +110,11 @@ hook_source = '''
   highlight! link @variable.global  CandyViolet
 '''
 
-#[[plugins]]
-#repo = 'VonHeikemen/fine-cmdline.nvim'
-#depends = 'nui.nvim'
-#on_lua = 'fine-cmdline'
-#lua_source = '''
-#  require'fine-cmdline'.setup {
-#    cmdline = {
-#      enable_keymaps = false
-#    },
-#    popup = {
-#      buf_options = {
-#        filetype = 'FineCmdlinePrompt'
-#      },
-#    },
-#    hooks = {
-#      before_mount = function(input)
-#        input.input_props.prompt = ''
-#      end,
-#      set_keymaps = function(imap, feedkeys)
-#        local fn = require('fine-cmdline').fn
-#        imap('<Esc>', fn.close)
-#        imap('<C-c>', fn.close)
-#        imap('jj', fn.close)
-#        imap('<C-p>', fn.up_history)
-#        imap('<C-n>', fn.down_history)
-#      end,
-#    },
-#  }
-#'''
-#hook_add = '''
-#  nnoremap <C-p> <Cmd>lua require('fine-cmdline').open()<CR>
-#'''
-
 [[plugins]]
 repo = 'MunifTanjim/nui.nvim'
 
 [[plugins]]
 repo = 'neovim/nvim-lspconfig'
-depends = ['ddc.vim']
 lua_source = '''
   -- NOTE: Disable lsp watcher. Too slow on linux
   -- https://github.com/neovim/neovim/issues/23725#issuecomment-1561364086
@@ -182,6 +148,7 @@ lua_source = '''
 
 [[plugins]]
 repo = 'williamboman/mason-lspconfig.nvim'
+depends = 'nvim-lspconfig'
 lua_source = '''
   require('mason-lspconfig').setup()
 
@@ -228,7 +195,7 @@ lua_source = '''
 
 [[plugins]]
 repo = 'williamboman/mason.nvim'
-depends = ['nvim-lspconfig', 'mason-lspconfig.nvim']
+depends = 'mason-lspconfig.nvim'
 on_event = ['BufRead']
 lua_source = '''
   require('mason').setup()
@@ -236,7 +203,7 @@ lua_source = '''
 
 [[plugins]]
 repo = 'folke/noice.nvim'
-depends = ['nui.nvim']
+depends = 'nui.nvim'
 #on_event = 'VimEnter'
 lua_source = '''
   require'noice'.setup {
