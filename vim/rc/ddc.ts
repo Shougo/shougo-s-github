@@ -5,7 +5,6 @@ import {
 import { Denops, fn } from "https://deno.land/x/ddc_vim@v3.5.0/deps.ts";
 
 export class Config extends BaseConfig {
-  // deno-lint-ignore require-await
   override async config(args: {
     denops: Denops;
     contextBuilder: ContextBuilder;
