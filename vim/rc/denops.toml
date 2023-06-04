@@ -131,7 +131,6 @@ denops_wait = false
 [[plugins]]
 repo = 'vim-skk/skkeleton'
 on_map = { ict = '<Plug>(skkeleton-toggle)' }
-on_source = 'ddc.vim'
 hook_add = '''
   inoremap <C-j> <Plug>(skkeleton-toggle)
   cnoremap <C-j> <Plug>(skkeleton-toggle)
