@@ -115,12 +115,7 @@ repo = 'neovim/nvim-lspconfig'
 lua_source = '''
   -- NOTE: Disable lsp watcher. Too slow on linux
   -- https://github.com/neovim/neovim/issues/23725#issuecomment-1561364086
-  local ok, wf = pcall(require, "vim.lsp._watchfiles")
-  if ok then
-    wf._watchfunc = function()
-      return function() end
-    end
-  end
+  require("vim.lsp._watchfiles")._watchfunc = require("vim._watch").watch
 
   require('lspconfig').solargraph.setup {
     single_file_support = true,
