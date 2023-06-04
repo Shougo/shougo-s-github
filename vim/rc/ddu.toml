@@ -130,7 +130,7 @@ hook_add = '''
 on_cmd = 'DeinOpen'
 
 [[plugins]]
-repo = 'uga-rosa/ddu-source-nvim_lsp'
+repo = 'uga-rosa/ddu-source-lsp'
 on_source = ['ddu.vim']
 hook_add = '''
   " Jump to definition
@@ -138,10 +138,7 @@ hook_add = '''
         \   sync: v:true,
         \   sources: [
         \     #{
-        \       name: 'nvim_lsp',
-        \       params: #{
-        \         method: 'textDocument/definition',
-        \       },
+        \       name: 'lsp_definition',
         \     },
         \   ],
         \   uiParams: #{
