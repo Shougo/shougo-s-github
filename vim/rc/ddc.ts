@@ -51,11 +51,11 @@ export class Config extends BaseConfig {
         },
         "nvim-lua": {
           mark: "lua",
-          forceCompletionPattern: "\.\w*",
+          forceCompletionPattern: "\\.\\w*",
         },
         cmdline: {
           mark: "cmdline",
-          forceCompletionPattern: "\S/\S*|\.\w*",
+          forceCompletionPattern: "\\S/\\S*|\\.\\w*",
         },
         copilot: {
           mark: "cop",
@@ -71,7 +71,7 @@ export class Config extends BaseConfig {
         },
         input: {
           mark: "input",
-          forceCompletionPattern: "\S/\S*",
+          forceCompletionPattern: "\\S/\\S*",
           isVolatile: true,
         },
         line: {
@@ -85,18 +85,18 @@ export class Config extends BaseConfig {
         },
         "nvim-lsp": {
           mark: "lsp",
-          forceCompletionPattern: "\.\w*|::\w*|->\w*",
+          forceCompletionPattern: "\\.\\w*|::\\w*|->\\w*",
           dup: "force",
         },
         rtags: {
           mark: "R",
-          forceCompletionPattern: "\.\w*|::\w*|->\w*",
+          forceCompletionPattern: "\\.\\w*|::\\w*|->\\w*",
         },
         file: {
           mark: "F",
           isVolatile: true,
           minAutoCompleteLength: 1000,
-          forceCompletionPattern: "\S/\S*",
+          forceCompletionPattern: "\\S/\\S*",
         },
         "cmdline-history": {
           mark: "history",
@@ -108,12 +108,12 @@ export class Config extends BaseConfig {
         shell: {
           mark: "shell",
           isVolatile: true,
-          forceCompletionPattern: "\S/\S*",
+          forceCompletionPattern: "\\S/\\S*",
         },
         zsh: {
           mark: "zsh",
           isVolatile: true,
-          forceCompletionPattern: "\S/\S*",
+          forceCompletionPattern: "\\S/\\S*",
         },
         rg: {
           mark: "rg",
