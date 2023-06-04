@@ -111,9 +111,6 @@ hook_source = '''
 '''
 
 [[plugins]]
-repo = 'MunifTanjim/nui.nvim'
-
-[[plugins]]
 repo = 'neovim/nvim-lspconfig'
 lua_source = '''
   -- NOTE: Disable lsp watcher. Too slow on linux
@@ -150,8 +147,6 @@ lua_source = '''
 repo = 'williamboman/mason-lspconfig.nvim'
 depends = 'nvim-lspconfig'
 lua_source = '''
-  require('mason-lspconfig').setup()
-
   -- https://zenn.dev/kawarimidoll/articles/2b57745045b225
   require('mason-lspconfig').setup_handlers({
     function(server_name)
@@ -200,6 +195,9 @@ on_event = ['BufRead']
 lua_source = '''
   require('mason').setup()
 '''
+
+[[plugins]]
+repo = 'MunifTanjim/nui.nvim'
 
 [[plugins]]
 repo = 'folke/noice.nvim'
