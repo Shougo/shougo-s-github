@@ -107,18 +107,6 @@ cnoremap <C-q> <Cmd>call ddu#start(#{
       \     },
       \   },
       \ })<CR><Cmd>call setcmdline('')<CR><CR>
-
-" Initialize ddu.vim lazily.
-call timer_start(10, { _ ->
-      \   ddu#start(#{
-      \     ui: 'ff',
-      \     uiParams: #{
-      \       ff: #{
-      \         ignoreEmpty: v:true,
-      \       },
-      \     },
-      \   })
-      \ })
 }}}
 
 " hook_source = {{{
