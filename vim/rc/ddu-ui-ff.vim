@@ -97,6 +97,11 @@ inoremap <buffer> <C-j>
 inoremap <buffer> <C-k>
       \ <Cmd>call ddu#ui#do_action('cursorPrevious')<CR>
 
+" NOTE: Use select_relative for filter
+inoremap <buffer><expr> <TAB>
+      \ pum#visible() ? '<Cmd>call pum#map#select_relative(+1, "loop")<CR>' :
+      \ ddc#map#manual_complete()
+
 nnoremap <buffer> P
       \ <Cmd>call ddu#ui#do_action('preview')<CR>
 nnoremap <buffer> <CR>
