@@ -179,13 +179,13 @@ export class Config extends BaseConfig {
     if (hasNvim) {
       for (
         const filetype of [
+          "css",
+          "go",
+          "html",
+          "python",
+          "ruby",
           "typescript",
           "typescriptreact",
-          "go",
-          "python",
-          "css",
-          "html",
-          "ruby",
         ]
       ) {
         args.contextBuilder.patchFiletype(filetype, {
@@ -194,7 +194,7 @@ export class Config extends BaseConfig {
       }
 
       args.contextBuilder.patchFiletype("lua", {
-        sources: ["codeium", "nvim-lua", "around"],
+        sources: ["codeium", "nvim-lsp", "nvim-lua", "around"],
       });
     }
   }
