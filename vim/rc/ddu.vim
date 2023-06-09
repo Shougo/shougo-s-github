@@ -119,7 +119,7 @@ call timer_start(10, { _ ->
       \     },
       \   })
       \ })
-}}}
+" }}}
 
 " hook_source = {{{
 call ddu#custom#alias('source', 'file_rg', 'file_external')

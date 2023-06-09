@@ -168,6 +168,11 @@ export class Config extends BaseConfig {
         sources: [hasWindows ? "shell" : "zsh", "around"],
       });
     }
+    args.contextBuilder.patchFiletype("deol", {
+      specialBufferCompletion: true,
+      keywordPattern: "[0-9a-zA-Z_./#:-]*",
+      sources: [hasWindows ? "shell" : "zsh", "shell-history", "around"],
+    });
 
     args.contextBuilder.patchFiletype("ddu-ff-filter", {
       keywordPattern: "[0-9a-zA-Z_:#-]*",

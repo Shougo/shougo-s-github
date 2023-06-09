@@ -50,8 +50,6 @@ inoremap <expr> <TAB>
 inoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
 inoremap <C-n>   <Cmd>call pum#map#select_relative(+1)<CR>
 inoremap <C-p>   <Cmd>call pum#map#select_relative(-1)<CR>
-"inoremap <expr> <C-e>
-"      \ ddc#map#insert_item(0, '<Cmd>call pum#map#cancel()<CR>')
 inoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
 inoremap <C-o>   <Cmd>call pum#map#confirm_word()<CR>
 inoremap <Home>  <Cmd>call pum#map#insert_relative(-9999, 'ignore')<CR>
@@ -72,20 +70,9 @@ cnoremap <C-z>   <Cmd>call pum#map#select_relative(-1)<CR>
 cnoremap <expr> <C-e> pum#visible()
       \ ? '<Cmd>call pum#map#cancel()<CR>'
       \ : '<End>'
-"cnoremap <expr> <C-e>
-"      \ ddc#map#insert_item(0, '<Cmd>call pum#map#cancel()<CR>')
 
 " For terminal completion
 call ddc#enable_terminal_completion()
-call ddc#custom#patch_filetype(['deol'], #{
-      \   specialBufferCompletion: v:true,
-      \   keywordPattern: '[0-9a-zA-Z_./#:-]*',
-      \   sources: [
-      \     has('win32') ? 'shell' : 'zsh',
-      \     'shell-history',
-      \     'around',
-      \   ],
-      \ })
 
 " Narrowing by ddu
 inoremap <C-a> <Cmd>call ddu#start(#{
