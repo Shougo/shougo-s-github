@@ -1,5 +1,5 @@
 import { ActionArguments, BaseConfig } from "https://deno.land/x/ddu_vim@v3.0.2/types.ts";
-import { fn } from "https://deno.land/x/ddu_vim@v3.0.2/deps.ts";
+import { Denops, fn } from "https://deno.land/x/ddu_vim@v3.0.2/deps.ts";
 import { ConfigArguments } from "https://deno.land/x/ddu_vim@v3.0.2/base/config.ts";
 import { ActionData } from "https://deno.land/x/ddu_kind_file@v0.5.0/file.ts";
 
@@ -22,20 +22,25 @@ export class Config extends BaseConfig {
         ff: {
           filterSplitDirection: "floating",
           floatingBorder: "none",
-          previewFloating: true,
-          previewFloatingBorder: "single",
-          previewSplit: "no",
           highlights: {
             floating: "Normal",
             floatingBorder: "Special",
           },
+          //onPreview: async (args: {
+          //  denops: Denops,
+          //}) => {
+          //  await args.denops.cmd("normal! zt");
+          //},
+          previewFloating: true,
+          previewFloatingBorder: "single",
+          previewSplit: "no",
           updateTime: 0,
           winWidth: 100,
         },
         filer: {
-          split: "no",
           sort: "filename",
           sortTreesFirst: true,
+          split: "no",
           toggle: true,
         },
       },

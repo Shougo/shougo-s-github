@@ -271,5 +271,8 @@ lua_source = '''
 '''
 
 [[plugins]]
-repo = 'aduros/ai.vim'
-on_cmd = 'AI'
+repo = 'jmbuhr/otter.nvim'
+on_source = 'nvim-lspconfig'
+lua_source = '''
+  require'otter'.activate({'python'})
+'''
