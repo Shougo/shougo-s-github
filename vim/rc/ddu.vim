@@ -122,9 +122,6 @@ call timer_start(10, { _ ->
 " }}}
 
 " hook_source = {{{
-call ddu#custom#alias('source', 'file_rg', 'file_external')
-call ddu#custom#alias('action', 'tabopen', 'open')
-
 call ddu#custom#load_config(expand('$BASE_DIR/ddu.ts'))
 
 call ddu#custom#action('kind', 'file', 'grep', { args -> GrepAction(args) })

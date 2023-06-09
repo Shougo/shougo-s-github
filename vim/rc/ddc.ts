@@ -1,8 +1,8 @@
 import {
   BaseConfig,
   ContextBuilder,
-} from "https://deno.land/x/ddc_vim@v3.5.0/types.ts";
-import { Denops, fn } from "https://deno.land/x/ddc_vim@v3.5.0/deps.ts";
+} from "https://deno.land/x/ddc_vim@v3.5.1/types.ts";
+import { Denops, fn } from "https://deno.land/x/ddc_vim@v3.5.1/deps.ts";
 
 export class Config extends BaseConfig {
   override async config(args: {

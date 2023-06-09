@@ -1,15 +1,12 @@
-import {
-  BaseConfig,
-  ContextBuilder,
-} from "https://deno.land/x/ddu_vim@v3.0.0/types.ts";
-import { Denops } from "https://deno.land/x/ddu_vim@v3.0.0/deps.ts";
+import { BaseConfig } from "https://deno.land/x/ddu_vim@v3.0.1/types.ts";
+import { ConfigArguments } from "https://deno.land/x/ddu_vim@v3.0.1/base/config.ts";
 
 export class Config extends BaseConfig {
   // deno-lint-ignore require-await
-  override async config(args: {
-    denops: Denops;
-    contextBuilder: ContextBuilder;
-  }): Promise<void> {
+  override async config(args: ConfigArguments): Promise<void> {
+    args.setAlias("source", "file_rg", "file_external");
+    args.setAlias("action", "tabopen", "open");
+
     args.contextBuilder.patchGlobal({
       ui: "ff",
       uiOptions: {
