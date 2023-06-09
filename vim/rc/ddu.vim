@@ -123,31 +123,4 @@ call timer_start(10, { _ ->
 
 " hook_source = {{{
 call ddu#custom#load_config(expand('$BASE_DIR/ddu.ts'))
-
-call ddu#custom#action('kind', 'file', 'grep', { args -> GrepAction(args) })
-function! GrepAction(args)
-  call ddu#start(#{
-        \   name: a:args.options.name,
-        \   push: v:true,
-        \   sources: [
-        \     #{
-        \       name: 'rg',
-        \       params: #{
-        \         path: a:args.items[0].action.path,
-        \         input: 'Pattern: '->input(),
-        \       },
-        \     },
-        \   ],
-        \ })
-endfunction
-
-" Define cd action for "ddu-ui-filer"
-call ddu#custom#action('kind', 'file', 'uiCd', { args -> UiCdAction(args) })
-function! UiCdAction(args)
-  const path = a:args.items[0].action.path
-  const directory = path->isdirectory() ? path : path->fnamemodify(':h')
-
-  call ddu#ui#do_action('itemAction',
-        \ #{ name: 'narrow', params: #{ path: directory } })
-endfunction
 " }}}

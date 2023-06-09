@@ -1,5 +1,9 @@
-import { BaseConfig } from "https://deno.land/x/ddu_vim@v3.0.1/types.ts";
-import { ConfigArguments } from "https://deno.land/x/ddu_vim@v3.0.1/base/config.ts";
+import { ActionArguments, BaseConfig } from "https://deno.land/x/ddu_vim@v3.0.2/types.ts";
+import { fn } from "https://deno.land/x/ddu_vim@v3.0.2/deps.ts";
+import { ConfigArguments } from "https://deno.land/x/ddu_vim@v3.0.2/base/config.ts";
+import { ActionData } from "https://deno.land/x/ddu_kind_file@v0.5.0/file.ts";
+
+type Params = Record<string, never>;
 
 export class Config extends BaseConfig {
   // deno-lint-ignore require-await
@@ -127,6 +131,35 @@ export class Config extends BaseConfig {
       kindOptions: {
         file: {
           defaultAction: "open",
+          actions: {
+            grep: async (args: ActionArguments<Params>) => {
+              const action = args.items[0]?.action as ActionData;
+
+              await args.denops.call("ddu#start", {
+                name: args.options.name,
+                push: true,
+                sources: [
+                  {
+                    name: 'rg',
+                    params: {
+                      path: action.path,
+                      input: await fn.input(args.denops, "Pattern: "),
+                    },
+                  }
+                ],
+              });
+            },
+            uiCd: async (args: ActionArguments<Params>) => {
+              const action = args.items[0]?.action as ActionData;
+
+              await args.denops.call("ddu#ui#do_action", {
+                name: "narrow",
+                params: {
+                  path: action.path,
+                },
+              });
+            },
+          },
         },
         word: {
           defaultAction: "append",
