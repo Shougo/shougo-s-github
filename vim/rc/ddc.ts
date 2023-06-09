@@ -1,14 +1,9 @@
-import {
-  BaseConfig,
-  ContextBuilder,
-} from "https://deno.land/x/ddc_vim@v3.5.1/types.ts";
-import { Denops, fn } from "https://deno.land/x/ddc_vim@v3.5.1/deps.ts";
+import { BaseConfig } from "https://deno.land/x/ddc_vim@v3.5.1/types.ts";
+import { fn } from "https://deno.land/x/ddc_vim@v3.5.1/deps.ts";
+import { ConfigArguments } from "https://deno.land/x/ddc_vim@v3.5.1/base/config.ts";
 
 export class Config extends BaseConfig {
-  override async config(args: {
-    denops: Denops;
-    contextBuilder: ContextBuilder;
-  }): Promise<void> {
+  override async config(args: ConfigArguments): Promise<void> {
     args.contextBuilder.patchGlobal({
       ui: "pum",
       sources: ["codeium", "around", "file"],
