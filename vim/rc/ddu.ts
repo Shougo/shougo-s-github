@@ -1,13 +1,12 @@
-import { ActionArguments, BaseConfig } from "https://deno.land/x/ddu_vim@v3.0.2/types.ts";
+import { ActionArguments, ActionFlags, BaseConfig } from "https://deno.land/x/ddu_vim@v3.0.2/types.ts";
 import { Denops, fn } from "https://deno.land/x/ddu_vim@v3.0.2/deps.ts";
 import { ConfigArguments } from "https://deno.land/x/ddu_vim@v3.0.2/base/config.ts";
 import { ActionData } from "https://deno.land/x/ddu_kind_file@v0.5.0/file.ts";
 
-type Params = Record<string, never>;
+type Params = Record<string, unknown>;
 
 export class Config extends BaseConfig {
-  // deno-lint-ignore require-await
-  override async config(args: ConfigArguments): Promise<void> {
+  override config(args: ConfigArguments): Promise<void> {
     args.setAlias("source", "file_rg", "file_external");
     args.setAlias("action", "tabopen", "open");
 
@@ -26,11 +25,11 @@ export class Config extends BaseConfig {
             floating: "Normal",
             floatingBorder: "Special",
           },
-          //onPreview: async (args: {
-          //  denops: Denops,
-          //}) => {
-          //  await args.denops.cmd("normal! zt");
-          //},
+          onPreview: async (args: {
+            denops: Denops,
+          }) => {
+            await args.denops.cmd("normal! zt");
+          },
           previewFloating: true,
           previewFloatingBorder: "single",
           previewSplit: "no",
@@ -153,6 +152,8 @@ export class Config extends BaseConfig {
                   }
                 ],
               });
+
+              return Promise.resolve(ActionFlags.None);
             },
             uiCd: async (args: ActionArguments<Params>) => {
               const action = args.items[0]?.action as ActionData;
@@ -163,6 +164,8 @@ export class Config extends BaseConfig {
                   path: action.path,
                 },
               });
+
+              return Promise.resolve(ActionFlags.None);
             },
           },
         },
@@ -201,5 +204,7 @@ export class Config extends BaseConfig {
         },
       },
     });
+
+    return Promise.resolve();
   }
 }
