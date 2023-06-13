@@ -1,4 +1,8 @@
-import { ActionArguments, ActionFlags, BaseConfig } from "https://deno.land/x/ddu_vim@v3.0.2/types.ts";
+import {
+  ActionArguments,
+  ActionFlags,
+  BaseConfig,
+} from "https://deno.land/x/ddu_vim@v3.0.2/types.ts";
 import { Denops, fn } from "https://deno.land/x/ddu_vim@v3.0.2/deps.ts";
 import { ConfigArguments } from "https://deno.land/x/ddu_vim@v3.0.2/base/config.ts";
 import { ActionData } from "https://deno.land/x/ddu_kind_file@v0.5.0/file.ts";
@@ -26,9 +30,10 @@ export class Config extends BaseConfig {
             floatingBorder: "Special",
           },
           onPreview: async (args: {
-            denops: Denops,
+            denops: Denops;
+            previewWinId: number;
           }) => {
-            await args.denops.cmd("normal! zt");
+            await fn.win_execute(args.denops, args.previewWinId, "normal! zt");
           },
           previewFloating: true,
           previewFloatingBorder: "single",
@@ -144,12 +149,12 @@ export class Config extends BaseConfig {
                 push: true,
                 sources: [
                   {
-                    name: 'rg',
+                    name: "rg",
                     params: {
                       path: action.path,
                       input: await fn.input(args.denops, "Pattern: "),
                     },
-                  }
+                  },
                 ],
               });
 

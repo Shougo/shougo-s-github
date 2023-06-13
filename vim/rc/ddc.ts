@@ -4,6 +4,9 @@ import { ConfigArguments } from "https://deno.land/x/ddc_vim@v3.5.1/base/config.
 
 export class Config extends BaseConfig {
   override async config(args: ConfigArguments): Promise<void> {
+    const hasNvim = await fn.has(args.denops, "nvim");
+    const hasWindows = await fn.has(args.denops, "win32");
+
     args.contextBuilder.patchGlobal({
       ui: "pum",
       sources: ["codeium", "around", "file"],
@@ -156,7 +159,6 @@ export class Config extends BaseConfig {
       });
     }
 
-    const hasWindows = await fn.has(args.denops, "win32");
     for (const filetype of ["zsh", "sh", "bash"]) {
       args.contextBuilder.patchFiletype(filetype, {
         keywordPattern: "[0-9a-zA-Z_./#:-]*",
@@ -175,7 +177,6 @@ export class Config extends BaseConfig {
       specialBufferCompletion: true,
     });
 
-    const hasNvim = await fn.has(args.denops, "nvim");
     if (hasNvim) {
       for (
         const filetype of [
