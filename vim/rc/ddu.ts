@@ -23,6 +23,7 @@ export class Config extends BaseConfig {
       },
       uiParams: {
         ff: {
+          filterFloatingPosition: "top",
           filterSplitDirection: "floating",
           floatingBorder: "none",
           highlights: {
