@@ -120,7 +120,7 @@ nnoremap <buffer> t
       \   params: #{ command: 'tabedit' },
       \ })<CR>
 
-function ToggleHidden(name)
+function! ToggleHidden(name)
   const current = ddu#custom#get_current(b:ddu_ui_name)
   const source_options = current->get('sourceOptions', {})
   const source_options_name = source_options->get(a:name, {})
