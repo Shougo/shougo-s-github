@@ -79,7 +79,7 @@ nnoremap [Space]l
 nnoremap [Space]c
       \ <Cmd>call <SID>toggle_conceal()<CR>
 
-function! s:toggle_conceal() abort
+function s:toggle_conceal() abort
   if &l:conceallevel == 0
     setlocal conceallevel=3
   else

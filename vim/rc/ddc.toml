@@ -17,8 +17,14 @@ hook_source = '''
     \   use_complete: v:true,
     \   use_setline: v:false,
     \ })
+
   call pum#set_local_option('c', #{
     \   horizontal_menu: v:false,
+    \ })
+
+  autocmd FileType ddu-ff-filter
+    \ call pum#set_buffer_option(#{
+    \   direction: 'above',
     \ })
 '''
 

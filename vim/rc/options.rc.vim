@@ -132,7 +132,7 @@ set diffopt=internal,algorithm:patience,indent-heuristic
 " Make directory automatically.
 autocmd MyAutoCmd BufWritePre *
       \ call s:mkdir_as_necessary('<afile>:p:h'->expand(), v:cmdbang)
-function! s:mkdir_as_necessary(dir, force) abort
+function s:mkdir_as_necessary(dir, force) abort
   if a:dir->isdirectory() || &l:buftype !=# ''
     return
   endif

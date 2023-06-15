@@ -126,7 +126,7 @@ setlocal iskeyword+=#
 setlocal iskeyword+=-
 setlocal conceallevel=0
 
-function! s:set_highlight(group) abort
+function s:set_highlight(group) abort
   for group in ['helpBar', 'helpBacktick', 'helpStar', 'helpIgnore']
     execute 'highlight link' group a:group
   endfor
@@ -146,7 +146,7 @@ setlocal shiftwidth=2
 
 " toml {{{
 setlocal foldenable foldmethod=expr foldexpr=s:fold_expr(v:lnum)
-function! s:fold_expr(lnum)
+function s:fold_expr(lnum)
   const line = getline(a:lnum)
   return line ==# '' || line =~# '^\s\+'
 endfunction
