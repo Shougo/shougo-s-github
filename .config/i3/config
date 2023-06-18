@@ -196,6 +196,9 @@ exec --no-startup-id setxkbmap -option ctrl:nocaps -rules evdev -model us -layou
 # Accelarate keyboard repeat
 exec --no-startup-id xset r rate 210 40
 
+# Thunar daemon mode
+exec --no-startup-id thunar --daemon
+
 # My mappings
 bindsym $mod+l workspace next
 bindsym $mod+h workspace prev

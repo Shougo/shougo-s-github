@@ -206,3 +206,6 @@ exec --no-startup-id mako
 
 # foot server mode
 exec foot --server
+
+# Thunar daemon mode
+exec --no-startup-id thunar --daemon
