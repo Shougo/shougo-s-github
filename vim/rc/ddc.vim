@@ -4,7 +4,7 @@ nnoremap ?       <Cmd>call CommandlinePre('/')<CR>?
 xnoremap :       <Cmd>call CommandlinePre(':')<CR>:
 nnoremap +       <Cmd>call CommandlinePre('dda')<CR>:Dda<Space>
 
-function CommandlinePre(mode) abort
+function! CommandlinePre(mode) abort
   " Overwrite sources
   let b:prev_buffer_config = ddc#custom#get_buffer()
 
@@ -19,7 +19,7 @@ function CommandlinePre(mode) abort
 
   call ddc#enable_cmdline_completion()
 endfunction
-function CommandlinePost() abort
+function! CommandlinePost() abort
   " Restore config
   if 'b:prev_buffer_config'->exists()
     call ddc#custom#set_buffer(b:prev_buffer_config)

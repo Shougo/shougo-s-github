@@ -4,7 +4,7 @@ if = '!has("win32")'
 on_event = ['BufRead', 'CursorHold']
 hook_post_update = 'TSUpdate'
 lua_source = '''
-  require'nvim-treesitter.configs'.setup {
+  require('nvim-treesitter.configs').setup {
       ensure_installed = 'all',
       additional_vim_regex_highlighting = true,
       highlight = {
@@ -116,12 +116,7 @@ repo = 'neovim/nvim-lspconfig'
 lua_source = '''
   -- NOTE: Disable lsp watcher. Too slow on linux
   -- https://github.com/neovim/neovim/issues/23725#issuecomment-1561364086
-  require("vim.lsp._watchfiles")._watchfunc = require("vim._watch").watch
-
-  require('lspconfig').solargraph.setup {
-    single_file_support = true,
-    capabilities = {},
-  }
+  require('vim.lsp._watchfiles')._watchfunc = require('vim._watch').watch
 
   vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
     vim.lsp.diagnostic.on_publish_diagnostics, {
@@ -177,6 +172,36 @@ lua_source = '''
             }
           }
         }
+      elseif server_name == 'solargraph' then
+        opts.single_file_support = true
+        opts.capabilities = {}
+      elseif server_name == 'lua_ls' then
+        opts = {
+          settings = {
+            Lua = {
+              runtime = {
+                -- Tell the language server which version of Lua you're using
+                -- (most likely LuaJIT in the case of Neovim)
+                version = 'LuaJIT',
+              },
+              diagnostics = {
+                -- Get the language server to recognize the `vim` global
+                globals = {
+                  'vim',
+                  'require'
+                },
+              },
+              workspace = {
+                -- Make the server aware of Neovim runtime files
+                library = vim.api.nvim_get_runtime_file("", true),
+              },
+              -- Do not send telemetry data containing a randomized but unique identifier
+              telemetry = {
+                enable = false,
+              },
+            },
+          },
+        }
       end
 
       nvim_lsp[server_name].setup(opts)
@@ -200,7 +225,7 @@ repo = 'folke/noice.nvim'
 depends = 'nui.nvim'
 #on_event = 'VimEnter'
 lua_source = '''
-  require'noice'.setup {
+  require('noice').setup {
     cmdline = {
       enabled = true,
       format = {
@@ -259,21 +284,14 @@ repo = 'nvim-lua/plenary.nvim'
 repo = 'atusy/tsnode-marker.nvim'
 on_ft = 'markdown'
 lua_source = '''
-  vim.api.nvim_create_autocmd("FileType", {
-    group = vim.api.nvim_create_augroup("tsnode-marker-markdown", {}),
-    pattern = "markdown",
+  vim.api.nvim_create_autocmd('FileType', {
+    group = vim.api.nvim_create_augroup('tsnode-marker-markdown', {}),
+    pattern = 'markdown',
     callback = function(ctx)
-      require("tsnode-marker").set_automark(ctx.buf, {
-        target = { "code_fence_content" }, -- list of target node types
-        hl_group = "CursorLine", -- highlight group
+      require('tsnode-marker').set_automark(ctx.buf, {
+        target = { 'code_fence_content' }, -- list of target node types
+        hl_group = 'CursorLine', -- highlight group
       })
     end,
   })
-'''
-
-[[plugins]]
-repo = 'jmbuhr/otter.nvim'
-on_source = 'nvim-lspconfig'
-lua_source = '''
-  require'otter'.activate({'python'})
 '''

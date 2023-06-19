@@ -26,6 +26,7 @@ export class Config extends BaseConfig {
           filterSplitDirection: "floating",
           floatingBorder: "none",
           highlights: {
+            filterText: "Statement",
             floating: "Normal",
             floatingBorder: "Special",
           },
