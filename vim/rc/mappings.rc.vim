@@ -94,7 +94,7 @@ nnoremap <expr> [Space]e
 
 " Quickfix
 nnoremap [Space]q
-      \ <Cmd>call vimrc#diagnostics_to_qf()<CR>
+      \ <Cmd>call vimrc#diagnostics_to_location_list()<CR>
 
 " Useful save mappings.
 nnoremap <Leader><Leader> <Cmd>silent update<CR>
@@ -106,7 +106,7 @@ nnoremap sp  <Cmd>vsplit<CR><Cmd>wincmd w<CR>
 nnoremap so  <Cmd>only<CR>
 nnoremap <Tab>      <cmd>wincmd w<CR>
 nnoremap <expr> q
-      \ &l:filetype ==# 'qf' ? '<Cmd>cclose<CR>' :
+      \ &l:filetype ==# 'qf' ? '<Cmd>cclose<CR><Cmd>lclose<CR>' :
       \ '$'->winnr() != 1 ? '<Cmd>close<CR>' : ''
 
 " Original search
