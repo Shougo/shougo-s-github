@@ -114,8 +114,8 @@ function vimrc#diagnostics_to_location_list() abort
   for diagnostic in v:lua.vim.diagnostic.get()
     call add(qflist, #{
           \   bufnr: diagnostic.bufnr,
-          \   lnum: diagnostic.lnum,
-          \   col: diagnostic.col,
+          \   lnum: diagnostic.lnum + 1,
+          \   col: diagnostic.col + 1,
           \   text: diagnostic.message,
           \ })
   endfor

@@ -164,8 +164,10 @@ hook_source = '''
   endfunction
   autocmd MyAutoCmd User skkeleton-disable-pre call s:skkeleton_post()
   function! s:skkeleton_post() abort
-    " Restore sources
-    call ddc#custom#set_buffer(s:prev_buffer_config)
+    if 's:prev_buffer_config'->exists()
+      " Restore sources
+      call ddc#custom#set_buffer(s:prev_buffer_config)
+    endif
   endfunction
 
   " :mode is needed to redraw screen
