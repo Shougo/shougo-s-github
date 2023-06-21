@@ -162,15 +162,16 @@ lua_source = '''
         opts.init_options = {
           lint = true,
           unstable = true,
+          documentPreloadLimit = 0,
           suggest = {
             imports = {
               hosts = {
                 ['https://deno.land'] = true,
                 ['https://cdn.nest.land'] = true,
                 ['https://crux.land'] = true
-              }
-            }
-          }
+              },
+            },
+          },
         }
       elseif server_name == 'solargraph' then
         opts.single_file_support = true
