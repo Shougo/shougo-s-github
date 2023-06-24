@@ -107,7 +107,8 @@ nnoremap so  <Cmd>only<CR>
 nnoremap <Tab>      <cmd>wincmd w<CR>
 nnoremap <expr> q
       \ &l:filetype ==# 'qf' ? '<Cmd>cclose<CR><Cmd>lclose<CR>' :
-      \ '$'->winnr() != 1 ? '<Cmd>close<CR>' : ''
+      \ ('#'->winnr()->winbufnr()->getbufvar('&filetype') !=# 'qf'
+      \  && '$'->winnr() > 1) ? '<Cmd>close<CR>' : ''
 
 " Original search
 nnoremap s/    /
