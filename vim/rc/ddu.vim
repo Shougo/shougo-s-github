@@ -23,7 +23,7 @@ nnoremap * <Cmd>Ddu
       \ -ui-param-startFilter=v:false
       \ <CR>
 nnoremap ;g <Cmd>Ddu
-      \ -name=search rg -resume=v:false
+      \ -name=grep rg -resume=v:false
       \ -ui-param-ignoreEmpty
       \ -source-param-input='`'Pattern: '->input('<cword>'->expand())`'
       \ <CR>
@@ -40,6 +40,10 @@ nnoremap ;f <Cmd>Ddu
       \ <CR>
 nnoremap n <Cmd>Ddu
       \ -name=search -resume
+      \ -ui-param-startFilter=v:false
+      \ <CR>
+nnoremap N <Cmd>Ddu
+      \ -name=grep -resume
       \ -ui-param-startFilter=v:false
       \ <CR>
 nnoremap ;r <Cmd>Ddu

@@ -71,6 +71,9 @@ cnoremap <expr> <C-e> pum#visible()
       \ ? '<Cmd>call pum#map#cancel()<CR>'
       \ : '<End>'
 
+"inoremap <expr> <C-t>       ddc#map#insert_item(0, "\<C-e>")
+
+
 " For terminal completion
 call ddc#enable_terminal_completion()
 
