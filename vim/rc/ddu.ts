@@ -60,17 +60,20 @@ export class Config extends BaseConfig {
             "matcher_relative",
             "matcher_ignore_current_buffer",
           ],
+          converters: ['converter_hl_dir'],
         },
         file_external: {
           matchers: [
             "matcher_substring",
           ],
+          converters: ['converter_hl_dir'],
         },
         file_rec: {
           matchers: [
             "matcher_substring",
             "matcher_hidden",
           ],
+          converters: ['converter_hl_dir'],
         },
         file: {
           matchers: [
@@ -78,6 +81,7 @@ export class Config extends BaseConfig {
             "matcher_hidden",
           ],
           sorters: ["sorter_alpha"],
+          converters: ['converter_hl_dir'],
         },
         dein: {
           defaultAction: "cd",

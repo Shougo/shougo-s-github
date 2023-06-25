@@ -28,7 +28,7 @@ nnoremap ;g <Cmd>Ddu
       \ -source-param-input='`'Pattern: '->input('<cword>'->expand())`'
       \ <CR>
 xnoremap ;g y<Cmd>Ddu
-      \ -name=search rg -resume=v:false
+      \ -name=grep rg -resume=v:false
       \ -ui-param-ignoreEmpty
       \ -source-param-input='`'Pattern: '->input(v:register->getreg())`'
       \ <CR>

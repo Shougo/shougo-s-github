@@ -172,6 +172,15 @@ hook_source = '''
 
   " :mode is needed to redraw screen
   autocmd MyAutoCmd InsertLeave * mode
+  augroup skkeleton
+  autocmd!
+
+  autocmd User skkeleton-enable-pre  echomsg 'skk-enable-pre'
+  autocmd User skkeleton-enable-post echomsg 'skk-enable-post'
+
+  autocmd User skkeleton-disable-pre  echomsg 'skk-disable-pre'
+  autocmd User skkeleton-disable-post echomsg 'skk-disable-post'
+  augroup END
 '''
 
 [[plugins]]

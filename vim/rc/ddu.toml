@@ -108,6 +108,10 @@ repo = 'Shougo/ddu-filter-converter_display_word'
 on_source = 'ddu.vim'
 
 [[plugins]]
+repo = 'kyoh86/ddu-filter-converter_hl_dir'
+on_source = 'ddu.vim'
+
+[[plugins]]
 repo = 'Milly/ddu-filter-kensaku'
 depends = 'kensaku.vim'
 on_source = 'ddu.vim'
