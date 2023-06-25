@@ -23,12 +23,12 @@ nnoremap * <Cmd>Ddu
       \ -ui-param-startFilter=v:false
       \ <CR>
 nnoremap ;g <Cmd>Ddu
-      \ -name=grep rg -resume=v:false
+      \ -name=search rg -resume=v:false
       \ -ui-param-ignoreEmpty
       \ -source-param-input='`'Pattern: '->input('<cword>'->expand())`'
       \ <CR>
 xnoremap ;g y<Cmd>Ddu
-      \ -name=grep rg -resume=v:false
+      \ -name=search rg -resume=v:false
       \ -ui-param-ignoreEmpty
       \ -source-param-input='`'Pattern: '->input(v:register->getreg())`'
       \ <CR>
@@ -40,10 +40,6 @@ nnoremap ;f <Cmd>Ddu
       \ <CR>
 nnoremap n <Cmd>Ddu
       \ -name=search -resume
-      \ -ui-param-startFilter=v:false
-      \ <CR>
-nnoremap N <Cmd>Ddu
-      \ -name=grep -resume
       \ -ui-param-startFilter=v:false
       \ <CR>
 nnoremap ;r <Cmd>Ddu
@@ -113,16 +109,19 @@ cnoremap <C-q> <Cmd>call ddu#start(#{
       \ })<CR><Cmd>call setcmdline('')<CR><CR>
 
 " Initialize ddu.vim lazily.
-call timer_start(10, { _ ->
-      \   ddu#start(#{
-      \     ui: 'ff',
-      \     uiParams: #{
-      \       ff: #{
-      \         ignoreEmpty: v:true,
-      \       },
-      \     },
-      \   })
-      \ })
+if !('g:shougo_s_github_load_state'->exists())
+  call timer_start(10, { _ ->
+        \   ddu#start(#{
+        \     ui: 'ff',
+        \     uiParams: #{
+        \       ff: #{
+        \         ignoreEmpty: v:true,
+        \       },
+        \     },
+        \   })
+        \ })
+endif
+
 " }}}
 
 " hook_source = {{{

@@ -38,7 +38,8 @@ let g:dein#types#git#enable_partial_clone = v:true
 let $BASE_DIR = '<sfile>'->expand()->fnamemodify(':h')
 
 let s:path = $'{$CACHE}/dein'
-if !dein#min#load_state(s:path)
+let g:shougo_s_github_load_state = !dein#min#load_state(s:path)
+if g:shougo_s_github_load_state
   finish
 endif
 
