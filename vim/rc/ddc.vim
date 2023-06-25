@@ -58,6 +58,7 @@ inoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
 inoremap <C-o>   <Cmd>call pum#map#confirm_word()<CR>
 inoremap <Home>  <Cmd>call pum#map#insert_relative(-9999, 'ignore')<CR>
 inoremap <End>   <Cmd>call pum#map#insert_relative(+9999, 'ignore')<CR>
+"inoremap <C-z>   <Cmd>call pum#update_current_item(#{ display: 'hoge' })<CR>
 
 " Refresh the completion
 inoremap <expr> <C-l>  ddc#map#manual_complete()

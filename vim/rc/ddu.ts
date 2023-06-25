@@ -141,6 +141,9 @@ export class Config extends BaseConfig {
           ignoreGlobs: ["test_*.vim"],
           ignorePatterns: [],
         },
+        converter_hl_dir: {
+          hlGroup: ['Directory', 'Keyword'],
+        },
       },
       kindOptions: {
         file: {
