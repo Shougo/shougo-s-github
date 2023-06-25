@@ -9,7 +9,11 @@ function! CommandlinePre(mode) abort
   let b:prev_buffer_config = ddc#custom#get_buffer()
 
   if a:mode ==# ':'
-    call ddc#custom#patch_buffer('keywordPattern', '[0-9a-zA-Z_:#-]*')
+    call ddc#custom#patch_buffer('sourceOptions', #{
+          \   _: #{
+          \     keywordPattern: '[0-9a-zA-Z_:#-]*',
+          \   },
+          \ })
   elseif a:mode ==# 'dda'
     " For AI completion
     call ddc#custom#patch_buffer('cmdlineSources', ['around', 'mocword'])

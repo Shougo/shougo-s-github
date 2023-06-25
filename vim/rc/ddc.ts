@@ -1,6 +1,6 @@
-import { BaseConfig } from "https://deno.land/x/ddc_vim@v3.6.0/types.ts";
-import { fn } from "https://deno.land/x/ddc_vim@v3.6.0/deps.ts";
-import { ConfigArguments } from "https://deno.land/x/ddc_vim@v3.6.0/base/config.ts";
+import { BaseConfig } from "https://deno.land/x/ddc_vim@v3.7.0/types.ts";
+import { fn } from "https://deno.land/x/ddc_vim@v3.7.0/deps.ts";
+import { ConfigArguments } from "https://deno.land/x/ddc_vim@v3.7.0/base/config.ts";
 
 export class Config extends BaseConfig {
   override async config(args: ConfigArguments): Promise<void> {
@@ -155,25 +155,41 @@ export class Config extends BaseConfig {
 
     for (const filetype of ["html", "css"]) {
       args.contextBuilder.patchFiletype(filetype, {
-        keywordPattern: "[0-9a-zA-Z_:#-]*",
+        sourceOptions: {
+          _: {
+            keywordPattern: "[0-9a-zA-Z_:#-]*",
+          },
+        },
       });
     }
 
     for (const filetype of ["zsh", "sh", "bash"]) {
       args.contextBuilder.patchFiletype(filetype, {
-        keywordPattern: "[0-9a-zA-Z_./#:-]*",
+        sourceOptions: {
+          _: {
+            keywordPattern: "[0-9a-zA-Z_./#:-]*",
+          },
+        },
         sources: [hasWindows ? "shell" : "zsh", "around"],
       });
     }
     args.contextBuilder.patchFiletype("deol", {
       specialBufferCompletion: true,
-      keywordPattern: "[0-9a-zA-Z_./#:-]*",
       sources: [hasWindows ? "shell" : "zsh", "shell-history", "around"],
+      sourceOptions: {
+        _: {
+          keywordPattern: "[0-9a-zA-Z_./#:-]*",
+        },
+      },
     });
 
     args.contextBuilder.patchFiletype("ddu-ff-filter", {
-      keywordPattern: "[0-9a-zA-Z_:#-]*",
       sources: ["line", "buffer"],
+      sourceOptions: {
+        _: {
+          keywordPattern: "[0-9a-zA-Z_:#-]*",
+        },
+      },
       specialBufferCompletion: true,
     });
 
