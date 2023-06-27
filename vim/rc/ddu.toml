@@ -1,7 +1,6 @@
 [[plugins]]
 repo = 'Shougo/ddu.vim'
 depends = 'denops.vim'
-on_source = 'denops.vim'
 hooks_file = '$BASE_DIR/ddu.vim'
 
 [[plugins]]

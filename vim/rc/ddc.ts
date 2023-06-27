@@ -4,7 +4,7 @@ import { ConfigArguments } from "https://deno.land/x/ddc_vim@v3.7.0/base/config.
 
 export class Config extends BaseConfig {
   override async config(args: ConfigArguments): Promise<void> {
-    const hasNvim = await fn.has(args.denops, "nvim");
+    const hasNvim = args.denops.meta.host === "nvim";
     const hasWindows = await fn.has(args.denops, "win32");
 
     args.contextBuilder.patchGlobal({
