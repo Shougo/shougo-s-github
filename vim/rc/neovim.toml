@@ -136,7 +136,7 @@ lua_source = '''
 
 [[plugins]]
 repo = 'williamboman/mason-lspconfig.nvim'
-depends = 'nvim-lspconfig'
+on_source = 'nvim-lspconfig'
 lua_source = '''
   -- https://zenn.dev/kawarimidoll/articles/2b57745045b225
   require('mason-lspconfig').setup_handlers({
@@ -197,7 +197,7 @@ lua_source = '''
                 -- Make the server aware of Neovim runtime files
                 library = vim.api.nvim_get_runtime_file("", true),
               },
-              -- Do not send telemetry data containing a randomized but unique identifier
+              -- Do not send telemetry data
               telemetry = {
                 enable = false,
               },
@@ -213,7 +213,7 @@ lua_source = '''
 
 [[plugins]]
 repo = 'williamboman/mason.nvim'
-depends = 'mason-lspconfig.nvim'
+depends = 'nvim-lspconfig'
 on_event = ['BufRead']
 lua_source = '''
   require('mason').setup()
