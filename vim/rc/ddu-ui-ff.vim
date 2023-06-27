@@ -30,7 +30,8 @@ nnoremap <buffer> d
       \ #{ name: 'trash' } : #{ name: 'delete' })<CR>
 nnoremap <buffer> e
       \ <Cmd>call ddu#ui#do_action('itemAction',
-      \ #{ name: 'edit' })<CR>
+      \ ddu#ui#get_item()->get('action', {})->get('isDirectory', v:false) ?
+      \ #{ name: 'narrow' } : #{ name: 'edit' })<CR>
 nnoremap <buffer> E
       \ <Cmd>call ddu#ui#do_action('itemAction',
       \ #{ params: eval(input('params: ')) })<CR>
