@@ -142,7 +142,8 @@ lua_source = '''
   require('mason-lspconfig').setup_handlers({
     function(server_name)
       local nvim_lsp = require('lspconfig')
-      local is_node_repo = vim.fn.findfile('package.json', '.;') ~= ''
+      --local is_node_repo = vim.fn.findfile('package.json', '.;') ~= ''
+      local is_node_repo = nvim_lsp.util.find_node_modules_ancestor(".")
 
       local opts = {}
 
