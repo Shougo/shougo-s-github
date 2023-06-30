@@ -34,7 +34,7 @@ nnoremap <buffer> e
       \ #{ name: 'narrow' } : #{ name: 'edit' })<CR>
 nnoremap <buffer> E
       \ <Cmd>call ddu#ui#do_action('itemAction',
-      \ #{ params: eval(input('params: ')) })<CR>
+      \ #{ params: input('params: ', '{}')->eval() })<CR>
 nnoremap <buffer> v
       \ <Cmd>call ddu#ui#do_action('itemAction',
       \ #{ name: 'open', params: #{ command: 'vsplit' } })<CR>

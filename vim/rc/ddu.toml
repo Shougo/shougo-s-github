@@ -75,6 +75,10 @@ repo = 'mikanIchinose/ddu-source-markdown'
 on_source = 'ddu.vim'
 
 [[plugins]]
+repo = 'kamecha/ddu-source-jumplist'
+on_source = 'ddu.vim'
+
+[[plugins]]
 repo = 'Shougo/ddu-filter-matcher_substring'
 on_source = 'ddu.vim'
 

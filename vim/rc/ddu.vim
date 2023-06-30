@@ -62,6 +62,7 @@ nnoremap [Space]<Space> <Cmd>Ddu
       \ -source-param-range=window
       \ -ui-param-startFilter
       \ <CR>
+nnoremap <C-o> <Cmd>Ddu jumplist <CR>
 
 "inoremap <C-q> <Cmd>Ddu
 "\ -name=register register
