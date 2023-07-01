@@ -30,7 +30,7 @@ export class Config extends BaseConfig {
       sourceOptions: {
         _: {
           ignoreCase: true,
-          matchers: ["matcher_head", "matcher_length"],
+          matchers: ["matcher_head", "matcher_prefix", "matcher_length"],
           sorters: ["sorter_rank"],
           converters: [
             "converter_remove_overlap",
