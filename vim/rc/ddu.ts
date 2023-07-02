@@ -2,9 +2,10 @@ import {
   ActionArguments,
   ActionFlags,
   BaseConfig,
-} from "https://deno.land/x/ddu_vim@v3.2.7/types.ts";
-import { Denops, fn } from "https://deno.land/x/ddu_vim@v3.2.7/deps.ts";
-import { ConfigArguments } from "https://deno.land/x/ddu_vim@v3.2.7/base/config.ts";
+  Ddu,
+} from "https://deno.land/x/ddu_vim@v3.3.2/types.ts";
+import { Denops, fn } from "https://deno.land/x/ddu_vim@v3.3.2/deps.ts";
+import { ConfigArguments } from "https://deno.land/x/ddu_vim@v3.3.2/base/config.ts";
 import { ActionData } from "https://deno.land/x/ddu_kind_file@v0.5.2/file.ts";
 import { Params as FfParams } from "https://deno.land/x/ddu_ui_ff@v1.0.2/ff.ts";
 import { Params as FilerParams } from "https://deno.land/x/ddu_ui_filer@v1.0.2/filer.ts";
@@ -19,6 +20,24 @@ export class Config extends BaseConfig {
     args.contextBuilder.patchGlobal({
       ui: "ff",
       uiOptions: {
+        ff: {
+          actions: {
+            kensaku: async(args: {
+              denops: Denops,
+              ddu: Ddu,
+            }) => {
+              args.ddu.updateOptions({
+                sourceOptions: {
+                  _: {
+                    matchers: ["matcher_kensaku"],
+                  },
+                },
+              });
+              await args.denops.cmd("echomsg 'change to kensaku matcher'");
+              return ActionFlags.Persist;
+            }
+          },
+        },
         filer: {
           toggle: true,
         },

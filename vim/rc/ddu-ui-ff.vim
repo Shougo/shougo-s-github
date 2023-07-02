@@ -50,6 +50,8 @@ nnoremap <buffer> gr
       \ <Cmd>call ddu#ui#do_action('itemAction', #{ name: 'grep' })<CR>
 nnoremap <buffer> n
       \ <Cmd>call ddu#ui#do_action('itemAction', #{ name: 'narrow' })<CR>
+nnoremap <buffer> K
+      \ <Cmd>call ddu#ui#do_action('kensaku')<CR>
 
 xnoremap <silent><buffer> <Space>
       \ :call ddu#ui#do_action('toggleSelectItem')<CR>
