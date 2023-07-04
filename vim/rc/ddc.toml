@@ -84,6 +84,10 @@ repo = 'Shougo/ddc-source-line'
 on_source = 'ddc.vim'
 
 [[plugins]]
+repo = 'Shougo/ddc-source-nvim-lsp'
+on_source = 'ddc.vim'
+
+[[plugins]]
 repo = 'uga-rosa/ddc-source-nvim-lua'
 on_source = 'ddc.vim'
 
@@ -102,10 +106,6 @@ on_source = 'ddc.vim'
 [[plugins]]
 repo = 'Shougo/ddc-source-rtags'
 on_ft = ['c', 'cpp']
-
-[[plugins]]
-repo = 'Shougo/ddc-source-nvim-lua'
-on_source = 'ddc.vim'
 
 [[plugins]]
 repo = 'matsui54/ddc-buffer'
