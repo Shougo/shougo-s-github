@@ -52,6 +52,8 @@ nnoremap <buffer> n
       \ <Cmd>call ddu#ui#do_action('itemAction', #{ name: 'narrow' })<CR>
 nnoremap <buffer> K
       \ <Cmd>call ddu#ui#do_action('kensaku')<CR>
+nnoremap <buffer> <C-v>
+      \ <Cmd>call ddu#ui#do_action('toggleAutoAction')<CR>
 
 xnoremap <silent><buffer> <Space>
       \ :call ddu#ui#do_action('toggleSelectItem')<CR>

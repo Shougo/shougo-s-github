@@ -44,6 +44,9 @@ export class Config extends BaseConfig {
       },
       uiParams: {
         ff: {
+          autoAction: {
+            name: "preview",
+          },
           filterSplitDirection: "floating",
           floatingBorder: "none",
           highlights: {
