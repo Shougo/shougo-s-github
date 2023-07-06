@@ -111,16 +111,7 @@ cnoremap <C-q> <Cmd>call ddu#start(#{
 
 " Initialize ddu.vim lazily.
 if !('g:shougo_s_github_load_state'->exists())
-  call timer_start(10, { _ ->
-        \   ddu#start(#{
-        \     ui: 'ff',
-        \     uiParams: #{
-        \       ff: #{
-        \         ignoreEmpty: v:true,
-        \       },
-        \     },
-        \   })
-        \ })
+  call timer_start(10, { _ -> ddu#load('ui', ['ff']) })
 endif
 
 " }}}
