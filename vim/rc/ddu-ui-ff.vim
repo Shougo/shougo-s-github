@@ -110,6 +110,8 @@ inoremap <buffer> <C-j>
       \ <Cmd>call ddu#ui#do_action('cursorNext')<CR>
 inoremap <buffer> <C-k>
       \ <Cmd>call ddu#ui#do_action('cursorPrevious')<CR>
+inoremap <buffer> <C-v>
+      \ <Cmd>call ddu#ui#do_action('toggleAutoAction')<CR>
 
 " NOTE: Use select_relative for filter
 inoremap <buffer><expr> <TAB>
