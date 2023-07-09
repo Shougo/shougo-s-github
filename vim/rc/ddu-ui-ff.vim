@@ -113,6 +113,9 @@ inoremap <buffer> <C-k>
 inoremap <buffer> <C-v>
       \ <Cmd>call ddu#ui#do_action('toggleAutoAction')<CR>
 
+inoremap <expr><buffer> <BS>
+      \ getline('.')[col('.') - 2] ==# '' ? '' : "\<BS>"
+
 " NOTE: Use select_relative for filter
 inoremap <buffer><expr> <TAB>
       \ pum#visible() ? '<Cmd>call pum#map#select_relative(+1, "loop")<CR>' :
