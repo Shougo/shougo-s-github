@@ -123,6 +123,8 @@ inoremap <buffer><expr> <TAB>
 
 nnoremap <buffer> P
       \ <Cmd>call ddu#ui#do_action('preview')<CR>
+nnoremap <buffer> a
+      \ <Cmd>call ddu#ui#do_action('chooseAction')<CR>
 nnoremap <buffer> <CR>
       \ <Cmd>call ddu#ui#do_action('closeFilterWindow')<CR>
 nnoremap <buffer> q

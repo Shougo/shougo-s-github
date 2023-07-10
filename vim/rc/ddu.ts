@@ -63,6 +63,7 @@ export class Config extends BaseConfig {
           previewFloating: true,
           previewFloatingBorder: "single",
           //previewSplit: "no",
+          //startFilter: true,
           updateTime: 0,
           winWidth: 100,
         } as Partial<FfParams>,
