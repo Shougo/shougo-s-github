@@ -174,11 +174,7 @@ hook_source = '''
     endif
   endfunction
 
-  " :mode is needed to redraw screen
-  autocmd MyAutoCmd InsertLeave * mode
-  augroup skkeleton
-  autocmd!
-  augroup END
+  call skkeleton#initialize()
 '''
 
 [[plugins]]
