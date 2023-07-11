@@ -185,8 +185,8 @@ endif
 " Does not report lines
 set report=1000
 
-" Set statusline.
-set statusline=%{'─'->repeat('.'->winwidth())}
+" Disable statusline.
+set statusline=%{'─'->repeat(&columns)}
 
 " NOTE: wrap option is very slow!
 set nowrap
