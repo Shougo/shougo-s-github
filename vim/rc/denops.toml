@@ -150,7 +150,6 @@ hook_source = '''
   call skkeleton#register_kanatable('rom', {
         \   'jj': 'escape',
         \   '~': ['〜', ''],
-        \   "z\<Space>": ["\u3000", ''],
         \ })
 
   autocmd MyAutoCmd User skkeleton-enable-pre call s:skkeleton_pre()
