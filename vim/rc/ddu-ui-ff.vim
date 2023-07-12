@@ -12,7 +12,7 @@ nnoremap <buffer> <C-l>
 nnoremap <buffer> p
       \ <Cmd>call ddu#ui#do_action('previewPath')<CR>
 nnoremap <buffer> P
-      \ <Cmd>call ddu#ui#do_action('preview')<CR>
+      \ <Cmd>call ddu#ui#do_action('togglePreview')<CR>
 nnoremap <buffer> q
       \ <Cmd>call ddu#ui#do_action('quit')<CR>
 nnoremap <buffer> <C-h>
@@ -122,7 +122,7 @@ inoremap <buffer><expr> <TAB>
       \ ddc#map#manual_complete()
 
 nnoremap <buffer> P
-      \ <Cmd>call ddu#ui#do_action('preview')<CR>
+      \ <Cmd>call ddu#ui#do_action('togglePreview')<CR>
 nnoremap <buffer> a
       \ <Cmd>call ddu#ui#do_action('chooseAction')<CR>
 nnoremap <buffer> <CR>

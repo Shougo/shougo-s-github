@@ -53,7 +53,7 @@ nnoremap <buffer> p
       \ <Cmd>call ddu#ui#do_action('itemAction',
       \ #{ name: 'paste' })<CR>
 nnoremap <buffer> P
-      \ <Cmd>call ddu#ui#do_action('preview')<CR>
+      \ <Cmd>call ddu#ui#do_action('togglePreview')<CR>
 nnoremap <buffer> K
       \ <Cmd>call ddu#ui#do_action('itemAction',
       \ #{ name: 'newDirectory' })<CR>
