@@ -112,6 +112,12 @@ function vimrc#diagnostics_to_location_list() abort
 
   let qflist = []
   for diagnostic in v:lua.vim.diagnostic.get()
+    " Skip files which out of the current directory
+    let bufname = diagnostic.bufnr->bufname()
+    if bufname->fnamemodify(':p') ==# bufname
+      continue
+    endif
+
     call add(qflist, #{
           \   bufnr: diagnostic.bufnr,
           \   lnum: diagnostic.lnum + 1,
