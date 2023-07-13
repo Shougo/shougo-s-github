@@ -164,6 +164,7 @@ lua_source = '''
           unstable = true,
           documentPreloadLimit = 0,
           suggest = {
+            autoImports = false,
             imports = {
               hosts = {
                 ['https://deno.land'] = true,
