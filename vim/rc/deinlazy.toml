@@ -151,3 +151,7 @@ hook_source = '''
 
 [[plugins]]
 repo = 'Shougo/qselect.vim'
+
+[[plugins]]
+repo = 'kaarmu/typst.vim'
+on_ft = 'typst'
