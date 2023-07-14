@@ -34,6 +34,7 @@ export class Config extends BaseConfig {
                 },
               });
               await args.denops.cmd("echomsg 'change to kensaku matcher'");
+
               return ActionFlags.Persist;
             }
           },
@@ -189,18 +190,6 @@ export class Config extends BaseConfig {
                     },
                   },
                 ],
-              });
-
-              return Promise.resolve(ActionFlags.None);
-            },
-            uiCd: async (args: ActionArguments<Params>) => {
-              const action = args.items[0]?.action as ActionData;
-
-              await args.denops.call("ddu#ui#do_action", {
-                name: "narrow",
-                params: {
-                  path: action.path,
-                },
               });
 
               return Promise.resolve(ActionFlags.None);
