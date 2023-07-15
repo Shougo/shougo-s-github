@@ -3,11 +3,11 @@ import {
   ActionFlags,
   BaseConfig,
   Ddu,
-} from "https://deno.land/x/ddu_vim@v3.3.3/types.ts";
-import { Denops, fn } from "https://deno.land/x/ddu_vim@v3.3.3/deps.ts";
-import { ConfigArguments } from "https://deno.land/x/ddu_vim@v3.3.3/base/config.ts";
-import { ActionData } from "https://deno.land/x/ddu_kind_file@v0.5.2/file.ts";
-import { Params as FfParams } from "https://deno.land/x/ddu_ui_ff@v1.0.3/ff.ts";
+} from "https://deno.land/x/ddu_vim@v3.4.2/types.ts";
+import { Denops, fn } from "https://deno.land/x/ddu_vim@v3.4.2/deps.ts";
+import { ConfigArguments } from "https://deno.land/x/ddu_vim@v3.4.2/base/config.ts";
+import { ActionData } from "https://deno.land/x/ddu_kind_file@v0.5.3/file.ts";
+import { Params as FfParams } from "https://deno.land/x/ddu_ui_ff@v1.0.4/ff.ts";
 import { Params as FilerParams } from "https://deno.land/x/ddu_ui_filer@v1.0.2/filer.ts";
 
 type Params = Record<string, unknown>;
