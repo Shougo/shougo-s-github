@@ -55,6 +55,7 @@ export class Config extends BaseConfig {
             floating: "Normal",
             floatingBorder: "Special",
           },
+          maxHighlightItems: 50,
           onPreview: async (args: {
             denops: Denops;
             previewWinId: number;
