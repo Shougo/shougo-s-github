@@ -14,6 +14,7 @@ function! CommandlinePre(mode) abort
           \     keywordPattern: '[0-9a-zA-Z_:#-]*',
           \   },
           \ })
+    "call ddc#custom#patch_buffer('ui', 'inline')
   elseif a:mode ==# 'dda'
     " For AI completion
     call ddc#custom#patch_buffer('cmdlineSources', ['around', 'mocword'])
@@ -76,8 +77,9 @@ cnoremap <expr> <C-e> pum#visible()
       \ ? '<Cmd>call pum#map#cancel()<CR>'
       \ : '<End>'
 
-"cnoremap <expr> <C-t>       ddc#map#insert_item(0)
-"inoremap <expr> <C-t>       ddc#map#insert_item(0)
+cnoremap <expr> <C-t>       ddc#map#insert_item(0)
+inoremap <expr> <C-t>
+      \ pum#visible() ? ddc#map#insert_item(0) : "\<C-v>\<Tab>"
 
 
 " For terminal completion

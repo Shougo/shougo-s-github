@@ -28,9 +28,6 @@ if (!has('nvim') || $DISPLAY !=# '') && has('clipboard')
   xnoremap y "*y<Cmd>let [@+,@"]=[@*,@*]<CR>
 endif
 
-" Insert mode keymappings:
-" <C-t>: insert tab.
-inoremap <C-t>  <C-v><TAB>
 " Enable undo <C-w> and <C-u>.
 inoremap <C-w>  <C-g>u<C-w>
 inoremap <C-u>  <C-g>u<C-u>
