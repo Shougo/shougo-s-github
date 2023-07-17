@@ -5,7 +5,7 @@ nnoremap s<Space> <Cmd>Ddu
       \ <CR>
 nnoremap ss
       \ <Cmd>Ddu -name=files file_point file_old
-      \ `'.git'->finddir(';') != '' ? 'file_external' : ''`
+      \ `'.git'->finddir(';') != '' ? 'file_git' : ''`
       \ file -source-option-volatile
       \ file -source-param-new -source-option-volatile
       \ -unique -expandInput

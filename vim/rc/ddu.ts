@@ -15,6 +15,7 @@ type Params = Record<string, unknown>;
 export class Config extends BaseConfig {
   override config(args: ConfigArguments): Promise<void> {
     args.setAlias("source", "file_rg", "file_external");
+    args.setAlias("source", "file_git", "file_external");
     args.setAlias("action", "tabopen", "open");
 
     args.contextBuilder.patchGlobal({
@@ -89,7 +90,7 @@ export class Config extends BaseConfig {
           ],
           converters: ['converter_hl_dir'],
         },
-        file_external: {
+        file_git: {
           matchers: [
             "matcher_relative",
             "matcher_substring",
@@ -133,7 +134,7 @@ export class Config extends BaseConfig {
         },
       },
       sourceParams: {
-        file_external: {
+        file_git: {
           cmd: ["git", "ls-files", "-co", "--exclude-standard"],
         },
         rg: {
