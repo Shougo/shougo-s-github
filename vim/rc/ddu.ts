@@ -82,14 +82,15 @@ export class Config extends BaseConfig {
         },
         file_old: {
           matchers: [
-            "matcher_substring",
             "matcher_relative",
+            "matcher_substring",
             "matcher_ignore_current_buffer",
           ],
           converters: ['converter_hl_dir'],
         },
         file_external: {
           matchers: [
+            "matcher_relative",
             "matcher_substring",
           ],
           converters: ['converter_hl_dir'],
