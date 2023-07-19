@@ -82,14 +82,24 @@ nnoremap <buffer> I
       \ #{
       \   name: 'narrow',
       \   params: #{
-      \     path: 'cwd: '->input(b:ddu_ui_filer_path, 'dir')->fnamemodify(':p'),
+      \     path: 'cwd: '
+      \           ->input(b:ddu_ui_filer_path, 'dir')
+      \           ->fnamemodify(':p'),
       \   }
       \ })<CR>
-nnoremap <buffer> >
+nnoremap <buffer> .
       \ <Cmd>call ddu#ui#do_action('updateOptions', #{
       \   sourceOptions: #{
       \     file: #{
       \       matchers: ToggleHidden('file'),
+      \     },
+      \   },
+      \ })<CR>
+nnoremap <buffer> >
+      \ <Cmd>call ddu#ui#do_action('updateOptions', #{
+      \   uiParams: #{
+      \     filer: #{
+      \       displayRoot: ToggleUiParam('filer', 'displayRoot'),
       \     },
       \   },
       \ })<CR>
@@ -121,10 +131,18 @@ nnoremap <buffer> t
       \ })<CR>
 
 function! ToggleHidden(name)
-  const current = ddu#custom#get_current(b:ddu_ui_name)
-  const source_options = current->get('sourceOptions', {})
-  const source_options_name = source_options->get(a:name, {})
-  const matchers = source_options_name->get('matchers', [])
-  return matchers->empty() ? ['matcher_hidden'] : []
+  return ddu#custom#get_current(b:ddu_ui_name)
+        \ ->get('sourceOptions', {})
+        \ ->get(a:name, {})
+        \ ->get('matchers', [])
+        \ ->empty() ? ['matcher_hidden'] : []
+endfunction
+
+function! ToggleUiParam(ui_name, param_name)
+  return ddu#custom#get_current(b:ddu_ui_name)
+        \ ->get('uiParams', {})
+        \ ->get(a:ui_name, {})
+        \ ->get(a:param_name, v:false)
+        \ ? v:false : v:true
 endfunction
 " }}}
