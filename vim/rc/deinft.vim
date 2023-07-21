@@ -132,6 +132,25 @@ function! s:set_highlight(group) abort
   endfor
 endfunction
 call s:set_highlight('Special')
+
+function! s:right_align(linenr) abort
+  let m = a:linenr->getline()->matchlist('^\(\S\+\)\?\s\+\(\*.\+\*\)')
+  if m->empty()
+    return
+  endif
+  call setline(a:linenr, m[1] .. ' '->repeat(
+        \ &l:textwidth - len(m[1]) - len(m[2])) .. m[2])
+endfunction
+function! s:right_aligns(start, end) abort
+  for linenr in range(a:start, a:end)
+    call s:right_align(linenr)
+  endfor
+endfunction
+command! -range -buffer RightAlign
+      \ call s:right_aligns('<line1>'->expand(), '<line2>'->expand())
+
+nnoremap <buffer> mm      <Cmd>RightAlign<CR>
+xnoremap <silent><buffer> mm      :RightAlign<CR>
 " }}}
 
 " ruby {{{

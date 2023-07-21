@@ -71,6 +71,7 @@ export class Config extends BaseConfig {
           winWidth: 100,
         } as Partial<FfParams>,
         filer: {
+          previewFloating: true,
           sort: "filename",
           sortTreesFirst: true,
           split: "no",
