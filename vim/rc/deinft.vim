@@ -134,7 +134,8 @@ endfunction
 call s:set_highlight('Special')
 
 function! s:right_align(linenr) abort
-  let m = a:linenr->getline()->matchlist('^\(\S\+\)\?\s\+\(\*.\+\*\)')
+  let m = a:linenr->getline()->matchlist(
+        \ '^\(\S\+\%(\s\S\+\)\?\)\?\s\+\(\*.\+\*\)')
   if m->empty()
     return
   endif
