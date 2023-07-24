@@ -1,4 +1,14 @@
+" hook_add {{{
+let g:foo = 'bar'
+" }}}
+" cpp {{{
+let g:bar = 'baz'
+" }}}
+" Use vim9script
 " hook_source {{{
-vim9script
-g:foo = 'bar'
+def Foo()
+  g:foo = 'bar'
+enddef
+
+call Foo()
 " }}}

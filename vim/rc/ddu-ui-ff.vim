@@ -24,6 +24,8 @@ nnoremap <buffer> A
 nnoremap <buffer> o
       \ <Cmd>call ddu#ui#do_action('expandItem',
       \ #{ mode: 'toggle' })<CR>
+nnoremap <buffer> O
+      \ <Cmd>call ddu#ui#do_action('collapseItem')<CR>
 nnoremap <buffer> d
       \ <Cmd>call ddu#ui#do_action('itemAction',
       \ b:ddu_ui_name ==# 'filer' ?
