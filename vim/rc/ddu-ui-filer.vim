@@ -1,7 +1,7 @@
 " hook_add {{{
 nnoremap [Space]f <Cmd>Ddu
       \ -name=filer-`win_getid()` -ui=filer -resume -sync file
-      \ -source-option-path=`t:->get('ddu_ui_filer_path', '')`
+      \ -source-option-path=`t:->get('ddu_ui_filer_path', getcwd())`
       \ -source-option-columns=filename<CR>
 " }}}
 
