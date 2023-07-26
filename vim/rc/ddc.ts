@@ -213,6 +213,11 @@ export class Config extends BaseConfig {
       args.contextBuilder.patchFiletype("lua", {
         sources: ["codeium", "nvim-lsp", "nvim-lua", "around"],
       });
+
+      // Enable specialBufferCompletion for cmdwin.
+      args.contextBuilder.patchFiletype("vim", {
+        specialBufferCompletion: true,
+      });
     }
   }
 }

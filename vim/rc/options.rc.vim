@@ -306,8 +306,8 @@ endif
 set signcolumn=no
 
 " Command line window
-set cedit=
-"exe "set cedit=\<C-s>"
+"set cedit=
+exe "set cedit=\<C-s>"
 
 set redrawtime=0
 
