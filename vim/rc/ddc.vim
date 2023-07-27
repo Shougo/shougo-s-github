@@ -18,8 +18,9 @@ function! CommandlinePre(mode) abort
     " Use zsh source for :! completion
     call ddc#custom#set_context_buffer({ ->
           \ getcmdline()->stridx('!') ==# 0 ? {
-          \   'cmdlineSources':
-          \     ['zsh', 'cmdline', 'cmdline-history', 'around'],
+          \   'cmdlineSources': [
+          \     'shell-native', 'cmdline', 'cmdline-history', 'around',
+          \   ],
           \ } : {} })
 
     "call ddc#custom#patch_buffer('ui', 'inline')

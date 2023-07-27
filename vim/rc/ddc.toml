@@ -56,7 +56,7 @@ repo = 'Shougo/ddc-source-mocword'
 on_source = 'ddc.vim'
 
 [[plugins]]
-repo = 'Shougo/ddc-source-zsh'
+repo = 'Shougo/ddc-source-shell-native'
 on_source = 'ddc.vim'
 depends = 'ddc.vim'
 

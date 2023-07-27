@@ -104,12 +104,12 @@ export class Config extends BaseConfig {
           mark: "history",
         },
         shell: {
-          mark: "shell",
+          mark: "sh",
           isVolatile: true,
           forceCompletionPattern: "\\S/\\S*",
         },
-        zsh: {
-          mark: "zsh",
+        "shell-native": {
+          mark: "sh",
           isVolatile: true,
           forceCompletionPattern: "\\S/\\S*",
         },
@@ -135,6 +135,9 @@ export class Config extends BaseConfig {
         },
         file: {
           filenameChars: "[:keyword:].",
+        },
+        "shell-native": {
+          shell: "fish",
         },
       },
     });
@@ -170,12 +173,16 @@ export class Config extends BaseConfig {
             keywordPattern: "[0-9a-zA-Z_./#:-]*",
           },
         },
-        sources: [hasWindows ? "shell" : "zsh", "around"],
+        sources: [
+          hasWindows ? "shell" : "shell-native", "around",
+        ],
       });
     }
     args.contextBuilder.patchFiletype("deol", {
       specialBufferCompletion: true,
-      sources: [hasWindows ? "shell" : "zsh", "shell-history", "around"],
+      sources: [
+        hasWindows ? "shell" : "shell-native", "shell-history", "around",
+      ],
       sourceOptions: {
         _: {
           keywordPattern: "[0-9a-zA-Z_./#:-]*",
