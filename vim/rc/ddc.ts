@@ -147,6 +147,7 @@ export class Config extends BaseConfig {
         "help",
         "vimdoc",
         "markdown",
+        "markdown_inline",
         "gitcommit",
         "comment",
       ]
