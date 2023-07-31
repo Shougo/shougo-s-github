@@ -32,10 +32,7 @@ export class Config extends BaseConfig {
           ignoreCase: true,
           matchers: ["matcher_head", "matcher_prefix", "matcher_length"],
           sorters: ["sorter_rank"],
-          converters: [
-            "converter_remove_overlap",
-            "converter_truncate_abbr",
-          ],
+          converters: ["converter_remove_overlap"],
           timeout: 1000,
         },
         around: {
@@ -175,14 +172,17 @@ export class Config extends BaseConfig {
           },
         },
         sources: [
-          hasWindows ? "shell" : "shell-native", "around",
+          hasWindows ? "shell" : "shell-native",
+          "around",
         ],
       });
     }
     args.contextBuilder.patchFiletype("deol", {
       specialBufferCompletion: true,
       sources: [
-        hasWindows ? "shell" : "shell-native", "shell-history", "around",
+        hasWindows ? "shell" : "shell-native",
+        "shell-history",
+        "around",
       ],
       sourceOptions: {
         _: {

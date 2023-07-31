@@ -23,9 +23,9 @@ export class Config extends BaseConfig {
       uiOptions: {
         ff: {
           actions: {
-            kensaku: async(args: {
-              denops: Denops,
-              ddu: Ddu,
+            kensaku: async (args: {
+              denops: Denops;
+              ddu: Ddu;
             }) => {
               args.ddu.updateOptions({
                 sourceOptions: {
@@ -37,7 +37,7 @@ export class Config extends BaseConfig {
               await args.denops.cmd("echomsg 'change to kensaku matcher'");
 
               return ActionFlags.Persist;
-            }
+            },
           },
         },
         filer: {
@@ -89,21 +89,21 @@ export class Config extends BaseConfig {
             "matcher_substring",
             "matcher_ignore_current_buffer",
           ],
-          converters: ['converter_hl_dir'],
+          converters: ["converter_hl_dir"],
         },
         file_git: {
           matchers: [
             "matcher_relative",
             "matcher_substring",
           ],
-          converters: ['converter_hl_dir'],
+          converters: ["converter_hl_dir"],
         },
         file_rec: {
           matchers: [
             "matcher_substring",
             "matcher_hidden",
           ],
-          converters: ['converter_hl_dir'],
+          converters: ["converter_hl_dir"],
         },
         file: {
           matchers: [
@@ -111,7 +111,7 @@ export class Config extends BaseConfig {
             "matcher_hidden",
           ],
           sorters: ["sorter_alpha"],
-          converters: ['converter_hl_dir'],
+          converters: ["converter_hl_dir"],
         },
         dein: {
           defaultAction: "cd",
@@ -172,7 +172,7 @@ export class Config extends BaseConfig {
           ignorePatterns: [],
         },
         converter_hl_dir: {
-          hlGroup: ['Directory', 'Keyword'],
+          hlGroup: ["Directory", "Keyword"],
         },
       },
       kindOptions: {
