@@ -8,7 +8,7 @@ nnoremap ss
       \ `'.git'->finddir(';') != '' ? 'file_git' : ''`
       \ file -source-option-volatile
       \ file -source-param-new -source-option-volatile
-      \ -unique -expandInput
+      \ -unique -expandInput -resume
       \ -ui-param-displaySourceName=short
       \ <CR>
 nnoremap sr

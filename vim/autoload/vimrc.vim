@@ -112,9 +112,9 @@ function vimrc#diagnostics_to_location_list() abort
 
   let qflist = []
   for diagnostic in v:lua.vim.diagnostic.get()
-    " Skip files which out of the current directory
+    " Skip files which out of the current buffer
     let bufname = diagnostic.bufnr->bufname()
-    if bufname->fnamemodify(':p') ==# bufname
+    if bufname->fnamemodify(':p') !=# '.'->bufname()->fnamemodify(':p')
       continue
     endif
 
@@ -146,5 +146,5 @@ function vimrc#append_diff() abort
         \ ->map({ idx, line -> $'# {line}' })
 
   " Append the diff to the commit message
-  call append(line('$'), comment_diff)
+  call append('$'->line(), comment_diff)
 endfunction
