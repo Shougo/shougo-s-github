@@ -8,7 +8,9 @@ nnoremap ss
       \ `'.git'->finddir(';') != '' ? 'file_git' : ''`
       \ file -source-option-volatile
       \ file -source-param-new -source-option-volatile
-      \ -unique -expandInput -resume
+      \ -unique -expandInput
+      \ -resume=`ddu#get_items(#{ sources: ['file_point'] })->empty() ?
+      \          'v:true' : 'v:false'`
       \ -ui-param-displaySourceName=short
       \ <CR>
 nnoremap sr
