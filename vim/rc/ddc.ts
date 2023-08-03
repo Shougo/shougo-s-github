@@ -9,7 +9,6 @@ export class Config extends BaseConfig {
 
     args.contextBuilder.patchGlobal({
       ui: "pum",
-      sources: ["codeium", "around", "file"],
       autoCompleteEvents: [
         "InsertEnter",
         "TextChangedI",
@@ -18,6 +17,7 @@ export class Config extends BaseConfig {
         "CmdlineChanged",
         "TextChangedT",
       ],
+      sources: ["codeium", "around", "file"],
       cmdlineSources: {
         ":": ["cmdline", "cmdline-history", "around"],
         "@": ["input", "cmdline-history", "file", "around"],
@@ -137,6 +137,7 @@ export class Config extends BaseConfig {
           shell: "fish",
         },
       },
+      postFilters: ["sorter_dup"],
     });
 
     for (

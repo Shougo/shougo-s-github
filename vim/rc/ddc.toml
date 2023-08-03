@@ -138,6 +138,10 @@ repo = 'Shougo/ddc-filter-sorter_rank'
 on_source = 'ddc.vim'
 
 [[plugins]]
+repo = 'Shougo/ddc-filter-sorter_dup'
+on_source = 'ddc.vim'
+
+[[plugins]]
 repo = 'Shougo/ddc-filter-converter_remove_overlap'
 on_source = 'ddc.vim'
 
