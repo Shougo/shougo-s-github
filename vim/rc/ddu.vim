@@ -113,7 +113,25 @@ cnoremap <C-q> <Cmd>call ddu#start(#{
 
 " Initialize ddu.vim lazily.
 if !('g:shougo_s_github_load_state'->exists())
-  call timer_start(10, { _ -> ddu#load('ui', ['ff']) })
+  call timer_start(10, { _ ->
+        \   ddu#load('ui', ['ff'])
+        \ })
+  call timer_start(10, { _ ->
+        \   ddu#load('source', [
+        \     'file', 'file_point', 'file_old', 'file_git',
+        \   ])
+        \ })
+  call timer_start(10, { _ ->
+        \   ddu#load('filter', [
+        \     'matcher_kensaku', 'matcher_relative', 'matcher_substring',
+        \     'matcher_ignore_current_buffer', 'matcher_hidden',
+        \     'sorter_alpha',
+        \     'converter_hl_dir',
+        \   ])
+        \ })
+  call timer_start(10, { _ ->
+        \   ddu#load('kind', ['file'])
+        \ })
 endif
 
 " }}}

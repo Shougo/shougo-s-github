@@ -20,6 +20,7 @@ export class Config extends BaseConfig {
 
     args.contextBuilder.patchGlobal({
       ui: "ff",
+      profile: false,
       uiOptions: {
         ff: {
           actions: {
