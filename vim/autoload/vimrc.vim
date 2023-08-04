@@ -111,10 +111,11 @@ function vimrc#diagnostics_to_location_list() abort
   endif
 
   let qflist = []
+  const current = '%'->bufname()->fnamemodify(':p')
   for diagnostic in v:lua.vim.diagnostic.get()
     " Skip files which out of the current buffer
     let bufname = diagnostic.bufnr->bufname()
-    if bufname->fnamemodify(':p') !=# '.'->bufname()->fnamemodify(':p')
+    if bufname->fnamemodify(':p') !=# current
       continue
     endif
 
