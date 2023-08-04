@@ -137,8 +137,8 @@ function s:mkdir_as_necessary(dir, force) abort
     return
   endif
 
-  if a:force || $'"{a:dir}" does not exist. Create? [y/N] '
-        \       ->input() =~? '^y\%[es]$'
+  const message = printf('"%s" does not exist. Create? [y/N] ', a:dir)
+  if a:force || message->input() =~? '^y\%[es]$'
     call mkdir(a:dir->iconv(&encoding, &termencoding), 'p')
   endif
 endfunction
@@ -319,3 +319,6 @@ endif
 if '+smoothscroll'->exists()
   set smoothscroll
 endif
+
+" Disable builtin message pager
+set nomore

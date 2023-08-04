@@ -79,6 +79,10 @@ repo = 'kamecha/ddu-source-jumplist'
 on_source = 'ddu.vim'
 
 [[plugins]]
+repo = 'yuki-yano/ddu-source-nvim-notify'
+on_source = 'ddu.vim'
+
+[[plugins]]
 repo = 'Shougo/ddu-filter-matcher_substring'
 on_source = 'ddu.vim'
 
