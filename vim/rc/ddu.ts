@@ -83,6 +83,7 @@ export class Config extends BaseConfig {
         _: {
           ignoreCase: true,
           matchers: ["matcher_substring"],
+          smartCase: true,
         },
         file_old: {
           matchers: [
