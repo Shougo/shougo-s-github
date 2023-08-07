@@ -3,9 +3,9 @@ import {
   ActionFlags,
   BaseConfig,
   Ddu,
-} from "https://deno.land/x/ddu_vim@v3.4.3/types.ts";
-import { Denops, fn } from "https://deno.land/x/ddu_vim@v3.4.3/deps.ts";
-import { ConfigArguments } from "https://deno.land/x/ddu_vim@v3.4.3/base/config.ts";
+} from "https://deno.land/x/ddu_vim@v3.4.6/types.ts";
+import { Denops, fn } from "https://deno.land/x/ddu_vim@v3.4.6/deps.ts";
+import { ConfigArguments } from "https://deno.land/x/ddu_vim@v3.4.6/base/config.ts";
 import { ActionData } from "https://deno.land/x/ddu_kind_file@v0.5.3/file.ts";
 import { Params as FfParams } from "https://deno.land/x/ddu_ui_ff@v1.1.0/ff.ts";
 import { Params as FilerParams } from "https://deno.land/x/ddu_ui_filer@v1.1.0/filer.ts";
