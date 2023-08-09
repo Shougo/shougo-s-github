@@ -212,6 +212,8 @@ export class Config extends BaseConfig {
           "ruby",
           "typescript",
           "typescriptreact",
+          "tsx",
+          "graphql",
         ]
       ) {
         args.contextBuilder.patchFiletype(filetype, {

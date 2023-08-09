@@ -6,14 +6,14 @@ endif
 " Install plugin manager automatically.
 for s:plugin in [
       \ 'Shougo/dein.vim',
-      \ ]->filter({ _, val -> &runtimepath !~# $'/{val}' })
+      \ ]->filter({ _, val -> &runtimepath !~# '/' .. val })
   " Search from current directory
   let s:dir = 'dein.vim'->fnamemodify(':p')
   if !(s:dir->isdirectory())
     " Search from $CACHE directory
-    let s:dir = $'{$CACHE}/dein/repos/github.com/{s:plugin}'
+    let s:dir = $CACHE .. '/dein/repos/github.com/' .. s:plugin
     if !(s:dir->isdirectory())
-      execute $'!git clone https://github.com/{s:plugin}' s:dir
+      execute '!git clone https://github.com/' .. s:plugin s:dir
     endif
   endif
   execute 'set runtimepath^='
@@ -37,7 +37,7 @@ let g:dein#types#git#enable_partial_clone = v:true
 
 let $BASE_DIR = '<sfile>'->expand()->fnamemodify(':h')
 
-let s:path = $'{$CACHE}/dein'
+let s:path = $CACHE .. '/dein'
 let g:shougo_s_github_load_state = !dein#min#load_state(s:path)
 if g:shougo_s_github_load_state
   finish
