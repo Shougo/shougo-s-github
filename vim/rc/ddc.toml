@@ -15,6 +15,7 @@ hook_source = '''
     \   offset_cmdcol: 0,
     \   padding: v:false,
     \   preview: v:true,
+    \   preview_width: 80,
     \   reversed: v:false,
     \   use_complete: v:true,
     \   use_setline: v:false,

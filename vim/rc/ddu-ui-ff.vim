@@ -108,9 +108,9 @@ else
   inoremap <buffer> <CR>
         \ <Esc><Cmd>call ddu#ui#do_action('itemAction')<CR>
 endif
-inoremap <buffer> <C-i>
+inoremap <buffer> <C-f>
       \ <Cmd>call ddu#ui#do_action('cursorNext')<CR>
-inoremap <buffer> <C-k>
+inoremap <buffer> <C-b>
       \ <Cmd>call ddu#ui#do_action('cursorPrevious')<CR>
 inoremap <buffer> <C-v>
       \ <Cmd>call ddu#ui#do_action('toggleAutoAction')<CR>
