@@ -109,9 +109,15 @@ else
         \ <Esc><Cmd>call ddu#ui#do_action('itemAction')<CR>
 endif
 inoremap <buffer> <C-f>
-      \ <Cmd>call ddu#ui#do_action('cursorNext')<CR>
+      \ <Cmd>call ddu#ui#do_action('cursorNext', #{
+      \   count: ddu#ui#ff#get_cursor()->get(1, 1) ==# ddu#ui#ff#max_cursor()
+      \          ? -1 * (ddu#ui#ff#max_cursor() - 1) : 1
+      \ })<CR>
 inoremap <buffer> <C-b>
-      \ <Cmd>call ddu#ui#do_action('cursorPrevious')<CR>
+      \ <Cmd>call ddu#ui#do_action('cursorPrevious', #{
+      \   count: ddu#ui#ff#get_cursor()->get(1, 1) ==# 1
+      \          ? -1 * ddu#ui#ff#max_cursor() : 1
+      \ })<CR>
 inoremap <buffer> <C-v>
       \ <Cmd>call ddu#ui#do_action('toggleAutoAction')<CR>
 
