@@ -17,7 +17,7 @@ nnoremap sr
       \ <Cmd>Ddu -name=files -resume<CR>
 nnoremap / <Cmd>Ddu
       \ -name=search line -resume=v:false
-      \ -ui-param-startFilter=v:false
+      \ -ui-param-startFilter=v:true
       \ <CR>
 nnoremap * <Cmd>Ddu
       \ -name=search line -resume=v:false
@@ -133,7 +133,6 @@ if !('g:shougo_s_github_load_state'->exists())
         \   ddu#load('kind', ['file'])
         \ })
 endif
-
 " }}}
 
 " hook_source = {{{
