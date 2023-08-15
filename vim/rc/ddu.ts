@@ -134,6 +134,7 @@ export class Config extends BaseConfig {
             "matcher_substring",
             "matcher_files",
           ],
+          sorters: ["sorter_alpha"],
         },
       },
       sourceParams: {
