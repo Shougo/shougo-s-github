@@ -166,8 +166,8 @@ hook_source = '''
             \   },
             \ })
 
-    " NOTE: Enter to lang mode to change cursor highlight(lCursor)
-    "call feedkeys("\<C-^>", 'nit')
+    " Change the cursor color
+    highlight Cursor       gui=NONE guibg=#80403f guifg=fg
   endfunction
   autocmd MyAutoCmd User skkeleton-disable-pre call s:skkeleton_post()
   function! s:skkeleton_post() abort
@@ -176,8 +176,8 @@ hook_source = '''
       call ddc#custom#set_buffer(s:prev_buffer_config)
     endif
 
-    " NOTE: Restore from lang mode to change cursor highlight(lCursor)
-    "call feedkeys("\<C-^>", 'nit')
+    " Restore the cursor color
+    highlight Cursor       gui=NONE guibg=#606060 guifg=fg
   endfunction
 
   call skkeleton#initialize()
