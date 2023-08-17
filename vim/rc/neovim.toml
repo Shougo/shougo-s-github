@@ -116,8 +116,8 @@ repo = 'neovim/nvim-lspconfig'
 lua_source = '''
   -- NOTE: Disable lsp watcher. Too slow on linux
   -- https://github.com/neovim/neovim/issues/23725#issuecomment-1561364086
-  require('vim.lsp._watchfiles')._watchfunc = function(_, _, _)
-    return true
+  require('vim.lsp._watchfiles')._watchfunc = function()
+    return function() end
   end
 
   vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
