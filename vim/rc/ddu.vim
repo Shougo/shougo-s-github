@@ -1,46 +1,47 @@
 " hook_add {{{
 nnoremap s<Space> <Cmd>Ddu
       \ -name=files file
-      \ -source-option-path=`expand('$BASE_DIR')`
+      \ -source-option-file-path=`expand('$BASE_DIR')`
       \ <CR>
 nnoremap ss
       \ <Cmd>Ddu -name=files file_point file_old
       \ `'.git'->finddir(';') != '' ? 'file_git' : ''`
-      \ file -source-option-volatile
-      \ file -source-param-new -source-option-volatile
+      \ file -source-option-file-volatile
+      \ file -source-param-file-new -source-option-file-volatile
       \ -unique -expandInput
       \ -resume=`ddu#get_items(#{ sources: ['file_point'] })->empty() ?
       \          'v:true' : 'v:false'`
-      \ -ui-param-displaySourceName=short
-      \ -filter-param-ignores=`'%'->bufname()->fnamemodify(':p')`
-      \ -filter-param-actionKey=path
+      \ -ui-param-ff-displaySourceName=short
+      \ -filter-param-matcher_ignore_current_buffer-ignores=
+      \`'%'->bufname()->fnamemodify(':p')`
+      \ -filter-param-matcher_ignore_current_buffer-actionKey=path
       \ <CR>
 nnoremap sr
       \ <Cmd>Ddu -name=files -resume<CR>
 nnoremap / <Cmd>Ddu
       \ -name=search line -resume=v:false
-      \ -ui-param-startFilter=v:true
+      \ -ui-param-ff-startFilter=v:true
       \ <CR>
 nnoremap * <Cmd>Ddu
       \ -name=search line -resume=v:false
       \ -input=`expand('<cword>')`
-      \ -ui-param-startFilter=v:false
+      \ -ui-param-ff-startFilter=v:false
       \ <CR>
 nnoremap ;g <Cmd>Ddu
       \ -name=search rg -resume=v:false
-      \ -ui-param-ignoreEmpty
-      \ -source-param-input='`'Pattern: '->input('<cword>'->expand())`'
+      \ -ui-param-ff-ignoreEmpty
+      \ -source-param-rg-input='`'Pattern: '->input('<cword>'->expand())`'
       \ <CR>
 xnoremap ;g y<Cmd>Ddu
       \ -name=search rg -resume=v:false
-      \ -ui-param-ignoreEmpty
-      \ -source-param-input='`'Pattern: '->input(v:register->getreg())`'
+      \ -ui-param-ff-ignoreEmpty
+      \ -source-param-rg-input='`'Pattern: '->input(v:register->getreg())`'
       \ <CR>
 nnoremap ;f <Cmd>Ddu
       \ -name=search rg -resume=v:false
-      \ -ui-param-ignoreEmpty
-      \ -source-param-input='`'Pattern: '->input('<cword>'->expand())`'
-      \ -source-option-path=`'Directory: '->input($'{getcwd()}/', 'dir')`
+      \ -ui-param-ff-ignoreEmpty
+      \ -source-param-rg-input='`'Pattern: '->input('<cword>'->expand())`'
+      \ -source-option-rg-path=`'Directory: '->input($'{getcwd()}/', 'dir')`
       \ <CR>
 nnoremap n <Cmd>Ddu
       \ -name=search -resume
@@ -48,32 +49,28 @@ nnoremap n <Cmd>Ddu
       \ <CR>
 nnoremap ;r <Cmd>Ddu
       \ -name=register register
-      \ -source-option-defaultAction=`'.'->col() == 1 ? 'insert' : 'append'`
-      \ -ui-param-autoResize
+      \ -source-option-register-defaultAction=
+      \`'.'->col() == 1 ? 'insert' : 'append'`
+      \ -ui-param-ff-autoResize
       \ <CR>
 nnoremap ;d <Cmd>Ddu
       \ -name=outline markdown
-      \ -ui-param-ignoreEmpty -ui-param-displayTree
+      \ -ui-param-ff-ignoreEmpty
+      \ -ui-param-ff-displayTree
       \ <CR>
 xnoremap <expr> ;r
       \ (mode() ==# 'V' ? '"_R<Esc>' : '"_d')
       \ .. '<Cmd>Ddu -name=register register
-      \ -source-option-defaultAction=insert
+      \ -source-option-ff-defaultAction=insert
       \ -ui-param-autoResize<CR>'
 nnoremap sg <Cmd>Ddu dein<CR>
-nnoremap [Space]<Space> <Cmd>Ddu
-      \ -name=search line -resume=v:false
-      \ -source-param-range=window
-      \ -ui-param-startFilter
-      \ <CR>
 nnoremap <C-o> <Cmd>Ddu jumplist <CR>
 
 "inoremap <C-q> <Cmd>Ddu
 "\ -name=register register
 "\ -sync
-"\ -source-option-defaultAction=append
-"\ -source-param-range=window
-"\ -ui-param-startFilter=v:false
+"\ -source-option-register-defaultAction=append
+"\ -ui-param-ff-startFilter=v:false
 "\ <CR>
 inoremap <C-q> <Cmd>call ddu#start(#{
       \   name: 'file',
@@ -93,9 +90,8 @@ inoremap <C-q> <Cmd>call ddu#start(#{
 "cnoremap <C-q> <Cmd>Ddu
 "\ -name=register register
 "\ -sync
-"\ -source-option-defaultAction=feedkeys
-"\ -source-param-range=window
-"\ -ui-param-startFilter=v:false
+"\ -source-option-register-defaultAction=feedkeys
+"\ -ui-param-ff-startFilter=v:false
 "\ <CR><Cmd>call setcmdline('')<CR><CR>
 cnoremap <C-q> <Cmd>call ddu#start(#{
       \   name: 'file',
