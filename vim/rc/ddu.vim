@@ -12,6 +12,8 @@ nnoremap ss
       \ -resume=`ddu#get_items(#{ sources: ['file_point'] })->empty() ?
       \          'v:true' : 'v:false'`
       \ -ui-param-displaySourceName=short
+      \ -filter-param-ignores=`'%'->bufname()->fnamemodify(':p')`
+      \ -filter-param-actionKey=path
       \ <CR>
 nnoremap sr
       \ <Cmd>Ddu -name=files -resume<CR>

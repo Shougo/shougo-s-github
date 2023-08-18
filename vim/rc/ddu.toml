@@ -102,9 +102,9 @@ on_source = 'ddu.vim'
 repo = 'Shougo/ddu-filter-matcher_ignore_files'
 on_source = 'ddu.vim'
 
-[[plugins]]
-repo = 'Shougo/ddu-filter-matcher_ignore_current_buffer'
-on_source = 'ddu.vim'
+#[[plugins]]
+#repo = 'Shougo/ddu-filter-matcher_ignore_current_buffer'
+#on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-filter-matcher_ignores'
