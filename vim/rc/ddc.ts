@@ -137,7 +137,7 @@ export class Config extends BaseConfig {
           shell: "fish",
         },
       },
-      postFilters: ["sorter_dup"],
+      postFilters: ["sorter_head"],
     });
 
     for (

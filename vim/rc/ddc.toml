@@ -139,7 +139,7 @@ repo = 'Shougo/ddc-filter-sorter_rank'
 on_source = 'ddc.vim'
 
 [[plugins]]
-repo = 'Shougo/ddc-filter-sorter_dup'
+repo = 'Shougo/ddc-filter-sorter_head'
 on_source = 'ddc.vim'
 
 [[plugins]]

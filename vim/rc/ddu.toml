@@ -107,6 +107,10 @@ repo = 'Shougo/ddu-filter-matcher_ignore_current_buffer'
 on_source = 'ddu.vim'
 
 [[plugins]]
+repo = 'Shougo/ddu-filter-matcher_ignores'
+on_source = 'ddu.vim'
+
+[[plugins]]
 repo = 'Shougo/ddu-filter-sorter_alpha'
 on_source = 'ddu.vim'
 
