@@ -218,9 +218,6 @@ export class Config extends BaseConfig {
         },
       },
       kindParams: {
-        action: {
-          quit: true,
-        },
       },
       actionOptions: {
         narrow: {
