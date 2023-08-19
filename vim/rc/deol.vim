@@ -3,9 +3,9 @@ nnoremap <expr> [Space]s
       \ $'<Cmd>Deol {has('win32') ? 'cmd': 'zsh'} -no-start-insert<CR>'
 nnoremap sD  <Cmd>call deol#kill_editor()<CR>
 nnoremap <C-t> <Cmd>Ddu -name=deol -sync
-      \ -ui-param-split=`has('nvim') ? 'floating' : 'horizontal'`
-      \ -ui-param-winRow=1 -ui-param-autoResize
-      \ -ui-param-cursorPos=`tabpagenr()-1`
+      \ -ui-param-ff-split=`has('nvim') ? 'floating' : 'horizontal'`
+      \ -ui-param-ff-winRow=1 -ui-param-ff-autoResize
+      \ -ui-param-ff-cursorPos=`tabpagenr()-1`
       \ deol<CR>
 " }}}
 
