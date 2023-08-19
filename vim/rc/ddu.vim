@@ -30,22 +30,22 @@ nnoremap * <Cmd>Ddu
 nnoremap ;g <Cmd>Ddu
       \ -name=search rg -resume=v:false
       \ -ui-param-ff-ignoreEmpty
-      \ -source-param-rg-input='`'Pattern: '->input('<cword>'->expand())`'
+      \ -source-param-rg-input=`'Pattern: '->input('<cword>'->expand())`
       \ <CR>
 xnoremap ;g y<Cmd>Ddu
       \ -name=search rg -resume=v:false
       \ -ui-param-ff-ignoreEmpty
-      \ -source-param-rg-input='`'Pattern: '->input(v:register->getreg())`'
+      \ -source-param-rg-input=`'Pattern: '->input(v:register->getreg())`
       \ <CR>
 nnoremap ;f <Cmd>Ddu
       \ -name=search rg -resume=v:false
       \ -ui-param-ff-ignoreEmpty
-      \ -source-param-rg-input='`'Pattern: '->input('<cword>'->expand())`'
+      \ -source-param-rg-input=`'Pattern: '->input('<cword>'->expand())`
       \ -source-option-rg-path=`'Directory: '->input($'{getcwd()}/', 'dir')`
       \ <CR>
 nnoremap n <Cmd>Ddu
       \ -name=search -resume
-      \ -ui-param-startFilter=v:false
+      \ -ui-param-ff-startFilter=v:false
       \ <CR>
 nnoremap ;r <Cmd>Ddu
       \ -name=register register
