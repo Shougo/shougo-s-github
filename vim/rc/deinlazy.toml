@@ -43,9 +43,6 @@ repo = 'itchyny/vim-qfedit'
 on_ft = ['qf']
 
 [[plugins]]
-repo = 'tyru/open-browser.vim'
-
-[[plugins]]
 repo = 'rhysd/vim-operator-surround'
 depends = 'vim-operator-user'
 on_map = { n = '<Plug>' }
@@ -57,16 +54,8 @@ hook_add = '''
 '''
 
 [[plugins]]
-repo = 'kannokanno/previm'
+repo = 'previm/previm'
 on_cmd = 'PrevimOpen'
-depends = 'open-browser.vim'
-
-[[plugins]]
-repo = 'osyo-manga/vim-jplus'
-on_map = { n = '<Plug>' }
-hook_add = '''
-  nnoremap J <Plug>(jplus)
-'''
 
 # [[plugins]]
 # repo = 'katono/rogue.vim'
@@ -148,9 +137,6 @@ hook_source = '''
     \   ddu-ff-filter: v:false,
     \ }
 '''
-
-[[plugins]]
-repo = 'Shougo/qselect.vim'
 
 [[plugins]]
 repo = 'kaarmu/typst.vim'
