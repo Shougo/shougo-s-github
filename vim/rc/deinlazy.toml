@@ -1,7 +1,4 @@
 [[plugins]]
-repo = 'Shougo/context_filetype.vim'
-
-[[plugins]]
 repo = 'Shougo/deol.nvim'
 depends = ['ddu.vim', 'ddc.vim']
 on_source = ['ddu.vim']
@@ -12,14 +9,6 @@ repo = 'Shougo/junkfile.vim'
 on_source = ['ddu.vim']
 hook_add = '''
   nnoremap se <Cmd>Ddu junkfile -source-option-junkfile-volatile<CR>
-'''
-
-[[plugins]]
-repo = 'Shougo/vinarise.vim'
-on_cmd = 'Vinarise'
-hook_add = '''
-  let g:vinarise_enable_auto_detect = v:true
-  let g:vinarise_guifont = 'Courier\ 10\ Pitch:h14'
 '''
 
 [[plugins]]

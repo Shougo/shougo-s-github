@@ -282,9 +282,6 @@ lua_source = '''
 '''
 
 [[plugins]]
-repo = 'nvim-lua/plenary.nvim'
-
-[[plugins]]
 repo = 'atusy/tsnode-marker.nvim'
 depends = 'nvim-treesitter'
 on_ft = 'markdown'
