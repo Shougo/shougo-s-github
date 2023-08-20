@@ -80,11 +80,11 @@ nnoremap <buffer> ff
 
 " Cursor move
 nnoremap <C-n>
-      \ <Cmd>call ddu#ui_sync_action('files', 'cursorNext')<CR>
-      \ <Cmd>call ddu#ui_sync_action('files', 'itemAction')<CR>
+      \ <Cmd>call ddu#ui#multi_actions(
+      \   ['cursorNext', 'itemAction'], 'files')<CR>
 nnoremap <C-p>
-      \ <Cmd>call ddu#ui_sync_action('files', 'cursorPrevious')<CR>
-      \ <Cmd>call ddu#ui_sync_action('files', 'itemAction')<CR>
+      \ <Cmd>call ddu#ui#multi_actions(
+      \   ['cursorPrevious', 'itemAction'], 'files')<CR>
 nnoremap <buffer> <C-j>
       \ <Cmd>call ddu#ui#do_action('cursorNext')<CR>
 nnoremap <buffer> <C-k>
