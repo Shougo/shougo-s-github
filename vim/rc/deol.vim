@@ -4,7 +4,8 @@ nnoremap <expr> [Space]s
 nnoremap sD  <Cmd>call deol#kill_editor()<CR>
 nnoremap <C-t> <Cmd>Ddu -name=deol -sync
       \ -ui-param-ff-split=`has('nvim') ? 'floating' : 'horizontal'`
-      \ -ui-param-ff-winRow=1 -ui-param-ff-autoResize
+      \ -ui-param-ff-winRow=1
+      \ -ui-param-ff-autoResize
       \ -ui-param-ff-cursorPos=`tabpagenr()-1`
       \ deol<CR>
 " }}}

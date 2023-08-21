@@ -62,7 +62,7 @@ xnoremap <expr> ;r
       \ (mode() ==# 'V' ? '"_R<Esc>' : '"_d')
       \ .. '<Cmd>Ddu -name=register register
       \ -source-option-ff-defaultAction=insert
-      \ -ui-param-autoResize<CR>'
+      \ -ui-param-ff-autoResize<CR>'
 nnoremap sg <Cmd>Ddu dein<CR>
 nnoremap <C-o> <Cmd>Ddu jumplist <CR>
 
