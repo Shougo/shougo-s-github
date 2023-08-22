@@ -12,9 +12,6 @@ nnoremap ss
       \ -resume=`ddu#get_items(#{ sources: ['file_point'] })->empty() ?
       \          'v:true' : 'v:false'`
       \ -ui-param-ff-displaySourceName=short
-      \ -filter-param-matcher_ignore_current_buffer-ignores=
-      \`'%'->bufname()->fnamemodify(':p')`
-      \ -filter-param-matcher_ignore_current_buffer-actionKey=path
       \ <CR>
 nnoremap sr
       \ <Cmd>Ddu -name=files -resume<CR>
@@ -121,8 +118,10 @@ if !('g:shougo_s_github_load_state'->exists())
         \ })
   call timer_start(10, { _ ->
         \   ddu#load('filter', [
-        \     'matcher_kensaku', 'matcher_relative', 'matcher_substring',
-        \     'matcher_ignore_current_buffer', 'matcher_hidden',
+        \     'matcher_kensaku',
+        \     'matcher_relative',
+        \     'matcher_substring',
+        \     'matcher_hidden',
         \     'sorter_alpha',
         \     'converter_hl_dir',
         \   ])

@@ -194,6 +194,24 @@ hook_source = '''
     endif
   endfunction
 
+  autocmd MyAutoCmd User skkeleton-handled call s:skkeleton_handled()
+  function! s:skkeleton_handled() abort
+    if g:skkeleton#mode ==# ''
+      return
+    endif
+
+    " Change the cursor color
+    const state = g:skkeleton#state
+
+    if state.phase ==# 'henkan' ||
+        \ state.phase ==# 'input:okurinasi' ||
+        \ state.phase ==# 'input:okuriari'
+      highlight Cursor       gui=NONE guibg=#a0f0a0 guifg=fg
+    else
+      call s:skkeleton_changed()
+    endif
+  endfunction
+
   call skkeleton#initialize()
 '''
 

@@ -90,7 +90,6 @@ export class Config extends BaseConfig {
           matchers: [
             "matcher_relative",
             "matcher_substring",
-            "matcher_ignore_current_buffer",
           ],
           converters: ["converter_hl_dir"],
         },
@@ -217,8 +216,7 @@ export class Config extends BaseConfig {
           defaultAction: "open",
         },
       },
-      kindParams: {
-      },
+      kindParams: {},
       actionOptions: {
         narrow: {
           quit: false,
