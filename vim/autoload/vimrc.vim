@@ -58,7 +58,7 @@ function vimrc#add_numbers(num) abort
     const next_num = next_line->matchstr('^\d\+')
     const new_line = prev_line[: -(prev_num->len())-1]
           \ ..
-          \ printf($'%0{(prev_num .. next_num)->len()}d',
+          \ printf('%0' .. (prev_num .. next_num)->len() .. 'd',
           \    [0, (prev_num .. next_num)
           \         ->substitute('^0\+', '', '') + a:num]->max())
           \ .. next_line[next_num->len():]
@@ -140,11 +140,11 @@ function vimrc#append_diff() abort
   let git_root = '.git'->finddir('.;')->fnamemodify(':h')
 
   " Get the diff of the staged changes relative to the Git repository root
-  let diff = $'git -C {git_root} diff --cached'->system()
+  let diff = 'git -C ' .. git_root .. ' diff --cached'->system()
 
   " Add a comment character to each line of the diff
   let comment_diff = diff->split('\n')[: 200]
-        \ ->map({ idx, line -> $'# {line}' })
+        \ ->map({ idx, line -> '# '.. line })
 
   " Append the diff to the commit message
   call append('$'->line(), comment_diff)
