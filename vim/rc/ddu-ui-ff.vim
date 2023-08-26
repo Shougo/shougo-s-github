@@ -37,9 +37,6 @@ nnoremap <buffer> e
 nnoremap <buffer> E
       \ <Cmd>call ddu#ui#do_action('itemAction',
       \ #{ params: input('params: ', '{}')->eval() })<CR>
-nnoremap <buffer> v
-      \ <Cmd>call ddu#ui#do_action('itemAction',
-      \ #{ name: 'open', params: #{ command: 'vsplit' } })<CR>
 nnoremap <buffer> N
       \ <Cmd>call ddu#ui#do_action('itemAction',
       \ b:ddu_ui_name ==# 'file' ?

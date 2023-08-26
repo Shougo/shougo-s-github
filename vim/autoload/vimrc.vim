@@ -140,7 +140,7 @@ function vimrc#append_diff() abort
   let git_root = '.git'->finddir('.;')->fnamemodify(':h')
 
   " Get the diff of the staged changes relative to the Git repository root
-  let diff = 'git -C ' .. git_root .. ' diff --cached'->system()
+  let diff = ('git -C ' .. git_root .. ' diff --cached')->system()
 
   " Add a comment character to each line of the diff
   let comment_diff = diff->split('\n')[: 200]
