@@ -275,6 +275,7 @@ alias vim="TERM=xterm-256color nvim  --listen $HOME/.cache/nvim/server.pipe\
 #alias goneovim='~/Downloads/goneovim/goneovim &>/dev/null &'
 #alias gn=goneovim
 alias nvui='nvui &'
+alias neovide='neovide --multigrid'
 
 
 #####################################################################

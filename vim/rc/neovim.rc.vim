@@ -29,12 +29,15 @@ autocmd MyAutoCmd TextYankPost *
       \ { higroup='IncSearch', timeout=100 }
 
 " For neovide
-let g:neovide_no_idle = v:true
-let g:neovide_cursor_animation_length = 0
-let g:neovide_cursor_trail_length = 0
+if 'g:neovide'->exists()
+  let g:neovide_no_idle = v:true
+  let g:neovide_cursor_animation_length = 0
+  let g:neovide_cursor_trail_length = 0
+  let g:neovide_hide_mouse_when_typing = v:true
+endif
 
 if has('win32')
   set guifont=Firge:h13
 else
-  "set guifont=Courier\ 10\ Pitch\ 14
+  set guifont=Monospace:h10
 endif
