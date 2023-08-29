@@ -26,20 +26,20 @@ lua_source = '''
 '''
 hook_source = '''
   " Custom colors
-  highlight CandyBlue         gui=NONE guibg=bg guifg=#1e95fd
-  highlight CandyCranberry    gui=NONE guibg=bg guifg=#4ae2e2
-  highlight CandyEmerald      gui=NONE guibg=bg guifg=#44ff44
-  highlight CandyGreen        gui=NONE guibg=bg guifg=#66ff66
-  highlight CandyLime         gui=NONE guibg=bg guifg=#4ae2e2
-  highlight CandyOrange       gui=NONE guibg=bg guifg=#ffb30a
-  highlight CandyRed          gui=NONE guibg=bg guifg=#ff6666
-  highlight CandySky          gui=NONE guibg=bg guifg=#6699ff
-  highlight CandyViolet       gui=NONE guibg=bg guifg=#ff13ff
-  highlight CandyWhite        gui=NONE guibg=bg guifg=#cccccc
-  highlight CandyYellow       gui=NONE guibg=bg guifg=#ffd30a
-  highlight CandyCoral        gui=NONE guibg=bg guifg=#f820ff
-  highlight CandyTurquoise    gui=NONE guibg=bg guifg=#1bc8c8
-  highlight CandyCrimson      gui=NONE guibg=bg guifg=#ff4444
+  highlight CandyBlue         gui=NONE guibg=NONE guifg=#1e95fd
+  highlight CandyCranberry    gui=NONE guibg=NONE guifg=#4ae2e2
+  highlight CandyEmerald      gui=NONE guibg=NONE guifg=#44ff44
+  highlight CandyGreen        gui=NONE guibg=NONE guifg=#66ff66
+  highlight CandyLime         gui=NONE guibg=NONE guifg=#4ae2e2
+  highlight CandyOrange       gui=NONE guibg=NONE guifg=#ffb30a
+  highlight CandyRed          gui=NONE guibg=NONE guifg=#ff6666
+  highlight CandySky          gui=NONE guibg=NONE guifg=#6699ff
+  highlight CandyViolet       gui=NONE guibg=NONE guifg=#ff13ff
+  highlight CandyWhite        gui=NONE guibg=NONE guifg=#cccccc
+  highlight CandyYellow       gui=NONE guibg=NONE guifg=#ffd30a
+  highlight CandyCoral        gui=NONE guibg=NONE guifg=#f820ff
+  highlight CandyTurquoise    gui=NONE guibg=NONE guifg=#1bc8c8
+  highlight CandyCrimson      gui=NONE guibg=NONE guifg=#ff4444
 
   " neovim treesitter colors
   highlight! link @attribute        CandyViolet
