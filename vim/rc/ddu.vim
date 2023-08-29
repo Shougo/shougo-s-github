@@ -55,6 +55,10 @@ nnoremap ;d <Cmd>Ddu
       \ -ui-param-ff-ignoreEmpty
       \ -ui-param-ff-displayTree
       \ <CR>
+nnoremap [Space]o <Cmd>Ddu
+      \ -name=output output
+      \ -source-param-output-command='`'Command: '->input('', 'command')`'
+      \ <CR>
 xnoremap <expr> ;r
       \ (mode() ==# 'V' ? '"_R<Esc>' : '"_d')
       \ .. '<Cmd>Ddu -name=register register
