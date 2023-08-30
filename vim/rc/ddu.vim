@@ -2,9 +2,10 @@
 nnoremap s<Space> <Cmd>Ddu
       \ -name=files file
       \ -source-option-file-path=`expand('$BASE_DIR')`
+      \ -ui-param-ff-split=floating
       \ <CR>
 nnoremap ss
-      \ <Cmd>Ddu -name=files file_point file_old
+      \ <Cmd>Ddu -name=files-`tabpagenr()` file_point file_old
       \ `'.git'->finddir(';') != '' ? 'file_git' : ''`
       \ file -source-option-file-volatile
       \ file -source-param-file-new -source-option-file-volatile
@@ -12,9 +13,8 @@ nnoremap ss
       \ -resume=`ddu#get_items(#{ sources: ['file_point'] })->empty() ?
       \          'v:true' : 'v:false'`
       \ -ui-param-ff-displaySourceName=short
+      \ -ui-param-ff-split=floating
       \ <CR>
-nnoremap sr
-      \ <Cmd>Ddu -name=files -resume<CR>
 nnoremap / <Cmd>Ddu
       \ -name=search line -resume=v:false
       \ -ui-param-ff-startFilter=v:true

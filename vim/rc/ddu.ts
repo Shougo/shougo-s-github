@@ -227,14 +227,6 @@ export class Config extends BaseConfig {
       },
     });
 
-    args.contextBuilder.patchLocal("files", {
-      uiParams: {
-        ff: {
-          split: "floating",
-        },
-      },
-    });
-
     return Promise.resolve();
   }
 }
