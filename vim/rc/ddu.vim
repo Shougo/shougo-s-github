@@ -9,7 +9,7 @@ nnoremap ss
       \ `'.git'->finddir(';') != '' ? 'file_git' : ''`
       \ file -source-option-file-volatile
       \ file -source-param-file-new -source-option-file-volatile
-      \ -unique -expandInput
+      \ -unique -expandInput -sync
       \ -resume=`ddu#get_items(#{ sources: ['file_point'] })->empty() ?
       \          'v:true' : 'v:false'`
       \ -ui-param-ff-displaySourceName=short
