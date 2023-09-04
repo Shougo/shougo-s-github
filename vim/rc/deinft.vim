@@ -36,6 +36,7 @@ endif
 autocmd MyAutoCmd BufEnter,BufRead,BufNewFile *.md setlocal iskeyword-='
 
 " For auto completion in gitcommit buffer.
+autocmd MyAutoCmd BufEnter COMMIT_EDITMSG syntax enable
 autocmd MyAutoCmd BufReadPost COMMIT_EDITMSG call vimrc#append_diff()
 
 " Update filetype.
