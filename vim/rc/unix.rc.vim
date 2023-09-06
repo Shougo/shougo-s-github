@@ -23,9 +23,13 @@ if !has('nvim')
   set term=xterm-256color
 
   " Change cursor shape.
-  let &t_SI = "\<Esc>[6 q"
-  let &t_SR = "\<Esc>[4 q"
-  let &t_EI = "\<Esc>[0 q"
+  let &t_SI = "\e[6 q"
+  let &t_SR = "\e[4 q"
+  let &t_EI = "\e[0 q"
+
+  " IME control
+  " NOTE: Tera Term and mintty supports it.
+  let &t_EI .= "\e[<0t"
 endif
 
 " Disable the mouse.
