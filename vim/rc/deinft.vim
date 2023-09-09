@@ -159,7 +159,10 @@ function! s:vim_syntax() abort
   unlet! b:current_syntax
   silent! syntax include @helpVimScript syntax/vim.vim
   syntax region helpVimScript
-        \ start='\%(^\s*\|\s\)>\%(vim\)\?$' end='^<\|^$'
+        \ start=/^>[a-z0-9]*$/
+        \ start=/ >[a-z0-9]*$/
+        \ end=/^</
+        \ end=/^[^ \t]/me=e-1  concealends
         \ contains=@helpVimScript keepend
 endfunction
 " }}}
