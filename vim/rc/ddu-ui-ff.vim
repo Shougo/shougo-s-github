@@ -53,6 +53,8 @@ nnoremap <buffer> K
       \ <Cmd>call ddu#ui#do_action('kensaku')<CR>
 nnoremap <buffer> <C-v>
       \ <Cmd>call ddu#ui#do_action('toggleAutoAction')<CR>
+nnoremap <buffer> <C-l>
+      \ <Cmd>call ddu#redraw(b:ddu_ui_name, #{ refreshItems: v:true })<CR>
 
 xnoremap <silent><buffer> <Space>
       \ :call ddu#ui#do_action('toggleSelectItem')<CR>
