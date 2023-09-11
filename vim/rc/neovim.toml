@@ -1,7 +1,6 @@
 [[plugins]]
 repo = 'nvim-treesitter/nvim-treesitter'
 if = '!has("win32")'
-rev = 'main'
 on_event = ['BufRead', 'CursorHold']
 hook_post_update = 'TSUpdate'
 lua_source = '''
