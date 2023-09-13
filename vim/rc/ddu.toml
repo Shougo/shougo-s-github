@@ -140,6 +140,10 @@ repo = 'Shougo/ddu-kind-word'
 on_source = 'ddu.vim'
 
 [[plugins]]
+repo = '4513ECHO/ddu-kind-url'
+on_source = 'ddu.vim'
+
+[[plugins]]
 repo = '4513ECHO/vim-readme-viewer'
 on_source = ['ddu.vim']
 hook_add = '''

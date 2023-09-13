@@ -215,6 +215,9 @@ export class Config extends BaseConfig {
         readme_viewer: {
           defaultAction: "open",
         },
+        url: {
+          defaultAction: "browse",
+        },
       },
       kindParams: {},
       actionOptions: {
