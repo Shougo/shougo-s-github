@@ -63,7 +63,10 @@ if filereadable(expand('~/.secret_vimrc'))
   source ~/.secret_vimrc
 endif
 
-execute 'source' $"{fnamemodify(expand('<sfile>'), ':h')}/dein.vim"
+const base_path = fnamemodify(expand('<sfile>'), ':h')
+
+execute 'source' base_path .. '/dein.vim'
+"execute 'source' base_path .. '/dpp.vim'
 
 "---------------------------------------------------------------------------
 
