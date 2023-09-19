@@ -7,27 +7,36 @@ export class Config extends BaseConfig {
     basePath: string;
     dpp: Dpp;
   }): Promise<Plugin[]> {
-    let plugins: Plugin[] = []
+    let plugins: Plugin[] = [];
 
-    plugins = plugins.concat(await args.dpp.extAction(args.denops, "local", "local", {
-      directory: "~/work",
-      options: {
-        frozen: true,
-        merged: false,
-      },
-      includes: [
-        "vim*", "nvim-*", "*.vim", "*.nvim",
-        "ddc-*", "ddu-*",
-        "skkeleton", "neco-vim",
-      ],
-    }));
+    plugins = plugins.concat(
+      await args.dpp.extAction(args.denops, "local", "local", {
+        directory: "~/work",
+        options: {
+          frozen: true,
+          merged: false,
+        },
+        includes: [
+          "vim*",
+          "nvim-*",
+          "*.vim",
+          "*.nvim",
+          "ddc-*",
+          "ddu-*",
+          "skkeleton",
+          "neco-vim",
+        ],
+      }),
+    );
 
-    plugins = plugins.concat(await args.dpp.extAction(args.denops, "toml", "load", {
-      path: "$BASE_DIR/dein.toml",
-      options: {
-        lazy: true,
-      },
-    }));
+    plugins = plugins.concat(
+      await args.dpp.extAction(args.denops, "toml", "load", {
+        path: "$BASE_DIR/dein.toml",
+        options: {
+          lazy: true,
+        },
+      }),
+    );
 
     console.log(plugins);
 
