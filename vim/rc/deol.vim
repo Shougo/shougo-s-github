@@ -79,7 +79,7 @@ nnoremap <buffer> [Space]gs
 nnoremap <buffer> [Space]gA
       \ <Cmd>call deol#send('git commit --amend')<CR>
 nnoremap <buffer> e <Plug>(deol_edit)
-tmap <buffer><expr> <CR>
+tnoremap <buffer><expr> <CR>
       \ (pum#visible() ? '<Cmd>call pum#map#confirm()<CR>' : '')
       \ .. '<Plug>(deol_execute_line)'
 
