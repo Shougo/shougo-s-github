@@ -1,5 +1,5 @@
-import { BaseConfig } from "https://deno.land/x/ddc_vim@v4.0.4/types.ts";
-import { Denops } from "https://deno.land/x/ddc_vim@v4.0.4/deps.ts";
+import { BaseConfig, Dpp, Plugin } from "https://deno.land/x/dpp_vim@v0.0.0/types.ts";
+import { Denops } from "https://deno.land/x/dpp_vim@v0.0.0/deps.ts";
 
 export class Config extends BaseConfig {
   override async config(args: {
@@ -9,7 +9,7 @@ export class Config extends BaseConfig {
   }): Promise<{
     plugins: Plugin[];
     stateLines: string[];
-  }[]> {
+  }> {
     let plugins: Plugin[] = [];
 
     plugins = plugins.concat(
@@ -29,7 +29,7 @@ export class Config extends BaseConfig {
           "skkeleton",
           "neco-vim",
         ],
-      }),
+      }) as Plugin[],
     );
 
     plugins = plugins.concat(
@@ -38,7 +38,7 @@ export class Config extends BaseConfig {
         options: {
           lazy: true,
         },
-      }),
+      }) as Plugin[],
     );
 
     const stateLines = await args.dpp.extAction(
