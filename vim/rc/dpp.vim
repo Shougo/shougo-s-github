@@ -33,7 +33,7 @@ const s:dpp_base = '~/.cache/dpp'
 let $BASE_DIR = '<sfile>'->expand()->fnamemodify(':h')
 
 
-if dpp#load_state(s:dpp_base)
+if dpp#min#load_state(s:dpp_base)
   autocmd User DenopsReady
         \ call dpp#make_state(s:dpp_base, '$BASE_DIR/dpp.ts'->expand())
 endif

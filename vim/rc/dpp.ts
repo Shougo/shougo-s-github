@@ -6,7 +6,10 @@ export class Config extends BaseConfig {
     denops: Denops;
     basePath: string;
     dpp: Dpp;
-  }): Promise<Plugin[]> {
+  }): Promise<{
+    plugins: Plugin[];
+    stateLines: string[];
+  }[]> {
     let plugins: Plugin[] = [];
 
     plugins = plugins.concat(
@@ -38,8 +41,15 @@ export class Config extends BaseConfig {
       }),
     );
 
-    console.log(plugins);
+    const stateLines = await args.dpp.extAction(
+      args.denops,
+      "lazy",
+      "makeState",
+    );
 
-    return plugins;
+    return {
+      plugins,
+      stateLines,
+    };
   }
 }
