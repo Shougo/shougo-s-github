@@ -11,6 +11,10 @@ export class Config extends BaseConfig {
     plugins: Plugin[];
     stateLines: string[];
   }> {
+    args.contextBuilder.setGlobal({
+      protocols: ['git'],
+    });
+
     let plugins: Plugin[] = [];
 
     const [_, options] = await args.contextBuilder.get(args.denops);
