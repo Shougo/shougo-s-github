@@ -57,6 +57,9 @@ export class Config extends BaseConfig {
       options,
       "lazy",
       "makeState",
+      {
+        plugins,
+      }
     ) as string[];
 
     return {

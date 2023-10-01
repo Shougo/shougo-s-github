@@ -165,6 +165,12 @@ hook_source = '''
             \     },
             \   },
             \ })
+
+    if (!has('nvim') || $DISPLAY !=# '') && has('clipboard')
+      " Copy to clipboard to use Vim as IME
+      autocmd InsertLeave * ++once
+        \ let @* = '.'->getline() | let @+ = @*
+    endif
   endfunction
 
   autocmd MyAutoCmd User skkeleton-disable-pre call s:skkeleton_post()
