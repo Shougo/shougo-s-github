@@ -10,7 +10,7 @@ for s:plugin in [
       \ ]->filter({ _, val ->
       \           &runtimepath !~# '/' .. val->fnamemodify(':t') })
   " Search from current directory
-  let s:dir = 'dpp.vim'->fnamemodify(':p')
+  let s:dir = s:plugin->fnamemodify(':t')->fnamemodify(':p')
   if !(s:dir->isdirectory())
     " Search from $CACHE directory
     let s:dir = $CACHE .. '/dpp/repos/github.com/' .. s:plugin
@@ -19,10 +19,11 @@ for s:plugin in [
     endif
   endif
 
-  execute 'set runtimepath^='
-        \ .. s:dir->fnamemodify(':p')->substitute('[/\\]$', '', '')
+  if s:plugin->fnamemodify(':t') ==# 'dpp.vim'
+    execute 'set runtimepath^='
+          \ .. s:dir->fnamemodify(':p')->substitute('[/\\]$', '', '')
+  endif
 endfor
-
 
 "---------------------------------------------------------------------------
 " dpp configurations.
