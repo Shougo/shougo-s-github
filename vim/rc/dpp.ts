@@ -38,7 +38,7 @@ export class Config extends BaseConfig {
 
     const tomlPlugins = await args.dpp.extAction(
       args.denops, context, options, "toml", "load", {
-        path: "$BASE_DIR/dein.toml",
+        path: "$BASE_DIR/deinlazy.toml",
         options: {
           lazy: true,
         },
