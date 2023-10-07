@@ -229,6 +229,14 @@ export class Config extends BaseConfig {
       args.contextBuilder.patchFiletype("vim", {
         specialBufferCompletion: true,
       });
+
+      args.contextBuilder.patchFiletype("typescript", {
+        sourceParams: {
+          "nvim-lsp": {
+            lspEngine: "lspoints",
+          },
+        },
+      });
     }
   }
 }

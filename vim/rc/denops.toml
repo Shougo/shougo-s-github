@@ -136,6 +136,7 @@ hook_add = '''
   inoremap <C-j> <Plug>(skkeleton-toggle)
   cnoremap <C-j> <Plug>(skkeleton-toggle)
   tnoremap <C-j> <Plug>(skkeleton-toggle)
+  nnoremap <C-j> i<Plug>(skkeleton-enable)
 '''
 hook_source = '''
   "let g:skkeleton#debug = v:true
@@ -221,10 +222,30 @@ hook_source = '''
   call skkeleton#initialize()
 '''
 
-#[[plugins]]
-#repo = 'matsui54/denops-popup-preview.vim'
-#on_source = ['ddc.vim']
-#hook_source = '''
-#  autocmd MyAutoCmd User PumCompleteChanged ++once
-#  \ call popup_preview#enable()
-#'''
+[[plugins]]
+repo = 'kuuote/lspoints'
+on_event = ['BufRead']
+depends = 'denops.vim'
+hook_source = '''
+call lspoints#load_extensions([
+        \   'nvim_diagnostics',
+        \ ])
+
+function s:attach_denols() abort
+  call lspoints#attach('denols', #{
+          \   cmd: ['deno', 'lsp'],
+          \   initializationOptions: #{
+          \     enable: v:true,
+          \     unstable: v:true,
+          \     suggest: #{
+          \       autoImports: v:false,
+          \     },
+          \   },
+          \ })
+endfunction
+
+if &l:filetype ==# 'typescript' || &l:filetype ==# 'typescriptreact'
+  call s:attach_denols()
+endif
+autocmd MyAutoCmd FileType typescript,typescriptreact call s:attach_denols()
+'''
