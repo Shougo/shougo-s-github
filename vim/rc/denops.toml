@@ -231,21 +231,30 @@ call lspoints#load_extensions([
         \   'nvim_diagnostics',
         \ ])
 
-function s:attach_denols() abort
-  call lspoints#attach('denols', #{
-          \   cmd: ['deno', 'lsp'],
-          \   initializationOptions: #{
-          \     enable: v:true,
-          \     unstable: v:true,
-          \     suggest: #{
-          \       autoImports: v:false,
-          \     },
-          \   },
-          \ })
+function s:attach_ls() abort
+  if &l:filetype ==# 'typescript' || &l:filetype ==# 'typescriptreact'
+    " Deno lsp
+
+    " Check "package.json" exists
+    if findfile('package.json', '.;') !=# ''
+      return
+    endif
+
+    call lspoints#attach('denols', #{
+            \   cmd: ['deno', 'lsp'],
+            \   initializationOptions: #{
+            \     enable: v:true,
+            \     lint: v:true,
+            \     documentPreloadLimit: 10,
+            \     unstable: v:true,
+            \     suggest: #{
+            \       autoImports: v:false,
+            \     },
+            \   },
+            \ })
+  endif
 endfunction
 
-if &l:filetype ==# 'typescript' || &l:filetype ==# 'typescriptreact'
-  call s:attach_denols()
-endif
-autocmd MyAutoCmd FileType typescript,typescriptreact call s:attach_denols()
+call s:attach_ls()
+autocmd MyAutoCmd FileType * call s:attach_ls()
 '''

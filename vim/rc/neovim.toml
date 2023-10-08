@@ -144,39 +144,18 @@ lua_source = '''
   require('mason-lspconfig').setup_handlers({
     function(server_name)
       local nvim_lsp = require('lspconfig')
-      local is_node_repo = vim.fn.findfile('package.json', '.;') ~= ''
-
       local opts = {}
 
       if server_name == 'vtsls' then
-        -- Must be node directory
-        if not is_node_repo then
+        -- NOTE: Must be node directory
+        if vim.fn.findfile('package.json', '.;') == '' then
           return
         end
 
         opts.root_dir = nvim_lsp.util.root_pattern('package.json')
       elseif server_name == 'denols' then
+        -- NOTE: Disable denols.  It is too slow.
         return
-        ---- Must not be node directory
-        --if is_node_repo then
-        --  return
-        --end
-
-        --opts.init_options = {
-        --  lint = true,
-        --  unstable = true,
-        --  documentPreloadLimit = 10,
-        --  suggest = {
-        --    autoImports = false,
-        --    imports = {
-        --      hosts = {
-        --        ['https://deno.land'] = true,
-        --        ['https://cdn.nest.land'] = true,
-        --        ['https://crux.land'] = true
-        --      },
-        --    },
-        --  },
-        --}
       elseif server_name == 'solargraph' then
         opts.single_file_support = true
         opts.capabilities = {}
