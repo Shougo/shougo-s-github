@@ -17,7 +17,7 @@ export class Config extends BaseConfig {
         "CmdlineChanged",
         "TextChangedT",
       ],
-      sources: ["codeium", "around", "file"],
+      sources: ["codeium", "around", "file", "line"],
       cmdlineSources: {
         ":": ["cmdline", "cmdline-history", "around"],
         "@": ["input", "cmdline-history", "file", "around"],

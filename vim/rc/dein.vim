@@ -87,5 +87,5 @@ call dein#save_state()
 
 " NOTE: filetype detection is needed
 if '%'->bufname() !=# ''
-  silent filetype detect
+  silent! filetype detect
 endif
