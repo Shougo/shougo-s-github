@@ -71,7 +71,6 @@ export class Config extends BaseConfig {
         },
         line: {
           mark: "line",
-          matchers: ["matcher_vimregexp"],
         },
         mocword: {
           mark: "mocword",
