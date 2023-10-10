@@ -10,6 +10,8 @@ hook_source = '''
   call pum#set_option(#{
     \   auto_confirm_time: 3000,
     \   auto_select: v:false,
+    \   border: 'none',
+    \   highlight_scrollbar: 'None',
     \   horizontal_menu: v:false,
     \   max_width: 80,
     \   offset_cmdcol: 0,
