@@ -1,4 +1,9 @@
-import { BaseConfig, ContextBuilder, Dpp, Plugin } from "https://deno.land/x/dpp_vim@v0.0.2/types.ts";
+import {
+  BaseConfig,
+  ContextBuilder,
+  Dpp,
+  Plugin,
+} from "https://deno.land/x/dpp_vim@v0.0.2/types.ts";
 import { Denops, fn } from "https://deno.land/x/dpp_vim@v0.0.2/deps.ts";
 import { Env } from "https://deno.land/x/env@v3.0.1/env.js";
 
@@ -37,12 +42,17 @@ export class Config extends BaseConfig {
     const [context, options] = await args.contextBuilder.get(args.denops);
 
     const tomlPlugins = await args.dpp.extAction(
-      args.denops, context, options, "toml", "load", {
+      args.denops,
+      context,
+      options,
+      "toml",
+      "load",
+      {
         path: "$BASE_DIR/deinlazy.toml",
         options: {
           lazy: true,
         },
-      }
+      },
     ) as Plugin[];
 
     const recordPlugins: Record<string, Plugin> = {};
@@ -51,7 +61,12 @@ export class Config extends BaseConfig {
     }
 
     const localPlugins = await args.dpp.extAction(
-      args.denops, context, options, "local", "local", {
+      args.denops,
+      context,
+      options,
+      "local",
+      "local",
+      {
         directory: "~/work",
         options: {
           frozen: true,
@@ -67,7 +82,7 @@ export class Config extends BaseConfig {
           "skkeleton",
           "neco-vim",
         ],
-      }
+      },
     ) as Plugin[];
 
     // Merge localPlugins
@@ -90,7 +105,7 @@ export class Config extends BaseConfig {
       "makeState",
       {
         plugins: Object.values(recordPlugins),
-      }
+      },
     ) as string[];
 
     return {

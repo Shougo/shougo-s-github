@@ -7,6 +7,14 @@ export class Config extends BaseConfig {
     const hasNvim = args.denops.meta.host === "nvim";
     const hasWindows = await fn.has(args.denops, "win32");
 
+    const commonSources = [
+      "codeium",
+      "around",
+      "yank",
+      "file",
+      "line",
+    ];
+
     args.contextBuilder.patchGlobal({
       ui: "pum",
       autoCompleteEvents: [
@@ -17,7 +25,7 @@ export class Config extends BaseConfig {
         "CmdlineChanged",
         "TextChangedT",
       ],
-      sources: ["codeium", "around", "file", "line"],
+      sources: commonSources,
       cmdlineSources: {
         ":": ["cmdline", "cmdline-history", "around"],
         "@": ["input", "cmdline-history", "file", "around"],
@@ -121,6 +129,9 @@ export class Config extends BaseConfig {
           minAutoCompleteLength: 2,
           isVolatile: true,
         },
+        yank: {
+          mark: "Y",
+        },
       },
       sourceParams: {
         buffer: {
@@ -150,7 +161,7 @@ export class Config extends BaseConfig {
       ]
     ) {
       args.contextBuilder.patchFiletype(filetype, {
-        sources: ["around", "codeium", "mocword"],
+        sources: commonSources.concat(["mocword"]),
       });
     }
 
@@ -216,26 +227,31 @@ export class Config extends BaseConfig {
         ]
       ) {
         args.contextBuilder.patchFiletype(filetype, {
-          sources: ["codeium", "nvim-lsp", "around"],
+          sources: ["nvim-lsp"].concat(commonSources),
         });
       }
 
       args.contextBuilder.patchFiletype("lua", {
-        sources: ["codeium", "nvim-lsp", "nvim-lua", "around"],
-      });
-
-      // Enable specialBufferCompletion for cmdwin.
-      args.contextBuilder.patchFiletype("vim", {
-        specialBufferCompletion: true,
-      });
-
-      args.contextBuilder.patchFiletype("typescript", {
-        sourceParams: {
-          "nvim-lsp": {
-            lspEngine: "lspoints",
-          },
-        },
+        sources: [
+          "nvim-lsp",
+          "nvim-lua",
+        ].concat(commonSources),
       });
     }
+
+    args.contextBuilder.patchFiletype("vim", {
+      // Enable specialBufferCompletion for cmdwin.
+      specialBufferCompletion: true,
+      sources: ["necovim"].concat(commonSources),
+    });
+
+    // Use "lspoints" for deno
+    args.contextBuilder.patchFiletype("typescript", {
+      sourceParams: {
+        "nvim-lsp": {
+          lspEngine: "lspoints",
+        },
+      },
+    });
   }
 }
