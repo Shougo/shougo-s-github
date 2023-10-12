@@ -159,7 +159,7 @@ hook_source = '''
     " Overwrite sources
     let s:prev_buffer_config = ddc#custom#get_buffer()
     call ddc#custom#patch_buffer(#{
-            \   sources: ['around', 'skkeleton'],
+            \   sources: ['around', 'skkeleton', 'line'],
             \   sourceOptions: #{
             \     _: #{
             \       keywordPattern: '[ァ-ヮア-ンー]+',

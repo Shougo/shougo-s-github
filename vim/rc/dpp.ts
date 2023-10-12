@@ -5,9 +5,7 @@ import {
   Plugin,
 } from "https://deno.land/x/dpp_vim@v0.0.2/types.ts";
 import { Denops, fn } from "https://deno.land/x/dpp_vim@v0.0.2/deps.ts";
-import { Env } from "https://deno.land/x/env@v3.0.1/env.js";
 
-const env = new Env();
 
 export class Config extends BaseConfig {
   override async config(args: {
@@ -111,7 +109,7 @@ export class Config extends BaseConfig {
     return {
       checkFiles: await fn.globpath(
         args.denops,
-        env.get("BASE_DIR"),
+        Deno.env.get("BASE_DIR"),
         "*",
         1,
         1,
