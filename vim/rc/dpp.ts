@@ -3,8 +3,8 @@ import {
   ContextBuilder,
   Dpp,
   Plugin,
-} from "https://deno.land/x/dpp_vim@v0.0.2/types.ts";
-import { Denops, fn } from "https://deno.land/x/dpp_vim@v0.0.2/deps.ts";
+} from "https://deno.land/x/dpp_vim@v0.0.3/types.ts";
+import { Denops, fn } from "https://deno.land/x/dpp_vim@v0.0.3/deps.ts";
 
 
 export class Config extends BaseConfig {
@@ -77,6 +77,7 @@ export class Config extends BaseConfig {
           "*.nvim",
           "ddc-*",
           "ddu-*",
+          "dpp-*",
           "skkeleton",
           "neco-vim",
         ],

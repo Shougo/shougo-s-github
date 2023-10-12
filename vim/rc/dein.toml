@@ -4,9 +4,6 @@ hooks_file = '$BASE_DIR/deinft.vim'
 repo = 'Shougo/dein.vim'
 
 [[plugins]]
-repo = 'Shougo/dpp.vim'
-
-[[plugins]]
 repo = 'vim-jp/autofmt'
 
 [[plugins]]
