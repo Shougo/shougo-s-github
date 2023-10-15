@@ -12,7 +12,6 @@ export class Config extends BaseConfig {
       "around",
       "yank",
       "file",
-      "line",
     ];
 
     args.contextBuilder.patchGlobal({
@@ -161,7 +160,7 @@ export class Config extends BaseConfig {
       ]
     ) {
       args.contextBuilder.patchFiletype(filetype, {
-        sources: commonSources.concat(["mocword"]),
+        sources: commonSources.concat(["mocword", "line"]),
       });
     }
 

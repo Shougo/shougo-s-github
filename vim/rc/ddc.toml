@@ -11,6 +11,7 @@ hook_source = '''
     \   auto_confirm_time: 3000,
     \   auto_select: v:false,
     \   border: 'none',
+    \   follow_cursor: v:false,
     \   highlight_scrollbar: 'None',
     \   horizontal_menu: v:false,
     \   max_width: 80,
