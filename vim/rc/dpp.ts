@@ -39,7 +39,7 @@ export class Config extends BaseConfig {
 
     const [context, options] = await args.contextBuilder.get(args.denops);
 
-    const tomlPlugins = await args.dpp.extAction(
+    const tomlPlugins = (await args.dpp.extAction(
       args.denops,
       context,
       options,
@@ -51,7 +51,19 @@ export class Config extends BaseConfig {
           lazy: true,
         },
       },
-    ) as Plugin[];
+    ) as Plugin[]).concat(await args.dpp.extAction(
+      args.denops,
+      context,
+      options,
+      "toml",
+      "load",
+      {
+        path: "$BASE_DIR/dein.toml",
+        options: {
+          lazy: false,
+        },
+      },
+    ) as Plugin[]);
 
     const recordPlugins: Record<string, Plugin> = {};
     for (const plugin of tomlPlugins) {
