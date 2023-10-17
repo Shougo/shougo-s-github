@@ -46,6 +46,7 @@ endif
 let g:dein#inline_vimrcs = [
       \ '$BASE_DIR/options.rc.vim',
       \ '$BASE_DIR/mappings.rc.vim',
+      \ '$BASE_DIR/filetype.rc.vim',
       \ ]
 if has('nvim')
   call add(g:dein#inline_vimrcs, '$BASE_DIR/neovim.rc.vim')

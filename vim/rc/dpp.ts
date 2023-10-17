@@ -6,6 +6,12 @@ import {
 } from "https://deno.land/x/dpp_vim@v0.0.3/types.ts";
 import { Denops, fn } from "https://deno.land/x/dpp_vim@v0.0.3/deps.ts";
 
+type Toml = {
+  hooks_file?: string;
+  ftplugins?: Record<string, string>;
+  plugins: Plugin[];
+};
+
 export class Config extends BaseConfig {
   override async config(args: {
     denops: Denops;
@@ -22,6 +28,7 @@ export class Config extends BaseConfig {
     const inlineVimrcs = [
       "$BASE_DIR/options.rc.vim",
       "$BASE_DIR/mappings.rc.vim",
+      "$BASE_DIR/filetype.rc.vim",
     ];
     if (hasNvim) {
       inlineVimrcs.push("$BASE_DIR/neovim.rc.vim");
@@ -42,7 +49,8 @@ export class Config extends BaseConfig {
     const [context, options] = await args.contextBuilder.get(args.denops);
 
     // Load toml plugins
-    let tomlPlugins = await args.dpp.extAction(
+    const tomls: Toml[] = [];
+    tomls.push(await args.dpp.extAction(
       args.denops,
       context,
       options,
@@ -54,7 +62,7 @@ export class Config extends BaseConfig {
           lazy: false,
         },
       },
-    ) as Plugin[];
+    ) as Toml);
     for (
       const toml of [
         "$BASE_DIR/deinlazy.toml",
@@ -65,8 +73,7 @@ export class Config extends BaseConfig {
         hasNvim ? "$BASE_DIR/neovim.toml" : "$BASE_DIR/vim.toml",
       ]
     ) {
-      tomlPlugins = tomlPlugins.concat(
-        await args.dpp.extAction(
+      tomls.push(await args.dpp.extAction(
           args.denops,
           context,
           options,
@@ -78,13 +85,15 @@ export class Config extends BaseConfig {
               lazy: true,
             },
           },
-        ) as Plugin[],
+        ) as Toml,
       );
     }
 
     const recordPlugins: Record<string, Plugin> = {};
-    for (const plugin of tomlPlugins) {
-      recordPlugins[plugin.name] = plugin;
+    for (const toml of tomls) {
+      for (const plugin of toml.plugins) {
+        recordPlugins[plugin.name] = plugin;
+      }
     }
 
     const localPlugins = await args.dpp.extAction(
