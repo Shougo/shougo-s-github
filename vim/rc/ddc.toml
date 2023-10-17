@@ -127,8 +127,6 @@ on_source = 'ddc.vim'
 hook_add = '''
   nnoremap cd <Cmd>call ddc#source#yank#clear()<CR>
   nnoremap cy <Cmd>set operatorfunc=ddc#source#yank#register<CR>g@
-  nnoremap cycy <Cmd>set operatorfunc=ddc#source#yank#register<CR>g@_
-  onoremap cy <Cmd>set operatorfunc=ddc#source#yank#register<CR>g@
   xnoremap Y <Cmd>set operatorfunc=ddc#source#yank#register<CR>g@
 '''
 
