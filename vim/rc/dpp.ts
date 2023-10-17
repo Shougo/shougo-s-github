@@ -6,7 +6,6 @@ import {
 } from "https://deno.land/x/dpp_vim@v0.0.3/types.ts";
 import { Denops, fn } from "https://deno.land/x/dpp_vim@v0.0.3/deps.ts";
 
-
 export class Config extends BaseConfig {
   override async config(args: {
     denops: Denops;
@@ -17,16 +16,19 @@ export class Config extends BaseConfig {
     plugins: Plugin[];
     stateLines: string[];
   }> {
+    const hasNvim = args.denops.meta.host === "nvim";
+    const hasWindows = await fn.has(args.denops, "win32");
+
     const inlineVimrcs = [
       "$BASE_DIR/options.rc.vim",
       "$BASE_DIR/mappings.rc.vim",
     ];
-    if (args.denops.meta.host === "nvim") {
+    if (hasNvim) {
       inlineVimrcs.push("$BASE_DIR/neovim.rc.vim");
     } else if (await fn.has(args.denops, "gui_running")) {
       inlineVimrcs.push("$BASE_DIR/gui.rc.vim");
     }
-    if (await fn.has(args.denops, "win32")) {
+    if (hasWindows) {
       inlineVimrcs.push("$BASE_DIR/windows.rc.vim");
     } else {
       inlineVimrcs.push("$BASE_DIR/unix.rc.vim");
@@ -39,19 +41,8 @@ export class Config extends BaseConfig {
 
     const [context, options] = await args.contextBuilder.get(args.denops);
 
-    const tomlPlugins = (await args.dpp.extAction(
-      args.denops,
-      context,
-      options,
-      "toml",
-      "load",
-      {
-        path: "$BASE_DIR/deinlazy.toml",
-        options: {
-          lazy: true,
-        },
-      },
-    ) as Plugin[]).concat(await args.dpp.extAction(
+    // Load toml plugins
+    let tomlPlugins = await args.dpp.extAction(
       args.denops,
       context,
       options,
@@ -63,7 +54,33 @@ export class Config extends BaseConfig {
           lazy: false,
         },
       },
-    ) as Plugin[]);
+    ) as Plugin[];
+    for (
+      const toml of [
+        "$BASE_DIR/deinlazy.toml",
+        "$BASE_DIR/denops.toml",
+        "$BASE_DIR/ddc.toml",
+        "$BASE_DIR/ddu.toml",
+        "$BASE_DIR/dpp.toml",
+        hasNvim ? "$BASE_DIR/neovim.toml" : "$BASE_DIR/vim.toml",
+      ]
+    ) {
+      tomlPlugins = tomlPlugins.concat(
+        await args.dpp.extAction(
+          args.denops,
+          context,
+          options,
+          "toml",
+          "load",
+          {
+            path: toml,
+            options: {
+              lazy: true,
+            },
+          },
+        ) as Plugin[],
+      );
+    }
 
     const recordPlugins: Record<string, Plugin> = {};
     for (const plugin of tomlPlugins) {
