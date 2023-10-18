@@ -89,10 +89,21 @@ export class Config extends BaseConfig {
       );
     }
 
+    // Merge toml results
     const recordPlugins: Record<string, Plugin> = {};
+    const ftplugins: Record<string, string> = {};
     for (const toml of tomls) {
       for (const plugin of toml.plugins) {
         recordPlugins[plugin.name] = plugin;
+      }
+      if (toml.ftplugins) {
+        for (const filetype of Object.keys(toml.ftplugins)) {
+          if (ftplugins[filetype]) {
+            ftplugins[filetype] += `\n${toml.ftplugins[filetype]}`;
+          } else {
+            ftplugins[filetype] = toml.ftplugins[filetype];
+          }
+        }
       }
     }
 
@@ -153,6 +164,7 @@ export class Config extends BaseConfig {
         1,
         1,
       ),
+      ftplugins,
       plugins: Object.values(recordPlugins),
       stateLines,
     };
