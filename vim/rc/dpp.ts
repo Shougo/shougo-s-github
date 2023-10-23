@@ -12,6 +12,11 @@ type Toml = {
   plugins: Plugin[];
 };
 
+type LazyMakeStateResult = {
+  plugins: Plugin[];
+  stateLines: string[];
+};
+
 export class Config extends BaseConfig {
   override async config(args: {
     denops: Denops;
@@ -151,7 +156,7 @@ export class Config extends BaseConfig {
       }
     }
 
-    const stateLines = await args.dpp.extAction(
+    const lazyResult = await args.dpp.extAction(
       args.denops,
       context,
       options,
@@ -160,7 +165,7 @@ export class Config extends BaseConfig {
       {
         plugins: Object.values(recordPlugins),
       },
-    ) as string[];
+    ) as LazyMakeStateResult;
 
     return {
       checkFiles: await fn.globpath(
@@ -172,8 +177,8 @@ export class Config extends BaseConfig {
       ),
       ftplugins,
       hooksFiles,
-      plugins: Object.values(recordPlugins),
-      stateLines,
+      plugins: lazyResult.plugins,
+      stateLines: lazyResult.stateLines,
     };
   }
 }
