@@ -92,10 +92,12 @@ export class Config extends BaseConfig {
     // Merge toml results
     const recordPlugins: Record<string, Plugin> = {};
     const ftplugins: Record<string, string> = {};
+    const hooksFiles: string[] = [];
     for (const toml of tomls) {
       for (const plugin of toml.plugins) {
         recordPlugins[plugin.name] = plugin;
       }
+
       if (toml.ftplugins) {
         for (const filetype of Object.keys(toml.ftplugins)) {
           if (ftplugins[filetype]) {
@@ -104,6 +106,10 @@ export class Config extends BaseConfig {
             ftplugins[filetype] = toml.ftplugins[filetype];
           }
         }
+      }
+
+      if (toml.hooks_file) {
+        hooksFiles.push(toml.hooks_file);
       }
     }
 
@@ -165,6 +171,7 @@ export class Config extends BaseConfig {
         1,
       ),
       ftplugins,
+      hooksFiles,
       plugins: Object.values(recordPlugins),
       stateLines,
     };
