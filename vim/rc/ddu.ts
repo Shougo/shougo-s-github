@@ -115,7 +115,7 @@ export class Config extends BaseConfig {
           sorters: ["sorter_alpha"],
           converters: ["converter_hl_dir"],
         },
-        dein: {
+        dpp: {
           defaultAction: "cd",
         },
         markdown: {

@@ -53,26 +53,33 @@ export class Config extends BaseConfig {
 
     // Load toml plugins
     const tomls: Toml[] = [];
-    tomls.push(await args.dpp.extAction(
-      args.denops,
-      context,
-      options,
-      "toml",
-      "load",
-      {
-        path: "$BASE_DIR/dein.toml",
-        options: {
-          lazy: false,
-        },
-      },
-    ) as Toml);
     for (
       const toml of [
-        "$BASE_DIR/deinlazy.toml",
+        "$BASE_DIR/merge.toml",
+        "$BASE_DIR/dpp.toml",
+      ]
+    ) {
+      tomls.push(await args.dpp.extAction(
+          args.denops,
+          context,
+          options,
+          "toml",
+          "load",
+          {
+            path: toml,
+            options: {
+              lazy: false,
+            },
+          },
+        ) as Toml,
+      );
+    }
+    for (
+      const toml of [
+        "$BASE_DIR/lazy.toml",
         "$BASE_DIR/denops.toml",
         "$BASE_DIR/ddc.toml",
         "$BASE_DIR/ddu.toml",
-        "$BASE_DIR/dpp.toml",
         hasNvim ? "$BASE_DIR/neovim.toml" : "$BASE_DIR/vim.toml",
       ]
     ) {

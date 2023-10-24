@@ -24,12 +24,6 @@ let g:vim_markdown_no_default_key_mappings = v:true
 " Enable modeline for only Vim help files.
 autocmd MyAutoCmd BufRead,BufWritePost *.txt,*.jax setlocal modeline
 
-" Enable dein toml syntax.
-" NOTE: For neovim use nvim-treesitter syntax instead.
-if !has('nvim')
-  autocmd MyAutoCmd CursorHold */rc/*.toml call dein#toml#syntax()
-endif
-
 " Disable quotes keyword.
 autocmd MyAutoCmd BufEnter,BufRead,BufNewFile *.md setlocal iskeyword-='
 

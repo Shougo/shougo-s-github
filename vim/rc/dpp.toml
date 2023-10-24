@@ -8,6 +8,13 @@ on_source = 'dpp.vim'
 [[plugins]]
 repo = 'Shougo/dpp-ext-toml'
 on_source = 'dpp.vim'
+hook_add = '''
+" Enable dpp toml syntax.
+" NOTE: For neovim use nvim-treesitter syntax instead.
+if !has('nvim')
+  autocmd MyAutoCmd CursorHold */rc/*.toml call dpp#ext#toml#syntax()
+endif
+'''
 
 [[plugins]]
 repo = 'Shougo/dpp-ext-local'

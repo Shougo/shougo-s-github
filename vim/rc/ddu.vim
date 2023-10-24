@@ -64,7 +64,6 @@ xnoremap <expr> ;r
       \ .. '<Cmd>Ddu -name=register register
       \ -source-option-ff-defaultAction=insert
       \ -ui-param-ff-autoResize<CR>'
-nnoremap sg <Cmd>Ddu dein<CR>
 nnoremap <C-o> <Cmd>Ddu jumplist <CR>
 
 "inoremap <C-q> <Cmd>Ddu

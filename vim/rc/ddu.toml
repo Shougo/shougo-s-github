@@ -146,10 +146,6 @@ on_source = 'ddu.vim'
 [[plugins]]
 repo = '4513ECHO/vim-readme-viewer'
 on_source = ['ddu.vim']
-hook_add = '''
-  let g:readme_viewer#plugin_manager = 'dein.vim'
-'''
-on_cmd = 'DeinOpen'
 
 [[plugins]]
 repo = 'uga-rosa/ddu-source-lsp'

@@ -1,4 +1,4 @@
-hooks_file = '$BASE_DIR/deinft.vim'
+hooks_file = '$BASE_DIR/ft.vim'
 
 [[plugins]]
 repo = 'Shougo/dein.vim'

@@ -54,6 +54,6 @@ if dpp#min#load_state(s:dpp_base)
   autocmd MyAutoCmd User Dpp:makeStatePost
         \ echohl WarningMsg | echomsg 'dpp make_state() is done' | echohl NONE
 else
-  autocmd MyAutoCmd BufWritePost *.lua,*.vim,*.toml,vimrc,.vimrc
+  autocmd MyAutoCmd BufWritePost *.lua,*.vim,*.toml,*.ts,vimrc,.vimrc
             \ call dpp#check_files()
 endif
