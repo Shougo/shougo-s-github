@@ -3,38 +3,50 @@ if !($CACHE->isdirectory())
   call mkdir($CACHE, 'p')
 endif
 
-" Install plugin manager automatically.
-for s:plugin in [
-      \ 'Shougo/dpp.vim',
-      \ 'denops/denops.vim',
-      \ ]->filter({ _, val ->
-      \           &runtimepath !~# '/' .. val->fnamemodify(':t') })
-  " Search from current directory
-  let s:dir = s:plugin->fnamemodify(':t')->fnamemodify(':p')
-  if !(s:dir->isdirectory())
+function InitPlugin(plugin)
+  " Search from ~/work directory
+  let dir = '~/work/'->expand() .. a:plugin
+  if !(dir->isdirectory())
     " Search from $CACHE directory
-    let s:dir = $CACHE .. '/dpp/repos/github.com/' .. s:plugin
-    if !(s:dir->isdirectory())
-      execute '!git clone https://github.com/' .. s:plugin s:dir
+    let dir = $CACHE .. '/dpp/repos/github.com/' .. a:plugin
+    if !(dir->isdirectory())
+      " Install plugin automatically.
+      execute '!git clone https://github.com/' .. a:plugin dir
     endif
   endif
 
-  if s:plugin->fnamemodify(':t') ==# 'dpp.vim'
-    execute 'set runtimepath^='
-          \ .. s:dir->fnamemodify(':p')->substitute('[/\\]$', '', '')
-  endif
-endfor
+  execute 'set runtimepath^='
+        \ .. dir->fnamemodify(':p')->substitute('[/\\]$', '', '')
+endfunction
+
+" NOTE: dpp.vim path must be added
+call InitPlugin('Shougo/dpp.vim')
 
 "---------------------------------------------------------------------------
 " dpp configurations.
 
 " Set dpp base path (required)
-const s:dpp_base = '~/.cache/dpp'
+const s:dpp_base = '~/.cache/dpp'->expand()
 
 let $BASE_DIR = '<sfile>'->expand()->fnamemodify(':h')
 
 
 if dpp#min#load_state(s:dpp_base)
+  " NOTE: denops.vim and dpp plugins are must be added
+  for s:plugin in [
+        \   'Shougo/dpp-ext-installer',
+        \   'Shougo/dpp-ext-lazy',
+        \   'Shougo/dpp-ext-local',
+        \   'Shougo/dpp-ext-toml',
+        \   'Shougo/dpp-protocol-git',
+        \   'denops/denops.vim',
+        \ ]
+    call InitPlugin('Shougo/dpp.vim')
+  endfor
+
   autocmd User DenopsReady
         \ call dpp#make_state(s:dpp_base, '$BASE_DIR/dpp.ts'->expand())
+else
+  autocmd MyAutoCmd BufWritePost *.lua,*.vim,*.toml,vimrc,.vimrc
+            \ call dpp#check_files()
 endif
