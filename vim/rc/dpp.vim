@@ -49,8 +49,10 @@ if dpp#min#load_state(s:dpp_base)
   " NOTE: Manual load is needed...
   runtime! plugin/denops.vim
 
-  autocmd User DenopsReady
+  autocmd MyAutoCmd User DenopsReady
         \ call dpp#make_state(s:dpp_base, '$BASE_DIR/dpp.ts'->expand())
+  autocmd MyAutoCmd User Dpp:makeStatePost
+        \ echohl WarningMsg | echomsg 'dpp make_state() is done' | echohl NONE
 else
   autocmd MyAutoCmd BufWritePost *.lua,*.vim,*.toml,vimrc,.vimrc
             \ call dpp#check_files()
