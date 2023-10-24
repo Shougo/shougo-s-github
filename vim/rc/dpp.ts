@@ -1,10 +1,11 @@
 import {
   BaseConfig,
+  ConfigReturn,
   ContextBuilder,
   Dpp,
   Plugin,
-} from "https://deno.land/x/dpp_vim@v0.0.4/types.ts";
-import { Denops, fn } from "https://deno.land/x/dpp_vim@v0.0.4/deps.ts";
+} from "https://deno.land/x/dpp_vim@v0.0.5/types.ts";
+import { Denops, fn } from "https://deno.land/x/dpp_vim@v0.0.5/deps.ts";
 
 type Toml = {
   hooks_file?: string;
@@ -23,10 +24,7 @@ export class Config extends BaseConfig {
     contextBuilder: ContextBuilder;
     basePath: string;
     dpp: Dpp;
-  }): Promise<{
-    plugins: Plugin[];
-    stateLines: string[];
-  }> {
+  }): Promise<ConfigReturn> {
     const hasNvim = args.denops.meta.host === "nvim";
     const hasWindows = await fn.has(args.denops, "win32");
 
@@ -174,7 +172,7 @@ export class Config extends BaseConfig {
         "*",
         1,
         1,
-      ),
+      ) as unknown as string[],
       ftplugins,
       hooksFiles,
       plugins: lazyResult.plugins,

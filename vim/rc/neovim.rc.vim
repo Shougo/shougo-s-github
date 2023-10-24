@@ -12,6 +12,9 @@ let g:loaded_perl_provider = v:false
 let g:loaded_python_provider = v:false
 let g:loaded_ruby_provider = v:false
 
+" Disable remote plugin loading
+let g:loaded_remote_plugins = 1
+
 let g:python3_host_prog = has('win32') ? 'python.exe' : 'python3'
 
 set inccommand=nosplit

@@ -5,7 +5,7 @@ endif
 
 function InitPlugin(plugin)
   " Search from ~/work directory
-  let dir = '~/work/'->expand() .. a:plugin
+  let dir = '~/work/'->expand() .. a:plugin->fnamemodify(':t')
   if !(dir->isdirectory())
     " Search from $CACHE directory
     let dir = $CACHE .. '/dpp/repos/github.com/' .. a:plugin
@@ -21,6 +21,8 @@ endfunction
 
 " NOTE: dpp.vim path must be added
 call InitPlugin('Shougo/dpp.vim')
+call InitPlugin('Shougo/dpp-ext-lazy')
+
 
 "---------------------------------------------------------------------------
 " dpp configurations.
@@ -30,19 +32,22 @@ const s:dpp_base = '~/.cache/dpp'->expand()
 
 let $BASE_DIR = '<sfile>'->expand()->fnamemodify(':h')
 
-
 if dpp#min#load_state(s:dpp_base)
+  echohl WarningMsg | echomsg 'dpp load_state() is failed' | echohl NONE
+
   " NOTE: denops.vim and dpp plugins are must be added
   for s:plugin in [
         \   'Shougo/dpp-ext-installer',
-        \   'Shougo/dpp-ext-lazy',
         \   'Shougo/dpp-ext-local',
         \   'Shougo/dpp-ext-toml',
         \   'Shougo/dpp-protocol-git',
-        \   'denops/denops.vim',
+        \   'vim-denops/denops.vim',
         \ ]
-    call InitPlugin('Shougo/dpp.vim')
+    call InitPlugin(s:plugin)
   endfor
+
+  " NOTE: Manual load is needed...
+  runtime! plugin/denops.vim
 
   autocmd User DenopsReady
         \ call dpp#make_state(s:dpp_base, '$BASE_DIR/dpp.ts'->expand())

@@ -2,9 +2,9 @@
 " Shougo's .vimrc
 "---------------------------------------------------------------------------
 " profile start profile.txt
-" profile file ~/.vim/*
-" profile file ~/.cache/dein/state_nvim.vim
-" profile func dein#*
+" profile file ~/work/*
+" profile file ~/.cache/dpp/nvim/state.vim
+" profile func dpp#*
 
 if &compatible
   set nocompatible
@@ -65,8 +65,8 @@ endif
 
 const base_path = fnamemodify(expand('<sfile>'), ':h')
 
-execute 'source' base_path .. '/dein.vim'
-"execute 'source' base_path .. '/dpp.vim'
+"execute 'source' base_path .. '/dein.vim'
+execute 'source' base_path .. '/dpp.vim'
 
 "---------------------------------------------------------------------------
 
