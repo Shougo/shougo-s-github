@@ -65,7 +65,6 @@ endif
 
 const base_path = fnamemodify(expand('<sfile>'), ':h')
 
-"execute 'source' base_path .. '/dein.vim'
 execute 'source' base_path .. '/dpp.vim'
 
 "---------------------------------------------------------------------------
