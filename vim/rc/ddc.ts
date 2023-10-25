@@ -12,6 +12,7 @@ export class Config extends BaseConfig {
       "around",
       "yank",
       "file",
+      "mocword",
     ];
 
     args.contextBuilder.patchGlobal({
