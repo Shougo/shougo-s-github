@@ -46,6 +46,11 @@ export class Config extends BaseConfig {
 
     args.contextBuilder.setGlobal({
       inlineVimrcs,
+      extParams: {
+        installer: {
+          checkDiff: true,
+        },
+      },
       protocols: ["git"],
     });
 
