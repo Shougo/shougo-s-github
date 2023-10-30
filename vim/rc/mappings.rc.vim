@@ -169,7 +169,7 @@ xnoremap ir  i]
 nnoremap <C-a> <Cmd>AddNumbers 1<CR>
 nnoremap <C-x> <Cmd>AddNumbers -1<CR>
 command! -range -nargs=1 AddNumbers
-      \ call vimrc#add_numbers((<line2>-<line1>+1) * eval(<args>))
+      \ call vimrc#add_numbers((<line2>-<line1>+1) * eval(<args>) * v:count1)
 
 nnoremap #    <C-^>
 
