@@ -244,14 +244,5 @@ export class Config extends BaseConfig {
       specialBufferCompletion: true,
       sources: ["necovim"].concat(commonSources),
     });
-
-    // Use "lspoints" for deno
-    args.contextBuilder.patchFiletype("typescript", {
-      sourceParams: {
-        "nvim-lsp": {
-          lspEngine: "lspoints",
-        },
-      },
-    });
   }
 }

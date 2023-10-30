@@ -240,6 +240,13 @@ function s:attach_ls() abort
             \     },
             \   },
             \ })
+
+    " Use lspoints for nvim-lsp source
+    call ddc#custom#patch_buffer('sourceParams', #{
+        \   nvim-lsp: #{
+        \     lspEngine: 'lspoints',
+        \   }
+        \ })
   endif
 endfunction
 
