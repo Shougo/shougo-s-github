@@ -1,5 +1,6 @@
 [[plugins]]
 repo = 'vim-denops/denops.vim'
+on_event = ['BufRead', 'CursorHold']
 hook_source = '''
   " NOTE: for profile
   "let g:denops#server#deno_args = [
@@ -119,7 +120,7 @@ denops_wait = false
 [[plugins]]
 repo = 'vim-skk/skkeleton'
 on_map = { ict = '<Plug>(skkeleton-toggle)' }
-on_event = ['CursorHold']
+on_event = 'CursorHold'
 hook_add = '''
   inoremap <C-j> <Plug>(skkeleton-toggle)
   cnoremap <C-j> <Plug>(skkeleton-toggle)
@@ -212,7 +213,7 @@ hook_source = '''
 
 [[plugins]]
 repo = 'kuuote/lspoints'
-on_event = ['BufRead']
+on_event = 'BufRead'
 depends = 'denops.vim'
 hook_source = '''
 call lspoints#load_extensions([

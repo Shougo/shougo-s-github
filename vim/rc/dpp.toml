@@ -1,9 +1,11 @@
 [[plugins]]
 repo = 'Shougo/dpp.vim'
+rtp = ''
 
 [[plugins]]
 repo = 'Shougo/dpp-ext-lazy'
 on_source = 'dpp.vim'
+rtp = ''
 
 [[plugins]]
 repo = 'Shougo/dpp-ext-toml'
