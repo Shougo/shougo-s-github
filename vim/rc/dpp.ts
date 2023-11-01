@@ -4,13 +4,13 @@ import {
   ContextBuilder,
   Dpp,
   Plugin,
-} from "https://deno.land/x/dpp_vim@v0.0.5/types.ts";
-import { Denops, fn } from "https://deno.land/x/dpp_vim@v0.0.5/deps.ts";
+} from "https://deno.land/x/dpp_vim@v0.0.7/types.ts";
+import { Denops, fn } from "https://deno.land/x/dpp_vim@v0.0.7/deps.ts";
 
 type Toml = {
   hooks_file?: string;
   ftplugins?: Record<string, string>;
-  plugins: Plugin[];
+  plugins?: Plugin[];
 };
 
 type LazyMakeStateResult = {
@@ -109,7 +109,7 @@ export class Config extends BaseConfig {
     const ftplugins: Record<string, string> = {};
     const hooksFiles: string[] = [];
     for (const toml of tomls) {
-      for (const plugin of toml.plugins) {
+      for (const plugin of toml.plugins ?? []) {
         recordPlugins[plugin.name] = plugin;
       }
 
