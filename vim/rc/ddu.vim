@@ -130,6 +130,6 @@ if !('g:shougo_s_github_load_state'->exists())
 endif
 " }}}
 
-" hook_source = {{{
+" hook_source {{{
 call ddu#custom#load_config(expand('$BASE_DIR/ddu.ts'))
 " }}}
