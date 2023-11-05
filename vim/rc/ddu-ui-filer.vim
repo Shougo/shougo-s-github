@@ -10,7 +10,7 @@ autocmd MyAutoCmd TabEnter,WinEnter,CursorHold,FocusGained *
       \ call ddu#ui#do_action('checkItems')
 " }}}
 
-" ddu-filer = {{{
+" ddu-filer {{{
 nnoremap <buffer> <Space>
       \ <Cmd>call ddu#ui#do_action('toggleSelectItem')<CR>
 nnoremap <buffer> *
