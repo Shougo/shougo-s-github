@@ -33,8 +33,6 @@ const s:dpp_base = '~/.cache/dpp'->expand()
 let $BASE_DIR = '<sfile>'->expand()->fnamemodify(':h')
 
 if dpp#min#load_state(s:dpp_base)
-  echohl WarningMsg | echomsg 'dpp load_state() is failed' | echohl NONE
-
   " NOTE: denops.vim and dpp plugins are must be added
   for s:plugin in [
         \   'Shougo/dpp-ext-installer',
@@ -50,10 +48,16 @@ if dpp#min#load_state(s:dpp_base)
   runtime! plugin/denops.vim
 
   autocmd MyAutoCmd User DenopsReady
-        \ call dpp#make_state(s:dpp_base, '$BASE_DIR/dpp.ts'->expand())
-  autocmd MyAutoCmd User Dpp:makeStatePost
-        \ echohl WarningMsg | echomsg 'dpp make_state() is done' | echohl NONE
+        \ : echohl WarningMsg
+        \ | echomsg 'dpp load_state() is failed'
+        \ | echohl NONE
+        \ | call dpp#make_state(s:dpp_base, '$BASE_DIR/dpp.ts'->expand())
 else
   autocmd MyAutoCmd BufWritePost *.lua,*.vim,*.toml,*.ts,vimrc,.vimrc
-            \ call dpp#check_files()
+        \ call dpp#check_files()
 endif
+
+autocmd MyAutoCmd User Dpp:makeStatePost
+      \ : echohl WarningMsg
+      \ | echomsg 'dpp make_state() is done'
+      \ | echohl NONE
