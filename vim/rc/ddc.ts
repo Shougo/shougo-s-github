@@ -52,10 +52,6 @@ export class Config extends BaseConfig {
         necovim: {
           mark: "vim",
         },
-        "nvim-lua": {
-          mark: "lua",
-          forceCompletionPattern: "\\.\\w*",
-        },
         cmdline: {
           mark: "cmdline",
           forceCompletionPattern: "\\S/\\S*|\\.\\w*",
@@ -234,7 +230,6 @@ export class Config extends BaseConfig {
       args.contextBuilder.patchFiletype("lua", {
         sources: [
           "nvim-lsp",
-          "nvim-lua",
         ].concat(commonSources),
       });
     }
