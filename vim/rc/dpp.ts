@@ -154,8 +154,19 @@ export class Config extends BaseConfig {
       },
     ) as Plugin[];
 
-    // Merge localPlugins
-    for (const plugin of localPlugins) {
+    const packSpecPlugins = await args.dpp.extAction(
+      args.denops,
+      context,
+      options,
+      "packspec",
+      "load",
+      {
+        plugins: Object.values(recordPlugins),
+      },
+    ) as Plugin[];
+
+    // Merge plugins
+    for (const plugin of localPlugins.concat(packSpecPlugins)) {
       if (plugin.name in recordPlugins) {
         recordPlugins[plugin.name] = Object.assign(
           recordPlugins[plugin.name],

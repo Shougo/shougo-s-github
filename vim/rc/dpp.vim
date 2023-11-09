@@ -37,6 +37,7 @@ if dpp#min#load_state(s:dpp_base)
   for s:plugin in [
         \   'Shougo/dpp-ext-installer',
         \   'Shougo/dpp-ext-local',
+        \   'Shougo/dpp-ext-packspec',
         \   'Shougo/dpp-ext-toml',
         \   'Shougo/dpp-protocol-git',
         \   'vim-denops/denops.vim',
