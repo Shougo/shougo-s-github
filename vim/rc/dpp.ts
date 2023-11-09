@@ -153,20 +153,7 @@ export class Config extends BaseConfig {
         ],
       },
     ) as Plugin[];
-
-    const packSpecPlugins = await args.dpp.extAction(
-      args.denops,
-      context,
-      options,
-      "packspec",
-      "load",
-      {
-        plugins: Object.values(recordPlugins),
-      },
-    ) as Plugin[];
-
-    // Merge plugins
-    for (const plugin of localPlugins.concat(packSpecPlugins)) {
+    for (const plugin of localPlugins) {
       if (plugin.name in recordPlugins) {
         recordPlugins[plugin.name] = Object.assign(
           recordPlugins[plugin.name],
@@ -176,6 +163,29 @@ export class Config extends BaseConfig {
         recordPlugins[plugin.name] = plugin;
       }
     }
+
+    const packSpecPlugins = await args.dpp.extAction(
+      args.denops,
+      context,
+      options,
+      "packspec",
+      "load",
+      {
+        basePath: args.basePath,
+        plugins: Object.values(recordPlugins),
+      },
+    ) as Plugin[];
+    for (const plugin of packSpecPlugins) {
+      if (plugin.name in recordPlugins) {
+        recordPlugins[plugin.name] = Object.assign(
+          recordPlugins[plugin.name],
+          plugin,
+        );
+      } else {
+        recordPlugins[plugin.name] = plugin;
+      }
+    }
+    //console.log(packSpecPlugins);
 
     const lazyResult = await args.dpp.extAction(
       args.denops,
