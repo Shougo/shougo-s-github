@@ -49,6 +49,7 @@ export class Config extends BaseConfig {
       extParams: {
         installer: {
           checkDiff: true,
+          githubAPIToken: Deno.env.get("GITHUB_API_TOKEN"),
         },
       },
       protocols: ["git"],
