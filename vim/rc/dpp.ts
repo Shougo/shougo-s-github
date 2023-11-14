@@ -60,28 +60,31 @@ export class Config extends BaseConfig {
     // Load toml plugins
     const tomls: Toml[] = [];
     for (
-      const toml of [
+      const tomlFile of [
         "$BASE_DIR/merge.toml",
         "$BASE_DIR/dpp.toml",
       ]
     ) {
-      tomls.push(await args.dpp.extAction(
-          args.denops,
-          context,
-          options,
-          "toml",
-          "load",
-          {
-            path: toml,
-            options: {
-              lazy: false,
-            },
+      const toml = await args.dpp.extAction(
+        args.denops,
+        context,
+        options,
+        "toml",
+        "load",
+        {
+          path: tomlFile,
+          options: {
+            lazy: false,
           },
-        ) as Toml,
-      );
+        },
+      ) as Toml | undefined;
+
+      if (toml) {
+        tomls.push(toml);
+      }
     }
     for (
-      const toml of [
+      const tomlFile of [
         "$BASE_DIR/lazy.toml",
         "$BASE_DIR/denops.toml",
         "$BASE_DIR/ddc.toml",
@@ -89,20 +92,23 @@ export class Config extends BaseConfig {
         hasNvim ? "$BASE_DIR/neovim.toml" : "$BASE_DIR/vim.toml",
       ]
     ) {
-      tomls.push(await args.dpp.extAction(
-          args.denops,
-          context,
-          options,
-          "toml",
-          "load",
-          {
-            path: toml,
-            options: {
-              lazy: true,
-            },
+      const toml = await args.dpp.extAction(
+        args.denops,
+        context,
+        options,
+        "toml",
+        "load",
+        {
+          path: tomlFile,
+          options: {
+            lazy: true,
           },
-        ) as Toml,
-      );
+        },
+      ) as Toml | undefined;
+
+      if (toml) {
+        tomls.push(toml);
+      }
     }
 
     // Merge toml results
@@ -153,15 +159,18 @@ export class Config extends BaseConfig {
           "neco-vim",
         ],
       },
-    ) as Plugin[];
-    for (const plugin of localPlugins) {
-      if (plugin.name in recordPlugins) {
-        recordPlugins[plugin.name] = Object.assign(
-          recordPlugins[plugin.name],
-          plugin,
-        );
-      } else {
-        recordPlugins[plugin.name] = plugin;
+    ) as Plugin[] | undefined;
+
+    if (localPlugins) {
+      for (const plugin of localPlugins) {
+        if (plugin.name in recordPlugins) {
+          recordPlugins[plugin.name] = Object.assign(
+            recordPlugins[plugin.name],
+            plugin,
+          );
+        } else {
+          recordPlugins[plugin.name] = plugin;
+        }
       }
     }
 
@@ -175,15 +184,17 @@ export class Config extends BaseConfig {
         basePath: args.basePath,
         plugins: Object.values(recordPlugins),
       },
-    ) as Plugin[];
-    for (const plugin of packSpecPlugins) {
-      if (plugin.name in recordPlugins) {
-        recordPlugins[plugin.name] = Object.assign(
-          recordPlugins[plugin.name],
-          plugin,
-        );
-      } else {
-        recordPlugins[plugin.name] = plugin;
+    ) as Plugin[] | undefined;
+    if (packSpecPlugins) {
+      for (const plugin of packSpecPlugins) {
+        if (plugin.name in recordPlugins) {
+          recordPlugins[plugin.name] = Object.assign(
+            recordPlugins[plugin.name],
+            plugin,
+          );
+        } else {
+          recordPlugins[plugin.name] = plugin;
+        }
       }
     }
     //console.log(packSpecPlugins);
@@ -197,7 +208,7 @@ export class Config extends BaseConfig {
       {
         plugins: Object.values(recordPlugins),
       },
-    ) as LazyMakeStateResult;
+    ) as LazyMakeStateResult | undefined;
 
     return {
       checkFiles: await fn.globpath(
@@ -209,8 +220,8 @@ export class Config extends BaseConfig {
       ) as unknown as string[],
       ftplugins,
       hooksFiles,
-      plugins: lazyResult.plugins,
-      stateLines: lazyResult.stateLines,
+      plugins: lazyResult?.plugins ?? [],
+      stateLines: lazyResult?.stateLines ?? [],
     };
   }
 }
