@@ -57,10 +57,6 @@ repo = 'tweekmonster/helpful.vim'
 on_cmd = 'HelpfulVersion'
 
 [[plugins]]
-repo = 'rhysd/vim-gfm-syntax'
-on_ft = 'markdown'
-
-[[plugins]]
 repo = 'machakann/vim-vimhelplint'
 on_ft = 'help'
 [plugins.ftplugin]
