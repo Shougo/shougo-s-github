@@ -45,8 +45,11 @@ if dpp#min#load_state(s:dpp_base)
     call InitPlugin(s:plugin)
   endfor
 
-  " NOTE: Manual load is needed...
-  runtime! plugin/denops.vim
+  " NOTE: Manual load is needed for neovim
+  " If rtp is changed in sourced script, plugins are not loaded.
+  if has('nvim')
+    runtime! plugin/denops.vim
+  endif
 
   autocmd MyAutoCmd User DenopsReady
         \ : echohl WarningMsg
