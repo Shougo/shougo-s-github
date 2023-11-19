@@ -46,7 +46,7 @@ if dpp#min#load_state(s:dpp_base)
   endfor
 
   " NOTE: Manual load is needed for neovim
-  " If rtp is changed in sourced script, plugins are not loaded.
+  " Because "--noplugin" is used to optimize.
   if has('nvim')
     runtime! plugin/denops.vim
   endif
