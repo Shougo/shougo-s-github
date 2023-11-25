@@ -202,55 +202,6 @@ lua_source = '''
 '''
 
 [[plugins]]
-repo = 'MunifTanjim/nui.nvim'
-
-#[[plugins]]
-#repo = 'folke/noice.nvim'
-#depends = 'nui.nvim'
-##on_event = 'VimEnter'
-#lua_source = '''
-#  require('noice').setup {
-#    cmdline = {
-#      enabled = true,
-#      format = {
-#        cmdline = { pattern = "^:", icon = ":", lang = "vim" },
-#        search_down = { kind = "search", pattern = "^/", icon = "/", lang = "regex" },
-#        search_up = { kind = "search", pattern = "^%?", icon = "?", lang = "regex" },
-#        filter = { pattern = "^:%s*!", icon = "$", lang = "bash" },
-#        lua = { pattern = "^:%s*lua%s+", icon = "", lang = "lua" },
-#        help = { pattern = "^:%s*he?l?p?%s+", icon = "" },
-#        input = {}, -- Used by input()
-#        -- lua = false, -- to disable a format, set to `false`
-#      },
-#    },
-#    popupmenu = {
-#      enabled = false,
-#    },
-#    messages = {
-#      enabled = true,
-#    },
-#    routes = {
-#      {
-#        view = "mini",
-#        filter = {
-#          event = { "msg_show", "msg_showmode" },
-#          ["not"] = {
-#            kind = { "confirm", "confirm_sub" },
-#          },
-#        },
-#      },
-#      {
-#        filter = {
-#          event = "cmdline",
-#          find = "^%s*[/?]",
-#        },
-#        view = "cmdline",
-#      },
-#    },
-#  }
-#'''
-
-[[plugins]]
 repo = 'atusy/tsnode-marker.nvim'
 depends = 'nvim-treesitter'
 on_ft = 'markdown'
