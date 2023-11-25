@@ -9,7 +9,7 @@ nnoremap ss
       \ `'.git'->finddir(';') != '' ? 'file_git' : ''`
       \ file -source-option-file-volatile
       \ file -source-param-file-new -source-option-file-volatile
-      \ -unique -expandInput -sync
+      \ -unique -expandInput
       \ -resume=`ddu#get_items(#{ sources: ['file_point'] })->empty() ?
       \          'v:true' : 'v:false'`
       \ -ui-param-ff-displaySourceName=short
@@ -114,17 +114,17 @@ if !('g:shougo_s_github_load_state'->exists())
   call timer_start(10, { _ -> LazyDdu() })
   function LazyDdu()
     call ddu#load('ui', ['ff'])
-    call ddu#load('source', [
-          \     'file', 'file_point', 'file_old', 'file_git',
-          \   ])
-    call ddu#load('filter', [
-          \     'matcher_kensaku',
-          \     'matcher_relative',
-          \     'matcher_substring',
-          \     'matcher_hidden',
-          \     'sorter_alpha',
-          \     'converter_hl_dir',
-          \   ])
+    "call ddu#load('source', [
+    "      \     'file', 'file_point', 'file_old', 'file_git',
+    "      \   ])
+    "call ddu#load('filter', [
+    "      \     'matcher_kensaku',
+    "      \     'matcher_relative',
+    "      \     'matcher_substring',
+    "      \     'matcher_hidden',
+    "      \     'sorter_alpha',
+    "      \     'converter_hl_dir',
+    "      \   ])
     call ddu#load('kind', ['file'])
   endfunction
 endif
