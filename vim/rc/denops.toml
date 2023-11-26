@@ -134,6 +134,7 @@ hook_source = '''
         \     '~/.config/SKK-JISYO.L' : '/usr/share/skk/SKK-JISYO.L',
         \   eggLikeNewline: v:true,
         \   registerConvertResult: v:true,
+        \   useGoogleJapaneseInput: v:true,
         \   markerHenkan: '',
         \   markerHenkanSelect: '',
         \ })
