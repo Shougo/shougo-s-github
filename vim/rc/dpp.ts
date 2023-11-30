@@ -51,6 +51,9 @@ export class Config extends BaseConfig {
         "denops/@ddu-kinds/*.ts",
         "denops/@ddu-sources/*.ts",
         "denops/@ddu-uis/*.ts",
+        "denops/@ddc-filters/*.ts",
+        "denops/@ddc-sources/*.ts",
+        "denops/@ddc-uis/*.ts",
       ],
       inlineVimrcs,
       extParams: {

@@ -113,19 +113,9 @@ cnoremap <C-q> <Cmd>call ddu#start(#{
 if !('g:shougo_s_github_load_state'->exists())
   call timer_start(10, { _ -> LazyDdu() })
   function LazyDdu()
-    call ddu#load('ui', ['ff'])
-    "call ddu#load('source', [
-    "      \     'file', 'file_point', 'file_old', 'file_git',
-    "      \   ])
-    "call ddu#load('filter', [
-    "      \     'matcher_kensaku',
-    "      \     'matcher_relative',
-    "      \     'matcher_substring',
-    "      \     'matcher_hidden',
-    "      \     'sorter_alpha',
-    "      \     'converter_hl_dir',
-    "      \   ])
-    call ddu#load('kind', ['file'])
+    call ddu#set_static_import_path('~/.cache/dpp/nvim/mods.ts')
+    "call ddu#load('ui', ['ff'])
+    "call ddu#load('kind', ['file'])
   endfunction
 endif
 " }}}
