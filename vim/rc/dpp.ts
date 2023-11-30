@@ -45,6 +45,13 @@ export class Config extends BaseConfig {
     }
 
     args.contextBuilder.setGlobal({
+      convertImportPaths: [
+        "denops/@ddu-columns/*.ts",
+        "denops/@ddu-filters/*.ts",
+        "denops/@ddu-kinds/*.ts",
+        "denops/@ddu-sources/*.ts",
+        "denops/@ddu-uis/*.ts",
+      ],
       inlineVimrcs,
       extParams: {
         installer: {

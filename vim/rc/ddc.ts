@@ -81,7 +81,7 @@ export class Config extends BaseConfig {
           minAutoCompleteLength: 4,
           isVolatile: true,
         },
-        "nvim-lsp": {
+        lsp: {
           mark: "lsp",
           forceCompletionPattern: "\\.\\w*|::\\w*|->\\w*",
           dup: "force",
@@ -223,13 +223,13 @@ export class Config extends BaseConfig {
         ]
       ) {
         args.contextBuilder.patchFiletype(filetype, {
-          sources: ["nvim-lsp"].concat(commonSources),
+          sources: ["lsp"].concat(commonSources),
         });
       }
 
       args.contextBuilder.patchFiletype("lua", {
         sources: [
-          "nvim-lsp",
+          "lsp",
         ].concat(commonSources),
       });
     }

@@ -82,27 +82,27 @@ inoremap <C-a>  <Cmd>Dda<CR>
 hook_source = '''
 '''
 
-[[plugins]]
-repo = 'skanehira/denops-silicon.vim'
-hook_source = '''
-  let g:silicon_options = #{
-      \   font: 'Courier 10 Pitch',
-      \   no_line_number: v:true,
-      \   no_round_corner: v:false,
-      \   no_window_controls: v:false,
-      \   background_color: '#ffffff',
-      \   line_offset: 1,
-      \   line_pad: 2,
-      \   pad_horiz: 10,
-      \   pad_vert: 10,
-      \   shadow_blur_radius: 0,
-      \   shadow_color: '#555555',
-      \   shadow_offset_x: 0,
-      \   shadow_offset_y: 0,
-      \   tab_width: 4,
-      \   theme: 'Solarized (dark)',
-      \ }
-'''
+#[[plugins]]
+#repo = 'skanehira/denops-silicon.vim'
+#hook_source = '''
+#  let g:silicon_options = #{
+#      \   font: 'Courier 10 Pitch',
+#      \   no_line_number: v:true,
+#      \   no_round_corner: v:false,
+#      \   no_window_controls: v:false,
+#      \   background_color: '#ffffff',
+#      \   line_offset: 1,
+#      \   line_pad: 2,
+#      \   pad_horiz: 10,
+#      \   pad_vert: 10,
+#      \   shadow_blur_radius: 0,
+#      \   shadow_color: '#555555',
+#      \   shadow_offset_x: 0,
+#      \   shadow_offset_y: 0,
+#      \   tab_width: 4,
+#      \   theme: 'Solarized (dark)',
+#      \ }
+#'''
 
 [[plugins]]
 repo = 'uga-rosa/scorpeon.vim'
