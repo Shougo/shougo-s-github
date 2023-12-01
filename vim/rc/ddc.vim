@@ -59,8 +59,9 @@ call ddc#custom#load_config(expand('$BASE_DIR/ddc.ts'))
 inoremap <expr> <TAB>
       \ pum#visible() ?
       \   '<Cmd>call pum#map#insert_relative(+1, "empty")<CR>' :
-      \ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
-      \   '<TAB>' : ddc#map#manual_complete()
+      \ col('.') <= 1 ? '<TAB>' :
+      \ getline('.')[col('.') - 2] =~# '\s' ? '<TAB>' :
+      \ ddc#map#manual_complete()
 inoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1, 'empty')<CR>
 inoremap <C-n>   <Cmd>call pum#map#select_relative(+1)<CR>
 inoremap <C-p>   <Cmd>call pum#map#select_relative(-1)<CR>
@@ -72,8 +73,6 @@ inoremap <End>   <Cmd>call pum#map#insert_relative(+9999, 'ignore')<CR>
 inoremap <expr> <C-e> ddc#visible()
       \ ? '<Cmd>call ddc#hide()<CR>'
       \ : '<End>'
-
-" Refresh the completion
 inoremap <expr> <C-l>  ddc#map#manual_complete()
 
 " For command line mode completion
@@ -94,6 +93,8 @@ cnoremap <expr> <C-t>       ddc#map#insert_item(0)
 inoremap <expr> <C-t>
       \ pum#visible() ? ddc#map#insert_item(0) : "\<C-v>\<Tab>"
 
+xnoremap <Tab>   "_R<Cmd>call ddc#map#manual_complete()<CR>
+snoremap <Tab>   <C-o>"_di<Cmd>call ddc#map#manual_complete()<CR>
 
 " For terminal completion
 call ddc#enable_terminal_completion()
