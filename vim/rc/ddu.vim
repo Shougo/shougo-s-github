@@ -111,7 +111,7 @@ cnoremap <C-q> <Cmd>call ddu#start(#{
 
 " Initialize ddu.vim lazily.
 if !('g:shougo_s_github_load_state'->exists())
-  call timer_start(10, { _ -> LazyDdu() })
+  call timer_start(1, { _ -> LazyDdu() })
   function LazyDdu()
     call ddu#set_static_import_path('~/.cache/dpp/nvim/mods.ts')
     "call ddu#load('ui', ['ff'])
