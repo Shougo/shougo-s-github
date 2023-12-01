@@ -4,8 +4,8 @@ import {
   ContextBuilder,
   Dpp,
   Plugin,
-} from "https://deno.land/x/dpp_vim@v0.0.7/types.ts";
-import { Denops, fn } from "https://deno.land/x/dpp_vim@v0.0.7/deps.ts";
+} from "https://deno.land/x/dpp_vim@v0.0.8/types.ts";
+import { Denops, fn } from "https://deno.land/x/dpp_vim@v0.0.8/deps.ts";
 
 type Toml = {
   hooks_file?: string;
@@ -46,14 +46,13 @@ export class Config extends BaseConfig {
 
     args.contextBuilder.setGlobal({
       convertImportPaths: [
-        "denops/@ddu-columns/*.ts",
-        "denops/@ddu-filters/*.ts",
-        "denops/@ddu-kinds/*.ts",
-        "denops/@ddu-sources/*.ts",
-        "denops/@ddu-uis/*.ts",
-        "denops/@ddc-filters/*.ts",
-        "denops/@ddc-sources/*.ts",
-        "denops/@ddc-uis/*.ts",
+        {
+          globs: [
+            "denops/@ddu-kinds/file.ts",
+            "denops/@ddu-uis/ff.ts",
+          ],
+          output: "mods.js",
+        },
       ],
       inlineVimrcs,
       extParams: {
