@@ -119,4 +119,5 @@ inoremap <C-a> <Cmd>call ddu#start(#{
 call ddc#enable(#{
       \   context_filetype: has('nvim') ? 'treesitter' : 'context_filetype',
       \ })
+call ddc#set_static_import_path('~/.cache/dpp/nvim/ddc.js')
 " }}}

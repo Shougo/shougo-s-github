@@ -48,10 +48,22 @@ export class Config extends BaseConfig {
       convertImportPaths: [
         {
           globs: [
+            "denops/@ddc-filters/converter_remove_overlap.ts",
+            "denops/@ddc-filters/matcher_*.ts",
+            "denops/@ddc-filters/sorter_rank.ts",
+            "denops/@ddc-sources/around.ts",
+            "denops/@ddc-sources/cmdline-history.ts",
+            "denops/@ddc-sources/cmdline.ts",
+            "denops/@ddc-uis/pum.ts",
+          ],
+          output: "ddc.js",
+        },
+        {
+          globs: [
             "denops/@ddu-kinds/file.ts",
             "denops/@ddu-uis/ff.ts",
           ],
-          output: "mods.js",
+          output: "ddu.js",
         },
       ],
       inlineVimrcs,
