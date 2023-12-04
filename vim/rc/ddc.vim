@@ -70,8 +70,8 @@ inoremap <C-o>   <Cmd>call pum#map#confirm_word()<CR>
 inoremap <Home>  <Cmd>call pum#map#insert_relative(-9999, 'ignore')<CR>
 inoremap <End>   <Cmd>call pum#map#insert_relative(+9999, 'ignore')<CR>
 "inoremap <C-z>   <Cmd>call pum#update_current_item(#{ display: 'hoge' })<CR>
-inoremap <expr> <C-e> ddc#visible()
-      \ ? '<Cmd>call ddc#hide()<CR>'
+inoremap <expr> <C-e> pum#visible()
+      \ ? '<Cmd>call pum#map#cancel()<CR>'
       \ : '<End>'
 inoremap <expr> <C-l>  ddc#map#manual_complete()
 
@@ -85,8 +85,8 @@ cnoremap <C-o>   <Cmd>call pum#map#confirm()<CR>
 cnoremap <C-q>   <Cmd>call pum#map#select_relative(+1)<CR>
 cnoremap <C-z>   <Cmd>call pum#map#select_relative(-1)<CR>
 cnoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
-cnoremap <expr> <C-e> ddc#visible()
-      \ ? '<Cmd>call ddc#hide()<CR>'
+cnoremap <expr> <C-e> pum#visible()
+      \ ? '<Cmd>call pum#map#cancel()<CR>'
       \ : '<End>'
 
 cnoremap <expr> <C-t>       ddc#map#insert_item(0)
