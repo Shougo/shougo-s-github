@@ -10,7 +10,6 @@ export class Config extends BaseConfig {
     const commonSources = [
       "codeium",
       "around",
-      "yank",
       "file",
       "mocword",
     ];
