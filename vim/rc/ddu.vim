@@ -122,3 +122,7 @@ endif
 " hook_source {{{
 call ddu#custom#load_config(expand('$BASE_DIR/ddu.ts'))
 " }}}
+
+" hook_post_update {{{
+call ddu#set_static_import_path()
+" }}}
