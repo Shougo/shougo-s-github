@@ -68,7 +68,7 @@ nnoremap <buffer> u
       \ #{ name: 'undo' })<CR>
 nnoremap <buffer> ~
       \ <Cmd>call ddu#ui#do_action('itemAction',
-      \ #{ name: 'narrow', params: #{ path: expand('~') } })<CR>
+      \ #{ name: 'narrow', params: #{ path: '~'->expand() } })<CR>
 nnoremap <buffer> =
       \ <Cmd>call ddu#ui#do_action('itemAction',
       \ #{ name: 'narrow', params: #{ path: getcwd() } })<CR>

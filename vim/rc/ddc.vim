@@ -43,7 +43,7 @@ endfunction
 " }}}
 
 " hook_source {{{
-call ddc#custom#load_config(expand('$BASE_DIR/ddc.ts'))
+call ddc#custom#load_config('$BASE_DIR/ddc.ts'->expand())
 
 " Context config
 "call ddc#custom#set_context_filetype('go', { ->

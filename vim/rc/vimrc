@@ -18,7 +18,7 @@ augroup MyAutoCmd
 augroup END
 
 " Minimal options
-if exists('+termguicolors') && !has('gui_running')
+if '+termguicolors'->exists() && !has('gui_running')
   set termguicolors
 endif
 set shortmess=aTIcFoOsSW showtabline=0 laststatus=0
@@ -39,8 +39,8 @@ endtry
 set title titlelen=95
 " Title string.
 let &g:titlestring = [
-      \   "%{expand('%:p:~:.')}",
-      \   "%<\(%{fnamemodify(getcwd(), ':~')}\)",
+      \   "%{'%:p:~:.'->expand()}",
+      \   "%<\(%{getcwd()->fnamemodify(':~')}\)",
       \   "%(%y%m%r%)",
       \ ]->join()
 
@@ -59,17 +59,17 @@ colorscheme candy
 " Use English interface.
 language message C
 
-if filereadable(expand('~/.secret_vimrc'))
+if '~/.secret_vimrc'->expand()->filereadable()
   source ~/.secret_vimrc
 endif
 
-const base_path = fnamemodify(expand('<sfile>'), ':h')
+const base_path = '<sfile>'->expand()->fnamemodify(':h')
 
 execute 'source' base_path .. '/dpp.vim'
 
 "---------------------------------------------------------------------------
 
-if !empty(argv())
+if !argv()->empty()
   call vimrc#on_filetype()
 endif
 

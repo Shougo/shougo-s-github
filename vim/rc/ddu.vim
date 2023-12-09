@@ -1,7 +1,7 @@
 " hook_add {{{
 nnoremap s<Space> <Cmd>Ddu
       \ -name=files file
-      \ -source-option-file-path=`expand('$BASE_DIR')`
+      \ -source-option-file-path=`'$BASE_DIR'->expand()`
       \ -ui-param-ff-split=floating
       \ <CR>
 nnoremap ss
@@ -120,7 +120,7 @@ endif
 " }}}
 
 " hook_source {{{
-call ddu#custom#load_config(expand('$BASE_DIR/ddu.ts'))
+call ddu#custom#load_config('$BASE_DIR/ddu.ts'->expand())
 " }}}
 
 " hook_post_update {{{
