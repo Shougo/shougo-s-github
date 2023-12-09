@@ -91,7 +91,7 @@ endfunction
 
 function vimrc#on_filetype() abort
   if 'filetype'->execute() !~# 'OFF'
-    if !('b:did_ftplugin'->exists())
+    if !'b:did_ftplugin'->exists()
       runtime! after/ftplugin.vim
     endif
 

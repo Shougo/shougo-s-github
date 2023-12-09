@@ -1,15 +1,15 @@
 let $CACHE = '~/.cache'->expand()
-if !($CACHE->isdirectory())
+if !$CACHE->isdirectory()
   call mkdir($CACHE, 'p')
 endif
 
 function InitPlugin(plugin)
   " Search from ~/work directory
   let dir = '~/work/'->expand() .. a:plugin->fnamemodify(':t')
-  if !(dir->isdirectory())
+  if !dir->isdirectory()
     " Search from $CACHE directory
     let dir = $CACHE .. '/dpp/repos/github.com/' .. a:plugin
-    if !(dir->isdirectory())
+    if !dir->isdirectory()
       " Install plugin automatically.
       execute '!git clone https://github.com/' .. a:plugin dir
     endif
@@ -32,7 +32,7 @@ const s:dpp_base = '~/.cache/dpp'->expand()
 
 let $BASE_DIR = '<sfile>'->expand()->fnamemodify(':h')
 
-if dpp#min#load_state(s:dpp_base)
+if s:dpp_base->dpp#min#load_state()
   " NOTE: denops.vim and dpp plugins are must be added
   for s:plugin in [
         \   'Shougo/dpp-ext-installer',
