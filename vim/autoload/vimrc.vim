@@ -144,7 +144,7 @@ function vimrc#append_diff() abort
 
   " Add a comment character to each line of the diff
   let comment_diff = diff->split('\n')[: 200]
-        \ ->map({ idx, line -> '# '.. line })
+        \ ->map({ -> '# '.. v:val })
 
   " Append the diff to the commit message
   call append('$'->line(), comment_diff)

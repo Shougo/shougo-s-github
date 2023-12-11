@@ -55,6 +55,12 @@ nnoremap <buffer> <C-v>
       \ <Cmd>call ddu#ui#do_action('toggleAutoAction')<CR>
 nnoremap <buffer> <C-l>
       \ <Cmd>call ddu#redraw(b:ddu_ui_name, #{ refreshItems: v:true })<CR>
+nnoremap <buffer> <C-p>
+      \ <Cmd>call ddu#ui#do_action('previewExecute',
+      \ #{ command: 'execute "normal! \<C-y>"' })<CR>
+nnoremap <buffer> <C-n>
+      \ <Cmd>call ddu#ui#do_action('previewExecute',
+      \ #{ command: 'execute "normal! \<C-e>"' })<CR>
 
 xnoremap <silent><buffer> <Space>
       \ :call ddu#ui#do_action('toggleSelectItem')<CR>
