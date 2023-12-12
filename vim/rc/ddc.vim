@@ -74,6 +74,8 @@ inoremap <expr> <C-e> pum#visible()
       \ ? '<Cmd>call pum#map#cancel()<CR>'
       \ : '<End>'
 inoremap <expr> <C-l>  ddc#map#manual_complete()
+"inoremap <C-y>   <Cmd>call pum#map#scroll_preview(+1)<CR>
+"inoremap <C-e>   <Cmd>call pum#map#scroll_preview(-1)<CR>
 
 " For command line mode completion
 cnoremap <expr> <Tab>
@@ -88,6 +90,8 @@ cnoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
 cnoremap <expr> <C-e> pum#visible()
       \ ? '<Cmd>call pum#map#cancel()<CR>'
       \ : '<End>'
+"cnoremap <C-y>   <Cmd>call pum#map#scroll_preview(+1)<CR>
+"cnoremap <C-e>   <Cmd>call pum#map#scroll_preview(-1)<CR>
 
 cnoremap <expr> <C-t>       ddc#map#insert_item(0)
 inoremap <expr> <C-t>

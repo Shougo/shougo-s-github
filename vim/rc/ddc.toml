@@ -8,9 +8,10 @@ hooks_file = '$BASE_DIR/ddc.vim'
 repo = 'Shougo/pum.vim'
 hook_source = '''
   call pum#set_option(#{
-    \   auto_confirm_time: 3000,
+    \   auto_confirm_time: 0,
     \   auto_select: v:false,
     \   border: 'none',
+    \   commit_characters: ['.'],
     \   follow_cursor: v:false,
     \   highlight_scrollbar: 'None',
     \   horizontal_menu: v:false,
