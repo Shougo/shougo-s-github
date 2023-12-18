@@ -118,13 +118,15 @@ denops_wait = false
 
 [[plugins]]
 repo = 'vim-skk/skkeleton'
-on_map = { ict = '<Plug>(skkeleton-toggle)' }
-on_event = 'CursorHold'
+on_map = { ict = '<Plug>(skkeleton-' }
 hook_add = '''
   inoremap <C-j> <Plug>(skkeleton-toggle)
   cnoremap <C-j> <Plug>(skkeleton-toggle)
   tnoremap <C-j> <Plug>(skkeleton-toggle)
   nnoremap <C-j> i<Plug>(skkeleton-enable)
+
+  " Lazy load by background
+  call timer_start(1, { _ -> dpp#source('skkeleton') })
 '''
 hook_source = '''
   "let g:skkeleton#debug = v:true

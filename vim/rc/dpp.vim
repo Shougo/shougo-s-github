@@ -23,6 +23,8 @@ endfunction
 call InitPlugin('Shougo/dpp.vim')
 call InitPlugin('Shougo/dpp-ext-lazy')
 
+" For denops local server.
+"let g:denops_server_addr = '127.0.0.1:32123'
 
 "---------------------------------------------------------------------------
 " dpp configurations.
