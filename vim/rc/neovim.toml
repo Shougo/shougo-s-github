@@ -173,14 +173,14 @@ lua_source = '''
             deno = {
               suggest = {
                 imports = {
-                  autoDiscover = false
-                  hosts {
-                    ['https://x.nest.land'] = false
-                  }
-                }
-              }
-            }
-          }
+                  autoDiscover = false,
+                  hosts = {
+                    ['https://x.nest.land'] = false,
+                  },
+                },
+              },
+            },
+          },
         }
         return
       elseif server_name == 'solargraph' then
@@ -199,7 +199,7 @@ lua_source = '''
                 -- Get the language server to recognize the `vim` global
                 globals = {
                   'vim',
-                  'require'
+                  'require',
                 },
               },
               workspace = {
