@@ -48,7 +48,7 @@ export class Config extends BaseConfig {
         buffer: {
           mark: "B",
         },
-        necovim: {
+        vim: {
           mark: "vim",
         },
         cmdline: {
@@ -236,7 +236,7 @@ export class Config extends BaseConfig {
     args.contextBuilder.patchFiletype("vim", {
       // Enable specialBufferCompletion for cmdwin.
       specialBufferCompletion: true,
-      sources: ["necovim"].concat(commonSources),
+      sources: ["vim"].concat(commonSources),
     });
   }
 }

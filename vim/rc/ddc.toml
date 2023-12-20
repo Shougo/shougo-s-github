@@ -110,6 +110,10 @@ repo = 'Shougo/ddc-source-rtags'
 on_ft = ['c', 'cpp']
 
 [[plugins]]
+repo = 'Shougo/ddc-source-vim'
+on_source = 'ddc.vim'
+
+[[plugins]]
 repo = 'matsui54/ddc-buffer'
 on_source = 'ddc.vim'
 
