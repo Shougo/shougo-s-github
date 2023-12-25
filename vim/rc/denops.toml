@@ -130,6 +130,7 @@ hook_add = '''
 '''
 hook_source = '''
   "let g:skkeleton#debug = v:true
+
   call skkeleton#config(#{
         \   globalJisyo: has('win32') ?
         \     '~/.config/SKK-JISYO.L' : '/usr/share/skk/SKK-JISYO.L',
@@ -139,6 +140,16 @@ hook_source = '''
         \   markerHenkan: '',
         \   markerHenkanSelect: '',
         \ })
+
+  " For SKK server test.
+  "call skkeleton#config(#{
+  "      \   eggLikeNewline: v:true,
+  "      \   registerConvertResult: v:true,
+  "      \   useGoogleJapaneseInput: v:false,
+  "      \   markerHenkan: '',
+  "      \   markerHenkanSelect: '',
+  "      \   useSkkServer: v:true,
+  "      \ })
 
   call skkeleton#register_kanatable('rom', {
         \   'jj': 'escape',
