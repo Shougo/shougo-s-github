@@ -93,33 +93,45 @@ hook_source = '''
   imap <silent><expr> <C-n> copilot#Next()
   imap <silent><expr> <C-p> copilot#Previous()
 
-  " Enable copilot for text files
   let g:copilot_filetypes = #{
+    \   ddu-ff-filter: v:false,
     \   gitcommit: v:true,
     \   markdown: v:true,
+    \   python: v:true,
     \   text: v:true,
+    \   typescript: v:true,
+    \   vim: v:true,
     \   yaml: v:true,
-    \   ddu-ff-filter: v:false,
     \ }
 '''
 
 [[plugins]]
 repo = 'Exafunction/codeium.vim'
 on_cmd = ['Codeium']
+hook_add = '''
+  nnoremap [Space]ai
+  \ <Cmd>CodeiumEnable<CR><Cmd>echo 'Codeium enabled'<CR>
+'''
 hook_source = '''
   let g:codeium_disable_bindings = 1
   let g:codeium_render = v:false
+  let g:codeium_manual = v:true
 
   "inoremap <expr> <C-g> codeium#Accept()
   "inoremap <C-x> <Cmd>call codeium#Clear()<CR>
+  inoremap <expr> <C-a>  ddc#map#manual_complete(#{
+    \   sources: ['codeium'],
+    \ })
 
-  " Enable copilot for text files
   let g:codeium_filetypes = #{
+    \   ddu-ff-filter: v:false,
     \   gitcommit: v:true,
     \   markdown: v:true,
+    \   python: v:true,
     \   text: v:true,
+    \   typescript: v:true,
+    \   vim: v:true,
     \   yaml: v:true,
-    \   ddu-ff-filter: v:false,
     \ }
 '''
 

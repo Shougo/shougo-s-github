@@ -104,21 +104,21 @@ snoremap <Tab>   <C-o>"_di<Cmd>call ddc#map#manual_complete()<CR>
 call ddc#enable_terminal_completion()
 
 " Narrowing by ddu
-inoremap <C-a> <Cmd>call ddu#start(#{
-      \   name: 'ddc',
-      \   ui: 'ff',
-      \   sync: v:true,
-      \   input: matchstr(getline('.')[: col('.') - 1], '\k*$'),
-      \   sources: [
-      \     #{ name: 'ddc', options: #{ defaultAction: 'complete' } },
-      \   ],
-      \   uiParams: #{
-      \     ff: #{
-      \       startFilter: v:true,
-      \       replaceCol: match(getline('.')[: col('.') - 1], '\k*$') + 1,
-      \     },
-      \   },
-      \ })<CR>
+"inoremap <C-a> <Cmd>call ddu#start(#{
+"      \   name: 'ddc',
+"      \   ui: 'ff',
+"      \   sync: v:true,
+"      \   input: matchstr(getline('.')[: col('.') - 1], '\k*$'),
+"      \   sources: [
+"      \     #{ name: 'ddc', options: #{ defaultAction: 'complete' } },
+"      \   ],
+"      \   uiParams: #{
+"      \     ff: #{
+"      \       startFilter: v:true,
+"      \       replaceCol: match(getline('.')[: col('.') - 1], '\k*$') + 1,
+"      \     },
+"      \   },
+"      \ })<CR>
 
 call ddc#enable(#{
       \   context_filetype: has('nvim') ? 'treesitter' : 'context_filetype',

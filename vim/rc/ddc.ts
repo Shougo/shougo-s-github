@@ -8,7 +8,6 @@ export class Config extends BaseConfig {
     const hasWindows = await fn.has(args.denops, "win32");
 
     const commonSources = [
-      "codeium",
       "around",
       "file",
       "mocword",
