@@ -76,7 +76,7 @@ function! RangeCompletion(line1, line2, range, prompt)
 endfunction
 
 " Completion with current buffer
-inoremap <C-a>  <Cmd>Dda<CR>
+"inoremap <C-a>  <Cmd>Dda<CR>
 '''
 hook_source = '''
 '''
@@ -140,6 +140,10 @@ hook_source = '''
         \   markerHenkan: '',
         \   markerHenkanSelect: '',
         \ })
+
+  "call skkeleton#config(#{
+  "      \   databasePath: '~/.cache/skkeleton.db',
+  "      \ })
 
   " For SKK server test.
   "call skkeleton#config(#{
