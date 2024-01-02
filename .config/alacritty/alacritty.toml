@@ -1,0 +1,62 @@
+[colors]
+draw_bold_text_with_bright_colors = true
+
+[colors.bright]
+black = "0x383838"
+blue = "0x6699ff"
+cyan = "0x4ae2e2"
+green = "0x44ff44"
+magenta = "0xf820ff"
+red = "0xff4444"
+white = "0xfdf6e3"
+yellow = "0xffb30a"
+
+[colors.cursor]
+cursor = "0x772222"
+text = "0xffffff"
+
+[colors.dim]
+black = "0x333333"
+blue = "0x6699cc"
+cyan = "0x66cccc"
+green = "0x99cc99"
+magenta = "0xcc99cc"
+red = "0xf2777a"
+white = "0xdddddd"
+yellow = "0xffcc66"
+
+[colors.normal]
+black = "0x2c2c2c"
+blue = "0x3f90cd"
+cyan = "0x1bc8c8"
+green = "0x66ff66"
+magenta = "0xff13ff"
+red = "0xff6666"
+white = "0xc0c0c0"
+yellow = "0xffd30a"
+
+[colors.primary]
+background = "0x2c2c2c"
+foreground = "0xcccccc"
+
+[env]
+TERM = "alacritty"
+
+[font]
+size = 9.0
+
+[font.bold]
+family = "Courier 10 Pitch"
+
+[font.italic]
+family = "Courier 10 Pitch"
+
+[font.normal]
+family = "Courier 10 Pitch"
+
+[mouse]
+hide_when_typing = true
+
+[shell]
+args = ["--login"]
+program = "/bin/zsh"
