@@ -206,6 +206,17 @@ export class Config extends BaseConfig {
       specialBufferCompletion: true,
     });
 
+    // Use "#" as TypeScript keywordPattern
+    for (const filetype of ["typescript"]) {
+      args.contextBuilder.patchFiletype(filetype, {
+        sourceOptions: {
+          _: {
+            keywordPattern: "#?[a-zA-Z_][0-9a-zA-Z_]*",
+          },
+        },
+      });
+    }
+
     if (hasNvim) {
       for (
         const filetype of [
