@@ -3,7 +3,7 @@ if !$CACHE->isdirectory()
   call mkdir($CACHE, 'p')
 endif
 
-function InitPlugin(plugin)
+function DppInitPlugin(plugin)
   " Search from ~/work directory
   let dir = '~/work/'->expand() .. a:plugin->fnamemodify(':t')
   if !dir->isdirectory()
@@ -20,8 +20,8 @@ function InitPlugin(plugin)
 endfunction
 
 " NOTE: dpp.vim path must be added
-call InitPlugin('Shougo/dpp.vim')
-call InitPlugin('Shougo/dpp-ext-lazy')
+call DppInitPlugin('Shougo/dpp.vim')
+call DppInitPlugin('Shougo/dpp-ext-lazy')
 
 " For denops local server.
 "let g:denops_server_addr = '127.0.0.1:32123'
@@ -34,6 +34,10 @@ const s:dpp_base = '~/.cache/dpp'->expand()
 
 let $BASE_DIR = '<sfile>'->expand()->fnamemodify(':h')
 
+function DppMakeState()
+  call dpp#make_state(s:dpp_base, '$BASE_DIR/dpp.ts'->expand())
+endfunction
+
 if s:dpp_base->dpp#min#load_state()
   " NOTE: denops.vim and dpp plugins are must be added
   for s:plugin in [
@@ -44,7 +48,7 @@ if s:dpp_base->dpp#min#load_state()
         \   'Shougo/dpp-protocol-git',
         \   'vim-denops/denops.vim',
         \ ]
-    call InitPlugin(s:plugin)
+    call DppInitPlugin(s:plugin)
   endfor
 
   " NOTE: Manual load is needed for neovim
@@ -57,7 +61,7 @@ if s:dpp_base->dpp#min#load_state()
         \ : echohl WarningMsg
         \ | echomsg 'dpp load_state() is failed'
         \ | echohl NONE
-        \ | call dpp#make_state(s:dpp_base, '$BASE_DIR/dpp.ts'->expand())
+        \ | call DppMakeState()
 else
   autocmd MyAutoCmd BufWritePost *.lua,*.vim,*.toml,*.ts,vimrc,.vimrc
         \ call dpp#check_files()

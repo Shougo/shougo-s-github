@@ -10,8 +10,7 @@ export class Config extends BaseConfig {
     const commonSources = [
       "around",
       "file",
-      "mocword",
-    ];
+    ].concat(Deno.env.get("MOCWORD_DATA") ? ["mocword"] : []);
 
     args.contextBuilder.patchGlobal({
       ui: "pum",
@@ -155,7 +154,7 @@ export class Config extends BaseConfig {
       ]
     ) {
       args.contextBuilder.patchFiletype(filetype, {
-        sources: commonSources.concat(["mocword", "line"]),
+        sources: commonSources.concat(["line"]),
       });
     }
 
