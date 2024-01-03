@@ -57,6 +57,7 @@ on_source = 'ddc.vim'
 
 [[plugins]]
 repo = 'Shougo/ddc-source-mocword'
+if = 'exists("$MOCWORD_DATA")'
 on_source = 'ddc.vim'
 
 [[plugins]]
