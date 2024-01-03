@@ -121,6 +121,7 @@ denops_wait = false
 [[plugins]]
 repo = 'vim-skk/skkeleton'
 on_map = { ict = '<Plug>(skkeleton-' }
+denops_wait = false
 hook_add = '''
   inoremap <C-j> <Plug>(skkeleton-toggle)
   cnoremap <C-j> <Plug>(skkeleton-toggle)
@@ -128,9 +129,7 @@ hook_add = '''
   nnoremap <C-j> i<Plug>(skkeleton-enable)
 
   " Lazy load by background
-  if !has('win32')
-    call timer_start(1, { _ -> dpp#source('skkeleton') })
-  endif
+  call timer_start(1, { _ -> dpp#source('skkeleton') })
 '''
 hook_source = '''
   "let g:skkeleton#debug = v:true
