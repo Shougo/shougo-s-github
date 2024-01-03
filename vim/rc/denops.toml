@@ -126,7 +126,9 @@ hook_add = '''
   nnoremap <C-j> i<Plug>(skkeleton-enable)
 
   " Lazy load by background
-  call timer_start(1, { _ -> dpp#source('skkeleton') })
+  if !has('win32')
+    call timer_start(1, { _ -> dpp#source('skkeleton') })
+  endif
 '''
 hook_source = '''
   "let g:skkeleton#debug = v:true
