@@ -67,8 +67,6 @@ nnoremap [Space]p
       \<Cmd>set spelllang+=cjk<CR>
 nnoremap [Space]w
       \ <Cmd>call vimrc#toggle_option('wrap')<CR>
-nnoremap [Space]l
-      \ <Cmd>call vimrc#toggle_option('laststatus')<CR>
 nnoremap [Space]c
       \ <Cmd>call <SID>toggle_conceal()<CR>
 
@@ -184,9 +182,6 @@ tnoremap j<Space>   j
 tnoremap <expr> ;  vimrc#sticky_func()
 tnoremap <C-y>      <C-r>+
 
-" Wordcount
-command! WordCount echo getline(1, '$')->join()->strchars()
-
 " {visual}p to put without yank to unnamed register
 xnoremap p   P
 
@@ -204,9 +199,6 @@ command! -bang -bar -complete=file -nargs=? Cp932
 " Open in EUC-jp again.
 command! -bang -bar -complete=file -nargs=? Euc
       \ edit<bang> ++enc=euc-jp <args>
-" Open in UTF-16 again.
-command! -bang -bar -complete=file -nargs=? Utf16
-      \ edit<bang> ++enc=ucs-2le <args>
 
 " Tried to make a file note version.
 command! WUtf8 setlocal fenc=utf-8
@@ -217,9 +209,6 @@ command! -bang -complete=file -nargs=? WUnix
       \ write<bang> ++fileformat=unix <args> | edit <args>
 command! -bang -complete=file -nargs=? WDos
       \ write<bang> ++fileformat=dos <args> | edit <args>
-
-" Insert special character
-inoremap <C-v>u  <C-r>=nr2char(0x)<Left>
 
 " Tag jump
 nnoremap tt  g<C-]>
