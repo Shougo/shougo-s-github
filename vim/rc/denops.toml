@@ -136,8 +136,9 @@ hook_source = '''
 
   call skkeleton#config(#{
         \   globalJisyo: has('win32') ?
-        \     '~/.config/SKK-JISYO.L' : '/usr/share/skk/SKK-JISYO.L',
-        \   databasePath: '~/.cache/skkeleton.db',
+        \     '~/.config/SKK-JISYO.L'->expand() :
+        \     '/usr/share/skk/SKK-JISYO.L',
+        \   databasePath: '~/.cache/skkeleton.db'->expand(),
         \   eggLikeNewline: v:true,
         \   registerConvertResult: v:true,
         \   useGoogleJapaneseInput: v:true,
