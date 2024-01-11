@@ -137,9 +137,9 @@ hook_source = '''
   call skkeleton#config(#{
         \   databasePath: '~/.cache/skkeleton.db'->expand(),
         \   eggLikeNewline: v:true,
-        \   globalJisyo: has('win32') ?
-        \     '~/.config/SKK-JISYO.L'->expand() :
-        \     '/usr/share/skk/SKK-JISYO.L',
+        \   globalDictionaries: has('win32') ?
+        \     ['~/.config/SKK-JISYO.L'->expand()] :
+        \     ['/usr/share/skk/SKK-JISYO.L'],
         \   markerHenkan: '',
         \   markerHenkanSelect: '',
         \   registerConvertResult: v:true,
