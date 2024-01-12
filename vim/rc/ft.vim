@@ -114,4 +114,7 @@ endfunction
 
 " yaml {{{
 setlocal iskeyword+=-
+
+" Don't want to adjust the indent by "#".
+setlocal indentkeys-=0#
 " }}}
