@@ -6,6 +6,7 @@ import {
   Plugin,
 } from "https://deno.land/x/dpp_vim@v0.0.9/types.ts";
 import { Denops, fn } from "https://deno.land/x/dpp_vim@v0.0.9/deps.ts";
+import { expandGlob } from "https://deno.land/std@0.212.0/fs/expand_glob.ts";
 
 type Toml = {
   hooks_file?: string;
@@ -211,14 +212,13 @@ export class Config extends BaseConfig {
       },
     ) as LazyMakeStateResult | undefined;
 
+    const checkFiles = [];
+    for await (const file of expandGlob(`${Deno.env.get("BASE_DIR")}/*`)) {
+      checkFiles.push(file.path);
+    }
+
     return {
-      checkFiles: await fn.globpath(
-        args.denops,
-        Deno.env.get("BASE_DIR"),
-        "*",
-        1,
-        1,
-      ) as unknown as string[],
+      checkFiles,
       ftplugins,
       hooksFiles,
       plugins: lazyResult?.plugins ?? [],
