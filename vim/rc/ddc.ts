@@ -136,6 +136,9 @@ export class Config extends BaseConfig {
         file: {
           filenameChars: "[:keyword:].",
         },
+        lsp: {
+          enableDisplayDetail: true,
+        },
         "shell-native": {
           shell: "fish",
         },

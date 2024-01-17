@@ -2,7 +2,7 @@
 repo = 'nvim-treesitter/nvim-treesitter'
 if = '!has("win32")'
 on_event = ['BufRead', 'CursorHold']
-on_ft = 'help'
+on_ft = ['help']
 hook_post_update = 'TSUpdate'
 lua_source = '''
   require('nvim-treesitter.configs').setup {
