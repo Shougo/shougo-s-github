@@ -8,7 +8,7 @@ nnoremap <buffer> *
 nnoremap <buffer> i
       \ <Cmd>call ddu#ui#do_action('openFilterWindow')<CR>
 nnoremap <buffer> <C-l>
-      \ <Cmd>call ddu#ui#do_action('refreshItems')<CR>
+      \ <Cmd>call ddu#ui#do_action('redraw')<CR>
 nnoremap <buffer> p
       \ <Cmd>call ddu#ui#do_action('previewPath')<CR>
 nnoremap <buffer> P
@@ -53,8 +53,6 @@ nnoremap <buffer> K
       \ <Cmd>call ddu#ui#do_action('kensaku')<CR>
 nnoremap <buffer> <C-v>
       \ <Cmd>call ddu#ui#do_action('toggleAutoAction')<CR>
-nnoremap <buffer> <C-l>
-      \ <Cmd>call ddu#redraw(b:ddu_ui_name, #{ refreshItems: v:true })<CR>
 nnoremap <buffer> <C-p>
       \ <Cmd>call ddu#ui#do_action('previewExecute',
       \ #{ command: 'execute "normal! \<C-y>"' })<CR>
@@ -74,6 +72,7 @@ nnoremap <buffer> u
       \     },
       \   },
       \ })<CR>
+      \<Cmd>call ddu#ui#do_action('redraw')<CR>
 
 " Switch sources
 nnoremap <buffer> ff
@@ -82,6 +81,7 @@ nnoremap <buffer> ff
       \     #{ name: 'file' },
       \   ],
       \ })<CR>
+      \<Cmd>call ddu#ui#do_action('redraw', #{ method: 'refreshItems' })<CR>
 
 " Cursor move
 nnoremap <C-n>
@@ -103,6 +103,7 @@ nnoremap <buffer> >
       \     },
       \   },
       \ })<CR>
+      \<Cmd>call ddu#ui#do_action('redraw', #{ method: 'uiRedraw' })<CR>
 " }}}
 
 " ddu-ff-filter {{{
@@ -136,10 +137,4 @@ nnoremap <buffer> <CR>
       \ <Cmd>call ddu#ui#do_action('closeFilterWindow')<CR>
 nnoremap <buffer> q
       \ <Cmd>call ddu#ui#do_action('closeFilterWindow')<CR>
-nnoremap <buffer> ff
-      \ <Cmd>call ddu#ui#do_action('updateOptions', #{
-      \   sources: [
-      \     #{ name: 'file' },
-      \   ],
-      \ })<CR>
 " }}}

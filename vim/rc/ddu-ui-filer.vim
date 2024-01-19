@@ -95,6 +95,7 @@ nnoremap <buffer> .
       \     },
       \   },
       \ })<CR>
+      \<Cmd>call ddu#ui#do_action('redraw')<CR>
 nnoremap <buffer> >
       \ <Cmd>call ddu#ui#do_action('updateOptions', #{
       \   uiParams: #{
@@ -103,17 +104,18 @@ nnoremap <buffer> >
       \     },
       \   },
       \ })<CR>
+      \<Cmd>call ddu#ui#do_action('redraw')<CR>
 nnoremap <buffer> <
       \ <Cmd>call ddu#ui#do_action('updateOptions', #{
-      \   ui: 'ff',
       \   uiParams: #{
-      \     ff: #{
+      \     filer: #{
       \       split: 'vertical',
       \     },
       \   },
       \ })<CR>
+      \<Cmd>call ddu#ui#do_action('redraw')<CR>
 nnoremap <buffer> <C-l>
-      \ <Cmd>call ddu#ui#do_action('checkItems')<CR>
+      \ <Cmd>call ddu#ui#do_action('redraw')<CR>
 nnoremap <buffer><expr> <CR>
       \ ddu#ui#get_item()->get('isTree', v:false) ?
       \ "<Cmd>call ddu#ui#do_action('itemAction', #{ name: 'narrow' })<CR>" :
