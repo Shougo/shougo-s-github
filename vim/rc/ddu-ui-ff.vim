@@ -8,7 +8,7 @@ nnoremap <buffer> *
 nnoremap <buffer> i
       \ <Cmd>call ddu#ui#do_action('openFilterWindow')<CR>
 nnoremap <buffer> <C-l>
-      \ <Cmd>call ddu#ui#do_action('redraw')<CR>
+      \ <Cmd>call ddu#ui#do_action('redraw', #{ method: 'refreshItems' })<CR>
 nnoremap <buffer> p
       \ <Cmd>call ddu#ui#do_action('previewPath')<CR>
 nnoremap <buffer> P
