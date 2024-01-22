@@ -115,7 +115,7 @@ repo = 'Shougo/ddc-source-vim'
 on_source = 'ddc.vim'
 
 [[plugins]]
-repo = 'matsui54/ddc-buffer'
+repo = 'matsui54/ddc-source-buffer'
 on_source = 'ddc.vim'
 
 [[plugins]]
