@@ -7,16 +7,16 @@ hook_source = '''
   "let g:denops#server#deno_args = [
   "    \ '-q',
   "    \ '-A',
-  "    \ '--unstable',
+  "    \ '--unstable-kv',
   "    \ '--inspect',
   "    \ ]
 
-  " NOTE: for test
-  "let g:denops#server#deno_args = [
-  "    \ '-q',
-  "    \ '-A',
-  "    \ '--unstable',
-  "    \ ]
+  " NOTE: for Deno KV storage
+  let g:denops#server#deno_args = [
+      \ '-q',
+      \ '-A',
+      \ '--unstable-kv',
+      \ ]
 
   "let g:denops_server_addr = '127.0.0.1:32123'
 '''
