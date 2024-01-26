@@ -160,6 +160,9 @@ set fileformats=unix,dos,mac
 " Disable editorconfig
 let g:editorconfig = v:false
 
+" Disable clipboard support
+set clipboard=
+
 
 "---------------------------------------------------------------------------
 " View:
