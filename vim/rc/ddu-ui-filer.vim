@@ -23,7 +23,7 @@ nnoremap <buffer> q
       \ <Cmd>call ddu#ui#do_action('quit')<CR>
 nnoremap <buffer> o
       \ <Cmd>call ddu#ui#do_action('expandItem',
-      \ #{ mode: 'toggle' })<CR>
+      \ #{ mode: 'toggle', isGrouped: v:true })<CR>
 nnoremap <buffer> O
       \ <Cmd>call ddu#ui#do_action('expandItem',
       \ #{ maxLevel: -1 })<CR>
