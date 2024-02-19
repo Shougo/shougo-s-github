@@ -21,6 +21,10 @@ hook_source = '''
 '''
 
 [[plugins]]
+repo = 'vim-denops/denops-startup-recorder.vim'
+on_source = 'denops.vim'
+
+[[plugins]]
 repo = 'Shougo/ddx.vim'
 hook_add = '''
   nnoremap [Space]x <Cmd>Ddx -path=`'%'->expand()`<CR>

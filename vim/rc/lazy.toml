@@ -1,6 +1,6 @@
 [[plugins]]
 repo = 'Shougo/deol.nvim'
-depends = ['ddu.vim', 'ddc.vim']
+depends = ['ddu.vim']
 on_source = ['ddu.vim']
 hooks_file = '$BASE_DIR/deol.vim'
 
