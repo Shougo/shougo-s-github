@@ -3,7 +3,6 @@ export EDITOR=nvim
 export FCEDIT=nvim
 export PAGER=less
 export LESS='-RQM'
-export GZIP='-v9N'
 export BROWSER='firefox'
 export SHELL=zsh
 export MANPAGER='nvim --clean +Man\!'

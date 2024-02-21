@@ -90,19 +90,20 @@ function vimrc#toggle_option(option_name) abort
 endfunction
 
 function vimrc#on_filetype() abort
-  if 'filetype'->execute() !~# 'OFF'
+  if 'filetype'->execute() =~# 'OFF'
     if !'b:did_ftplugin'->exists()
       runtime! after/ftplugin.vim
     endif
 
-    return
+    filetype plugin indent on
+
+    " NOTE: filetype detect does not work on startup
+    silent filetype detect
   endif
 
-  filetype plugin indent on
-  syntax enable
-
-  " NOTE: filetype detect does not work on startup
-  silent filetype detect
+  if &l:filetype ==# '' && &l:syntax ==# ''
+    syntax enable
+  endif
 endfunction
 
 function vimrc#diagnostics_to_location_list() abort
