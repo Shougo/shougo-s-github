@@ -335,15 +335,15 @@ esac
 # dtach command, dtach -A command, dtach -a session
 # adbuco -c session,abduco -c session command, abduco -a command
 
-# Use rtx
-# https://github.com/jdxcode/rtx
-if [ -x ~/bin/rtx ]; then
-    #eval "$(~/bin/rtx activate zsh)"
-    if ! [ -f /tmp/rtx.cache ]; then
-        ~/bin/rtx activate zsh > /tmp/rtx.cache
-        zcompile /tmp/rtx.cache
+# Use mise
+# https://github.com/jdxcode/mise
+if [ -x ~/.local/bin/mise ]; then
+    #eval "$(~/.local/bin/mise activate zsh)"
+    if ! [ -f /tmp/mise.cache ]; then
+        ~/.local/bin/mise activate zsh > /tmp/mise.cache
+        zcompile /tmp/mise.cache
     fi
-    source /tmp/rtx.cache
+    source /tmp/mise.cache
 fi
 
 if ( which zprof > /dev/null ); then
