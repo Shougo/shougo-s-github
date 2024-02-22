@@ -96,12 +96,12 @@ function vimrc#on_filetype() abort
     endif
 
     filetype plugin indent on
-
-    " NOTE: filetype detect does not work on startup
-    silent filetype detect
   endif
 
   if &l:filetype ==# '' && &l:syntax ==# ''
+    " NOTE: filetype detect does not work on startup
+    silent filetype detect
+
     syntax enable
   endif
 endfunction
