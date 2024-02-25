@@ -94,8 +94,7 @@ cnoremap <expr> <C-e> pum#visible()
 "cnoremap <C-e>   <Cmd>call pum#map#scroll_preview(-1)<CR>
 
 cnoremap <expr> <C-t>       ddc#map#insert_item(0)
-inoremap <expr> <C-t>
-      \ pum#visible() ? ddc#map#insert_item(0) : "\<C-v>\<Tab>"
+inoremap <C-t>   <C-v><Tab>
 
 xnoremap <Tab>   "_R<Cmd>call ddc#map#manual_complete()<CR>
 snoremap <Tab>   <C-o>"_di<Cmd>call ddc#map#manual_complete()<CR>
