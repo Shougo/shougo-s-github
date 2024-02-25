@@ -148,8 +148,6 @@ export class Config extends BaseConfig {
 
     for (
       const filetype of [
-        "help",
-        "vimdoc",
         "markdown",
         "markdown_inline",
         "gitcommit",
