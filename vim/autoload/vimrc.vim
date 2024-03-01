@@ -100,7 +100,7 @@ function vimrc#on_filetype() abort
 
   if &l:filetype ==# '' && &l:syntax ==# ''
     " NOTE: filetype detect does not work on startup
-    silent filetype detect
+    silent! filetype detect
 
     syntax enable
   endif
