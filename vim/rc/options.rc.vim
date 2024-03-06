@@ -212,12 +212,12 @@ set t_vb=
 set novisualbell
 set belloff=all
 
-" Display candidates by popup menu.
-set wildmenu
+" Disable builtin completion menu in command line.
+set nowildmenu
 set wildmode=full
-if has('patch-8.2.4463')
-  set wildoptions+=fuzzy
-endif
+set wildoptions+=fuzzy
+" NOTE: "pum" wildoptions conflicts with pum.vim
+set wildoptions-=pum
 " Use default command line completion by <C-t>
 set wildchar=<C-t>
 set wildcharm=<C-t>
