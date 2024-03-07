@@ -223,6 +223,7 @@ export class Config extends BaseConfig {
           "css",
           "go",
           "html",
+          "lua",
           "python",
           "ruby",
           "typescript",
@@ -235,12 +236,6 @@ export class Config extends BaseConfig {
           sources: ["lsp"].concat(commonSources),
         });
       }
-
-      args.contextBuilder.patchFiletype("lua", {
-        sources: [
-          "lsp",
-        ].concat(commonSources),
-      });
     }
 
     args.contextBuilder.patchFiletype("vim", {

@@ -145,6 +145,9 @@ lua_source = '''
         end
       },
   })
+
+  -- NOTE: Mason does not work for tailwindcss...
+  --require'lspconfig'.tailwindcss.setup {}
 '''
 
 [[plugins]]
