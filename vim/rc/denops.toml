@@ -216,7 +216,8 @@ call lspoints#load_extensions([
         \ ])
 
 function s:attach_ls() abort
-  if &l:filetype ==# 'typescript' || &l:filetype ==# 'typescriptreact'
+  const ft = &l:filetype
+  if ft =~# '^typescript' && 'deno'->executable()
     " Deno lsp
 
     " Check "package.json" exists
@@ -243,6 +244,18 @@ function s:attach_ls() abort
         \     lspEngine: 'lspoints',
         \   }
         \ })
+  elseif ft ==# 'css' && 'tailwindcss-language-server'->executable()
+    " Tailwind CSS
+
+    " Check tailwindcss file exists
+    if findfile('tailwind.config.js', '.;') !=# ''
+      return
+    endif
+
+    call lspoints#attach('tailwindcss-language-server', #{
+            \   cmd: ['tailwindcss-language-server', '--stdio'],
+            \   initializationOptions: #{
+            \ })
   endif
 endfunction
 
