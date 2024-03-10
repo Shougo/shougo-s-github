@@ -56,12 +56,6 @@ call ddc#custom#load_config('$BASE_DIR/ddc.ts'->expand())
 "      \ })
 
 " For insert mode completion
-inoremap <expr> <TAB>
-      \ pum#visible() ?
-      \   '<Cmd>call pum#map#insert_relative(+1, "empty")<CR>' :
-      \ col('.') <= 1 ? '<TAB>' :
-      \ getline('.')[col('.') - 2] =~# '\s' ? '<TAB>' :
-      \ ddc#map#manual_complete()
 inoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1, 'empty')<CR>
 inoremap <C-n>   <Cmd>call pum#map#select_relative(+1)<CR>
 inoremap <C-p>   <Cmd>call pum#map#select_relative(-1)<CR>
@@ -69,55 +63,48 @@ inoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
 inoremap <C-o>   <Cmd>call pum#map#confirm_word()<CR>
 inoremap <Home>  <Cmd>call pum#map#insert_relative(-9999, 'ignore')<CR>
 inoremap <End>   <Cmd>call pum#map#insert_relative(+9999, 'ignore')<CR>
+inoremap <C-g>   <Cmd>call pum#set_option(#{
+      \   preview: !pum#_options().preview,
+      \ })<CR>
+inoremap <C-t>   <C-v><Tab>
 "inoremap <C-z>   <Cmd>call pum#update_current_item(#{ display: 'hoge' })<CR>
+"inoremap <C-y>   <Cmd>call pum#map#scroll_preview(+1)<CR>
+"inoremap <C-e>   <Cmd>call pum#map#scroll_preview(-1)<CR>
+
+inoremap <expr> <TAB>
+      \ pum#visible() ?
+      \   '<Cmd>call pum#map#insert_relative(+1, "empty")<CR>' :
+      \ col('.') <= 1 ? '<TAB>' :
+      \ getline('.')[col('.') - 2] =~# '\s' ? '<TAB>' :
+      \ ddc#map#manual_complete()
 inoremap <expr> <C-e> pum#visible()
       \ ? '<Cmd>call pum#map#cancel()<CR>'
       \ : '<End>'
 inoremap <expr> <C-l>  ddc#map#manual_complete()
-"inoremap <C-y>   <Cmd>call pum#map#scroll_preview(+1)<CR>
-"inoremap <C-e>   <Cmd>call pum#map#scroll_preview(-1)<CR>
 
 " For command line mode completion
-cnoremap <expr> <Tab>
-      \ wildmenumode() ? &wildcharm->nr2char() :
-      \ pum#visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' :
-      \ ddc#map#manual_complete()
 cnoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
 cnoremap <C-o>   <Cmd>call pum#map#confirm()<CR>
 cnoremap <C-q>   <Cmd>call pum#map#select_relative(+1)<CR>
 cnoremap <C-z>   <Cmd>call pum#map#select_relative(-1)<CR>
 cnoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
-cnoremap <expr> <C-e> pum#visible()
-      \ ? '<Cmd>call pum#map#cancel()<CR>'
-      \ : '<End>'
 "cnoremap <C-y>   <Cmd>call pum#map#scroll_preview(+1)<CR>
 "cnoremap <C-e>   <Cmd>call pum#map#scroll_preview(-1)<CR>
 
+cnoremap <expr> <Tab>
+      \ wildmenumode() ? &wildcharm->nr2char() :
+      \ pum#visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' :
+      \ ddc#map#manual_complete()
 cnoremap <expr> <C-t>       ddc#map#insert_item(0)
-inoremap <C-t>   <C-v><Tab>
+cnoremap <expr> <C-e> pum#visible()
+      \ ? '<Cmd>call pum#map#cancel()<CR>'
+      \ : '<End>'
 
 xnoremap <Tab>   "_R<Cmd>call ddc#map#manual_complete()<CR>
 snoremap <Tab>   <C-o>"_di<Cmd>call ddc#map#manual_complete()<CR>
 
-" For terminal completion
+" Enable terminal completion
 call ddc#enable_terminal_completion()
-
-" Narrowing by ddu
-"inoremap <C-a> <Cmd>call ddu#start(#{
-"      \   name: 'ddc',
-"      \   ui: 'ff',
-"      \   sync: v:true,
-"      \   input: matchstr(getline('.')[: col('.') - 1], '\k*$'),
-"      \   sources: [
-"      \     #{ name: 'ddc', options: #{ defaultAction: 'complete' } },
-"      \   ],
-"      \   uiParams: #{
-"      \     ff: #{
-"      \       startFilter: v:true,
-"      \       replaceCol: match(getline('.')[: col('.') - 1], '\k*$') + 1,
-"      \     },
-"      \   },
-"      \ })<CR>
 
 call ddc#enable(#{
       \   context_filetype: has('nvim') ? 'treesitter' : 'context_filetype',
