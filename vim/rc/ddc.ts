@@ -10,7 +10,9 @@ export class Config extends BaseConfig {
     const commonSources = [
       "around",
       "file",
-    ].concat(Deno.env.get("MOCWORD_DATA") ? ["mocword"] : []);
+    ];
+
+    const mocWord = Deno.env.get("MOCWORD_DATA") ? ["mocword"] : [];
 
     args.contextBuilder.patchGlobal({
       ui: "pum",
@@ -155,7 +157,7 @@ export class Config extends BaseConfig {
       ]
     ) {
       args.contextBuilder.patchFiletype(filetype, {
-        sources: commonSources.concat(["line"]),
+        sources: commonSources.concat(["line"]).concat(mocWord),
       });
     }
 
@@ -241,7 +243,7 @@ export class Config extends BaseConfig {
     args.contextBuilder.patchFiletype("vim", {
       // Enable specialBufferCompletion for cmdwin.
       specialBufferCompletion: true,
-      sources: ["vim"].concat(commonSources),
+      sources: ["lsp", "vim"].concat(commonSources),
     });
   }
 }

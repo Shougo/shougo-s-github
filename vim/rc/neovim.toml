@@ -223,7 +223,7 @@ lua_source = '''
 [[plugins]]
 repo = 'williamboman/mason.nvim'
 depends = 'nvim-lspconfig'
-on_event = 'BufRead'
+on_event = 'FileType'
 lua_source = '''
   require('mason').setup()
 '''
