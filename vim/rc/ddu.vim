@@ -17,12 +17,10 @@ nnoremap ss
       \ <CR>
 nnoremap / <Cmd>Ddu
       \ -name=search line -resume=v:false
-      \ -ui-param-ff-startFilter=v:true
       \ <CR>
 nnoremap * <Cmd>Ddu
       \ -name=search line -resume=v:false
       \ -input=`expand('<cword>')`
-      \ -ui-param-ff-startFilter=v:false
       \ <CR>
 nnoremap ;g <Cmd>Ddu
       \ -name=search rg -resume=v:false
@@ -42,7 +40,6 @@ nnoremap ;f <Cmd>Ddu
       \ <CR>
 nnoremap n <Cmd>Ddu
       \ -name=search -resume
-      \ -ui-param-ff-startFilter=v:false
       \ <CR>
 nnoremap ;r <Cmd>Ddu
       \ -name=register register
@@ -64,49 +61,6 @@ xnoremap <expr> ;r
       \ .. '<Cmd>Ddu -name=register register
       \ -source-option-ff-defaultAction=insert
       \ -ui-param-ff-autoResize<CR>'
-
-"inoremap <C-q> <Cmd>Ddu
-"\ -name=register register
-"\ -sync
-"\ -source-option-register-defaultAction=append
-"\ -ui-param-ff-startFilter=v:false
-"\ <CR>
-inoremap <C-q> <Cmd>call ddu#start(#{
-      \   name: 'file',
-      \   ui: 'ff',
-      \   sync: v:true,
-      \   input: '.'->getline()[: '.'->col() - 1]->matchstr('\f*$'),
-      \   sources: [
-      \     #{ name: 'file', options: #{ defaultAction: 'feedkeys' } },
-      \   ],
-      \   uiParams: #{
-      \     ff: #{
-      \       startFilter: v:true,
-      \       replaceCol: '.'->getline()[: '.'->col() - 1]->match('\f*$') + 1,
-      \     },
-      \   },
-      \ })<CR>
-"cnoremap <C-q> <Cmd>Ddu
-"\ -name=register register
-"\ -sync
-"\ -source-option-register-defaultAction=feedkeys
-"\ -ui-param-ff-startFilter=v:false
-"\ <CR><Cmd>call setcmdline('')<CR><CR>
-cnoremap <C-q> <Cmd>call ddu#start(#{
-      \   name: 'file',
-      \   ui: 'ff',
-      \   sync: v:true,
-      \   input: getcmdline()[: getcmdpos() - 2]->matchstr('\f*$'),
-      \   sources: [
-      \     #{ name: 'file', options: #{ defaultAction: 'feedkeys' } },
-      \   ],
-      \   uiParams: #{
-      \     ff: #{
-      \       startFilter: v:true,
-      \       replaceCol: getcmdline()[: getcmdpos() - 2]->match('\f*$') + 1,
-      \     },
-      \   },
-      \ })<CR><Cmd>call setcmdline('')<CR><CR>
 
 " Initialize ddu.vim lazily.
 if !'g:shougo_s_github_load_state'->exists()
