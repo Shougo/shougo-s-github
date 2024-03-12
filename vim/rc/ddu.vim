@@ -17,6 +17,7 @@ nnoremap ss
       \ <CR>
 nnoremap / <Cmd>Ddu
       \ -name=search line -resume=v:false
+      \ -input=`'Pattern: '->input()`
       \ <CR>
 nnoremap * <Cmd>Ddu
       \ -name=search line -resume=v:false

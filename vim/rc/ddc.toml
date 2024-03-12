@@ -160,7 +160,3 @@ on_source = 'ddc.vim'
 [[plugins]]
 repo = 'Shougo/ddc-filter-converter_truncate_abbr'
 on_source = 'ddc.vim'
-
-[[plugins]]
-repo = 'Shougo/neco-vim'
-on_source = 'ddc.vim'

@@ -158,7 +158,6 @@ export class Config extends BaseConfig {
           "ddu-*",
           "dpp-*",
           "skkeleton",
-          "neco-vim",
         ],
       },
     ) as Plugin[] | undefined;

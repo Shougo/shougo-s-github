@@ -50,6 +50,7 @@ export class Config extends BaseConfig {
         },
         vim: {
           mark: "vim",
+          isVolatile: true,
         },
         cmdline: {
           mark: "cmdline",
