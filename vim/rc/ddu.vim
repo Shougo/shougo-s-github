@@ -63,6 +63,12 @@ xnoremap <expr> ;r
       \ -source-option-ff-defaultAction=insert
       \ -ui-param-ff-autoResize<CR>'
 
+" Open filter window automatically
+"autocmd MyAutoCmd User Ddu:uiReady
+"      \ : if &l:filetype ==# 'ddu-ff'
+"      \ |   call ddu#ui#do_action('openFilterWindow')
+"      \ | endif
+
 " Initialize ddu.vim lazily.
 if !'g:shougo_s_github_load_state'->exists()
   call timer_start(1000, { _ -> LazyDdu() })
