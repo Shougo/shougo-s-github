@@ -31,6 +31,20 @@ autocmd MyAutoCmd TextYankPost *
       \ lua require'vim.highlight'.on_yank
       \ { higroup='IncSearch', timeout=100 }
 
+" Disable vimdoc default treesitter syntax
+" https://github.com/neovim/neovim/pull/26347#issuecomment-1837508178
+lua << END
+vim.treesitter.start = (function(wrapped)
+  return function(bufnr, lang)
+    lang = lang or vim.fn.getbufvar(bufnr or '', '&filetype')
+    if lang == 'help' then
+      return
+    end
+    wrapped(bufnr, lang)
+  end
+end)(vim.treesitter.start)
+END
+
 " For neovide
 if 'g:neovide'->exists()
   let g:neovide_no_idle = v:true
