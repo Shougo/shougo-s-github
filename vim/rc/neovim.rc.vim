@@ -31,15 +31,24 @@ autocmd MyAutoCmd TextYankPost *
       \ lua require'vim.highlight'.on_yank
       \ { higroup='IncSearch', timeout=100 }
 
-" Disable vimdoc default treesitter syntax
+" Opt-out for specific filetypes and huge files
 " https://github.com/neovim/neovim/pull/26347#issuecomment-1837508178
 lua << END
 vim.treesitter.start = (function(wrapped)
   return function(bufnr, lang)
-    lang = lang or vim.fn.getbufvar(bufnr or '', '&filetype')
-    if lang == 'help' then
+    local ft = vim.fn.getbufvar(bufnr or vim.fn.bufnr(''), '&filetype')
+    if (ft == 'help' or lang == 'vimdoc' or lang == 'diff'
+        or lang == 'gitcommit' or lang == 'swift') then
       return
     end
+
+    local max_filesize = 50 * 1024 -- 50 KB
+    local ok, stats = pcall(vim.loop.fs_stat,
+        vim.api.nvim_buf_get_name(bufnr))
+    if ok and stats and stats.size > max_filesize then
+      return
+    end
+
     wrapped(bufnr, lang)
   end
 end)(vim.treesitter.start)
