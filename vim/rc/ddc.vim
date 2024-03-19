@@ -107,7 +107,7 @@ snoremap <Tab>   <C-o>"_di<Cmd>call ddc#map#manual_complete()<CR>
 call ddc#enable_terminal_completion()
 
 call ddc#enable(#{
-      \   context_filetype: has('nvim') ? 'treesitter' : 'context_filetype',
+      \   context_filetype: has('nvim') ? 'treesitter' : 'none',
       \ })
 " }}}
 

@@ -17,7 +17,7 @@ nnoremap ss
       \ <CR>
 nnoremap / <Cmd>Ddu
       \ -name=search line -resume=v:false
-      \ -input=`'Pattern: '->input()`
+      \ -input=`'Pattern: '->cmdline#input()->escape(' ')`
       \ <CR>
 nnoremap * <Cmd>Ddu
       \ -name=search line -resume=v:false

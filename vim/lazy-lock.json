@@ -1,0 +1,5 @@
+{
+  "neoconf.nvim": { "branch": "main", "commit": "68753daced3b41d6b5e4a441b10a69c1ec33523c" },
+  "neodev.nvim": { "branch": "main", "commit": "84e0290f5600e8b89c0dfcafc864f45496a53400" },
+  "which-key.nvim": { "branch": "main", "commit": "4433e5ec9a507e5097571ed55c02ea9658fb268a" }
+}

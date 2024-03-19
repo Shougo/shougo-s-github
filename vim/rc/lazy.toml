@@ -13,6 +13,12 @@ hook_add = '''
 
 [[plugins]]
 repo = 'Shougo/cmdline.vim'
+hook_source = '''
+  call cmdline#set_option(#{
+    \   highlight_prompt: 'Statement',
+    \   highlight_window: 'None',
+    \ })
+'''
 
 [[plugins]]
 repo = 'kana/vim-niceblock'
