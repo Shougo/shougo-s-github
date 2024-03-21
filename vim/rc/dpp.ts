@@ -59,7 +59,7 @@ export class Config extends BaseConfig {
 
     const [context, options] = await args.contextBuilder.get(args.denops);
 
-    // Load toml plugins
+    // NOTE: Load non lazy plugins
     const tomls: Toml[] = [];
     for (
       const tomlFile of [
@@ -85,12 +85,15 @@ export class Config extends BaseConfig {
         tomls.push(toml);
       }
     }
+
+    // NOTE: Load lazy plugins
     for (
       const tomlFile of [
         "$BASE_DIR/lazy.toml",
         "$BASE_DIR/denops.toml",
         "$BASE_DIR/ddc.toml",
         "$BASE_DIR/ddu.toml",
+        "$BASE_DIR/ddx.toml",
         hasNvim ? "$BASE_DIR/neovim.toml" : "$BASE_DIR/vim.toml",
       ]
     ) {

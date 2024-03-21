@@ -1,0 +1,23 @@
+[[plugins]]
+repo = 'Shougo/ddx.vim'
+hook_add = '''
+  nnoremap [Space]x <Cmd>Ddx -path=`'%'->expand()`<CR>
+'''
+hook_source = '''
+  call ddx#custom#patch_global(#{
+      \   ui: 'hex',
+      \ })
+'''
+[plugins.ftplugin]
+ddx-hex = '''
+  nnoremap <buffer> q
+  \ <Cmd>call ddx#ui#hex#do_action('quit')<CR>
+  nnoremap <buffer> r
+  \ <Cmd>call ddx#ui#hex#do_action('change')<CR>
+'''
+
+[[plugins]]
+repo = 'Shougo/ddx-commands.vim'
+depends = 'ddx.vim'
+on_cmd = 'Ddx'
+
