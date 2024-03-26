@@ -36,7 +36,7 @@ nnoremap <buffer> e
       \ #{ name: 'narrow' } : #{ name: 'edit' })<CR>
 nnoremap <buffer> E
       \ <Cmd>call ddu#ui#do_action('itemAction',
-      \ #{ params: input('params: ', '{}')->eval() })<CR>
+      \ #{ params: MyDduInputFunc('params: ', '{}')->eval() })<CR>
 nnoremap <buffer> N
       \ <Cmd>call ddu#ui#do_action('itemAction',
       \ b:ddu_ui_name ==# 'file' ?
@@ -68,7 +68,7 @@ nnoremap <buffer> u
       \ <Cmd>call ddu#ui#do_action('updateOptions', #{
       \   filterParams: #{
       \     matcher_files: #{
-      \       globs: 'Filter files: '->input('', 'file')->split(','),
+      \       globs: 'Filter files: '->MyDduInputFunc('', 'file')->split(','),
       \     },
       \   },
       \ })<CR>

@@ -83,7 +83,7 @@ nnoremap <buffer> I
       \   name: 'narrow',
       \   params: #{
       \     path: 'cwd: '
-      \           ->input(b:ddu_ui_filer_path, 'dir')
+      \           ->MyDduInputFunc(b:ddu_ui_filer_path, 'dir')
       \           ->fnamemodify(':p'),
       \   }
       \ })<CR>

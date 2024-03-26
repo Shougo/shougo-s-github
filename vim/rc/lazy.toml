@@ -15,7 +15,7 @@ hook_add = '''
 repo = 'Shougo/cmdline.vim'
 hook_source = '''
   call cmdline#set_option(#{
-    \   highlight_prompt: 'Statement',
+    \   highlight_cursor: 'CmdlineCursor',
     \   highlight_window: 'None',
     \ })
 '''

@@ -52,6 +52,7 @@ highlight DiffText      gui=NONE guibg=#802860 guifg=#ff78f0
 
 " Cursor
 highlight Cursor        gui=NONE guibg=#606060 guifg=fg
+highlight CmdlineCursor gui=NONE guibg=#606060 guifg=fg
 highlight CursorLine    gui=NONE guibg=#444444 guifg=fg term=NONE cterm=NONE
 highlight lCursor       gui=NONE guibg=#80403f guifg=fg
 highlight CursorIM      gui=NONE guibg=#bb00aa guifg=fg
