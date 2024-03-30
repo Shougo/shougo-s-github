@@ -43,11 +43,6 @@ else
   endif
 endif
 
-" Don't override colorscheme.
-if !'g:colors_name'->exists()
-  colorscheme candy
-endif
-
 "---------------------------------------------------------------------------
 " Options:
 

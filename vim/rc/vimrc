@@ -56,6 +56,10 @@ endif
 " NOTE: Colorscheme must be initialized in the first.
 colorscheme candy
 
+" NOTE: Cursor movement is slow when CurSearch highlight group is set
+" https://github.com/neovim/neovim/issues/23590
+highlight! link CurSearch Search
+
 " Use English interface.
 language message C
 
