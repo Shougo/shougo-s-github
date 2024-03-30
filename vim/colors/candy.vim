@@ -22,6 +22,9 @@ highlight Normal        gui=NONE guibg=#2c2c2c guifg=#dfdfdf
 " Search
 highlight IncSearch     gui=underline guibg=#0060c0 guifg=#80ffff
 highlight Search        gui=NONE guibg=#0060c0 guifg=#f0f0f8
+" NOTE: Cursor movement is slow when CurSearch highlight group is set
+" https://github.com/neovim/neovim/issues/23590
+highlight! link CurSearch Search
 
 " Messages
 highlight ErrorMsg      gui=bold guibg=NONE guifg=#ffa0ff
