@@ -59,68 +59,44 @@ export class Config extends BaseConfig {
 
     const [context, options] = await args.contextBuilder.get(args.denops);
 
-    // NOTE: Load non lazy plugins
-    const tomls: Toml[] = [];
-    for (
-      const tomlFile of [
-        "$BASE_DIR/merge.toml",
-        "$BASE_DIR/dpp.toml",
-      ]
-    ) {
-      const toml = await args.dpp.extAction(
+    const tomlPromises = [
+      { path: "$BASE_DIR/merge.toml", lazy: false },
+      { path: "$BASE_DIR/dpp.toml", lazy: false },
+      { path: "$BASE_DIR/lazy.toml", lazy: true },
+      { path: "$BASE_DIR/denops.toml", lazy: true },
+      { path: "$BASE_DIR/ddc.toml", lazy: true },
+      { path: "$BASE_DIR/ddu.toml", lazy: true },
+      { path: "$BASE_DIR/ddx.toml", lazy: true },
+      {
+        path: hasNvim ? "$BASE_DIR/neovim.toml" : "$BASE_DIR/vim.toml",
+        lazy: true,
+      },
+    ].map((tomlFile) =>
+      args.dpp.extAction(
         args.denops,
         context,
         options,
         "toml",
         "load",
         {
-          path: tomlFile,
+          path: tomlFile.path,
           options: {
-            lazy: false,
+            lazy: tomlFile.lazy,
           },
         },
-      ) as Toml | undefined;
-
-      if (toml) {
-        tomls.push(toml);
-      }
-    }
-
-    // NOTE: Load lazy plugins
-    for (
-      const tomlFile of [
-        "$BASE_DIR/lazy.toml",
-        "$BASE_DIR/denops.toml",
-        "$BASE_DIR/ddc.toml",
-        "$BASE_DIR/ddu.toml",
-        "$BASE_DIR/ddx.toml",
-        hasNvim ? "$BASE_DIR/neovim.toml" : "$BASE_DIR/vim.toml",
-      ]
-    ) {
-      const toml = await args.dpp.extAction(
-        args.denops,
-        context,
-        options,
-        "toml",
-        "load",
-        {
-          path: tomlFile,
-          options: {
-            lazy: true,
-          },
-        },
-      ) as Toml | undefined;
-
-      if (toml) {
-        tomls.push(toml);
-      }
-    }
+      ) as Promise<Toml | undefined>
+    );
+    const tomls: (Toml | undefined)[] = await Promise.all(tomlPromises);
 
     // Merge toml results
     const recordPlugins: Record<string, Plugin> = {};
     const ftplugins: Record<string, string> = {};
     const hooksFiles: string[] = [];
     for (const toml of tomls) {
+      if (!toml) {
+        continue;
+      }
+
       for (const plugin of toml.plugins ?? []) {
         recordPlugins[plugin.name] = plugin;
       }
