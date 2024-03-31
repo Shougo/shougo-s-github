@@ -17,7 +17,7 @@ if !has('gui_running')
   set mouse=
 endif
 
-if !has('gui_running') && !has('nvim')
+if !has('nvim')
   " Enable 256 color terminal.
   set t_Co=256
 
