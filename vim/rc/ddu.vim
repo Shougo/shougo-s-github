@@ -93,6 +93,9 @@ function! MyDduInputFunc(prompt='', text='', completion='custom,cmdline#_dummy')
           \     guibg: hl_normal[0].guibg,
           \   },
           \ ])
+    if '*cursor_off'->exists()
+      call cursor_off()
+    endif
   endif
 
   const input = cmdline#input(a:prompt, a:text, a:completion)
@@ -102,6 +105,9 @@ function! MyDduInputFunc(prompt='', text='', completion='custom,cmdline#_dummy')
     call nvim_set_hl(0, 'Cursor', hl_cursor)
   else
     call hlset(hl_msg + hl_cursor)
+    if '*cursor_on'->exists()
+      call cursor_on()
+    endif
   endif
 
   return input
