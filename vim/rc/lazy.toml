@@ -143,7 +143,3 @@ hook_source = '''
     \   yaml: v:true,
     \ }
 '''
-
-[[plugins]]
-repo = 'kaarmu/typst.vim'
-on_ft = 'typst'
