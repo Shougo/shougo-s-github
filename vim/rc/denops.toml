@@ -133,6 +133,9 @@ hook_source = '''
       autocmd InsertLeave * ++once
         \ let @* = '.'->getline() | let @+ = @*
     endif
+
+    let s:hl_cursor = has('nvim') ?
+          \ nvim_get_hl(0, #{ name: 'Cursor'}) : 'Cursor'->hlget()
   endfunction
 
   autocmd MyAutoCmd User skkeleton-disable-pre call s:skkeleton_post()
@@ -146,19 +149,22 @@ hook_source = '''
   autocmd MyAutoCmd User skkeleton-mode-changed call s:skkeleton_changed()
   function! s:skkeleton_changed() abort
     " Change the cursor color
-    const mode = g:skkeleton#mode
-    if mode ==# 'hira'
+    if g:skkeleton#mode ==# 'hira'
       highlight Cursor       gui=NONE guibg=#80403f guifg=fg
-    elseif mode ==# 'kata'
+    elseif g:skkeleton#mode ==# 'kata'
       highlight Cursor       gui=NONE guibg=#f04060 guifg=fg
-    elseif mode ==# 'hankata'
+    elseif g:skkeleton#mode ==# 'hankata'
       highlight Cursor       gui=NONE guibg=#60a060 guifg=fg
-    elseif mode ==# 'zenkaku'
+    elseif g:skkeleton#mode ==# 'zenkaku'
       highlight Cursor       gui=NONE guibg=#60c060 guifg=fg
-    elseif mode ==# 'abbrev'
+    elseif g:skkeleton#mode ==# 'abbrev'
       highlight Cursor       gui=NONE guibg=#60f060 guifg=fg
     else
-      highlight Cursor       gui=NONE guibg=#606060 guifg=fg
+      if has('nvim')
+        call nvim_set_hl(0, 'Cursor', s:hl_cursor)
+      else
+        call hlset(s:hl_cursor)
+      endif
     endif
   endfunction
 
@@ -169,11 +175,9 @@ hook_source = '''
     endif
 
     " Change the cursor color
-    const state = g:skkeleton#state
-
-    if state.phase ==# 'henkan' ||
-        \ state.phase ==# 'input:okurinasi' ||
-        \ state.phase ==# 'input:okuriari'
+    if g:skkeleton#state.phase ==# 'henkan' ||
+        \ g:skkeleton#state.phase ==# 'input:okurinasi' ||
+        \ g:skkeleton#state.phase ==# 'input:okuriari'
       highlight Cursor       gui=NONE guibg=#a0f0a0 guifg=fg
     else
       call s:skkeleton_changed()
