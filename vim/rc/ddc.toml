@@ -12,9 +12,7 @@ hook_source = '''
     \   auto_select: v:false,
     \   border: 'none',
     \   commit_characters: ['.'],
-    \   follow_cursor: v:false,
     \   highlight_scrollbar: 'None',
-    \   horizontal_menu: v:false,
     \   max_width: 80,
     \   offset_cmdcol: 0,
     \   padding: v:false,
@@ -24,13 +22,21 @@ hook_source = '''
     \   use_setline: v:false,
     \ })
 
-  call pum#set_local_option('c', #{
-    \   horizontal_menu: v:false,
-    \ })
-
   autocmd FileType ddu-ff-filter
     \ call pum#set_buffer_option(#{
     \   direction: 'above',
+    \ })
+
+  "call pum#set_local_option('c', #{
+  "  \   horizontal_menu: v:false,
+  "  \ })
+
+  " NOTE: For horizontal_menu
+  call pum#set_option(#{
+    \   follow_cursor: v:true,
+    \   horizontal_menu: v:true,
+    \   max_horizontal_items: 2,
+    \   max_height: 3,
     \ })
 '''
 
