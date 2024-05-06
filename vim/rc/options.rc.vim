@@ -323,5 +323,7 @@ if '+smoothscroll'->exists()
   set smoothscroll
 endif
 
+set synmaxcol=300
+
 " Disable builtin message pager
 set nomore
