@@ -223,3 +223,12 @@ lua_source = '''
     end,
   })
 '''
+
+[[plugins]]
+repo = 'tani/dmacro.nvim'
+on_map = { n = '<C-d>' }
+lua_source = '''
+  require('dmacro').setup({
+      dmacro_key = '<C-d>'
+  })
+'''

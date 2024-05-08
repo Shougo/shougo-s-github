@@ -65,6 +65,12 @@ if s:dpp_base->dpp#min#load_state()
 else
   autocmd MyAutoCmd BufWritePost *.lua,*.vim,*.toml,*.ts,vimrc,.vimrc
         \ call dpp#check_files()
+
+  " Check new plugins
+  autocmd MyAutoCmd BufWritePost *.toml
+        \ : if !dpp#sync_ext_action('installer', 'getNotInstalled')->empty()
+        \ |  call dpp#async_ext_action('installer', 'install')
+        \ | endif
 endif
 
 autocmd MyAutoCmd User Dpp:makeStatePost
