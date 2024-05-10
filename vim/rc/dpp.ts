@@ -4,9 +4,9 @@ import {
   ContextBuilder,
   Dpp,
   Plugin,
-} from "https://deno.land/x/dpp_vim@v0.1.0/types.ts";
-import { Denops, fn } from "https://deno.land/x/dpp_vim@v0.1.0/deps.ts";
-import { expandGlob } from "https://deno.land/std@0.221.0/fs/expand_glob.ts";
+} from "https://deno.land/x/dpp_vim@v0.2.0/types.ts";
+import { Denops, fn } from "https://deno.land/x/dpp_vim@v0.2.0/deps.ts";
+import { expandGlob } from "jsr:@std/fs@0.224.0/expand-glob";
 
 type Toml = {
   hooks_file?: string;
