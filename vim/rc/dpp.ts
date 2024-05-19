@@ -6,7 +6,7 @@ import {
   Plugin,
 } from "https://deno.land/x/dpp_vim@v0.2.0/types.ts";
 import { Denops, fn } from "https://deno.land/x/dpp_vim@v0.2.0/deps.ts";
-import { expandGlob } from "jsr:@std/fs@0.224.0/expand-glob";
+import { expandGlob } from "jsr:@std/fs@0.229.1/expand-glob";
 
 type Toml = {
   hooks_file?: string;
