@@ -35,6 +35,10 @@ repo = 'Shougo/ddu-source-file_point'
 on_source = 'ddu.vim'
 
 [[plugins]]
+repo = 'Shougo/ddu-source-command_args'
+on_source = 'ddu.vim'
+
+[[plugins]]
 repo = 'Shougo/ddu-source-line'
 on_source = 'ddu.vim'
 

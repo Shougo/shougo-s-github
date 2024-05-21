@@ -138,3 +138,20 @@ nnoremap <buffer> <CR>
 nnoremap <buffer> q
       \ <Cmd>call ddu#ui#do_action('closeFilterWindow')<CR>
 " }}}
+
+" hook_source {{{
+autocmd MyAutoCmd User Ddu:ui:ff:openFilterWindow
+      \ call s:ddu_ff_filter_my_settings()
+function s:ddu_ff_filter_my_settings() abort
+  cnoremap <buffer> <C-f>
+        \ <Cmd>call ddu#ui#do_action('cursorNext', #{ loop: v:true })<CR>
+  cnoremap <buffer> <C-b>
+        \ <Cmd>call ddu#ui#do_action('cursorPrevious', #{ loop: v:true })<CR>
+endfunction
+autocmd MyAutoCmd User Ddu:ui:ff:closeFilterWindow
+      \ call s:ddu_ff_filter_cleanup()
+function s:ddu_ff_filter_cleanup() abort
+  cunmap <buffer> <C-f>
+  cunmap <buffer> <C-b>
+endfunction
+" }}}

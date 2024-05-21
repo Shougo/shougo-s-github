@@ -38,8 +38,11 @@ function s:config_treesitter()
   vim.treesitter.start = (function(wrapped)
     return function(bufnr, lang)
       local ft = vim.fn.getbufvar(bufnr or vim.fn.bufnr(''), '&filetype')
-      if (ft == 'help' or lang == 'vimdoc' or lang == 'diff'
-          or lang == 'gitcommit' or lang == 'swift') then
+      local check = (
+        ft == 'help' or lang == 'vimdoc' or lang == 'diff'
+        or lang == 'gitcommit' or lang == 'swift' or lang == 'latex'
+      )
+      if check then
         return
       end
 

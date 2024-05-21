@@ -118,6 +118,9 @@ export class Config extends BaseConfig {
         dpp: {
           defaultAction: "cd",
         },
+        command_args: {
+          defaultAction: "execute",
+        },
         markdown: {
           sorters: [],
         },

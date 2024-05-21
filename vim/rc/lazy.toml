@@ -13,6 +13,7 @@ hook_add = '''
 
 [[plugins]]
 repo = 'Shougo/cmdline.vim'
+on_source = ['ddu.vim']
 hook_source = '''
   call cmdline#set_option(#{
     \   highlight_cursor: 'CmdlineCursor',
