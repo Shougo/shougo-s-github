@@ -149,7 +149,7 @@ function s:ddu_ff_filter_my_settings() abort
         \  b: '<C-b>'->maparg('c', v:false, v:true),
         \ }
 
-  setlocal cursorline
+  set cursorline
 
   cnoremap <C-f>
         \ <Cmd>call ddu#ui#do_action('cursorNext', #{ loop: v:true })<CR>
@@ -159,7 +159,7 @@ endfunction
 autocmd MyAutoCmd User Ddu:ui:ff:closeFilterWindow
       \ call s:ddu_ff_filter_cleanup()
 function s:ddu_ff_filter_cleanup() abort
-  setlocal nocursorline
+  set nocursorline
 
   " Restore mappings
   if s:save_maps.f->empty()
