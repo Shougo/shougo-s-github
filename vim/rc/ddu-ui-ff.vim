@@ -155,6 +155,8 @@ function s:ddu_ff_filter_my_settings() abort
         \ <Cmd>call ddu#ui#do_action('cursorNext', #{ loop: v:true })<CR>
   cnoremap <C-b>
         \ <Cmd>call ddu#ui#do_action('cursorPrevious', #{ loop: v:true })<CR>
+
+  call cmdline#enable()
 endfunction
 autocmd MyAutoCmd User Ddu:ui:ff:closeFilterWindow
       \ call s:ddu_ff_filter_cleanup()
