@@ -143,13 +143,11 @@ nnoremap <buffer> q
 autocmd MyAutoCmd User Ddu:ui:ff:openFilterWindow
       \ call s:ddu_ff_filter_my_settings()
 function s:ddu_ff_filter_my_settings() abort
-  " Save mappings
-  let s:save_maps = #{
-        \  f: '<C-f>'->maparg('c', v:false, v:true),
-        \  b: '<C-b>'->maparg('c', v:false, v:true),
-        \ }
-
   set cursorline
+
+  call ddu#ui#ff#save_cmaps([
+        \  '<C-f>', '<C-b>',
+        \ ])
 
   cnoremap <C-f>
         \ <Cmd>call ddu#ui#do_action('cursorNext', #{ loop: v:true })<CR>
@@ -163,16 +161,6 @@ autocmd MyAutoCmd User Ddu:ui:ff:closeFilterWindow
 function s:ddu_ff_filter_cleanup() abort
   set nocursorline
 
-  " Restore mappings
-  if s:save_maps.f->empty()
-    cunmap <C-f>
-  else
-    call mapset('c', 0, s:save_maps.f)
-  endif
-  if s:save_maps.b->empty()
-    cunmap <C-b>
-  else
-    call mapset('c', 0, s:save_maps.b)
-  endif
+  call ddu#ui#ff#restore_cmaps()
 endfunction
 " }}}
