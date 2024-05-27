@@ -12,6 +12,9 @@ lua_source = '''
     highlight = {
       enable = true,
     },
+    indent = {
+      enable = true,
+    },
   }
 '''
 hook_source = '''
