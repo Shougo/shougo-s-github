@@ -9,7 +9,7 @@ nnoremap <C-t> <Cmd>Ddu -name=deol -sync
       \ -ui-param-ff-split=`has('nvim') ? 'floating' : 'horizontal'`
       \ -ui-param-ff-winRow=1
       \ -ui-param-ff-autoResize
-      \ -ui-param-ff-cursorPos=`tabpagenr()-1`
+      \ -ui-param-ff-cursorPos=`tabpagenr()`
       \ deol<CR>
 " }}}
 
