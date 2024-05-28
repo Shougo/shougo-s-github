@@ -2,7 +2,7 @@
 nnoremap s<Space> <Cmd>Ddu
       \ -name=files file
       \ -source-option-file-path=`'$BASE_DIR'->expand()`
-      \ -ui-param-ff-split=floating
+      \ -ui-param-ff-split=`has('nvim') ? 'floating' : 'horizontal'`
       \ <CR>
 nnoremap ss
       \ <Cmd>Ddu -name=files-`tabpagenr()` file_point file_old
@@ -13,7 +13,7 @@ nnoremap ss
       \ -resume=`ddu#get_items(#{ sources: ['file_point'] })->empty() ?
       \          'v:true' : 'v:false'`
       \ -ui-param-ff-displaySourceName=short
-      \ -ui-param-ff-split=floating
+      \ -ui-param-ff-split=`has('nvim') ? 'floating' : 'horizontal'`
       \ <CR>
 nnoremap / <Cmd>Ddu
       \ -name=search line -resume=v:false
