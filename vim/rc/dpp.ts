@@ -34,11 +34,15 @@ export class Config extends BaseConfig {
       "$BASE_DIR/mappings.rc.vim",
       "$BASE_DIR/filetype.rc.vim",
     ];
+
     if (hasNvim) {
       inlineVimrcs.push("$BASE_DIR/neovim.rc.vim");
-    } else if (await fn.has(args.denops, "gui_running")) {
-      inlineVimrcs.push("$BASE_DIR/gui.rc.vim");
+    } else if (!hasNvim) {
+      if (await fn.has(args.denops, "gui_running")) {
+        inlineVimrcs.push("$BASE_DIR/gui.rc.vim");
+      }
     }
+
     if (hasWindows) {
       inlineVimrcs.push("$BASE_DIR/windows.rc.vim");
     } else {
