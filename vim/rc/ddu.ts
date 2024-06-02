@@ -12,6 +12,11 @@ import { Params as FilerParams } from "https://deno.land/x/ddu_ui_filer@v1.1.0/f
 
 type Params = Record<string, unknown>;
 
+type DppAction = {
+  path: string;
+  __name: string;
+};
+
 export class Config extends BaseConfig {
   override config(args: ConfigArguments): Promise<void> {
     args.setAlias("source", "file_rg", "file_external");
@@ -117,6 +122,22 @@ export class Config extends BaseConfig {
         },
         dpp: {
           defaultAction: "cd",
+          actions: {
+            update: async (args: ActionArguments<Params>) => {
+              const names = args.items.map((item) =>
+                (item.action as DppAction).__name
+              );
+
+              await args.denops.call(
+                "dpp#async_ext_action",
+                "installer",
+                "update",
+                { names },
+              );
+
+              return Promise.resolve(ActionFlags.None);
+            },
+          },
         },
         command_args: {
           defaultAction: "execute",
