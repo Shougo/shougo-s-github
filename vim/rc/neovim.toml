@@ -229,7 +229,7 @@ lua_source = '''
 
 [[plugins]]
 repo = 'tani/dmacro.nvim'
-on_map = { n = '<C-d>' }
+on_map = { n = '<C-d>', i = '<C-d>' }
 lua_source = '''
   require('dmacro').setup({
       dmacro_key = '<C-d>'
