@@ -14,7 +14,7 @@ nnoremap <C-t> <Cmd>Ddu -name=deol -sync
 " }}}
 
 " hook_source {{{
-let g:deol#enable_dir_changed = v:false
+let g:deol#enable_dir_changed = v:true
 let g:deol#prompt_pattern = has('win32') ? '\f\+>' : '\w*% \?'
 if has('win32')
   let g:deol#internal_history_path = '~/.cache/deol-history'
