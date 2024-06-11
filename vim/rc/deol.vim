@@ -14,17 +14,14 @@ nnoremap <C-t> <Cmd>Ddu -name=deol -sync
 " }}}
 
 " hook_source {{{
-let g:deol#enable_dir_changed = v:true
-let g:deol#prompt_pattern = has('win32') ? '\f\+>' : '\w*% \?'
-if has('win32')
-  let g:deol#internal_history_path = '~/.cache/deol-history'
-else
-  let g:deol#external_history_path = '~/.zsh-history'
+call deol#set_option(#{
+      \    internal_history_path: '~/.cache/deol-history',
+      \    nvim_server: '~/.cache/nvim/server.pipe',
+      \    prompt_pattern: has('win32') ? '\f\+>' : '\w*% \?',
+      \ })
+if !has('win32')
+  call deol#set_option('external_history_path', '~/.zsh-history')
 endif
-let g:deol#extra_options = #{
-      \   term_kill: 'kill',
-      \ }
-let g:deol#nvim_server = '~/.cache/nvim/server.pipe'
 
 call ddu#custom#patch_global(#{
       \   sourceParams: #{
@@ -91,6 +88,9 @@ call ddc#custom#patch_buffer('sourceOptions', #{
       \     converters: [],
       \   },
       \ })
+
+autocmd MyAutoCmd DirChanged <buffer>
+      \ call deol#cd(v:event->get('cwd', getcwd()))
 " }}}
 
 " zsh {{{
