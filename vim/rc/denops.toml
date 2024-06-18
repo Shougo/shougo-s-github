@@ -1,7 +1,7 @@
 [[plugins]]
 repo = 'vim-denops/denops.vim'
 hook_source = '''
-  "let g:denops#debug = v:true
+  let g:denops#debug = v:false
 
   let g:denops#server#deno_args = [
       \   '-q',
