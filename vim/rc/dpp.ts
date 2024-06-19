@@ -115,6 +115,12 @@ export class Config extends BaseConfig {
         }
       }
 
+      if (toml.multiple_plugins) {
+        for (const name of toml.multiple_plugins.plugins) {
+          recordPlugins[name] = toml.multiple_plugins;
+        }
+      }
+
       if (toml.hooks_file) {
         hooksFiles.push(toml.hooks_file);
       }
