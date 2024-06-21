@@ -88,10 +88,6 @@ hook_source = '''
   let g:haskell_conceal = v:false
 '''
 
-#[[plugins]]
-#repo = 'teal-language/vim-teal'
-#on_ft = 'teal'
-
 [[plugins]]
 repo = 'github/copilot.vim'
 on_cmd = 'Copilot'

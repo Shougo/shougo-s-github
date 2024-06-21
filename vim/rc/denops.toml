@@ -117,17 +117,6 @@ hook_source = '''
 
   autocmd MyAutoCmd User skkeleton-enable-pre call s:skkeleton_pre()
   function! s:skkeleton_pre() abort
-    " Overwrite sources
-    let s:prev_buffer_config = ddc#custom#get_buffer()
-    call ddc#custom#patch_buffer(#{
-            \   sources: ['around', 'skkeleton', 'line'],
-            \   sourceOptions: #{
-            \     _: #{
-            \       keywordPattern: '[ァ-ヮア-ンー]+',
-            \     },
-            \   },
-            \ })
-
     if (!has('nvim') || $DISPLAY !=# '') && has('clipboard')
       " Copy to clipboard to use Vim as IME
       autocmd InsertLeave * ++once
@@ -136,14 +125,6 @@ hook_source = '''
 
     let s:hl_cursor = has('nvim') ?
           \ nvim_get_hl(0, #{ name: 'Cursor'}) : 'Cursor'->hlget()
-  endfunction
-
-  autocmd MyAutoCmd User skkeleton-disable-pre call s:skkeleton_post()
-  function! s:skkeleton_post() abort
-    if 's:prev_buffer_config'->exists()
-      " Restore sources
-      call ddc#custom#set_buffer(s:prev_buffer_config)
-    endif
   endfunction
 
   autocmd MyAutoCmd User skkeleton-mode-changed call s:skkeleton_changed()

@@ -3,14 +3,16 @@ import {
   ConfigReturn,
   ContextBuilder,
   Dpp,
+  MultipleHook,
   Plugin,
-} from "https://deno.land/x/dpp_vim@v0.2.0/types.ts";
-import { Denops, fn } from "https://deno.land/x/dpp_vim@v0.2.0/deps.ts";
+} from "https://deno.land/x/dpp_vim@v0.3.0/types.ts";
+import { Denops, fn } from "https://deno.land/x/dpp_vim@v0.3.0/deps.ts";
 import { expandGlob } from "jsr:@std/fs@0.229.3/expand-glob";
 
 type Toml = {
   hooks_file?: string;
   ftplugins?: Record<string, string>;
+  multiple_hooks?: MultipleHook[];
   plugins?: Plugin[];
 };
 
@@ -96,6 +98,7 @@ export class Config extends BaseConfig {
     const recordPlugins: Record<string, Plugin> = {};
     const ftplugins: Record<string, string> = {};
     const hooksFiles: string[] = [];
+    let multipleHooks: MultipleHook[] = [];
     for (const toml of tomls) {
       if (!toml) {
         continue;
@@ -115,10 +118,8 @@ export class Config extends BaseConfig {
         }
       }
 
-      if (toml.multiple_plugins) {
-        for (const name of toml.multiple_plugins.plugins) {
-          recordPlugins[name] = toml.multiple_plugins;
-        }
+      if (toml.multiple_hooks) {
+        multipleHooks = multipleHooks.concat(toml.multiple_hooks);
       }
 
       if (toml.hooks_file) {
@@ -209,6 +210,7 @@ export class Config extends BaseConfig {
       checkFiles,
       ftplugins,
       hooksFiles,
+      multipleHooks,
       plugins: lazyResult?.plugins ?? [],
       stateLines: lazyResult?.stateLines ?? [],
     };
