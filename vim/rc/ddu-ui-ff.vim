@@ -106,39 +106,6 @@ nnoremap <buffer> >
       \<Cmd>call ddu#ui#do_action('redraw', #{ method: 'uiRedraw' })<CR>
 " }}}
 
-" ddu-ff-filter {{{
-if has('nvim')
-  inoremap <buffer> <CR>
-        \ <Esc><Cmd>call ddu#ui#do_action('closeFilterWindow')<CR>
-else
-  inoremap <buffer> <CR>
-        \ <Esc><Cmd>call ddu#ui#do_action('itemAction')<CR>
-endif
-inoremap <buffer> <C-f>
-      \ <Cmd>call ddu#ui#do_action('cursorNext', #{ loop: v:true })<CR>
-inoremap <buffer> <C-b>
-      \ <Cmd>call ddu#ui#do_action('cursorPrevious', #{ loop: v:true })<CR>
-inoremap <buffer> <C-v>
-      \ <Cmd>call ddu#ui#do_action('toggleAutoAction')<CR>
-
-inoremap <expr><buffer> <BS>
-      \ getline('.')[col('.') - 2] ==# '' ? '' : "\<BS>"
-
-" NOTE: Use select_relative for filter
-inoremap <buffer><expr> <TAB>
-      \ pum#visible() ? '<Cmd>call pum#map#select_relative(+1, "loop")<CR>' :
-      \ ddc#map#manual_complete()
-
-nnoremap <buffer> P
-      \ <Cmd>call ddu#ui#do_action('togglePreview')<CR>
-nnoremap <buffer> a
-      \ <Cmd>call ddu#ui#do_action('chooseAction')<CR>
-nnoremap <buffer> <CR>
-      \ <Cmd>call ddu#ui#do_action('closeFilterWindow')<CR>
-nnoremap <buffer> q
-      \ <Cmd>call ddu#ui#do_action('closeFilterWindow')<CR>
-" }}}
-
 " hook_source {{{
 autocmd MyAutoCmd User Ddu:ui:ff:openFilterWindow
       \ call s:ddu_ff_filter_my_settings()

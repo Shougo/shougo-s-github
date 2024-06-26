@@ -100,7 +100,6 @@ hook_source = '''
   imap <silent><expr> <C-p> copilot#Previous()
 
   let g:copilot_filetypes = #{
-    \   ddu-ff-filter: v:false,
     \   gitcommit: v:true,
     \   markdown: v:true,
     \   python: v:true,
@@ -130,7 +129,6 @@ hook_source = '''
     \ })
 
   let g:codeium_filetypes = #{
-    \   ddu-ff-filter: v:false,
     \   gitcommit: v:true,
     \   markdown: v:true,
     \   python: v:true,
