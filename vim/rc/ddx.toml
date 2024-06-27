@@ -20,4 +20,3 @@ ddx-hex = '''
 repo = 'Shougo/ddx-commands.vim'
 depends = 'ddx.vim'
 on_cmd = 'Ddx'
-

@@ -148,10 +148,6 @@ repo = '4513ECHO/ddu-kind-url'
 on_source = 'ddu.vim'
 
 [[plugins]]
-repo = '4513ECHO/vim-readme-viewer'
-on_source = ['ddu.vim']
-
-[[plugins]]
 repo = 'uga-rosa/ddu-source-lsp'
 on_source = ['ddu.vim']
 hook_add = '''
@@ -170,4 +166,16 @@ hook_add = '''
         \     },
         \   },
         \ })<CR>
+'''
+
+[[multiple_hooks]]
+plugins = ['ddu.vim', 'deol.vim']
+hook_source = '''
+  call ddu#custom#patch_global(#{
+        \   sourceParams: #{
+        \     deol: #{
+        \       command: ['zsh'],
+        \     },
+        \   }
+        \ })
 '''

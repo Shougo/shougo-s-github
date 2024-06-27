@@ -23,14 +23,6 @@ if !has('win32')
   call deol#set_option('external_history_path', '~/.zsh-history')
 endif
 
-call ddu#custom#patch_global(#{
-      \   sourceParams: #{
-      \     deol: #{
-      \       command: ['zsh'],
-      \     },
-      \   }
-      \ })
-
 " Set terminal colors
 if has('nvim')
   let g:terminal_color_0  = '#6c6c6c'
@@ -93,7 +85,7 @@ tnoremap <buffer><expr> <CR>
       \ (pum#visible() ? '<Cmd>call pum#map#confirm()<CR>' : '')
       \ .. '<Plug>(deol_execute_line)'
 
-call ddc#custom#patch_buffer('sourceOptions', #{
+call ddc#custom#patch_filetype('deol', 'sourceOptions', #{
       \   _: #{
       \     converters: [],
       \   },

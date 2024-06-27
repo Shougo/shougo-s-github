@@ -72,11 +72,12 @@ inoremap <C-t>   <C-v><Tab>
 "inoremap <C-e>   <Cmd>call pum#map#scroll_preview(-1)<CR>
 
 inoremap <expr> <TAB>
-      \ pum#visible() ?
-      \   '<Cmd>call pum#map#insert_relative(+1, "empty")<CR>' :
-      \ col('.') <= 1 ? '<TAB>' :
-      \ getline('.')[col('.') - 2] =~# '\s' ? '<TAB>' :
-      \ ddc#map#manual_complete()
+      \ pum#visible()
+      \ ? '<Cmd>call pum#map#insert_relative(+1, "empty")<CR>'
+      \ : col('.') <= 1 ? '<TAB>'
+      \ : getline('.')[col('.') - 2] =~# '\s'
+      \ ? '<TAB>'
+      \ : ddc#map#manual_complete()
 inoremap <expr> <C-e> pum#visible()
       \ ? '<Cmd>call pum#map#cancel()<CR>'
       \ : '<End>'
@@ -92,11 +93,14 @@ cnoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
 "cnoremap <C-e>   <Cmd>call pum#map#scroll_preview(-1)<CR>
 
 cnoremap <expr> <Tab>
-      \ wildmenumode() ? &wildcharm->nr2char() :
-      \ pum#visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' :
-      \ ddc#map#manual_complete()
+      \   wildmenumode()
+      \ ? &wildcharm->nr2char()
+      \ : pum#visible()
+      \ ? '<Cmd>call pum#map#insert_relative(+1)<CR>'
+      \ : ddc#map#manual_complete()
 cnoremap <expr> <C-t>       ddc#map#insert_item(0)
-cnoremap <expr> <C-e> pum#visible()
+cnoremap <expr> <C-e>
+      \   pum#visible()
       \ ? '<Cmd>call pum#map#cancel()<CR>'
       \ : '<End>'
 
