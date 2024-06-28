@@ -21,6 +21,7 @@ call deol#set_option(#{
       \ })
 if !has('win32')
   call deol#set_option('external_history_path', '~/.zsh-history')
+  call deol#set_option('command', ['zsh'])
 endif
 
 " Set terminal colors
