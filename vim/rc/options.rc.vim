@@ -73,7 +73,7 @@ if has('nvim')
 else
   set foldcolumn=1
 endif
-set fillchars=vert:\|
+set fillchars=
 set commentstring=%s
 
 " Use vimgrep.
@@ -193,7 +193,7 @@ endif
 set report=1000
 
 " Disable statusline.
-set statusline=%{'─'->repeat(winwidth(0))}
+set statusline=%{'─'->repeat(&columns)}
 
 " NOTE: wrap option is very slow!
 set nowrap
