@@ -23,12 +23,12 @@ nnoremap <buffer> q
       \ <Cmd>call ddu#ui#do_action('quit')<CR>
 nnoremap <buffer> o
       \ <Cmd>call ddu#ui#do_action('expandItem',
-      \ #{ mode: 'toggle', isGrouped: v:true })<CR>
+      \ #{ mode: 'toggle', isGrouped: v:true, isInTree: v:false })<CR>
 nnoremap <buffer> O
       \ <Cmd>call ddu#ui#do_action('expandItem',
       \ #{ maxLevel: -1 })<CR>
 "nnoremap <buffer> O
-"\ <Cmd>call ddu#ui#do_action('collapseItem')<CR>
+"      \ <Cmd>call ddu#ui#do_action('collapseItem')<CR>
 nnoremap <buffer> c
       \ <Cmd>call ddu#ui#multi_actions([
       \   ['itemAction', #{ name: 'copy' }],
