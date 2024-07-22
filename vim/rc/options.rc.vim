@@ -192,9 +192,6 @@ endif
 " Does not report lines
 set report=1000
 
-" Disable statusline.
-set statusline=%{'─'->repeat(&columns)}
-
 " NOTE: wrap option is very slow!
 set nowrap
 " Turn down a long line appointed in 'breakat'

@@ -23,14 +23,22 @@ if '+termguicolors'->exists() && !has('gui_running')
 endif
 set shortmess=aTIcFoOsSW showtabline=0 laststatus=0
 set noruler noshowcmd noshowmode
-if has('nvim')
-  autocmd MyAutoCmd WinEnter,CursorHold,CursorHoldI *
-        \ : if winlayout()[1]->type() != v:t_list
-        \ |   set laststatus=0
-        \ | else
-        \ |   set laststatus=3
-        \ | endif
-endif
+
+" Disable statusline.
+set statusline=%{'　'->repeat(winwidth(0)/2)}
+"if has('nvim')
+"  set statusline=%{'─'->repeat(&columns)}
+"endif
+
+" Set laststatus=3 automatically
+"if has('nvim')
+"  autocmd MyAutoCmd WinEnter,CursorHold,CursorHoldI *
+"        \ : if winlayout()[1]->type() != v:t_list
+"        \ |   set laststatus=0
+"        \ | else
+"        \ |   set laststatus=3
+"        \ | endif
+"endif
 
 " Height of the command line.
 try
