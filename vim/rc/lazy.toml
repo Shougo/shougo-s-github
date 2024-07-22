@@ -138,3 +138,11 @@ hook_source = '''
     \   yaml: v:true,
     \ }
 '''
+
+[[plugins]]
+repo = 'tani/dmacro.vim'
+on_map = { n = '<C-d>', i = '<C-d>' }
+hook_source = '''
+  inoremap <C-d> <Plug>(dmacro-play-macro)
+  nnoremap <C-d> <Plug>(dmacro-play-macro)
+'''
