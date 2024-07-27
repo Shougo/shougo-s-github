@@ -1,0 +1,11 @@
+{
+  "lock": false,
+  "tasks": {
+    "check": "deno check vim/rc/*.ts",
+    "lint": "deno lint vim/rc",
+    "lint-fix": "deno lint --fix vim/rc",
+    "fmt": "deno fmt vim/rc",
+    "test": "deno test -A --doc --parallel --shuffle vim/rc/**/*.ts",
+    "upgrade": "deno run -A jsr:@molt/cli vim/rc/**/*.ts --no-resolve --write"
+  }
+}

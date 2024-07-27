@@ -3,12 +3,14 @@ import {
   ActionFlags,
   BaseConfig,
   Ddu,
-} from "https://deno.land/x/ddu_vim@v4.2.0/types.ts";
-import { Denops, fn } from "https://deno.land/x/ddu_vim@v4.2.0/deps.ts";
-import { ConfigArguments } from "https://deno.land/x/ddu_vim@v4.2.0/base/config.ts";
-import { ActionData as FileAction } from "https://deno.land/x/ddu_kind_file@v0.7.1/file.ts";
-import { Params as FfParams } from "https://deno.land/x/ddu_ui_ff@v1.1.0/ff.ts";
-import { Params as FilerParams } from "https://deno.land/x/ddu_ui_filer@v1.1.0/filer.ts";
+  Denops,
+} from "jsr:@shougo/ddu-vim@5.0.0-pre10/types";
+import { ConfigArguments } from "jsr:@shougo/ddu-vim@5.0.0-pre10/config";
+import { ActionData as FileAction } from "jsr:@shougo/ddu-kind-file@0.8.0-pre1";
+import { Params as FfParams } from "jsr:@shougo/ddu-ui-ff@1.2.0-pre3";
+import { Params as FilerParams } from "jsr:@shougo/ddu-ui-filer@1.2.0-pre4";
+
+import * as fn from "jsr:@denops/std@7.0.0/function";
 
 type Params = Record<string, unknown>;
 
