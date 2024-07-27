@@ -68,7 +68,7 @@ nnoremap <buffer> u
       \ <Cmd>call ddu#ui#do_action('updateOptions', #{
       \   filterParams: #{
       \     matcher_files: #{
-      \       globs: 'Filter files: '->MyDduInputFunc('', 'file')->split(','),
+      \       globs: 'Filter files: '->cmdline#input('', 'file')->split(','),
       \     },
       \   },
       \ })<CR>
