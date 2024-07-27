@@ -97,9 +97,12 @@ nnoremap sp  <Cmd>vsplit<CR><Cmd>wincmd w<CR>
 nnoremap so  <Cmd>only<CR>
 nnoremap <Tab>      <cmd>wincmd w<CR>
 nnoremap <expr> q
-      \ &l:filetype ==# 'qf' ? '<Cmd>cclose<CR><Cmd>lclose<CR>' :
-      \ ('#'->winnr()->winbufnr()->getbufvar('&filetype') !=# 'qf'
-      \  && '$'->winnr() > 1) ? '<Cmd>close<CR>' : ''
+      \   &l:filetype ==# 'qf'
+      \ ? '<Cmd>cclose<CR><Cmd>lclose<CR>'
+      \ : ('$'->winnr() > 2 <Bar><Bar>
+      \    '#'->winnr()->winbufnr()->getbufvar('&filetype') !=# 'qf')
+      \ ? '<Cmd>close<CR>'
+      \ : ''
 
 " Original search
 nnoremap s/    /
