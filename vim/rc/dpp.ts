@@ -2,11 +2,13 @@ import {
   BaseConfig,
   ConfigReturn,
   ContextBuilder,
+  Denops,
   Dpp,
   MultipleHook,
   Plugin,
-} from "https://deno.land/x/dpp_vim@v0.3.0/types.ts";
-import { Denops, fn } from "https://deno.land/x/dpp_vim@v0.3.0/deps.ts";
+} from "jsr:@shougo/dpp-vim@1.0.0-pre8/types";
+
+import * as fn from "jsr:@denops/std@7.0.0/function";
 import { expandGlob } from "jsr:@std/fs@0.229.3/expand-glob";
 
 type Toml = {
