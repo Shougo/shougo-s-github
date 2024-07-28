@@ -65,14 +65,21 @@ xnoremap <silent><buffer> <Space>
 
 " Switch options
 nnoremap <buffer> u
-      \ <Cmd>call ddu#ui#do_action('updateOptions', #{
-      \   filterParams: #{
-      \     matcher_files: #{
-      \       globs: 'Filter files: '->cmdline#input('', 'file')->split(','),
-      \     },
-      \   },
-      \ })<CR>
-      \<Cmd>call ddu#ui#do_action('redraw')<CR>
+      \ <Cmd>call ddu#ui#multi_actions([
+      \   [
+      \      'updateOptions', #{
+      \        filterParams: #{
+      \          matcher_files: #{
+      \             globs: 'Filter files: '
+      \                    ->cmdline#input('', 'file')->split(','),
+      \          },
+      \        },
+      \      }
+      \   ],
+      \   [
+      \      'redraw', #{ method: 'refreshItems' },
+      \   ],
+      \ ])<CR>
 
 " Switch sources
 nnoremap <buffer> ff

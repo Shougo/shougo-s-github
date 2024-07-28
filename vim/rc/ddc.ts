@@ -42,7 +42,6 @@ export class Config extends BaseConfig {
             "matcher_head",
             "matcher_prefix",
             "matcher_length",
-            "matcher_suffix",
           ],
           sorters: ["sorter_rank"],
           //converters: ["converter_remove_overlap"],
