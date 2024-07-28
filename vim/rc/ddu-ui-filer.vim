@@ -88,14 +88,20 @@ nnoremap <buffer> I
       \   }
       \ })<CR>
 nnoremap <buffer> .
-      \ <Cmd>call ddu#ui#do_action('updateOptions', #{
-      \   sourceOptions: #{
-      \     file: #{
-      \       matchers: ToggleHidden('file'),
-      \     },
-      \   },
-      \ })<CR>
-      \<Cmd>call ddu#ui#do_action('redraw')<CR>
+      \ <Cmd>call ddu#ui#multi_actions([
+      \   [
+      \      'updateOptions', #{
+      \        sourceOptions: #{
+      \          file: #{
+      \            matchers: ToggleHidden('file'),
+      \          },
+      \        },
+      \      }
+      \   ],
+      \   [
+      \      'redraw', #{ method: 'refreshItems' },
+      \   ],
+      \ ])<CR>
 nnoremap <buffer> >
       \ <Cmd>call ddu#ui#do_action('updateOptions', #{
       \   uiParams: #{
