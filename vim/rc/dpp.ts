@@ -6,7 +6,7 @@ import {
   Dpp,
   MultipleHook,
   Plugin,
-} from "jsr:@shougo/dpp-vim@1.0.0-pre8/types";
+} from "jsr:@shougo/dpp-vim@1.0.0/types";
 
 import * as fn from "jsr:@denops/std@7.0.0/function";
 import { expandGlob } from "jsr:@std/fs@0.229.3/expand-glob";
