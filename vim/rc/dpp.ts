@@ -8,8 +8,8 @@ import {
   Plugin,
 } from "jsr:@shougo/dpp-vim@1.0.0/types";
 
-import * as fn from "jsr:@denops/std@7.0.0/function";
-import { expandGlob } from "jsr:@std/fs@0.229.3/expand-glob";
+import * as fn from "jsr:@denops/std@7.0.1/function";
+import { expandGlob } from "jsr:@std/fs@1.0.0/expand-glob";
 
 type Toml = {
   hooks_file?: string;

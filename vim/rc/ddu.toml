@@ -67,27 +67,7 @@ repo = 'matsui54/ddu-source-file_external'
 on_source = 'ddu.vim'
 
 [[plugins]]
-repo = 'matsui54/ddu-source-command_history'
-on_source = 'ddu.vim'
-
-[[plugins]]
-repo = 'matsui54/ddu-source-help'
-on_source = 'ddu.vim'
-
-[[plugins]]
 repo = 'shun/ddu-source-rg'
-on_source = 'ddu.vim'
-
-[[plugins]]
-repo = 'mikanIchinose/ddu-source-markdown'
-on_source = 'ddu.vim'
-
-[[plugins]]
-repo = 'kamecha/ddu-source-jumplist'
-on_source = 'ddu.vim'
-
-[[plugins]]
-repo = 'yuki-yano/ddu-source-nvim-notify'
 on_source = 'ddu.vim'
 
 [[plugins]]
@@ -146,27 +126,6 @@ on_source = 'ddu.vim'
 [[plugins]]
 repo = '4513ECHO/ddu-kind-url'
 on_source = 'ddu.vim'
-
-[[plugins]]
-repo = 'uga-rosa/ddu-source-lsp'
-on_source = ['ddu.vim']
-hook_add = '''
-  " Jump to definition
-  nnoremap td <Cmd>call ddu#start(#{
-        \   sync: v:true,
-        \   sources: [
-        \     #{
-        \       name: 'lsp_definition',
-        \     },
-        \   ],
-        \   uiParams: #{
-        \     ff: #{
-        \       ignoreEmpty: v:true,
-        \       immediateAction: 'open',
-        \     },
-        \   },
-        \ })<CR>
-'''
 
 [[multiple_hooks]]
 plugins = ['ddu.vim', 'deol.vim']

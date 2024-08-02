@@ -10,7 +10,7 @@ import { ActionData as FileAction } from "jsr:@shougo/ddu-kind-file@0.8.0";
 import { Params as FfParams } from "jsr:@shougo/ddu-ui-ff@1.2.0";
 import { Params as FilerParams } from "jsr:@shougo/ddu-ui-filer@1.2.0";
 
-import * as fn from "jsr:@denops/std@7.0.0/function";
+import * as fn from "jsr:@denops/std@7.0.1/function";
 
 type Params = Record<string, unknown>;
 
