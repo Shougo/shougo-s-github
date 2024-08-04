@@ -1,12 +1,15 @@
 import {
   BaseConfig,
-  ConfigReturn,
-  ContextBuilder,
-  Denops,
-  Dpp,
-  MultipleHook,
-  Plugin,
-} from "jsr:@shougo/dpp-vim@~1.0.0/types";
+  type ConfigReturn,
+  type ContextBuilder,
+  type Denops,
+  type Dpp,
+  type MultipleHook,
+  type Plugin,
+} from "jsr:@shougo/dpp-vim@~1.1.0/types";
+import {
+  mergeFtplugins,
+} from "jsr:@shougo/dpp-vim@~1.1.0/utils";
 
 import * as fn from "jsr:@denops/std@~7.0.1/function";
 import { expandGlob } from "jsr:@std/fs@~1.0.0/expand-glob";
@@ -111,13 +114,7 @@ export class Config extends BaseConfig {
       }
 
       if (toml.ftplugins) {
-        for (const filetype of Object.keys(toml.ftplugins)) {
-          if (ftplugins[filetype]) {
-            ftplugins[filetype] += `\n${toml.ftplugins[filetype]}`;
-          } else {
-            ftplugins[filetype] = toml.ftplugins[filetype];
-          }
-        }
+        mergeFtplugins(ftplugins, toml.ftplugins);
       }
 
       if (toml.multiple_hooks) {
