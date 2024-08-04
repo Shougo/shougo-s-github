@@ -37,6 +37,19 @@ autocmd MyAutoCmd BufWritePost * nested
 \ |   silent filetype detect
 \ | endif
 
+" from https://github.com/kuuote/dotvim/blob/46760385/conf/rc/autocmd.vim#L5
+function! s:chmod(file) abort
+  const perm = a:file->getfperm()
+  const newperm = printf('%sx%sx%sx', perm[0:1], perm[3:4], perm[6:7])
+  if perm !=# newperm
+    call setfperm(a:file, newperm)
+  endif
+endfunction
+autocmd MyAutoCmd BufWritePost * nested
+      \ : if 1->getline()->stridx('#!/') ==# 0
+      \ |   call s:chmod('<afile>'->expand())
+      \ | endif
+
 " For zsh "edit-command-line".
 autocmd MyAutoCmd BufRead /tmp/* setlocal wrap
 
