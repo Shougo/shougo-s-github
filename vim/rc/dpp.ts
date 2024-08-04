@@ -69,6 +69,11 @@ export class Config extends BaseConfig {
 
     const [context, options] = await args.contextBuilder.get(args.denops);
 
+    const recordPlugins: Record<string, Plugin> = {};
+    const ftplugins: Record<string, string> = {};
+    const hooksFiles: string[] = [];
+    let multipleHooks: MultipleHook[] = [];
+
     const tomlPromises = [
       { path: "$BASE_DIR/merge.toml", lazy: false },
       { path: "$BASE_DIR/dpp.toml", lazy: false },
@@ -99,10 +104,6 @@ export class Config extends BaseConfig {
     const tomls: (Toml | undefined)[] = await Promise.all(tomlPromises);
 
     // Merge toml results
-    const recordPlugins: Record<string, Plugin> = {};
-    const ftplugins: Record<string, string> = {};
-    const hooksFiles: string[] = [];
-    let multipleHooks: MultipleHook[] = [];
     for (const toml of tomls) {
       if (!toml) {
         continue;
