@@ -2,16 +2,15 @@ import {
   BaseConfig,
   type ConfigReturn,
   type ContextBuilder,
-  type Denops,
   type Dpp,
   type MultipleHook,
   type Plugin,
 } from "jsr:@shougo/dpp-vim@~1.1.0/types";
-import {
-  mergeFtplugins,
-} from "jsr:@shougo/dpp-vim@~1.1.0/utils";
+import { mergeFtplugins } from "jsr:@shougo/dpp-vim@~1.1.0/utils";
 
+import type { Denops } from "jsr:@denops/std@~7.0.1";
 import * as fn from "jsr:@denops/std@~7.0.1/function";
+
 import { expandGlob } from "jsr:@std/fs@~1.0.0/expand-glob";
 
 type Toml = {
