@@ -99,6 +99,8 @@ nnoremap <Tab>      <cmd>wincmd w<CR>
 nnoremap <expr> q
       \   &l:filetype ==# 'qf'
       \ ? '<Cmd>cclose<CR><Cmd>lclose<CR>'
+      \ : '#'->winnr()->getwinvar('&winfixbuf')
+      \ ? ''
       \ : ('$'->winnr() > 2 <Bar><Bar>
       \    '#'->winnr()->winbufnr()->getbufvar('&filetype') !=# 'qf')
       \ ? '<Cmd>close<CR>'
