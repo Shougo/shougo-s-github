@@ -68,61 +68,73 @@ export class Config extends BaseConfig {
     });
 
     const [context, options] = await args.contextBuilder.get(args.denops);
+    const protocols = await args.dpp.getProtocols(args.denops, options);
 
     const recordPlugins: Record<string, Plugin> = {};
     const ftplugins: Record<string, string> = {};
     const hooksFiles: string[] = [];
     let multipleHooks: MultipleHook[] = [];
 
-    const tomlPromises = [
-      { path: "$BASE_DIR/merge.toml", lazy: false },
-      { path: "$BASE_DIR/dpp.toml", lazy: false },
-      { path: "$BASE_DIR/lazy.toml", lazy: true },
-      { path: "$BASE_DIR/denops.toml", lazy: true },
-      { path: "$BASE_DIR/ddc.toml", lazy: true },
-      { path: "$BASE_DIR/ddu.toml", lazy: true },
-      { path: "$BASE_DIR/ddx.toml", lazy: true },
-      {
-        path: hasNvim ? "$BASE_DIR/neovim.toml" : "$BASE_DIR/vim.toml",
-        lazy: true,
-      },
-    ].map((tomlFile) =>
-      args.dpp.extAction(
-        args.denops,
-        context,
-        options,
-        "toml",
-        "load",
-        {
-          path: tomlFile.path,
-          options: {
-            lazy: tomlFile.lazy,
-          },
-        },
-      ) as Promise<Toml | undefined>
+    const [tomlExt, tomlOptions, tomlParams] = await args.dpp.getExt(
+      args.denops,
+      options,
+      "toml",
     );
-    const tomls: (Toml | undefined)[] = await Promise.all(tomlPromises);
+    if (tomlExt) {
+      const action = tomlExt.actions["load"];
 
-    // Merge toml results
-    for (const toml of tomls) {
-      if (!toml) {
-        continue;
-      }
+      const tomlPromises = [
+        { path: "$BASE_DIR/merge.toml", lazy: false },
+        { path: "$BASE_DIR/dpp.toml", lazy: false },
+        { path: "$BASE_DIR/lazy.toml", lazy: true },
+        { path: "$BASE_DIR/denops.toml", lazy: true },
+        { path: "$BASE_DIR/ddc.toml", lazy: true },
+        { path: "$BASE_DIR/ddu.toml", lazy: true },
+        { path: "$BASE_DIR/ddx.toml", lazy: true },
+        {
+          path: hasNvim ? "$BASE_DIR/neovim.toml" : "$BASE_DIR/vim.toml",
+          lazy: true,
+        },
+      ].map((tomlFile) =>
+        action.callback({
+          denops: args.denops,
+          context,
+          options,
+          protocols,
+          tomlOptions,
+          tomlParams,
+          actionParams: {
+            path: tomlFile.path,
+            options: {
+              lazy: tomlFile.lazy,
+            },
+          },
+        }) as Promise<Toml | undefined>
+      );
 
-      for (const plugin of toml.plugins ?? []) {
-        recordPlugins[plugin.name] = plugin;
-      }
+      const tomls: (Toml | undefined)[] = await Promise.all(tomlPromises);
 
-      if (toml.ftplugins) {
-        mergeFtplugins(ftplugins, toml.ftplugins);
-      }
+      // Merge toml results
+      for (const toml of tomls) {
+        if (!toml) {
+          continue;
+        }
 
-      if (toml.multiple_hooks) {
-        multipleHooks = multipleHooks.concat(toml.multiple_hooks);
-      }
+        for (const plugin of toml.plugins ?? []) {
+          recordPlugins[plugin.name] = plugin;
+        }
 
-      if (toml.hooks_file) {
-        hooksFiles.push(toml.hooks_file);
+        if (toml.ftplugins) {
+          mergeFtplugins(ftplugins, toml.ftplugins);
+        }
+
+        if (toml.multiple_hooks) {
+          multipleHooks = multipleHooks.concat(toml.multiple_hooks);
+        }
+
+        if (toml.hooks_file) {
+          hooksFiles.push(toml.hooks_file);
+        }
       }
     }
 
