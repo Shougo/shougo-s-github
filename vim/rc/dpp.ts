@@ -138,79 +138,111 @@ export class Config extends BaseConfig {
       }
     }
 
-    const localPlugins = await args.dpp.extAction(
+    const [localExt, localOptions, localParams] = await args.dpp.getExt(
       args.denops,
-      context,
       options,
       "local",
-      "local",
-      {
-        directory: "~/work",
-        options: {
-          frozen: true,
-          merged: false,
+    );
+    if (localExt) {
+      const action = localExt.actions["local"];
+
+      const localPlugins = await action.callback({
+        denops: args.denops,
+        context,
+        options,
+        protocols,
+        localOptions,
+        localParams,
+        actionParams: {
+          directory: "~/work",
+          options: {
+            frozen: true,
+            merged: false,
+          },
+          includes: [
+            "vim*",
+            "nvim-*",
+            "*.vim",
+            "*.nvim",
+            "ddc-*",
+            "ddu-*",
+            "dpp-*",
+            "skkeleton",
+          ],
         },
-        includes: [
-          "vim*",
-          "nvim-*",
-          "*.vim",
-          "*.nvim",
-          "ddc-*",
-          "ddu-*",
-          "dpp-*",
-          "skkeleton",
-        ],
-      },
-    ) as Plugin[] | undefined;
+      }) as Plugin[] | undefined;
 
-    if (localPlugins) {
-      for (const plugin of localPlugins) {
-        if (plugin.name in recordPlugins) {
-          recordPlugins[plugin.name] = Object.assign(
-            recordPlugins[plugin.name],
-            plugin,
-          );
-        } else {
-          recordPlugins[plugin.name] = plugin;
+      if (localPlugins) {
+        for (const plugin of localPlugins) {
+          if (plugin.name in recordPlugins) {
+            recordPlugins[plugin.name] = Object.assign(
+              recordPlugins[plugin.name],
+              plugin,
+            );
+          } else {
+            recordPlugins[plugin.name] = plugin;
+          }
         }
       }
     }
 
-    const packSpecPlugins = await args.dpp.extAction(
-      args.denops,
-      context,
-      options,
-      "packspec",
-      "load",
-      {
-        basePath: args.basePath,
-        plugins: Object.values(recordPlugins),
-      },
-    ) as Plugin[] | undefined;
-    if (packSpecPlugins) {
-      for (const plugin of packSpecPlugins) {
-        if (plugin.name in recordPlugins) {
-          recordPlugins[plugin.name] = Object.assign(
-            recordPlugins[plugin.name],
-            plugin,
-          );
-        } else {
-          recordPlugins[plugin.name] = plugin;
+    const [packspecExt, packspecOptions, packspecParams] = await args.dpp
+      .getExt(
+        args.denops,
+        options,
+        "packspec",
+      );
+    if (packspecExt) {
+      const action = packspecExt.actions["load"];
+
+      const packSpecPlugins = await action.callback({
+        denops: args.denops,
+        context,
+        options,
+        protocols,
+        packspecOptions,
+        packspecParams,
+        actionParams: {
+          basePath: args.basePath,
+          plugins: Object.values(recordPlugins),
+        },
+      }) as Plugin[] | undefined;
+      if (packSpecPlugins) {
+        for (const plugin of packSpecPlugins) {
+          if (plugin.name in recordPlugins) {
+            recordPlugins[plugin.name] = Object.assign(
+              recordPlugins[plugin.name],
+              plugin,
+            );
+          } else {
+            recordPlugins[plugin.name] = plugin;
+          }
         }
       }
+      //console.log(packSpecPlugins);
     }
-    //console.log(packSpecPlugins);
 
-    const lazyResult = await args.dpp.extAction(
+    const [lazyExt, lazyOptions, lazyParams] = await args.dpp.getExt(
       args.denops,
-      context,
       options,
       "lazy",
-      "makeState",
-      {
-        plugins: Object.values(recordPlugins),
-      },
-    ) as LazyMakeStateResult | undefined;
+    );
+    let lazyResult = undefined;
+    if (lazyExt) {
+      const action = lazyExt.actions["makeState"];
+
+      lazyResult = await action.callback({
+        denops: args.denops,
+        context,
+        options,
+        protocols,
+        lazyOptions,
+        lazyParams,
+        actionParams: {
+          plugins: Object.values(recordPlugins),
+        },
+      }) as LazyMakeStateResult | undefined;
+    }
 
     const checkFiles = [];
     for await (const file of expandGlob(`${Deno.env.get("BASE_DIR")}/*`)) {
