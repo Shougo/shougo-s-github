@@ -1,6 +1,5 @@
 import {
   BaseConfig,
-  type BaseExtParams,
   type ConfigReturn,
   type ContextBuilder,
   type Dpp,
@@ -10,10 +9,24 @@ import {
 } from "jsr:@shougo/dpp-vim@~2.1.0/types";
 import { mergeFtplugins } from "jsr:@shougo/dpp-vim@~2.1.0/utils";
 
-import type { BaseExt as LazyExt } from "jsr:@shougo/dpp-ext-lazy@~1.1.0";
-import type { BaseExt as LocalExt } from "jsr:@shougo/dpp-ext-local@~1.0.0";
-import type { BaseExt as PackspecExt } from "jsr:@shougo/dpp-ext-packspec@~1.0.0";
-import type { BaseExt as TomlExt } from "jsr:@shougo/dpp-ext-toml@~1.0.0";
+import type {
+  Ext as LazyExt,
+  Params as LazyParams,
+  LazyMakeStateResult,
+} from "jsr:@shougo/dpp-ext-lazy@~1.1.0";
+import type {
+  Ext as LocalExt,
+  Params as LocalParams,
+} from "jsr:@shougo/dpp-ext-local@~1.0.0";
+import type {
+  Ext as PackspecExt,
+  Params as PackspecParams,
+} from "jsr:@shougo/dpp-ext-packspec@~1.0.0";
+import type {
+  Ext as TomlExt,
+  Params as TomlParams,
+  Toml,
+} from "jsr:@shougo/dpp-ext-toml@~1.0.0";
 
 import type { Denops } from "jsr:@denops/std@~7.0.1";
 import * as fn from "jsr:@denops/std@~7.0.1/function";
@@ -71,16 +84,16 @@ export class Config extends BaseConfig {
     let multipleHooks: MultipleHook[] = [];
 
     const [tomlExt, tomlOptions, tomlParams]: [
-      TomlExt,
+      TomlExt | undefined,
       ExtOptions,
-      BaseExtParams,
+      TomlParams,
     ] = await args.dpp.getExt(
       args.denops,
       options,
       "toml",
-    );
+    ) as [TomlExt | undefined, ExtOptions, TomlParams];
     if (tomlExt) {
-      const action = tomlExt.actions["load"];
+      const action = (tomlExt as TomlExt).actions["load"];
 
       const tomlPromises = [
         { path: "$BASE_DIR/merge.toml", lazy: false },
@@ -111,7 +124,7 @@ export class Config extends BaseConfig {
         })
       );
 
-      const tomls = await Promise.all(tomlPromises);
+      const tomls = await Promise.all(tomlPromises) as (Toml | undefined)[];
 
       // Merge toml results
       for (const toml of tomls) {
@@ -138,14 +151,14 @@ export class Config extends BaseConfig {
     }
 
     const [localExt, localOptions, localParams]: [
-      LocalExt,
+      LocalExt | undefined,
       ExtOptions,
-      BaseExtParams,
+      LocalParams,
     ] = await args.dpp.getExt(
       args.denops,
       options,
       "local",
-    );
+    ) as [LocalExt | undefined, ExtOptions, LocalParams];
     if (localExt) {
       const action = localExt.actions["local"];
 
@@ -173,7 +186,7 @@ export class Config extends BaseConfig {
             "skkeleton",
           ],
         },
-      });
+      }) as Plugin[];
 
       if (localPlugins) {
         for (const plugin of localPlugins) {
@@ -190,15 +203,15 @@ export class Config extends BaseConfig {
     }
 
     const [packspecExt, packspecOptions, packspecParams]: [
-      PackspecExt,
+      PackspecExt | undefined,
       ExtOptions,
-      BaseExtParams,
+      PackspecParams,
     ] = await args.dpp
       .getExt(
         args.denops,
         options,
         "packspec",
-      );
+      ) as [PackspecExt | undefined, ExtOptions, PackspecParams];
     if (packspecExt) {
       const action = packspecExt.actions["load"];
 
@@ -213,7 +226,7 @@ export class Config extends BaseConfig {
           basePath: args.basePath,
           plugins: Object.values(recordPlugins),
         },
-      });
+      }) as Plugin[];
       if (packSpecPlugins) {
         for (const plugin of packSpecPlugins) {
           if (plugin.name in recordPlugins) {
@@ -230,15 +243,15 @@ export class Config extends BaseConfig {
     }
 
     const [lazyExt, lazyOptions, lazyParams]: [
-      LazyExt,
+      LazyExt | undefined,
       ExtOptions,
-      BaseExtParams,
+      LazyParams,
     ] = await args.dpp.getExt(
       args.denops,
       options,
       "lazy",
-    );
-    let lazyResult = undefined;
+    ) as [LazyExt | undefined, ExtOptions, PackspecParams];
+    let lazyResult: LazyMakeStateResult | undefined = undefined;
     if (lazyExt) {
       const action = lazyExt.actions["makeState"];
 
@@ -252,7 +265,7 @@ export class Config extends BaseConfig {
         actionParams: {
           plugins: Object.values(recordPlugins),
         },
-      });
+      }) as LazyMakeStateResult;
     }
 
     const checkFiles = [];
