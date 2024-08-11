@@ -1,28 +1,24 @@
 import {
   BaseConfig,
+  type BaseExtParams,
   type ConfigReturn,
   type ContextBuilder,
   type Dpp,
   type ExtOptions,
-  type ExtParams,
   type MultipleHook,
   type Plugin,
 } from "jsr:@shougo/dpp-vim@~2.1.0/types";
 import { mergeFtplugins } from "jsr:@shougo/dpp-vim@~2.1.0/utils";
 
 import type { BaseExt as LazyExt } from "jsr:@shougo/dpp-ext-lazy@~1.1.0";
+import type { BaseExt as LocalExt } from "jsr:@shougo/dpp-ext-local@~1.0.0";
+import type { BaseExt as PackspecExt } from "jsr:@shougo/dpp-ext-packspec@~1.0.0";
+import type { BaseExt as TomlExt } from "jsr:@shougo/dpp-ext-toml@~1.0.0";
 
 import type { Denops } from "jsr:@denops/std@~7.0.1";
 import * as fn from "jsr:@denops/std@~7.0.1/function";
 
 import { expandGlob } from "jsr:@std/fs@~1.0.0/expand-glob";
-
-type Toml = {
-  hooks_file?: string;
-  ftplugins?: Record<string, string>;
-  multiple_hooks?: MultipleHook[];
-  plugins?: Plugin[];
-};
 
 export class Config extends BaseConfig {
   override async config(args: {
@@ -74,7 +70,11 @@ export class Config extends BaseConfig {
     const hooksFiles: string[] = [];
     let multipleHooks: MultipleHook[] = [];
 
-    const [tomlExt, tomlOptions, tomlParams] = await args.dpp.getExt(
+    const [tomlExt, tomlOptions, tomlParams]: [
+      TomlExt,
+      ExtOptions,
+      BaseExtParams,
+    ] = await args.dpp.getExt(
       args.denops,
       options,
       "toml",
@@ -108,10 +108,10 @@ export class Config extends BaseConfig {
               lazy: tomlFile.lazy,
             },
           },
-        }) as Promise<Toml | undefined>
+        })
       );
 
-      const tomls: (Toml | undefined)[] = await Promise.all(tomlPromises);
+      const tomls = await Promise.all(tomlPromises);
 
       // Merge toml results
       for (const toml of tomls) {
@@ -137,7 +137,11 @@ export class Config extends BaseConfig {
       }
     }
 
-    const [localExt, localOptions, localParams] = await args.dpp.getExt(
+    const [localExt, localOptions, localParams]: [
+      LocalExt,
+      ExtOptions,
+      BaseExtParams,
+    ] = await args.dpp.getExt(
       args.denops,
       options,
       "local",
@@ -169,7 +173,7 @@ export class Config extends BaseConfig {
             "skkeleton",
           ],
         },
-      }) as Plugin[] | undefined;
+      });
 
       if (localPlugins) {
         for (const plugin of localPlugins) {
@@ -185,7 +189,11 @@ export class Config extends BaseConfig {
       }
     }
 
-    const [packspecExt, packspecOptions, packspecParams] = await args.dpp
+    const [packspecExt, packspecOptions, packspecParams]: [
+      PackspecExt,
+      ExtOptions,
+      BaseExtParams,
+    ] = await args.dpp
       .getExt(
         args.denops,
         options,
@@ -205,7 +213,7 @@ export class Config extends BaseConfig {
           basePath: args.basePath,
           plugins: Object.values(recordPlugins),
         },
-      }) as Plugin[] | undefined;
+      });
       if (packSpecPlugins) {
         for (const plugin of packSpecPlugins) {
           if (plugin.name in recordPlugins) {
@@ -224,7 +232,7 @@ export class Config extends BaseConfig {
     const [lazyExt, lazyOptions, lazyParams]: [
       LazyExt,
       ExtOptions,
-      ExtParams,
+      BaseExtParams,
     ] = await args.dpp.getExt(
       args.denops,
       options,
