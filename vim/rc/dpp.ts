@@ -3,10 +3,14 @@ import {
   type ConfigReturn,
   type ContextBuilder,
   type Dpp,
+  type ExtOptions,
+  type ExtParams,
   type MultipleHook,
   type Plugin,
-} from "jsr:@shougo/dpp-vim@~2.0.0/types";
-import { mergeFtplugins } from "jsr:@shougo/dpp-vim@~2.0.0/utils";
+} from "jsr:@shougo/dpp-vim@~2.1.0/types";
+import { mergeFtplugins } from "jsr:@shougo/dpp-vim@~2.1.0/utils";
+
+import type { BaseExt as LazyExt } from "jsr:@shougo/dpp-ext-lazy@~1.1.0";
 
 import type { Denops } from "jsr:@denops/std@~7.0.1";
 import * as fn from "jsr:@denops/std@~7.0.1/function";
@@ -18,11 +22,6 @@ type Toml = {
   ftplugins?: Record<string, string>;
   multiple_hooks?: MultipleHook[];
   plugins?: Plugin[];
-};
-
-type LazyMakeStateResult = {
-  plugins: Plugin[];
-  stateLines: string[];
 };
 
 export class Config extends BaseConfig {
@@ -101,8 +100,8 @@ export class Config extends BaseConfig {
           context,
           options,
           protocols,
-          tomlOptions,
-          tomlParams,
+          extOptions: tomlOptions,
+          extParams: tomlParams,
           actionParams: {
             path: tomlFile.path,
             options: {
@@ -151,8 +150,8 @@ export class Config extends BaseConfig {
         context,
         options,
         protocols,
-        localOptions,
-        localParams,
+        extOptions: localOptions,
+        extParams: localParams,
         actionParams: {
           directory: "~/work",
           options: {
@@ -200,8 +199,8 @@ export class Config extends BaseConfig {
         context,
         options,
         protocols,
-        packspecOptions,
-        packspecParams,
+        extOptions: packspecOptions,
+        extParams: packspecParams,
         actionParams: {
           basePath: args.basePath,
           plugins: Object.values(recordPlugins),
@@ -222,7 +221,11 @@ export class Config extends BaseConfig {
       //console.log(packSpecPlugins);
     }
 
-    const [lazyExt, lazyOptions, lazyParams] = await args.dpp.getExt(
+    const [lazyExt, lazyOptions, lazyParams]: [
+      LazyExt,
+      ExtOptions,
+      ExtParams,
+    ] = await args.dpp.getExt(
       args.denops,
       options,
       "lazy",
@@ -236,12 +239,12 @@ export class Config extends BaseConfig {
         context,
         options,
         protocols,
-        lazyOptions,
-        lazyParams,
+        extOptions: lazyOptions,
+        extParams: lazyParams,
         actionParams: {
           plugins: Object.values(recordPlugins),
         },
-      }) as LazyMakeStateResult | undefined;
+      });
     }
 
     const checkFiles = [];
