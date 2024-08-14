@@ -6,27 +6,26 @@ import {
   type ExtOptions,
   type MultipleHook,
   type Plugin,
-} from "jsr:@shougo/dpp-vim@~2.1.0/types";
-import { mergeFtplugins } from "jsr:@shougo/dpp-vim@~2.1.0/utils";
+} from "jsr:@shougo/dpp-vim@~2.2.0/types";
+import { mergeFtplugins } from "jsr:@shougo/dpp-vim@~2.2.0/utils";
 
 import type {
   Ext as LazyExt,
   Params as LazyParams,
   LazyMakeStateResult,
-} from "jsr:@shougo/dpp-ext-lazy@~1.1.0";
+} from "jsr:@shougo/dpp-ext-lazy@~1.3.0";
 import type {
   Ext as LocalExt,
   Params as LocalParams,
-} from "jsr:@shougo/dpp-ext-local@~1.0.0";
+} from "jsr:@shougo/dpp-ext-local@~1.1.0";
 import type {
   Ext as PackspecExt,
   Params as PackspecParams,
-} from "jsr:@shougo/dpp-ext-packspec@~1.0.0";
+} from "jsr:@shougo/dpp-ext-packspec@~1.1.0";
 import type {
   Ext as TomlExt,
   Params as TomlParams,
-  Toml,
-} from "jsr:@shougo/dpp-ext-toml@~1.0.0";
+} from "jsr:@shougo/dpp-ext-toml@~1.1.0";
 
 import type { Denops } from "jsr:@denops/std@~7.0.1";
 import * as fn from "jsr:@denops/std@~7.0.1/function";
@@ -93,7 +92,7 @@ export class Config extends BaseConfig {
       "toml",
     ) as [TomlExt | undefined, ExtOptions, TomlParams];
     if (tomlExt) {
-      const action = (tomlExt as TomlExt).actions["load"];
+      const action = tomlExt.actions.load;
 
       const tomlPromises = [
         { path: "$BASE_DIR/merge.toml", lazy: false },
@@ -124,14 +123,10 @@ export class Config extends BaseConfig {
         })
       );
 
-      const tomls = await Promise.all(tomlPromises) as (Toml | undefined)[];
+      const tomls = await Promise.all(tomlPromises);
 
       // Merge toml results
       for (const toml of tomls) {
-        if (!toml) {
-          continue;
-        }
-
         for (const plugin of toml.plugins ?? []) {
           recordPlugins[plugin.name] = plugin;
         }
@@ -160,7 +155,7 @@ export class Config extends BaseConfig {
       "local",
     ) as [LocalExt | undefined, ExtOptions, LocalParams];
     if (localExt) {
-      const action = localExt.actions["local"];
+      const action = localExt.actions.local;
 
       const localPlugins = await action.callback({
         denops: args.denops,
@@ -186,18 +181,16 @@ export class Config extends BaseConfig {
             "skkeleton",
           ],
         },
-      }) as Plugin[];
+      });
 
-      if (localPlugins) {
-        for (const plugin of localPlugins) {
-          if (plugin.name in recordPlugins) {
-            recordPlugins[plugin.name] = Object.assign(
-              recordPlugins[plugin.name],
-              plugin,
-            );
-          } else {
-            recordPlugins[plugin.name] = plugin;
-          }
+      for (const plugin of localPlugins) {
+        if (plugin.name in recordPlugins) {
+          recordPlugins[plugin.name] = Object.assign(
+            recordPlugins[plugin.name],
+            plugin,
+          );
+        } else {
+          recordPlugins[plugin.name] = plugin;
         }
       }
     }
@@ -213,7 +206,7 @@ export class Config extends BaseConfig {
         "packspec",
       ) as [PackspecExt | undefined, ExtOptions, PackspecParams];
     if (packspecExt) {
-      const action = packspecExt.actions["load"];
+      const action = packspecExt.actions.load;
 
       const packSpecPlugins = await action.callback({
         denops: args.denops,
@@ -226,17 +219,16 @@ export class Config extends BaseConfig {
           basePath: args.basePath,
           plugins: Object.values(recordPlugins),
         },
-      }) as Plugin[];
-      if (packSpecPlugins) {
-        for (const plugin of packSpecPlugins) {
-          if (plugin.name in recordPlugins) {
-            recordPlugins[plugin.name] = Object.assign(
-              recordPlugins[plugin.name],
-              plugin,
-            );
-          } else {
-            recordPlugins[plugin.name] = plugin;
-          }
+      });
+
+      for (const plugin of packSpecPlugins) {
+        if (plugin.name in recordPlugins) {
+          recordPlugins[plugin.name] = Object.assign(
+            recordPlugins[plugin.name],
+            plugin,
+          );
+        } else {
+          recordPlugins[plugin.name] = plugin;
         }
       }
       //console.log(packSpecPlugins);
@@ -253,7 +245,7 @@ export class Config extends BaseConfig {
     ) as [LazyExt | undefined, ExtOptions, PackspecParams];
     let lazyResult: LazyMakeStateResult | undefined = undefined;
     if (lazyExt) {
-      const action = lazyExt.actions["makeState"];
+      const action = lazyExt.actions.makeState;
 
       lazyResult = await action.callback({
         denops: args.denops,
@@ -265,7 +257,7 @@ export class Config extends BaseConfig {
         actionParams: {
           plugins: Object.values(recordPlugins),
         },
-      }) as LazyMakeStateResult;
+      });
     }
 
     const checkFiles = [];
