@@ -13,15 +13,15 @@ import type {
   Ext as LazyExt,
   Params as LazyParams,
   LazyMakeStateResult,
-} from "jsr:@shougo/dpp-ext-lazy@~1.3.0";
+} from "jsr:@shougo/dpp-ext-lazy@~1.4.0";
 import type {
   Ext as LocalExt,
   Params as LocalParams,
-} from "jsr:@shougo/dpp-ext-local@~1.1.0";
+} from "jsr:@shougo/dpp-ext-local@~1.2.0";
 import type {
   Ext as PackspecExt,
   Params as PackspecParams,
-} from "jsr:@shougo/dpp-ext-packspec@~1.1.0";
+} from "jsr:@shougo/dpp-ext-packspec@~1.2.0";
 import type {
   Ext as TomlExt,
   Params as TomlParams,
