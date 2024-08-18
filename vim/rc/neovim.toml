@@ -226,3 +226,7 @@ lua_source = '''
     end,
   })
 '''
+
+[[plugins]]
+repo = 'rcarriga/nvim-notify'
+on_lua = 'notify'
