@@ -29,7 +29,7 @@ hook_source = '''
   " NOTE: For horizontal_menu
   call pum#set_option(#{
     \   follow_cursor: v:true,
-    \   horizontal_menu: v:true,
+    \   horizontal_menu: v:false,
     \   max_horizontal_items: 2,
     \   max_height: 3,
     \ })

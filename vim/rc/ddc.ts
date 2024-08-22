@@ -239,7 +239,7 @@ export class Config extends BaseConfig {
     args.contextBuilder.patchFiletype("vim", {
       // Enable specialBufferCompletion for cmdwin.
       specialBufferCompletion: true,
-      sources: ["lsp", "vim"].concat(commonSources),
+      sources: ["cmdline", "vim"].concat(commonSources),
     });
   }
 }
