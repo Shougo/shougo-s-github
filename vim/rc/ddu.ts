@@ -105,6 +105,7 @@ export class Config extends BaseConfig {
             "matcher_relative",
             "matcher_substring",
           ],
+          sorters: ["sorter_mtime"],
           converters: ["converter_hl_dir"],
         },
         file_rec: {
@@ -112,6 +113,7 @@ export class Config extends BaseConfig {
             "matcher_substring",
             "matcher_hidden",
           ],
+          sorters: ["sorter_mtime"],
           converters: ["converter_hl_dir"],
         },
         file: {

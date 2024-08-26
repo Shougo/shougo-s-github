@@ -99,6 +99,10 @@ repo = 'Shougo/ddu-filter-sorter_alpha'
 on_source = 'ddu.vim'
 
 [[plugins]]
+repo = 'kuuote/ddu-filter-sorter_mtime'
+on_source = 'ddu.vim'
+
+[[plugins]]
 repo = 'Shougo/ddu-filter-converter_display_word'
 on_source = 'ddu.vim'
 
