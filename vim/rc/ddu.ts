@@ -1,16 +1,18 @@
 import {
-  ActionArguments,
+  type ActionArguments,
   ActionFlags,
+  type DduOptions,
+} from "jsr:@shougo/ddu-vim@~6.0.0-pre1/types";
+import {
   BaseConfig,
-  Ddu,
-  Denops,
-} from "jsr:@shougo/ddu-vim@~5.0.0/types";
-import { ConfigArguments } from "jsr:@shougo/ddu-vim@~5.0.0/config";
-import { ActionData as FileAction } from "jsr:@shougo/ddu-kind-file@~0.8.0";
-import { Params as FfParams } from "jsr:@shougo/ddu-ui-ff@~1.2.0";
-import { Params as FilerParams } from "jsr:@shougo/ddu-ui-filer@~1.2.0";
+  type ConfigArguments,
+} from "jsr:@shougo/ddu-vim@~6.0.0-pre1/config";
+import { type ActionData as FileAction } from "jsr:@shougo/ddu-kind-file@~0.8.0";
+import { type Params as FfParams } from "jsr:@shougo/ddu-ui-ff@~1.2.0";
+import { type Params as FilerParams } from "jsr:@shougo/ddu-ui-filer@~1.2.0";
 
-import * as fn from "jsr:@denops/std@~7.0.1/function";
+import type { Denops } from "jsr:@denops/std@~7.1.0";
+import * as fn from "jsr:@denops/std@~7.1.0/function";
 
 type Params = Record<string, unknown>;
 
@@ -34,15 +36,18 @@ export class Config extends BaseConfig {
           actions: {
             kensaku: async (args: {
               denops: Denops;
-              ddu: Ddu;
+              options: DduOptions;
             }) => {
-              args.ddu.updateOptions({
-                sourceOptions: {
-                  _: {
-                    matchers: ["matcher_kensaku"],
+              await args.denops.dispatcher.updateOptions(
+                args.options.name,
+                {
+                  sourceOptions: {
+                    _: {
+                      matchers: ["matcher_kensaku"],
+                    },
                   },
                 },
-              });
+              );
               await args.denops.cmd("echomsg 'change to kensaku matcher'");
 
               return ActionFlags.Persist;

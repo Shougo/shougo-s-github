@@ -6,13 +6,13 @@ import {
   type ExtOptions,
   type MultipleHook,
   type Plugin,
-} from "jsr:@shougo/dpp-vim@~2.2.0/types";
-import { mergeFtplugins } from "jsr:@shougo/dpp-vim@~2.2.0/utils";
+} from "jsr:@shougo/dpp-vim@~2.3.0/types";
+import { mergeFtplugins } from "jsr:@shougo/dpp-vim@~2.3.0/utils";
 
 import type {
   Ext as LazyExt,
-  Params as LazyParams,
   LazyMakeStateResult,
+  Params as LazyParams,
 } from "jsr:@shougo/dpp-ext-lazy@~1.4.0";
 import type {
   Ext as LocalExt,
@@ -25,10 +25,10 @@ import type {
 import type {
   Ext as TomlExt,
   Params as TomlParams,
-} from "jsr:@shougo/dpp-ext-toml@~1.1.0";
+} from "jsr:@shougo/dpp-ext-toml@~1.2.0";
 
-import type { Denops } from "jsr:@denops/std@~7.0.1";
-import * as fn from "jsr:@denops/std@~7.0.1/function";
+import type { Denops } from "jsr:@denops/std@~7.1.0";
+import * as fn from "jsr:@denops/std@~7.1.0/function";
 
 import { expandGlob } from "jsr:@std/fs@~1.0.0/expand-glob";
 
