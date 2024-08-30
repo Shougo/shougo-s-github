@@ -1,5 +1,4 @@
-import { BaseConfig } from "jsr:@shougo/ddc-vim@~6.0.0/types";
-import { ConfigArguments } from "jsr:@shougo/ddc-vim@~6.0.0/config";
+import { BaseConfig, ConfigArguments } from "jsr:@shougo/ddc-vim@~7.0.0/config";
 
 import * as fn from "jsr:@denops/std@~7.1.0/function";
 
