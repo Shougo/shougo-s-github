@@ -1,14 +1,15 @@
 import {
   type ContextBuilder,
   type ExtOptions,
-  type MultipleHook,
   type Plugin,
-} from "jsr:@shougo/dpp-vim@~3.0.0-pre2/types";
+} from "jsr:@shougo/dpp-vim@~3.0.0-pre3/types";
 import {
   BaseConfig,
   type ConfigReturn,
-} from "jsr:@shougo/dpp-vim@~3.0.0-pre2/config";
-import { mergeFtplugins } from "jsr:@shougo/dpp-vim@~3.0.0-pre2/utils";
+  type MultipleHook,
+} from "jsr:@shougo/dpp-vim@~3.0.0-pre3/config";
+import { Protocol } from "jsr:@shougo/dpp-vim@~3.0.0-pre3/protocol";
+import { mergeFtplugins } from "jsr:@shougo/dpp-vim@~3.0.0-pre3/utils";
 
 import type {
   Ext as LazyExt,
@@ -75,7 +76,10 @@ export class Config extends BaseConfig {
     });
 
     const [context, options] = await args.contextBuilder.get(args.denops);
-    const protocols = await args.denops.dispatcher.getProtocols();
+    const protocols = await args.denops.dispatcher.getProtocols() as Record<
+      string,
+      Protocol
+    >;
 
     const recordPlugins: Record<string, Plugin> = {};
     const ftplugins: Record<string, string> = {};
