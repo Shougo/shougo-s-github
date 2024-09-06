@@ -15,19 +15,19 @@ import type {
   Ext as LazyExt,
   LazyMakeStateResult,
   Params as LazyParams,
-} from "jsr:@shougo/dpp-ext-lazy@~1.4.0";
+} from "jsr:@shougo/dpp-ext-lazy@~1.5.0";
 import type {
   Ext as LocalExt,
   Params as LocalParams,
-} from "jsr:@shougo/dpp-ext-local@~1.2.0";
+} from "jsr:@shougo/dpp-ext-local@~1.3.0";
 import type {
   Ext as PackspecExt,
   Params as PackspecParams,
-} from "jsr:@shougo/dpp-ext-packspec@~1.2.0";
+} from "jsr:@shougo/dpp-ext-packspec@~1.3.0";
 import type {
   Ext as TomlExt,
   Params as TomlParams,
-} from "jsr:@shougo/dpp-ext-toml@~1.2.0";
+} from "jsr:@shougo/dpp-ext-toml@~1.3.0";
 
 import type { Denops } from "jsr:@denops/std@~7.1.0";
 import * as fn from "jsr:@denops/std@~7.1.0/function";
