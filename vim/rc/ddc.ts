@@ -145,6 +145,7 @@ export class Config extends BaseConfig {
         },
         lsp: {
           enableDisplayDetail: true,
+          enableAdditionalTextEdit: true,
         },
         "shell-native": {
           shell: "fish",
@@ -219,14 +220,15 @@ export class Config extends BaseConfig {
         const filetype of [
           "css",
           "go",
+          "graphql",
           "html",
           "lua",
           "python",
           "ruby",
+          "rust",
+          "tsx",
           "typescript",
           "typescriptreact",
-          "tsx",
-          "graphql",
         ]
       ) {
         args.contextBuilder.patchFiletype(filetype, {

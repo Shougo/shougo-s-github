@@ -132,6 +132,7 @@ lua_source = '''
 [[plugins]]
 repo = 'williamboman/mason-lspconfig.nvim'
 on_source = 'nvim-lspconfig'
+depends = 'ddc-source-lsp'
 lua_source = '''
   -- https://zenn.dev/kawarimidoll/articles/2b57745045b225
   require('mason-lspconfig').setup_handlers({
@@ -195,6 +196,9 @@ lua_source = '''
             },
           },
         }
+      elseif server_name == 'rust_analyzer' then
+        local capabilities = require("ddc_source_lsp").make_client_capabilities()
+        opts.capabilities = capabilities
       end
 
       nvim_lsp[server_name].setup(opts)
