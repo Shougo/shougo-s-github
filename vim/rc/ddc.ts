@@ -145,6 +145,7 @@ export class Config extends BaseConfig {
         },
         lsp: {
           enableDisplayDetail: true,
+          enableResolveItem: true,
           enableAdditionalTextEdit: true,
         },
         "shell-native": {
