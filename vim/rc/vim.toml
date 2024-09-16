@@ -1,15 +1,15 @@
-[[plugins]]
-repo = 'mattn/vim-notification'
-hook_source = '''
-vim9script
-	echo 'hello ' .. 'shougo' .. ', how are you?'
-'''
+#[[plugins]]
+#repo = 'mattn/vim-notification'
+#hook_source = '''
+#vim9script
+#	echo 'hello ' .. 'shougo' .. ', how are you?'
+#'''
 
-[[plugins]]
-repo = 'mattn/vim-treesitter'
-build = 'cd server && go build'
-#on_event = ['BufRead', 'CursorHold']
-hooks_file = '$BASE_DIR/vim9.vim'
+#[[plugins]]
+#repo = 'mattn/vim-treesitter'
+#build = 'cd server && go build'
+##on_event = ['BufRead', 'CursorHold']
+#hooks_file = '$BASE_DIR/vim9.vim'
 
 [[plugins]]
 repo = 'Vimjas/vim-python-pep8-indent'
