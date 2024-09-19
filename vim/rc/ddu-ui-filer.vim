@@ -137,6 +137,10 @@ nnoremap <buffer> t
       \   name: 'tabopen',
       \   params: #{ command: 'tabedit' },
       \ })<CR>
+nnoremap <buffer> T
+      \ <Cmd>call ddu#ui#do_action('cursorTreeTop')<CR>
+nnoremap <buffer> B
+      \ <Cmd>call ddu#ui#do_action('cursorTreeBottom')<CR>
 
 function! ToggleHidden(name)
   return ddu#custom#get_current(b:ddu_ui_name)
