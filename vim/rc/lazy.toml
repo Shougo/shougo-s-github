@@ -54,7 +54,10 @@ hook_add = '''
 
 [[plugins]]
 repo = 'previm/previm'
-on_cmd = 'PrevimOpen'
+on_ft = ['markdown', 'rst']
+hook_source = '''
+let g:previm_open_cmd = 'xdg-open'
+'''
 
 # [[plugins]]
 # repo = 'katono/rogue.vim'
