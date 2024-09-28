@@ -11,8 +11,8 @@ import { type ActionData as FileAction } from "jsr:@shougo/ddu-kind-file@~0.9.0"
 import { type Params as FfParams } from "jsr:@shougo/ddu-ui-ff@~1.4.0";
 import { type Params as FilerParams } from "jsr:@shougo/ddu-ui-filer@~1.4.0";
 
-import type { Denops } from "jsr:@denops/std@~7.1.0";
-import * as fn from "jsr:@denops/std@~7.1.0/function";
+import type { Denops } from "jsr:@denops/std@~7.2.0";
+import * as fn from "jsr:@denops/std@~7.2.0/function";
 
 type Params = Record<string, unknown>;
 
