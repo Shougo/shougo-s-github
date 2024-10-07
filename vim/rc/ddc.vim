@@ -83,7 +83,11 @@ inoremap <expr> <C-e> pum#visible()
       \ ? '<Cmd>call pum#map#cancel()<CR>'
       \ : '<End>'
 inoremap <expr> <C-l>  ddc#map#manual_complete()
+
+" Mouse support
 inoremap <LeftMouse>  <Cmd>call pum#map#confirm_mouse()<CR>
+cnoremap <LeftMouse>  <Cmd>call pum#map#confirm_mouse()<CR>
+tnoremap <LeftMouse>  <Cmd>call pum#map#confirm_mouse()<CR>
 
 " For command line mode completion
 cnoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
