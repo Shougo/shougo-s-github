@@ -20,13 +20,6 @@ set $mod Mod1
 #font pango:DejaVu Sans Mono 12
 font pango:Droid Sans Mono 12
 
-# Before i3 v4.8, we used to recommend this one as the default:
-# font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
-# The font above is very space-efficient, that is, it looks good, sharp and
-# clear in small sizes. However, its unicode glyph coverage is limited, the old
-# X core fonts rendering does not support right-to-left and this being a bitmap
-# font, it doesn’t scale on retina/hidpi displays.
-
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
@@ -45,8 +38,8 @@ bindsym $mod+Return exec alacritty -e zsh
 bindsym $mod+q kill
 
 # Screen brightness controls
-# bindsym XF86MonBrightnessUp exec "xbacklight -inc 10; notify-send 'brightness up'"
-# bindsym XF86MonBrightnessDown exec "xbacklight -dec 10; notify-send 'brightness down'"
+bindsym XF86MonBrightnessUp exec brightnessctl 10+
+bindsym XF86MonBrightnessDown exec brightnessctl 10-
 
 # start dmenu (a program launcher)
 # bindsym $mod+d exec dmenu_run -fn 'Droid Sans Mono-12'
@@ -135,7 +128,7 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-# bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+e exec --no-startup-id i3exit logout
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
@@ -145,10 +138,7 @@ bar {
 }
 
 # Open applications on specific workspaces
-# assign [class="Thunderbird"] 1
 assign [class="Firefox"] 2
-# assign [class="Pcmanfm"] 3
-# assign [class="Skype"] 5
 
 # Open specific applications in floating mode
 for_window [title="alsamixer"] floating enable border pixel 2
@@ -196,15 +186,10 @@ exec --no-startup-id setxkbmap -option ctrl:nocaps -rules evdev -model us -layou
 # Accelarate keyboard repeat
 exec --no-startup-id xset r rate 210 40
 
-# Thunar daemon mode
-exec --no-startup-id thunar --daemon
-
 # My mappings
 bindsym $mod+l workspace next
 bindsym $mod+h workspace prev
 
 bindsym $mod+Tab exec --no-startup-id rofi -i -show window
-bindsym $mod+s exec --no-startup-id rofi -i -show ssl -ternimal st
-bindsym $mod+Shift+l exec --no-startup-id i3exit lock
-bindsym $mod+Shift+e exec --no-startup-id i3exit logout
+bindsym $mod+Shift+l exec --no-startup-id i3lock-fancy
 bindsym $mod+Shift+s exec --no-startup-id systemctl suspend
