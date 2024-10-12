@@ -40,7 +40,7 @@ background = "0x2c2c2c"
 foreground = "0xcccccc"
 
 [env]
-TERM = "alacritty"
+TERM = "xterm-256color"
 
 [font]
 size = 9.0
