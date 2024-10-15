@@ -101,7 +101,7 @@ nnoremap <expr> q
       \ ? '<Cmd>cclose<CR><Cmd>lclose<CR>'
       \ : '#'->winnr()->getwinvar('&winfixbuf')
       \ ? ''
-      \ : ('$'->winnr() > 2 <Bar><Bar>
+      \ : ('$'->winnr() >= 2 &&
       \    '#'->winnr()->winbufnr()->getbufvar('&filetype') !=# 'qf')
       \ ? '<Cmd>close<CR>'
       \ : ''

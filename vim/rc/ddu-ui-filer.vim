@@ -83,20 +83,39 @@ nnoremap <buffer> I
       \   name: 'narrow',
       \   params: #{
       \     path: 'cwd: '
-      \           ->MyDduInputFunc(b:ddu_ui_filer_path, 'dir')
+      \           ->input(b:ddu_ui_filer_path, 'dir')
       \           ->fnamemodify(':p'),
       \   }
       \ })<CR>
+nnoremap <buffer> M
+      \ <Cmd>call ddu#ui#multi_actions([
+      \   [
+      \     'updateOptions', #{
+      \       uiParams: #{
+      \         filer: #{
+      \           fileFilter: 'fileFilter regexp: '
+      \               ->input(ddu#custom#get_current(b:ddu_ui_name)
+      \               ->get('uiParams', {})
+      \               ->get('filer', {})
+      \               ->get('fileFilter', '')),
+      \         },
+      \       },
+      \     },
+      \   ],
+      \   [
+      \      'redraw', #{ method: 'refreshItems' },
+      \   ],
+      \ ])<CR>
 nnoremap <buffer> .
       \ <Cmd>call ddu#ui#multi_actions([
       \   [
-      \      'updateOptions', #{
-      \        sourceOptions: #{
-      \          file: #{
-      \            matchers: ToggleHidden('file'),
-      \          },
-      \        },
-      \      }
+      \     'updateOptions', #{
+      \       sourceOptions: #{
+      \         file: #{
+      \           matchers: ToggleHidden('file'),
+      \         },
+      \       },
+      \     },
       \   ],
       \   [
       \      'redraw', #{ method: 'refreshItems' },

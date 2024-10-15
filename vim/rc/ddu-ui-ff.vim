@@ -38,7 +38,7 @@ nnoremap <buffer> e
       \ #{ name: 'narrow' } : #{ name: 'edit' })<CR>
 nnoremap <buffer> E
       \ <Cmd>call ddu#ui#do_action('itemAction',
-      \ #{ params: MyDduInputFunc('params: ', '{}')->eval() })<CR>
+      \ #{ params: input('params: ', '{}')->eval() })<CR>
 nnoremap <buffer> N
       \ <Cmd>call ddu#ui#do_action('itemAction',
       \ b:ddu_ui_name ==# 'file' ?
