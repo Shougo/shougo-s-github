@@ -51,7 +51,7 @@ if s:dpp_base->dpp#min#load_state()
     call DppInitPlugin(s:plugin)
   endfor
 
-  " NOTE: Manual load is needed for neovim
+  " NOTE: Manual load is needed for NeoVim
   " Because "--noplugin" is used to optimize.
   if has('nvim')
     runtime! plugin/denops.vim
