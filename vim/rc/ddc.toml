@@ -16,7 +16,7 @@ hook_source = '''
     \   max_width: 80,
     \   offset_cmdcol: 0,
     \   padding: v:false,
-    \   preview: v:true,
+    \   preview: v:false,
     \   preview_width: 80,
     \   reversed: v:false,
     \   use_setline: v:false,

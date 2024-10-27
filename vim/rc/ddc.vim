@@ -64,9 +64,7 @@ inoremap <C-y>   <Cmd>call pum#map#confirm_suffix()<CR>
 inoremap <C-o>   <Cmd>call pum#map#confirm_word()<CR>
 inoremap <Home>  <Cmd>call pum#map#insert_relative(-9999, 'ignore')<CR>
 inoremap <End>   <Cmd>call pum#map#insert_relative(+9999, 'ignore')<CR>
-inoremap <C-g>   <Cmd>call pum#set_option(#{
-      \   preview: !pum#_options().preview,
-      \ })<CR>
+inoremap <C-g>   <Cmd>call pum#map#toggle_preview()<CR>
 inoremap <C-t>   <C-v><Tab>
 "inoremap <C-z>   <Cmd>call pum#update_current_item(#{ display: 'hoge' })<CR>
 "inoremap <C-y>   <Cmd>call pum#map#scroll_preview(+1)<CR>
@@ -95,6 +93,7 @@ cnoremap <C-o>   <Cmd>call pum#map#confirm()<CR>
 cnoremap <C-q>   <Cmd>call pum#map#select_relative(+1)<CR>
 cnoremap <C-z>   <Cmd>call pum#map#select_relative(-1)<CR>
 cnoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
+cnoremap <C-g>   <Cmd>call pum#map#toggle_preview()<CR>
 "cnoremap <C-y>   <Cmd>call pum#map#scroll_preview(+1)<CR>
 "cnoremap <C-e>   <Cmd>call pum#map#scroll_preview(-1)<CR>
 
