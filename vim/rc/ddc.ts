@@ -144,9 +144,10 @@ export class Config extends BaseConfig {
           filenameChars: "[:keyword:].",
         },
         lsp: {
-          enableDisplayDetail: true,
-          enableResolveItem: true,
           enableAdditionalTextEdit: true,
+          enableDisplayDetail: true,
+          enableMatchLabel: true,
+          enableResolveItem: true,
         },
         "shell-native": {
           shell: "fish",
