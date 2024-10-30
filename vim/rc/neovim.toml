@@ -117,14 +117,26 @@ lua_source = '''
     vim.lsp.diagnostic.on_publish_diagnostics, {
       update_in_insert = false,
       virtual_text = {
+        severity = {
+          min = 'WARN',
+        },
+        severity_sort = true,
         format = function(diagnostic)
-          return string.format(
-            '%s (%s: %s)',
-            diagnostic.message,
-            diagnostic.source,
-            diagnostic.code
-          )
-        end
+          if diagnostic.code then
+            return string.format(
+              '%s (%s: %s)',
+              diagnostic.message,
+              diagnostic.source,
+              diagnostic.code
+            )
+          else
+            return string.format(
+              '%s (%s)',
+              diagnostic.message,
+              diagnostic.source
+            )
+          end
+        end,
       },
   })
 '''
