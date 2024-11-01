@@ -10,7 +10,8 @@ export class Config extends BaseConfig {
     const commonSources = [
       "around",
       "file",
-      "codeium",
+      //"codeium",
+      //"copilot",
     ];
 
     const mocWord = Deno.env.get("MOCWORD_DATA") ? ["mocword"] : [];
