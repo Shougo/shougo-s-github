@@ -1,5 +1,7 @@
-import { BaseConfig, ConfigArguments } from "jsr:@shougo/ddc-vim@~7.1.0/config";
+import { BaseConfig, ConfigArguments } from "jsr:@shougo/ddc-vim@~8.0.0/config";
+import { type DdcItem } from "jsr:@shougo/ddc-vim@~8.0.0/types";
 
+import type { Denops } from "jsr:@denops/std@~7.3.0";
 import * as fn from "jsr:@denops/std@~7.3.0/function";
 
 export class Config extends BaseConfig {
@@ -18,6 +20,12 @@ export class Config extends BaseConfig {
 
     args.contextBuilder.patchGlobal({
       ui: "pum",
+      dynamicUi: (_denops: Denops, args: {
+        completePos: number,
+        items: DdcItem[],
+      }) => {
+        return args.items.length == 1 ? "inline" : "pum";
+      },
       autoCompleteEvents: [
         "CmdlineChanged",
         "CmdlineEnter",
