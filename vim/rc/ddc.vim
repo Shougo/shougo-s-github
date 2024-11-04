@@ -80,9 +80,9 @@ inoremap <expr> <TAB>
       \ : getline('.')[col('.') - 2] =~# '\s'
       \ ? '<TAB>'
       \ : ddc#map#manual_complete()
-"inoremap <expr> <C-e> pum#visible()
-"      \ ? '<Cmd>call pum#map#cancel()<CR>'
-"      \ : '<End>'
+inoremap <expr> <C-e> ddc#ui#inline#visible()
+      \ ? ddc#map#insert_item(0)
+      \ : '<End>'
 inoremap <expr> <C-l>  ddc#map#manual_complete()
 
 " Mouse support
@@ -107,8 +107,8 @@ cnoremap <expr> <Tab>
       \ ? '<Cmd>call pum#map#insert_relative(+1)<CR>'
       \ : ddc#map#manual_complete()
 cnoremap <expr> <C-e>
-      \   pum#visible()
-      \ ? '<Cmd>call pum#map#cancel()<CR>'
+      \   ddc#ui#inline#visible()
+      \ ? ddc#map#insert_item(0)
       \ : '<End>'
 
 xnoremap <Tab>   "_R<Cmd>call ddc#map#manual_complete()<CR>
