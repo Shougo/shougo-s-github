@@ -85,6 +85,8 @@ inoremap <expr> <TAB>
 inoremap <expr> <C-e>
       \   ddc#ui#inline#visible()
       \ ? ddc#map#insert_item(0)
+      \ : pum#visible()
+      \ ? '<Cmd>call pum#map#cancel()<CR>'
       \ : '<End>'
 inoremap <expr> <C-l>  ddc#map#manual_complete()
 
@@ -114,6 +116,8 @@ cnoremap <expr> <Tab>
 cnoremap <expr> <C-e>
       \   ddc#ui#inline#visible()
       \ ? ddc#map#insert_item(0)
+      \ : pum#visible()
+      \ ? '<Cmd>call pum#map#cancel()<CR>'
       \ : '<End>'
 
 xnoremap <Tab>   "_R<Cmd>call ddc#map#manual_complete()<CR>
