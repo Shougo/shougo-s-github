@@ -10,8 +10,11 @@ nnoremap ss
       \ file -source-option-file-volatile
       \ file -source-param-file-new -source-option-file-volatile
       \ -unique -expandInput
-      \ -resume=`ddu#get_items(#{ sources: ['file_point'] })->empty() ?
-      \          'v:true' : 'v:false'`
+      \ -resume=`
+      \      ddu#get_items(#{ sources: ['file_point'] })->empty()
+      \    ? 'v:true'
+      \    : 'v:false'
+      \ `
       \ -ui-param-ff-displaySourceName=short
       \ -ui-param-ff-split=`has('nvim') ? 'floating' : 'horizontal'`
       \ <CR>

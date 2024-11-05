@@ -57,9 +57,10 @@ hook_source = '''
   call skkeleton#config(#{
         \   databasePath: '~/.cache/skkeleton.db'->expand(),
         \   eggLikeNewline: v:true,
-        \   globalDictionaries: has('win32') ?
-        \     ['~/.config/SKK-JISYO.L'->expand()] :
-        \     ['/usr/share/skk/SKK-JISYO.L'],
+        \   globalDictionaries:
+        \       has('win32')
+        \     ? ['~/.config/SKK-JISYO.L'->expand()]
+        \     : ['/usr/share/skk/SKK-JISYO.L'],
         \   markerHenkan: '',
         \   markerHenkanSelect: '',
         \   registerConvertResult: v:true,
@@ -178,6 +179,7 @@ function s:attach_ls() abort
     call lspoints#attach('tailwindcss-language-server', #{
             \   cmd: ['tailwindcss-language-server', '--stdio'],
             \   initializationOptions: #{
+            \   },
             \ })
   endif
 endfunction

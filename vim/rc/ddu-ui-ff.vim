@@ -30,19 +30,22 @@ nnoremap <buffer> O
       \ <Cmd>call ddu#ui#do_action('collapseItem')<CR>
 nnoremap <buffer> d
       \ <Cmd>call ddu#ui#do_action('itemAction',
-      \ b:ddu_ui_name ==# 'filer' ?
-      \ #{ name: 'trash' } : #{ name: 'delete' })<CR>
+      \   b:ddu_ui_name ==# 'filer'
+      \ ? #{ name: 'trash' }
+      \ : #{ name: 'delete' })<CR>
 nnoremap <buffer> e
       \ <Cmd>call ddu#ui#do_action('itemAction',
-      \ ddu#ui#get_item()->get('action', {})->get('isDirectory', v:false) ?
-      \ #{ name: 'narrow' } : #{ name: 'edit' })<CR>
+      \   ddu#ui#get_item()->get('action', {})->get('isDirectory', v:false)
+      \ ? #{ name: 'narrow' }
+      \ : #{ name: 'edit' })<CR>
 nnoremap <buffer> E
       \ <Cmd>call ddu#ui#do_action('itemAction',
       \ #{ params: input('params: ', '{}')->eval() })<CR>
 nnoremap <buffer> N
       \ <Cmd>call ddu#ui#do_action('itemAction',
-      \ b:ddu_ui_name ==# 'file' ?
-      \ #{ name: 'newFile' } : #{ name: 'new' })<CR>
+      \   b:ddu_ui_name ==# 'file'
+      \ ? #{ name: 'newFile' }
+      \ : #{ name: 'new' })<CR>
 nnoremap <buffer> r
       \ <Cmd>call ddu#ui#do_action('itemAction', #{ name: 'quickfix' })<CR>
 nnoremap <buffer> yy

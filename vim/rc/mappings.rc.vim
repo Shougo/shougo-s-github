@@ -80,8 +80,7 @@ function s:toggle_conceal() abort
 endfunction
 
 " Easily edit current buffer
-nnoremap <expr> [Space]e
-      \ '%'->bufname() !=# '' ? '<Cmd>edit %<CR>' : ''
+nnoremap <expr> [Space]e '%'->bufname() !=# '' ? '<Cmd>edit %<CR>' : ''
 
 " Quickfix
 nnoremap [Space]q
@@ -120,9 +119,11 @@ nnoremap Q  q
 nnoremap M  m
 
 " Smart <C-f>, <C-b>.
-noremap <expr> <C-f> max([winheight(0) - 2, 1])
+noremap <expr> <C-f>
+      \    max([winheight(0) - 2, 1])
       \ .. '<C-d>' .. (line('w$') >= line('$') ? 'L' : 'M')
-noremap <expr> <C-b> max([winheight(0) - 2, 1])
+noremap <expr> <C-b>
+      \    max([winheight(0) - 2, 1])
       \ .. '<C-u>' .. (line('w0') <= 1 ? 'H' : 'M')
 
 " Disable ZZ.

@@ -17,11 +17,13 @@ function! CommandlinePre(mode) abort
 
     " Use zsh source for :! completion
     call ddc#custom#set_context_buffer({ ->
-          \ getcmdline()->stridx('!') ==# 0 ? {
-          \   'cmdlineSources': [
-          \     'shell-native', 'cmdline', 'cmdline-history', 'around',
-          \   ],
-          \ } : {} })
+          \   getcmdline()->stridx('!') ==# 0
+          \ ? {
+          \     'cmdlineSources': [
+          \       'shell-native', 'cmdline', 'cmdline-history', 'around',
+          \     ],
+          \   }
+          \ : {} })
 
     "call ddc#custom#patch_buffer('ui', 'inline')
   elseif a:mode ==# 'dda'
@@ -47,12 +49,14 @@ call ddc#custom#load_config('$BASE_DIR/ddc.ts'->expand())
 
 " Context config
 "call ddc#custom#set_context_filetype('go', { ->
-"      \   ddc#syntax#in('TSComment') ?
-"      \   #{ sources: ['around', 'mocword'] } : {}
+"      \     ddc#syntax#in('TSComment')
+"      \   ? #{ sources: ['around', 'mocword'] }
+"      \   : {}
 "      \ })
 "call ddc#custom#set_context_filetype('c', { ->
-"      \   ddc#syntax#in('Comment') ?
-"      \   #{ sources: ['around', 'mocword'] } : {}
+"      \     ddc#syntax#in('Comment')
+"      \   ? #{ sources: ['around', 'mocword'] }
+"      \   : {}
 "      \ })
 
 " For insert mode completion

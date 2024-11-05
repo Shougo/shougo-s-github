@@ -150,17 +150,17 @@ nnoremap <buffer> <
 nnoremap <buffer> <C-l>
       \ <Cmd>call ddu#ui#do_action('redraw')<CR>
 nnoremap <buffer><expr> <CR>
-      \ ddu#ui#get_item()->get('isTree', v:false) ?
-      \ "<Cmd>call ddu#ui#do_action('itemAction', #{ name: 'narrow' })<CR>" :
-      \ "<Cmd>call ddu#ui#do_action('itemAction', #{ name: 'open' })<CR>"
+      \   ddu#ui#get_item()->get('isTree', v:false)
+      \ ? "<Cmd>call ddu#ui#do_action('itemAction', #{ name: 'narrow' })<CR>"
+      \ : "<Cmd>call ddu#ui#do_action('itemAction', #{ name: 'open' })<CR>"
 nnoremap <buffer><expr> l
-      \ ddu#ui#get_item()->get('isTree', v:false) ?
-      \ "<Cmd>call ddu#ui#do_action('itemAction', #{ name: 'narrow' })<CR>" :
-      \ "<Cmd>call ddu#ui#do_action('itemAction', #{ name: 'open' })<CR>"
+      \   ddu#ui#get_item()->get('isTree', v:false)
+      \ ? "<Cmd>call ddu#ui#do_action('itemAction', #{ name: 'narrow' })<CR>"
+      \ : "<Cmd>call ddu#ui#do_action('itemAction', #{ name: 'open' })<CR>"
 nnoremap <buffer><expr> <2-LeftMouse>
-      \ ddu#ui#get_item()->get('isTree', v:false) ?
-      \ "<Cmd>call ddu#ui#do_action('itemAction', #{ name: 'narrow' })<CR>" :
-      \ "<Cmd>call ddu#ui#do_action('itemAction', #{ name: 'open' })<CR>"
+      \   ddu#ui#get_item()->get('isTree', v:false)
+      \ ? "<Cmd>call ddu#ui#do_action('itemAction', #{ name: 'narrow' })<CR>"
+      \ : "<Cmd>call ddu#ui#do_action('itemAction', #{ name: 'open' })<CR>"
 nnoremap <buffer> gr
       \ <Cmd>call ddu#ui#do_action('itemAction', #{ name: 'grep' })<CR>
 nnoremap <buffer> t

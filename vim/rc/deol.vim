@@ -52,12 +52,14 @@ else
 endif
 
 tnoremap <C-t> <Tab>
-tnoremap <expr> <Tab> pum#visible() ?
-      \ '<Cmd>call pum#map#select_relative(+1)<CR>' :
-      \ '<Tab>'
-tnoremap <expr> <S-Tab> pum#visible() ?
-      \ '<Cmd>call pum#map#select_relative(-1)<CR>' :
-      \ '<S-Tab>'
+tnoremap <expr> <Tab>
+      \ pum#visible()
+      \ ? '<Cmd>call pum#map#select_relative(+1)<CR>'
+      \ : '<Tab>'
+tnoremap <expr> <S-Tab>
+      \   pum#visible()
+      \ ? '<Cmd>call pum#map#select_relative(-1)<CR>'
+      \ : '<S-Tab>'
 tnoremap <Down>   <Cmd>call pum#map#insert_relative(+1)<CR>
 tnoremap <Up>     <Cmd>call pum#map#insert_relative(-1)<CR>
 tnoremap <C-y>    <Cmd>call pum#map#confirm()<CR>
