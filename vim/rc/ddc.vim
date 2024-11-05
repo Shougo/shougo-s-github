@@ -74,13 +74,16 @@ inoremap <expr> <C-g>   ddc#map#insert_item(0)
 cnoremap <expr> <C-g>   ddc#map#insert_item(0)
 
 inoremap <expr> <TAB>
-      \ pum#visible()
+      \   ddc#ui#inline#visible()
+      \ ? ddc#map#insert_item(0)
+      \ : pum#visible()
       \ ? '<Cmd>call pum#map#insert_relative(+1, "empty")<CR>'
       \ : col('.') <= 1 ? '<TAB>'
       \ : getline('.')[col('.') - 2] =~# '\s'
       \ ? '<TAB>'
       \ : ddc#map#manual_complete()
-inoremap <expr> <C-e> ddc#ui#inline#visible()
+inoremap <expr> <C-e>
+      \   ddc#ui#inline#visible()
       \ ? ddc#map#insert_item(0)
       \ : '<End>'
 inoremap <expr> <C-l>  ddc#map#manual_complete()
@@ -101,7 +104,9 @@ cnoremap <C-g>   <Cmd>call pum#map#toggle_preview()<CR>
 "cnoremap <C-e>   <Cmd>call pum#map#scroll_preview(-1)<CR>
 
 cnoremap <expr> <Tab>
-      \   wildmenumode()
+      \   ddc#ui#inline#visible()
+      \ ? ddc#map#insert_item(0)
+      \ : wildmenumode()
       \ ? &wildcharm->nr2char()
       \ : pum#visible()
       \ ? '<Cmd>call pum#map#insert_relative(+1)<CR>'
