@@ -257,8 +257,11 @@ set complete=.
 set pumheight=5
 " Set popup menu min width.
 set pumwidth=0
-" Use "/" for path completion
-set completeslash=slash
+if !has('nvim')
+  " Use "/" for path completion
+  " NOTE: It does not work in neovim
+  set completeslash=slash
+endif
 
 " Use nvim-lsp as omnifunc
 if has('nvim')
