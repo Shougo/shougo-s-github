@@ -20,11 +20,14 @@ export class Config extends BaseConfig {
 
     args.contextBuilder.patchGlobal({
       ui: "pum",
-      dynamicUi: (_denops: Denops, args: Record<string, unknown>) => {
+      dynamicUi: async (denops: Denops, args: Record<string, unknown>) => {
         const uiArgs = args as {
-          items: DdcItem[],
+          items: DdcItem[];
         };
-        return Promise.resolve(uiArgs.items.length == 1 ? "inline" : "pum");
+        const mode = await fn.mode(denops);
+        return Promise.resolve(
+          mode !== "t" && uiArgs.items.length == 1 ? "inline" : "pum",
+        );
       },
       autoCompleteEvents: [
         "CmdlineChanged",
