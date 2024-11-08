@@ -17,8 +17,6 @@ nnoremap <buffer> P
       \ <Cmd>call ddu#ui#do_action('togglePreview')<CR>
 nnoremap <buffer> q
       \ <Cmd>call ddu#ui#do_action('quit')<CR>
-nnoremap <buffer> <C-h>
-      \ <Cmd>call ddu#ui#do_action('quit')<CR>
 nnoremap <buffer> a
       \ <Cmd>call ddu#ui#do_action('chooseAction')<CR>
 nnoremap <buffer> A
