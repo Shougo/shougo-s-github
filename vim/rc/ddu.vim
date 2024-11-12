@@ -16,7 +16,7 @@ nnoremap ss
       \    : 'v:false'
       \ `
       \ -ui-param-ff-displaySourceName=short
-      \ -ui-param-ff-split=`has('nvim') ? 'floating' : 'horizontal'`
+      \ -ui-param-ff-split=floating
       \ <CR>
 nnoremap / <Cmd>Ddu
       \ -name=search line -resume=v:false
