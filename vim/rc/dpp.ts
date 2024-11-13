@@ -12,10 +12,9 @@ import { Protocol } from "jsr:@shougo/dpp-vim@~3.1.0/protocol";
 import { mergeFtplugins } from "jsr:@shougo/dpp-vim@~3.1.0/utils";
 
 import type {
-  Ext as LazyExt,
-  LazyMakeStateResult,
-  Params as LazyParams,
-} from "jsr:@shougo/dpp-ext-lazy@~1.5.0";
+  Ext as TomlExt,
+  Params as TomlParams,
+} from "jsr:@shougo/dpp-ext-toml@~1.3.0";
 import type {
   Ext as LocalExt,
   Params as LocalParams,
@@ -25,9 +24,10 @@ import type {
   Params as PackspecParams,
 } from "jsr:@shougo/dpp-ext-packspec@~1.3.0";
 import type {
-  Ext as TomlExt,
-  Params as TomlParams,
-} from "jsr:@shougo/dpp-ext-toml@~1.3.0";
+  Ext as LazyExt,
+  LazyMakeStateResult,
+  Params as LazyParams,
+} from "jsr:@shougo/dpp-ext-lazy@~1.5.0";
 
 import type { Denops } from "jsr:@denops/std@~7.3.0";
 import * as fn from "jsr:@denops/std@~7.3.0/function";
