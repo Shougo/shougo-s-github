@@ -56,7 +56,7 @@ export class Config extends BaseConfig {
             "matcher_length",
           ],
           sorters: ["sorter_rank"],
-          //converters: ["converter_remove_overlap"],
+          converters: ["converter_remove_overlap"],
           timeout: 1000,
         },
         around: {
