@@ -16,7 +16,7 @@ nnoremap ss
       \    : 'v:false'
       \ `
       \ -ui-param-ff-displaySourceName=short
-      \ -ui-param-ff-split=floating
+      \ -ui-param-ff-split=`has('nvim') ? 'floating' : 'horizontal'`
       \ <CR>
 nnoremap / <Cmd>Ddu
       \ -name=search line -resume=v:false
@@ -45,6 +45,10 @@ nnoremap ;f <Cmd>Ddu
       \'`'Pattern: '->cmdline#input('<cword>'->expand())`'
       \ -source-option-rg-path=
       \'`'Directory: '->cmdline#input($'{getcwd()}/', 'dir')`'
+      \ <CR>
+nnoremap ;a <Cmd>Ddu
+      \ -name=search rg -resume=v:false
+      \ -source-option-rg-volatile
       \ <CR>
 nnoremap n <Cmd>Ddu
       \ -name=search -resume

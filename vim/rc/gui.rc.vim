@@ -30,7 +30,7 @@ else
 
   set guifontwide=VL\ Gothic\ 13
 
-  "set guifont=Courier\ 10\ Pitch\ 14
+  "set guifont=Courier\ New\ 14
   set guifont=monospace\ 14
 
   if &columns < 170
