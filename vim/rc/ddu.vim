@@ -20,6 +20,8 @@ nnoremap ss
       \ <CR>
 nnoremap / <Cmd>Ddu
       \ -name=search line -resume=v:false
+      \ -ui-param-ff-ignoreEmpty
+      \ -source-param-line-ignoreEmptyInput
       \ -input=`'Pattern: '->cmdline#input()->escape(' ')`
       \ <CR>
 nnoremap * <Cmd>Ddu

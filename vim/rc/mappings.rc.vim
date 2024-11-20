@@ -107,8 +107,8 @@ nnoremap <expr> q
       \ : ''
 
 " Original search
-nnoremap s/    /
-nnoremap s?    ?
+nnoremap s/    /\<%
+nnoremap s?    ?\<%
 
 " Better x
 nnoremap x "_x

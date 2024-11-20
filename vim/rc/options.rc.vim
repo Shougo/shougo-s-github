@@ -331,3 +331,6 @@ set synmaxcol=300
 
 " Disable builtin message pager
 set nomore
+if '+pressenterwait'->exists()
+  set pressenterwait=200
+endif
