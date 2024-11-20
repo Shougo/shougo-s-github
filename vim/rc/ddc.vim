@@ -105,7 +105,7 @@ cnoremap <C-o>   <Cmd>call pum#map#confirm()<CR>
 cnoremap <C-q>   <Cmd>call pum#map#select_relative(+1)<CR>
 cnoremap <C-z>   <Cmd>call pum#map#select_relative(-1)<CR>
 cnoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
-cnoremap <C-g>   <Cmd>call pum#map#toggle_preview()<CR>
+"cnoremap <C-g>   <Cmd>call pum#map#toggle_preview()<CR>
 "cnoremap <C-y>   <Cmd>call pum#map#scroll_preview(+1)<CR>
 "cnoremap <C-e>   <Cmd>call pum#map#scroll_preview(-1)<CR>
 
