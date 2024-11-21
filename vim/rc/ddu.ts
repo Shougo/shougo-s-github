@@ -180,7 +180,7 @@ export class Config extends BaseConfig {
         },
         rg: {
           args: [
-            "--ignore-case",
+            "--smart-case",
             "--column",
             "--no-heading",
             "--color",
