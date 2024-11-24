@@ -77,6 +77,40 @@ xnoremap <expr> ;r
       \ -source-option-ff-defaultAction=insert
       \ -ui-param-ff-autoResize<CR>'
 
+xnoremap ;g <Cmd>call DduUrlItems()<CR>
+
+function! DduUrlItems()
+  const region = getregion(getpos('v'), getpos('.'), #{ type: mode() })
+  if region->empty()
+    return
+  endif
+
+  const url = region[0]->substitute('\s*\n\?$', '', '')
+
+  call ddu#start(#{
+        \   sources: ['item'],
+        \   sourceParams: #{
+        \     item: #{
+        \       items: [
+        \        #{
+        \          word: url,
+        \          kind: 'url',
+        \          action: #{
+        \            url: url,
+        \          },
+        \        },
+        \       ],
+        \     },
+        \   },
+        \   ui: 'ff',
+        \   uiParams: #{
+        \     ff: #{
+        \       immediateUiAction: 'chooseAction',
+        \     },
+        \   },
+        \ })
+endfunction
+
 " Open filter window automatically
 "autocmd User Ddu:uiDone ++nested
 "      \ call ddu#ui#async_action('openFilterWindow')
