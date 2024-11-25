@@ -80,32 +80,38 @@ xnoremap <expr> ;r
 xnoremap ;g <Cmd>call DduUrlItems()<CR>
 
 function! DduUrlItems()
-  const region = getregion(getpos('v'), getpos('.'), #{ type: mode() })
+  const region = getregion(
+        \ getpos('v'), getpos('.'), #{ type: mode() })
   if region->empty()
     return
   endif
 
   const url = region[0]->substitute('\s*\n\?$', '', '')
 
+  const items = [
+        \    #{
+        \      word: url,
+        \      kind: 'url',
+        \      action: #{
+        \        url: url,
+        \      },
+        \    },
+        \ ]
+
+  "call ddu#start(#{
+  "      \   sources: ['item'],
+  "      \   sourceParams: #{
+  "      \     item: #{
+  "      \       items: items,
+  "      \     },
+  "      \   },
+  "      \ })
+
   call ddu#start(#{
-        \   sources: ['item'],
+        \   sources: ['action'],
         \   sourceParams: #{
-        \     item: #{
-        \       items: [
-        \        #{
-        \          word: url,
-        \          kind: 'url',
-        \          action: #{
-        \            url: url,
-        \          },
-        \        },
-        \       ],
-        \     },
-        \   },
-        \   ui: 'ff',
-        \   uiParams: #{
-        \     ff: #{
-        \       immediateUiAction: 'chooseAction',
+        \     action: #{
+        \       items: items,
         \     },
         \   },
         \ })
