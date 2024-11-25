@@ -86,17 +86,19 @@ function! DduUrlItems()
     return
   endif
 
+  " Get selected URL
   const url = region[0]->substitute('\s*\n\?$', '', '')
 
-  const items = [
-        \    #{
-        \      word: url,
-        \      kind: 'url',
-        \      action: #{
-        \        url: url,
-        \      },
-        \    },
-        \ ]
+  " Convert to items.
+  const items = [url]
+        \ ->map({ _, url -> #{
+        \     word: url,
+        \     kind: 'url',
+        \     action: #{
+        \       url: url,
+        \     },
+        \   }
+        \ })
 
   "call ddu#start(#{
   "      \   sources: ['item'],
@@ -107,6 +109,7 @@ function! DduUrlItems()
   "      \   },
   "      \ })
 
+  " Call chooseAction directly
   call ddu#start(#{
         \   sources: ['action'],
         \   sourceParams: #{

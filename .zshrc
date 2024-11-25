@@ -316,11 +316,12 @@ alias df='df -h'
 alias od='od -Ax -tx1z'
 alias hexdump='hexdump -C'
 
-alias vim="TERM=xterm-256color nvim \
+alias vim='nvim \
     -V0 -n -u NONE --noplugin -S $HOME/.config/nvim/init.vim \
-    --listen ~/.cache/nvim/server.pipe"
+    $( [ ! -e $HOME/.cache/nvim/server.pipe ] && \
+      echo "--listen $HOME/.cache/nvim/server.pipe" )'
+
 #alias goneovim='~/Downloads/goneovim/goneovim &>/dev/null &'
-#alias gn=goneovim
 alias nvui='nvui &'
 alias neovide='neovide --multigrid'
 
