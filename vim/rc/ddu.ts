@@ -265,6 +265,11 @@ export class Config extends BaseConfig {
           quit: false,
         },
       },
+      actionParams: {
+        tabopen: {
+          command: 'tabedit',
+        },
+      }
     });
 
     return Promise.resolve();
