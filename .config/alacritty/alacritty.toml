@@ -57,6 +57,8 @@ family = "Courier 10 Pitch"
 [mouse]
 hide_when_typing = true
 
-[shell]
+[terminal]
+
+[terminal.shell]
 args = ["--login"]
 program = "/bin/zsh"
