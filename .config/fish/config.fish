@@ -2,14 +2,9 @@
 function fish_greeting
 end
 
-function cd
-  builtin cd $argv; and ls
-end
-
 set pure_symbol_prompt '~>'
 
 # Color theme
-
 set pure_color_blue (set_color '1e95fd')
 set pure_color_cyan \e\[36m
 set pure_color_gray \e\[38\;5\;247m

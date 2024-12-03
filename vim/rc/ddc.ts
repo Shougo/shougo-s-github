@@ -1,8 +1,8 @@
 import { BaseConfig, ConfigArguments } from "jsr:@shougo/ddc-vim@~9.0.0/config";
 import { type DdcItem } from "jsr:@shougo/ddc-vim@~9.0.0/types";
 
-import type { Denops } from "jsr:@denops/std@~7.3.0";
-import * as fn from "jsr:@denops/std@~7.3.0/function";
+import type { Denops } from "jsr:@denops/std@~7.4.0";
+import * as fn from "jsr:@denops/std@~7.4.0/function";
 
 export class Config extends BaseConfig {
   override async config(args: ConfigArguments): Promise<void> {
