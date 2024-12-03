@@ -5,7 +5,7 @@ nnoremap s<Space> <Cmd>Ddu
       \ -ui-param-ff-split=`has('nvim') ? 'floating' : 'horizontal'`
       \ <CR>
 nnoremap ss
-      \ <Cmd>Ddu -name=files-`tabpagenr()` file_point file_old
+      \ <Cmd>Ddu -name=files file_point file_old
       \ `'.git'->finddir(';') != '' ? 'file_git' : ''`
       \ file -source-option-file-volatile
       \ file -source-param-file-new -source-option-file-volatile
@@ -126,10 +126,13 @@ endfunction
 
 " Initialize ddu.vim lazily.
 if !'g:shougo_s_github_load_state'->exists()
-  call timer_start(1000, { _ -> LazyDdu() })
+  call timer_start(500, { _ -> LazyDdu() })
   function LazyDdu()
-    call ddu#load('ui', ['ff'])
-    call ddu#load('kind', ['file'])
+    call ddu#load('files', 'ui', ['ff'])
+    call ddu#load('files', 'kind', ['file'])
+    call ddu#load('files', 'source',
+          \   ['file_point', 'file_old', 'file_git', 'file']
+          \ )
   endfunction
 endif
 " }}}

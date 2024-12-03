@@ -1,5 +1,5 @@
-import { BaseConfig, ConfigArguments } from "jsr:@shougo/ddc-vim@~9.0.0/config";
-import { type DdcItem } from "jsr:@shougo/ddc-vim@~9.0.0/types";
+import { BaseConfig, ConfigArguments } from "jsr:@shougo/ddc-vim@~9.1.0/config";
+import { type DdcItem } from "jsr:@shougo/ddc-vim@~9.1.0/types";
 
 import type { Denops } from "jsr:@denops/std@~7.4.0";
 import * as fn from "jsr:@denops/std@~7.4.0/function";
