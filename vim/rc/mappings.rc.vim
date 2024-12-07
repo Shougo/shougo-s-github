@@ -79,6 +79,19 @@ function s:toggle_conceal() abort
   setlocal conceallevel?
 endfunction
 
+" NOTE: hit-enter prompt is needed to debug.
+nnoremap [Space]h
+      \ <Cmd>call <SID>toggle_messagesopt()<CR>
+
+function s:toggle_messagesopt() abort
+  if &messagesopt->stridx('hit-enter') < 0
+    set messagesopt+=hit-enter
+  else
+    set messagesopt-=hit-enter
+  endif
+  set messagesopt?
+endfunction
+
 " Easily edit current buffer
 nnoremap <expr> [Space]e '%'->bufname() !=# '' ? '<Cmd>edit %<CR>' : ''
 
