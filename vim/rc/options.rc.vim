@@ -332,5 +332,5 @@ set synmaxcol=300
 " Disable builtin message pager
 set nomore
 if '+messagesopt'->exists()
-  set messagesopt=wait:200,history:500
+  set messagesopt=wait:1000,history:500
 endif

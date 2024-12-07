@@ -71,6 +71,8 @@ export class Config extends BaseConfig {
             floating: "Normal",
             floatingBorder: "Special",
           },
+          inputFunc: "cmdline#input",
+          inputOptsFunc: "cmdline#input_opts",
           maxHighlightItems: 50,
           onPreview: async (args: {
             denops: Denops;
