@@ -13,6 +13,7 @@ hook_source = '''
     \   border: 'none',
     \   commit_characters: ['.'],
     \   highlight_scrollbar: 'None',
+    \   insert_preview: v:true,
     \   max_width: 80,
     \   offset_cmdcol: 0,
     \   padding: v:false,
