@@ -43,6 +43,7 @@ hook_source = '''
   highlight! link @character        Character
   highlight! link @character.special SpecialChar
   highlight! link @comment          Comment
+  highlight! link @comment.note     WarningMsg
   highlight! link @conditional      CandyCoral
   highlight! link @constant         Constant
   highlight! link @constant.builtin CandyGreen
@@ -63,6 +64,8 @@ hook_source = '''
   highlight! link @keyword.operator CandyViolet
   highlight! link @keyword.return   CandyRed
   highlight! link @label            Label
+  highlight! link @markup.link      PreProc
+  highlight! link @markup.raw       String
   highlight! link @method           CandyTurquoise
   highlight! link @method.call      CandyTurquoise
   highlight! link @namespace        CandyBlue

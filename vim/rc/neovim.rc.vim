@@ -7,6 +7,7 @@ if has('vim_starting') && argv()->empty()
   syntax off
 endif
 
+" Disable remote providers
 let g:loaded_node_provider = v:false
 let g:loaded_perl_provider = v:false
 let g:loaded_python_provider = v:false
@@ -37,20 +38,30 @@ function s:config_treesitter()
   lua << END
   vim.treesitter.start = (function(wrapped)
     return function(bufnr, lang)
+      local disables_ft = {
+        'help',
+      }
+      local disables_lang = {
+        'vimdoc',
+        'diff',
+        'gitcommit',
+        'swift',
+        'latex',
+      }
+
       local ft = vim.fn.getbufvar(bufnr or vim.fn.bufnr(''), '&filetype')
-      local check = (
-        ft == 'help' or lang == 'vimdoc' or lang == 'diff'
-        or lang == 'gitcommit' or lang == 'swift' or lang == 'latex'
-      )
-      if check then
+      if (vim.tbl_contains(disables_ft, ft)
+          or vim.tbl_contains(disables_lang, lang)) then
         return
       end
 
-      local max_filesize = 50 * 1024 -- 50 KB
-      local ok, stats = pcall(vim.loop.fs_stat,
-          vim.api.nvim_buf_get_name(bufnr))
-      if ok and stats and stats.size > max_filesize then
-        return
+      if bufnr then
+        local max_filesize = 50 * 1024 -- 50 KB
+        local ok, stats = pcall(vim.loop.fs_stat,
+            vim.api.nvim_buf_get_name(bufnr))
+        if ok and stats and stats.size > max_filesize then
+          return
+        end
       end
 
       wrapped(bufnr, lang)
