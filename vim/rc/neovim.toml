@@ -72,7 +72,7 @@ hook_source = '''
   highlight! link @none             Normal
   highlight! link @number           Number
   highlight! link @operator         Operator
-  highlight! link @parameter        CandyWhite
+  highlight! link @parameter        CandyYellow
   highlight! link @preproc          PreProc
   highlight! link @property         Identifier
   highlight! link @punctuation.special Special
@@ -108,6 +108,7 @@ hook_source = '''
   highlight! link @variable         Identifier
   highlight! link @variable.builtin CandyLime
   highlight! link @variable.global  CandyViolet
+  highlight! link @variable.parameter CandyYellow
 '''
 
 [[plugins]]

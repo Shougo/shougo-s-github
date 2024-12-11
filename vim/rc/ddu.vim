@@ -3,6 +3,7 @@ nnoremap s<Space> <Cmd>Ddu
       \ -name=files file
       \ -source-option-file-path=`'$BASE_DIR'->expand()`
       \ -ui-param-ff-split=`has('nvim') ? 'floating' : 'horizontal'`
+      \ -resume
       \ <CR>
 nnoremap ss
       \ <Cmd>Ddu -name=files file_point file_old
@@ -10,6 +11,7 @@ nnoremap ss
       \ file -source-option-file-volatile
       \ file -source-param-file-new -source-option-file-volatile
       \ -unique -expandInput
+      \ -sync
       \ -resume=`
       \      ddu#get_items(#{ sources: ['file_point'] })->empty()
       \    ? 'v:true'
