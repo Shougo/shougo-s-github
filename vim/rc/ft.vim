@@ -81,7 +81,7 @@ command! -range -buffer RightAlign
 nnoremap <buffer> mm      <Cmd>RightAlign<CR>
 xnoremap <silent><buffer> mm      :RightAlign<CR>
 
-autocmd MyAutoCmd CursorHold <buffer> ++once call s:vim_syntax()
+"autocmd MyAutoCmd CursorHold <buffer> ++once call s:vim_syntax()
 function! s:vim_syntax() abort
   unlet! b:current_syntax
   silent! syntax include @helpVimScript syntax/vim.vim

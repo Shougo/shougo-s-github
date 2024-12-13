@@ -86,10 +86,12 @@ nnoremap [Space]h
 function s:toggle_messagesopt() abort
   if &messagesopt->stridx('hit-enter') < 0
     set messagesopt+=hit-enter
+    set more
   else
     set messagesopt-=hit-enter
+    set nomore
   endif
-  set messagesopt?
+  set messagesopt? more?
 endfunction
 
 " Easily edit current buffer
