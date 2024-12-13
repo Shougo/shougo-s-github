@@ -39,7 +39,7 @@ function s:config_treesitter()
   vim.treesitter.start = (function(wrapped)
     return function(bufnr, lang)
       local disables_ft = {
-        'help',
+        --'help',
       }
       local disables_lang = {
         'vimdoc',

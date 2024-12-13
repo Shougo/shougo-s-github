@@ -82,7 +82,7 @@ hook_source = '''
   highlight! link @string.escape    SpecialChar
   highlight! link @string.regex     String
   highlight! link @symbol           Identifier
-  highlight! link @tag              CandyBlue
+  highlight! link @tag              SpecialChar
   highlight! link @tag.attribute    CandyBlue
   highlight! link @tag.delimiter    CandyLime
   highlight! link @text             None
