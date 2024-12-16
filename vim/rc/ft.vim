@@ -80,18 +80,6 @@ command! -range -buffer RightAlign
 
 nnoremap <buffer> mm      <Cmd>RightAlign<CR>
 xnoremap <silent><buffer> mm      :RightAlign<CR>
-
-"autocmd MyAutoCmd CursorHold <buffer> ++once call s:vim_syntax()
-function! s:vim_syntax() abort
-  unlet! b:current_syntax
-  silent! syntax include @helpVimScript syntax/vim.vim
-  syntax region helpVimScript
-        \ start=/^>[a-z0-9]*$/
-        \ start=/ >[a-z0-9]*$/
-        \ end=/^</
-        \ end=/^[^ \t]/me=e-1  concealends
-        \ contains=@helpVimScript keepend
-endfunction
 " }}}
 
 " ruby {{{
