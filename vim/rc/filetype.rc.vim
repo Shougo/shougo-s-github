@@ -21,6 +21,14 @@ let g:vim_markdown_toml_frontmatter = v:true
 let g:vim_markdown_json_frontmatter = v:true
 let g:vim_markdown_no_default_key_mappings = v:true
 
+" help
+let g:help_example_languages = #{
+      \   vim: 'vim',
+      \   sh: 'sh',
+      \   typescript: 'typescript',
+      \   lua: 'lua',
+      \ }
+
 " Enable modeline for only Vim help files.
 autocmd MyAutoCmd BufRead,BufWritePost *.txt,*.jax setlocal modeline
 
