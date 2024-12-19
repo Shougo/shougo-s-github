@@ -117,8 +117,6 @@ highlight Conceal       gui=NONE guibg=#a9a9a9 guifg=#d3d3d3
 highlight EndOfBuffer   gui=NONE guifg=#101010
 
 if has('nvim')
-  highlight TermCursor   gui=NONE guibg=#cc22a0
-  highlight TermCursorNC gui=NONE guibg=#666666
   highlight NormalNC     gui=NONE guibg=#2c2c2c guifg=#bfbfbf
   highlight WhiteSpace   gui=NONE guifg=#999999
 endif
