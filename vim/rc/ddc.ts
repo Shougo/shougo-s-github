@@ -30,8 +30,8 @@ export class Config extends BaseConfig {
         );
       },
       autoCompleteEvents: [
-        "CmdlineChanged",
         "CmdlineEnter",
+        "CmdlineChanged",
         "InsertEnter",
         "TextChangedI",
         "TextChangedP",
