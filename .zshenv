@@ -6,6 +6,7 @@ export LESS='-RQM'
 export BROWSER='firefox'
 export SHELL=zsh
 export MANPAGER='nvim --clean +Man\!'
+export UNZIP='-I utf8 -O cp932'
 
 export GOPATH="$HOME/.go"
 export PATH="$HOME/bin:/usr/local/bin:$GOPATH/bin:$HOME/.cargo/bin:$HOME/.deno/bin:$PATH"
