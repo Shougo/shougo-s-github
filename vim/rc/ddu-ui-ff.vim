@@ -1,6 +1,9 @@
 " ddu-ff {{{
 nnoremap <buffer> <CR>
-      \ <Cmd>call ddu#ui#do_action('itemAction')<CR>
+      \ <Cmd>call ddu#ui#do_action('itemAction',
+      \   ddu#ui#get_item()->get('action', {})->get('isDirectory', v:false)
+      \ ? #{ name: 'narrow' }
+      \ : #{ name: 'default' })<CR>
 nnoremap <buffer> <2-LeftMouse>
       \ <Cmd>call ddu#ui#do_action('itemAction')<CR>
 nnoremap <buffer> <Space>
