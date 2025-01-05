@@ -73,7 +73,7 @@ repo = 'tweekmonster/helpful.vim'
 on_cmd = 'HelpfulVersion'
 
 [[plugins]]
-repo = 'Shougo/vim-vimhelplint'
+repo = 'machakann/vim-vimhelplint'
 on_ft = 'help'
 [plugins.ftplugin]
 help = '''

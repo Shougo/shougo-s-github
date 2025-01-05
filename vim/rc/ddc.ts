@@ -70,7 +70,11 @@ export class Config extends BaseConfig {
           isVolatile: true,
         },
         cmdline: {
+          isVolatile: true,
           mark: "cmdline",
+          matchers: [
+            "matcher_length",
+          ],
           forceCompletionPattern: "\\S/\\S*|\\.\\w*",
         },
         copilot: {
