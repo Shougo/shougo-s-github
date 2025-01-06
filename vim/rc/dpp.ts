@@ -104,6 +104,7 @@ export class Config extends BaseConfig {
         { path: "$BASE_DIR/ddc.toml", lazy: true },
         { path: "$BASE_DIR/ddu.toml", lazy: true },
         { path: "$BASE_DIR/ddx.toml", lazy: true },
+        { path: "$BASE_DIR/ddt.toml", lazy: true },
         {
           path: hasNvim ? "$BASE_DIR/neovim.toml" : "$BASE_DIR/vim.toml",
           lazy: true,

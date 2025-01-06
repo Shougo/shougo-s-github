@@ -1,0 +1,15 @@
+[[plugins]]
+repo = 'Shougo/ddt.vim'
+depends = 'denops.vim'
+hook_add = '''
+  nnoremap <C-y>  <Cmd>call ddt#start(#{
+  \   name: 'terminal-' .. win_getid(),
+  \   ui: 'terminal',
+  \   uiParams: #{
+  \     terminal: #{
+  \       command: ['zsh'],
+  \       startInsert: v:true,
+  \     },
+  \   },
+  \ })<CR>
+'''
