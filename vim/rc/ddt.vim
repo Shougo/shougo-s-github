@@ -60,4 +60,11 @@ nnoremap <buffer> <C-n>
       \ <Cmd>call ddt#ui#do_action('nextPrompt')<CR>
 nnoremap <buffer> <C-p>
       \ <Cmd>call ddt#ui#do_action('previousPrompt')<CR>
+
+autocmd MyAutoCmd DirChanged <buffer>
+      \ call ddt#ui#do_action('cd', #{
+      \   directory: v:event->get('cwd', getcwd()),
+      \ })
+
+execute 'tcd' b:ddt_terminal_directory->fnameescape()
 " }}}
