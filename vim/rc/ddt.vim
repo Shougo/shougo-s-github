@@ -1,5 +1,5 @@
 " hook_add {{{
-nnoremap <C-y>  <Cmd>call ddt#start(#{
+nnoremap [Space]s  <Cmd>call ddt#start(#{
       \   name: 'terminal-' .. win_getid(),
       \   ui: 'terminal',
       \   uiParams: #{
@@ -10,7 +10,8 @@ nnoremap <C-y>  <Cmd>call ddt#start(#{
       \     },
       \   },
       \ })<CR>
-nnoremap <C-n> <Cmd>Ddu -name=ddt -sync
+nnoremap sD  <Cmd>call ddt#ui#terminal#kill_editor()<CR>
+nnoremap <C-t> <Cmd>Ddu -name=ddt -sync
       \ -ui-param-ff-split=`has('nvim') ? 'floating' : 'horizontal'`
       \ -ui-param-ff-winRow=1
       \ -ui-param-ff-autoResize
@@ -72,5 +73,7 @@ autocmd MyAutoCmd DirChanged <buffer>
       \   directory: v:event->get('cwd', getcwd()),
       \ })
 
-execute 'tcd' b:ddt_terminal_directory->fnameescape()
+if exists('b:ddt_terminal_directory')
+  execute 'tcd' b:ddt_terminal_directory->fnameescape()
+endif
 " }}}

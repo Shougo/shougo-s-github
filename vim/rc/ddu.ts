@@ -252,6 +252,9 @@ export class Config extends BaseConfig {
         deol: {
           defaultAction: "switch",
         },
+        ddt_tab: {
+          defaultAction: "switch",
+        },
         action: {
           defaultAction: "do",
         },
