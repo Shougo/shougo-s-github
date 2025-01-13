@@ -10,6 +10,12 @@ nnoremap <C-y>  <Cmd>call ddt#start(#{
       \     },
       \   },
       \ })<CR>
+nnoremap <C-n> <Cmd>Ddu -name=ddt -sync
+      \ -ui-param-ff-split=`has('nvim') ? 'floating' : 'horizontal'`
+      \ -ui-param-ff-winRow=1
+      \ -ui-param-ff-autoResize
+      \ -ui-param-ff-cursorPos=`tabpagenr()`
+      \ ddt_tab<CR>
 " }}}
 
 " hook_source {{{
