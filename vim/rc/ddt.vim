@@ -6,7 +6,6 @@ nnoremap [Space]s  <Cmd>call ddt#start(#{
       \     terminal: #{
       \       command: ['zsh'],
       \       promptPattern: '\w*% \?',
-      \       startInsert: v:true,
       \     },
       \   },
       \ })<CR>
@@ -67,11 +66,28 @@ nnoremap <buffer> <C-n>
       \ <Cmd>call ddt#ui#do_action('nextPrompt')<CR>
 nnoremap <buffer> <C-p>
       \ <Cmd>call ddt#ui#do_action('previousPrompt')<CR>
+nnoremap <buffer> [Space]gc
+      \ <Cmd>call ddt#ui#do_action('send', #{
+      \   str: 'git commit',
+      \ })<CR>
+nnoremap <buffer> [Space]gs
+      \ <Cmd>call ddt#ui#do_action('send', #{
+      \   str: 'git status',
+      \ })<CR>
+nnoremap <buffer> [Space]gA
+      \ <Cmd>call ddt#ui#do_action('send', #{
+      \   str: 'git commit --amend',
+      \ })<CR>
 
-autocmd MyAutoCmd DirChanged <buffer>
-      \ call ddt#ui#do_action('cd', #{
-      \   directory: v:event->get('cwd', getcwd()),
-      \ })
+augroup ddt-ui-terminal
+  autocmd!
+  autocmd DirChanged <buffer>
+        \ :if t:->get('ddt_ui_terminal_directory') !=# v:event.cwd
+        \ | call ddt#ui#do_action('cd', #{
+        \     directory: v:event.cwd,
+        \   })
+        \ | endif
+augroup END
 
 if exists('b:ddt_terminal_directory')
   execute 'tcd' b:ddt_terminal_directory->fnameescape()
