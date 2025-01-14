@@ -2,12 +2,6 @@
 nnoremap [Space]s  <Cmd>call ddt#start(#{
       \   name: 'terminal-' .. win_getid(),
       \   ui: 'terminal',
-      \   uiParams: #{
-      \     terminal: #{
-      \       command: ['zsh'],
-      \       promptPattern: '\w*% \?',
-      \     },
-      \   },
       \ })<CR>
 nnoremap sD  <Cmd>call ddt#ui#terminal#kill_editor()<CR>
 nnoremap <C-t> <Cmd>Ddu -name=ddt -sync
@@ -19,6 +13,16 @@ nnoremap <C-t> <Cmd>Ddu -name=ddt -sync
 " }}}
 
 " hook_source {{{
+call ddt#custom#patch_global(#{
+      \   uiParams: #{
+      \     terminal: #{
+      \       nvimServer: '~/.cache/nvim/server.pipe',
+      \       command: ['zsh'],
+      \       promptPattern: has('win32') ? '\f\+>' : '\w*% \?',
+      \     },
+      \   },
+      \ })
+
 " Set terminal colors
 if has('nvim')
   let g:terminal_color_0  = '#6c6c6c'
@@ -66,6 +70,10 @@ nnoremap <buffer> <C-n>
       \ <Cmd>call ddt#ui#do_action('nextPrompt')<CR>
 nnoremap <buffer> <C-p>
       \ <Cmd>call ddt#ui#do_action('previousPrompt')<CR>
+nnoremap <buffer> <C-y>
+      \ <Cmd>call ddt#ui#do_action('pastePrompt')<CR>
+nnoremap <buffer> <CR>
+      \ <Cmd>call ddt#ui#do_action('executeLine')<CR>
 nnoremap <buffer> [Space]gc
       \ <Cmd>call ddt#ui#do_action('send', #{
       \   str: 'git commit',
