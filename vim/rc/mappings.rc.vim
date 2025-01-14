@@ -95,7 +95,10 @@ function s:toggle_messagesopt() abort
 endfunction
 
 " Easily edit current buffer
-nnoremap <expr> [Space]e '%'->bufname() !=# '' ? '<Cmd>edit %<CR>' : ''
+nnoremap <expr> [Space]e
+      \   '%'->bufname() !=# ''
+      \ ? '<Cmd>edit %<CR>'
+      \ : ''
 
 " Quickfix
 nnoremap [Space]q
