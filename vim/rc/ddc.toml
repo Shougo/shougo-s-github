@@ -1,6 +1,7 @@
 [[plugins]]
 repo = 'Shougo/ddc.vim'
 depends = 'denops.vim'
+on_source = 'ddt.vim'
 on_event = ['InsertEnter', 'CmdlineEnter']
 hooks_file = '$BASE_DIR/ddc.vim'
 
@@ -68,6 +69,10 @@ on_source = 'ddc.vim'
 
 [[plugins]]
 repo = 'Shougo/ddc-source-shell'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc-source-shell-history'
 on_source = 'ddc.vim'
 
 [[plugins]]

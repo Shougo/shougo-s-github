@@ -131,6 +131,9 @@ export class Config extends BaseConfig {
           isVolatile: true,
           forceCompletionPattern: "\\S/\\S*",
         },
+        "shell-history": {
+          mark: "history",
+        },
         rg: {
           mark: "rg",
           minAutoCompleteLength: 5,
@@ -164,7 +167,10 @@ export class Config extends BaseConfig {
           enableResolveItem: true,
         },
         "shell-native": {
-          shell: "fish",
+          shell: "zsh",
+        },
+        "shell-history": {
+          paths: ["~/.zsh-history"],
         },
       },
       postFilters: ["sorter_head"],
@@ -202,6 +208,7 @@ export class Config extends BaseConfig {
         },
         sources: [
           hasWindows ? "shell" : "shell-native",
+          "shell-history",
           "around",
         ],
       });
@@ -210,6 +217,7 @@ export class Config extends BaseConfig {
       specialBufferCompletion: true,
       sources: [
         hasWindows ? "shell" : "shell-native",
+        "shell-history",
         "around",
       ],
       sourceOptions: {
