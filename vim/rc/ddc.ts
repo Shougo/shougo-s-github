@@ -121,9 +121,6 @@ export class Config extends BaseConfig {
           mark: "history",
           sorters: [],
         },
-        "shell-history": {
-          mark: "history",
-        },
         shell: {
           mark: "sh",
           isVolatile: true,
@@ -213,7 +210,6 @@ export class Config extends BaseConfig {
       specialBufferCompletion: true,
       sources: [
         hasWindows ? "shell" : "shell-native",
-        "shell-history",
         "around",
       ],
       sourceOptions: {
