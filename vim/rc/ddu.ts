@@ -249,9 +249,6 @@ export class Config extends BaseConfig {
         word: {
           defaultAction: "append",
         },
-        deol: {
-          defaultAction: "switch",
-        },
         ddt_tab: {
           defaultAction: "switch",
         },

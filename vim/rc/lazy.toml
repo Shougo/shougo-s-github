@@ -1,10 +1,4 @@
 [[plugins]]
-repo = 'Shougo/deol.nvim'
-depends = ['ddu.vim']
-on_source = ['ddu.vim']
-hooks_file = '$BASE_DIR/deol.vim'
-
-[[plugins]]
 repo = 'Shougo/junkfile.vim'
 on_source = ['ddu.vim']
 hook_add = '''

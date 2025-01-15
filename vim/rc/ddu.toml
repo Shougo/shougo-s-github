@@ -134,15 +134,3 @@ on_source = 'ddu.vim'
 [[plugins]]
 repo = '4513ECHO/ddu-kind-url'
 on_source = 'ddu.vim'
-
-[[multiple_hooks]]
-plugins = ['ddu.vim', 'deol.vim']
-hook_source = '''
-  call ddu#custom#patch_global(#{
-        \   sourceParams: #{
-        \     deol: #{
-        \       command: ['zsh'],
-        \     },
-        \   }
-        \ })
-'''

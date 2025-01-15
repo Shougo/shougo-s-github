@@ -209,7 +209,7 @@ export class Config extends BaseConfig {
         ],
       });
     }
-    args.contextBuilder.patchFiletype("deol", {
+    args.contextBuilder.patchFiletype("ddt-terminal", {
       specialBufferCompletion: true,
       sources: [
         hasWindows ? "shell" : "shell-native",
