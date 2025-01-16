@@ -94,11 +94,9 @@ function s:toggle_messagesopt() abort
   set messagesopt? more?
 endfunction
 
-" Easily edit current buffer
-nnoremap <expr> [Space]e
-      \   '%'->bufname() !=# ''
-      \ ? '<Cmd>edit %<CR>'
-      \ : ''
+" Easily reload filetype
+nnoremap [Space]r
+      \ <Cmd>let &filetype = &filetype<CR>
 
 " Quickfix
 nnoremap [Space]q
