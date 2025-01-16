@@ -1,6 +1,7 @@
 " hook_add {{{
 nnoremap [Space]s  <Cmd>call ddt#start(#{
-      \   name: 'terminal-' .. win_getid(),
+      \   name: t:->get('ddt_ui_terminal_last_name',
+      \                 'terminal-' .. win_getid()),
       \   ui: 'terminal',
       \ })<CR>
 nnoremap sD  <Cmd>call ddt#ui#terminal#kill_editor()<CR>
