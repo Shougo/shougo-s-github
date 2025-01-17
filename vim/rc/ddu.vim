@@ -122,6 +122,23 @@ function! DduUrlItems()
         \ })
 endfunction
 
+" FilterUpdateCallback test
+function! DduFilterCallback(input)
+  if a:input->stridx('@') != 0
+    return a:input
+  endif
+
+  " Use file source instead.
+  call ddu#ui#do_action('updateOptions', #{
+        \   sources: [
+        \     #{ name: 'file' },
+        \   ],
+        \ })
+  call ddu#ui#do_action('redraw', #{ method: 'refreshItems' })
+
+  return a:input[1:]
+endfunction
+
 " Open filter window automatically
 "autocmd User Ddu:uiDone ++nested
 "      \ call ddu#ui#async_action('openFilterWindow')

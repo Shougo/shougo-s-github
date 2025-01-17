@@ -116,9 +116,11 @@ nnoremap <expr> q
       \ ? '<Cmd>cclose<CR><Cmd>lclose<CR>'
       \ : '#'->winnr()->getwinvar('&winfixbuf')
       \ ? ''
-      \ : '$'->winnr() > 1 && range(1, '$'->winnr())
+      \ : '$'->winnr() == 2 && range(1, '$'->winnr())
+      \   ->filter({_, val -> val !=# winnr() })
       \   ->map({ _, val -> val->winbufnr()->getbufvar('&filetype') })
-      \   ->filter({_, val -> val ==# 'qf' })->empty()
+      \   ->filter({_, val -> val ==# 'qf' <Bar><Bar> val ==# 'help' })
+      \   ->empty()
       \ ? '<Cmd>close<CR>'
       \ : ''
 
