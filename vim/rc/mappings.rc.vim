@@ -95,8 +95,7 @@ function s:toggle_messagesopt() abort
 endfunction
 
 " Easily reload filetype
-nnoremap [Space]r
-      \ <Cmd>let &filetype = &filetype<CR>
+nnoremap [Space]r <Cmd>let &filetype = &filetype<CR>
 
 " Quickfix
 nnoremap [Space]q

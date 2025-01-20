@@ -6,3 +6,7 @@ hooks_file = '$BASE_DIR/ddt.vim'
 [[plugins]]
 repo = 'Shougo/ddt-ui-terminal'
 on_source = 'ddt.vim'
+
+[[plugins]]
+repo = 'Shougo/ddt-ui-shell'
+on_source = 'ddt.vim'
