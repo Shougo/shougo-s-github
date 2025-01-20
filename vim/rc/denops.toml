@@ -14,8 +14,9 @@ hook_source = '''
   " NOTE: for profile
   "let g:denops#server#deno_args += ['--inspect']
 
-  " NOTE: for denops-silicon
-  "let g:denops#server#deno_args += ['--unstable-ffi']
+  " NOTE: for deno-pty-ffi
+  " https://github.com/sigmaSd/deno-pty-ffi
+  let g:denops#server#deno_args += ['--unstable-ffi']
 
   "let g:denops_server_addr = '127.0.0.1:32123'
 '''

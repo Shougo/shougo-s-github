@@ -1,10 +1,15 @@
 " hook_add {{{
 nnoremap [Space]s  <Cmd>call ddt#start(#{
+      \   name: t:->get('ddt_ui_shell_last_name',
+      \                 'shell-' .. win_getid()),
+      \   ui: 'shell',
+      \ })<CR>
+nnoremap [Space]t  <Cmd>call ddt#start(#{
       \   name: t:->get('ddt_ui_terminal_last_name',
       \                 'terminal-' .. win_getid()),
       \   ui: 'terminal',
       \ })<CR>
-nnoremap sD  <Cmd>call ddt#ui#terminal#kill_editor()<CR>
+nnoremap sD  <Cmd>call ddt#ui#kill_editor()<CR>
 nnoremap <C-t> <Cmd>Ddu -name=ddt -sync
       \ -ui-param-ff-split=`has('nvim') ? 'floating' : 'horizontal'`
       \ -ui-param-ff-winRow=1
@@ -16,6 +21,11 @@ nnoremap <C-t> <Cmd>Ddu -name=ddt -sync
 " hook_source {{{
 call ddt#custom#patch_global(#{
       \   uiParams: #{
+      \     shell: #{
+      \       nvimServer: '~/.cache/nvim/server.pipe',
+      \       prompt: '%',
+      \       promptPattern: '\w*% \?',
+      \     },
       \     terminal: #{
       \       nvimServer: '~/.cache/nvim/server.pipe',
       \       command: ['zsh'],
@@ -100,5 +110,42 @@ augroup END
 
 if exists('b:ddt_terminal_directory')
   execute 'tcd' b:ddt_terminal_directory->fnameescape()
+endif
+" }}}
+
+" ddt-shell {{{
+nnoremap <buffer> <C-n>
+      \ <Cmd>call ddt#ui#do_action('nextPrompt')<CR>
+nnoremap <buffer> <C-p>
+      \ <Cmd>call ddt#ui#do_action('previousPrompt')<CR>
+nnoremap <buffer> <C-y>
+      \ <Cmd>call ddt#ui#do_action('pastePrompt')<CR>
+nnoremap <buffer> <CR>
+      \ <Cmd>call ddt#ui#do_action('executeLine')<CR>
+nnoremap <buffer> [Space]gc
+      \ <Cmd>call ddt#ui#do_action('send', #{
+      \   str: 'git commit',
+      \ })<CR>
+nnoremap <buffer> [Space]gs
+      \ <Cmd>call ddt#ui#do_action('send', #{
+      \   str: 'git status',
+      \ })<CR>
+nnoremap <buffer> [Space]gA
+      \ <Cmd>call ddt#ui#do_action('send', #{
+      \   str: 'git commit --amend',
+      \ })<CR>
+
+augroup ddt-ui-shell
+  autocmd!
+  autocmd DirChanged <buffer>
+        \ :if t:->get('ddt_ui_shell_directory') !=# v:event.cwd
+        \ | call ddt#ui#do_action('cd', #{
+        \     directory: v:event.cwd,
+        \   })
+        \ | endif
+augroup END
+
+if exists('b:ddt_shell_directory')
+  execute 'tcd' b:ddt_shell_directory->fnameescape()
 endif
 " }}}

@@ -213,6 +213,19 @@ export class Config extends BaseConfig {
         ],
       });
     }
+    args.contextBuilder.patchFiletype("ddt-shell", {
+      specialBufferCompletion: true,
+      sources: [
+        hasWindows ? "shell" : "shell-native",
+        "shell-history",
+        "around",
+      ],
+      sourceOptions: {
+        _: {
+          keywordPattern: "[0-9a-zA-Z_./#:-]*",
+        },
+      },
+    });
     args.contextBuilder.patchFiletype("ddt-terminal", {
       specialBufferCompletion: true,
       sources: [
