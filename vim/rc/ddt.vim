@@ -122,6 +122,8 @@ nnoremap <buffer> <C-y>
       \ <Cmd>call ddt#ui#do_action('pastePrompt')<CR>
 nnoremap <buffer> <CR>
       \ <Cmd>call ddt#ui#do_action('executeLine')<CR>
+inoremap <buffer> <CR>
+      \ <Cmd>call ddt#ui#do_action('executeLine')<CR>
 nnoremap <buffer> [Space]gc
       \ <Cmd>call ddt#ui#do_action('send', #{
       \   str: 'git commit',
