@@ -124,6 +124,8 @@ nnoremap <buffer> <CR>
       \ <Cmd>call ddt#ui#do_action('executeLine')<CR>
 inoremap <buffer> <CR>
       \ <Cmd>call ddt#ui#do_action('executeLine')<CR>
+inoremap <buffer> <C-c>
+      \ <Cmd>call ddt#ui#do_action('terminate')<CR>
 nnoremap <buffer> [Space]gc
       \ <Cmd>call ddt#ui#do_action('send', #{
       \   str: 'git commit',
