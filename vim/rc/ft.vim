@@ -44,6 +44,10 @@ setlocal iskeyword+=:,#
 setlocal indentkeys+=\\,endif,endfunction,endfor,endwhile,endtry
 " }}}
 
+" qf {{{
+setlocal wrap
+" }}}
+
 " qfreplace {{{
 setlocal nofoldenable
 " }}}
