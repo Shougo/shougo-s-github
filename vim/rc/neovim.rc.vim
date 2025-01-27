@@ -71,6 +71,9 @@ END
 endfunction
 autocmd MyAutoCmd Syntax * ++once call s:config_treesitter()
 
+" Enable virtual_lines feature
+lua vim.diagnostic.config({ virtual_lines = true })
+
 " For neovide
 if 'g:neovide'->exists()
   let g:neovide_no_idle = v:true
