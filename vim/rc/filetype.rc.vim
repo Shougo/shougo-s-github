@@ -74,7 +74,6 @@ let g:loaded_matchparen        = v:true
 let g:loaded_netrwFileHandlers = v:true
 let g:loaded_netrwPlugin       = v:true
 let g:loaded_netrwSettings     = v:true
-let g:loaded_rrhelper          = v:true
 let g:loaded_shada_plugin      = v:true
 let g:loaded_spellfile_plugin  = v:true
 let g:loaded_tarPlugin         = v:true

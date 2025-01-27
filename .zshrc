@@ -316,10 +316,13 @@ alias df='df -h'
 alias od='od -Ax -tx1z'
 alias hexdump='hexdump -C'
 
-alias vim='nvim \
+# Minimal Neovim
+alias nvim='nvim \
     -V0 -n -u NONE --noplugin -S $HOME/.config/nvim/init.vim \
     $( [ ! -e $HOME/.cache/nvim/server.pipe ] && \
       echo "--listen $HOME/.cache/nvim/server.pipe" )'
+# Use Vim server feature
+alias vim='vim --servername vim'
 
 #alias goneovim='~/Downloads/goneovim/goneovim &>/dev/null &'
 alias nvui='nvui &'
