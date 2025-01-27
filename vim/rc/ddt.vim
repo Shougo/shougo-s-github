@@ -20,14 +20,13 @@ nnoremap <C-t> <Cmd>Ddu -name=ddt -sync
 
 " hook_source {{{
 call ddt#custom#patch_global(#{
+      \   nvimServer: '~/.cache/nvim/server.pipe',
       \   uiParams: #{
       \     shell: #{
-      \       nvimServer: '~/.cache/nvim/server.pipe',
       \       prompt: '%',
       \       promptPattern: '\w*% \?',
       \     },
       \     terminal: #{
-      \       nvimServer: '~/.cache/nvim/server.pipe',
       \       command: ['zsh'],
       \       promptPattern: has('win32') ? '\f\+>' : '\w*% \?',
       \     },
@@ -139,6 +138,14 @@ nnoremap <buffer> [Space]gA
       \ <Cmd>call ddt#ui#do_action('send', #{
       \   str: 'git commit --amend',
       \ })<CR>
+inoremap <buffer><expr> <C-n>
+      \   pum#visible()
+      \ ? '<Cmd>call pum#map#insert_relative(+1, "empty")<CR>'
+      \ : ddc#map#manual_complete(#{ sources: ['shell-history'] })
+inoremap <buffer><expr> <C-p>
+      \   pum#visible()
+      \ ? '<Cmd>call pum#map#insert_relative(-1, "empty")<CR>'
+      \ : ddc#map#manual_complete(#{ sources: ['shell-history'] })
 
 augroup ddt-ui-shell
   autocmd!
