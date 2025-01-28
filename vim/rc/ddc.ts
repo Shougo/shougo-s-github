@@ -170,7 +170,7 @@ export class Config extends BaseConfig {
           shell: "zsh",
         },
         "shell-history": {
-          paths: ["~/.zsh-history"],
+          paths: ["~/.cache/ddt-shell-history", "~/.zsh-history"],
         },
       },
       postFilters: ["sorter_head"],
