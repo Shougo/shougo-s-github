@@ -126,11 +126,10 @@ inoremap <buffer> <CR>
       \ <Cmd>call ddt#ui#do_action('executeLine')<CR>
 inoremap <buffer> <C-c>
       \ <Cmd>call ddt#ui#do_action('terminate')<CR>
-" NOTE: It does not work in ddt-ui-shell...
-"nnoremap <buffer> [Space]gc
-"      \ <Cmd>call ddt#ui#do_action('send', #{
-"      \   str: 'git commit',
-"      \ })<CR>
+nnoremap <buffer> [Space]gc
+      \ <Cmd>call ddt#ui#do_action('send', #{
+      \   str: 'git commit',
+      \ })<CR>
 nnoremap <buffer> [Space]gs
       \ <Cmd>call ddt#ui#do_action('send', #{
       \   str: 'git status',
