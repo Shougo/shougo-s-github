@@ -72,7 +72,7 @@ endfunction
 autocmd MyAutoCmd Syntax * ++once call s:config_treesitter()
 
 " Enable virtual_lines feature
-lua vim.diagnostic.config({ virtual_lines = { current_line = true }})
+"lua vim.diagnostic.config({ virtual_lines = { current_line = true }})
 
 " For neovide
 if 'g:neovide'->exists()

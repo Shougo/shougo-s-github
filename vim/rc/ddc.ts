@@ -128,7 +128,6 @@ export class Config extends BaseConfig {
         },
         "shell-native": {
           mark: "sh",
-          isVolatile: true,
           forceCompletionPattern: "\\S/\\S*",
         },
         "shell-history": {
