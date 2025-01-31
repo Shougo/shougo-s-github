@@ -97,6 +97,9 @@ nnoremap <buffer> [Space]gA
       \ <Cmd>call ddt#ui#do_action('send', #{
       \   str: 'git commit --amend',
       \ })<CR>
+nnoremap <buffer> <C-h> <Cmd>Ddu -name=ddt -sync
+      \ -input='`ddt#ui#get_input()`'
+      \ ddt_shell_history<CR>
 
 augroup ddt-ui-terminal
   autocmd!
@@ -146,6 +149,9 @@ inoremap <buffer><expr> <C-p>
       \   pum#visible()
       \ ? '<Cmd>call pum#map#insert_relative(-1, "empty")<CR>'
       \ : ddc#map#manual_complete(#{ sources: ['shell-history'] })
+nnoremap <buffer> <C-h> <Cmd>Ddu -name=ddt -sync
+      \ -input='`ddt#ui#get_input()`'
+      \ ddt_shell_history<CR>
 
 augroup ddt-ui-shell
   autocmd!

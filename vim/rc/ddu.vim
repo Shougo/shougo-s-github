@@ -24,11 +24,11 @@ nnoremap / <Cmd>Ddu
       \ -name=search line -resume=v:false
       \ -ui-param-ff-ignoreEmpty
       \ -source-param-line-ignoreEmptyInput
-      \ -input=`'Pattern: '->cmdline#input()->escape(' ')`
+      \ -input='`'Pattern: '->cmdline#input()->escape(' ')`'
       \ <CR>
 nnoremap * <Cmd>Ddu
       \ -name=search line -resume=v:false
-      \ -input=`expand('<cword>')`
+      \ -input='`expand('<cword>')`'
       \ <CR>
 nnoremap ;g <Cmd>Ddu
       \ -name=search rg -resume=v:false

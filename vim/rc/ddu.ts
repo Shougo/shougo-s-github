@@ -179,6 +179,9 @@ export class Config extends BaseConfig {
             "matcher_files",
           ],
         },
+        ddt_shell_history: {
+          defaultAction: "execute",
+        },
       },
       sourceParams: {
         file_git: {
@@ -204,6 +207,9 @@ export class Config extends BaseConfig {
             "--no-messages",
           ],
           updateItems: 50000,
+        },
+        ddt_shell_history: {
+          paths: ["~/.cache/ddt-shell-history", "~/.zsh-history"],
         },
       },
       filterParams: {
