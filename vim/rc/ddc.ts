@@ -117,7 +117,7 @@ export class Config extends BaseConfig {
           minAutoCompleteLength: 1000,
           forceCompletionPattern: "\\S/\\S*",
         },
-        "cmdline-history": {
+        cmdline_history: {
           mark: "history",
           sorters: [],
         },
@@ -126,11 +126,11 @@ export class Config extends BaseConfig {
           isVolatile: true,
           forceCompletionPattern: "\\S/\\S*",
         },
-        "shell-native": {
+        shell_native: {
           mark: "sh",
           forceCompletionPattern: "\\S/\\S*",
         },
-        "shell-history": {
+        shell_history: {
           mark: "history",
         },
         rg: {
@@ -165,10 +165,10 @@ export class Config extends BaseConfig {
           enableMatchLabel: true,
           enableResolveItem: true,
         },
-        "shell-native": {
+        shell_native: {
           shell: "zsh",
         },
-        "shell-history": {
+        shell_history: {
           paths: ["~/.cache/ddt-shell-history", "~/.zsh-history"],
         },
       },
@@ -198,46 +198,22 @@ export class Config extends BaseConfig {
       });
     }
 
-    for (const filetype of ["zsh", "sh", "bash"]) {
-      args.contextBuilder.patchFiletype(filetype, {
-        sourceOptions: {
-          _: {
-            keywordPattern: "[0-9a-zA-Z_./#:-]*",
-          },
+    const shellSourceOptions = {
+      specialBufferCompletion: true,
+      sourceOptions: {
+        _: {
+          keywordPattern: "[0-9a-zA-Z_./#:-]*",
         },
-        sources: [
-          hasWindows ? "shell" : "shell-native",
-          "shell-history",
-          "around",
-        ],
-      });
+      },
+      sources: [
+        hasWindows ? "shell" : "shell_native",
+        "shell_history",
+        "around",
+      ],
+    };
+    for (const filetype of ["zsh", "sh", "bash", "ddt-shell", "ddt-terminal"]) {
+      args.contextBuilder.patchFiletype(filetype, shellSourceOptions);
     }
-    args.contextBuilder.patchFiletype("ddt-shell", {
-      specialBufferCompletion: true,
-      sources: [
-        hasWindows ? "shell" : "shell-native",
-        "shell-history",
-        "around",
-      ],
-      sourceOptions: {
-        _: {
-          keywordPattern: "[0-9a-zA-Z_./#:-]*",
-        },
-      },
-    });
-    args.contextBuilder.patchFiletype("ddt-terminal", {
-      specialBufferCompletion: true,
-      sources: [
-        hasWindows ? "shell" : "shell-native",
-        "shell-history",
-        "around",
-      ],
-      sourceOptions: {
-        _: {
-          keywordPattern: "[0-9a-zA-Z_./#:-]*",
-        },
-      },
-    });
 
     // Use "#" as TypeScript keywordPattern
     for (const filetype of ["typescript"]) {

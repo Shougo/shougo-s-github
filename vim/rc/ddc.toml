@@ -64,7 +64,7 @@ if = 'exists("$MOCWORD_DATA")'
 on_source = 'ddc.vim'
 
 [[plugins]]
-repo = 'Shougo/ddc-source-shell-native'
+repo = 'Shougo/ddc-source-shell_native'
 on_source = 'ddc.vim'
 
 [[plugins]]
@@ -72,7 +72,7 @@ repo = 'Shougo/ddc-source-shell'
 on_source = 'ddc.vim'
 
 [[plugins]]
-repo = 'Shougo/ddc-source-shell-history'
+repo = 'Shougo/ddc-source-shell_history'
 on_source = 'ddc.vim'
 
 [[plugins]]
@@ -104,7 +104,7 @@ repo = 'Shougo/ddc-source-cmdline'
 on_source = 'ddc.vim'
 
 [[plugins]]
-repo = 'Shougo/ddc-source-cmdline-history'
+repo = 'Shougo/ddc-source-cmdline_history'
 on_source = 'ddc.vim'
 
 [[plugins]]
