@@ -39,9 +39,9 @@ export class Config extends BaseConfig {
       ],
       sources: commonSources,
       cmdlineSources: {
-        ":": ["cmdline", "cmdline-history", "around"],
-        "@": ["input", "cmdline-history", "file", "around"],
-        ">": ["input", "cmdline-history", "file", "around"],
+        ":": ["cmdline", "cmdline_history", "around"],
+        "@": ["input", "cmdline_history", "file", "around"],
+        ">": ["input", "cmdline_history", "file", "around"],
         "/": ["around", "line"],
         "?": ["around", "line"],
         "-": ["around", "line"],
