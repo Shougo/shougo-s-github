@@ -144,11 +144,11 @@ nnoremap <buffer> [Space]gA
 inoremap <buffer><expr> <C-n>
       \   pum#visible()
       \ ? '<Cmd>call pum#map#insert_relative(+1, "empty")<CR>'
-      \ : ddc#map#manual_complete(#{ sources: ['shell-history'] })
+      \ : ddc#map#manual_complete(#{ sources: ['shell_history'] })
 inoremap <buffer><expr> <C-p>
       \   pum#visible()
       \ ? '<Cmd>call pum#map#insert_relative(-1, "empty")<CR>'
-      \ : ddc#map#manual_complete(#{ sources: ['shell-history'] })
+      \ : ddc#map#manual_complete(#{ sources: ['shell_history'] })
 nnoremap <buffer> <C-h> <Cmd>Ddu -name=ddt -sync
       \ -input='`ddt#ui#get_input()`'
       \ ddt_shell_history<CR>
