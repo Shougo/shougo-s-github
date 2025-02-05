@@ -333,4 +333,8 @@ set synmaxcol=300
 set nomore
 if '+messagesopt'->exists()
   set messagesopt=wait:1500,history:500
+  autocmd MyAutoCmd CmdlineEnter *
+        \ set messagesopt+=hit-enter
+  autocmd MyAutoCmd CursorHold,CursorMoved *
+        \ set messagesopt-=hit-enter
 endif
