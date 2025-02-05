@@ -20,7 +20,7 @@ function! CommandlinePre(mode) abort
           \   getcmdline()->stridx('!') ==# 0
           \ ? {
           \     'cmdlineSources': [
-          \       'shell-native', 'cmdline', 'cmdline-history', 'around',
+          \       'shell_native', 'cmdline', 'cmdline_history', 'around',
           \     ],
           \   }
           \ : {} })
