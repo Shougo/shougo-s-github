@@ -314,7 +314,7 @@ set signcolumn=no
 
 " Command line window
 "set cedit=
-exe "set cedit=\<C-s>"
+execute "set cedit=\<C-s>"
 
 set redrawtime=0
 
@@ -333,8 +333,10 @@ set synmaxcol=300
 set nomore
 if '+messagesopt'->exists()
   set messagesopt=wait:1500,history:500
+
+  " Enable hit-enter prompt when execute commands
   autocmd MyAutoCmd CmdlineEnter *
-        \ set messagesopt+=hit-enter
-  autocmd MyAutoCmd CursorHold,CursorMoved *
-        \ set messagesopt-=hit-enter
+        \ : set messagesopt+=hit-enter
+        \ | autocmd MyAutoCmd CursorHold,CursorMoved,InsertEnter * ++once
+        \ |   set messagesopt-=hit-enter
 endif
