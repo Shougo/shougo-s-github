@@ -117,6 +117,26 @@ nnoremap <buffer> >
       \   },
       \ })<CR>
       \<Cmd>call ddu#ui#do_action('redraw', #{ method: 'uiRedraw' })<CR>
+
+nnoremap <buffer> M
+      \ <Cmd>call ddu#ui#multi_actions([
+      \   [
+      \     'updateOptions', #{
+      \       uiParams: #{
+      \         ff: #{
+      \           pathFilter: 'pathFilter regexp: '
+      \               ->input(ddu#custom#get_current(b:ddu_ui_name)
+      \               ->get('uiParams', {})
+      \               ->get('ff', {})
+      \               ->get('pathFilter', '')),
+      \         },
+      \       },
+      \     },
+      \   ],
+      \   [
+      \      'redraw', #{ method: 'refreshItems' },
+      \   ],
+      \ ])<CR>
 " }}}
 
 " hook_source {{{

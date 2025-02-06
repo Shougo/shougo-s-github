@@ -336,7 +336,7 @@ if '+messagesopt'->exists()
 
   " Enable hit-enter prompt when execute commands
   autocmd MyAutoCmd CmdlineEnter *
-        \ : set messagesopt+=hit-enter
-        \ | autocmd MyAutoCmd CursorHold,CursorMoved,InsertEnter * ++once
-        \ |   set messagesopt-=hit-enter
+        \ set messagesopt+=hit-enter
+  autocmd MyAutoCmd CursorHold,InsertEnter *
+        \ set messagesopt-=hit-enter
 endif
