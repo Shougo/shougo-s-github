@@ -3,6 +3,7 @@
 "
 
 " Build encodings.
+set encoding=utf-8
 set fileencodings=ucs-bom,utf-8,iso-2022-jp-3,euc-jp,cp932
 
 if has('multi_byte_ime')
