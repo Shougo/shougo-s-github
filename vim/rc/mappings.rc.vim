@@ -96,9 +96,6 @@ endfunction
 
 " Easily reload filetype
 nnoremap [Space]r <Cmd>let &filetype = &filetype<CR>
-if has('nvim')
-  nnoremap [Space]e <Cmd>lua vim.treesitter.stop()<CR>
-endif
 
 " Quickfix
 nnoremap [Space]q
