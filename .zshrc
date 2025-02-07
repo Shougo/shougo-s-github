@@ -134,16 +134,16 @@ ZSH_THEME_GIT_PROMPT_STASHED="%{$fg[blue]%}⚑"
 ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg_bold[green]%}✔"
 
 if [ $UID = "0" ]; then
-    PROMPT="%B%{[31m%}%/#%{^[[m%}%b "
-    PROMPT2="%B%{[31m%}%_#%{^[[m%}%b "
-elif [ -n "${REMOTEHOST}${SSH_CONNECTION}" ]; then
-    PROMPT="%{[37m%}${HOST%%.*} ${PROMPT}"
+    PROMPT=$'%B%{\e[31m%}%/#%{\e[m%}%b '
 else;
-    PROMPT='%{[33m%}[%35<..<%~]%{[m%}$(gitprompt)'
-    PROMPT+='%(?.%(!.%F{white}%F{yellow}%F{red}.%F{green})%f.%F{red}%f)
-%{[$[31+$RANDOM % 7]m%}%U%B%#'"%b%{%}%u "
-    #PROMPT='%{[33m%}[%35<..<%~]%{[m%}${vcs_info_msg_0_}
-#%{[$[31+$RANDOM % 7]m%}%U%B%#'"%b%{%}%u "
+    if [ -n "${REMOTEHOST}${SSH_CONNECTION}" ]; then
+    PROMPT=$'%{\e[37m%}${HOST%%.*} '
+    else
+    PROMPT=""
+    fi
+    PROMPT+=$'%{\e[33m%}[%35<..<%~]%{\e[m%}$(gitprompt)'
+    PROMPT+=$'%(?.%(!.%F{white}%F{yellow}%F{red}.%F{green})%f.%F{red}%f)\n'
+    PROMPT+=$'%{\e[$[31+$RANDOM % 7]m%}%U%B%#'"%b%{%}%u "
 fi
 
 # Multi line prompt
@@ -324,10 +324,6 @@ alias nvim='nvim \
 # Use Vim server feature
 alias vim='vim --servername vim'
 
-#alias goneovim='~/Downloads/goneovim/goneovim &>/dev/null &'
-alias nvui='nvui &'
-alias neovide='neovide --multigrid'
-
 
 #####################################################################
 # keybinds
@@ -358,14 +354,6 @@ bindkey "^y" x-yank
 autoload -Uz edit-command-line
 zle -N edit-command-line
 bindkey "^O" edit-command-line
-
-# Sticky shift
-# https://github.com/4513ECHO/zsh-sticky-shift
-if [ -d ~/.zsh/zsh-sticky-shift ]; then
-    source ~/.zsh/zsh-sticky-shift/sticky-shift.plugin.zsh
-    export STICKY_TABLE=us
-    export STICKY_DELAY=0.7
-fi
 
 
 #####################################################################
