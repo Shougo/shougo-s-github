@@ -26,7 +26,7 @@ call ddt#custom#patch_global(#{
       \       noSaveHistoryCommands: ['history'],
       \       prompt: '%',
       \       promptPattern: '\w*% \?',
-      \       userPrompt: 'fnamemodify(getcwd(), ":~")',
+      \       userPrompt: "fnamemodify(getcwd(), ':~') .. MyGitStatus()",
       \       shellHistoryPath: '~/.cache/ddt-shell-history'->expand(),
       \     },
       \     terminal: #{
@@ -35,6 +35,17 @@ call ddt#custom#patch_global(#{
       \     },
       \   },
       \ })
+function! MyGitStatus()
+  if '.git'->finddir(';') ==# ''
+    return ''
+  endif
+
+  " TODO: cache result
+  return printf(" %s%s",
+        \   'git branch --quiet'->system(),
+        \   'git status --short'->system()
+        \ )->substitute('\n$', '', '')
+endfunction
 
 " Set terminal colors
 if has('nvim')
