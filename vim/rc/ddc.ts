@@ -125,10 +125,12 @@ export class Config extends BaseConfig {
           mark: "sh",
           isVolatile: true,
           forceCompletionPattern: "\\S/\\S*",
+          minAutoCompleteLength: 3,
         },
         shell_native: {
           mark: "sh",
           forceCompletionPattern: "\\S/\\S*",
+          minAutoCompleteLength: 3,
         },
         shell_history: {
           mark: "history",
@@ -211,7 +213,9 @@ export class Config extends BaseConfig {
         "around",
       ],
     };
-    for (const filetype of ["zsh", "sh", "bash", "ddt-shell", "ddt-terminal"]) {
+    for (const filetype of [
+      "zsh", "sh", "bash", "ddt-shell", "ddt-terminal",
+    ]) {
       args.contextBuilder.patchFiletype(filetype, shellSourceOptions);
     }
 

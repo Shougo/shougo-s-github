@@ -23,6 +23,7 @@ call ddt#custom#patch_global(#{
       \   nvimServer: '~/.cache/nvim/server.pipe',
       \   uiParams: #{
       \     shell: #{
+      \       noSaveHistoryCommands: ['history'],
       \       prompt: '%',
       \       promptPattern: '\w*% \?',
       \       userPrompt: 'fnamemodify(getcwd(), ":~")',
