@@ -25,6 +25,7 @@ call ddt#custom#patch_global(#{
       \     shell: #{
       \       prompt: '%',
       \       promptPattern: '\w*% \?',
+      \       userPrompt: 'fnamemodify(getcwd(), ":~")',
       \       shellHistoryPath: '~/.cache/ddt-shell-history'->expand(),
       \     },
       \     terminal: #{
