@@ -1,22 +1,22 @@
 function! job#nvim#start(args, options) abort
-  let job = extend(copy(s:job), a:options)
-  let job_options = {
-        \ 'stderr_buffered': v:false,
-        \ 'stdout_buffered': v:false
+  let job = s:job->copy()->extend(a:options)
+  let job_options = #{
+        \   stderr_buffered: v:false,
+        \   stdout_buffered: v:false
         \ }
-  if has_key(a:options, 'cwd')
+  if a:options->has_key('cwd')
     let job_options.cwd = a:options.cwd
   endif
-  if has_key(a:options, 'env')
+  if a:options->has_key('env')
     let job_options.env = a:options.env
   endif
-  if has_key(job, 'on_stdout')
+  if job->has_key('on_stdout')
     let job_options.on_stdout = funcref('s:_on_stdout', [job])
   endif
-  if has_key(job, 'on_stderr')
+  if job->has_key('on_stderr')
     let job_options.on_stderr = funcref('s:_on_stderr', [job])
   endif
-  if has_key(job, 'on_exit')
+  if job->has_key('on_exit')
     let job_options.on_exit = funcref('s:_on_exit', [job])
   else
     let job_options.on_exit = funcref('s:_on_exit_raw', [job])
@@ -28,33 +28,23 @@ function! job#nvim#start(args, options) abort
   return job
 endfunction
 
-if has('nvim-0.3.0')
-  " Neovim 0.3.0 and over seems to invoke on_stdout/on_stderr with an empty
-  " string data when the stdout/stderr channel has closed.
-  " It is different behavior from Vim and Neovim prior to 0.3.0 so remove an
-  " empty string list to keep compatibility.
-  function! s:_on_stdout(job, job_id, data, event) abort
-    if a:data == ['']
-      return
-    endif
-    call a:job.on_stdout(a:data)
-  endfunction
+" Neovim 0.3.0 and over seems to invoke on_stdout/on_stderr with an empty
+" string data when the stdout/stderr channel has closed.
+" It is different behavior from Vim and Neovim prior to 0.3.0 so remove an
+" empty string list to keep compatibility.
+function! s:_on_stdout(job, job_id, data, event) abort
+  if a:data == ['']
+    return
+  endif
+  call a:job.on_stdout(a:data)
+endfunction
 
-  function! s:_on_stderr(job, job_id, data, event) abort
-    if a:data == ['']
-      return
-    endif
-    call a:job.on_stderr(a:data)
-  endfunction
-else
-  function! s:_on_stdout(job, job_id, data, event) abort
-    call a:job.on_stdout(a:data)
-  endfunction
-
-  function! s:_on_stderr(job, job_id, data, event) abort
-    call a:job.on_stderr(a:data)
-  endfunction
-endif
+function! s:_on_stderr(job, job_id, data, event) abort
+  if a:data == ['']
+    return
+  endif
+  call a:job.on_stderr(a:data)
+endfunction
 
 function! s:_on_exit(job, job_id, exitval, event) abort
   let a:job.__exitval = a:exitval
@@ -77,15 +67,6 @@ function! s:_jobpid_safe(job) abort
 endfunction
 
 " Instance -------------------------------------------------------------------
-function! s:_job_id() abort dict
-  if &verbose
-    echohl WarningMsg
-    echo 'vital: System.Job: job.id() is deprecated. Use job.pid() instead.'
-    echohl None
-  endif
-  return self.pid()
-endfunction
-
 function! s:_job_pid() abort dict
   return self.__pid
 endfunction
@@ -100,25 +81,13 @@ function! s:_job_status() abort dict
   endtry
 endfunction
 
-if exists('*chansend') " Neovim 0.2.3
-  function! s:_job_send(data) abort dict
-    return chansend(self.__job, a:data)
-  endfunction
-else
-  function! s:_job_send(data) abort dict
-    return jobsend(self.__job, a:data)
-  endfunction
-endif
+function! s:_job_send(data) abort dict
+  return self.__job->chansend(a:data)
+endfunction
 
-if exists('*chanclose') " Neovim 0.2.3
-  function! s:_job_close() abort dict
-    call chanclose(self.__job, 'stdin')
-  endfunction
-else
-  function! s:_job_close() abort dict
-    call jobclose(self.__job, 'stdin')
-  endfunction
-endif
+function! s:_job_close() abort dict
+  call chanclose(self.__job, 'stdin')
+endfunction
 
 function! s:_job_stop() abort dict
   try
@@ -146,12 +115,11 @@ function! s:_job_wait(...) abort dict
 endfunction
 
 " To make debug easier, use funcref instead.
-let s:job = {
-      \ 'id': funcref('s:_job_id'),
-      \ 'pid': funcref('s:_job_pid'),
-      \ 'status': funcref('s:_job_status'),
-      \ 'send': funcref('s:_job_send'),
-      \ 'close': funcref('s:_job_close'),
-      \ 'stop': funcref('s:_job_stop'),
-      \ 'wait': funcref('s:_job_wait'),
+let s:job = #{
+      \  pid: funcref('s:_job_pid'),
+      \  status: funcref('s:_job_status'),
+      \  send: funcref('s:_job_send'),
+      \  close: funcref('s:_job_close'),
+      \  stop: funcref('s:_job_stop'),
+      \  wait: funcref('s:_job_wait'),
       \}
