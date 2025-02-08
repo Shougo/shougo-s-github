@@ -36,15 +36,30 @@ call ddt#custom#patch_global(#{
       \   },
       \ })
 function! MyGitStatus()
-  if '.git'->finddir(';') ==# ''
+  const gitdir = '.git'->finddir(';')
+  if gitdir ==# ''
     return ''
   endif
 
-  " TODO: cache result
-  return printf(" %s%s",
+  if !'s:cached_status'->exists()
+    let s:cached_status = {}
+  endif
+
+  const full_gitdir = gitdir->fnamemodify(':p')
+  const gitdir_time = full_gitdir->getftime()
+  if !s:cached_status->has_key(full_gitdir)
+        \ || gitdir_time > s:cached_status[full_gitdir].timestamp
+    const status = printf(" %s%s",
         \   ['git', 'rev-parse', '--abbrev-ref','HEAD']->job#system(),
         \   ['git', 'status', '--short']->job#system()
         \ )->substitute('\n$', '', '')
+    let s:cached_status[full_gitdir] = #{
+          \   timestamp: gitdir_time,
+          \   status: status,
+          \ }
+  endif
+
+  return s:cached_status[full_gitdir].status
 endfunction
 
 " Set terminal colors
