@@ -42,8 +42,8 @@ function! MyGitStatus()
 
   " TODO: cache result
   return printf(" %s%s",
-        \   'git rev-parse --abbrev-ref HEAD'->system(),
-        \   'git status --short'->system()
+        \   ['git', 'rev-parse', '--abbrev-ref','HEAD']->job#system(),
+        \   ['git', 'status', '--short']->job#system()
         \ )->substitute('\n$', '', '')
 endfunction
 
