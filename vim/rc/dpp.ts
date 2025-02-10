@@ -239,7 +239,7 @@ export class Config extends BaseConfig {
       LazyParams,
     ] = await args.denops.dispatcher.getExt(
       "lazy",
-    ) as [LazyExt | undefined, ExtOptions, PackspecParams];
+    ) as [LazyExt | undefined, ExtOptions, LazyParams];
     let lazyResult: LazyMakeStateResult | undefined = undefined;
     if (lazyExt) {
       const action = lazyExt.actions.makeState;
