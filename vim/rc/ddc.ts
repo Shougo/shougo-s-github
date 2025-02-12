@@ -213,9 +213,15 @@ export class Config extends BaseConfig {
         "around",
       ],
     };
-    for (const filetype of [
-      "zsh", "sh", "bash", "ddt-shell", "ddt-terminal",
-    ]) {
+    for (
+      const filetype of [
+        "zsh",
+        "sh",
+        "bash",
+        "ddt-shell",
+        "ddt-terminal",
+      ]
+    ) {
       args.contextBuilder.patchFiletype(filetype, shellSourceOptions);
     }
 
