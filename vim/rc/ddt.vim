@@ -47,13 +47,16 @@ function! MyGitStatus()
 
   const full_gitdir = gitdir->fnamemodify(':p')
   const gitdir_time = full_gitdir->getftime()
+  const now = localtime()
   if !s:cached_status->has_key(full_gitdir)
         \ || gitdir_time > s:cached_status[full_gitdir].timestamp
+        \ || now < cached_status[full_gitdir].check + 60
     const status = printf(" %s%s",
         \   ['git', 'rev-parse', '--abbrev-ref','HEAD']->job#system(),
         \   ['git', 'status', '--short']->job#system()
         \ )->substitute('\n$', '', '')
     let s:cached_status[full_gitdir] = #{
+          \   check: now,
           \   timestamp: gitdir_time,
           \   status: status,
           \ }
