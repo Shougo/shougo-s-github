@@ -143,6 +143,28 @@ endfunction
 "autocmd User Ddu:uiDone ++nested
 "      \ call ddu#ui#async_action('openFilterWindow')
 
+autocmd MyAutoCmd User Ddu:uiOpenFilterWindow
+      \ call s:ddu_ff_filter_my_settings()
+function s:ddu_filter_my_settings() abort
+  set cursorline
+
+  call ddu#ui#ff#save_cmaps([
+        \  '<C-f>', '<C-b>',
+        \ ])
+
+  cnoremap <C-f>
+        \ <Cmd>call ddu#ui#do_action('cursorNext', #{ loop: v:true })<CR>
+  cnoremap <C-b>
+        \ <Cmd>call ddu#ui#do_action('cursorPrevious', #{ loop: v:true })<CR>
+endfunction
+autocmd MyAutoCmd User Ddu:uiCloseFilterWindow
+      \ call s:ddu_filter_cleanup()
+function s:ddu_filter_cleanup() abort
+  set nocursorline
+
+  call ddu#ui#ff#restore_cmaps()
+endfunction
+
 " Initialize ddu.vim lazily.
 if !'g:shougo_s_github_load_state'->exists()
   call timer_start(500, { _ -> LazyDdu() })

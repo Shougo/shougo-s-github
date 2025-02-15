@@ -138,27 +138,3 @@ nnoremap <buffer> M
       \   ],
       \ ])<CR>
 " }}}
-
-" hook_source {{{
-autocmd MyAutoCmd User Ddu:ui:ff:openFilterWindow
-      \ call s:ddu_ff_filter_my_settings()
-function s:ddu_ff_filter_my_settings() abort
-  set cursorline
-
-  call ddu#ui#ff#save_cmaps([
-        \  '<C-f>', '<C-b>',
-        \ ])
-
-  cnoremap <C-f>
-        \ <Cmd>call ddu#ui#do_action('cursorNext', #{ loop: v:true })<CR>
-  cnoremap <C-b>
-        \ <Cmd>call ddu#ui#do_action('cursorPrevious', #{ loop: v:true })<CR>
-endfunction
-autocmd MyAutoCmd User Ddu:ui:ff:closeFilterWindow
-      \ call s:ddu_ff_filter_cleanup()
-function s:ddu_ff_filter_cleanup() abort
-  set nocursorline
-
-  call ddu#ui#ff#restore_cmaps()
-endfunction
-" }}}
