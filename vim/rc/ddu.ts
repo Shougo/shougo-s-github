@@ -37,6 +37,10 @@ export class Config extends BaseConfig {
       ui: "ff",
       profile: false,
       uiOptions: {
+        _: {
+          filterInputFunc: "cmdline#input",
+          filterInputOptsFunc: "cmdline#input_opts",
+        },
         ff: {
           actions: {
             kensaku: async (args: {
@@ -75,8 +79,6 @@ export class Config extends BaseConfig {
             floating: "Normal",
             floatingBorder: "Special",
           },
-          inputFunc: "cmdline#input",
-          inputOptsFunc: "cmdline#input_opts",
           maxHighlightItems: 50,
           onPreview: async (args: {
             denops: Denops;
