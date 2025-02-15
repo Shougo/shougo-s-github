@@ -144,7 +144,7 @@ endfunction
 "      \ call ddu#ui#async_action('openFilterWindow')
 
 autocmd MyAutoCmd User Ddu:uiOpenFilterWindow
-      \ call s:ddu_ff_filter_my_settings()
+      \ call s:ddu_filter_my_settings()
 function s:ddu_filter_my_settings() abort
   set cursorline
 
