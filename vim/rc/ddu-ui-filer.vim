@@ -1,12 +1,14 @@
 " hook_add {{{
 nnoremap [Space]f <Cmd>Ddu
-      \ -name=filer-`win_getid()` -ui=filer -resume -sync file
+      \ -name=filer-`win_getid()` -ui=filer -resume
+      \ file
       \ -source-option-file-path=`t:->get('ddu_ui_filer_path', getcwd())`
       \ -source-option-file-limitPath=`getcwd()`
       \ -source-option-file-columns=filename
       \ <CR>
 nnoremap [Space]v <Cmd>Ddu
-      \ -name=filer-`win_getid()` -ui=filer -resume -sync file
+      \ -name=filer-`win_getid()` -ui=filer -resume
+      \ file
       \ -source-option-file-path=`t:->get('ddu_ui_filer_path', getcwd())`
       \ -source-option-file-limitPath=`getcwd()`
       \ -source-option-file-columns=filename

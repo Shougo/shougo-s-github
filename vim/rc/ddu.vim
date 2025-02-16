@@ -11,7 +11,6 @@ nnoremap ss
       \ file -source-option-file-volatile
       \ file -source-param-file-new -source-option-file-volatile
       \ -unique -expandInput
-      \ -sync
       \ -resume=`
       \      ddu#get_items(#{ sources: ['file_point'] })->empty()
       \    ? 'v:true'
