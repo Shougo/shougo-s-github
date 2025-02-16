@@ -147,7 +147,7 @@ autocmd MyAutoCmd User Ddu:uiOpenFilterWindow
 function s:ddu_filter_my_settings() abort
   set cursorline
 
-  call ddu#ui#ff#save_cmaps([
+  call ddu#ui#save_cmaps([
         \  '<C-f>', '<C-b>',
         \ ])
 
@@ -161,7 +161,7 @@ autocmd MyAutoCmd User Ddu:uiCloseFilterWindow
 function s:ddu_filter_cleanup() abort
   set nocursorline
 
-  call ddu#ui#ff#restore_cmaps()
+  call ddu#ui#restore_cmaps()
 endfunction
 
 " Initialize ddu.vim lazily.
