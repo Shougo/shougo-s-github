@@ -3,6 +3,7 @@
 ./configure \
 --with-features=huge \
 --with-compiledby="Shougo" \
+--enable-autoservername \
 --enable-multibyte \
 --enable-gui=gtk3 \
 --enable-python3interp \

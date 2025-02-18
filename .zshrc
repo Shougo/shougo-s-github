@@ -321,8 +321,6 @@ alias nvim='nvim \
     -V0 -n -u NONE --noplugin -S $HOME/.config/nvim/init.vim \
     $( [ ! -e $HOME/.cache/nvim/server.pipe ] && \
       echo "--listen $HOME/.cache/nvim/server.pipe" )'
-# Use Vim server feature
-alias vim='vim --servername vim'
 
 
 #####################################################################
