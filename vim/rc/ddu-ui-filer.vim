@@ -7,7 +7,7 @@ nnoremap [Space]f <Cmd>Ddu
       \ -source-option-file-columns=filename
       \ <CR>
 nnoremap [Space]v <Cmd>Ddu
-      \ -name=filer-`win_getid()` -ui=filer -resume
+      \ -name=filer-`win_getid()` -ui=filer -resume -sync
       \ file
       \ -source-option-file-path=`t:->get('ddu_ui_filer_path', getcwd())`
       \ -source-option-file-limitPath=`getcwd()`
