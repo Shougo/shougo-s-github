@@ -88,7 +88,7 @@ highlight Pmenu         gui=NONE guibg=#606060 guifg=fg
 highlight PmenuSel      gui=NONE guibg=#1f82cd guifg=#dddd00
 highlight PmenuSbar     gui=NONE guibg=#d6d6d6 guifg=fg
 highlight PmenuThumb    gui=NONE guibg=#ffffff guifg=#3cac3c
-highlight PmenuMatchIns gui=NONE guibg=NONE guifg=#4080cc
+highlight ComplMatchIns gui=NONE guibg=NONE guifg=#4080cc
 highlight PmenuMatchLead gui=NONE guibg=NONE guifg=#f8404c
 
 " Tab
@@ -99,7 +99,7 @@ highlight TablineFill   gui=NONE guibg=#c8c8d8 guifg=#252525
 " Others
 highlight Directory     gui=NONE guibg=NONE guifg=#40f0d0
 highlight LineNr        gui=NONE guibg=NONE guifg=#a0b0c0
-highlight NonText       gui=bold guibg=NONE guifg=#4080cc
+highlight NonText       gui=bold guibg=NONE guifg=#8080cc
 highlight SpecialKey    gui=bold guibg=NONE guifg=#8080ff
 highlight Title         gui=bold guibg=NONE guifg=#f0f0f8
 highlight Visual        gui=NONE guibg=#707080 guifg=#e0e0f0
