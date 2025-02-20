@@ -216,10 +216,10 @@ export class Config extends BaseConfig {
       },
       filterParams: {
         matcher_kensaku: {
-          highlightMatched: "Search",
+          highlightMatched: "PmenuMatch",
         },
         matcher_substring: {
-          highlightMatched: "Search",
+          highlightMatched: "PmenuMatch",
         },
         matcher_ignore_files: {
           ignoreGlobs: ["test_*.vim"],

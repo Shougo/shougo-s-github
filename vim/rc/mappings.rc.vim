@@ -117,8 +117,8 @@ nnoremap <expr> q
       \ ? ''
       \ : range(1, '$'->winnr())
       \   ->filter({_, val -> val !=# winnr() })
-      \   ->map({ _, val -> val->winbufnr()->getbufvar('&filetype') })
-      \   ->filter({_, val -> val !=# 'qf' && val !=# 'help' })
+      \   ->map({ _, val -> val->winbufnr()->getbufvar('&buftype') })
+      \   ->filter({_, val -> val !=# 'quickfix' && val !=# 'help' })
       \   ->len() > 0
       \ ? '<Cmd>close<CR>'
       \ : ''
