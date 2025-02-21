@@ -9,6 +9,7 @@ lua_source = '''
     ensure_installed = 'all',
     ignore_install = {
       'hoon',
+      'swift',
     },
     sync_install = true,
     additional_vim_regex_highlighting = false,
