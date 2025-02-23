@@ -9,6 +9,8 @@ lua_source = '''
     ensure_installed = 'all',
     ignore_install = {
       'hoon',
+      'mlir',
+      'ocamllex',
       'swift',
     },
     sync_install = true,
