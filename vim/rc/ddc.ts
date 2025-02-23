@@ -65,10 +65,6 @@ export class Config extends BaseConfig {
         buffer: {
           mark: "B",
         },
-        vim: {
-          mark: "vim",
-          isVolatile: true,
-        },
         cmdline: {
           isVolatile: true,
           mark: "cmdline",
@@ -77,17 +73,27 @@ export class Config extends BaseConfig {
           ],
           forceCompletionPattern: "\\S/\\S*|\\.\\w*",
         },
-        copilot: {
-          mark: "cop",
-          matchers: [],
-          minAutoCompleteLength: 0,
-          isVolatile: false,
+        cmdline_history: {
+          mark: "history",
+          sorters: [],
         },
         codeium: {
           mark: "cod",
           matchers: ["matcher_length"],
           minAutoCompleteLength: 0,
           isVolatile: true,
+        },
+        copilot: {
+          mark: "cop",
+          matchers: [],
+          minAutoCompleteLength: 0,
+          isVolatile: false,
+        },
+        file: {
+          mark: "F",
+          isVolatile: true,
+          minAutoCompleteLength: 1000,
+          forceCompletionPattern: "\\S/\\S*",
         },
         input: {
           mark: "input",
@@ -97,29 +103,24 @@ export class Config extends BaseConfig {
         line: {
           mark: "line",
         },
-        mocword: {
-          mark: "mocword",
-          minAutoCompleteLength: 4,
-          isVolatile: true,
-        },
         lsp: {
           mark: "lsp",
           forceCompletionPattern: "\\.\\w*|::\\w*|->\\w*",
           dup: "force",
         },
+        mocword: {
+          mark: "mocword",
+          minAutoCompleteLength: 4,
+          isVolatile: true,
+        },
+        rg: {
+          mark: "rg",
+          minAutoCompleteLength: 5,
+          enabledIf: "finddir('.git', ';') != ''",
+        },
         rtags: {
           mark: "R",
           forceCompletionPattern: "\\.\\w*|::\\w*|->\\w*",
-        },
-        file: {
-          mark: "F",
-          isVolatile: true,
-          minAutoCompleteLength: 1000,
-          forceCompletionPattern: "\\S/\\S*",
-        },
-        cmdline_history: {
-          mark: "history",
-          sorters: [],
         },
         shell: {
           mark: "sh",
@@ -127,24 +128,24 @@ export class Config extends BaseConfig {
           forceCompletionPattern: "\\S/\\S*",
           minAutoCompleteLength: 3,
         },
+        shell_history: {
+          mark: "history",
+          sorters: [],
+        },
         shell_native: {
           mark: "sh",
           forceCompletionPattern: "\\S/\\S*",
           minAutoCompleteLength: 3,
-        },
-        shell_history: {
-          mark: "history",
-        },
-        rg: {
-          mark: "rg",
-          minAutoCompleteLength: 5,
-          enabledIf: "finddir('.git', ';') != ''",
         },
         skkeleton: {
           mark: "skk",
           matchers: [],
           sorters: [],
           minAutoCompleteLength: 2,
+          isVolatile: true,
+        },
+        vim: {
+          mark: "vim",
           isVolatile: true,
         },
         yank: {
@@ -167,11 +168,11 @@ export class Config extends BaseConfig {
           enableMatchLabel: true,
           enableResolveItem: true,
         },
-        shell_native: {
-          shell: "zsh",
-        },
         shell_history: {
           paths: ["~/.cache/ddt-shell-history", "~/.zsh-history"],
+        },
+        shell_native: {
+          shell: "zsh",
         },
       },
       postFilters: ["sorter_head"],
