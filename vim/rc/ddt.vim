@@ -50,7 +50,7 @@ function! MyGitStatus()
   const now = localtime()
   if !s:cached_status->has_key(full_gitdir)
         \ || gitdir_time > s:cached_status[full_gitdir].timestamp
-        \ || now < s:cached_status[full_gitdir].check + 60
+        \ || now < s:cached_status[full_gitdir].check + 10
     const status = printf(" %s%s",
         \   ['git', 'rev-parse', '--abbrev-ref','HEAD']->job#system(),
         \   ['git', 'status', '--short']->job#system()
