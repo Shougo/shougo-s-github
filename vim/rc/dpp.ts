@@ -29,8 +29,8 @@ import type {
   Params as LazyParams,
 } from "jsr:@shougo/dpp-ext-lazy@~1.5.0";
 
-import type { Denops } from "jsr:@denops/std@~7.4.0";
-import * as fn from "jsr:@denops/std@~7.4.0/function";
+import type { Denops } from "jsr:@denops/std@~7.5.0";
+import * as fn from "jsr:@denops/std@~7.5.0/function";
 
 import { expandGlob } from "jsr:@std/fs@~1.0.0/expand-glob";
 

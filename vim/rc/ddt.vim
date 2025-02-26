@@ -24,9 +24,8 @@ call ddt#custom#patch_global(#{
       \   uiParams: #{
       \     shell: #{
       \       noSaveHistoryCommands: ['history'],
-      \       prompt: '%',
-      \       promptPattern: '\w*% \?',
-      \       userPrompt: "fnamemodify(getcwd(), ':~') .. MyGitStatus()",
+      \       userPrompt:
+      \         "'| ' .. fnamemodify(getcwd(), ':~') .. MyGitStatus()",
       \       shellHistoryPath: '~/.cache/ddt-shell-history'->expand(),
       \     },
       \     terminal: #{
@@ -52,9 +51,13 @@ function! MyGitStatus()
         \ || gitdir_time > s:cached_status[full_gitdir].timestamp
         \ || now < s:cached_status[full_gitdir].check + 10
     const status = printf(" %s%s",
-        \   ['git', 'rev-parse', '--abbrev-ref','HEAD']->job#system(),
-        \   ['git', 'status', '--short']->job#system()
-        \ )->substitute('\n$', '', '')
+          \   ['git', 'rev-parse', '--abbrev-ref','HEAD']->job#system(),
+          \   ['git', 'status', '--short']->job#system())
+          \ ->substitute('\n$', '', '')
+          \ ->split('\n')
+          \ ->map({ _, val -> '| ' .. val })
+          \ ->join("\n")
+          \ ->substitute('^| ', '', '')
     let s:cached_status[full_gitdir] = #{
           \   check: now,
           \   timestamp: gitdir_time,
