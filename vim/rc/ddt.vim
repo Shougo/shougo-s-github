@@ -51,8 +51,10 @@ function! MyGitStatus()
         \ || gitdir_time > s:cached_status[full_gitdir].timestamp
         \ || now < s:cached_status[full_gitdir].check + 10
     const status = printf(" %s%s",
-          \   ['git', 'rev-parse', '--abbrev-ref','HEAD']->job#system(),
-          \   ['git', 'status', '--short']->job#system())
+          \   ['git', 'rev-parse', '--abbrev-ref','HEAD']
+          \   ->job#system(),
+          \   ['git', 'status', '--short', '--ignore-submodules=all']
+          \   ->job#system())
           \ ->substitute('\n$', '', '')
           \ ->split('\n')
           \ ->map({ _, val -> '| ' .. val })
