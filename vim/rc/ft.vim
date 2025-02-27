@@ -94,6 +94,9 @@ setlocal shiftwidth=2 softtabstop=2 tabstop=2
 
 " typescript {{{
 setlocal shiftwidth=2
+
+" Disable GetTypescriptIndent()
+setlocal indentexpr=
 " }}}
 
 " toml {{{
