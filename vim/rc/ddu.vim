@@ -180,7 +180,3 @@ endif
 " hook_source {{{
 call ddu#custom#load_config('$BASE_DIR/ddu.ts'->expand())
 " }}}
-
-" hook_post_update {{{
-call ddu#set_static_import_path()
-" }}}

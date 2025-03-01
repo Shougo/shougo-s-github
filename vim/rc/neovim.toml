@@ -21,6 +21,7 @@ lua_source = '''
     indent = {
       enable = true,
       disable = {
+        'help',
         'toml',
       },
     },

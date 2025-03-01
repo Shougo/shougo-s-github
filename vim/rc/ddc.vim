@@ -134,7 +134,3 @@ call ddc#enable(#{
       \   context_filetype: has('nvim') ? 'treesitter' : 'none',
       \ })
 " }}}
-
-" hook_post_update {{{
-call ddc#set_static_import_path()
-" }}}
