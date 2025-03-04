@@ -16,9 +16,6 @@ if !&l:modifiable
   setlocal foldcolumn=0
   setlocal colorcolumn=
 endif
-
-" Disable conceal
-setlocal conceallevel=0
 " }}}
 
 " python {{{

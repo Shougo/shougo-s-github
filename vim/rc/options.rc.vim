@@ -301,8 +301,8 @@ set display=lastline
 " Display an invisible letter with hex format.
 set display+=uhex
 
-" For conceal.
-set conceallevel=2
+" Disable conceal.
+set conceallevel=0
 
 set colorcolumn=79
 
