@@ -16,6 +16,9 @@ if !&l:modifiable
   setlocal foldcolumn=0
   setlocal colorcolumn=
 endif
+
+" Disable conceal
+setlocal conceallevel=0
 " }}}
 
 " python {{{
@@ -56,7 +59,6 @@ setlocal nofoldenable
 setlocal iskeyword+=:
 setlocal iskeyword+=#
 setlocal iskeyword+=-
-setlocal conceallevel=0
 
 function! s:set_highlight(group) abort
   for group in ['helpBar', 'helpBacktick', 'helpStar', 'helpIgnore']
