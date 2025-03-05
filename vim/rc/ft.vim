@@ -1,10 +1,13 @@
 " _ {{{
 " Disable automatically insert comment.
-setl formatoptions-=t
-setl formatoptions-=c
-setl formatoptions-=r
-setl formatoptions-=o
-setl formatoptions+=mMBl
+setlocal formatoptions-=t
+setlocal formatoptions-=c
+setlocal formatoptions-=r
+setlocal formatoptions-=o
+setlocal formatoptions+=mMBl
+
+" Disable conceal
+setlocal conceallevel=0
 
 " Disable auto wrap.
 if &l:textwidth != 70 && &filetype !=# 'help'
