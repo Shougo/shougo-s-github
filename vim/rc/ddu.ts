@@ -2,11 +2,11 @@ import {
   type ActionArguments,
   ActionFlags,
   type DduOptions,
-} from "jsr:@shougo/ddu-vim@~10.0.0/types";
+} from "jsr:@shougo/ddu-vim@~10.1.0/types";
 import {
   BaseConfig,
   type ConfigArguments,
-} from "jsr:@shougo/ddu-vim@~10.0.0/config";
+} from "jsr:@shougo/ddu-vim@~10.1.0/config";
 import { type ActionData as FileAction } from "jsr:@shougo/ddu-kind-file@~0.9.0";
 import { type Params as FfParams } from "jsr:@shougo/ddu-ui-ff@~2.0.0";
 import { type Params as FilerParams } from "jsr:@shougo/ddu-ui-filer@~2.0.0";
@@ -270,7 +270,11 @@ export class Config extends BaseConfig {
           defaultAction: "browse",
         },
       },
-      kindParams: {},
+      kindParams: {
+        file: {
+          trashCommand: ["gtrash", "put"],
+        },
+      },
       actionOptions: {
         narrow: {
           quit: false,
