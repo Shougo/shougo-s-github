@@ -31,7 +31,6 @@ endif
 " Enable undo <C-w> and <C-u>.
 inoremap <C-w>  <C-g>u<C-w>
 inoremap <C-u>  <C-g>u<C-u>
-inoremap <C-k>  <C-o>D
 
 " Command-line mode keymappings:
 " <C-a>, A: move to head.

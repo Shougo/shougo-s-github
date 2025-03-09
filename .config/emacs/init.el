@@ -6,9 +6,24 @@
 (setq initial-scratch-message ";; Welcome to Emacs!\n\n")
 (setq initial-buffer-choice t)
 
+;; Change theme
+(load-theme 'tango-dark t)
+
+;; Change font size
+(set-face-attribute 'default nil :height 140)
+
 ;; Disable toolbar and menubar
 (tool-bar-mode -1)
 (menu-bar-mode -1)
+
+;; Revert buffers when files on disk change
+(global-auto-revert-mode 1)
+
+;; Delete selection if you insert
+(delete-selection-mode 1)
+
+;; Highlight matching paren
+(show-paren-mode 1)
 
 ;; Install straight.el
 (defvar bootstrap-version)
@@ -37,15 +52,13 @@
 ;; Set custom file
 (setq custom-file (locate-user-emacs-file "custom.el"))
 
-;; Revert buffers when files on disk change
-(global-auto-revert-mode 1)
+;; Emacs libvterm integration
+(use-package vterm
+  :ensure t)
 
-;; Delete selection if you insert
-(delete-selection-mode 1)
-
-;; Highlight matching paren
-(show-paren-mode 1)
-
+;; MisTTY, a shell/comint alternative with a fully functional terminal
+(use-package mistty
+  :ensure t)
 ;; Save minibuffer history
 (use-package savehist
   :custom `((savehist-file . ,(locate-user-emacs-file "savehist"))))
@@ -92,10 +105,3 @@
   :config
   (add-to-list 'completion-at-point-functions #'cape-file))
 
-;; Emacs libvterm integration
-(use-package vterm
-  :ensure t)
-
-;; MisTTY, a shell/comint alternative with a fully functional terminal
-(use-package mistty
-  :ensure t)
