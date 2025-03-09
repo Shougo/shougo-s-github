@@ -104,4 +104,3 @@
   :ensure t
   :config
   (add-to-list 'completion-at-point-functions #'cape-file))
-
