@@ -2,7 +2,6 @@
 nnoremap :       <Cmd>call CommandlinePre(':')<CR>:
 nnoremap ?       <Cmd>call CommandlinePre('/')<CR>?
 xnoremap :       <Cmd>call CommandlinePre(':')<CR>:
-nnoremap +       <Cmd>call CommandlinePre('dda')<CR>:Dda<Space>
 
 function! CommandlinePre(mode) abort
   " Overwrite sources
@@ -26,9 +25,6 @@ function! CommandlinePre(mode) abort
           \ : {} })
 
     "call ddc#custom#patch_buffer('ui', 'inline')
-  elseif a:mode ==# 'dda'
-    " For AI completion
-    call ddc#custom#patch_buffer('cmdlineSources', ['around', 'mocword'])
   endif
 
   autocmd MyAutoCmd User DDCCmdlineLeave ++once call CommandlinePost()
