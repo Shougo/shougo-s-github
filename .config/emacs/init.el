@@ -67,14 +67,14 @@
 
 ;; VERTical Interactive COmpletion
 (use-package vertico
+  :ensure t
+  :init (vertico-mode)
   :custom (
     ;; (vertico-scroll-margin 0) ;; Different scroll margin
     (vertico-count 10) ;; Show more candidates
     ;; (vertico-resize t) ;; Grow and shrink the Vertico minibuffer
     (vertico-cycle t) ;; Enable cycling for `vertico-next/previous'
-  )
-  :init (vertico-mode)
-  :ensure t)
+  ))
 
 ;; Use standard package
 ;(fido-vertical-mode +1)
@@ -94,17 +94,20 @@
 
 ;; Completion style for matching regexps in any order
 (use-package orderless
+  :ensure t
+
   :custom
   ;; Configure a custom style dispatcher (see the Consult wiki)
   ;; (orderless-style-dispatchers '(+orderless-consult-dispatch orderless-affix-dispatch))
   ;; (orderless-component-separator #'orderless-escapable-split-on-space)
   (completion-styles '(orderless basic))
   (completion-category-defaults nil)
-  (completion-category-overrides '((file (styles partial-completion))))
-  :ensure t)
+  (completion-category-overrides '((file (styles partial-completion)))))
 
 ;; Enrich existing commands with completion annotations
 (use-package marginalia
+  :ensure t
+
   ;; Bind `marginalia-cycle' locally in the minibuffer.  To make the binding
   ;; available in the *Completions* buffer, add it to the
   ;; `completion-list-mode-map'.
@@ -119,9 +122,18 @@
   ;; package.
   (marginalia-mode))
 
+;; Enable icons in marginalia
+;; M-x all-the-icons-install-fonts
+;(use-package all-the-icons
+;  :if (display-graphic-p))
+;(use-package all-the-icons-completion
+;  :after (marginalia all-the-icons)
+;  :hook (marginalia-mode . all-the-icons-completion-marginalia-setup)
+;  :init
+;  (all-the-icons-completion-mode))
+
 ;; Enrich existing commands with completion annotations
 (use-package consult
-  ;; "Consulting completing-read"
   :ensure t
   :hook (completion-list-mode-hook . consult-preview-at-point-mode))
 
@@ -131,16 +143,119 @@
   :custom ((affe-highlight-function . 'orderless-highlight-matches)
            (affe-regexp-function . 'orderless-pattern-compiler)))
 
+;; Embark actions
+(use-package embark
+  :ensure t
+
+  ;; When inside the minibuffer, `embark' can collect/export the
+  ;; contents to a fully fledged Emacs buffer.  The `embark-collect'
+  ;; command retains the original behaviour of the minibuffer, meaning
+  ;; that if you navigate over the candidate at hit RET, it will do what
+  ;; the minibuffer would have done.  In contrast, the `embark-export'
+  ;; command reads the metadata to figure out what category this is and
+  ;; places them in a buffer whose major mode is specialised for that
+  ;; type of content.  For example, when we are completing against
+  ;; files, the export will take us to a `dired-mode' buffer; when we
+  ;; preview the results of a grep, the export will put us in a
+  ;; `grep-mode' buffer.
+  :bind (("C-." . embark-act)
+         :map minibuffer-local-map
+         ("C-c C-c" . embark-collect)
+         ("C-c C-e" . embark-export))
+
+  :init
+
+  ;; Optionally replace the key help with a completing-read interface
+  (setq prefix-help-command #'embark-prefix-help-command)
+
+  ;; Show the Embark target at point via Eldoc. You may adjust the
+  ;; Eldoc strategy, if you want to see the documentation from
+  ;; multiple providers. Beware that using this can be a little
+  ;; jarring since the message shown in the minibuffer can be more
+  ;; than one line, causing the modeline to move up and down:
+
+  ;; (add-hook 'eldoc-documentation-functions #'embark-eldoc-first-target)
+  ;; (setq eldoc-documentation-strategy #'eldoc-documentation-compose-eagerly)
+
+  :config
+
+  ;; Hide the mode line of the Embark live/completions buffers
+  (add-to-list 'display-buffer-alist
+               '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+                 nil
+                 (window-parameters (mode-line-format . none)))))
+
 ;; Consult integration for Embark
 (use-package embark-consult
-  :ensure t)
+  :ensure t
+  :hook
+  (embark-collect-mode . consult-preview-at-point-mode))
 
 ;; COmpletion in Region FUnction
 (use-package corfu
-  :ensure t)
+  :ensure t
+  :custom ((corfu-auto t)
+           (corfu-auto-delay 0)
+           (corfu-auto-prefix 2)
+           (corfu-cycle t)
+           (corfu-on-exact-match t)
+           (tab-always-indent 'complete))
+  :bind (nil
+         :map corfu-map
+         ("TAB" . corfu-insert)
+         ("<tab>" . corfu-insert)
+         ("RET" . nil)
+         ("<return>" . nil))
+  :init
+  (global-corfu-mode +1)
+
+  :config
+  (defun my/corfu-remap-tab-command ()
+    (global-set-key [remap c-indent-line-or-region] #'indent-for-tab-command))
+  (add-hook 'java-mode-hook #'my/corfu-remap-tab-command)
+
+  ;; https://github.com/minad/corfu#completing-in-the-minibuffer
+  (defun corfu-enable-always-in-minibuffer ()
+    "Enable Corfu in the minibuffer if Vertico/Mct are not active."
+    (unless (or (bound-and-true-p mct--active)
+                (bound-and-true-p vertico--input))
+      ;; (setq-local corfu-auto nil) ;; Enable/disable auto completion
+      (setq-local corfu-echo-delay nil ;; Disable automatic echo and popup
+                  corfu-popupinfo-delay nil)
+      (corfu-mode 1)))
+  (add-hook 'minibuffer-setup-hook #'corfu-enable-always-in-minibuffer 1)
+
+  ;; Use corfu on lsp-mode
+  (with-eval-after-load 'lsp-mode
+    (setq lsp-completion-provider :none)))
+
+;; Enable corfu on terminal
+(straight-use-package
+ '(corfu-terminal
+   :type git
+   :repo "https://codeberg.org/akib/emacs-corfu-terminal.git"))
+(unless (display-graphic-p)
+  (corfu-terminal-mode +1))
 
 ;; Completion At Point Extensions
 (use-package cape
   :ensure t
-  :config
-  (add-to-list 'completion-at-point-functions #'cape-file))
+  ;; Bind prefix keymap providing all Cape commands under a mnemonic key.
+  ;; Press C-c p ? to for help.
+  :bind ("C-c p" . cape-prefix-map) ;; Alternative key: M-<tab>, M-p, M-+
+  ;; Alternatively bind Cape commands individually.
+  ;; :bind (("C-c p d" . cape-dabbrev)
+  ;;        ("C-c p h" . cape-history)
+  ;;        ("C-c p f" . cape-file)
+  ;;        ...)
+  :init
+  ;; Add to the global default value of `completion-at-point-functions' which is
+  ;; used by `completion-at-point'.  The order of the functions matters, the
+  ;; first function returning a result wins.  Note that the list of buffer-local
+  ;; completion functions takes precedence over the global list.
+  (add-hook 'completion-at-point-functions #'cape-dabbrev)
+  (add-hook 'completion-at-point-functions #'cape-file)
+  (add-hook 'completion-at-point-functions #'cape-elisp-block)
+  ;; (add-hook 'completion-at-point-functions #'cape-history)
+  ;; ...
+)
