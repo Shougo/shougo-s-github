@@ -276,9 +276,9 @@ lua_source = '''
       if not vim.tbl_contains({
         'help',
         'html',
-        'yaml',
         'markdown',
         'vim',
+        'yaml',
       }, vim.bo.filetype) then
         require('anydent').attach()
       end
