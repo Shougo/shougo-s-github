@@ -24,6 +24,7 @@ lua_source = '''
       disable = {
         'help',
         'toml',
+        'vim',
       },
     },
   }
@@ -273,9 +274,11 @@ lua_source = '''
   vim.api.nvim_create_autocmd('FileType', {
     callback = function()
       if not vim.tbl_contains({
+        'help',
         'html',
         'yaml',
         'markdown',
+        'vim',
       }, vim.bo.filetype) then
         require('anydent').attach()
       end
