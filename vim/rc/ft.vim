@@ -73,8 +73,9 @@ function! s:right_align(linenr) abort
   if m->empty()
     return
   endif
-  call setline(a:linenr, m[1] .. ' '->repeat(
-        \ &l:textwidth - len(m[1]) - len(m[2])) .. m[2])
+
+  const spaces = ' '->repeat(&l:textwidth - len(m[1]) - len(m[2]))
+  call setline(a:linenr, m[1] .. spaces .. m[2])
 endfunction
 function! s:right_aligns(start, end) abort
   for linenr in range(a:start, a:end)
