@@ -159,6 +159,7 @@
   ;; preview the results of a grep, the export will put us in a
   ;; `grep-mode' buffer.
   :bind (("C-." . embark-act)
+         ("C-;" . embark-dwim)
          :map minibuffer-local-map
          ("C-c C-c" . embark-collect)
          ("C-c C-e" . embark-export))
