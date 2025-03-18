@@ -161,6 +161,7 @@
   :bind (("C-." . embark-act)
          ("C-;" . embark-dwim)
          :map minibuffer-local-map
+         ("C-c C-b" . embark-become)
          ("C-c C-c" . embark-collect)
          ("C-c C-e" . embark-export))
 
