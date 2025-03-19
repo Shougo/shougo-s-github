@@ -2,11 +2,11 @@ import {
   type ActionArguments,
   ActionFlags,
   type DduOptions,
-} from "jsr:@shougo/ddu-vim@~10.1.0/types";
+} from "jsr:@shougo/ddu-vim@~10.2.0/types";
 import {
   BaseConfig,
   type ConfigArguments,
-} from "jsr:@shougo/ddu-vim@~10.1.0/config";
+} from "jsr:@shougo/ddu-vim@~10.2.0/config";
 import { type ActionData as FileAction } from "jsr:@shougo/ddu-kind-file@~0.9.0";
 import { type Params as FfParams } from "jsr:@shougo/ddu-ui-ff@~2.0.0";
 import { type Params as FilerParams } from "jsr:@shougo/ddu-ui-filer@~2.0.0";
@@ -233,24 +233,27 @@ export class Config extends BaseConfig {
         file: {
           defaultAction: "open",
           actions: {
-            grep: async (args: ActionArguments<Params>) => {
-              const action = args.items[0]?.action as FileAction;
+            grep: {
+              description: "Grep from the path.",
+              callback: async (args: ActionArguments<Params>) => {
+                const action = args.items[0]?.action as FileAction;
 
-              await args.denops.call("ddu#start", {
-                name: args.options.name,
-                push: true,
-                sources: [
-                  {
-                    name: "rg",
-                    params: {
-                      path: action.path,
-                      input: await fn.input(args.denops, "Pattern: "),
+                await args.denops.call("ddu#start", {
+                  name: args.options.name,
+                  push: true,
+                  sources: [
+                    {
+                      name: "rg",
+                      params: {
+                        path: action.path,
+                        input: await fn.input(args.denops, "Pattern: "),
+                      },
                     },
-                  },
-                ],
-              });
+                  ],
+                });
 
-              return Promise.resolve(ActionFlags.None);
+                return Promise.resolve(ActionFlags.None);
+              },
             },
           },
         },
