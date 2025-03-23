@@ -1,7 +1,7 @@
-import {
-  type ContextBuilder,
-  type ExtOptions,
-  type Plugin,
+import type {
+  ContextBuilder,
+  ExtOptions,
+  Plugin,
 } from "jsr:@shougo/dpp-vim@~4.1.0/types";
 import {
   BaseConfig,
