@@ -25,10 +25,7 @@ set shortmess=aTIcFoOsSW showtabline=0 laststatus=0
 set noruler noshowcmd noshowmode
 
 " Disable statusline.
-set statusline=%{'　'->repeat(winwidth(0)/2)}
-"if has('nvim')
-"  set statusline=%{'─'->repeat(&columns)}
-"endif
+set statusline=%{'\ '->repeat(winwidth(0))}
 
 " Set laststatus=3 automatically
 "if has('nvim')
