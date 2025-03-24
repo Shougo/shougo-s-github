@@ -196,11 +196,12 @@
 ;; COmpletion in Region FUnction
 (use-package corfu
   :ensure t
-  :custom ((corfu-auto t)
-           (corfu-auto-delay 0)
+  :custom ((corfu-auto nil)
+           (corfu-auto-delay 0.2)
            (corfu-auto-prefix 2)
            (corfu-cycle t)
            (corfu-on-exact-match t)
+           (corfu-quit-no-match 'separator)
            (tab-always-indent 'complete))
   :bind (nil
          :map corfu-map
@@ -227,17 +228,37 @@
       (corfu-mode 1)))
   (add-hook 'minibuffer-setup-hook #'corfu-enable-always-in-minibuffer 1)
 
+  (add-hook 'eshell-mode-hook (lambda ()
+                                (setq-local corfu-auto nil)
+                                (corfu-mode)))
+
   ;; Use corfu on lsp-mode
   (with-eval-after-load 'lsp-mode
     (setq lsp-completion-provider :none)))
 
 ;; Enable corfu on terminal
+;; NOTE: Only required below Emacs 31
 (straight-use-package
  '(corfu-terminal
    :type git
    :repo "https://codeberg.org/akib/emacs-corfu-terminal.git"))
 (unless (display-graphic-p)
   (corfu-terminal-mode +1))
+
+(use-package corfu-candidate-overlay
+   :straight (:type git
+              :repo "https://code.bsdgeek.org/adam/corfu-candidate-overlay"
+              :files (:defaults "*.el"))
+   :after corfu
+   :config
+   ;; enable corfu-candidate-overlay mode globally
+   ;; this relies on having corfu-auto set to nil
+   (corfu-candidate-overlay-mode +1)
+   ;; bind Ctrl + TAB to trigger the completion popup of corfu
+   (global-set-key (kbd "C-<tab>") 'completion-at-point)
+   ;; bind Ctrl + Shift + Tab to trigger completion of the first candidate
+   ;; (keybing <iso-lefttab> may not work for your keyboard model)
+   (global-set-key (kbd "C-<iso-lefttab>") 'corfu-candidate-overlay-complete-at-point))
 
 ;; Completion At Point Extensions
 (use-package cape
