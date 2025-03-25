@@ -2,9 +2,9 @@
 (global-set-key (kbd "C-h") 'delete-backward-char)
 
 ;; Use *scratch* buffer as initial buffer
-(setq inhibit-startup-message t)
-(setq initial-scratch-message ";; Welcome to Emacs!\n\n")
-(setq initial-buffer-choice t)
+(setopt inhibit-startup-message t)
+(setopt initial-scratch-message ";; Welcome to Emacs!\n\n")
+(setopt initial-buffer-choice t)
 
 ;; Change theme
 (load-theme 'tango-dark t)
@@ -17,13 +17,13 @@
 (menu-bar-mode -1)
 
 ;; Revert buffers when files on disk change
-(global-auto-revert-mode +1)
+(global-auto-revert-mode t)
 
 ;; Delete selection if you insert
-(delete-selection-mode +1)
+(delete-selection-mode t)
 
 ;; Highlight matching paren
-(show-paren-mode +1)
+(show-paren-mode t)
 
 ;; Install straight.el
 (defvar bootstrap-version)
@@ -44,13 +44,16 @@
 ;;
 
 ;; Fallback to straight.el
-(setq straight-use-package-by-default t)
+(setopt straight-use-package-by-default t)
 
 ;; init-loader
 (use-package init-loader)
 
 ;; Set custom file
-(setq custom-file (locate-user-emacs-file "custom.el"))
+(setopt custom-file (locate-user-emacs-file "custom.el"))
+(unless (file-exists-p custom-file)
+ (write-region "" nil custom-file))
+(load custom-file)
 
 ;; Emacs libvterm integration
 (use-package vterm
@@ -77,7 +80,7 @@
   ))
 
 ;; Use standard package
-;(fido-vertical-mode +1)
+;(fido-vertical-mode t)
 
 ;; Emacs minibuffer configurations.
 (use-package emacs
@@ -168,7 +171,7 @@
   :init
 
   ;; Optionally replace the key help with a completing-read interface
-  (setq prefix-help-command #'embark-prefix-help-command)
+  (setopt prefix-help-command #'embark-prefix-help-command)
 
   ;; Show the Embark target at point via Eldoc. You may adjust the
   ;; Eldoc strategy, if you want to see the documentation from
@@ -177,7 +180,7 @@
   ;; than one line, causing the modeline to move up and down:
 
   ;; (add-hook 'eldoc-documentation-functions #'embark-eldoc-first-target)
-  ;; (setq eldoc-documentation-strategy #'eldoc-documentation-compose-eagerly)
+  ;; (setopt eldoc-documentation-strategy #'eldoc-documentation-compose-eagerly)
 
   :config
 
@@ -210,7 +213,7 @@
          ("RET" . nil)
          ("<return>" . nil))
   :init
-  (global-corfu-mode +1)
+  (global-corfu-mode t)
 
   :config
   (defun my/corfu-remap-tab-command ()
@@ -234,16 +237,7 @@
 
   ;; Use corfu on lsp-mode
   (with-eval-after-load 'lsp-mode
-    (setq lsp-completion-provider :none)))
-
-;; Enable corfu on terminal
-;; NOTE: Only required below Emacs 31
-(straight-use-package
- '(corfu-terminal
-   :type git
-   :repo "https://codeberg.org/akib/emacs-corfu-terminal.git"))
-(unless (display-graphic-p)
-  (corfu-terminal-mode +1))
+    (setopt lsp-completion-provider :none)))
 
 (use-package corfu-candidate-overlay
    :straight (:type git
@@ -253,7 +247,7 @@
    :config
    ;; enable corfu-candidate-overlay mode globally
    ;; this relies on having corfu-auto set to nil
-   (corfu-candidate-overlay-mode +1)
+   (corfu-candidate-overlay-mode t)
    ;; bind Ctrl + TAB to trigger the completion popup of corfu
    (global-set-key (kbd "C-<tab>") 'completion-at-point)
    ;; bind Ctrl + Shift + Tab to trigger completion of the first candidate
