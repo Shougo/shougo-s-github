@@ -1,5 +1,6 @@
 [[plugins]]
 repo = 'Shougo/dpp.vim'
+description = 'Dark powered plugin manager for Vim/Neovim'
 rtp = ''
 
 [[plugins]]

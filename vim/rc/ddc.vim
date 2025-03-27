@@ -61,7 +61,7 @@ inoremap <C-n>   <Cmd>call pum#map#select_relative(+1)<CR>
 inoremap <C-p>   <Cmd>call pum#map#select_relative(-1)<CR>
 "inoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
 inoremap <C-y>   <Cmd>call pum#map#confirm_suffix()<CR>
-inoremap <C-o>   <Cmd>call pum#map#confirm_word()<CR>
+inoremap <C-o>   <Cmd>call pum#map#confirm_matched_pattern('^\S\+')<CR>
 inoremap <Home>  <Cmd>call pum#map#insert_relative(-9999, 'ignore')<CR>
 inoremap <End>   <Cmd>call pum#map#insert_relative(+9999, 'ignore')<CR>
 inoremap <C-g>   <Cmd>call pum#map#toggle_preview()<CR>
