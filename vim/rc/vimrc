@@ -87,7 +87,7 @@ endif
 "---------------------------------------------------------------------------
 
 if !argv()->empty()
-  autocmd MyAutoCmd CursorHold * call vimrc#on_filetype()
+  autocmd MyAutoCmd VimEnter * call vimrc#on_filetype()
 endif
 
 set secure

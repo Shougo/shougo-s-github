@@ -317,7 +317,9 @@ set signcolumn=no
 "set cedit=
 execute "set cedit=\<C-s>"
 
-set redrawtime=0
+" NOTE: It must not set to 0.
+" It disables treesitter async parsing
+set redrawtime=1000
 
 " I use <C-w> in terminal mode
 if '+termwinkey'->exists()

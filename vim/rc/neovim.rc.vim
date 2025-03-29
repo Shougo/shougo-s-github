@@ -16,9 +16,9 @@ let g:loaded_ruby_provider = v:false
 " Disable remote plugin loading
 let g:loaded_remote_plugins = v:true
 
-" NOTE: Disable treesitter async parsing now
+" NOTE: Disable treesitter async parsing
 " https://github.com/neovim/neovim/pull/31631
-let g:_ts_force_sync_parsing = v:true
+"let g:_ts_force_sync_parsing = v:true
 
 let g:python3_host_prog = has('win32') ? 'python.exe' : 'python3'
 
