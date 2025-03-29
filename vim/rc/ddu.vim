@@ -54,7 +54,7 @@ nnoremap ;a <Cmd>Ddu
       \ -source-option-rg-volatile
       \ <CR>
 nnoremap n <Cmd>Ddu
-      \ -name=search -resume -refresh
+      \ -name=search -resume
       \ <CR>
 nnoremap ;r <Cmd>Ddu
       \ -name=register register
