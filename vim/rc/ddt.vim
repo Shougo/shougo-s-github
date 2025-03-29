@@ -144,11 +144,9 @@ nnoremap <buffer> <C-h> <Cmd>Ddu -name=ddt -sync
 augroup ddt-ui-terminal
   autocmd!
   autocmd DirChanged <buffer>
-        \ :if t:->get('ddt_ui_terminal_directory') !=# v:event.cwd
-        \ | call ddt#ui#do_action('cd', #{
-        \     directory: v:event.cwd,
-        \   })
-        \ | endif
+        \ call ddt#ui#do_action('cd', #{
+        \   directory: v:event.cwd,
+        \ })
 augroup END
 
 if exists('b:ddt_terminal_directory')
@@ -200,11 +198,9 @@ nnoremap <buffer> <C-h> <Cmd>Ddu -name=ddt -sync
 augroup ddt-ui-shell
   autocmd!
   autocmd DirChanged <buffer>
-        \ :if t:->get('ddt_ui_shell_directory') !=# v:event.cwd
-        \ | call ddt#ui#do_action('cd', #{
-        \     directory: v:event.cwd,
-        \   })
-        \ | endif
+        \ call ddt#ui#do_action('cd', #{
+        \   directory: v:event.cwd,
+        \ })
 augroup END
 
 if exists('b:ddt_shell_directory')
