@@ -76,7 +76,7 @@ if '~/.secret_vimrc'->expand()->filereadable()
   source ~/.secret_vimrc
 endif
 
-const base_path = '<sfile>'->expand()->fnamemodify(':h')
+const base_path = '<sfile>:h'->expand()
 
 execute 'source' base_path .. '/dpp.vim'
 

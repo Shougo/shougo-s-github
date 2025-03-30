@@ -1,1 +1,1 @@
-execute 'source' $"{'<sfile>'->expand()->fnamemodify(':h')}/rc/vimrc"
+execute 'source' $"{'<sfile>:h'->expand()}/rc/vimrc"
