@@ -45,10 +45,7 @@ function s:config_treesitter()
         --'help',
       }
       local disables_lang = {
-        'vimdoc',
         'diff',
-        'gitcommit',
-        'swift',
         'latex',
       }
 

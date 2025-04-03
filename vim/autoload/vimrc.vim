@@ -102,7 +102,7 @@ function vimrc#on_filetype() abort
     " NOTE: filetype detect does not work on startup
     silent filetype detect
 
-    if has('nvim')
+    if has('nvim') && bufnr()->bufloaded()
       lua <<END
       if vim.treesitter.get_parser(nil, nil, { error = false }) then
         vim.treesitter.start()
