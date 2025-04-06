@@ -1,7 +1,12 @@
 " hook_add {{{
-nnoremap :       <Cmd>call CommandlinePre(':')<CR>:
-nnoremap ?       <Cmd>call CommandlinePre('/')<CR>?
-xnoremap :       <Cmd>call CommandlinePre(':')<CR>:
+nnoremap :
+      \ <Cmd>call CommandlinePre(':')<CR>:
+nnoremap ?
+      \ <Cmd>call CommandlinePre('/')<CR>?
+xnoremap :
+      \ <Cmd>call CommandlinePre(':')<CR>:
+nnoremap ;
+      \ <Cmd>call cmdline#enable()<CR><Cmd>call CommandlinePre(':')<CR>:
 
 function! CommandlinePre(mode) abort
   " Overwrite sources
