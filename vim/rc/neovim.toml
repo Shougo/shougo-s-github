@@ -163,6 +163,14 @@ on_source = 'nvim-lspconfig'
 depends = 'ddc-source-lsp'
 lua_source = '''
   -- https://zenn.dev/kawarimidoll/articles/2b57745045b225
+  require('mason-lspconfig').setup({
+    automatic_installation = true,
+    ensure_installed = {
+        'deno',
+        'gopls',
+        'lua_ls',
+    }
+  }
   require('mason-lspconfig').setup_handlers({
     function(server_name)
       local nvim_lsp = require('lspconfig')

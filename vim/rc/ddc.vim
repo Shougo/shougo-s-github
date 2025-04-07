@@ -5,8 +5,9 @@ nnoremap ?
       \ <Cmd>call CommandlinePre('/')<CR>?
 xnoremap :
       \ <Cmd>call CommandlinePre(':')<CR>:
-nnoremap ;
+nnoremap ;;
       \ <Cmd>call cmdline#enable()<CR><Cmd>call CommandlinePre(':')<CR>:
+nnoremap ;  <Nop>
 
 function! CommandlinePre(mode) abort
   " Overwrite sources
