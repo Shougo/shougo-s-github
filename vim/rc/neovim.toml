@@ -170,7 +170,7 @@ lua_source = '''
         'gopls',
         'lua_ls',
     }
-  }
+  })
   require('mason-lspconfig').setup_handlers({
     function(server_name)
       local nvim_lsp = require('lspconfig')
