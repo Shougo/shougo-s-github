@@ -1,12 +1,14 @@
 " hook_add {{{
 nnoremap s<Space> <Cmd>Ddu
-      \ -name=files file
+      \ -name=files
+      \ file
       \ -source-option-file-path=`'$BASE_DIR'->expand()`
       \ -ui-param-ff-split=`has('nvim') ? 'floating' : 'horizontal'`
       \ -resume
       \ <CR>
-nnoremap ss
-      \ <Cmd>Ddu -name=files file_point file_old
+nnoremap ss <Cmd>Ddu -name=files
+      \ -name=files-`win_getid()`
+      \ file_point file_old
       \ `'.git'->finddir(';') != '' ? 'file_git' : ''`
       \ file -source-option-file-volatile
       \ file -source-param-file-new -source-option-file-volatile
@@ -163,18 +165,6 @@ function s:ddu_filter_cleanup() abort
 
   call ddu#ui#restore_cmaps()
 endfunction
-
-" Initialize ddu.vim lazily.
-if !'g:shougo_s_github_load_state'->exists()
-  call timer_start(500, { _ -> LazyDdu() })
-  function LazyDdu()
-    call ddu#load('files', 'ui', ['ff'])
-    call ddu#load('files', 'kind', ['file'])
-    call ddu#load('files', 'source',
-          \   ['file_point', 'file_old', 'file_git', 'file']
-          \ )
-  endfunction
-endif
 " }}}
 
 " hook_source {{{

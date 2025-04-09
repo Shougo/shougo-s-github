@@ -23,15 +23,15 @@ type DppAction = {
 
 export class Config extends BaseConfig {
   override config(args: ConfigArguments): Promise<void> {
-    args.setAlias("files", "source", "file_rg", "file_external");
-    args.setAlias("files", "source", "file_git", "file_external");
+    args.setAlias("_", "source", "file_rg", "file_external");
+    args.setAlias("_", "source", "file_git", "file_external");
     args.setAlias(
-      "files",
+      "_",
       "filter",
       "matcher_ignore_current_buffer",
       "matcher_ignores",
     );
-    args.setAlias("files", "action", "tabopen", "open");
+    args.setAlias("_", "action", "tabopen", "open");
 
     args.contextBuilder.patchGlobal({
       ui: "ff",
