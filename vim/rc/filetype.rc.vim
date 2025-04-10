@@ -58,6 +58,40 @@ autocmd MyAutoCmd BufWritePost * nested
       \ |   call s:chmod('<afile>'->expand())
       \ | endif
 
+" Make directory automatically.
+autocmd MyAutoCmd BufWritePre * nested
+      \ call s:mkdir_as_necessary('<afile>:p:h'->expand(), v:cmdbang)
+function s:mkdir_as_necessary(dir, force) abort
+  if a:dir->isdirectory() || &l:buftype !=# ''
+    return
+  endif
+
+  const message = printf('"%s" does not exist. Create? [y/N] ', a:dir)
+  if a:force || message->input() =~? '^y\%[es]$'
+    call mkdir(a:dir->iconv(&encoding, &termencoding), 'p')
+  endif
+endfunction
+
+" Remove saved empty file automatically.
+autocmd MyAutoCmd BufWritePost * nested
+      \ call s:remove_empty_file('<afile>:p'->expand())
+function s:remove_empty_file(file) abort
+  if !a:file->filereadable()
+        \ || &l:buftype !=# ''
+        \ || a:file->readfile('', 1)->len() > 0
+    return
+  endif
+
+  const message = printf('"%s" is empty. Remove? [y/N] ', a:file)
+  if message->input() !~? '^y\%[es]$'
+    return
+  endif
+
+  enew
+  call delete(a:file)
+  execute 'bdelete' a:file->bufnr()
+endfunction
+
 " For zsh "edit-command-line".
 autocmd MyAutoCmd BufRead /tmp/* setlocal wrap
 

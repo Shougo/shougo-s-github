@@ -134,20 +134,6 @@ autocmd MyAutoCmd InsertLeave *
 
 set diffopt=internal,algorithm:patience,indent-heuristic
 
-" Make directory automatically.
-autocmd MyAutoCmd BufWritePre *
-      \ call s:mkdir_as_necessary('<afile>:p:h'->expand(), v:cmdbang)
-function s:mkdir_as_necessary(dir, force) abort
-  if a:dir->isdirectory() || &l:buftype !=# ''
-    return
-  endif
-
-  const message = printf('"%s" does not exist. Create? [y/N] ', a:dir)
-  if a:force || message->input() =~? '^y\%[es]$'
-    call mkdir(a:dir->iconv(&encoding, &termencoding), 'p')
-  endif
-endfunction
-
 " Use autofmt.
 set formatexpr=autofmt#japanese#formatexpr()
 
