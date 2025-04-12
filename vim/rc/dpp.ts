@@ -187,10 +187,10 @@ export class Config extends BaseConfig {
 
       for (const plugin of localPlugins) {
         if (plugin.name in recordPlugins) {
-          recordPlugins[plugin.name] = Object.assign(
-            recordPlugins[plugin.name],
-            plugin,
-          );
+          recordPlugins[plugin.name] = {
+            ...recordPlugins[plugin.name],
+            ...plugin,
+          };
         } else {
           recordPlugins[plugin.name] = plugin;
         }
@@ -222,10 +222,10 @@ export class Config extends BaseConfig {
 
       for (const plugin of packSpecPlugins) {
         if (plugin.name in recordPlugins) {
-          recordPlugins[plugin.name] = Object.assign(
-            recordPlugins[plugin.name],
-            plugin,
-          );
+          recordPlugins[plugin.name] = {
+            ...recordPlugins[plugin.name],
+            ...plugin,
+          };
         } else {
           recordPlugins[plugin.name] = plugin;
         }
