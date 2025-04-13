@@ -71,7 +71,7 @@ export class Config extends BaseConfig {
           matchers: [
             "matcher_length",
           ],
-          forceCompletionPattern: "\\S/\\S*|\\.\\w*",
+          forceCompletionPattern: String.raw`\S/\S*|\.\w*`,
         },
         cmdline_history: {
           mark: "history",
@@ -93,11 +93,11 @@ export class Config extends BaseConfig {
           mark: "F",
           isVolatile: true,
           minAutoCompleteLength: 1000,
-          forceCompletionPattern: "\\S/\\S*",
+          forceCompletionPattern: String.raw`\S/\S*`,
         },
         input: {
           mark: "input",
-          forceCompletionPattern: "\\S/\\S*",
+          forceCompletionPattern: String.raw`\S/\S*`,
           isVolatile: true,
         },
         line: {
@@ -105,7 +105,7 @@ export class Config extends BaseConfig {
         },
         lsp: {
           mark: "lsp",
-          forceCompletionPattern: "\\.\\w*|::\\w*|->\\w*",
+          forceCompletionPattern: String.raw`\.\w*|::\w*|->\w*`,
           dup: "force",
         },
         mocword: {
@@ -120,12 +120,12 @@ export class Config extends BaseConfig {
         },
         rtags: {
           mark: "R",
-          forceCompletionPattern: "\\.\\w*|::\\w*|->\\w*",
+          forceCompletionPattern: String.raw`\.\w*|::\w*|->\w*`,
         },
         shell: {
           mark: "sh",
           isVolatile: true,
-          forceCompletionPattern: "\\S/\\S*",
+          forceCompletionPattern: String.raw`\S/\S*`,
           minAutoCompleteLength: 3,
         },
         shell_history: {
@@ -134,7 +134,7 @@ export class Config extends BaseConfig {
         },
         shell_native: {
           mark: "sh",
-          forceCompletionPattern: "\\S/\\S*",
+          forceCompletionPattern: String.raw`\S/\S*`,
           minAutoCompleteLength: 3,
         },
         skkeleton: {
