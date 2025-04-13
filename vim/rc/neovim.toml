@@ -162,84 +162,90 @@ repo = 'williamboman/mason-lspconfig.nvim'
 on_source = 'nvim-lspconfig'
 depends = ['mason.nvim', 'ddc-source-lsp']
 lua_source = '''
-  -- https://zenn.dev/kawarimidoll/articles/2b57745045b225
+  local ensure_installed = {
+    'denols',
+    'gopls',
+    'lua_ls',
+    'rust_analyzer',
+    'solargraph',
+    'vtsls',
+  }
+
+  -- https://zenn.dev/pandanoir/articles/4736924f5ecc72
   require('mason-lspconfig').setup({
     automatic_installation = true,
-    ensure_installed = {
-        'denols',
-        'gopls',
-        'lua_ls',
-    }
+    ensure_installed = ensure_installed,
   })
-  require('mason-lspconfig').setup_handlers({
-    function(server_name)
-      local nvim_lsp = require('lspconfig')
-      local opts = {}
 
-      if server_name == 'vtsls' then
-        -- NOTE: Must be node directory
-        if vim.fn.findfile('package.json', '.;') == '' then
-          return
-        end
+  vim.lsp.config('solargraph', {
+    single_file_support = true,
+    capabilities = {},
+  })
 
-        opts.root_dir = nvim_lsp.util.root_pattern('package.json')
-      elseif server_name == 'denols' then
-        -- NOTE: Disable denols.  It is too slow.
-        -- Disable nest.land imports
-        -- https://github.com/neovim/nvim-lspconfig/pull/2793
-        opts = {
-          settings = {
-            deno = {
-              suggest = {
-                imports = {
-                  autoDiscover = false,
-                  hosts = {
-                    ['https://x.nest.land'] = false,
-                  },
-                },
-              },
-            },
+  vim.lsp.config('rust_analyzer', {
+    capabilities = require("ddc_source_lsp").make_client_capabilities(),
+  })
+
+  vim.lsp.config('lua_ls', {
+    settings = {
+      Lua = {
+        runtime = {
+          -- Tell the language server which version of Lua you're using
+          -- (most likely LuaJIT in the case of Neovim)
+          version = 'LuaJIT',
+        },
+        diagnostics = {
+          -- Get the language server to recognize the `vim` global
+          globals = {
+            'vim',
+            'require',
           },
-        }
-        return
-      elseif server_name == 'solargraph' then
-        opts.single_file_support = true
-        opts.capabilities = {}
-      elseif server_name == 'lua_ls' then
-        opts = {
-          settings = {
-            Lua = {
-              runtime = {
-                -- Tell the language server which version of Lua you're using
-                -- (most likely LuaJIT in the case of Neovim)
-                version = 'LuaJIT',
-              },
-              diagnostics = {
-                -- Get the language server to recognize the `vim` global
-                globals = {
-                  'vim',
-                  'require',
-                },
-              },
-              workspace = {
-                -- Make the server aware of Neovim runtime files
-                library = vim.api.nvim_get_runtime_file("", true),
-              },
-              -- Do not send telemetry data
-              telemetry = {
-                enable = false,
-              },
-            },
-          },
-        }
-      elseif server_name == 'rust_analyzer' then
-        local capabilities = require("ddc_source_lsp").make_client_capabilities()
-        opts.capabilities = capabilities
+        },
+        workspace = {
+          -- Make the server aware of Neovim runtime files
+          library = vim.api.nvim_get_runtime_file("", true),
+        },
+        -- Do not send telemetry data
+        telemetry = {
+          enable = false,
+        },
+      },
+    },
+  })
+
+  vim.lsp.config('vtsls', {
+    root_dir = function(bufnr, callback)
+      -- NOTE: Must be node directory
+      if vim.fn.findfile('package.json', '.;') ~= '' then
+        callback(require('lspconfig').util.root_pattern('package.json'))
       end
-
-      nvim_lsp[server_name].setup(opts)
-    end
+    end,
   })
+
+  vim.lsp.config('denols', {
+    -- Disable nest.land imports
+    -- https://github.com/neovim/nvim-lspconfig/pull/2793
+    settings = {
+      deno = {
+        suggest = {
+          imports = {
+            autoDiscover = false,
+            hosts = {
+              ['https://x.nest.land'] = false,
+            },
+          },
+        },
+      },
+    },
+    root_dir = function(bufnr, callback)
+      -- NOTE: Must be node directory
+      if vim.fn.findfile('package.json', '.;') == '' then
+        callback(vim.fn.getcwd())
+      end
+    end,
+  })
+
+  vim.lsp.enable(ensure_installed)
 '''
 
 [[plugins]]
