@@ -34,9 +34,9 @@ highlight MoreMsg       gui=bold guibg=NONE guifg=#00ffff
 highlight Question      gui=bold guibg=NONE guifg=#e8e800
 
 " Split area
-highlight StatusLine    gui=reverse guibg=#c8c8d8 guifg=#151505
-highlight StatusLineNC  gui=reverse guibg=#c8c8d8 guifg=#151505
-highlight VertSplit     gui=NONE guibg=#1c1c1c guifg=#1c1c1c
+highlight StatusLine    gui=underline guibg=#2c2c2c guifg=#c8c8d8
+highlight StatusLineNC  gui=underline guibg=#2c2c2c guifg=#c8c8d8
+highlight VertSplit     gui=underline guibg=#2c2c2c guifg=#c8c8d8
 highlight WinSeparator  gui=NONE guibg=#1c1c1c guifg=#1c1c1c
 highlight WildMenu      gui=NONE guibg=#a0a0ff guifg=#252525
 highlight FloatBorder   gui=NONE guibg=#1c1c1c guifg=#a0d0ff
@@ -50,7 +50,7 @@ highlight DiffText      gui=NONE guibg=#802860 guifg=#ff78f0
 " Cursor
 highlight Cursor        gui=NONE guibg=#606060 guifg=fg
 highlight CmdlineCursor gui=NONE guibg=#606060 guifg=fg
-highlight CursorLine    gui=NONE guibg=#444444 guifg=fg term=NONE cterm=NONE
+highlight CursorLine    gui=NONE guibg=#444444 guifg=fg
 highlight lCursor       gui=NONE guibg=#80403f guifg=fg
 highlight CursorIM      gui=NONE guibg=#bb00aa guifg=fg
 highlight CursorColumn  gui=NONE guibg=#666666 guifg=fg
@@ -79,7 +79,7 @@ highlight htmlBold      gui=bold guibg=NONE guifg=fg
 highlight htmlBoldItalic gui=bold,italic guibg=NONE guifg=fg
 highlight htmlBoldUnderline gui=bold,underline guibg=NONE guifg=fg
 highlight htmlBoldUnderlineItalic gui=bold,italic,underline guibg=NONE guifg=fg
-highlight htmlItalic gui=italic guibg=NONE guifg=fg
+highlight htmlItalic    gui=italic guibg=NONE guifg=fg
 highlight htmlUnderline gui=underline guibg=NONE guifg=fg
 highlight htmlUnderlineItalic gui=italic,underline guibg=NONE guifg=fg
 
@@ -119,4 +119,5 @@ highlight EndOfBuffer   gui=NONE guifg=#101010
 if has('nvim')
   highlight NormalNC     gui=NONE guibg=#2c2c2c guifg=#bfbfbf
   highlight WhiteSpace   gui=NONE guifg=#999999
+  highlight WinSeparator gui=NONE guibg=#2c2c2c guifg=#c8c8d8
 endif
