@@ -145,19 +145,22 @@ export class Config extends BaseConfig {
         dpp: {
           defaultAction: "cd",
           actions: {
-            update: async (args: ActionArguments<Params>) => {
-              const names = args.items.map((item) =>
-                (item.action as DppAction).__name
-              );
+            update: {
+              description: "Update the plugins.",
+              callback: async (args: ActionArguments<Params>) => {
+                const names = args.items.map((item) =>
+                  (item.action as DppAction).__name
+                );
 
-              await args.denops.call(
-                "dpp#async_ext_action",
-                "installer",
-                "update",
-                { names },
-              );
+                await args.denops.call(
+                  "dpp#async_ext_action",
+                  "installer",
+                  "update",
+                  { names },
+                );
 
-              return Promise.resolve(ActionFlags.None);
+                return Promise.resolve(ActionFlags.None);
+              },
             },
           },
         },
