@@ -2,6 +2,7 @@
 repo = 'Shougo/ddt.vim'
 depends = 'denops.vim'
 hooks_file = '$BASE_DIR/ddt.vim'
+on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/ddt-ui-terminal'
