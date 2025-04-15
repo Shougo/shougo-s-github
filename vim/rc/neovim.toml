@@ -167,7 +167,7 @@ lua_source = '''
     'gopls',
     'lua_ls',
     'rust_analyzer',
-    'solargraph',
+    --'solargraph',
     'vtsls',
   }
 
@@ -297,5 +297,18 @@ lua_source = '''
         require('anydent').attach()
       end
     end
+  })
+'''
+
+[[plugins]]
+repo = 'xb-bx/editable-term.nvim'
+on_source = 'ddt-ui-terminal'
+lua_source = '''
+  require('editable-term').setup({
+    promts = {
+        ['^%(gdb%) '] = {}, -- gdb promt
+        ['^... '] = {},     -- python PS1
+        ['^>>> '] = {},     -- python PS2
+    },
   })
 '''
