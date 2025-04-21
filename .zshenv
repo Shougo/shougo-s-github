@@ -9,6 +9,7 @@ export MANPAGER='nvim --clean +Man\!'
 export UNZIP='-I utf8 -O cp932'
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
+export LC_CTYPE=en_US.UTF-8
 
 export GOPATH="$HOME/.go"
 export PATH="$HOME/bin:/usr/local/bin:$GOPATH/bin:$HOME/.cargo/bin:$HOME/.deno/bin:$PATH"
