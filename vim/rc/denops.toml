@@ -161,6 +161,9 @@ hook_source = '''
 
       call hlset(a:highlight)
     endif
+
+    " NOTE: redraw is needed
+    redraw
   endfunction
 
   call skkeleton#initialize()
