@@ -291,6 +291,7 @@ lua_source = '''
         'help',
         'html',
         'markdown',
+        'toml',
         'vim',
         'yaml',
       }, vim.bo.filetype) then

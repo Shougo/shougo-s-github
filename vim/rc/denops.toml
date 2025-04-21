@@ -78,7 +78,8 @@ hook_source = '''
         \   '~': ['〜', ''],
         \ })
 
-  autocmd MyAutoCmd User skkeleton-enable-pre call s:skkeleton_pre()
+  autocmd MyAutoCmd User skkeleton-enable-pre
+        \ call s:skkeleton_pre()
   function! s:skkeleton_pre() abort
     if (!has('nvim') || $DISPLAY !=# '') && has('clipboard')
       " Copy to clipboard to use Vim as IME
@@ -86,30 +87,41 @@ hook_source = '''
         \ let @* = '.'->getline() | let @+ = @*
     endif
 
+    const is_cmdline =
+        \ '*cmdline#_get'->exists() && !cmdline#_get().pos->empty()
+    const hl_name = is_cmdline ? 'CmdlineCursor' : 'Cursor'
+
     let s:hl_cursor = has('nvim') ?
-          \ nvim_get_hl(0, #{ name: 'Cursor'}) : 'Cursor'->hlget()
+          \ nvim_get_hl(0, #{ name: hl_name }) : hl_name->hlget()
   endfunction
 
-  autocmd MyAutoCmd User skkeleton-mode-changed call s:skkeleton_changed()
+  autocmd MyAutoCmd User skkeleton-mode-changed
+        \ call s:skkeleton_changed()
   function! s:skkeleton_changed() abort
     " Change the cursor color
+    let hl_cursor = s:hl_cursor->copy()
+
     if g:skkeleton#mode ==# 'hira'
-      highlight Cursor       gui=NONE guibg=#80403f guifg=fg
+      const color = '#80403f'
     elseif g:skkeleton#mode ==# 'kata'
-      highlight Cursor       gui=NONE guibg=#f04060 guifg=fg
+      const color = '#f04060'
     elseif g:skkeleton#mode ==# 'hankata'
-      highlight Cursor       gui=NONE guibg=#60a060 guifg=fg
+      const color = '#60a060'
     elseif g:skkeleton#mode ==# 'zenkaku'
-      highlight Cursor       gui=NONE guibg=#60c060 guifg=fg
+      const color = '#60c060'
     elseif g:skkeleton#mode ==# 'abbrev'
-      highlight Cursor       gui=NONE guibg=#60f060 guifg=fg
+      const color = '#60f060'
     else
-      if has('nvim')
-        call nvim_set_hl(0, 'Cursor', s:hl_cursor)
-      else
-        call hlset(s:hl_cursor)
-      endif
+      const color = '#606060'
     endif
+
+    if has('nvim')
+      let hl_cursor.bg = color
+    else
+      let hl_cursor[0].guibg = color
+    endif
+
+    call s:highlight_cursor(hl_cursor)
   endfunction
 
   autocmd MyAutoCmd User skkeleton-handled call s:skkeleton_handled()
@@ -122,9 +134,32 @@ hook_source = '''
     if g:skkeleton#state.phase ==# 'henkan' ||
         \ g:skkeleton#state.phase ==# 'input:okurinasi' ||
         \ g:skkeleton#state.phase ==# 'input:okuriari'
-      highlight Cursor       gui=NONE guibg=#a0f0a0 guifg=fg
+      let hl_cursor = s:hl_cursor->copy()
+      const color = '#a0f0a0'
+      if has('nvim')
+        let hl_cursor.bg = color
+      else
+        let hl_cursor[0].guibg = color
+      endif
+      call s:highlight_cursor(hl_cursor)
     else
       call s:skkeleton_changed()
+    endif
+  endfunction
+
+  function! s:highlight_cursor(highlight) abort
+    const is_cmdline =
+        \ '*cmdline#_get'->exists() && !cmdline#_get().pos->empty()
+
+    if has('nvim')
+      call nvim_set_hl(
+        \ 0, is_cmdline ? 'CmdlineCursor' : 'Cursor', a:highlight)
+    else
+      if is_cmdline
+        let a:highlight[0].name = 'CmdlineCursor'
+      endif
+
+      call hlset(a:highlight)
     endif
   endfunction
 

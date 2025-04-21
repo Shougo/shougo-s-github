@@ -13,7 +13,6 @@ hook_add = '''
 '''
 hook_source = '''
   call cmdline#set_option(#{
-    \   highlight_cursor: 'CmdlineCursor',
     \   highlight_window: 'None',
     \ })
 '''
