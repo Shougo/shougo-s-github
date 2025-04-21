@@ -92,7 +92,7 @@ hook_source = '''
     const hl_name = is_cmdline ? 'CmdlineCursor' : 'Cursor'
 
     let s:hl_cursor = has('nvim') ?
-          \ nvim_get_hl(0, #{ name: hl_name }) : hl_name->hlget()
+        \ nvim_get_hl(0, #{ name: hl_name }) : hl_name->hlget()
   endfunction
 
   autocmd MyAutoCmd User skkeleton-mode-changed
