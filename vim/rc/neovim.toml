@@ -177,13 +177,13 @@ lua_source = '''
     ensure_installed = ensure_installed,
   })
 
+  vim.lsp.config('*', {
+    capabilities = require("ddc_source_lsp").make_client_capabilities(),
+  })
+
   vim.lsp.config('solargraph', {
     single_file_support = true,
     capabilities = {},
-  })
-
-  vim.lsp.config('rust_analyzer', {
-    capabilities = require("ddc_source_lsp").make_client_capabilities(),
   })
 
   vim.lsp.config('lua_ls', {
