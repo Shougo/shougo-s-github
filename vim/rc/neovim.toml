@@ -214,12 +214,10 @@ lua_source = '''
   })
 
   vim.lsp.config('vtsls', {
-    root_dir = function(bufnr, callback)
-      -- NOTE: Must be node directory
-      if vim.fn.findfile('package.json', '.;') ~= '' then
-        callback(require('lspconfig').util.root_pattern('package.json'))
-      end
-    end,
+    root_markers = {
+      'package.json',
+    },
+    workspace_required = true,
   })
 
   vim.lsp.config('denols', {
@@ -237,6 +235,12 @@ lua_source = '''
         },
       },
     },
+    root_markers = {
+      'deno.json',
+      'deno.jsonc',
+      'deps.ts',
+    },
+    workspace_required = false,
     root_dir = function(bufnr, callback)
       -- NOTE: Must be node directory
       if vim.fn.findfile('package.json', '.;') == '' then
