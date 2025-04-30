@@ -92,6 +92,12 @@ function s:remove_empty_file(file) abort
   execute 'bdelete' a:file->bufnr()
 endfunction
 
+" Disable syntax for huge files
+autocmd MyAutoCmd BufReadPre *
+      \ : if '<afile>'->expand()->getfsize() > 1000000
+      \ |   setlocal eventignorewin=FileType
+      \ | endif
+
 " For zsh "edit-command-line".
 autocmd MyAutoCmd BufRead /tmp/* setlocal wrap
 

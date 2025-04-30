@@ -98,7 +98,7 @@ function vimrc#on_filetype() abort
     filetype plugin indent on
   endif
 
-  if &l:filetype ==# '' && &l:syntax ==# ''
+  if &l:filetype ==# '' && &l:syntax ==# '' && line('$') < 10000
     " NOTE: filetype detect does not work on startup
     silent filetype detect
 
