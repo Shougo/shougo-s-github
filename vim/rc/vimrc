@@ -38,15 +38,11 @@ set statusline=%{'\ '->repeat(winwidth(0))}
 "endif
 
 " Height of the command line.
-try
+if has('nvim')
   set cmdheight=0
-
-  " For recording messages
-  "autocmd MyAutoCmd CmdlineEnter,RecordingEnter * set cmdheight=1
-  "autocmd MyAutoCmd CmdlineLeave,RecordingLeave * set cmdheight=0
-catch
+else
   set cmdheight=1
-endtry
+endif
 
 " Show title.
 set title titlelen=95
