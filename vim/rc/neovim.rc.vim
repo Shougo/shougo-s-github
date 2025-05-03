@@ -88,3 +88,7 @@ if has('win32')
 else
   set guifont=Monospace:h10
 endif
+
+" Enable ext_cmdline/messages for the TUI
+" NOTE: It must be enabled at startup.
+lua require('vim._extui').enable({})

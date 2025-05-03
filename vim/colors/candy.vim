@@ -27,8 +27,10 @@ highlight Search        gui=NONE guibg=#0060c0 guifg=#f0f0f8
 highlight! link CurSearch Search
 
 " Messages
-highlight ErrorMsg      gui=bold guibg=NONE guifg=#ffa0ff
+highlight ErrorMsg      gui=bold guibg=NONE guifg=#ff6f61
 highlight WarningMsg    gui=bold guibg=NONE guifg=#ffa0ff
+highlight StderrMsg     gui=bold guibg=NONE guifg=#a020f0
+highlight StdoutMsg     gui=bold guibg=NONE guifg=#00aaff
 highlight ModeMsg       gui=bold guibg=NONE guifg=#40f0d0
 highlight MoreMsg       gui=bold guibg=NONE guifg=#00ffff
 highlight Question      gui=bold guibg=NONE guifg=#e8e800
