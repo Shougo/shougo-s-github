@@ -155,7 +155,7 @@ hide-cursor-when-typing = true
 #
 # Example:
 [renderer]
-performance = "low"
+performance = "high"
 backend = "automatic"
 disable-unfocused-render = false
 level = 1
@@ -196,25 +196,28 @@ level = 1
 #
 # Example:
 [fonts]
-size = 13
-#family = "Courier New"
-family = "VL Gothic"
+size = 12
+hinting = true
+family = "Courier New"
+#family = "cascadiacode"
+#family = "VL Gothic"
+extras = [{ family = "VL Gothic" }]
 
 [fonts.regular]
 style = "normal"
-weight = 400
+weight = 200
 
 [fonts.bold]
 style = "normal"
-weight = 800
+weight = 400
 
 [fonts.italic]
 style = "italic"
-weight = 400
+weight = 200
 
 [fonts.bold-italic]
 style = "italic"
-weight = 800
+weight = 400
 
 #
 # [fonts.regular]
@@ -326,6 +329,8 @@ weight = 800
 # blue = '#12B5E5'
 # yellow = '#FCBA28'
 [colors]
+background = '#282828'
+foreground = '#F9F4DA'
 black = "#383838"
 blue = "#6699FF"
 cyan = "#4AE2E2"
