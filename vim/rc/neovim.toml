@@ -304,16 +304,3 @@ lua_source = '''
     end
   })
 '''
-
-[[plugins]]
-repo = 'xb-bx/editable-term.nvim'
-on_source = 'ddt-ui-terminal'
-lua_source = '''
-  require('editable-term').setup({
-    promts = {
-        ['^%(gdb%) '] = {}, -- gdb promt
-        ['^... '] = {},     -- python PS1
-        ['^>>> '] = {},     -- python PS2
-    },
-  })
-'''
