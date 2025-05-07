@@ -19,7 +19,43 @@ let g:loaded_remote_plugins = v:true
 " NOTE: Disable treesitter async parsing
 " https://github.com/neovim/neovim/pull/31631
 " https://github.com/neovim/neovim/pull/33145
-let g:_ts_force_sync_parsing = v:true
+"let g:_ts_force_sync_parsing = v:true
+
+" Workaround for the flicker
+" https://github.com/neovim/neovim/issues/32660
+" https://blog.atusy.net/2025/05/07/workaround-nvim-async-ts-fliker/
+lua <<END
+vim.api.nvim_create_autocmd({ 'BufWinEnter', 'WinNew', 'WinClosed', 'TabEnter' }, {
+  group = vim.api.nvim_create_augroup("ts_toggle_sync_parsing", {}),
+  callback = function(ctx)
+    local function exec()
+      local wins = vim.api.nvim_tabpage_list_wins(vim.api.nvim_get_current_tabpage())
+      local bufs = {}
+      for _, win in ipairs(wins) do
+        local buf = vim.api.nvim_win_get_buf(win)
+        if bufs[buf] == true then
+          local parsable = pcall(vim.treesitter.get_parser, buf)
+          if parsable then
+            vim.g._ts_force_sync_parsing = true
+            return
+          end
+          -- set to false to avoid multiple tests on the availability of parser
+          bufs[buf] = false
+        end
+        if bufs[buf] == nil then
+          bufs[buf] = true
+        end
+      end
+      vim.g._ts_force_sync_parsing = false
+    end
+
+    if ctx.event == 'WinClosed' then
+      return vim.schedule(exec)
+    end
+    return exec()
+  end,
+})
+END
 
 let g:python3_host_prog = has('win32') ? 'python.exe' : 'python3'
 
