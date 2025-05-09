@@ -123,3 +123,22 @@ if has('nvim')
   highlight WhiteSpace   gui=NONE guifg=#999999
   highlight WinSeparator gui=NONE guibg=#2c2c2c guifg=#c8c8d8
 endif
+
+" Terminal colors
+highlight TerminalFG0     gui=NONE guibg=NONE guifg=#383838
+highlight TerminalFG1     gui=NONE guibg=NONE guifg=#FF4444
+highlight TerminalFG2     gui=NONE guibg=NONE guifg=#44FF44
+highlight TerminalFG3     gui=NONE guibg=NONE guifg=#FFB30A
+highlight TerminalFG4     gui=NONE guibg=NONE guifg=#6699FF
+highlight TerminalFG5     gui=NONE guibg=NONE guifg=#F820FF
+highlight TerminalFG6     gui=NONE guibg=NONE guifg=#4AE2E2
+highlight TerminalFG7     gui=NONE guibg=NONE guifg=#FDF6E3
+
+highlight TerminalFG8     gui=NONE guibg=NONE guifg=#585858
+highlight TerminalFG9     gui=NONE guibg=NONE guifg=#FF4444
+highlight TerminalFG10    gui=NONE guibg=NONE guifg=#44FF44
+highlight TerminalFG11    gui=NONE guibg=NONE guifg=#FFB30A
+highlight TerminalFG12    gui=NONE guibg=NONE guifg=#6699FF
+highlight TerminalFG13    gui=NONE guibg=NONE guifg=#F820FF
+highlight TerminalFG14    gui=NONE guibg=NONE guifg=#4AE2E2
+highlight TerminalFG15    gui=NONE guibg=NONE guifg=#FDF6E3
