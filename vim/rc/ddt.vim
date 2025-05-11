@@ -23,6 +23,16 @@ call ddt#custom#patch_global(#{
       \   nvimServer: '~/.cache/nvim/server.pipe',
       \   uiParams: #{
       \     shell: #{
+      \       ANSIColorHighlights: [
+      \         'TerminalFG0', 'TerminalFG1',
+      \         'TerminalFG2', 'TerminalFG3',
+      \         'TerminalFG4', 'TerminalFG5',
+      \         'TerminalFG6', 'TerminalFG7',
+      \         'TerminalFG8', 'TerminalFG9',
+      \         'TerminalFG10', 'TerminalFG11',
+      \         'TerminalFG12', 'TerminalFG13',
+      \         'TerminalFG14', 'TerminalFG15',
+      \       ],
       \       noSaveHistoryCommands: ['history'],
       \       userPrompt:
       \         "'| ' .. fnamemodify(getcwd(), ':~') .. MyGitStatus()",
