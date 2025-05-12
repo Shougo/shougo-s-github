@@ -23,6 +23,9 @@ call ddt#custom#patch_global(#{
       \   nvimServer: '~/.cache/nvim/server.pipe',
       \   uiParams: #{
       \     shell: #{
+      \       aliases: #{
+      \         ls: 'ls --color',
+      \       },
       \       ANSIColorHighlights: [
       \         'TerminalFG0', 'TerminalFG1',
       \         'TerminalFG2', 'TerminalFG3',
