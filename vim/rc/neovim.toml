@@ -15,7 +15,9 @@ lua_source = '''
       'unison',
     },
     sync_install = true,
-    additional_vim_regex_highlighting = false,
+    additional_vim_regex_highlighting = {
+      'python',
+    },
     highlight = {
       enable = true,
     },
@@ -23,6 +25,7 @@ lua_source = '''
       enable = true,
       disable = {
         'help',
+        'python',
         'toml',
         'vim',
       },
@@ -295,6 +298,7 @@ lua_source = '''
         'help',
         'html',
         'markdown',
+        'python',
         'toml',
         'vim',
         'yaml',

@@ -10,6 +10,3 @@
 #build = 'cd server && go build'
 ##on_event = ['BufRead', 'CursorHold']
 #hooks_file = '$BASE_DIR/vim9.vim'
-
-[[plugins]]
-repo = 'Vimjas/vim-python-pep8-indent'

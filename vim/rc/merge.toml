@@ -23,3 +23,6 @@ repo = 'leafOfTree/vim-vue-plugin'
 
 [[plugins]]
 repo = 'rbtnn/vim-vimscript_indentexpr'
+
+[[plugins]]
+repo = 'Vimjas/vim-python-pep8-indent'

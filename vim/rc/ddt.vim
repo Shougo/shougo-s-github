@@ -36,7 +36,9 @@ call ddt#custom#patch_global(#{
       \         'TerminalFG12', 'TerminalFG13',
       \         'TerminalFG14', 'TerminalFG15',
       \       ],
-      \       noSaveHistoryCommands: ['history'],
+      \       noSaveHistoryCommands: [
+      \         'history',
+      \       ],
       \       userPrompt:
       \         "'| ' .. fnamemodify(getcwd(), ':~') .. MyGitStatus()",
       \       shellHistoryPath: '~/.cache/ddt-shell-history'->expand(),
