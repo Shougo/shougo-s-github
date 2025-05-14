@@ -125,20 +125,36 @@ if has('nvim')
 endif
 
 " Terminal colors
-highlight TerminalFG0     gui=NONE guibg=NONE guifg=#383838
-highlight TerminalFG1     gui=NONE guibg=NONE guifg=#FF4444
-highlight TerminalFG2     gui=NONE guibg=NONE guifg=#44FF44
-highlight TerminalFG3     gui=NONE guibg=NONE guifg=#FFB30A
-highlight TerminalFG4     gui=NONE guibg=NONE guifg=#6699FF
-highlight TerminalFG5     gui=NONE guibg=NONE guifg=#F820FF
-highlight TerminalFG6     gui=NONE guibg=NONE guifg=#4AE2E2
-highlight TerminalFG7     gui=NONE guibg=NONE guifg=#FDF6E3
+highlight TerminalBG0     gui=NONE guibg=#383838 guifg=NONE
+highlight TerminalBG1     gui=NONE guibg=#ff4444 guifg=NONE
+highlight TerminalBG2     gui=NONE guibg=#44ff44 guifg=NONE
+highlight TerminalBG3     gui=NONE guibg=#ffb30a guifg=NONE
+highlight TerminalBG4     gui=NONE guibg=#6699ff guifg=NONE
+highlight TerminalBG5     gui=NONE guibg=#f820ff guifg=NONE
+highlight TerminalBG6     gui=NONE guibg=#4ae2e2 guifg=NONE
+highlight TerminalBG7     gui=NONE guibg=#fdf6e3 guifg=NONE
+highlight TerminalBG8     gui=NONE guibg=#585858 guifg=NONE
+highlight TerminalBG9     gui=NONE guibg=#ff4444 guifg=NONE
+highlight TerminalBG10    gui=NONE guibg=#44ff44 guifg=NONE
+highlight TerminalBG11    gui=NONE guibg=#ffb30a guifg=NONE
+highlight TerminalBG12    gui=NONE guibg=#6699ff guifg=NONE
+highlight TerminalBG13    gui=NONE guibg=#f820ff guifg=NONE
+highlight TerminalBG14    gui=NONE guibg=#4ae2e2 guifg=NONE
+highlight TerminalBG15    gui=NONE guibg=#fdf6e3 guifg=NONE
 
+highlight TerminalFG0     gui=NONE guibg=NONE guifg=#383838
+highlight TerminalFG1     gui=NONE guibg=NONE guifg=#ff4444
+highlight TerminalFG2     gui=NONE guibg=NONE guifg=#44ff44
+highlight TerminalFG3     gui=NONE guibg=NONE guifg=#ffb30a
+highlight TerminalFG4     gui=NONE guibg=NONE guifg=#6699ff
+highlight TerminalFG5     gui=NONE guibg=NONE guifg=#f820ff
+highlight TerminalFG6     gui=NONE guibg=NONE guifg=#4ae2e2
+highlight TerminalFG7     gui=NONE guibg=NONE guifg=#fdf6e3
 highlight TerminalFG8     gui=NONE guibg=NONE guifg=#585858
-highlight TerminalFG9     gui=NONE guibg=NONE guifg=#FF4444
-highlight TerminalFG10    gui=NONE guibg=NONE guifg=#44FF44
-highlight TerminalFG11    gui=NONE guibg=NONE guifg=#FFB30A
-highlight TerminalFG12    gui=NONE guibg=NONE guifg=#6699FF
-highlight TerminalFG13    gui=NONE guibg=NONE guifg=#F820FF
-highlight TerminalFG14    gui=NONE guibg=NONE guifg=#4AE2E2
-highlight TerminalFG15    gui=NONE guibg=NONE guifg=#FDF6E3
+highlight TerminalFG9     gui=NONE guibg=NONE guifg=#ff4444
+highlight TerminalFG10    gui=NONE guibg=NONE guifg=#44ff44
+highlight TerminalFG11    gui=NONE guibg=NONE guifg=#ffb30a
+highlight TerminalFG12    gui=NONE guibg=NONE guifg=#6699ff
+highlight TerminalFG13    gui=NONE guibg=NONE guifg=#f820ff
+highlight TerminalFG14    gui=NONE guibg=NONE guifg=#4ae2e2
+highlight TerminalFG15    gui=NONE guibg=NONE guifg=#fdf6e3

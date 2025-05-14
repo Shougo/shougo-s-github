@@ -308,3 +308,10 @@ lua_source = '''
     end
   })
 '''
+
+#[[plugins]]
+#repo = 'lewis6991/tsffi.nvim'
+#on_source = 'nvim-treesitter'
+#lua_source = '''
+#--require('tsffi').setup()
+#'''
