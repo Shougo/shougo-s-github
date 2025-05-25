@@ -281,10 +281,6 @@ lua_source = '''
 '''
 
 [[plugins]]
-repo = 'rcarriga/nvim-notify'
-on_lua = 'notify'
-
-[[plugins]]
 repo = 'chomosuke/typst-preview.nvim'
 on_ft = 'typst'
 
