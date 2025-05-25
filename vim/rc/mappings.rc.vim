@@ -112,15 +112,11 @@ nnoremap <Tab>      <cmd>wincmd w<CR>
 nnoremap <expr> q
       \   &l:filetype ==# 'qf'
       \ ? '<Cmd>cclose<CR><Cmd>lclose<CR>'
-      \ : '#'->winnr()->getwinvar('&winfixbuf')
-      \ ? ''
-      \ : range(1, '$'->winnr())
-      \   ->filter({_, val -> val !=# winnr() })
-      \   ->map({ _, val -> val->winbufnr()->getbufvar('&buftype') })
-      \   ->filter({_, val -> val !=# 'quickfix' && val !=# 'help' })
-      \   ->len() > 0
+      \ : '$'->winnr() > 1
       \ ? '<Cmd>close<CR>'
-      \ : ''
+      \ : winnr()->getwinvar('&winfixbuf')
+      \ ? ''
+      \ : '<Cmd>enew<CR>'
 
 " Original search
 nnoremap s/    /\<%
