@@ -112,7 +112,7 @@ nnoremap <Tab>      <cmd>wincmd w<CR>
 nnoremap <expr> q
       \   &l:filetype ==# 'qf'
       \ ? '<Cmd>cclose<CR><Cmd>lclose<CR>'
-      \ : '$'->winnr() > 1
+      \ : '#'->winnr() > 0 && '#'->winnr() !=# winnr()
       \ ? '<Cmd>close<CR>'
       \ : winnr()->getwinvar('&winfixbuf')
       \ ? ''
