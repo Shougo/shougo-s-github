@@ -12,6 +12,7 @@ export class Config extends BaseConfig {
     const commonSources = [
       "around",
       "file",
+      "register",
       //"codeium",
       //"copilot",
     ];
@@ -39,7 +40,7 @@ export class Config extends BaseConfig {
       ],
       sources: commonSources,
       cmdlineSources: {
-        ":": ["cmdline", "cmdline_history", "around"],
+        ":": ["cmdline", "cmdline_history", "around", "register"],
         "@": ["input", "cmdline_history", "file", "around"],
         ">": ["input", "cmdline_history", "file", "around"],
         "/": ["around", "line"],
@@ -113,6 +114,9 @@ export class Config extends BaseConfig {
           minAutoCompleteLength: 4,
           isVolatile: true,
         },
+        register: {
+          mark: "reg",
+        },
         rg: {
           mark: "rg",
           minAutoCompleteLength: 5,
@@ -167,6 +171,10 @@ export class Config extends BaseConfig {
           enableDisplayDetail: true,
           enableMatchLabel: true,
           enableResolveItem: true,
+        },
+        register: {
+          registers: '0123456789"+*#:',
+          extractWords: true,
         },
         shell_history: {
           paths: ["~/.cache/ddt-shell-history", "~/.zsh-history"],

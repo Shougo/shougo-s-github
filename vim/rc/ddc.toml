@@ -129,6 +129,10 @@ repo = 'LumaKernel/ddc-source-file'
 on_source = 'ddc.vim'
 
 [[plugins]]
+repo = 'Milly/ddc-source-register'
+on_source = 'ddc.vim'
+
+[[plugins]]
 repo = 'Shougo/ddc-filter-matcher_head'
 on_source = 'ddc.vim'
 
