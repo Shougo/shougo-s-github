@@ -12,7 +12,7 @@ export LC_ALL=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
 
 export GOPATH="$HOME/.go"
-export PATH="$HOME/bin:/usr/local/bin:$GOPATH/bin:$HOME/.cargo/bin:$HOME/.deno/bin:$PATH"
+export PATH="$HOME/bin:$HOME/.local/bin:$GOPATH/bin:$HOME/.cargo/bin:$HOME/.deno/bin:/usr/local/bin:$PATH"
 export XDG_CONFIG_HOME=$HOME/.config
 
 export NEXTWORD_DATA_PATH=$HOME/Downloads/nextword-data-large
