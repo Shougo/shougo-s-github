@@ -173,7 +173,7 @@ export class Config extends BaseConfig {
           enableResolveItem: true,
         },
         register: {
-          registers: '0123456789"+*#:',
+          registers: '0123456789"#:',
           extractWords: true,
         },
         shell_history: {
