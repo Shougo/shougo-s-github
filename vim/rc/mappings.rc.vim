@@ -93,8 +93,9 @@ function s:toggle_messagesopt() abort
   set messagesopt? more?
 endfunction
 
-" Easily reload filetype
-nnoremap [Space]r <Cmd>let &filetype = &filetype<CR>
+if ':restart'->exists()
+  nnoremap [Space]r <Cmd>restart<CR>
+endif
 
 " Quickfix
 nnoremap [Space]q

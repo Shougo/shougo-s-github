@@ -40,13 +40,27 @@ export class Config extends BaseConfig {
       ],
       sources: commonSources,
       cmdlineSources: {
-        ":": ["cmdline", "cmdline_history", "around", "register"],
-        "@": ["input", "cmdline_history", "file", "around"],
-        ">": ["input", "cmdline_history", "file", "around"],
-        "/": ["around", "line"],
-        "?": ["around", "line"],
-        "-": ["around", "line"],
-        "=": ["input"],
+        ":": [
+          "cmdline", "cmdline_history", "around", "register",
+        ],
+        "@": [
+          "input", "cmdline_history", "file", "around",
+        ],
+        ">": [
+          "input", "cmdline_history", "file", "around",
+        ],
+        "/": [
+          "around", "line",
+        ],
+        "?": [
+          "around", "line",
+        ],
+        "-": [
+          "around", "line",
+        ],
+        "=": [
+          "input",
+        ],
       },
       sourceOptions: {
         _: {
@@ -56,8 +70,12 @@ export class Config extends BaseConfig {
             "matcher_prefix",
             "matcher_length",
           ],
-          sorters: ["sorter_rank"],
-          converters: ["converter_remove_overlap"],
+          sorters: [
+            "sorter_rank",
+          ],
+          converters: [
+            "converter_remove_overlap",
+          ],
           timeout: 1000,
         },
         around: {
@@ -80,7 +98,9 @@ export class Config extends BaseConfig {
         },
         codeium: {
           mark: "cod",
-          matchers: ["matcher_length"],
+          matchers: [
+            "matcher_length",
+          ],
           minAutoCompleteLength: 0,
           isVolatile: true,
         },
@@ -177,15 +197,21 @@ export class Config extends BaseConfig {
           extractWords: true,
         },
         shell_history: {
-          paths: ["~/.cache/ddt-shell-history", "~/.zsh-history"],
+          paths: [
+            "~/.cache/ddt-shell-history",
+            "~/.zsh-history",
+          ],
         },
         shell_native: {
           shell: "zsh",
         },
       },
-      postFilters: ["sorter_head"],
+      postFilters: [
+        "sorter_head",
+      ],
     });
 
+    // Text files
     for (
       const filetype of [
         "markdown",
