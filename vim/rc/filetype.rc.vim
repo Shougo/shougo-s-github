@@ -38,6 +38,9 @@ autocmd MyAutoCmd BufEnter,BufRead,BufNewFile *.md setlocal iskeyword-='
 " For auto completion in gitcommit buffer.
 autocmd MyAutoCmd BufReadPost COMMIT_EDITMSG call vimrc#append_diff()
 
+" Xonsh filetype
+autocmd MyAutoCmd BufReadPost *.xonsh set filetype=python
+
 " Update filetype.
 autocmd MyAutoCmd BufWritePost * nested
 \ : if &l:filetype ==# '' || 'b:ftdetect'->exists()
