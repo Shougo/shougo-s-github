@@ -50,7 +50,7 @@ hook_add = '''
   nnoremap <C-j> i<Plug>(skkeleton-enable)
 
   " Lazy load by background
-  call timer_start(10, { _ -> dpp#source('skkeleton') })
+  "call timer_start(10, { _ -> dpp#source('skkeleton') })
 '''
 hook_source = '''
   "let g:skkeleton#debug = v:true

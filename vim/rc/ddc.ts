@@ -1,5 +1,5 @@
-import { BaseConfig, ConfigArguments } from "jsr:@shougo/ddc-vim@~9.4.0/config";
-import type { DdcItem } from "jsr:@shougo/ddc-vim@~9.4.0/types";
+import { BaseConfig, ConfigArguments } from "jsr:@shougo/ddc-vim@~9.5.0/config";
+import type { DdcItem } from "jsr:@shougo/ddc-vim@~9.5.0/types";
 
 import type { Denops } from "jsr:@denops/std@~7.5.0";
 import * as fn from "jsr:@denops/std@~7.5.0/function";
@@ -30,6 +30,14 @@ export class Config extends BaseConfig {
           mode !== "t" && uiArgs.items.length == 1 ? "inline" : "pum",
         );
       },
+      dynamicSources: async (denops: Denops, args: Record<string, unknown>) => {
+        const mode = await fn.mode(denops);
+        return Promise.resolve(
+          mode === "c" && (await fn.getcmdline(denops)).startsWith("!")
+            ? ["shell_native"]
+            : null,
+        );
+      },
       autoCompleteEvents: [
         "CmdlineEnter",
         "CmdlineChanged",
@@ -41,22 +49,34 @@ export class Config extends BaseConfig {
       sources: commonSources,
       cmdlineSources: {
         ":": [
-          "cmdline", "cmdline_history", "around", "register",
+          "cmdline",
+          "cmdline_history",
+          "around",
+          "register",
         ],
         "@": [
-          "input", "cmdline_history", "file", "around",
+          "input",
+          "cmdline_history",
+          "file",
+          "around",
         ],
         ">": [
-          "input", "cmdline_history", "file", "around",
+          "input",
+          "cmdline_history",
+          "file",
+          "around",
         ],
         "/": [
-          "around", "line",
+          "around",
+          "line",
         ],
         "?": [
-          "around", "line",
+          "around",
+          "line",
         ],
         "-": [
-          "around", "line",
+          "around",
+          "line",
         ],
         "=": [
           "input",
