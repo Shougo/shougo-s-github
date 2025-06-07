@@ -31,10 +31,13 @@ export class Config extends BaseConfig {
         );
       },
       dynamicSources: async (denops: Denops, args: Record<string, unknown>) => {
+        const sourceArgs = args as {
+          sources: string[];
+        };
         const mode = await fn.mode(denops);
         return Promise.resolve(
           mode === "c" && (await fn.getcmdline(denops)).startsWith("!")
-            ? ["shell_native"]
+            ? ["shell_native"].concat(sourceArgs.sources)
             : null,
         );
       },
