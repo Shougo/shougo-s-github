@@ -1,5 +1,5 @@
 import { BaseConfig, ConfigArguments } from "jsr:@shougo/ddc-vim@~9.5.0/config";
-import type { DdcItem } from "jsr:@shougo/ddc-vim@~9.5.0/types";
+import type { Context, DdcItem } from "jsr:@shougo/ddc-vim@~9.5.0/types";
 
 import type { Denops } from "jsr:@denops/std@~7.5.0";
 import * as fn from "jsr:@denops/std@~7.5.0/function";
@@ -32,11 +32,14 @@ export class Config extends BaseConfig {
       },
       dynamicSources: async (denops: Denops, args: Record<string, unknown>) => {
         const sourceArgs = args as {
+          context: Context;
           sources: string[];
         };
         const mode = await fn.mode(denops);
+        const cmdlinePattern = /^(silent!?\s+)?([0-9,.%$]*!|terminal!?\s+)/;
         return Promise.resolve(
-          mode === "c" && (await fn.getcmdline(denops)).startsWith("!")
+          mode === "c" &&
+            sourceArgs.context.input.search(cmdlinePattern) !== undefined
             ? ["shell_native"].concat(sourceArgs.sources)
             : null,
         );
