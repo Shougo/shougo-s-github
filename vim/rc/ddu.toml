@@ -10,127 +10,127 @@ on_cmd = 'Ddu'
 
 [[plugins]]
 repo = 'Shougo/ddu-ui-ff'
-on_source = 'ddu.vim'
+group = 'ddu'
 hooks_file = '$BASE_DIR/ddu-ui-ff.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-ui-filer'
-on_source = 'ddu.vim'
+group = 'ddu'
 hooks_file = '$BASE_DIR/ddu-ui-filer.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-source-file'
-on_source = 'ddu.vim'
+group = 'ddu'
 
 [[plugins]]
 repo = 'Shougo/ddu-source-file_rec'
-on_source = 'ddu.vim'
+group = 'ddu'
 
 [[plugins]]
 repo = 'Shougo/ddu-source-file_old'
-on_source = 'ddu.vim'
+group = 'ddu'
 
 [[plugins]]
 repo = 'Shougo/ddu-source-file_point'
-on_source = 'ddu.vim'
+group = 'ddu'
 
 [[plugins]]
 repo = 'Shougo/ddu-source-command_args'
-on_source = 'ddu.vim'
+group = 'ddu'
 
 [[plugins]]
 repo = 'Shougo/ddu-source-line'
-on_source = 'ddu.vim'
+group = 'ddu'
 
 [[plugins]]
 repo = 'Shougo/ddu-source-register'
-on_source = 'ddu.vim'
+group = 'ddu'
 
 [[plugins]]
 repo = 'Shougo/ddu-source-action'
-on_source = 'ddu.vim'
+group = 'ddu'
 
 [[plugins]]
 repo = 'Shougo/ddu-source-path_history'
-on_source = 'ddu.vim'
+group = 'ddu'
 
 [[plugins]]
 repo = 'Shougo/ddu-source-dummy'
-on_source = 'ddu.vim'
+group = 'ddu'
 
 [[plugins]]
 repo = 'Shougo/ddu-source-output'
-on_source = 'ddu.vim'
+group = 'ddu'
 
 [[plugins]]
 repo = 'Shougo/ddu-source-item'
-on_source = 'ddu.vim'
+group = 'ddu'
 
 [[plugins]]
 repo = 'matsui54/ddu-source-file_external'
-on_source = 'ddu.vim'
+group = 'ddu'
 
 [[plugins]]
 repo = 'shun/ddu-source-rg'
-on_source = 'ddu.vim'
+group = 'ddu'
 
 [[plugins]]
 repo = 'Shougo/ddu-filter-matcher_substring'
-on_source = 'ddu.vim'
+group = 'ddu'
 
 [[plugins]]
 repo = 'Shougo/ddu-filter-matcher_relative'
-on_source = 'ddu.vim'
+group = 'ddu'
 
 [[plugins]]
 repo = 'Shougo/ddu-filter-matcher_hidden'
-on_source = 'ddu.vim'
+group = 'ddu'
 
 [[plugins]]
 repo = 'Shougo/ddu-filter-matcher_files'
-on_source = 'ddu.vim'
+group = 'ddu'
 
 [[plugins]]
 repo = 'Shougo/ddu-filter-matcher_ignore_files'
-on_source = 'ddu.vim'
+group = 'ddu'
 
 [[plugins]]
 repo = 'Shougo/ddu-filter-matcher_ignores'
-on_source = 'ddu.vim'
+group = 'ddu'
 
 [[plugins]]
 repo = 'Shougo/ddu-filter-sorter_alpha'
-on_source = 'ddu.vim'
+group = 'ddu'
 
 [[plugins]]
 repo = 'kuuote/ddu-filter-sorter_mtime'
-on_source = 'ddu.vim'
+group = 'ddu'
 
 [[plugins]]
 repo = 'Shougo/ddu-filter-converter_display_word'
-on_source = 'ddu.vim'
+group = 'ddu'
 
 [[plugins]]
 repo = 'kyoh86/ddu-filter-converter_hl_dir'
-on_source = 'ddu.vim'
+group = 'ddu'
 
 [[plugins]]
 repo = 'Milly/ddu-filter-kensaku'
 depends = 'kensaku.vim'
-on_source = 'ddu.vim'
+group = 'ddu'
 
 [[plugins]]
 repo = 'Shougo/ddu-column-filename'
-on_source = 'ddu.vim'
+group = 'ddu'
 
 [[plugins]]
 repo = 'Shougo/ddu-kind-file'
-on_source = 'ddu.vim'
+group = 'ddu'
 
 [[plugins]]
 repo = 'Shougo/ddu-kind-word'
-on_source = 'ddu.vim'
+group = 'ddu'
 
 [[plugins]]
 repo = '4513ECHO/ddu-kind-url'
-on_source = 'ddu.vim'
+group = 'ddu'

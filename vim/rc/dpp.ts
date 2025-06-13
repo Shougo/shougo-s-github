@@ -2,14 +2,14 @@ import type {
   ContextBuilder,
   ExtOptions,
   Plugin,
-} from "jsr:@shougo/dpp-vim@~4.3.0/types";
+} from "jsr:@shougo/dpp-vim@~4.4.0/types";
 import {
   BaseConfig,
   type ConfigReturn,
   type MultipleHook,
-} from "jsr:@shougo/dpp-vim@~4.3.0/config";
-import { Protocol } from "jsr:@shougo/dpp-vim@~4.3.0/protocol";
-import { mergeFtplugins } from "jsr:@shougo/dpp-vim@~4.3.0/utils";
+} from "jsr:@shougo/dpp-vim@~4.4.0/config";
+import { Protocol } from "jsr:@shougo/dpp-vim@~4.4.0/protocol";
+import { mergeFtplugins } from "jsr:@shougo/dpp-vim@~4.4.0/utils";
 
 import type {
   Ext as TomlExt,
@@ -262,11 +262,21 @@ export class Config extends BaseConfig {
       checkFiles.push(file.path);
     }
 
+    const groups = {
+      ddc: {
+        on_source: 'ddc.vim',
+      },
+      ddu: {
+        on_source: 'ddu.vim',
+      },
+    };
+
     return {
       checkFiles,
       ftplugins,
       hooksFiles,
       multipleHooks,
+      groups,
       plugins: lazyResult?.plugins ?? [],
       stateLines: lazyResult?.stateLines ?? [],
     };
