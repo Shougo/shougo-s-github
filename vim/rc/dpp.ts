@@ -264,10 +264,10 @@ export class Config extends BaseConfig {
 
     const groups = {
       ddc: {
-        on_source: 'ddc.vim',
+        on_source: "ddc.vim",
       },
       ddu: {
-        on_source: 'ddu.vim',
+        on_source: "ddu.vim",
       },
     };
 

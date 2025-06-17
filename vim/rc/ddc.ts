@@ -116,6 +116,9 @@ export class Config extends BaseConfig {
           matchers: [
             "matcher_length",
           ],
+          sorters: [
+            "sorter_cmdline_history",
+          ],
           forceCompletionPattern: String.raw`\S/\S*|\.\w*`,
         },
         cmdline_history: {
@@ -146,6 +149,9 @@ export class Config extends BaseConfig {
           mark: "input",
           forceCompletionPattern: String.raw`\S/\S*`,
           isVolatile: true,
+          sorters: [
+            "sorter_cmdline_history",
+          ],
         },
         line: {
           mark: "line",
@@ -177,6 +183,7 @@ export class Config extends BaseConfig {
           isVolatile: true,
           forceCompletionPattern: String.raw`\S/\S*`,
           minAutoCompleteLength: 3,
+          sorters: ["sorter_shell_history"],
         },
         shell_history: {
           mark: "history",
@@ -186,6 +193,7 @@ export class Config extends BaseConfig {
           mark: "sh",
           forceCompletionPattern: String.raw`\S/\S*`,
           minAutoCompleteLength: 3,
+          sorters: ["sorter_shell_history"],
         },
         skkeleton: {
           mark: "skk",
@@ -230,6 +238,14 @@ export class Config extends BaseConfig {
         },
         shell_native: {
           shell: "zsh",
+        },
+      },
+      filterParams: {
+        sorter_shell_history: {
+          paths: [
+            "~/.cache/ddt-shell-history",
+            "~/.zsh-history",
+          ],
         },
       },
       postFilters: [
