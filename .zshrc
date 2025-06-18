@@ -397,8 +397,9 @@ function __prompt_preexec() {
 
     _prompt_executing=1
 }
-preexec_functions+=(__prompt_preexec)
-precmd_functions+=(__prompt_precmd)
+
+#preexec_functions+=(__prompt_preexec)
+#precmd_functions+=(__prompt_precmd)
 
 # Use dtach or abduco instead screen/tmux
 # C-\ is detach

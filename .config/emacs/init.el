@@ -64,9 +64,29 @@
 (use-package vterm
   :ensure t)
 
+;; Terminal emulation for comint
+;; If the global `coterm-mode' is enabled, proper terminal emulation will be
+;; supported for all newly spawned comint processes.  This allows you to use
+;; more complex console programs such as "less" and "mpv" and full-screen TUI
+;; programs such as "vi", "top", "htop" or even "emacs -nw".
+(use-package coterm
+  :ensure t)
+(coterm-mode)
+
 ;; MisTTY, a shell/comint alternative with a fully functional terminal
 (use-package mistty
   :ensure t)
+
+;; Eat: Emulate A Terminal
+(straight-use-package
+ '(eat :type git
+       :host codeberg
+       :repo "akib/emacs-eat"
+       :files ("*.el" ("term" "term/*.el") "*.texi"
+               "*.ti" ("terminfo/e" "terminfo/e/*")
+               ("terminfo/65" "terminfo/65/*")
+               ("integration" "integration/*")
+               (:exclude ".dir-locals.el" "*-tests.el"))))
 
 ;; Save minibuffer history
 (use-package savehist

@@ -11,7 +11,7 @@ nnoremap ss <Cmd>Ddu -name=files
       \ file_point file_old
       \ `'.git'->finddir(';') != '' ? 'file_git' : ''`
       \ file -source-option-file-volatile
-      \ file -source-param-file-new -source-option-file-volatile
+      \ file -source-option-file-volatile -source-param-file-new
       \ -unique -expandInput
       \ -resume=`
       \      ddu#get_items(#{ sources: ['file_point'] })->empty()
