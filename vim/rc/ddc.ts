@@ -38,7 +38,7 @@ export class Config extends BaseConfig {
         const mode = await fn.mode(denops);
         const cmdlinePattern = /^(silent!?\s+)?([0-9,.%$]*!|terminal!?\s+)/;
         return Promise.resolve(
-          mode === "c" &&
+          mode === "c" && await fn.getcmdtype(denops) === ":" &&
             sourceArgs.context.input.search(cmdlinePattern) !== undefined
             ? ["shell_native"].concat(sourceArgs.sources)
             : null,
