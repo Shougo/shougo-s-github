@@ -284,26 +284,26 @@ lua_source = '''
 repo = 'chomosuke/typst-preview.nvim'
 on_ft = 'typst'
 
-[[plugins]]
-repo = 'hrsh7th/nvim-anydent'
-on_event = ['BufRead', 'CursorHold']
-lua_source = '''
-  vim.api.nvim_create_autocmd('FileType', {
-    callback = function()
-      if not vim.tbl_contains({
-        'help',
-        'html',
-        'markdown',
-        'python',
-        'toml',
-        'vim',
-        'yaml',
-      }, vim.bo.filetype) then
-        require('anydent').attach()
-      end
-    end
-  })
-'''
+#[[plugins]]
+#repo = 'hrsh7th/nvim-anydent'
+#on_event = ['BufRead', 'CursorHold']
+#lua_source = '''
+#  vim.api.nvim_create_autocmd('FileType', {
+#    callback = function()
+#      if not vim.tbl_contains({
+#        'help',
+#        'html',
+#        'markdown',
+#        'python',
+#        'toml',
+#        'vim',
+#        'yaml',
+#      }, vim.bo.filetype) then
+#        require('anydent').attach()
+#      end
+#    end
+#  })
+#'''
 
 #[[plugins]]
 #repo = 'lewis6991/tsffi.nvim'

@@ -52,7 +52,7 @@ hook_add = '''
 repo = 'previm/previm'
 on_ft = ['markdown', 'rst']
 hook_source = '''
-let g:previm_open_cmd = 'xdg-open'
+  let g:previm_open_cmd = 'xdg-open'
 '''
 
 # [[plugins]]
