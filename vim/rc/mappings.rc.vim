@@ -111,11 +111,14 @@ nnoremap sp  <Cmd>vsplit<CR><Cmd>wincmd w<CR>
 nnoremap so  <Cmd>only<CR>
 nnoremap <Tab>      <cmd>wincmd w<CR>
 nnoremap <expr> q
-      \   &l:filetype ==# 'qf'
+      \ !range(1, '$'->winnr())
+      \ ->filter({_, w -> w->winbufnr()->getbufvar('&buftype')
+      \                    ->stridx('quickfix') >= 0})
+      \ ->empty()
       \ ? '<Cmd>cclose<CR><Cmd>lclose<CR>'
-      \ : '#'->winnr() > 0 && '#'->winnr() !=# winnr()
+      \ : ( '#'->winnr() > 0 && '#'->winnr() !=# winnr() )
       \ ? '<Cmd>close<CR>'
-      \ : winnr()->getwinvar('&winfixbuf')
+      \ : ( winnr()->getwinvar('&winfixbuf') )
       \ ? ''
       \ : '<Cmd>enew<CR>'
 
