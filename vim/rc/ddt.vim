@@ -20,6 +20,7 @@ nnoremap <C-t> <Cmd>Ddu -name=ddt -sync
 
 " hook_source {{{
 call ddt#custom#patch_global(#{
+      \   debug: v:false,
       \   nvimServer: '~/.cache/nvim/server.pipe',
       \   uiParams: #{
       \     shell: #{
