@@ -15,6 +15,7 @@ hook_source = '''
     \   commit_characters: ['.'],
     \   highlight_scrollbar: 'None',
     \   insert_preview: v:true,
+    \   max_height: 5,
     \   max_width: 80,
     \   offset_cmdcol: 0,
     \   padding: v:false,
@@ -34,7 +35,6 @@ hook_source = '''
     \   follow_cursor: v:false,
     \   horizontal_menu: v:false,
     \   max_horizontal_items: 2,
-    \   max_height: 3,
     \ })
 '''
 
