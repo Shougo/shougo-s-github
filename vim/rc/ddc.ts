@@ -192,6 +192,7 @@ export class Config extends BaseConfig {
           forceCompletionPattern: String.raw`\S/\S*`,
           minAutoCompleteLength: 3,
           sorters: ["sorter_shell_history"],
+          isVolatile: true,
         },
         skkeleton: {
           mark: "skk",
