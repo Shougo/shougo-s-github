@@ -201,6 +201,13 @@ export class Config extends BaseConfig {
           minAutoCompleteLength: 2,
           isVolatile: true,
         },
+        skkeleton_okuri: {
+          mark: "skk*",
+          matchers: [],
+          sorters: [],
+          minAutoCompleteLength: 2,
+          isVolatile: true,
+        },
         vim: {
           mark: "vim",
           isVolatile: true,
