@@ -171,6 +171,7 @@ nnoremap <buffer> [Space]gA
 nnoremap <buffer> <C-h> <Cmd>Ddu -name=ddt -sync
       \ -input='`ddt#ui#get_input()`'
       \ ddt_shell_history<CR>
+tnoremap <buffer> <C-z>  <Esc>q
 
 augroup ddt-ui-terminal
   autocmd!
@@ -201,6 +202,8 @@ inoremap <buffer> <CR>
       \ <Cmd>call ddt#ui#do_action('executeLine')<CR>
 inoremap <buffer> <C-c>
       \ <Cmd>call ddt#ui#do_action('terminate')<CR>
+inoremap <buffer> <C-z>
+      \ <Cmd>call ddt#ui#do_action('pushBufferStack')<CR>
 nnoremap <buffer> [Space]gd
       \ <Cmd>call ddt#ui#do_action('send', #{
       \   str: 'git diff',
