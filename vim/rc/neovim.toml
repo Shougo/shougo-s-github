@@ -204,12 +204,17 @@ lua_source = '''
             'require',
           },
         },
+        semantic = {
+          -- Disable semantic token feature.
+          -- Because treesitter highlight is better.
+          enable = false,
+        },
         workspace = {
           -- Make the server aware of Neovim runtime files
           library = vim.api.nvim_get_runtime_file("", true),
         },
-        -- Do not send telemetry data
         telemetry = {
+          -- Do not send telemetry data
           enable = false,
         },
       },
