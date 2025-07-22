@@ -6,18 +6,20 @@ nnoremap s<Space> <Cmd>Ddu
       \ -ui-param-ff-split=`has('nvim') ? 'floating' : 'horizontal'`
       \ -resume
       \ <CR>
-nnoremap ss <Cmd>Ddu -name=files
+nnoremap sf <Cmd>Ddu
       \ -name=files-`win_getid()`
-      \ file_point file_old
+      \ file_point
+      \ -ui-param-ff-displaySourceName=short
+      \ -ui-param-ff-split=`has('nvim') ? 'floating' : 'horizontal'`
+      \ <CR>
+nnoremap ss <Cmd>Ddu
+      \ -name=files-`win_getid()`
+      \ file_old
       \ `'.git'->finddir(';') != '' ? 'file_git' : ''`
       \ file -source-option-file-volatile
       \ file -source-option-file-volatile -source-param-file-new
       \ -unique -expandInput
-      \ -resume=`
-      \      ddu#get_items(#{ sources: ['file_point'] })->empty()
-      \    ? 'v:true'
-      \    : 'v:false'
-      \ `
+      \ -resume
       \ -ui-param-ff-displaySourceName=short
       \ -ui-param-ff-split=`has('nvim') ? 'floating' : 'horizontal'`
       \ <CR>

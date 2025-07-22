@@ -233,6 +233,8 @@ lua_source = '''
     -- https://github.com/neovim/nvim-lspconfig/pull/2793
     settings = {
       deno = {
+        lint = true,
+        unstable = true,
         suggest = {
           imports = {
             autoDiscover = false,
