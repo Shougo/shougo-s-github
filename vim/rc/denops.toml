@@ -169,60 +169,61 @@ hook_source = '''
   call skkeleton#initialize()
 '''
 
-[[plugins]]
-repo = 'kuuote/lspoints'
-on_event = 'BufRead'
-depends = 'denops.vim'
-hook_source = '''
-call lspoints#load_extensions([
-        \   'nvim_diagnostics',
-        \ ])
-
-function s:attach_ls() abort
-  const ft = &l:filetype
-  if ft =~# '^typescript' && 'deno'->executable()
-    " Deno lsp
-
-    " Check "package.json" exists
-    if findfile('package.json', '.;') !=# ''
-      return
-    endif
-
-    call lspoints#attach('denols', #{
-            \   cmd: ['deno', 'lsp'],
-            \   initializationOptions: #{
-            \     enable: v:true,
-            \     lint: v:true,
-            \     documentPreloadLimit: 10,
-            \     unstable: v:true,
-            \     suggest: #{
-            \       autoImports: v:false,
-            \     },
-            \   },
-            \ })
-
-    " Use lspoints for nvim-lsp source
-    call ddc#custom#patch_buffer('sourceParams', #{
-        \   lsp: #{
-        \     lspEngine: 'lspoints',
-        \   }
-        \ })
-  elseif ft ==# 'css' && 'tailwindcss-language-server'->executable()
-    " Tailwind CSS
-
-    " Check tailwindcss file exists
-    if findfile('tailwind.config.js', '.;') !=# ''
-      return
-    endif
-
-    call lspoints#attach('tailwindcss-language-server', #{
-            \   cmd: ['tailwindcss-language-server', '--stdio'],
-            \   initializationOptions: #{
-            \   },
-            \ })
-  endif
-endfunction
-
-call s:attach_ls()
-autocmd MyAutoCmd FileType * call s:attach_ls()
-'''
+## NOTE: Disable lspoints.  It does not support denols imports feature.
+#[[plugins]]
+#repo = 'kuuote/lspoints'
+#on_event = 'BufRead'
+#depends = 'denops.vim'
+#hook_source = '''
+#call lspoints#load_extensions([
+#        \   'nvim_diagnostics',
+#        \ ])
+#
+#function s:attach_ls() abort
+#  const ft = &l:filetype
+#  if ft =~# '^typescript' && 'deno'->executable()
+#    " Deno lsp
+#
+#    " Check "package.json" exists
+#    if findfile('package.json', '.;') !=# ''
+#      return
+#    endif
+#
+#    call lspoints#attach('denols', #{
+#            \   cmd: ['deno', 'lsp'],
+#            \   initializationOptions: #{
+#            \     enable: v:true,
+#            \     lint: v:true,
+#            \     documentPreloadLimit: 10,
+#            \     unstable: v:true,
+#            \     suggest: #{
+#            \       autoImports: v:true,
+#            \     },
+#            \   },
+#            \ })
+#
+#    " Use lspoints for nvim-lsp source
+#    call ddc#custom#patch_buffer('sourceParams', #{
+#        \   lsp: #{
+#        \     lspEngine: 'lspoints',
+#        \   }
+#        \ })
+#  elseif ft ==# 'css' && 'tailwindcss-language-server'->executable()
+#    " Tailwind CSS
+#
+#    " Check tailwindcss file exists
+#    if findfile('tailwind.config.js', '.;') !=# ''
+#      return
+#    endif
+#
+#    call lspoints#attach('tailwindcss-language-server', #{
+#            \   cmd: ['tailwindcss-language-server', '--stdio'],
+#            \   initializationOptions: #{
+#            \   },
+#            \ })
+#  endif
+#endfunction
+#
+#call s:attach_ls()
+#autocmd MyAutoCmd FileType * call s:attach_ls()
+#'''

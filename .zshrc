@@ -351,7 +351,8 @@ bindkey "^y" x-yank
 # Edit command line by the editor
 autoload -Uz edit-command-line
 zle -N edit-command-line
-bindkey "^O" edit-command-line
+bindkey '^xe' edit-command-line
+bindkey '^x^e' edit-command-line
 
 
 #####################################################################
