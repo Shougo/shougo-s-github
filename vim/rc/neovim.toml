@@ -3,34 +3,60 @@ repo = 'nvim-treesitter/nvim-treesitter'
 if = '!has("win32")'
 on_event = ['BufRead', 'CursorHold']
 on_ft = ['help']
+rev = 'main'
 hook_post_update = 'TSUpdate'
 lua_source = '''
-  require('nvim-treesitter.configs').setup {
-    ensure_installed = 'all',
-    ignore_install = {
-      'hoon',
-      'mlir',
-      'ocamllex',
-      'swift',
-      'unison',
-    },
-    sync_install = true,
-    additional_vim_regex_highlighting = {
-      'python',
-    },
-    highlight = {
-      enable = true,
-    },
-    indent = {
-      enable = true,
-      disable = {
-        'help',
-        'python',
-        'toml',
-        'vim',
-      },
-    },
+  -- Install parsers
+  require'nvim-treesitter'.install {
+    'c',
+    'javascript',
+    'rust',
+    'python',
+    'toml',
+    'typescript',
   }
+
+  -- Enable highlight
+  vim.api.nvim_create_autocmd('FileType', {
+    pattern = {
+      'c',
+      'help',
+      'python',
+      'rust',
+      'typescript',
+      'vim',
+    },
+    callback = function()
+      vim.treesitter.start()
+    end,
+  })
+
+  --require('nvim-treesitter.configs').setup {
+  --  ensure_installed = 'all',
+  --  ignore_install = {
+  --    'hoon',
+  --    'mlir',
+  --    'ocamllex',
+  --    'swift',
+  --    'unison',
+  --  },
+  --  sync_install = true,
+  --  additional_vim_regex_highlighting = {
+  --    'python',
+  --  },
+  --  highlight = {
+  --    enable = true,
+  --  },
+  --  indent = {
+  --    enable = true,
+  --    disable = {
+  --      'help',
+  --      'python',
+  --      'toml',
+  --      'vim',
+  --    },
+  --  },
+  --}
 '''
 hook_source = '''
   " Custom colors

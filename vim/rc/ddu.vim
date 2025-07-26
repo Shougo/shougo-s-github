@@ -81,6 +81,8 @@ xnoremap <expr> ;r
       \ .. '<Cmd>Ddu -name=register register
       \ -source-option-ff-defaultAction=insert
       \ -ui-param-ff-autoResize<CR>'
+nnoremap sm <Cmd>Ddu
+      \ dpp<CR>
 
 xnoremap ;g <Cmd>call DduUrlItems()<CR>
 
