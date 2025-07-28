@@ -1,1 +1,1 @@
-execute 'source' $"{'<sfile>:h'->expand()}/rc/vimrc"
+execute 'source' $"{'<script>:h'->expand()}/rc/vimrc"

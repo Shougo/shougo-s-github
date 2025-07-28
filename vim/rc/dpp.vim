@@ -32,7 +32,7 @@ call DppInitPlugin('Shougo/dpp-ext-lazy')
 " Set dpp base path (required)
 const s:dpp_base = '~/.cache/dpp'->expand()
 
-let $BASE_DIR = '<sfile>:h'->expand()
+let $BASE_DIR = '<script>:h'->expand()
 
 function DppMakeState()
   call dpp#make_state(s:dpp_base, '$BASE_DIR/dpp.ts'->expand())

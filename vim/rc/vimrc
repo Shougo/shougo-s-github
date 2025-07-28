@@ -72,7 +72,7 @@ if '~/.secret_vimrc'->expand()->filereadable()
   source ~/.secret_vimrc
 endif
 
-const base_path = '<sfile>:h'->expand()
+const base_path = '<script>:h'->expand()
 
 execute 'source' base_path .. '/dpp.vim'
 

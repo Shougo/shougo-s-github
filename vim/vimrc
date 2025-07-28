@@ -2,5 +2,5 @@
 " profile start profile.txt
 " profile file ~/.vim/rc/*
 if 1
-  execute 'source' $"{'<sfile>:h'->expand()}/rc/vimrc"
+  execute 'source' $"{'<script>:h'->expand()}/rc/vimrc"
 endif
