@@ -2,17 +2,17 @@ import {
   type ActionArguments,
   ActionFlags,
   type DduOptions,
-} from "jsr:@shougo/ddu-vim@~10.3.0/types";
+} from "@shougo/ddu-vim/types";
 import {
   BaseConfig,
   type ConfigArguments,
-} from "jsr:@shougo/ddu-vim@~10.3.0/config";
-import type { ActionData as FileAction } from "jsr:@shougo/ddu-kind-file@~0.9.0";
-import type { Params as FfParams } from "jsr:@shougo/ddu-ui-ff@~2.0.0";
-import type { Params as FilerParams } from "jsr:@shougo/ddu-ui-filer@~2.0.0";
+} from "@shougo/ddu-vim/config";
+import type { ActionData as FileAction } from "@shougo/ddu-kind-file";
+import type { Params as FfParams } from "@shougo/ddu-ui-ff";
+import type { Params as FilerParams } from "@shougo/ddu-ui-filer";
 
-import type { Denops } from "jsr:@denops/std@~7.6.0";
-import * as fn from "jsr:@denops/std@~7.6.0/function";
+import type { Denops } from "@denops/std";
+import * as fn from "@denops/std/function";
 
 type Params = Record<string, unknown>;
 
