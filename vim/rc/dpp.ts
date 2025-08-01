@@ -2,37 +2,37 @@ import type {
   ContextBuilder,
   ExtOptions,
   Plugin,
-} from "jsr:@shougo/dpp-vim@~4.5.0/types";
+} from "@shougo/dpp-vim/types";
 import {
   BaseConfig,
   type ConfigReturn,
   type MultipleHook,
-} from "jsr:@shougo/dpp-vim@~4.5.0/config";
-import { Protocol } from "jsr:@shougo/dpp-vim@~4.5.0/protocol";
-import { mergeFtplugins } from "jsr:@shougo/dpp-vim@~4.5.0/utils";
+} from "@shougo/dpp-vim/config";
+import { Protocol } from "@shougo/dpp-vim/protocol";
+import { mergeFtplugins } from "@shougo/dpp-vim/utils";
 
 import type {
   Ext as TomlExt,
   Params as TomlParams,
-} from "jsr:@shougo/dpp-ext-toml@~1.3.0";
+} from "@shougo/dpp-ext-toml";
 import type {
   Ext as LocalExt,
   Params as LocalParams,
-} from "jsr:@shougo/dpp-ext-local@~1.3.0";
+} from "@shougo/dpp-ext-local";
 import type {
   Ext as PackspecExt,
   Params as PackspecParams,
-} from "jsr:@shougo/dpp-ext-packspec@~1.3.0";
+} from "@shougo/dpp-ext-packspec";
 import type {
   Ext as LazyExt,
   LazyMakeStateResult,
   Params as LazyParams,
-} from "jsr:@shougo/dpp-ext-lazy@~1.5.0";
+} from "@shougo/dpp-ext-lazy";
 
-import type { Denops } from "jsr:@denops/std@~7.6.0";
-import * as fn from "jsr:@denops/std@~7.6.0/function";
+import type { Denops } from "@denops/std";
+import * as fn from "@denops/std/function";
 
-import { expandGlob } from "jsr:@std/fs@~1.0.0/expand-glob";
+import { expandGlob } from "@std/fs/expand-glob";
 
 export class Config extends BaseConfig {
   override async config(args: {

@@ -65,6 +65,7 @@ call ddt#custom#patch_global(#{
       \     },
       \   },
       \ })
+
 function! MyGitStatus()
   const gitdir = '.git'->finddir(';')
   if gitdir ==# ''
