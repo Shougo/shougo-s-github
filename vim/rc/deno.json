@@ -1,5 +1,6 @@
 {
   "imports": {
+    "@shougo/ddc-vim": "jsr:@shougo/ddc-vim@~9.5.0",
     "@shougo/ddu-vim": "jsr:@shougo/ddu-vim@~10.3.0",
     "@shougo/ddu-kind-file": "jsr:@shougo/ddu-kind-file@~0.9.0",
     "@shougo/ddu-ui-ff": "jsr:@shougo/ddu-ui-ff@~2.0.0",
