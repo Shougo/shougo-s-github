@@ -19,52 +19,7 @@ nnoremap <C-t> <Cmd>Ddu -name=ddt -sync
 " }}}
 
 " hook_source {{{
-call ddt#custom#patch_global(#{
-      \   debug: v:false,
-      \   nvimServer: '~/.cache/nvim/server.pipe',
-      \   uiParams: #{
-      \     shell: #{
-      \       aliases: #{
-      \         ls: 'ls --color',
-      \       },
-      \       ansiColorHighlights: #{
-      \         bgs: [
-      \           'TerminalBG0', 'TerminalBG1',
-      \           'TerminalBG2', 'TerminalBG3',
-      \           'TerminalBG4', 'TerminalBG5',
-      \           'TerminalBG6', 'TerminalBG7',
-      \           'TerminalBG8', 'TerminalBG9',
-      \           'TerminalBG10', 'TerminalBG11',
-      \           'TerminalBG12', 'TerminalBG13',
-      \           'TerminalBG14', 'TerminalBG15',
-      \         ],
-      \         bold: 'Bold',
-      \         fgs: [
-      \           'TerminalFG0', 'TerminalFG1',
-      \           'TerminalFG2', 'TerminalFG3',
-      \           'TerminalFG4', 'TerminalFG5',
-      \           'TerminalFG6', 'TerminalFG7',
-      \           'TerminalFG8', 'TerminalFG9',
-      \           'TerminalFG10', 'TerminalFG11',
-      \           'TerminalFG12', 'TerminalFG13',
-      \           'TerminalFG14', 'TerminalFG15',
-      \         ],
-      \         italic: 'Italic',
-      \         underline: 'Underlined',
-      \       },
-      \       noSaveHistoryCommands: [
-      \         'history',
-      \       ],
-      \       userPrompt:
-      \         "'| ' .. fnamemodify(getcwd(), ':~') .. MyGitStatus()",
-      \       shellHistoryPath: '~/.cache/ddt-shell-history'->expand(),
-      \     },
-      \     terminal: #{
-      \       command: ['zsh'],
-      \       promptPattern: has('win32') ? '\f\+>' : '\w*% \?',
-      \     },
-      \   },
-      \ })
+call ddt#custom#load_config('$BASE_DIR/ddt.ts'->expand())
 
 function! MyGitStatus()
   const gitdir = '.git'->finddir(';')

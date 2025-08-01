@@ -3,10 +3,7 @@ import {
   ActionFlags,
   type DduOptions,
 } from "@shougo/ddu-vim/types";
-import {
-  BaseConfig,
-  type ConfigArguments,
-} from "@shougo/ddu-vim/config";
+import { BaseConfig, type ConfigArguments } from "@shougo/ddu-vim/config";
 import type { ActionData as FileAction } from "@shougo/ddu-kind-file";
 import type { Params as FfParams } from "@shougo/ddu-ui-ff";
 import type { Params as FilerParams } from "@shougo/ddu-ui-filer";
