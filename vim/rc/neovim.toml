@@ -20,7 +20,6 @@ lua_source = '''
   vim.api.nvim_create_autocmd('FileType', {
     pattern = {
       'c',
-      'help',
       'python',
       'rust',
       'typescript',
