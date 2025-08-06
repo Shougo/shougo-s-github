@@ -8,7 +8,7 @@
     "fmt": "deno fmt vim/rc",
     "test": "deno test -A --doc --parallel --shuffle vim/rc/**/*.ts",
     "update": "deno outdated --recursive",
-    "upgrade": "deno outdated --recursive --update"
+    "upgrade": "deno outdated --recursive --update --latest"
   },
   "workspace": [
     "./vim/rc"
