@@ -67,6 +67,10 @@ repo = 'Shougo/ddu-source-item'
 group = 'ddu'
 
 [[plugins]]
+repo = 'Shougo/ddu-source-input_history'
+group = 'ddu'
+
+[[plugins]]
 repo = 'matsui54/ddu-source-file_external'
 group = 'ddu'
 

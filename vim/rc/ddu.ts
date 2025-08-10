@@ -184,6 +184,9 @@ export class Config extends BaseConfig {
         ddt_shell_history: {
           defaultAction: "execute",
         },
+        input_history: {
+          defaultAction: "input",
+        },
       },
       sourceParams: {
         file_git: {

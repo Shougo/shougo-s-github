@@ -24,6 +24,8 @@ nnoremap <buffer> a
       \ <Cmd>call ddu#ui#do_action('chooseAction')<CR>
 nnoremap <buffer> A
       \ <Cmd>call ddu#ui#do_action('inputAction')<CR>
+nnoremap <buffer> I
+      \ <Cmd>call ddu#ui#do_action('chooseInput')<CR>
 nnoremap <buffer> o
       \ <Cmd>call ddu#ui#do_action('expandItem',
       \ #{ mode: 'toggle' })<CR>
