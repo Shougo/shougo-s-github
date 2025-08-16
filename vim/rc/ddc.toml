@@ -201,4 +201,16 @@ hook_source = '''
       call ddc#custom#set_buffer(s:prev_buffer_config)
     endif
   endfunction
+
+  function s:skkeleton_handle_dot() abort
+    if ddc#map#can_complete()
+      call feedkeys(ddc#map#insert_item(0), 'nt')
+    else
+      call skkeleton#handle('handleKey', #{ key: '.' })
+    endif
+  endfunction
+
+  autocmd User skkeleton-enable-post
+        \ inoremap <buffer> <nowait> .
+        \ <Cmd>call <SID>skkeleton_handle_dot()<CR>
 '''

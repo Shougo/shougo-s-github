@@ -89,7 +89,7 @@ inoremap <expr> <TAB>
       \ ? '<TAB>'
       \ : ddc#map#manual_complete()
 inoremap <expr> <C-e>
-      \   ddc#ui#inline#visible() <Bar><Bar> pum#visible()
+      \   ddc#map#can_complete()
       \ ? ddc#map#insert_item(0)
       \ : '<End>'
 inoremap <expr> <C-l>  ddc#map#manual_complete()
