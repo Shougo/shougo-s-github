@@ -75,7 +75,7 @@ hook_source = '''
   function! s:skkeleton_pre() abort
     if (!has('nvim') || $DISPLAY !=# '') && has('clipboard')
       " Copy to clipboard to use Vim as IME
-      autocmd InsertLeave * ++once
+      autocmd ModeChanged *:n ++once
         \ let @* = '.'->getline() | let @+ = @*
     endif
 
