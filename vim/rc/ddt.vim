@@ -95,7 +95,10 @@ tnoremap <expr> <S-Tab>
       \ : '<S-Tab>'
 tnoremap <Down>   <Cmd>call pum#map#insert_relative(+1)<CR>
 tnoremap <Up>     <Cmd>call pum#map#insert_relative(-1)<CR>
-tnoremap <C-y>    <Cmd>call pum#map#confirm()<CR>
+tnoremap <expr> <C-y>
+      \   pum#visible()
+      \ ? '<Cmd>call pum#map#confirm()<CR>'
+      \ : '<Cmd>call feedkeys(""->input(), "n")<CR>'
 tnoremap <C-o>    <Cmd>call pum#map#confirm()<CR>
 " }}}
 
