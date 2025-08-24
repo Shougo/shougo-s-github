@@ -1,7 +1,7 @@
 {
   "lock": false,
   "tasks": {
-    "cache": "deno cache --reload vim/**/*.ts",
+    "cache": "deno install --reload",
     "check": "deno check vim/rc/*.ts",
     "lint": "deno lint vim/rc",
     "lint-fix": "deno lint --fix vim/rc",
