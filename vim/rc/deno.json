@@ -12,7 +12,7 @@
     "@shougo/dpp-ext-local": "jsr:@shougo/dpp-ext-local@~1.3.0",
     "@shougo/dpp-ext-packspec": "jsr:@shougo/dpp-ext-packspec@~1.3.0",
     "@shougo/dpp-ext-toml": "jsr:@shougo/dpp-ext-toml@~1.3.0",
-    "@shougo/dpp-vim": "jsr:@shougo/dpp-vim@~4.7.0",
+    "@shougo/dpp-vim": "jsr:@shougo/dpp-vim@~5.0.0",
     "@std/fs": "jsr:@std/fs@~1.0.0"
   }
 }
