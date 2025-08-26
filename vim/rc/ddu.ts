@@ -113,6 +113,7 @@ export class Config extends BaseConfig {
             "matcher_relative",
             "matcher_substring",
           ],
+          sorters: ["sorter_mtime"],
           converters: ["converter_hl_dir"],
         },
         file_git: {
