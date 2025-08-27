@@ -6,6 +6,11 @@ on_ft = ['help']
 rev = 'main'
 hook_post_update = 'TSUpdate'
 lua_source = '''
+  if not vim.fn.executable('tree-sitter') then
+    vim.print('nvim-treesitter requires "treesitter-cli".')
+    return
+  end
+
   -- Install parsers
   require'nvim-treesitter'.install {
     'c',
@@ -29,33 +34,6 @@ lua_source = '''
       vim.treesitter.start()
     end,
   })
-
-  --require('nvim-treesitter.configs').setup {
-  --  ensure_installed = 'all',
-  --  ignore_install = {
-  --    'hoon',
-  --    'mlir',
-  --    'ocamllex',
-  --    'swift',
-  --    'unison',
-  --  },
-  --  sync_install = true,
-  --  additional_vim_regex_highlighting = {
-  --    'python',
-  --  },
-  --  highlight = {
-  --    enable = true,
-  --  },
-  --  indent = {
-  --    enable = true,
-  --    disable = {
-  --      'help',
-  --      'python',
-  --      'toml',
-  --      'vim',
-  --    },
-  --  },
-  --}
 '''
 hook_source = '''
   " Custom colors
