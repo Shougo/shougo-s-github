@@ -56,10 +56,6 @@ setlocal nofoldenable
 " }}}
 
 " help {{{
-setlocal iskeyword+=:
-setlocal iskeyword+=#
-setlocal iskeyword+=-
-
 function! s:set_highlight(group) abort
   for group in ['helpBar', 'helpBacktick', 'helpStar', 'helpIgnore']
     execute 'highlight link' group a:group
