@@ -38,7 +38,9 @@ function s:skkeleton_handle_dot() abort
   endif
 endfunction
 
-autocmd User skkeleton-enable-post
-      \ inoremap <buffer> <nowait> .
-      \ <Cmd>call <SID>skkeleton_handle_dot()<CR>
+" Accept completion item by dot key.
+" https://github.com/vim-skk/skkeleton/issues/224
+"autocmd User skkeleton-enable-post
+"      \ inoremap <buffer> <nowait> .
+"      \ <Cmd>call <SID>skkeleton_handle_dot()<CR>
 " }}}
