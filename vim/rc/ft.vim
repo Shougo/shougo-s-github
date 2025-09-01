@@ -43,7 +43,7 @@ match goErr /\<err\>/
 
 " vim {{{
 setlocal shiftwidth=2 softtabstop=2
-setlocal iskeyword+=:,#
+setlocal iskeyword+=\:,#
 setlocal indentkeys+=\\,endif,endfunction,endfor,endwhile,endtry
 " }}}
 

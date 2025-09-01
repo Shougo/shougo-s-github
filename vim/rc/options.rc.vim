@@ -93,7 +93,6 @@ autocmd MyAutoCmd CmdlineEnter *
       \ | setlocal iskeyword+=+
       \ | setlocal iskeyword-=/
       \ | setlocal iskeyword-=\:
-      \ | setlocal iskeyword-=:
 autocmd MyAutoCmd CmdlineLeave *
       \ let &l:iskeyword = s:save_iskeyword
 
