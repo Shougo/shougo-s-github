@@ -172,8 +172,8 @@ lua_source = '''
     'denols',
     'gopls',
     'lua_ls',
+    'pyright',
     'rust_analyzer',
-    --'solargraph',
     'vtsls',
   }
 
@@ -185,11 +185,6 @@ lua_source = '''
 
   vim.lsp.config('*', {
     capabilities = require("ddc_source_lsp").make_client_capabilities(),
-  })
-
-  vim.lsp.config('solargraph', {
-    single_file_support = true,
-    capabilities = {},
   })
 
   vim.lsp.config('lua_ls', {
