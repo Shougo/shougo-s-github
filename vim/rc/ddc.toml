@@ -77,14 +77,6 @@ repo = 'Shougo/ddc-source-shell_history'
 group = 'ddc'
 
 [[plugins]]
-repo = 'Shougo/ddc-source-copilot'
-group = 'ddc'
-
-[[plugins]]
-repo = 'Shougo/ddc-source-codeium'
-group = 'ddc'
-
-[[plugins]]
 repo = 'Shougo/ddc-source-input'
 group = 'ddc'
 

@@ -13,8 +13,6 @@ export class Config extends BaseConfig {
       "around",
       "file",
       "register",
-      //"codeium",
-      //"copilot",
     ];
 
     const mocWord = Deno.env.get("MOCWORD_DATA") ? ["mocword"] : [];
