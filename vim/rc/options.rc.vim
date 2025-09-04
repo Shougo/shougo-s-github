@@ -91,10 +91,12 @@ autocmd MyAutoCmd CmdlineEnter *
       \ | setlocal iskeyword+=.
       \ | setlocal iskeyword+=-
       \ | setlocal iskeyword+=+
-      \ | setlocal iskeyword-=/
-      \ | setlocal iskeyword-=\:
+      \ | setlocal iskeyword+=^/
+      \ | setlocal iskeyword+=^:
 autocmd MyAutoCmd CmdlineLeave *
-      \ let &l:iskeyword = s:save_iskeyword
+      \ : if 's:save_iskeyword'->exists()
+      \ |   let &l:iskeyword = s:save_iskeyword
+      \ | endif
 
 " Keymapping timeout.
 set timeout timeoutlen=500 ttimeoutlen=100
