@@ -153,11 +153,19 @@ repo = 'Shougo/ddc-filter-sorter_head'
 group = 'ddc'
 
 [[plugins]]
+repo = 'Shougo/ddc-filter-sorter_lsp_kind'
+group = 'ddc'
+
+[[plugins]]
 repo = 'Shougo/ddc-filter-converter_remove_overlap'
 group = 'ddc'
 
 [[plugins]]
 repo = 'Shougo/ddc-filter-converter_truncate_abbr'
+group = 'ddc'
+
+[[plugins]]
+repo = 'Shougo/ddc-filter-converter_kind_labels'
 group = 'ddc'
 
 [[multiple_hooks]]
