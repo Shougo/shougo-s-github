@@ -36,8 +36,9 @@ function! MyGitStatus()
   const now = localtime()
   if !s:cached_status->has_key(full_gitdir)
         \ || gitdir_time > s:cached_status[full_gitdir].timestamp
-        \ || now > s:cached_status[full_gitdir].check + 5
-    const status = printf(" %s%s",
+        \ || now > s:cached_status[full_gitdir].check + 1
+    " Get normal git status
+    let status = printf(" %s%s",
           \   ['git', 'rev-parse', '--abbrev-ref','HEAD']
           \   ->job#system(),
           \   ['git', 'status', '--short', '--ignore-submodules=all']
@@ -47,6 +48,15 @@ function! MyGitStatus()
           \ ->map({ _, val -> '| ' .. val })
           \ ->join("\n")
           \ ->substitute('^| ', '', '')
+
+    " Detect unsaved buffers
+    for buf in #{ buflisted: 1 }->getbufinfo()
+      if buf.changed && buf.name !=# ''
+        let status .= "\n"
+        let status .= printf('?? %s (unsaved)', buf.name->fnamemodify(':.'))
+      endif
+    endfor
+
     let s:cached_status[full_gitdir] = #{
           \   check: now,
           \   timestamp: gitdir_time,
