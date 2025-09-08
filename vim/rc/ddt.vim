@@ -52,8 +52,9 @@ function! MyGitStatus()
     " Detect unsaved buffers
     for buf in #{ buflisted: 1 }->getbufinfo()
       if buf.changed && buf.name !=# ''
+        " Check if the file is tracked by git
         let status .= "\n"
-        let status .= printf('?? %s (unsaved)', buf.name->fnamemodify(':.'))
+        let status .= printf('| ?? %s (unsaved)', buf.name->fnamemodify(':.'))
       endif
     endfor
 
