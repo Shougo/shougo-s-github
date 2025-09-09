@@ -63,7 +63,7 @@ export class Config extends BaseConfig {
         },
         terminal: {
           command: ["zsh"],
-          promptPattern: hasWindows ? "\f\+>" : "\w*% \?",
+          promptPattern: hasWindows ? "\\f\\+>" : "\\w*% \\?",
         },
       },
     });
