@@ -135,7 +135,7 @@ export class Config extends BaseConfig {
         }
 
         if (toml.multiple_hooks) {
-          multipleHooks = multipleHooks.concat(toml.multiple_hooks);
+          multipleHooks = [...multipleHooks, ...toml.multiple_hooks];
         }
 
         if (toml.hooks_file) {

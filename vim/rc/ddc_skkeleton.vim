@@ -2,7 +2,8 @@
 autocmd MyAutoCmd User skkeleton-enable-pre call s:skkeleton_pre_ddc()
 function! s:skkeleton_pre_ddc() abort
   " Overwrite sources
-  let s:prev_buffer_config = ddc#custom#get_buffer()
+  let b:prev_buffer_config = ddc#custom#get_buffer()
+
   call ddc#custom#patch_buffer(#{
           \   cmdlineSources: [
           \    'skkeleton',
@@ -22,11 +23,12 @@ function! s:skkeleton_pre_ddc() abort
           \ })
 endfunction
 
-autocmd MyAutoCmd User skkeleton-disable-pre call s:skkeleton_post_ddc()
+autocmd MyAutoCmd User skkeleton-disable-post call s:skkeleton_post_ddc()
 function! s:skkeleton_post_ddc() abort
-  if 's:prev_buffer_config'->exists()
+  if 'b:prev_buffer_config'->exists()
     " Restore sources
-    call ddc#custom#set_buffer(s:prev_buffer_config)
+    call ddc#custom#set_buffer(b:prev_buffer_config)
+    unlet b:prev_buffer_config
   endif
 endfunction
 

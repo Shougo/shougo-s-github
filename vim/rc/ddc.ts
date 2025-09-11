@@ -36,7 +36,7 @@ export class Config extends BaseConfig {
         const mode = await fn.mode(denops);
         return Promise.resolve(
           mode === "c" && await fn.getcmdtype(denops) === ":"
-            ? ["shell_native"].concat(sourceArgs.sources)
+            ? ["shell_native", ...sourceArgs.sources]
             : null,
         );
       },
@@ -267,7 +267,7 @@ export class Config extends BaseConfig {
       ]
     ) {
       args.contextBuilder.patchFiletype(filetype, {
-        sources: commonSources.concat(["line"]).concat(mocWord),
+        sources: [...commonSources, "line", ...mocWord],
       });
     }
 
@@ -334,7 +334,7 @@ export class Config extends BaseConfig {
         ]
       ) {
         args.contextBuilder.patchFiletype(filetype, {
-          sources: ["lsp"].concat(commonSources),
+          sources: ["lsp", ...commonSources],
         });
       }
     }
@@ -342,7 +342,7 @@ export class Config extends BaseConfig {
     args.contextBuilder.patchFiletype("vim", {
       // Enable specialBufferCompletion for cmdwin.
       specialBufferCompletion: true,
-      sources: ["vim", "cmdline"].concat(commonSources),
+      sources: ["vim", "cmdline", ...commonSources],
     });
   }
 }
