@@ -25,11 +25,13 @@ let g:loaded_remote_plugins = v:true
 " https://github.com/neovim/neovim/issues/32660
 " https://blog.atusy.net/2025/05/07/workaround-nvim-async-ts-fliker/
 lua <<END
-vim.api.nvim_create_autocmd({ 'BufWinEnter', 'WinNew', 'WinClosed', 'TabEnter' }, {
+vim.api.nvim_create_autocmd(
+    { 'BufWinEnter', 'WinNew', 'WinClosed', 'TabEnter' }, {
   group = vim.api.nvim_create_augroup("ts_toggle_sync_parsing", {}),
   callback = function(ctx)
     local function exec()
-      local wins = vim.api.nvim_tabpage_list_wins(vim.api.nvim_get_current_tabpage())
+      local wins = vim.api.nvim_tabpage_list_wins(
+          vim.api.nvim_get_current_tabpage())
       local bufs = {}
       for _, win in ipairs(wins) do
         local buf = vim.api.nvim_win_get_buf(win)
@@ -39,7 +41,7 @@ vim.api.nvim_create_autocmd({ 'BufWinEnter', 'WinNew', 'WinClosed', 'TabEnter' }
             vim.g._ts_force_sync_parsing = true
             return
           end
-          -- set to false to avoid multiple tests on the availability of parser
+          -- set to false to avoid multiple tests
           bufs[buf] = false
         end
         if bufs[buf] == nil then
@@ -79,7 +81,7 @@ function s:config_treesitter()
   vim.treesitter.start = (function(wrapped)
     return function(bufnr, lang)
       local disables_ft = {
-        --'help',
+        'help',
       }
       local disables_lang = {
         'diff',
