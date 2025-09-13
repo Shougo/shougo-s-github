@@ -170,9 +170,9 @@ depends = ['mason.nvim', 'ddc-source-lsp']
 lua_source = '''
   local ensure_installed = {
     'denols',
-    --'emmylua_ls',
+    'emmylua_ls',
     'gopls',
-    'lua_ls',
+    --'lua_ls',
     'pyright',
     'rust_analyzer',
     'vtsls',
@@ -189,11 +189,17 @@ lua_source = '''
   })
 
   vim.lsp.config('emmylua_ls', {
-    runtime = {
-      version = 'LuaJIT',
-    },
-    workspace = {
-      checkThirdParty = false,
+    on_init = function(client)
+      client.config.settings.Lua = vim.tbl_deep_extend(
+          'force', client.config.settings.Lua, {
+        workspace = { library = vim.api.nvim_get_runtime_file('', true) },
+      })
+    end,
+    settings = {
+      Lua = {
+        runtime = { version = 'LuaJIT' },
+        workspace = { checkThirdParty = false },
+      },
     },
     workspace_required = true,
   })
