@@ -175,7 +175,7 @@ lua_source = '''
     --'lua_ls',
     'pyright',
     'rust_analyzer',
-    'vtsls',
+    --'vtsls',
   }
 
   -- https://zenn.dev/pandanoir/articles/4736924f5ecc72
