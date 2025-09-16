@@ -1,6 +1,10 @@
 " hook_source {{{
 autocmd MyAutoCmd User skkeleton-enable-pre call s:skkeleton_pre_ddc()
 function! s:skkeleton_pre_ddc() abort
+  if 'b:prev_buffer_config'->exists()
+    return
+  endif
+
   " Overwrite sources
   let b:prev_buffer_config = ddc#custom#get_buffer()
 

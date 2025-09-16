@@ -10,6 +10,10 @@ nnoremap ;;
 nnoremap ;  <Nop>
 
 function! CommandlinePre(mode) abort
+  if 'b:prev_buffer_config'->exists()
+    return
+  endif
+
   " Overwrite sources
   let b:prev_buffer_config = ddc#custom#get_buffer()
 
