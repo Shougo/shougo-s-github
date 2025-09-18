@@ -12,6 +12,12 @@ ddx-hex = '''
   \ <Cmd>call ddx#ui#hex#do_action('quit')<CR>
   nnoremap <buffer> r
   \ <Cmd>call ddx#ui#hex#do_action('change')<CR>
+  nnoremap <buffer> i
+  \ <Cmd>call ddx#ui#hex#do_action('insert')<CR>
+  nnoremap <buffer> x
+  \ <Cmd>call ddx#ui#hex#do_action('remove')<CR>
+  nnoremap <buffer> S
+  \ <Cmd>call ddx#ui#hex#do_action('save')<CR>
 '''
 
 [[plugins]]
