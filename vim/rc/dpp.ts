@@ -168,15 +168,16 @@ export class Config extends BaseConfig {
             merged: false,
           },
           includes: [
-            "vim*",
-            "nvim-*",
-            "*.vim",
             "*.nvim",
+            "*.vim",
             "ddc-*",
             "ddt-*",
             "ddu-*",
+            "ddx-*",
             "dpp-*",
+            "nvim-*",
             "skkeleton",
+            "vim*",
           ],
         },
       });
@@ -264,6 +265,9 @@ export class Config extends BaseConfig {
       },
       ddu: {
         on_source: "ddu.vim",
+      },
+      ddx: {
+        on_source: "ddx.vim",
       },
     };
 

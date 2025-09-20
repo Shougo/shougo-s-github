@@ -6,6 +6,15 @@ hook_add = '''
 hook_source = '''
   call ddu#custom#load_config('$BASE_DIR/ddx.ts'->expand())
 '''
+
+[[plugins]]
+repo = 'Shougo/ddx-commands.vim'
+depends = 'ddx.vim'
+on_cmd = 'Ddx'
+
+[[plugins]]
+repo = 'Shougo/ddx-ui-hex'
+group = 'ddx'
 [plugins.ftplugin]
 ddx-hex = '''
   nnoremap <buffer> q
@@ -19,8 +28,3 @@ ddx-hex = '''
   nnoremap <buffer> S
   \ <Cmd>call ddx#ui#hex#do_action('save')<CR>
 '''
-
-[[plugins]]
-repo = 'Shougo/ddx-commands.vim'
-depends = 'ddx.vim'
-on_cmd = 'Ddx'
