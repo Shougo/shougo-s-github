@@ -6,8 +6,8 @@ on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/ddt-ui-terminal'
-on_source = 'ddt.vim'
+group = 'ddt'
 
 [[plugins]]
 repo = 'Shougo/ddt-ui-shell'
-on_source = 'ddt.vim'
+group = 'ddt'

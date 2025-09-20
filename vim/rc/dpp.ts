@@ -263,6 +263,9 @@ export class Config extends BaseConfig {
       ddc: {
         on_source: "ddc.vim",
       },
+      ddt: {
+        on_source: "ddt.vim",
+      },
       ddu: {
         on_source: "ddu.vim",
       },
