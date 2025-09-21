@@ -68,7 +68,9 @@ export class Config extends BaseConfig {
           githubAPIToken: Deno.env.get("GITHUB_API_TOKEN"),
         },
       },
-      protocols: ["git"],
+      protocols: [
+        "git",
+      ],
     });
 
     const [context, options] = await args.contextBuilder.get(args.denops);
