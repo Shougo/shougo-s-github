@@ -179,6 +179,7 @@ export class Config extends BaseConfig {
             "dpp-*",
             "nvim-*",
             "skkeleton",
+            "skkeleton-*",
             "vim*",
           ],
         },

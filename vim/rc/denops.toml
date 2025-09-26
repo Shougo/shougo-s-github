@@ -32,16 +32,24 @@ denops_wait = false
 
 [[plugins]]
 repo = 'vim-skk/skkeleton'
+depends = 'denops.vim'
 on_map = { ict = '<Plug>(skkeleton-' }
 #on_event = 'InsertEnter'
 denops_wait = false
 hooks_file = '$BASE_DIR/skkeleton.vim'
 
+[[plugins]]
+repo = 'NI57721/skkeleton-henkan-highlight'
+on_source = 'skkeleton'
+hook_source = '''
+highlight SkkeletonHenkan gui=underline term=underline
+'''
+
 ## NOTE: Disable lspoints.  It does not support denols imports feature.
 #[[plugins]]
 #repo = 'kuuote/lspoints'
-#on_event = 'BufRead'
 #depends = 'denops.vim'
+#on_event = 'BufRead'
 #hook_source = '''
 #call lspoints#load_extensions([
 #        \   'nvim_diagnostics',
