@@ -43,6 +43,7 @@ repo = 'NI57721/skkeleton-henkan-highlight'
 on_source = 'skkeleton'
 hook_source = '''
 highlight SkkeletonHenkan gui=underline term=underline
+highlight SkkeletonHenkanSelect gui=underline,reverse term=underline,reverse
 '''
 
 ## NOTE: Disable lspoints.  It does not support denols imports feature.
