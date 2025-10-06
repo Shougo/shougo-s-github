@@ -39,7 +39,7 @@ function! s:iconv(expr, from, to) abort
   endif
 
   if a:expr->type() == v:t_list
-    return a:expr->copy()->map({ _, val -> iconv(val, a:from, a:to) })
+    return a:expr->mapnew({ _, val -> iconv(val, a:from, a:to) })
   else
     let result = a:expr->iconv(a:from, a:to)
     return result !=# '' ? result : a:expr
