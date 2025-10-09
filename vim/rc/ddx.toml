@@ -28,3 +28,7 @@ ddx-hex = '''
   nnoremap <buffer> S
   \ <Cmd>call ddx#ui#hex#do_action('save')<CR>
 '''
+
+[[plugins]]
+repo = 'Shougo/ddx-analyzer-zip'
+group = 'ddx'
