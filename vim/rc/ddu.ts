@@ -276,6 +276,9 @@ export class Config extends BaseConfig {
         url: {
           defaultAction: "browse",
         },
+        ddx: {
+          defaultAction: "open",
+        },
       },
       kindParams: {
         file: {
