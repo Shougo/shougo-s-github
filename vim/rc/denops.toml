@@ -39,11 +39,14 @@ denops_wait = false
 hooks_file = '$BASE_DIR/skkeleton.vim'
 
 [[plugins]]
-repo = 'NI57721/skkeleton-henkan-highlight'
+#repo = 'NI57721/skkeleton-henkan-highlight'
+repo = 'Shougo/skkeleton-henkan-highlight'
 on_source = 'skkeleton'
 hook_source = '''
-highlight SkkeletonHenkan gui=underline term=underline
-highlight SkkeletonHenkanSelect gui=underline,reverse term=underline,reverse
+  highlight SkkeletonHenkan
+  \ gui=underline term=underline
+  highlight SkkeletonHenkanSelect
+  \ gui=underline,reverse term=underline,reverse
 '''
 
 ## NOTE: Disable lspoints.  It does not support denols imports feature.
