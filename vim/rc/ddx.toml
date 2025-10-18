@@ -29,6 +29,8 @@ ddx-hex = '''
   \ <Cmd>call ddx#ui#hex#do_action('save')<CR>
   nnoremap <buffer> u
   \ <Cmd>call ddx#ui#hex#do_action('undo')<CR>
+  nnoremap <buffer> <C-r>
+  \ <Cmd>call ddx#ui#hex#do_action('redo')<CR>
 '''
 
 [[plugins]]
