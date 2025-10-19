@@ -1,11 +1,6 @@
 [[plugins]]
 repo = 'Shougo/ddx.vim'
-hook_add = '''
-  nnoremap [Space]x <Cmd>Ddx -path=`'%'->expand()`<CR>
-'''
-hook_source = '''
-  call ddx#custom#load_config('$BASE_DIR/ddx.ts'->expand())
-'''
+hooks_file = '$BASE_DIR/ddx.vim'
 
 [[plugins]]
 repo = 'Shougo/ddx-commands.vim'
@@ -15,23 +10,7 @@ on_cmd = 'Ddx'
 [[plugins]]
 repo = 'Shougo/ddx-ui-hex'
 group = 'ddx'
-[plugins.ftplugin]
-ddx-hex = '''
-  nnoremap <buffer> q
-  \ <Cmd>call ddx#ui#hex#do_action('quit')<CR>
-  nnoremap <buffer> r
-  \ <Cmd>call ddx#ui#hex#do_action('change')<CR>
-  nnoremap <buffer> i
-  \ <Cmd>call ddx#ui#hex#do_action('insert')<CR>
-  nnoremap <buffer> x
-  \ <Cmd>call ddx#ui#hex#do_action('remove')<CR>
-  nnoremap <buffer> S
-  \ <Cmd>call ddx#ui#hex#do_action('save')<CR>
-  nnoremap <buffer> u
-  \ <Cmd>call ddx#ui#hex#do_action('undo')<CR>
-  nnoremap <buffer> <C-r>
-  \ <Cmd>call ddx#ui#hex#do_action('redo')<CR>
-'''
+hooks_file = '$BASE_DIR/ddx-ui-hex.vim'
 
 [[plugins]]
 repo = 'Shougo/ddx-analyzer-zip'
