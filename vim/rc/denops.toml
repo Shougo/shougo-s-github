@@ -41,6 +41,7 @@ hooks_file = '$BASE_DIR/skkeleton.vim'
 [[plugins]]
 #repo = 'NI57721/skkeleton-henkan-highlight'
 repo = 'Shougo/skkeleton-henkan-highlight'
+branch = 'autoload'
 on_source = 'skkeleton'
 hook_source = '''
   highlight SkkeletonHenkan
