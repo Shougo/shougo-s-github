@@ -141,7 +141,12 @@ nnoremap <buffer> [Space]gA
 nnoremap <buffer> <C-h> <Cmd>Ddu -name=ddt -sync
       \ -input='`ddt#ui#get_input()`'
       \ ddt_shell_history<CR>
-tnoremap <buffer> <C-z>  <Esc>q
+
+" Send the text to the last terminal
+xnoremap <C-s>
+      \ <Cmd>call ddt#ui_action(t:ddt_ui_terminal_last_name, 'send', #{
+      \   str: getregion('v'->getpos(), '.'->getpos(), #{ type: mode() }),
+      \ })<CR>
 
 augroup ddt-ui-terminal
   autocmd!

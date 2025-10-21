@@ -108,6 +108,7 @@ nnoremap <Leader><Leader> <Cmd>silent update<CR>
 " The prefix key.
 nnoremap s    <Nop>
 nnoremap sp  <Cmd>vsplit<CR><Cmd>wincmd w<CR>
+nnoremap st  <Cmd>split<CR><Cmd>wincmd w<CR>
 nnoremap so  <Cmd>only<CR>
 nnoremap <Tab>      <cmd>wincmd w<CR>
 nnoremap <expr> q
