@@ -142,18 +142,19 @@ nnoremap <buffer> <C-h> <Cmd>Ddu -name=ddt -sync
       \ -input='`ddt#ui#get_input()`'
       \ ddt_shell_history<CR>
 
-" Send the text to the last terminal
-xnoremap <CR>
-      \ <Cmd>call ddt#ui_action(t:ddt_ui_terminal_last_name, 'send', #{
-      \   str: getregion('v'->getpos(), '.'->getpos(), #{ type: mode() }),
-      \ })<CR>
-
+" Launch new ddu for ddt-ui-terminal
 nnoremap <buffer> I <Cmd>split<CR><Cmd>Ddu
       \ -name=`t:ddt_ui_terminal_last_name`
       \ junkfile -source-option-junkfile-volatile
       \ -resume
       \ -ui-param-ff-split=no
       \ <CR>
+
+" Send the text to the last terminal
+xnoremap <CR>
+      \ <Cmd>call ddt#ui_action(t:ddt_ui_terminal_last_name, 'send', #{
+      \   str: getregion('v'->getpos(), '.'->getpos(), #{ type: mode() }),
+      \ })<CR>
 
 augroup ddt-ui-terminal
   autocmd!
