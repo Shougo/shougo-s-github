@@ -1,7 +1,7 @@
 " ddx-hex {{{
 nnoremap <buffer> q
       \ <Cmd>call ddx#ui#hex#do_action('quit')<CR>
-nnoremap <buffer> r
+nnoremap <buffer> e
       \ <Cmd>call ddx#ui#hex#do_action('change')<CR>
 nnoremap <buffer> i
       \ <Cmd>call ddx#ui#hex#do_action('insert')<CR>
