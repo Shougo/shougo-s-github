@@ -175,7 +175,7 @@ lua_source = '''
     --'lua_ls',
     'pyright',
     'rust_analyzer',
-    --'vtsls',
+    'vtsls',
   }
 
   -- https://zenn.dev/pandanoir/articles/4736924f5ecc72
@@ -237,9 +237,12 @@ lua_source = '''
   })
 
   vim.lsp.config('vtsls', {
-    root_markers = {
-      'package.json',
-    },
+    root_dir = function(bufnr, callback)
+      -- NOTE: Must be node directory
+      if vim.fn.findfile('package.json', '.;') ~= '' then
+        callback(vim.fn.getcwd())
+      end
+    end,
     workspace_required = true,
   })
 
@@ -266,12 +269,6 @@ lua_source = '''
       'deps.ts',
     },
     workspace_required = false,
-    root_dir = function(bufnr, callback)
-      -- NOTE: Must be node directory
-      if vim.fn.findfile('package.json', '.;') == '' then
-        callback(vim.fn.getcwd())
-      end
-    end,
   })
 
   vim.lsp.enable(ensure_installed)
@@ -305,31 +302,3 @@ lua_source = '''
 [[plugins]]
 repo = 'chomosuke/typst-preview.nvim'
 on_ft = 'typst'
-
-#[[plugins]]
-#repo = 'hrsh7th/nvim-anydent'
-#on_event = ['BufRead', 'CursorHold']
-#lua_source = '''
-#  vim.api.nvim_create_autocmd('FileType', {
-#    callback = function()
-#      if not vim.tbl_contains({
-#        'help',
-#        'html',
-#        'markdown',
-#        'python',
-#        'toml',
-#        'vim',
-#        'yaml',
-#      }, vim.bo.filetype) then
-#        require('anydent').attach()
-#      end
-#    end
-#  })
-#'''
-
-#[[plugins]]
-#repo = 'lewis6991/tsffi.nvim'
-#on_source = 'nvim-treesitter'
-#lua_source = '''
-#--require('tsffi').setup()
-#'''
