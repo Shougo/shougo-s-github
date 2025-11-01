@@ -34,10 +34,6 @@ const s:dpp_base = '~/.cache/dpp'->expand()
 
 let $BASE_DIR = '<script>:h'->expand()
 
-function DppMakeState()
-  call dpp#make_state(s:dpp_base, '$BASE_DIR/dpp.ts'->expand())
-endfunction
-
 if s:dpp_base->dpp#min#load_state()
   " NOTE: denops.vim and dpp plugins are must be added
   for s:plugin in [
@@ -61,10 +57,10 @@ if s:dpp_base->dpp#min#load_state()
         \ : echohl WarningMsg
         \ | echomsg 'dpp load_state() is failed'
         \ | echohl NONE
-        \ | call DppMakeState()
+        \ | call dpp#make_state(s:dpp_base, '$BASE_DIR/dpp.ts'->expand())
 else
   autocmd MyAutoCmd BufWritePost *.lua,*.vim,*.toml,*.ts,vimrc,.vimrc
-        \ call dpp#check_files()
+        \ call dpp#check_files(s:dpp_base, '$BASE_DIR/dpp.ts'->expand())
 
   " Check new plugins
   autocmd MyAutoCmd BufWritePost *.toml
