@@ -45,9 +45,9 @@ branch = 'autoload'
 on_source = 'skkeleton'
 hook_source = '''
   highlight SkkeletonHenkan
-  \ gui=underline term=underline
+  \ gui=underline term=underline cterm=underline
   highlight SkkeletonHenkanSelect
-  \ gui=underline,reverse term=underline,reverse
+  \ gui=underline,reverse term=underline,reverse cterm=underline,reverse
 '''
 
 ## NOTE: Disable lspoints.  It does not support denols imports feature.
