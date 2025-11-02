@@ -60,7 +60,9 @@ if s:dpp_base->dpp#min#load_state()
         \ | call dpp#make_state(s:dpp_base, '$BASE_DIR/dpp.ts'->expand())
 else
   autocmd MyAutoCmd BufWritePost *.lua,*.vim,*.toml,*.ts,vimrc,.vimrc
-        \ call dpp#check_files(s:dpp_base, '$BASE_DIR/dpp.ts'->expand())
+        \ : if !dpp#check_files(s:dpp_base)->empty()
+        \ |   call dpp#make_state(s:dpp_base, '$BASE_DIR/dpp.ts'->expand())
+        \ | endif
 
   " Check new plugins
   autocmd MyAutoCmd BufWritePost *.toml
