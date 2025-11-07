@@ -13,6 +13,8 @@ nnoremap <buffer> u
       \ <Cmd>call ddx#ui#hex#do_action('undo')<CR>
 nnoremap <buffer> <C-r>
       \ <Cmd>call ddx#ui#hex#do_action('redo')<CR>
+nnoremap <buffer> <Space>
+      \ <Cmd>call ddx#ui#hex#do_action('selectAddress')<CR>
 nnoremap <buffer> J
       \ <Cmd>call JumpAddress()<CR>
 
