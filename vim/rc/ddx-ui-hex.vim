@@ -3,6 +3,8 @@ nnoremap <buffer> q
       \ <Cmd>call ddx#ui#hex#do_action('quit')<CR>
 nnoremap <buffer> e
       \ <Cmd>call ddx#ui#hex#do_action('change')<CR>
+nnoremap <buffer> E
+      \ <Cmd>call ddx#ui#hex#do_action('change', #{ type: 'string' })<CR>
 nnoremap <buffer> i
       \ <Cmd>call ddx#ui#hex#do_action('insert')<CR>
 nnoremap <buffer> x
