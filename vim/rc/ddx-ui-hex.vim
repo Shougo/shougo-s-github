@@ -15,12 +15,14 @@ nnoremap <buffer> u
       \ <Cmd>call ddx#ui#hex#do_action('undo')<CR>
 nnoremap <buffer> <C-r>
       \ <Cmd>call ddx#ui#hex#do_action('redo')<CR>
-nnoremap <buffer> <Space>
+nnoremap <buffer> <Space><Space>
       \ <Cmd>call ddx#ui#hex#do_action('selectAddress')<CR>
 nnoremap <buffer> ?
       \ <Cmd>call ddx#ui#hex#do_action('search', #{ type: 'string' })<CR>
 nnoremap <buffer> J
       \ <Cmd>call JumpAddress()<CR>
+nnoremap <buffer> <Space>r
+      \ <Cmd>call ddx#restart(b:ddx_ui_name)<CR>
 
 function! JumpAddress()
   const input = 'Jump to the address: 0x'->input()
