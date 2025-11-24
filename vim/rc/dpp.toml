@@ -27,3 +27,6 @@ repo = 'Shougo/dpp-ext-packspec'
 
 [[plugins]]
 repo = 'Shougo/dpp-protocol-git'
+
+[[plugins]]
+repo = 'Shougo/dpp-protocol-http'

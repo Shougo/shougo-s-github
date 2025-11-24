@@ -70,6 +70,7 @@ export class Config extends BaseConfig {
       },
       protocols: [
         "git",
+        "http",
       ],
     });
 
