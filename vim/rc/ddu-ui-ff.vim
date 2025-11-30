@@ -139,4 +139,26 @@ nnoremap <buffer> M
       \      'redraw', #{ method: 'refreshItems' },
       \   ],
       \ ])<CR>
+
+nnoremap <buffer> U
+      \ <Cmd>call ddu#ui#multi_actions([
+      \   [
+      \     'updateOptions', #{
+      \       sourceParams: #{
+      \         rg: #{
+      \           globs: 'rg globs: '
+      \               ->input(ddu#custom#get_current(b:ddu_ui_name)
+      \               ->get('sourceParams', {})
+      \               ->get('rg', {})
+      \               ->get('globs', [])->join())
+      \               ->split(),
+      \         },
+      \       },
+      \     },
+      \   ],
+      \   [
+      \      'redraw', #{ method: 'refreshItems' },
+      \   ],
+      \ ])<CR>
+
 " }}}
