@@ -95,7 +95,7 @@ export class Config extends BaseConfig {
           },
           previewCol: "&columns / 2 + 1",
           previewFloating: true,
-          sort: "filename",
+          sort: "natural",
           sortTreesFirst: true,
           split: "no",
           //startAutoAction: true,
