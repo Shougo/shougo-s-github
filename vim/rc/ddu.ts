@@ -200,6 +200,12 @@ export class Config extends BaseConfig {
             "--color",
             "never",
           ],
+          category: true,
+          highlights: {
+            path: "Directory",
+            lineNr: "LineNr",
+            word: "Search",
+          },
         },
         file_rg: {
           cmd: [
