@@ -7,6 +7,8 @@ nnoremap <buffer> E
       \ <Cmd>call ddx#ui#hex#do_action('change', #{ type: 'string' })<CR>
 nnoremap <buffer> i
       \ <Cmd>call ddx#ui#hex#do_action('insert')<CR>
+nnoremap <buffer> c
+      \ <Cmd>call ddx#ui#hex#do_action('copy')<CR>
 nnoremap <buffer> x
       \ <Cmd>call ddx#ui#hex#do_action('remove')<CR>
 nnoremap <buffer> p
