@@ -106,14 +106,12 @@ endfunction
 function! s:highlight_cursor(highlight) abort
   const is_cmdline =
       \ '*cmdline#_get'->exists() && !cmdline#_get().pos->empty()
+  const highlight_name = is_cmdline ? 'CmdlineCursor' : 'Cursor'
 
   if has('nvim')
-    call nvim_set_hl(
-      \ 0, is_cmdline ? 'CmdlineCursor' : 'Cursor', a:highlight)
+    call nvim_set_hl(0, highlight_name, a:highlight)
   else
-    if is_cmdline
-      let a:highlight[0].name = 'CmdlineCursor'
-    endif
+    let a:highlight[0].name = highlight_name
 
     call hlset(a:highlight)
   endif
@@ -121,6 +119,80 @@ function! s:highlight_cursor(highlight) abort
   " NOTE: redraw is needed
   redraw
 endfunction
+
+if has('nvim')
+  call skkeleton_state_popup#config(#{
+        \   labels: {
+        \     'input': #{
+        \       hira: 'あ',
+        \       kata: 'ア',
+        \       hankata: 'ｶﾅ',
+        \       zenkaku: 'Ａ',
+        \     },
+        \     'input:okurinasi': #{
+        \       hira: '▽',
+        \       kata: '▽',
+        \       hankata: '▽',
+        \       abbrev: 'ab',
+        \     },
+        \     'input:okuriari': #{
+        \       hira: '▽',
+        \       kata: '▽',
+        \       hankata: '▽',
+        \     },
+        \     'henkan': #{
+        \       hira: '▼',
+        \       kata: '▼',
+        \       hankata: '▼',
+        \       abbrev: 'ab',
+        \     },
+        \     'latin': '_A',
+        \   },
+        \   opts: #{
+        \     relative: 'cursor',
+        \     col: 0,
+        \     row: 1,
+        \     anchor: 'NW',
+        \     style: 'minimal',
+        \   },
+        \ })
+else
+  call skkeleton_state_popup#config(#{
+        \   labels: {
+        \     'input': #{
+        \       hira: 'あ',
+        \       kata: 'ア',
+        \       hankata: 'ｶﾅ',
+        \       zenkaku: 'Ａ',
+        \     },
+        \     'input:okurinasi': #{
+        \       hira: '▽',
+        \       kata: '▽',
+        \       hankata: '▽',
+        \       abbrev: 'ab',
+        \     },
+        \     'input:okuriari': #{
+        \       hira: '▽',
+        \       kata: '▽',
+        \       hankata: '▽',
+        \     },
+        \     'henkan': #{
+        \       hira: '▼',
+        \       kata: '▼',
+        \       hankata: '▼',
+        \       abbrev: 'ab',
+        \     },
+        \     'latin': '_A',
+        \   },
+        \   opts: #{
+        \     pos: 'botleft',
+        \     line: 'cursor+1',
+        \     col: 'cursor',
+        \     highlight: 'WildMenu',
+        \   },
+        \ })
+endif
+call skkeleton_state_popup#enable()
 
 call skkeleton#initialize()
 " }}}

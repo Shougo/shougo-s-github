@@ -39,6 +39,10 @@ denops_wait = false
 hooks_file = '$BASE_DIR/skkeleton.vim'
 
 [[plugins]]
+repo = 'NI57721/skkeleton-state-popup'
+on_source = 'skkeleton'
+
+[[plugins]]
 repo = 'NI57721/skkeleton-henkan-highlight'
 on_source = 'skkeleton'
 hook_source = '''
