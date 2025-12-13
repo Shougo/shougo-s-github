@@ -146,7 +146,6 @@ if has('nvim')
         \       hankata: '▼',
         \       abbrev: 'ab',
         \     },
-        \     'latin': '_A',
         \   },
         \   opts: #{
         \     relative: 'cursor',
@@ -182,7 +181,6 @@ else
         \       hankata: '▼',
         \       abbrev: 'ab',
         \     },
-        \     'latin': '_A',
         \   },
         \   opts: #{
         \     pos: 'botleft',
