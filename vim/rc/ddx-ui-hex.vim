@@ -13,6 +13,8 @@ nnoremap <buffer> x
       \ <Cmd>call ddx#ui#hex#do_action('remove')<CR>
 nnoremap <buffer> p
       \ <Cmd>call ddx#ui#hex#do_action('paste')<CR>
+nnoremap <buffer> s
+      \ <Cmd>call ddx#ui#hex#do_action('checksum')<CR>
 nnoremap <buffer> S
       \ <Cmd>call ddx#ui#hex#do_action('save')<CR>
 nnoremap <buffer> u
