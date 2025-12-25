@@ -31,6 +31,8 @@ nnoremap <buffer> J
       \ <Cmd>call JumpAddress()<CR>
 nnoremap <buffer> N
       \ <Cmd>call ddx#ui#hex#do_action('nextDiff')<CR>
+nnoremap <buffer> Y
+      \ <Cmd>call ddx#ui#hex#do_action('yank', #{ type: 'string' })<CR>
 nnoremap <buffer> <Space>r
       \ <Cmd>call ddx#restart(b:ddx_ui_name)<CR>
 
