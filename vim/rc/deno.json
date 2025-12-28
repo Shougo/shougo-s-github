@@ -7,7 +7,7 @@
     "@shougo/ddu-ui-ff": "jsr:@shougo/ddu-ui-ff@~3.1.0",
     "@shougo/ddu-ui-filer": "jsr:@shougo/ddu-ui-filer@~3.2.0",
     "@shougo/ddu-vim": "jsr:@shougo/ddu-vim@~11.1.0",
-    "@shougo/ddx-vim": "jsr:@shougo/ddx-vim@~0.10.3",
+    "@shougo/ddx-vim": "jsr:@shougo/ddx-vim@~0.10.4",
     "@shougo/dpp-ext-lazy": "jsr:@shougo/dpp-ext-lazy@~2.0.1",
     "@shougo/dpp-ext-local": "jsr:@shougo/dpp-ext-local@~2.0.0",
     "@shougo/dpp-ext-packspec": "jsr:@shougo/dpp-ext-packspec@~2.0.2",
