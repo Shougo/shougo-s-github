@@ -1,4 +1,9 @@
-import type { ContextBuilder, ExtOptions, Plugin } from "@shougo/dpp-vim/types";
+import type {
+  ContextBuilder,
+  ExtOptions,
+  Plugin,
+  ProtocolName,
+} from "@shougo/dpp-vim/types";
 import {
   BaseConfig,
   type ConfigReturn,
@@ -76,7 +81,7 @@ export class Config extends BaseConfig {
 
     const [context, options] = await args.contextBuilder.get(args.denops);
     const protocols = await args.denops.dispatcher.getProtocols() as Record<
-      string,
+      ProtocolName,
       Protocol
     >;
 
@@ -186,11 +191,26 @@ export class Config extends BaseConfig {
         },
       });
 
+      const gitProtocol = protocols["git"] ?? null;
+
       for (const plugin of localPlugins) {
         if (plugin.name in recordPlugins) {
+          const oldPlugin = recordPlugins[plugin.name];
+
+          // Overwrite url
+          const url = gitProtocol
+            ? await gitProtocol.protocol.getUrl({
+              denops: args.denops,
+              plugin: oldPlugin,
+              protocolOptions: gitProtocol.options,
+              protocolParams: gitProtocol.params,
+            })
+            : "";
+
           recordPlugins[plugin.name] = {
-            ...recordPlugins[plugin.name],
+            ...oldPlugin,
             ...plugin,
+            url,
           };
         } else {
           recordPlugins[plugin.name] = plugin;
