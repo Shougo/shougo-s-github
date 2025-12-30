@@ -43,6 +43,7 @@ export class Config extends BaseConfig {
   }): Promise<ConfigReturn> {
     const hasNvim = args.denops.meta.host === "nvim";
     const hasWindows = await fn.has(args.denops, "win32");
+    const hasGui = await fn.has(args.denops, "gui_running");
 
     const inlineVimrcs = [
       "$BASE_DIR/options.rc.vim",
@@ -52,10 +53,10 @@ export class Config extends BaseConfig {
 
     if (hasNvim) {
       inlineVimrcs.push("$BASE_DIR/neovim.rc.vim");
-    } else if (!hasNvim) {
-      if (await fn.has(args.denops, "gui_running")) {
-        inlineVimrcs.push("$BASE_DIR/gui.rc.vim");
-      }
+    }
+
+    if (!hasNvim && hasGui) {
+      inlineVimrcs.push("$BASE_DIR/gui.rc.vim");
     }
 
     if (hasWindows) {
@@ -251,7 +252,6 @@ export class Config extends BaseConfig {
           recordPlugins[plugin.name] = plugin;
         }
       }
-      //console.log(packSpecPlugins);
     }
 
     const [lazyExt, lazyOptions, lazyParams]: [
