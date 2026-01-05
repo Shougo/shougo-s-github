@@ -39,6 +39,8 @@ nnoremap <buffer> r
       \ <Cmd>call ddx#ui#hex#do_action('substitute', #{ type: 'hex' })<CR>
 nnoremap <buffer> R
       \ <Cmd>call ddx#ui#hex#do_action('substitute', #{ type: 'string' })<CR>
+nnoremap <buffer> <C-r>
+      \ <Cmd>call ddx#ui#hex#do_action('resize')<CR>
 nnoremap <buffer> <Space>r
       \ <Cmd>call ddx#restart(b:ddx_ui_name)<CR>
 
