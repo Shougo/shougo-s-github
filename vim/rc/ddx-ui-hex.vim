@@ -9,12 +9,14 @@ nnoremap <buffer> i
       \ <Cmd>call ddx#ui#hex#do_action('insert')<CR>
 nnoremap <buffer> I
       \ <Cmd>call ddx#ui#hex#do_action('insert', #{ type: 'string' })<CR>
-nnoremap <buffer> c
+nnoremap <buffer> C
       \ <Cmd>call ddx#ui#hex#do_action('copy')<CR>
 nnoremap <buffer> x
       \ <Cmd>call ddx#ui#hex#do_action('remove')<CR>
-nnoremap <buffer> p
+nnoremap <buffer> P
       \ <Cmd>call ddx#ui#hex#do_action('paste')<CR>
+nnoremap <buffer> p
+      \ <Cmd>call ddx#ui#hex#do_action('inspect')<CR>
 nnoremap <buffer> s
       \ <Cmd>call ddx#ui#hex#do_action('checksum', #{
       \   method: 'Please input checksum method: '->input()
