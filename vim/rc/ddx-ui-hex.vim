@@ -19,6 +19,8 @@ nnoremap <buffer> P
       \ <Cmd>call ddx#ui#hex#do_action('paste')<CR>
 nnoremap <buffer> p
       \ <Cmd>call ddx#ui#hex#do_action('inspect')<CR>
+nnoremap <buffer> <C-p>
+      \ <Cmd>call ddx#ui#hex#do_action('inspect', #{ type: 'number' })<CR>
 nnoremap <buffer> s
       \ <Cmd>call ddx#ui#hex#do_action('checksum', #{
       \   method: 'Please input checksum method: '->input()
