@@ -21,6 +21,8 @@ nnoremap <buffer> p
       \ <Cmd>call ddx#ui#hex#do_action('inspect')<CR>
 nnoremap <buffer> <C-p>
       \ <Cmd>call ddx#ui#hex#do_action('inspect', #{ type: 'number' })<CR>
+nnoremap <buffer> <C-n>
+      \ <Cmd>call ddx#ui#hex#do_action('inspect', #{ type: 'floating' })<CR>
 nnoremap <buffer> s
       \ <Cmd>call ddx#ui#hex#do_action('checksum', #{
       \   method: 'Please input checksum method: '->input()
