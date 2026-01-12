@@ -38,7 +38,7 @@ nnoremap <buffer> <Space><Space>
 nnoremap <buffer> ?
       \ <Cmd>call ddx#ui#hex#do_action('search', #{ type: 'string' })<CR>
 nnoremap <buffer> J
-      \ <Cmd>call JumpAddress()<CR>
+      \ <Cmd>call ddx#ui#hex#do_action('jump')<CR>
 nnoremap <buffer> N
       \ <Cmd>call ddx#ui#hex#do_action('nextDiff')<CR>
 nnoremap <buffer> Y
@@ -51,18 +51,4 @@ nnoremap <buffer> <C-r>
       \ <Cmd>call ddx#ui#hex#do_action('resize')<CR>
 nnoremap <buffer> <Space>r
       \ <Cmd>call ddx#restart(b:ddx_ui_name)<CR>
-
-function! JumpAddress()
-  const input = 'Jump to the address: 0x'->input()
-  if input == ''
-    return
-  endif
-
-  const hex = input->str2nr(16)
-  if hex == 0 && input !~# '^0\+$'
-    return
-  endif
-
-  call ddx#jump(b:ddx_ui_name, hex)
-endfunction
 " }}}
