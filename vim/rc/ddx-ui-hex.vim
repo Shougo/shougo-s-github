@@ -39,7 +39,9 @@ nnoremap <buffer> ?
       \ <Cmd>call ddx#ui#hex#do_action('search', #{ type: 'string' })<CR>
 nnoremap <buffer> J
       \ <Cmd>call ddx#ui#hex#do_action('jump')<CR>
-nnoremap <buffer> N
+nnoremap <buffer> n
+      \ <Cmd>call ddx#ui#hex#do_action('nextSearch')<CR>
+nnoremap <buffer> D
       \ <Cmd>call ddx#ui#hex#do_action('nextDiff')<CR>
 nnoremap <buffer> Y
       \ <Cmd>call ddx#ui#hex#do_action('yank', #{ type: 'string' })<CR>
