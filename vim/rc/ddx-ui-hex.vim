@@ -25,7 +25,7 @@ nnoremap <buffer> <C-n>
       \ <Cmd>call ddx#ui#hex#do_action('inspect', #{ type: 'floating' })<CR>
 nnoremap <buffer> s
       \ <Cmd>call ddx#ui#hex#do_action('checksum', #{
-      \   method: 'Please input checksum method: '->input()
+      \   method: 'Please input checksum method: '->input(),
       \ })<CR>
 nnoremap <buffer> S
       \ <Cmd>call ddx#ui#hex#do_action('save')<CR>
@@ -35,8 +35,14 @@ nnoremap <buffer> <C-r>
       \ <Cmd>call ddx#ui#hex#do_action('redo')<CR>
 nnoremap <buffer> <Space><Space>
       \ <Cmd>call ddx#ui#hex#do_action('selectAddress')<CR>
+nnoremap <buffer> /
+      \ <Cmd>call ddx#ui#hex#do_action('search', #{
+      \   type: 'string',
+      \ })<CR>
 nnoremap <buffer> ?
-      \ <Cmd>call ddx#ui#hex#do_action('search', #{ type: 'string' })<CR>
+      \ <Cmd>call ddx#ui#hex#do_action('search', #{
+      \   type: 'string', direction: 'backward',
+      \ })<CR>
 nnoremap <buffer> J
       \ <Cmd>call ddx#ui#hex#do_action('jump')<CR>
 nnoremap <buffer> n
