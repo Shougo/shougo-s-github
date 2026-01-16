@@ -35,6 +35,8 @@ nnoremap <buffer> <C-r>
       \ <Cmd>call ddx#ui#hex#do_action('redo')<CR>
 nnoremap <buffer> <Space><Space>
       \ <Cmd>call ddx#ui#hex#do_action('selectAddress')<CR>
+nnoremap <buffer> F
+      \ <Cmd>call ddx#ui#hex#do_action('search')<CR>
 nnoremap <buffer> /
       \ <Cmd>call ddx#ui#hex#do_action('search', #{
       \   type: 'string',
