@@ -52,6 +52,10 @@ hook_source = '''
   \ gui=underline,reverse term=underline,reverse cterm=underline,reverse
 '''
 
+[[plugins]]
+repo = 'gw31415/denops-sixel-view.vim'
+depends = 'denops.vim'
+
 ## NOTE: Disable lspoints.  It does not support denols imports feature.
 #[[plugins]]
 #repo = 'kuuote/lspoints'
