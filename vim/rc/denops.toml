@@ -34,7 +34,6 @@ denops_wait = false
 repo = 'vim-skk/skkeleton'
 depends = 'denops.vim'
 on_map = { ict = '<Plug>(skkeleton-' }
-#on_event = 'InsertEnter'
 denops_wait = false
 hooks_file = '$BASE_DIR/skkeleton.vim'
 
