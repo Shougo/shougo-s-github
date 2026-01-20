@@ -67,7 +67,9 @@ nnoremap <buffer> p
       \ <Cmd>call ddu#ui#do_action('itemAction',
       \ #{ name: 'paste' })<CR>
 nnoremap <buffer> P
-      \ <Cmd>call ddu#ui#do_action('togglePreview')<CR>
+      \ <Cmd>call ddu#ui#do_action('togglePreview', #{
+      \  imageExts: ['.jpg', '.png'],
+      \ })<CR>
 nnoremap <buffer> K
       \ <Cmd>call ddu#ui#do_action('itemAction',
       \ #{ name: 'newDirectory' })<CR>
