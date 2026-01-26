@@ -19,7 +19,7 @@ if has('win32')
   set linespace=2
 
   " Use DirectWrite
-  "set renderoptions=type:directx
+  set renderoptions=type:directx
 
   " Width of window.
   set columns=230
