@@ -90,8 +90,9 @@ highlight Pmenu         gui=NONE guibg=#606060 guifg=fg
 highlight PmenuSel      gui=NONE guibg=#1f82cd guifg=#dddd00
 highlight PmenuSbar     gui=NONE guibg=#d6d6d6 guifg=fg
 highlight PmenuThumb    gui=NONE guibg=#ffffff guifg=#3cac3c
-highlight ComplMatchIns gui=NONE guibg=NONE guifg=#4080cc
+highlight PmenuMatch    gui=bold guibg=NONE guifg=fg
 highlight PmenuMatchLead gui=NONE guibg=NONE guifg=#f8404c
+highlight ComplMatchIns gui=NONE guibg=NONE guifg=#4080cc
 
 " Tab
 highlight TablineSel    gui=NONE guibg=#0060c0 guifg=#f0f0f8
