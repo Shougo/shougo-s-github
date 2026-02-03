@@ -5,6 +5,9 @@ vim9script
 	echo 'hello ' .. 'shougo' .. ', how are you?'
 '''
 
+[[plugins]]
+repo = 'utubo/vim-zenmode'
+
 #[[plugins]]
 #repo = 'mattn/vim-treesitter'
 #build = 'cd server && go build'
