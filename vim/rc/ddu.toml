@@ -79,6 +79,10 @@ repo = 'shun/ddu-source-rg'
 group = 'ddu'
 
 [[plugins]]
+repo = 'uga-rosa/ddu-source-lsp'
+group = 'ddu'
+
+[[plugins]]
 repo = 'Shougo/ddu-filter-matcher_substring'
 group = 'ddu'
 

@@ -69,6 +69,7 @@ export class Config extends BaseConfig {
           autoAction: {
             name: "preview",
           },
+          displayTree: false,
           filterSplitDirection: "floating",
           floatingBorder: "none",
           highlights: {
