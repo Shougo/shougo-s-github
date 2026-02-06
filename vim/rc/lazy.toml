@@ -109,34 +109,34 @@ hook_source = '''
     \ }
 '''
 
-[[plugins]]
-repo = 'Exafunction/codeium.vim'
-on_cmd = ['Codeium']
-hook_add = '''
-  nnoremap [Space]ai
-  \ <Cmd>CodeiumEnable<CR><Cmd>echo 'Codeium enabled'<CR>
-'''
-hook_source = '''
-  let g:codeium_disable_bindings = 1
-  let g:codeium_render = v:false
-  let g:codeium_manual = v:true
-
-  "inoremap <expr> <C-g> codeium#Accept()
-  "inoremap <C-x> <Cmd>call codeium#Clear()<CR>
-  inoremap <expr> <C-a>  ddc#map#manual_complete(#{
-    \   sources: ['codeium'],
-    \ })
-
-  let g:codeium_filetypes = #{
-    \   gitcommit: v:true,
-    \   markdown: v:true,
-    \   python: v:true,
-    \   text: v:true,
-    \   typescript: v:true,
-    \   vim: v:true,
-    \   yaml: v:true,
-    \ }
-'''
+#[[plugins]]
+#repo = 'Exafunction/codeium.vim'
+#on_cmd = ['Codeium']
+#hook_add = '''
+#  nnoremap [Space]ai
+#  \ <Cmd>CodeiumEnable<CR><Cmd>echo 'Codeium enabled'<CR>
+#'''
+#hook_source = '''
+#  let g:codeium_disable_bindings = 1
+#  let g:codeium_render = v:false
+#  let g:codeium_manual = v:true
+#
+#  "inoremap <expr> <C-g> codeium#Accept()
+#  "inoremap <C-x> <Cmd>call codeium#Clear()<CR>
+#  inoremap <expr> <C-a>  ddc#map#manual_complete(#{
+#    \   sources: ['codeium'],
+#    \ })
+#
+#  let g:codeium_filetypes = #{
+#    \   gitcommit: v:true,
+#    \   markdown: v:true,
+#    \   python: v:true,
+#    \   text: v:true,
+#    \   typescript: v:true,
+#    \   vim: v:true,
+#    \   yaml: v:true,
+#    \ }
+#'''
 
 [[plugins]]
 repo = 'tani/dmacro.vim'
