@@ -138,6 +138,7 @@ export class Config extends BaseConfig {
         file: {
           mark: "F",
           isVolatile: true,
+          volatilePattern: "/",
           minAutoCompleteLength: 1000,
           forceCompletionPattern: String.raw`\S/\S*`,
         },
