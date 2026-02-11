@@ -130,5 +130,5 @@ endif
 "" Enable ext_cmdline/messages for the TUI
 "" NOTE: It must be enabled at startup.
 if !nvim_list_uis()->empty()
-  lua require('vim._extui').enable({})
+  lua require('vim._core.ui2').enable({})
 endif
