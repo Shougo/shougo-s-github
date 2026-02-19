@@ -11,6 +11,7 @@ hook_source = '''
   call pum#set_option(#{
     \   auto_confirm_time: 0,
     \   auto_select: v:false,
+    \   blend: 20,
     \   border: 'none',
     \   commit_characters: ['.'],
     \   highlight_scrollbar: 'None',
@@ -23,7 +24,7 @@ hook_source = '''
     \   preview_remains: v:true,
     \   preview_width: 80,
     \   reversed: v:false,
-    \   use_setline: v:false,
+    \   use_setline: v:true,
     \ })
 
   "call pum#set_local_option('c', #{
