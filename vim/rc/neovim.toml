@@ -135,8 +135,7 @@ lua_source = '''
     return function() end
   end
 
-  vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
-    vim.lsp.diagnostic.on_publish_diagnostics, {
+  vim.diagnostic.config({
       update_in_insert = false,
       virtual_text = {
         severity = {
