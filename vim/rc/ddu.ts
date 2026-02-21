@@ -292,10 +292,40 @@ export class Config extends BaseConfig {
         },
       },
       actionOptions: {
+        copy: {
+          quit: false,
+        },
+        delete: {
+          quit: false,
+        },
+        link: {
+          quit: false,
+        },
+        move: {
+          quit: false,
+        },
         narrow: {
           quit: false,
         },
+        newDirectory: {
+          quit: false,
+        },
+        newFile: {
+          quit: false,
+        },
+        paste: {
+          quit: false,
+        },
+        rename: {
+          quit: false,
+        },
         tabopen: {
+          quit: false,
+        },
+        trash: {
+          quit: false,
+        },
+        undo: {
           quit: false,
         },
       },
