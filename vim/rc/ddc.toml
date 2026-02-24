@@ -24,7 +24,7 @@ hook_source = '''
     \   preview_remains: v:true,
     \   preview_width: 80,
     \   reversed: v:false,
-    \   use_setline: v:true,
+    \   use_setline: !has('nvim'),
     \ })
 
   "call pum#set_local_option('c', #{
