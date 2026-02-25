@@ -21,12 +21,18 @@ call skkeleton#config(#{
       \   markerHenkan: '',
       \   markerHenkanSelect: '',
       \   registerConvertResult: v:true,
-      \   sources: ["deno_kv", "google_japanese_input"],
+      \   sources: [
+      \     "deno_kv",
+      \     "google_japanese_input",
+      \   ],
       \ })
 
 " For SKK server test.
 "call skkeleton#config(#{
-"      \   sources: ["deno_kv", "skk_server"],
+"      \   sources: [
+"      \     "deno_kv",
+"      \     "skk_server",
+"      \   ],
 "      \ })
 
 call skkeleton#register_kanatable('rom', {
@@ -47,8 +53,10 @@ function! s:skkeleton_pre() abort
       \ '*cmdline#_get'->exists() && !cmdline#_get().pos->empty()
   const hl_name = is_cmdline ? 'CmdlineCursor' : 'Cursor'
 
-  let s:hl_cursor = has('nvim') ?
-      \ nvim_get_hl(0, #{ name: hl_name }) : hl_name->hlget()
+  let s:hl_cursor =
+        \   has('nvim')
+        \ ? nvim_get_hl(0, #{ name: hl_name })
+        \ : hl_name->hlget()
 endfunction
 
 autocmd MyAutoCmd User skkeleton-mode-changed
@@ -190,6 +198,7 @@ else
         \   },
         \ })
 endif
+
 call skkeleton_state_popup#enable()
 
 call skkeleton#initialize()
