@@ -1,15 +1,17 @@
 # Safe compinit wrapper + zstyle
 
-if [ -d "${HOME}/.zsh/comp" ]; then
-  fpath=( "${HOME}/.zsh/comp" $fpath )
-  autoload -Uz compinit
-  # warn if insecure, prefer user fix
-  if compaudit 2>/dev/null | read; then
+# safer compaudit check
+if type compaudit >/dev/null 2>&1; then
+  insecure_dirs="$(compaudit 2>/dev/null)"
+  if [ -n "$insecure_dirs" ]; then
     echo "compinit: insecure directories detected. Run: compaudit | xargs chmod g-w"
+    # try to use cached init if possible
     compinit -C 2>/dev/null || true
   else
     compinit -C 2>/dev/null || compinit 2>/dev/null || true
   fi
+else
+  compinit -C 2>/dev/null || compinit 2>/dev/null || true
 fi
 
 zstyle ':completion:*' group-name ''
