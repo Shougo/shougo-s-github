@@ -1,3 +1,4 @@
+# Use clipboard for yank
 x-yank () {
     CUTBUFFER=$(xclip -selection clipboard -o -b </dev/null)
     zle yank
