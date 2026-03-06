@@ -20,7 +20,7 @@ function! CommandlinePre(mode) abort
   if a:mode ==# ':'
     call ddc#custom#patch_buffer('sourceOptions', #{
           \   _: #{
-          \     keywordPattern: '[0-9a-zA-Z_:#*/.-]*',
+          \     keywordPattern: '(~\w+)?[0-9a-zA-Z_:#*/.-]*',
           \   },
           \ })
 
