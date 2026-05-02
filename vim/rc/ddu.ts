@@ -73,6 +73,7 @@ export class Config extends BaseConfig {
           },
           displayTree: false,
           filterSplitDirection: "floating",
+          floatingBlend: 20,
           floatingBorder: "none",
           highlights: {
             filterText: "Statement",
@@ -96,7 +97,8 @@ export class Config extends BaseConfig {
           autoAction: {
             name: "preview",
           },
-          previewCol: "&columns / 2 + 1",
+          floatingBlend: 20,
+          previewCol: "&columns / 5 + 1",
           previewFloating: true,
           sort: "natural",
           sortTreesFirst: true,
