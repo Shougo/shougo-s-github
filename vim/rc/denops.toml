@@ -50,9 +50,6 @@ hook_source = '''
 '''
 
 [[plugins]]
-repo = 'gw31415/denops-sixel-view.vim'
-
-[[plugins]]
 repo = 'lambdalisue/vim-guise'
 on_source = 'ddt.vim'
 
