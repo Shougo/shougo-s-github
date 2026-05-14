@@ -69,6 +69,7 @@ highlight FoldColumn    gui=NONE guibg=NONE guifg=#40c0ff
 
 " Syntax group
 highlight Comment       gui=NONE guibg=NONE guifg=#c7c7f9
+highlight Dimmed        gui=NONE guibg=NONE guifg=#4080cc
 highlight Constant      gui=NONE guibg=NONE guifg=#90d0ff
 highlight Error         gui=bold guibg=NONE guifg=#ffa0af
 highlight Identifier    gui=NONE guibg=NONE guifg=#40f0f0
