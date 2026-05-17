@@ -328,17 +328,22 @@ lua_source = '''
 '''
 
 [[plugins]]
-repo = 'atusy/tsnode-marker.nvim'
-on_ft = 'markdown'
+repo = 'atusy/kakehashi.nvim'
+on_source = 'mason.nvim'
+external_commands = ['kakehashi']
 lua_source = '''
-  vim.api.nvim_create_autocmd('FileType', {
-    group = vim.api.nvim_create_augroup('tsnode-marker-markdown', {}),
-    pattern = 'markdown',
-    callback = function(ctx)
-      require('tsnode-marker').set_automark(ctx.buf, {
-        target = { 'code_fence_content' }, -- list of target node types
-        hl_group = 'CursorLine', -- highlight group
-      })
+  local servers = vim.tbl_keys(vim.lsp._enabled_configs)
+
+  vim.api.nvim_create_autocmd('LspAttach', {
+    callback = function(ev)
+      local client = vim.lsp.get_client_by_id(ev.data.client_id)
+      if client and client.name == 'kakehashi' then
+        require('kakehashi').inherit_nvim_lsp_config(
+          client,
+          servers,
+          'keep'
+        )
+      end
     end,
   })
 '''
