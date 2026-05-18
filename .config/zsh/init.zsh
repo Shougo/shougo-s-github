@@ -1,7 +1,13 @@
 [[ -o interactive ]] || return
 
 XDG_ZSH="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
+export ZSH_CACHE_DIR="${HOME}/.cache/zsh"
 PLUGIN_DIR="${HOME}/.zsh"   # keep external plugins here
+
+# Ensure cache directory exists
+[[ -d "$ZSH_CACHE_DIR" ]] || mkdir -p "$ZSH_CACHE_DIR"
+
+autoload -Uz add-zsh-hook
 
 # Profile.
 #zmodload zsh/zprof && zprof
@@ -15,5 +21,9 @@ for f in \
     env completion plugins options history aliases \
     keybinds functions colors prompt others compile local \
     ; do
-  [ -f "${XDG_ZSH}/${f}.zsh" ] && source "${XDG_ZSH}/${f}.zsh"
+  if [[ -f "${XDG_ZSH}/${f}.zsh.zwc" && "${XDG_ZSH}/${f}.zsh.zwc" -nt "${XDG_ZSH}/${f}.zsh" ]]; then
+    source "${XDG_ZSH}/${f}.zsh.zwc"
+  elif [[ -f "${XDG_ZSH}/${f}.zsh" ]]; then
+    source "${XDG_ZSH}/${f}.zsh"
+  fi
 done

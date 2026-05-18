@@ -1,6 +1,6 @@
-autoload -U colors && colors
+autoload -Uz colors && colors
 
-# git prompt variables and PROMPT body (migrate from original)
+# git prompt variables
 ZSH_GIT_PROMPT_SHOW_UPSTREAM="no"
 ZSH_THEME_GIT_PROMPT_PREFIX=" "
 ZSH_THEME_GIT_PROMPT_SUFFIX=""
@@ -19,21 +19,42 @@ ZSH_THEME_GIT_PROMPT_UNTRACKED="…"
 ZSH_THEME_GIT_PROMPT_STASHED="%{$fg[blue]%}⚑"
 ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg_bold[green]%}✔"
 
-if [ $UID = "0" ]; then
-    PROMPT=$'%B%{\e[31m%}%/#%{\e[m%}%b '
+# Cached git prompt string, updated in precmd only when needed.
+ZSH_PROMPT_GIT=""
+ZSH_PROMPT_GIT_PWD=""
+
+_update_git_prompt_cache() {
+  # Skip recomputation when directory has not changed.
+  [[ "$PWD" == "$ZSH_PROMPT_GIT_PWD" ]] && return
+  ZSH_PROMPT_GIT_PWD="$PWD"
+  ZSH_PROMPT_GIT=""
+
+  # Skip entirely outside a git worktree.
+  command git rev-parse --is-inside-work-tree >/dev/null 2>&1 || return
+
+  # Skip if git-prompt.zsh plugin has not been loaded yet.
+  (( $+functions[gitprompt] )) || return
+
+  ZSH_PROMPT_GIT="$(gitprompt)"
+}
+
+if [[ "$UID" = "0" ]]; then
+  PROMPT=$'%B%{\e[31m%}%/#%{\e[m%}%b '
 else
-    if [ -n "${REMOTEHOST}${SSH_CONNECTION}" ]; then
-      PROMPT=$'%{\e[37m%}${HOST%%.*} '
-    else
-      PROMPT=""
-    fi
-    PROMPT+=$'%{\e[33m%}[%35<..<%~]%{\e[m%}$(gitprompt)'
-    PROMPT+=$'%(?.%(!.%F{white}%F{yellow}%F{red}.%F{green})%f.%F{red}%f)\n'
-    PROMPT+=$'%{\e[$[31+$RANDOM % 7]m%}%U%B%#'"%b%{%}%u "
+  if [ -n "${REMOTEHOST}${SSH_CONNECTION}" ]; then
+    PROMPT=$'%{\e[37m%}${HOST%%.*} '
+  else
+    PROMPT=""
+  fi
+  PROMPT+=$'%{\e[33m%}[%35<..<%~]%{\e[m%}${ZSH_PROMPT_GIT}'
+  PROMPT+=$'%(?.%(!.%F{white}%F{yellow}%F{red}.%F{green})%f.%F{red}%f)\n'
+  PROMPT+=$'%{\e[36m%}%U%B%#%b%{%}%u '
 fi
 
 PROMPT2="%_%% "
 SPROMPT="correct> %R -> %r [n,y,a,e]? "
+
+add-zsh-hook precmd _update_git_prompt_cache
 
 # Enable OSC 133
 # https://zenn.dev/ymotongpoo/articles/20220802-osc-133-zsh
