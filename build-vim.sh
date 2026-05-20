@@ -5,10 +5,9 @@
 --with-compiledby="Shougo" \
 --enable-autoservername \
 --enable-multibyte \
---enable-gui=gtk3 \
+--enable-gui=gtk4 \
 --enable-python3interp \
 --enable-gpm \
 --enable-cscope \
---enable-fontset \
 --enable-terminal \
 --enable-fail-if-missing
