@@ -64,6 +64,7 @@ repo = 'lambdalisue/vim-findent'
 [[plugins]]
 repo = 'tweekmonster/helpful.vim'
 on_cmd = 'HelpfulVersion'
+extAttrs = { installerMinCommitDays = 0 }
 
 [[plugins]]
 repo = 'machakann/vim-vimhelplint'
