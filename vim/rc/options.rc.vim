@@ -172,6 +172,8 @@ if has('win32')
 else
    set listchars=tab:▸\ ,trail:-,precedes:«,nbsp:%
 endif
+autocmd MyAutoCmd InsertEnter * set listchars-=trail:-
+autocmd MyAutoCmd InsertLeave * set listchars+=trail:-
 
 " Disable statusline when command line
 "autocmd MyAutoCmd CmdlineEnter * set laststatus=0 | redrawstatus
