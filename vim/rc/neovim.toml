@@ -347,3 +347,12 @@ lua_source = '''
     end,
   })
 '''
+
+[[plugins]]
+repo = 'lambdalisue/nvim-aibo'
+lua_source = '''
+  require('aibo').setup()
+'''
+hook_add = '''
+  nnoremap <Space>a   :Aibo<Space>
+'''
