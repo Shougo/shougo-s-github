@@ -21,7 +21,12 @@ augroup END
 if '+termguicolors'->exists() && !has('gui_running')
   set termguicolors
 endif
-set shortmess=aTIcFoOsSWu showtabline=0 laststatus=0
+set shortmess=aTIcFoOsSWu showtabline=0
+if has('nvim')
+  set laststatus=2
+else
+  set laststatus=0
+endif
 set noruler noshowcmd noshowmode
 
 " Disable statusline.
