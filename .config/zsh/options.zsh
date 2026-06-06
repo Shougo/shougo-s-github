@@ -122,14 +122,5 @@ unsetopt hist_verify
 # Enable suffix completion
 setopt complete_in_word
 
-# Histories
-HISTFILE=$HOME/.zsh-history
-HISTSIZE=3000
-SAVEHIST=8000
-setopt inc_append_history
-
-# Ignore some command histories
-export HISTORY_IGNORE="(cd|pwd|l[sal]|rm|mv|shutdown|exit|rmdir)"
-
 # Enable math functions
 zmodload zsh/mathfunc
