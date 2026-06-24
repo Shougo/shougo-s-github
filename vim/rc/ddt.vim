@@ -9,6 +9,11 @@ nnoremap [Space]t  <Cmd>call ddt#start(#{
       \                 'terminal-' .. win_getid()),
       \   ui: 'terminal',
       \ })<CR>
+xnoremap <Space>
+      \ <Cmd>call ddt#ui#do_action('send', #{
+      \   str: getregion('v'->getpos(), '.'->getpos(),
+      \                  #{ type: mode() })->join("\n"),
+      \ }, t:ddt_ui_name)<CR><ESC>
 nnoremap sD  <Cmd>call ddt#ui#kill_editor()<CR>
 nnoremap <C-t> <Cmd>Ddu -name=ddt -sync
       \ -ui-param-ff-split=`has('nvim') ? 'floating' : 'horizontal'`
