@@ -349,10 +349,13 @@ lua_source = '''
 '''
 
 [[plugins]]
-repo = 'lambdalisue/nvim-aibo'
+repo = 'carlos-algms/agentic.nvim'
+on_lua = 'agentic'
 lua_source = '''
-  require('aibo').setup()
+  require('agentic').setup({
+    provider = "claude-agent-acp"
+  })
 '''
 hook_add = '''
-  nnoremap <Space>a   :Aibo<Space>
+  nnoremap <Space>a   <Cmd>lua require('agentic').new_session()<CR>
 '''
