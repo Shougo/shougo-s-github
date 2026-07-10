@@ -1,0 +1,36 @@
+initial-command = 'zsh'
+
+background = #2c2c2c
+foreground = #cccccc
+background-opacity = 0.90
+background-blur = true
+palette = 0=#383838
+palette = 1=#ff4444
+palette = 2=#44ff44
+palette = 3=#ffb30a
+palette = 4=#6699ff
+palette = 5=#f820ff
+palette = 6=#4ae2e2
+palette = 7=#fdf6e3
+palette = 8=#585858
+palette = 9=#ff4444
+palette = 10=#44ff44
+palette = 11=#ffb30a
+palette = 12=#6699ff
+palette = 13=#f820ff
+palette = 14=#4ae2e2
+palette = 15=#fdf6e3
+cursor-style-blink = false
+cursor-color = #606060
+cursor-text = #2c2c2c
+
+font-family = "Courier 10 Pitch"
+font-size = 15
+
+copy-on-select = true
+clipboard-read = allow
+clipboard-write = allow
+mouse-hide-while-typing = true
+confirm-close-surface = false
+gtk-tabs-location = bottom
+window-decoration = none
