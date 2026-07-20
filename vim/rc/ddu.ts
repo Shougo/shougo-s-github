@@ -195,10 +195,7 @@ export class Config extends BaseConfig {
         rg: {
           args: [
             "--smart-case",
-            "--column",
-            "--no-heading",
-            "--color",
-            "never",
+            "--json",
           ],
           category: true,
           highlights: {
