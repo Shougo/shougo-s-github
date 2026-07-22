@@ -1,13 +1,17 @@
 # Manual compile helper for your own config files
 
-XDG_ZSH="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
-
 zsh_compile_myconfig() {
+  emulate -L zsh
+  local cache_dir="${ZSH_CACHE_DIR:-${HOME}/.cache/zsh}"
+  local xdg_zsh="${XDG_CONFIG_HOME:-${HOME}/.config}/zsh"
   local f zwc
-  for f in "${XDG_ZSH}"/*.zsh; do
-    [ -f "$f" ] || continue
-    zwc="${f}c"
-    if [ ! -f "$zwc" ] || [ "$f" -nt "$zwc" ]; then
+
+  [[ -d "$cache_dir" ]] || mkdir -p "$cache_dir"
+
+  for f in "${xdg_zsh}"/*.zsh; do
+    [[ -f "$f" ]] || continue
+    zwc="${f}.zwc"
+    if [[ ! -f "$zwc" || "$f" -nt "$zwc" ]]; then
       echo "zcompile: compiling $f"
       zcompile "$f" || echo "zcompile failed for $f"
     fi
