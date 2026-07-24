@@ -259,7 +259,11 @@ else
 endif
 
 if exists('&previewpopup')
-  set previewpopup=height:10,width:60,border:rounded
+  if has('nvim')
+    set previewpopup=height:10,width:60,border:rounded
+  else
+    set previewpopup=height:10,width:60,border:round
+  endif
 endif
 
 if !has('nvim')
