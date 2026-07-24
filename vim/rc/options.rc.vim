@@ -258,6 +258,10 @@ else
   endif
 endif
 
+if exists('&previewpopup')
+  set previewpopup=height:10,width:60,border:rounded
+endif
+
 if !has('nvim')
   " Use "/" for path completion
   " NOTE: It does not work in neovim
