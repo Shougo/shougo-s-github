@@ -214,9 +214,9 @@ lua_source = '''
 
   local servers = {
     'denols',
-    'emmylua_ls',
+    --'emmylua_ls',
     'gopls',
-    --'lua_ls',
+    'lua_ls',
     'pyright',
     'rust_analyzer',
     'vtsls',
@@ -241,17 +241,20 @@ lua_source = '''
     capabilities = require("ddc_source_lsp").make_client_capabilities(),
   })
 
+  -- NOTE: It is disabled because it warns "undefined-global"
   vim.lsp.config('emmylua_ls', {
-    on_init = function(client)
-      client.config.settings.Lua = vim.tbl_deep_extend(
-          'force', client.config.settings.Lua, {
-        workspace = { library = vim.api.nvim_get_runtime_file('', true) },
-      })
-    end,
     settings = {
       Lua = {
-        runtime = { version = 'LuaJIT' },
-        workspace = { checkThirdParty = false },
+        runtime = {
+          version = 'LuaJIT',
+        },
+        workspace = {
+          checkThirdParty = false,
+          library = vim.api.nvim_get_runtime_file('', true),
+        },
+        diagnostics = {
+          globals = { 'vim' },
+        },
       },
     },
     workspace_required = true,
@@ -261,28 +264,16 @@ lua_source = '''
     settings = {
       Lua = {
         runtime = {
-          -- Tell the language server which version of Lua you're using
-          -- (most likely LuaJIT in the case of Neovim)
           version = 'LuaJIT',
         },
         diagnostics = {
-          -- Get the language server to recognize the `vim` global
-          globals = {
-            'vim',
-            'require',
-          },
-        },
-        semantic = {
-          -- Disable semantic token feature.
-          -- Because treesitter highlight is better.
-          enable = false,
+          globals = { 'vim' },
         },
         workspace = {
-          -- Make the server aware of Neovim runtime files
-          library = vim.api.nvim_get_runtime_file("", true),
+          library = vim.api.nvim_get_runtime_file('', true),
+          checkThirdParty = false,
         },
         telemetry = {
-          -- Do not send telemetry data
           enable = false,
         },
       },
