@@ -100,9 +100,9 @@ function vimrc#on_filetype() abort
     filetype plugin indent on
   endif
 
-  if &l:filetype ==# '' && &l:syntax ==# '' && line('$') < 10000
+  if line('$') < 10000 && &l:filetype ==# '' && &l:syntax ==# ''
     " NOTE: filetype detect does not work on startup
-    silent filetype detect
+    autocmd MyAutoCmd CursorHold * ++once silent filetype detect
 
     if has('nvim') && bufnr()->bufloaded()
       lua <<END
