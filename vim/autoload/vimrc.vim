@@ -101,8 +101,12 @@ function vimrc#on_filetype() abort
   endif
 
   if line('$') < 10000 && &l:filetype ==# '' && &l:syntax ==# ''
-    " NOTE: filetype detect does not work on startup
-    autocmd MyAutoCmd CursorHold * ++once silent filetype detect
+    if bufname()->stridx('/doc/') >= 0
+      " In help file, filetype detect does not work well.
+      autocmd MyAutoCmd CursorHold * ++once silent filetype detect
+    else
+      silent filetype detect
+    endif
 
     if has('nvim') && bufnr()->bufloaded()
       lua <<END

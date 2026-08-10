@@ -1,0 +1,25 @@
+{
+  "$schema": "https://raw.githubusercontent.com/EmmyLuaLs/emmylua-analyzer-rust/refs/heads/main/crates/emmylua_code_analysis/resources/schema.json",
+  "completion": {
+    "autoRequire": true,
+    "callSnippet": false,
+    "postfix": "@"
+  },
+  "diagnostics": {
+    "globals": [],
+    "disable": ["undefined-global"]
+  },
+  "runtime": {
+    "version": "LuaJIT"
+  },
+  "workspace": {
+    "checkThirdParty": false,
+    "library": [
+      "$HOME/.config/nvim/lua",
+      "$HOME/local/nvim/share/nvim/runtime/lua"
+    ],
+    "ignoreGlobs": [
+      "**/*_spec.lua"
+    ]
+  }
+}

@@ -115,3 +115,7 @@ setlocal iskeyword+=-
 " Don't want to adjust the indent by "#".
 setlocal indentkeys-=0#
 " }}}
+
+" lua {{{
+setlocal shiftwidth=2 softtabstop=2
+" }}}

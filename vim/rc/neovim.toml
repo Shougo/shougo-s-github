@@ -214,9 +214,9 @@ lua_source = '''
 
   local servers = {
     'denols',
-    --'emmylua_ls',
+    'emmylua_ls',
     'gopls',
-    'lua_ls',
+    --'lua_ls',
     'pyright',
     'rust_analyzer',
     'vtsls',
@@ -241,22 +241,7 @@ lua_source = '''
     capabilities = require("ddc_source_lsp").make_client_capabilities(),
   })
 
-  -- NOTE: It is disabled because it warns "undefined-global"
   vim.lsp.config('emmylua_ls', {
-    settings = {
-      Lua = {
-        runtime = {
-          version = 'LuaJIT',
-        },
-        workspace = {
-          checkThirdParty = false,
-          library = vim.api.nvim_get_runtime_file('', true),
-        },
-        diagnostics = {
-          globals = { 'vim' },
-        },
-      },
-    },
     workspace_required = true,
   })
 
