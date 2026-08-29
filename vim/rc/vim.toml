@@ -1,4 +1,8 @@
 [[plugins]]
+repo = 'vim-jp/vimdoc-ja'
+extAttrs = { installerMinCommitDays = 0 }
+
+[[plugins]]
 repo = 'mattn/vim-notification'
 hook_source = '''
 vim9script
