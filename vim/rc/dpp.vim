@@ -59,10 +59,10 @@ if s:dpp_base->dpp#min#load_state()
         \ | echohl NONE
         \ | call dpp#make_state(s:dpp_base, '$BASE_DIR/dpp.ts'->expand())
 else
-  autocmd MyAutoCmd BufWritePost *.lua,*.vim,*.toml,*.ts,vimrc,.vimrc
-        \ : if !dpp#check_files(s:dpp_base)->empty()
-        \ |   call dpp#make_state(s:dpp_base, '$BASE_DIR/dpp.ts'->expand())
-        \ | endif
+  "autocmd MyAutoCmd BufWritePost *.lua,*.vim,*.toml,*.ts,vimrc,.vimrc
+  "      \ : if !dpp#check_files(s:dpp_base)->empty()
+  "      \ |   call dpp#make_state(s:dpp_base, '$BASE_DIR/dpp.ts'->expand())
+  "      \ | endif
 
   " Check new plugins
   autocmd MyAutoCmd BufWritePost *.toml
