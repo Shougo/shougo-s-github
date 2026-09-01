@@ -77,6 +77,7 @@ group = 'ddu'
 [[plugins]]
 repo = 'shun/ddu-source-rg'
 group = 'ddu'
+external_commands = ['rg']
 
 [[plugins]]
 repo = 'uga-rosa/ddu-source-lsp'
