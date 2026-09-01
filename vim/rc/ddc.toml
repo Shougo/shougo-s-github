@@ -107,6 +107,7 @@ group = 'ddc'
 
 [[plugins]]
 repo = 'Shougo/ddc-source-rtags'
+group = 'ddc'
 on_ft = ['c', 'cpp']
 
 [[plugins]]
