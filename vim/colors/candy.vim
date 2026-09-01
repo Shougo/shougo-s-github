@@ -15,7 +15,7 @@ if !has('vim_starting')
   endif
 endif
 
-let colors_name = 'candy'
+let g:colors_name = 'candy'
 
 highlight Normal        gui=NONE guibg=#2c2c2c guifg=#dfdfdf
 
@@ -51,7 +51,7 @@ highlight FloatBorder   gui=NONE guibg=#1c1c1c guifg=#a0d0ff
 " Diff
 highlight DiffAdd       gui=NONE guibg=#0020a0 guifg=#a0d0ff
 highlight DiffChange    gui=NONE guibg=#401830 guifg=#e03870
-highlight DiffDelete    gui=NONE guibg=#0020a0 guifg=#a0d0ff
+highlight DiffDelete    gui=NONE guibg=#0020a0 guifg=#ffb0b0
 highlight DiffText      gui=NONE guibg=#802860 guifg=#ff78f0
 
 " Cursor
