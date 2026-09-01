@@ -138,3 +138,7 @@ hook_source = '''
 #    \   yaml: v:true,
 #    \ }
 #'''
+
+#[[plugins]]
+#repo = 'vim-jp/vimdoc-ja'
+#extAttrs = { installerMinCommitDays = 0 }
