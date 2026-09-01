@@ -147,7 +147,7 @@ function vimrc#diagnostics_to_location_list() abort
   if qflist->empty()
     lclose
   else
-    call setloclist(win_getid(), qflist)
+    call setloclist(win_getid(), qflist, 'r')
     lopen
   endif
 endfunction
@@ -164,7 +164,7 @@ function vimrc#append_diff() abort
   const diff = ['git', '-C', git_root, 'diff', '--cached']->system()
 
   " Add a comment character to each line of the diff
-  const comment_diff = diff->split('\n')[: 200]
+  const comment_diff = diff->split('\n')[: 199]
         \ ->map({ -> '# '.. v:val })
 
   " Append the diff to the commit message
