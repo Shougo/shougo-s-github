@@ -78,11 +78,19 @@ function vimrc#add_numbers(num) abort
 endfunction
 
 function vimrc#toggle_option(option_name) abort
+  const option_val = bufnr()->getbufvar('&' .. a:option_name)
+
   if a:option_name ==# 'laststatus'
     if &laststatus == 0
       setlocal laststatus=2
     else
       setlocal laststatus=0
+    endif
+  elseif option_val->type() ==# v:t_string
+    if option_val !=# ''
+      execute $'setlocal {a:option_name}=""'
+    else
+      execute $'setlocal {a:option_name}&'
     endif
   else
     execute $'setlocal {a:option_name}!'

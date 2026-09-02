@@ -68,6 +68,8 @@ nnoremap [Space]w
       \ <Cmd>call vimrc#toggle_option('wrap')<CR>
 nnoremap [Space]c
       \ <Cmd>call <SID>toggle_conceal()<CR>
+nnoremap [Space]m
+      \ <Cmd>call vimrc#toggle_option('mouse')<CR>
 
 function s:toggle_conceal() abort
   if &l:conceallevel == 0
@@ -151,9 +153,6 @@ nnoremap ZZ  <Nop>
 
 " Select rectangle.
 xnoremap r <C-v>
-
-" Redraw.
-nnoremap <C-l>    <Cmd>redraw!<CR>
 
 " If press l on fold, fold open.
 nnoremap <expr> l foldclosed(line('.')) != -1 ? 'zo0' : 'l'
