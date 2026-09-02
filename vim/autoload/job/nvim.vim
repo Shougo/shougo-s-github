@@ -21,10 +21,19 @@ function job#nvim#start(args, options) abort
   else
     let job_options.on_exit = funcref('s:_on_exit_raw', [job])
   endif
+
   let job.__job = jobstart(a:args, job_options)
+  if job.__job <= 0
+    let job.__pid = 0
+    let job.__exitval = -3
+    let job.args = a:args
+    return job
+  endif
+
   let job.__pid = s:_jobpid_safe(job.__job)
   let job.__exitval = v:null
   let job.args = a:args
+
   return job
 endfunction
 
