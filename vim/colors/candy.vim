@@ -59,6 +59,7 @@ highlight Cursor        gui=NONE guibg=#606060 guifg=fg
 highlight CmdlineCursor gui=NONE guibg=#606060 guifg=fg
 highlight CursorLine    gui=NONE guibg=#444444 guifg=fg
 highlight lCursor       gui=NONE guibg=#80403f guifg=fg
+highlight MCursor       gui=NONE guibg=#404040 guifg=fg
 highlight CursorIM      gui=NONE guibg=#bb00aa guifg=fg
 highlight CursorColumn  gui=NONE guibg=#666666 guifg=fg
 highlight CursorLineNr  gui=bold guibg=NONE guifg=#ffff00
