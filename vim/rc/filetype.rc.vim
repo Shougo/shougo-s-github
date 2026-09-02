@@ -58,7 +58,7 @@ autocmd MyAutoCmd BufWritePost * nested
 \ | endif
 
 " from https://github.com/kuuote/dotvim/blob/46760385/conf/rc/autocmd.vim#L5
-function! s:chmod(file) abort
+function s:chmod(file) abort
   const perm = a:file->getfperm()
   const newperm = printf('%sx%sx%sx', perm[0:1], perm[3:4], perm[6:7])
   if perm !=# newperm

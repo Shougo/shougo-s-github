@@ -1,4 +1,4 @@
-function! job#nvim#start(args, options) abort
+function job#nvim#start(args, options) abort
   let job = s:job->copy()->extend(a:options)
   let job_options = #{
         \   stderr_buffered: v:false,
@@ -32,30 +32,30 @@ endfunction
 " string data when the stdout/stderr channel has closed.
 " It is different behavior from Vim and Neovim prior to 0.3.0 so remove an
 " empty string list to keep compatibility.
-function! s:_on_stdout(job, job_id, data, event) abort
+function s:_on_stdout(job, job_id, data, event) abort
   if a:data == ['']
     return
   endif
   call a:job.on_stdout(a:data)
 endfunction
 
-function! s:_on_stderr(job, job_id, data, event) abort
+function s:_on_stderr(job, job_id, data, event) abort
   if a:data == ['']
     return
   endif
   call a:job.on_stderr(a:data)
 endfunction
 
-function! s:_on_exit(job, job_id, exitval, event) abort
+function s:_on_exit(job, job_id, exitval, event) abort
   let a:job.__exitval = a:exitval
   call a:job.on_exit(a:exitval)
 endfunction
 
-function! s:_on_exit_raw(job, job_id, exitval, event) abort
+function s:_on_exit_raw(job, job_id, exitval, event) abort
   let a:job.__exitval = a:exitval
 endfunction
 
-function! s:_jobpid_safe(job) abort
+function s:_jobpid_safe(job) abort
   try
     return jobpid(a:job)
   catch /^Vim\%((\a\+)\)\=:E900/
@@ -67,11 +67,11 @@ function! s:_jobpid_safe(job) abort
 endfunction
 
 " Instance -------------------------------------------------------------------
-function! s:_job_pid() abort dict
+function s:_job_pid() abort dict
   return self.__pid
 endfunction
 
-function! s:_job_status() abort dict
+function s:_job_status() abort dict
   try
     sleep 1m
     call jobpid(self.__job)
@@ -81,15 +81,15 @@ function! s:_job_status() abort dict
   endtry
 endfunction
 
-function! s:_job_send(data) abort dict
+function s:_job_send(data) abort dict
   return self.__job->chansend(a:data)
 endfunction
 
-function! s:_job_close() abort dict
+function s:_job_close() abort dict
   call chanclose(self.__job, 'stdin')
 endfunction
 
-function! s:_job_stop() abort dict
+function s:_job_stop() abort dict
   try
     call jobstop(self.__job)
   catch /^Vim\%((\a\+)\)\=:E900/
@@ -99,19 +99,11 @@ function! s:_job_stop() abort dict
   endtry
 endfunction
 
-function! s:_job_wait(...) abort dict
+function s:_job_wait(...) abort dict
   let timeout = a:0 ? a:1 : v:null
-  let exitval = timeout is# v:null
+  return timeout is# v:null
         \ ? jobwait([self.__job])[0]
         \ : jobwait([self.__job], timeout)[0]
-  if exitval != -3
-    return exitval
-  endif
-  " Wait until 'on_exit' callback is called
-  while self.__exitval is# v:null
-    sleep 1m
-  endwhile
-  return self.__exitval
 endfunction
 
 " To make debug easier, use funcref instead.

@@ -42,7 +42,7 @@ call skkeleton#register_kanatable('rom', {
 
 autocmd MyAutoCmd User skkeleton-enable-pre
       \ call s:skkeleton_pre()
-function! s:skkeleton_pre() abort
+function s:skkeleton_pre() abort
   if (!has('nvim') || $DISPLAY !=# '') && has('clipboard')
     " Copy to clipboard to use Vim as IME
     autocmd ModeChanged *:n ++once
@@ -61,7 +61,7 @@ endfunction
 
 autocmd MyAutoCmd User skkeleton-mode-changed
       \ call s:skkeleton_changed()
-function! s:skkeleton_changed() abort
+function s:skkeleton_changed() abort
   " Change the cursor color
   let hl_cursor = s:hl_cursor->copy()
 
@@ -89,7 +89,7 @@ function! s:skkeleton_changed() abort
 endfunction
 
 autocmd MyAutoCmd User skkeleton-handled call s:skkeleton_handled()
-function! s:skkeleton_handled() abort
+function s:skkeleton_handled() abort
   if g:skkeleton#mode ==# ''
     return
   endif
@@ -111,7 +111,7 @@ function! s:skkeleton_handled() abort
   endif
 endfunction
 
-function! s:highlight_cursor(highlight) abort
+function s:highlight_cursor(highlight) abort
   const is_cmdline =
       \ '*cmdline#_get'->exists() && !cmdline#_get().pos->empty()
   const highlight_name = is_cmdline ? 'CmdlineCursor' : 'Cursor'

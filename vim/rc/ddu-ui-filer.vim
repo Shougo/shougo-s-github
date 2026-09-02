@@ -181,7 +181,7 @@ nnoremap <buffer> T
 nnoremap <buffer> B
       \ <Cmd>call ddu#ui#do_action('cursorTreeBottom')<CR>
 
-function! ToggleHidden(name)
+function ToggleHidden(name)
   const check = ddu#custom#get_current(b:ddu_ui_name)
         \ ->get('sourceOptions', {})
         \ ->get(a:name, {})
@@ -190,7 +190,7 @@ function! ToggleHidden(name)
   return check ? ['matcher_hidden'] : []
 endfunction
 
-function! ToggleUiParam(ui_name, param_name)
+function ToggleUiParam(ui_name, param_name)
   return ddu#custom#get_current(b:ddu_ui_name)
         \ ->get('uiParams', {})
         \ ->get(a:ui_name, {})

@@ -1,12 +1,15 @@
-function! job#system(command) abort
+function job#system(command) abort
   return s:job_system.system(a:command)
 endfunction
-function! job#status() abort
+function job#status() abort
   return s:job_system.status
 endfunction
 
-let s:job_system = {}
-function! s:job_system.on_out(data) abort
+let s:job_system = #{
+      \   candidates: [],
+      \   status: v:null,
+      \ }
+function s:job_system.on_out(data) abort
   let candidates = s:job_system.candidates
   if candidates->empty()
     call add(candidates, a:data[0])
@@ -15,7 +18,7 @@ function! s:job_system.on_out(data) abort
   endif
   let candidates += a:data[1:]
 endfunction
-function! s:job_system.system(cmd) abort
+function s:job_system.system(cmd) abort
   let self.candidates = []
 
   let job = { has('nvim') ? 'job#nvim#' : 'job#vim#' }start(
@@ -26,14 +29,14 @@ function! s:job_system.system(cmd) abort
   let s:job_system.status = job.wait(1000)
   return s:job_system.candidates->join("\n")->substitute('\r\n', '\n', 'g')
 endfunction
-function! s:convert_args(args) abort
+function s:convert_args(args) abort
   let args = s:iconv(a:args, &encoding, 'char')
   if args->type() != v:t_list
     let args = &shell->split() + &shellcmdflag->split() + [args]
   endif
   return args
 endfunction
-function! s:iconv(expr, from, to) abort
+function s:iconv(expr, from, to) abort
   if a:from ==# '' || a:to ==# '' || a:from ==? a:to
     return a:expr
   endif
@@ -45,4 +48,3 @@ function! s:iconv(expr, from, to) abort
     return result !=# '' ? result : a:expr
   endif
 endfunction
-

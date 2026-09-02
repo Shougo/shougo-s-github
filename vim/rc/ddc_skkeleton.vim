@@ -1,6 +1,6 @@
 " hook_source {{{
 autocmd MyAutoCmd User skkeleton-enable-pre call s:skkeleton_pre_ddc()
-function! s:skkeleton_pre_ddc() abort
+function s:skkeleton_pre_ddc() abort
   if 'b:prev_buffer_skkeleton_config'->exists()
     return
   endif
@@ -28,7 +28,7 @@ function! s:skkeleton_pre_ddc() abort
 endfunction
 
 autocmd MyAutoCmd User skkeleton-disable-post call s:skkeleton_post_ddc()
-function! s:skkeleton_post_ddc() abort
+function s:skkeleton_post_ddc() abort
   if 'b:prev_buffer_skkeleton_config'->exists()
     " Restore sources
     call ddc#custom#set_buffer(b:prev_buffer_skkeleton_config)

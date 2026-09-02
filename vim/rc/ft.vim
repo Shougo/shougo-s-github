@@ -59,14 +59,14 @@ setlocal nofoldenable
 setlocal iskeyword+=^{
 setlocal iskeyword+=^}
 
-function! s:set_highlight(group) abort
+function s:set_highlight(group) abort
   for group in ['helpBar', 'helpBacktick', 'helpStar', 'helpIgnore']
     execute 'highlight link' group a:group
   endfor
 endfunction
 call s:set_highlight('Special')
 
-function! s:right_align(linenr) abort
+function s:right_align(linenr) abort
   let m = a:linenr->getline()->matchlist(
         \ '^\(\%(\S\+ \?\)\+\)\?\s\+\([*|].\+[*|]\)')
   if m->empty()
@@ -76,7 +76,7 @@ function! s:right_align(linenr) abort
   const spaces = ' '->repeat(&l:textwidth - len(m[1]) - len(m[2]))
   call setline(a:linenr, m[1] .. spaces .. m[2])
 endfunction
-function! s:right_aligns(start, end) abort
+function s:right_aligns(start, end) abort
   for linenr in range(a:start, a:end)
     call s:right_align(linenr)
   endfor
@@ -103,7 +103,7 @@ setlocal indentexpr=
 
 " toml {{{
 setlocal foldenable foldmethod=expr foldexpr=s:fold_expr(v:lnum)
-function! s:fold_expr(lnum)
+function s:fold_expr(lnum)
   const line = getline(a:lnum)
   return line ==# '' || line =~# '^\s\+'
 endfunction

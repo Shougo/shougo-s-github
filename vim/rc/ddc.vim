@@ -9,7 +9,7 @@ nnoremap ;;
       \ <Cmd>call cmdline#enable()<CR><Cmd>call CommandlinePre(':')<CR>:
 nnoremap ;  <Nop>
 
-function! CommandlinePre(mode) abort
+function CommandlinePre(mode) abort
   if 'b:prev_buffer_config'->exists()
     return
   endif
@@ -41,7 +41,7 @@ function! CommandlinePre(mode) abort
 
   call ddc#enable_cmdline_completion()
 endfunction
-function! CommandlinePost() abort
+function CommandlinePost() abort
   " Restore config
   if 'b:prev_buffer_config'->exists()
     call ddc#custom#set_buffer(b:prev_buffer_config)

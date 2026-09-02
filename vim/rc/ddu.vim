@@ -86,7 +86,7 @@ nnoremap sm <Cmd>Ddu
 
 xnoremap ;g <Cmd>call DduUrlItems()<CR>
 
-function! DduUrlItems()
+function DduUrlItems()
   const region = getregion(
         \ getpos('v'), getpos('.'), #{ type: mode() })
   if region->empty()
@@ -128,7 +128,7 @@ function! DduUrlItems()
 endfunction
 
 " FilterUpdateCallback test
-function! DduFilterCallback(input)
+function DduFilterCallback(input)
   if a:input->stridx('@') != 0
     return a:input
   endif

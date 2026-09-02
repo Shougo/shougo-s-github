@@ -26,7 +26,7 @@ nnoremap <C-t> <Cmd>Ddu -name=ddt -sync
 " hook_source {{{
 call ddt#custom#load_config('$BASE_DIR/ddt.ts'->expand())
 
-function! MyGitStatus()
+function MyGitStatus()
   const gitdir = '.git'->finddir(';')
   if gitdir ==# ''
     return ''
