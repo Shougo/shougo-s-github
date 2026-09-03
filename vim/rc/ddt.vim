@@ -59,7 +59,7 @@ function MyGitStatus()
       if buf.changed && buf.name !=# ''
         " Check if the file is tracked by git
         let status .= "\n"
-        let status .= printf('| ?? %s (unsaved)', buf.name->fnamemodify(':.'))
+        let status .= printf('|    %s (unsaved)', buf.name->fnamemodify(':.'))
       endif
     endfor
 
@@ -162,7 +162,8 @@ nnoremap <buffer> I <Cmd>split<CR><Cmd>Ddu
 " Send the text to the last terminal
 xnoremap <CR>
       \ <Cmd>call ddt#ui_action(t:ddt_ui_terminal_last_name, 'send', #{
-      \   str: getregion('v'->getpos(), '.'->getpos(), #{ type: mode() }),
+      \   str: getregion('v'->getpos(), '.'->getpos(),
+      \                  #{ type: mode() })->join("\n"),
       \ })<CR>
 
 augroup ddt-ui-terminal
