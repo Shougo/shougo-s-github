@@ -23,18 +23,6 @@ function CommandlinePre(mode) abort
           \     keywordPattern: '(~\w+)?[0-9a-zA-Z_:#*/.-]*',
           \   },
           \ })
-
-    " Use zsh source for :! completion
-    call ddc#custom#set_context_buffer({ ->
-          \   getcmdline()->stridx('!') ==# 0
-          \ ? {
-          \     'cmdlineSources': [
-          \       'shell_native', 'cmdline', 'cmdline_history', 'around',
-          \     ],
-          \   }
-          \ : {} })
-
-    "call ddc#custom#patch_buffer('ui', 'inline')
   endif
 
   autocmd MyAutoCmd User DDCCmdlineLeave ++once call CommandlinePost()
@@ -74,7 +62,7 @@ inoremap <C-y>   <Cmd>call pum#map#confirm_suffix()<CR>
 inoremap <C-o>   <Cmd>call pum#map#confirm_matched_pattern('^\S\+')<CR>
 inoremap <Home>  <Cmd>call pum#map#insert_relative(-9999, 'ignore')<CR>
 inoremap <End>   <Cmd>call pum#map#insert_relative(+9999, 'ignore')<CR>
-inoremap <C-g>   <Cmd>call pum#map#toggle_preview()<CR>
+"inoremap <C-g>   <Cmd>call pum#map#toggle_preview()<CR>
 inoremap <C-t>   <C-v><Tab>
 "inoremap <C-z>   <Cmd>call pum#update_current_item(#{ display: 'hoge' })<CR>
 "inoremap <C-y>   <Cmd>call pum#map#scroll_preview(+1)<CR>
