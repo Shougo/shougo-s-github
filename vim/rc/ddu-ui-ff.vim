@@ -61,12 +61,6 @@ nnoremap <buffer> K
       \ <Cmd>call ddu#ui#do_action('kensaku')<CR>
 nnoremap <buffer> <C-v>
       \ <Cmd>call ddu#ui#do_action('toggleAutoAction')<CR>
-nnoremap <buffer> <C-p>
-      \ <Cmd>call ddu#ui#do_action('previewExecute',
-      \ #{ command: 'execute "normal! \<C-y>"' })<CR>
-nnoremap <buffer> <C-n>
-      \ <Cmd>call ddu#ui#do_action('previewExecute',
-      \ #{ command: 'execute "normal! \<C-e>"' })<CR>
 
 xnoremap <silent><buffer> <Space>
       \ :call ddu#ui#do_action('toggleSelectItem')<CR>
@@ -99,10 +93,10 @@ nnoremap <buffer> ff
       \<Cmd>call ddu#ui#do_action('redraw', #{ method: 'refreshItems' })<CR>
 
 " Cursor move
-nnoremap <C-n>
+nnoremap <buffer> <C-n>
       \ <Cmd>call ddu#ui#multi_actions(
       \   ['cursorNext', 'itemAction'], 'files')<CR>
-nnoremap <C-p>
+nnoremap <buffer> <C-p>
       \ <Cmd>call ddu#ui#multi_actions(
       \   ['cursorPrevious', 'itemAction'], 'files')<CR>
 nnoremap <buffer> <C-j>
