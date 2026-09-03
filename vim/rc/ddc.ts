@@ -19,15 +19,13 @@ export class Config extends BaseConfig {
 
     args.contextBuilder.patchGlobal({
       ui: "pum",
-      matcherConcurrency: 4,
+      matcherConcurrency: 1,
       dynamicUi: async (denops: Denops, args: Record<string, unknown>) => {
         const uiArgs = args as {
           items: DdcItem[];
         };
         const mode = await fn.mode(denops);
-        return Promise.resolve(
-          mode !== "t" && uiArgs.items.length == 1 ? "inline" : "pum",
-        );
+        return mode !== "t" && uiArgs.items.length == 1 ? "inline" : "pum";
       },
       dynamicSources: async (denops: Denops, args: Record<string, unknown>) => {
         const sourceArgs = args as {
@@ -35,11 +33,9 @@ export class Config extends BaseConfig {
           sources: string[];
         };
         const mode = await fn.mode(denops);
-        return Promise.resolve(
-          mode === "c" && await fn.getcmdtype(denops) === ":"
-            ? ["shell_native", ...sourceArgs.sources]
-            : null,
-        );
+        return mode === "c" && await fn.getcmdtype(denops) === ":"
+          ? [hasWindows ? "shell" : "shell_native", ...sourceArgs.sources]
+          : null;
       },
       autoCompleteEvents: [
         "CmdlineEnter",
