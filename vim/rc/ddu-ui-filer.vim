@@ -94,15 +94,7 @@ nnoremap <buffer> h
 nnoremap <buffer> H
       \ <Cmd>call ddu#start(#{ sources: [#{ name: 'path_history' }] })<CR>
 nnoremap <buffer> I
-      \ <Cmd>call ddu#ui#do_action('itemAction',
-      \ #{
-      \   name: 'narrow',
-      \   params: #{
-      \     path: 'cwd: '
-      \           ->input(b:ddu_ui_filer_path, 'dir')
-      \           ->fnamemodify(':p'),
-      \   }
-      \ })<CR>
+      \ <Cmd>call <SID>narrow_directory()<CR>
 nnoremap <buffer> M
       \ <Cmd>call ddu#ui#multi_actions([
       \   [
@@ -181,13 +173,19 @@ nnoremap <buffer> T
 nnoremap <buffer> B
       \ <Cmd>call ddu#ui#do_action('cursorTreeBottom')<CR>
 
-function ToggleHidden(name)
-  const check = ddu#custom#get_current(b:ddu_ui_name)
+function ToggleHidden(name) abort
+  const source_options = ddu#custom#get_current(b:ddu_ui_name)
         \ ->get('sourceOptions', {})
         \ ->get(a:name, {})
-        \ ->get('matchers', [])
-        \ ->empty()
-  return check ? ['matcher_hidden'] : []
+  const matchers = source_options->get('matchers', [])->copy()
+
+  const index = matchers->index('matcher_hidden')
+  if index >= 0
+    call remove(matchers, index)
+  else
+    call add(matchers, 'matcher_hidden')
+  endif
+  return matchers
 endfunction
 
 function ToggleUiParam(ui_name, param_name)
@@ -196,5 +194,17 @@ function ToggleUiParam(ui_name, param_name)
         \ ->get(a:ui_name, {})
         \ ->get(a:param_name, v:false)
         \ ? v:false : v:true
+endfunction
+
+function s:narrow_directory() abort
+  const path = input('cwd: ', b:ddu_ui_filer_path, 'dir')
+  if path ==# ''
+    return
+  endif
+
+  call ddu#ui#do_action('itemAction', #{
+        \   name: 'narrow',
+        \   params: #{ path: path->fnamemodify(':p') },
+        \ })
 endfunction
 " }}}
