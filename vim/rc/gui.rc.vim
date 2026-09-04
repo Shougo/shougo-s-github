@@ -47,7 +47,7 @@ endif
 " Options:
 
 set mouse=
-set mousemodel=
+set mousemodel=extend
 
 " Don't focus the window when the mouse pointer is moved.
 set nomousefocus
