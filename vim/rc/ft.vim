@@ -67,17 +67,29 @@ endfunction
 call s:set_highlight('Special')
 
 function s:right_align(linenr) abort
+  if !&l:modifiable
+    return
+  endif
+
   let m = a:linenr->getline()->matchlist(
         \ '^\(\%(\S\+ \?\)\+\)\?\s\+\([*|].\+[*|]\)')
   if m->empty()
     return
   endif
 
-  const spaces = ' '->repeat(&l:textwidth - len(m[1]) - len(m[2]))
+  const cnt = [
+        \   0, &l:textwidth
+        \      - m[1]->strdisplaywidth()
+        \      - m[2]->strdisplaywidth()
+        \ ]->max()
+  const spaces = ' '->repeat(cnt)
   call setline(a:linenr, m[1] .. spaces .. m[2])
 endfunction
-function s:right_aligns(start, end) abort
+function! s:right_aligns(start, end) abort
   for linenr in range(a:start, a:end)
+    if linenr > a:start
+      silent! undojoin
+    endif
     call s:right_align(linenr)
   endfor
 endfunction
