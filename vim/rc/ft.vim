@@ -117,7 +117,7 @@ setlocal indentexpr=
 setlocal foldenable foldmethod=expr foldexpr=s:fold_expr(v:lnum)
 function s:fold_expr(lnum)
   const line = getline(a:lnum)
-  return line ==# '' || line =~# '^\s\+'
+  return line ==# '' || line =~# '^\s\+' ? 1 : 0
 endfunction
 " }}}
 
