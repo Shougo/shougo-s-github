@@ -53,15 +53,21 @@ function s:skkeleton_pre() abort
       \ '*cmdline#_get'->exists() && !cmdline#_get().pos->empty()
   const hl_name = is_cmdline ? 'CmdlineCursor' : 'Cursor'
 
-  let s:hl_cursor =
-        \   has('nvim')
+  const hl = has('nvim')
         \ ? nvim_get_hl(0, #{ name: hl_name })
         \ : hl_name->hlget()
+  if !hl->empty()
+    let s:hl_cursor = hl
+  endif
 endfunction
 
 autocmd MyAutoCmd User skkeleton-mode-changed
       \ call s:skkeleton_changed()
 function s:skkeleton_changed() abort
+  if !'s:hl_cursor'->exists()
+    return
+  endif
+
   " Change the cursor color
   let hl_cursor = s:hl_cursor->copy()
 
@@ -90,7 +96,10 @@ endfunction
 
 autocmd MyAutoCmd User skkeleton-handled call s:skkeleton_handled()
 function s:skkeleton_handled() abort
-  if g:skkeleton#mode ==# ''
+  if g:skkeleton#mode ==# '' || !'s:hl_cursor'->exists()
+    return
+  endif
+
     return
   endif
 
