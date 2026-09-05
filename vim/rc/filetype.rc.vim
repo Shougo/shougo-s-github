@@ -10,7 +10,6 @@ let g:java_highlight_all = v:true
 let g:java_highlight_debug = v:true
 let g:java_allow_cpp_keywords = v:true
 let g:java_space_errors = v:true
-let g:java_highlight_functions = v:true
 
 " Tex
 let g:tex_flavor = 'latex'
@@ -39,16 +38,23 @@ let g:typst_embedded_languages = [
       \ ]
 
 " Enable modeline for only Vim help files.
-autocmd MyAutoCmd BufRead,BufWritePost *.txt,*.jax setlocal modeline
+autocmd MyAutoCmd BufRead,BufWritePost *.txt,*.jax
+      \ if &l:filetype ==# 'help'
+      \ | setlocal modeline
+      \ | endif
 
 " Disable quotes keyword.
 autocmd MyAutoCmd BufEnter,BufRead,BufNewFile *.md setlocal iskeyword-='
 
 " For auto completion in gitcommit buffer.
-autocmd MyAutoCmd BufReadPost COMMIT_EDITMSG call vimrc#append_diff()
+autocmd MyAutoCmd BufReadPost COMMIT_EDITMSG
+      \ : if !exists('b:commit_diff_appended')
+      \ |   call vimrc#append_diff()
+      \ |   let b:commit_diff_appended = v:true
+      \ | endif
 
 " Xonsh filetype
-autocmd MyAutoCmd BufReadPost *.xonsh set filetype=python
+autocmd MyAutoCmd BufRead,BufNewFile *.xonsh setfiletype python
 
 " Update filetype.
 autocmd MyAutoCmd BufWritePost * nested
@@ -58,16 +64,22 @@ autocmd MyAutoCmd BufWritePost * nested
 \ | endif
 
 " from https://github.com/kuuote/dotvim/blob/46760385/conf/rc/autocmd.vim#L5
-function s:chmod(file) abort
+function! s:chmod(file) abort
   const perm = a:file->getfperm()
-  const newperm = printf('%sx%sx%sx', perm[0:1], perm[3:4], perm[6:7])
+  if perm ==# ''
+    return
+  endif
+
+  const newperm = printf('%sx%s-%s-', perm[0:1], perm[3:4], perm[6:7])
   if perm !=# newperm
     call setfperm(a:file, newperm)
   endif
 endfunction
 autocmd MyAutoCmd BufWritePost * nested
-      \ : if 1->getline()->stridx('#!/') ==# 0
-      \ |   call s:chmod('<afile>'->expand())
+      \ : if &l:buftype ==# ''
+      \   && expand('<afile>') !=# ''
+      \   && getline(1)->stridx('#!/') ==# 0
+      \ | call s:chmod(expand('<afile>'))
       \ | endif
 
 " Make directory automatically.
@@ -99,9 +111,13 @@ function s:remove_empty_file(file) abort
     return
   endif
 
-  enew
-  call delete(a:file)
-  execute 'bdelete' a:file->bufnr()
+  const bufnr = bufnr(a:file)
+  if a:file->delete() ==# 0
+    enew
+    if bufnr > 0 && bufnr->bufexists()
+      execute 'bdelete!' bufnr
+    endif
+  endif
 endfunction
 
 " Disable syntax for huge files
