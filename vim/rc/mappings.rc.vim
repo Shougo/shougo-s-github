@@ -134,11 +134,8 @@ nnoremap s?    ?\<%
 " Better x
 nnoremap x "_x
 
-" Disable Ex-mode.
+" Disable Ex-mode in normal mode.
 nnoremap Q  q
-
-" Useless command.
-nnoremap M  m
 
 " Smart <C-f>, <C-b>.
 noremap <expr> <C-f>
@@ -190,7 +187,8 @@ xnoremap ir  i]
 nnoremap <C-a> <Cmd>AddNumbers 1<CR>
 nnoremap <C-x> <Cmd>AddNumbers -1<CR>
 command! -range -nargs=1 AddNumbers
-      \ call vimrc#add_numbers((<line2>-<line1>+1) * eval(<args>) * v:count1)
+      \ call vimrc#add_numbers(
+      \   (<line2>-<line1>+1) * str2nr(<q-args>) * v:count1)
 
 nnoremap #    <C-^>
 
