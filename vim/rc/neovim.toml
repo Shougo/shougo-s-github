@@ -267,9 +267,9 @@ lua_source = '''
 
   vim.lsp.config('vtsls', {
     root_dir = function(bufnr, callback)
-      -- NOTE: Must be node directory
-      if vim.fn.findfile('package.json', '.;') ~= '' then
-        callback(vim.fn.getcwd())
+      local root = vim.fs.root(bufnr, { 'package.json' })
+      if root then
+        callback(root)
       end
     end,
     workspace_required = true,
