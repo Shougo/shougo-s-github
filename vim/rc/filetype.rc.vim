@@ -47,11 +47,7 @@ autocmd MyAutoCmd BufRead,BufWritePost *.txt,*.jax
 autocmd MyAutoCmd BufEnter,BufRead,BufNewFile *.md setlocal iskeyword-='
 
 " For auto completion in gitcommit buffer.
-autocmd MyAutoCmd BufReadPost COMMIT_EDITMSG
-      \ : if !exists('b:commit_diff_appended')
-      \ |   call vimrc#append_diff()
-      \ |   let b:commit_diff_appended = v:true
-      \ | endif
+autocmd MyAutoCmd BufReadPost COMMIT_EDITMSG call vimrc#append_diff()
 
 " Xonsh filetype
 autocmd MyAutoCmd BufRead,BufNewFile *.xonsh setfiletype python

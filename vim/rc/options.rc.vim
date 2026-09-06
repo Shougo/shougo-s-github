@@ -117,19 +117,12 @@ set virtualedit=block
 " Set keyword help.
 set keywordprg=:help
 
-" Disable paste.
 autocmd MyAutoCmd ModeChanged *:n
       \ : if &paste
       \ |   setlocal nopaste
       \ |   echo 'nopaste'
       \ | endif
       \ | if &l:diff
-      \ |   diffupdate
-      \ | endif
-
-" Update diff.
-autocmd MyAutoCmd ModeChanged *:n
-      \ : if &l:diff
       \ |   diffupdate
       \ | endif
 
@@ -313,10 +306,6 @@ set display+=uhex
 set conceallevel=0
 
 set colorcolumn=79
-
-if '+previewpopup'->exists()
-  set previewpopup=height:10,width:60
-endif
 
 " Disable signcolumn
 set signcolumn=no
