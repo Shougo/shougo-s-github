@@ -5,9 +5,6 @@
 " Use sh.  It is faster
 set shell=sh
 
-" Set path.
-let $PATH = '~/bin'->expand().':/usr/local/bin/:'.$PATH
-
 "---------------------------------------------------------------------------
 " For CUI:
 "
