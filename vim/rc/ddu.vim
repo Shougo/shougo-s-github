@@ -39,12 +39,6 @@ nnoremap ;g <Cmd>Ddu
       \ -source-param-rg-input=
       \'`'Pattern: '->cmdline#input('<cword>'->expand())`'
       \ <CR>
-xnoremap ;g y<Cmd>Ddu
-      \ -name=search rg -resume=v:false
-      \ -ui-param-ff-ignoreEmpty
-      \ -source-param-rg-input=
-      \'`'Pattern: '->cmdline#input(v:register->getreg())`'
-      \ <CR>
 nnoremap ;f <Cmd>Ddu
       \ -name=search rg -resume=v:false
       \ -ui-param-ff-ignoreEmpty
@@ -79,7 +73,7 @@ nnoremap [Space]o <Cmd>Ddu
 xnoremap <expr> ;r
       \ (mode() ==# 'V' ? '"_R<Esc>' : '"_d')
       \ .. '<Cmd>Ddu -name=register register
-      \ -source-option-ff-defaultAction=insert
+      \ -ui-option-ff-defaultAction=insert
       \ -ui-param-ff-autoResize<CR>'
 nnoremap sm <Cmd>Ddu
       \ dpp<CR>
