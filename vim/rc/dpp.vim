@@ -1,22 +1,30 @@
-let $CACHE = '~/.cache'->expand()
-if !$CACHE->isdirectory()
-  call mkdir($CACHE, 'p')
+let s:cache = '~/.cache'->expand()
+if !s:cache->isdirectory()
+  call mkdir(s:cache, 'p')
 endif
 
 function DppInitPlugin(plugin)
   " Search from ~/work directory
   let dir = '~/work/'->expand() .. a:plugin->fnamemodify(':t')
   if !dir->isdirectory()
-    " Search from $CACHE directory
-    let dir = $CACHE .. '/dpp/repos/github.com/' .. a:plugin
+    " Search from s:cache directory
+    let dir = s:cache .. '/dpp/repos/github.com/' .. a:plugin
     if !dir->isdirectory()
       " Install plugin automatically.
-      execute '!git clone https://github.com/' .. a:plugin dir
+      execute '!git clone
+            \ (https://github.com/' .. a:plugin)->shellescape()
+            \ dir->shellescape()
     endif
   endif
 
-  execute 'set runtimepath^='
-        \ .. dir->fnamemodify(':p')->substitute('[/\\]$', '', '')
+  if !dir->isdirectory()
+    throw printf('Plugin directory was not created: %s', dir)
+  endif
+
+  const runtime_dir = dir->fnamemodify(':p')
+        \ ->substitute('[/\\]$', '', '')
+
+  execute 'set runtimepath^=' .. fnameescape(runtime_dir)
 endfunction
 
 " NOTE: dpp.vim path must be added
