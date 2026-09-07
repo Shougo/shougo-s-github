@@ -150,9 +150,15 @@ export class Config extends BaseConfig {
             update: {
               description: "Update the plugins.",
               callback: async (args: ActionArguments<Params>) => {
-                const names = args.items.map((item) =>
-                  (item.action as DppAction).__name
-                );
+                const names = args.items
+                  .map((item) =>
+                    (item.action as Partial<DppAction> | undefined)?.__name
+                  )
+                  .filter((name): name is string => !!name);
+
+                if (names.length === 0) {
+                  return Promise.resolve(ActionFlags.None);
+                }
 
                 await args.denops.call(
                   "dpp#async_ext_action",
@@ -239,7 +245,10 @@ export class Config extends BaseConfig {
             grep: {
               description: "Grep from the path.",
               callback: async (args: ActionArguments<Params>) => {
-                const action = args.items[0]?.action as FileAction;
+                const action = args.items[0]?.action as FileAction | undefined;
+                if (!action?.path) {
+                  return Promise.resolve(ActionFlags.None);
+                }
 
                 await args.denops.call("ddu#start", {
                   name: args.options.name,

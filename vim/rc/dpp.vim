@@ -50,6 +50,7 @@ if s:dpp_base->dpp#min#load_state()
         \   'Shougo/dpp-ext-packspec',
         \   'Shougo/dpp-ext-toml',
         \   'Shougo/dpp-protocol-git',
+        \   'Shougo/dpp-protocol-http',
         \   'vim-denops/denops.vim',
         \ ]
     call DppInitPlugin(s:plugin)
