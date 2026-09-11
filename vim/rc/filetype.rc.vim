@@ -42,6 +42,7 @@ autocmd MyAutoCmd BufRead,BufWritePost *.txt,*.jax
       \ if &l:filetype ==# 'help'
       \ | setlocal modeline
       \ | endif
+autocmd MyAutoCmd BufRead,BufNewFile *.jax setfiletype help
 
 " Disable quotes keyword.
 autocmd MyAutoCmd BufEnter,BufRead,BufNewFile *.md setlocal iskeyword-='
