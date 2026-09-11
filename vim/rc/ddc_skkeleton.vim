@@ -49,4 +49,15 @@ endfunction
 "autocmd User skkeleton-enable-post
 "      \ inoremap <buffer> <nowait> .
 "      \ <Cmd>call <SID>skkeleton_handle_dot()<CR>
+
+" Use pum.vim backend
+call skkeleton#register_completion_backend('pum.vim', #{
+      \   complete_info:
+      \     { -> pum#complete_info(['pum_visible', 'selected']) },
+      \   confirm_key: '<Cmd>call pum#map#confirm()',
+      \ })
+
+call skkeleton#config(#{
+      \   completionBackend: 'pum.vim',
+      \ })
 " }}}
