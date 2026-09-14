@@ -208,6 +208,10 @@ else
         \ })
 endif
 
+" For kakuteiUndo
+call add(g:skkeleton#mapped_keys, '<C-z>')
+call skkeleton#register_keymap('input', '<C-z>', 'kakuteiUndo')
+
 call skkeleton_state_popup#enable()
 
 call skkeleton#initialize()
