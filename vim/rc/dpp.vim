@@ -64,7 +64,7 @@ if s:dpp_base->dpp#min#load_state()
 
   autocmd MyAutoCmd User DenopsReady
         \ : echohl WarningMsg
-        \ | echomsg 'dpp load_state() is failed'
+        \ | echomsg 'dpp load_state() failed'
         \ | echohl NONE
         \ | call dpp#make_state(s:dpp_base, '$BASE_DIR/dpp.ts'->expand())
 else
