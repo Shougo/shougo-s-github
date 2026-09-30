@@ -216,7 +216,6 @@ lua_source = '''
     'denols',
     'emmylua_ls',
     'gopls',
-    --'lua_ls',
     'pyright',
     'rust_analyzer',
     'vtsls',
@@ -239,65 +238,6 @@ lua_source = '''
 
   vim.lsp.config('*', {
     capabilities = require("ddc_source_lsp").make_client_capabilities(),
-  })
-
-  vim.lsp.config('emmylua_ls', {
-    workspace_required = true,
-  })
-
-  vim.lsp.config('lua_ls', {
-    settings = {
-      Lua = {
-        runtime = {
-          version = 'LuaJIT',
-        },
-        diagnostics = {
-          globals = { 'vim' },
-        },
-        workspace = {
-          library = vim.api.nvim_get_runtime_file('', true),
-          checkThirdParty = false,
-        },
-        telemetry = {
-          enable = false,
-        },
-      },
-    },
-  })
-
-  vim.lsp.config('vtsls', {
-    root_dir = function(bufnr, callback)
-      local root = vim.fs.root(bufnr, { 'package.json' })
-      if root then
-        callback(root)
-      end
-    end,
-    workspace_required = true,
-  })
-
-  vim.lsp.config('denols', {
-    -- Disable nest.land imports
-    -- https://github.com/neovim/nvim-lspconfig/pull/2793
-    settings = {
-      deno = {
-        lint = true,
-        unstable = true,
-        suggest = {
-          imports = {
-            autoDiscover = false,
-            hosts = {
-              ['https://x.nest.land'] = false,
-            },
-          },
-        },
-      },
-    },
-    root_markers = {
-      'deno.json',
-      'deno.jsonc',
-      'deps.ts',
-    },
-    workspace_required = false,
   })
 
   vim.lsp.enable(servers)
