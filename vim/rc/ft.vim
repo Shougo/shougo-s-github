@@ -49,6 +49,9 @@ setlocal indentkeys+=\\,endif,endfunction,endfor,endwhile,endtry
 
 " qf {{{
 setlocal wrap
+if '+winpinned'->exists()
+  setlocal winpinned
+endif
 " }}}
 
 " qfreplace {{{
