@@ -8,7 +8,9 @@ if type compaudit >/dev/null 2>&1; then
   fi
 fi
 
-compinit -C 2>/dev/null || compinit 2>/dev/null || true
+compinit -C 2>/dev/null || compinit 2>/dev/null || {
+  echo "Warning: compinit initialization failed" >&2
+}
 
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*:messages' format '%d'
