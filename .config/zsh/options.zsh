@@ -1,135 +1,91 @@
-setopt auto_resume
+# ============================================================================
+# ZSH Options Configuration
+# ============================================================================
 
-# Ignore <C-d> logout
-setopt ignore_eof
+# Interaction & Safety
+# ─────────────────────────────────────────────────────────────────────────
+setopt auto_resume                # Resume suspended jobs
+setopt ignore_eof                 # Ignore <C-d> logout
+setopt no_beep                    # Disable beeps and bells
+setopt no_flow_control            # Disable flow control (Ctrl+S/Q)
+setopt rm_star_wait               # Confirm before 'rm *'
 
-# Disable beeps
-setopt no_beep
+# Correction & Features
+# ─────────────────────────────────────────────────────────────────────────
+setopt correct                    # Enable spellcheck for commands
+setopt equals                     # Enable "=command" feature
+setopt interactive_comments       # Allow comments in interactive shell
 
-# {a-c} -> a b c
-setopt brace_ccl
+# Expansion
+# ─────────────────────────────────────────────────────────────────────────
+setopt brace_ccl                  # {a-c} expands to a b c
+setopt extended_glob              # Enable extended glob patterns (**, (, |, etc.)
+setopt hist_expand                # Expand history substitutions
+setopt prompt_subst               # Enable prompt substitution
 
-# Enable spellcheck
-setopt correct
+# History Management
+# ─────────────────────────────────────────────────────────────────────────
+setopt extended_history           # Save timestamp and duration
+setopt hist_ignore_dups           # Ignore consecutive duplicates
+setopt hist_ignore_space          # Ignore commands starting with space
+setopt hist_reduce_blanks         # Remove superfluous blanks
+setopt hist_no_store              # Don't store 'fc' command itself
+setopt inc_append_history         # Append to history immediately
+unsetopt hist_verify              # Don't verify history expansion
 
-# Enable "=command" feature
-setopt equals
+# Directory Navigation
+# ─────────────────────────────────────────────────────────────────────────
+setopt auto_cd                    # cd into directory without 'cd' command
+setopt auto_pushd                 # Push old directory to stack on cd
+setopt pushd_minus                # Use - instead of + for pushd
+setopt pushd_ignore_dups          # Don't duplicate entries in stack
+setopt pushd_silent               # Don't print directory stack
 
-# Disable flow control
-setopt no_flow_control
+# Completion Behavior
+# ─────────────────────────────────────────────────────────────────────────
+setopt auto_list                  # Show completion list automatically
+setopt auto_param_slash           # Add / to completed directory names
+setopt auto_param_keys            # Use parameterized key sequences
+setopt complete_in_word           # Enable completion in the middle of word
+setopt complete_aliases           # Expand aliases during completion
+setopt no_menu_complete           # Disable menu-style completion
+setopt glob_complete              # Expand globs during completion
+setopt list_rows_first            # List completions row-wise
+setopt list_types                 # List files with type indicators (ls -F)
+setopt list_packed                # Compact completion list display
+setopt mark_dirs                  # Add / to completed directory names
 
-# Ignore dups
-setopt hist_ignore_dups
+# Globbing & Path
+# ─────────────────────────────────────────────────────────────────────────
+setopt magic_equal_subst          # Enable completion in --option=arg
+setopt path_dirs                  # Search subdirectories in $PATH
+setopt numeric_glob_sort          # Sort numeric names numerically
+setopt multios                    # Enable multi IO redirection
 
-# Reduce spaces
-setopt hist_reduce_blanks
+# Miscellaneous
+# ─────────────────────────────────────────────────────────────────────────
+setopt long_list_jobs             # Show full job info with 'jobs'
+setopt short_loops                # Compact for/repeat/select syntax
+setopt print_eightbit             # Print 8-bit characters
+setopt print_exit_value           # Show non-zero exit codes
+setopt always_last_prompt         # Redraw prompt after completion
+setopt hash_cmds                  # Hash command paths
+unsetopt promptcr                 # Don't print carriage return before prompt
 
-# Ignore add history if space
-setopt hist_ignore_space
+# ============================================================================
+# History Configuration
+# ============================================================================
 
-# Save time stamp
-setopt extended_history
-
-# Expand history
-setopt hist_expand
-
-# Better jobs
-setopt long_list_jobs
-
-# Enable completion in "--option=arg"
-setopt magic_equal_subst
-
-# Add "/" if completes directory
-setopt mark_dirs
-
-# Disable menu complete for vimshell
-setopt no_menu_complete
-
-setopt list_rows_first
-
-# Expand globs when completion
-setopt glob_complete
-
-# Enable multi io redirection
-setopt multios
-
-# Can search subdirectory in $PATH
-setopt path_dirs
-
-# For multi byte
-setopt print_eightbit
-
-# Print exit value if return code is non-zero
-setopt print_exit_value
-
-setopt pushd_ignore_dups
-
-setopt pushd_silent
-
-# Short statements in for, repeat, select, if, function
-setopt short_loops
-
-# Ignore history (fc -l) command in history
-setopt hist_no_store
-
-unsetopt promptcr
-
-setopt hash_cmds
-
-setopt numeric_glob_sort
-
-# Enable comment string
-setopt interactive_comments
-
-# Improve rm *
-setopt rm_star_wait
-
-# Enable extended glob
-setopt extended_glob
-
-# Note: It is a lot of errors in script
-# setopt no_unset
-
-# Prompt substitution
-setopt prompt_subst
-
-setopt always_last_prompt
-
-# List completion
-setopt auto_list
-
-setopt auto_param_slash
-
-setopt auto_param_keys
-
-# List like "ls -F"
-setopt list_types
-
-# Compact completion
-setopt list_packed
-
-setopt auto_cd
-
-setopt auto_pushd
-setopt pushd_minus
-setopt pushd_ignore_dups
-
-# Check original command in alias completion
-setopt complete_aliases
-
-unsetopt hist_verify
-
-# Enable suffix completion
-setopt complete_in_word
-
-# Histories
 HISTFILE=$HOME/.zsh-history
 HISTSIZE=3000
 SAVEHIST=8000
-setopt inc_append_history
 
-# Ignore some command histories
-export HISTORY_IGNORE="(cd|pwd|l[sal]|rm|mv|shutdown|exit|rmdir)"
+# Commands to exclude from history
+export HISTORY_IGNORE="(cd|pwd|ls|la|ll|rm|mv|shutdown|exit|rmdir)"
+
+# ============================================================================
+# Modules & Extensions
+# ============================================================================
 
 # Enable math functions
 zmodload zsh/mathfunc
