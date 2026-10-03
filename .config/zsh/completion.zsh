@@ -10,7 +10,6 @@ fi
 
 autoload -Uz compinit
 compinit -C 2>/dev/null || compinit 2>/dev/null || {
-  compinit 2>&1 | head -20
   echo "Warning: compinit initialization failed" >&2
 }
 
