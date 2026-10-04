@@ -1,60 +1,126 @@
-[colors]
-draw_bold_text_with_bright_colors = true
+# ============================================================================
+# Alacritty Terminal Configuration
+# ============================================================================
 
-[colors.bright]
-black = "0x383838"
-blue = "0x6699ff"
-cyan = "0x4ae2e2"
-green = "0x44ff44"
-magenta = "0xf820ff"
-red = "0xff4444"
-white = "0xfdf6e3"
-yellow = "0xffb30a"
+# ============================================================================
+# Window Configuration
+# ============================================================================
 
-[colors.cursor]
-cursor = "0x772222"
-text = "0xffffff"
+[window]
+opacity = 0.95
+padding = { x = 0, y = 0 }
+decorations = "None"
 
-[colors.dim]
-black = "0x333333"
-blue = "0x6699cc"
-cyan = "0x66cccc"
-green = "0x99cc99"
-magenta = "0xcc99cc"
-red = "0xf2777a"
-white = "0xdddddd"
-yellow = "0xffcc66"
-
-[colors.normal]
-black = "0x2c2c2c"
-blue = "0x3f90cd"
-cyan = "0x1bc8c8"
-green = "0x66ff66"
-magenta = "0xff13ff"
-red = "0xff6666"
-white = "0xc0c0c0"
-yellow = "0xffd30a"
-
-[colors.primary]
-background = "0x2c2c2c"
-foreground = "0xcccccc"
-
-[env]
-TERM = "xterm-256color"
+# ============================================================================
+# Font Configuration
+# ============================================================================
 
 [font]
 size = 9.0
 
+[font.normal]
+family = "Courier 10 Pitch"
+style = "Regular"
+
 [font.bold]
 family = "Courier 10 Pitch"
+style = "Bold"
 
 [font.italic]
 family = "Courier 10 Pitch"
+style = "Italic"
 
-[font.normal]
+[font.bold_italic]
 family = "Courier 10 Pitch"
+style = "Bold Italic"
+
+# ============================================================================
+# Color Scheme
+# ============================================================================
+# Dark theme with enhanced contrast
+# Primary: Main background and foreground colors
+# Normal: Standard terminal colors
+# Bright: High-intensity colors (bold text)
+# Dim: Muted colors (dimmed text)
+
+[colors.primary]
+background = "0x2c2c2c"    # Dark gray background
+foreground = "0xcccccc"    # Light gray text
+
+[colors.normal]
+black   = "0x2c2c2c"
+red     = "0xff6666"
+green   = "0x66ff66"
+yellow  = "0xffd30a"
+blue    = "0x3f90cd"
+magenta = "0xff13ff"
+cyan    = "0x1bc8c8"
+white   = "0xc0c0c0"
+
+[colors.bright]
+black   = "0x383838"
+red     = "0xff4444"
+green   = "0x44ff44"
+yellow  = "0xffb30a"
+blue    = "0x6699ff"
+magenta = "0xf820ff"
+cyan    = "0x4ae2e2"
+white   = "0xfdf6e3"
+
+[colors.dim]
+black   = "0x333333"
+red     = "0xf2777a"
+green   = "0x99cc99"
+yellow  = "0xffcc66"
+blue    = "0x6699cc"
+magenta = "0xcc99cc"
+cyan    = "0x66cccc"
+white   = "0xdddddd"
+
+[colors.cursor]
+cursor = "0x772222"        # Cursor background color
+text   = "0xffffff"        # Text color on cursor
+
+# ============================================================================
+# Environment Variables
+# ============================================================================
+
+[env]
+# TERM variable for terminal capability detection
+# alacritty: Recommended for best compatibility
+# xterm-256color: For systems without alacritty terminfo
+TERM = "alacritty"
+
+# ============================================================================
+# Bell Configuration
+# ============================================================================
+
+[bell]
+animation = "EaseOutExpo"
+duration = 0
+
+# ============================================================================
+# Mouse Configuration
+# ============================================================================
 
 [mouse]
+# Hide mouse cursor when typing
 hide_when_typing = true
 
+# ============================================================================
+# Terminal Behavior
+# ============================================================================
+
 [terminal]
+# Scrollback buffer lines
+# scrollback_lines = 10000
+
+# ============================================================================
+# Optional Keybindings
+# ============================================================================
+
+# Uncomment to add custom keybindings
+# [[keyboard.bindings]]
+# key = "V"
+# mods = "Control|Shift"
+# action = "Paste"
