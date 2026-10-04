@@ -177,7 +177,7 @@ function ToggleHidden(name) abort
   const source_options = ddu#custom#get_current(b:ddu_ui_name)
         \ ->get('sourceOptions', {})
         \ ->get(a:name, {})
-  const matchers = source_options->get('matchers', [])->copy()
+  let matchers = source_options->get('matchers', [])->copy()
 
   const index = matchers->index('matcher_hidden')
   if index >= 0
