@@ -15,3 +15,7 @@ hooks_file = '$BASE_DIR/ddx-ui-hex.vim'
 [[plugins]]
 repo = 'Shougo/ddx-analyzer-zip'
 group = 'ddx'
+
+[[plugins]]
+repo = 'Shougo/ddx-analyzer-elf'
+group = 'ddx'
