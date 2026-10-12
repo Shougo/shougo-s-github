@@ -1,5 +1,4 @@
 #---- Environment variables ------------#
-export EDITOR=nvim
 export FCEDIT=nvim
 export PAGER=less
 export LESS='-RQM'

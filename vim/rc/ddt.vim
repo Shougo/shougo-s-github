@@ -131,6 +131,10 @@ nnoremap <buffer> [Space]gd
       \ <Cmd>call ddt#ui#do_action('send', #{
       \   str: 'git diff',
       \ })<CR>
+nnoremap <buffer> [Space]gc
+      \ <Cmd>call ddt#ui#do_action('send', #{
+      \   str: 'git commit',
+      \ })<CR>
 nnoremap <buffer> [Space]gs
       \ <Cmd>call ddt#ui#do_action('send', #{
       \   str: 'git status',
@@ -139,6 +143,10 @@ nnoremap <buffer> [Space]ga
       \ <Cmd>call ddt#ui#do_action('setPrompt', #{
       \   str: 'git add ',
       \ })<CR>A
+nnoremap <buffer> [Space]gA
+      \ <Cmd>call ddt#ui#do_action('send', #{
+      \   str: 'git commit --amend',
+      \ })<CR>
 nnoremap <buffer> <C-h> <Cmd>Ddu -name=ddt -sync
       \ -input='`ddt#ui#get_input()`'
       \ ddt_shell_history<CR>

@@ -4,14 +4,18 @@
 local zshenv_file="${ZDOTDIR:-$HOME}/.zshenv"
 [ -f "$zshenv_file" ] && source "$zshenv_file"
 
-if type nvim >/dev/null 2>&1; then
-  export EDITOR=nvim
-elif type vim >/dev/null 2>&1; then
-  export EDITOR=vim
-elif type vi >/dev/null 2>&1; then
-  export EDITOR=vi
-else
-  export EDITOR=nano
+# NOTE: check "$GUISE_ADDRESS".
+# It is set by "vim-guise".
+if [ -z "$GUISE_ADDRESS" ]; then
+  if type nvim >/dev/null 2>&1; then
+    export EDITOR=nvim
+  elif type vim >/dev/null 2>&1; then
+    export EDITOR=vim
+  elif type vi >/dev/null 2>&1; then
+    export EDITOR=vi
+  else
+    export EDITOR=nano
+  fi
 fi
 
 if locale -a | grep -q en_US.utf8; then
