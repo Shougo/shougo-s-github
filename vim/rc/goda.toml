@@ -1,0 +1,3 @@
+[[plugins]]
+repo = 'Shougo/goda.vim'
+on_cmd = ['GodaStart', 'GodaList']
