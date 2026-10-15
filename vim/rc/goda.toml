@@ -1,3 +1,7 @@
 [[plugins]]
 repo = 'Shougo/goda.vim'
 on_cmd = ['GodaStart', 'GodaList']
+
+[[plugins]]
+repo = 'Shougo/goda-cmp.vim'
+on_cmd = ['GodaCmpEnable']
