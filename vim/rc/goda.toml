@@ -1,7 +1,17 @@
 [[plugins]]
 repo = 'Shougo/goda.vim'
-on_cmd = ['GodaStart', 'GodaList']
 
 [[plugins]]
 repo = 'Shougo/goda-cmp.vim'
-on_cmd = ['GodaCmpEnable']
+depends = 'goda.vim'
+hook_add = '''
+  autocmd MyAutoCmd BufWritePost ~/.config/vim/rc/goda-cmp/*.go
+  \ call goda_cmp#build()
+'''
+hook_source = '''
+  let g:goda_cmp#config_dir = '~/.config/vim/rc/goda-cmp'
+  inoremap <C-n> <Cmd>call goda_cmp#complete()<CR>
+'''
+hook_post_update = '''
+  call goda_cmp#build()
+'''
