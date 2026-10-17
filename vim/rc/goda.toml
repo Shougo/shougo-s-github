@@ -10,6 +10,8 @@ hook_add = '''
 '''
 hook_source = '''
   let g:goda_cmp#config_dir = '~/.config/vim/rc/goda-cmp'
+
+  set completeopt=menuone,noinsert,noselect
   inoremap <C-n> <Cmd>call goda_cmp#complete()<CR>
 '''
 hook_post_update = '''
