@@ -7,7 +7,7 @@ import "github.com/Shougo/goda-cmp.vim/cmp"
 // goda_cmp#patch_global({'ui': 'pum'}); see the README.
 func configure(b *cmp.Builder) {
 	b.PatchGlobal(cmp.Config{
-		UI:      "native", // "native" or "pum"
+		UI:      "pum", // "native" or "pum"
 		Sources: []string{"around"},
 		SourceOptions: map[string]cmp.SourceOption{
 			"_": {

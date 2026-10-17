@@ -9,10 +9,14 @@ hook_add = '''
   \ call goda_cmp#build()
 '''
 hook_source = '''
+  call ddc#disable()
+
   let g:goda_cmp#config_dir = '~/.config/vim/rc/goda-cmp'
 
-  set completeopt=menuone,noinsert,noselect
-  inoremap <C-n> <Cmd>call goda_cmp#complete()<CR>
+  inoremap <C-n> <Cmd>call pum#map#insert_relative(+1)<CR>
+  inoremap <C-p> <Cmd>call pum#map#insert_relative(-1)<CR>
+  inoremap <C-y> <Cmd>call pum#map#confirm()<CR>
+  inoremap <C-e> <Cmd>call pum#map#cancel()<CR>
 '''
 hook_post_update = '''
   call goda_cmp#build()
