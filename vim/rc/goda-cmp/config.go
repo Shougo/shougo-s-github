@@ -15,9 +15,9 @@ func configure(b *cmp.Builder) {
 		Sources: []string{"around"},
 		SourceOptions: map[string]cmp.SourceOption{
 			"_": {
-				Matchers:              []string{"matcher_head"},
-				Sorters:               []string{"sorter_length"},
-				Converters:            []string{"converter_truncate_abbr"},
+				Matchers:              []string{"matcherhead"},
+				Sorters:               []string{"sorterlength"},
+				Converters:            []string{"convertertruncateabbr"},
 				MinAutoCompleteLength: new(2),
 			},
 			"around": {Mark: "A"},
@@ -55,7 +55,7 @@ func configure(b *cmp.Builder) {
 				Mark:                   "LSP",
 				ForceCompletionPattern: `\.\w*`,
 				Matchers:               []string{},
-				Sorters:                []string{"sorter_text"},
+				Sorters:                []string{"sortertext"},
 			},
 		},
 	})
