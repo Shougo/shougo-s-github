@@ -8,9 +8,9 @@ package main
 
 import (
 	"github.com/Shougo/goda-cmp.vim/cmp"
+	"github.com/Shougo/goda-cmp.vim/ext/filter/convertertruncateabbr"
 	"github.com/Shougo/goda-cmp.vim/ext/filter/matcherhead"
 	"github.com/Shougo/goda-cmp.vim/ext/filter/sorterlength"
-	"github.com/Shougo/goda-cmp.vim/ext/filter/truncateabbr"
 	"github.com/Shougo/goda-cmp.vim/ext/source/around"
 )
 
@@ -22,7 +22,7 @@ func main() {
 	b.AddSource(around.New(around.Params{MinLength: 2}))
 	b.AddFilter(matcherhead.New(matcherhead.Params{}))
 	b.AddFilter(sorterlength.New())
-	b.AddFilter(truncateabbr.New(truncateabbr.Params{MaxWidth: 40}))
+	b.AddFilter(convertertruncateabbr.New(convertertruncateabbr.Params{MaxWidth: 40}))
 
 	configure(b)
 	b.Main()
