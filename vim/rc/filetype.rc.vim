@@ -22,6 +22,7 @@ let g:vim_markdown_no_default_key_mappings = v:true
 
 " help
 let g:help_example_languages = #{
+      \   go: 'go',
       \   lua: 'lua',
       \   sh: 'sh',
       \   typescript: 'typescript',
