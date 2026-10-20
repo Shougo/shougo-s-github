@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/Shougo/goda-cmp.vim/cmp"
+	"github.com/Shougo/goda-cmp.vim/ext/filter/convertertruncateabbr"
 	"github.com/Shougo/goda-cmp.vim/ext/filter/sortertext"
 	"github.com/Shougo/goda-cmp.vim/ext/source/lsp"
 )
@@ -10,6 +11,10 @@ import (
 // The settings can also be changed from Vim script at any time, for example
 // goda_cmp#patch_global({'ui': 'pum'}); see the README.
 func configure(b *cmp.Builder) {
+	b.AddFilter(convertertruncateabbr.New(convertertruncateabbr.Params{
+		MaxWidth: 40,
+	}))
+
 	b.PatchGlobal(cmp.Config{
 		UI:      "pum", // "native" or "pum"
 		Sources: []string{"around"},
