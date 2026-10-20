@@ -1,6 +1,10 @@
 package main
 
-import "github.com/Shougo/goda-cmp.vim/cmp"
+import (
+	"github.com/Shougo/goda-cmp.vim/cmp"
+	"github.com/Shougo/goda-cmp.vim/ext/filter/sortertext"
+	"github.com/Shougo/goda-cmp.vim/ext/source/lsp"
+)
 
 // configure holds the settings, like the patchGlobal calls of a ddc.ts.
 // The settings can also be changed from Vim script at any time, for example
@@ -28,5 +32,28 @@ func configure(b *cmp.Builder) {
 	})
 	b.PatchFiletypes([]string{"gitcommit", "text"}, cmp.Config{
 		AutoCompleteDelay: cmp.Ptr(100),
+	})
+
+	b.AddSource(lsp.New(lsp.Params{
+	    Name:        "gopls",
+	    Command:     []string{"gopls"},
+	    Filetypes:   []string{"go", "gomod"},
+	    RootMarkers: []string{"go.work", "go.mod", ".git"},
+	    // Settings answer workspace/configuration.
+	    Settings: map[string]any{"gopls": map[string]any{
+	        "usePlaceholders": false,
+	    }},
+	}))
+	b.AddFilter(sortertext.New())
+	b.PatchGlobal(cmp.Config{
+	    Sources: []string{"gopls", "around"},
+	    SourceOptions: map[string]cmp.SourceOption{
+	        "gopls": {
+	            Mark:                   "LSP",
+	            ForceCompletionPattern: `\.\w*`,
+	            Matchers:               []string{},
+	            Sorters:                []string{"sorter_text"},
+	        },
+	    },
 	})
 }
