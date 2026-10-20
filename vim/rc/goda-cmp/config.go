@@ -15,45 +15,46 @@ func configure(b *cmp.Builder) {
 		Sources: []string{"around"},
 		SourceOptions: map[string]cmp.SourceOption{
 			"_": {
-				Matchers:   []string{"matcher_head"},
-				Sorters:    []string{"sorter_length"},
-				Converters: []string{"converter_truncate_abbr"},
+				Matchers:              []string{"matcher_head"},
+				Sorters:               []string{"sorter_length"},
+				Converters:            []string{"converter_truncate_abbr"},
+				MinAutoCompleteLength: new(2),
 			},
 			"around": {Mark: "A"},
 		},
-		AutoCompleteDelay: cmp.Ptr(10),
+		AutoCompleteDelay: new(10),
 	})
 
 	// Per filetype, laid over the global settings.
 	b.PatchFiletype("markdown", cmp.Config{
 		SourceOptions: map[string]cmp.SourceOption{
-			"around": {MinAutoCompleteLength: cmp.Ptr(3)},
+			"around": {MinAutoCompleteLength: new(3)},
 		},
 	})
 	b.PatchFiletypes([]string{"gitcommit", "text"}, cmp.Config{
-		AutoCompleteDelay: cmp.Ptr(100),
+		AutoCompleteDelay: new(100),
 	})
 
 	b.AddSource(lsp.New(lsp.Params{
-	    Name:        "gopls",
-	    Command:     []string{"gopls"},
-	    Filetypes:   []string{"go", "gomod"},
-	    RootMarkers: []string{"go.work", "go.mod", ".git"},
-	    // Settings answer workspace/configuration.
-	    Settings: map[string]any{"gopls": map[string]any{
-	        "usePlaceholders": false,
-	    }},
+		Name:        "gopls",
+		Command:     []string{"gopls"},
+		Filetypes:   []string{"go", "gomod"},
+		RootMarkers: []string{"go.work", "go.mod", ".git"},
+		// Settings answer workspace/configuration.
+		Settings: map[string]any{"gopls": map[string]any{
+			"usePlaceholders": false,
+		}},
 	}))
 	b.AddFilter(sortertext.New())
 	b.PatchGlobal(cmp.Config{
-	    Sources: []string{"gopls", "around"},
-	    SourceOptions: map[string]cmp.SourceOption{
-	        "gopls": {
-	            Mark:                   "LSP",
-	            ForceCompletionPattern: `\.\w*`,
-	            Matchers:               []string{},
-	            Sorters:                []string{"sorter_text"},
-	        },
-	    },
+		Sources: []string{"gopls", "around"},
+		SourceOptions: map[string]cmp.SourceOption{
+			"gopls": {
+				Mark:                   "LSP",
+				ForceCompletionPattern: `\.\w*`,
+				Matchers:               []string{},
+				Sorters:                []string{"sorter_text"},
+			},
+		},
 	})
 }
