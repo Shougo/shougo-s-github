@@ -45,8 +45,10 @@ func configure(b *cmp.Builder) {
 			"usePlaceholders": false,
 		}},
 	}))
+
 	b.AddFilter(sortertext.New())
-	b.PatchGlobal(cmp.Config{
+
+	b.PatchFiletypes([]string{"go", "gomod"}, cmp.Config{
 		Sources: []string{"gopls", "around"},
 		SourceOptions: map[string]cmp.SourceOption{
 			"gopls": {
