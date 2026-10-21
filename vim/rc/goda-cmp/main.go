@@ -11,18 +11,31 @@ import (
 	"github.com/Shougo/goda-cmp.vim/ext/filter/convertertruncateabbr"
 	"github.com/Shougo/goda-cmp.vim/ext/filter/matcherhead"
 	"github.com/Shougo/goda-cmp.vim/ext/filter/sorterlength"
+	"github.com/Shougo/goda-cmp.vim/ext/filter/sortertext"
 	"github.com/Shougo/goda-cmp.vim/ext/source/around"
+	"github.com/Shougo/goda-cmp.vim/ext/source/lsp"
 )
 
 func main() {
 	b := cmp.New()
 
-	// Extensions: anything implementing cmp.Source / cmp.Filter / cmp.UI,
-	// from this repository or from your own modules.
 	b.AddSource(around.New(around.Params{MinLength: 2}))
+
+	b.AddSource(lsp.New(lsp.Params{
+		Name:        "gopls",
+		Command:     []string{"gopls"},
+		Filetypes:   []string{"go", "gomod"},
+		RootMarkers: []string{"go.work", "go.mod", ".git"},
+		// Settings answer workspace/configuration.
+		Settings: map[string]any{"gopls": map[string]any{
+			"usePlaceholders": false,
+		}},
+	}))
+
 	b.AddFilter(matcherhead.New(matcherhead.Params{}))
 	b.AddFilter(sorterlength.New())
 	b.AddFilter(convertertruncateabbr.New(convertertruncateabbr.Params{MaxWidth: 40}))
+	b.AddFilter(sortertext.New())
 
 	configure(b)
 	b.Main()
