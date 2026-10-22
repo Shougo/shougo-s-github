@@ -14,10 +14,15 @@ import (
 	"github.com/Shougo/goda-cmp.vim/ext/filter/sortertext"
 	"github.com/Shougo/goda-cmp.vim/ext/source/around"
 	"github.com/Shougo/goda-cmp.vim/ext/source/lsp"
+	"github.com/Shougo/goda-cmp.vim/ext/ui/native"
+	"github.com/Shougo/goda-cmp.vim/ext/ui/pum"
 )
 
 func main() {
 	b := cmp.New()
+
+	b.AddUI(native.New())
+	b.AddUI(pum.New())
 
 	b.AddSource(around.New(around.Params{MinLength: 2}))
 
