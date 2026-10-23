@@ -18,6 +18,65 @@ hook_source = '''
 '''
 
 [[plugins]]
+repo = 'Shougo/pum.vim'
+hook_source = '''
+  call pum#set_option(#{
+    \   auto_confirm_time: 0,
+    \   auto_select: v:false,
+    \   blend: 20,
+    \   border: 'none',
+    \   commit_characters: ['.'],
+    \   highlight_scrollbar: 'None',
+    \   insert_preview: v:true,
+    \   max_height: 5,
+    \   max_width: 80,
+    \   offset_cmdcol: 0,
+    \   padding: v:false,
+    \   preview: v:true,
+    \   preview_remains: v:true,
+    \   preview_width: 80,
+    \   reversed: v:false,
+    \   use_setline: !has('nvim'),
+    \ })
+
+  "call pum#set_local_option('c', #{
+  "  \   horizontal_menu: v:false,
+  "  \ })
+
+  " NOTE: For horizontal_menu
+  call pum#set_option(#{
+    \   follow_cursor: v:false,
+    \   horizontal_menu: v:false,
+    \   max_horizontal_items: 2,
+    \ })
+
+  " Insert mode
+  inoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1, 'empty')<CR>
+  inoremap <C-n>   <Cmd>call pum#map#select_relative(+1)<CR>
+  inoremap <C-p>   <Cmd>call pum#map#select_relative(-1)<CR>
+  inoremap <C-y>   <Cmd>call pum#map#confirm_suffix()<CR>
+  inoremap <C-o>   <Cmd>call pum#map#confirm_matched_pattern('^\S\+')<CR>
+  inoremap <Home>  <Cmd>call pum#map#insert_relative(-9999, 'ignore')<CR>
+  inoremap <End>   <Cmd>call pum#map#insert_relative(+9999, 'ignore')<CR>
+  inoremap <C-t>   <C-v><Tab>
+
+  " Command-line mode
+  cnoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
+  cnoremap <C-o>   <Cmd>call pum#map#confirm()<CR>
+  cnoremap <C-q>   <Cmd>call pum#map#select_relative(+1)<CR>
+  cnoremap <C-z>   <Cmd>call pum#map#select_relative(-1)<CR>
+  cnoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
+
+  " Mouse support
+  inoremap <LeftMouse>  <Cmd>call pum#map#confirm_mouse()<CR>
+  inoremap <RightMouse>  <Cmd>call pum#map#select_mouse()<CR>
+  cnoremap <LeftMouse>  <Cmd>call pum#map#confirm_mouse()<CR>
+  cnoremap <RightMouse>  <Cmd>call pum#map#select_mouse()<CR>
+  tnoremap <LeftMouse>  <Cmd>call pum#map#confirm_mouse()<CR>
+  tnoremap <RightMouse>  <Cmd>call pum#map#select_mouse()<CR>
+'''
+
+[[plugins]]
 repo = 'kana/vim-niceblock'
 on_map = { x = '<Plug>' }
 hook_add = '''
