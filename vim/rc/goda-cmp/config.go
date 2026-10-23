@@ -6,8 +6,9 @@ import (
 
 func configure(b *cmp.Builder) {
 	b.PatchGlobal(cmp.Config{
-		UI:      "pum", // "native" or "pum"
-		Sources: []string{"around"},
+		UI:             "pum", // "native" or "pum"
+		Sources:        []string{"around"},
+		CmdlineSources: map[string][]string{":": {"cmdline"}},
 		SourceOptions: map[string]cmp.SourceOption{
 			"_": {
 				Matchers:              []string{"matcherhead"},

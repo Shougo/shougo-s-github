@@ -13,6 +13,7 @@ import (
 	"github.com/Shougo/goda-cmp.vim/ext/filter/sorterlength"
 	"github.com/Shougo/goda-cmp.vim/ext/filter/sortertext"
 	"github.com/Shougo/goda-cmp.vim/ext/source/around"
+	"github.com/Shougo/goda-cmp.vim/ext/source/cmdline"
 	"github.com/Shougo/goda-cmp.vim/ext/source/lsp"
 	"github.com/Shougo/goda-cmp.vim/ext/ui/native"
 	"github.com/Shougo/goda-cmp.vim/ext/ui/pum"
@@ -36,6 +37,8 @@ func main() {
 			"usePlaceholders": false,
 		}},
 	}))
+
+	b.AddSource(cmdline.New())
 
 	b.AddFilter(matcherhead.New(matcherhead.Params{}))
 	b.AddFilter(sorterlength.New())
