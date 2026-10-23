@@ -10,10 +10,12 @@ import (
 	"github.com/Shougo/goda-cmp.vim/cmp"
 	"github.com/Shougo/goda-cmp.vim/ext/filter/convertertruncateabbr"
 	"github.com/Shougo/goda-cmp.vim/ext/filter/matcherhead"
+	"github.com/Shougo/goda-cmp.vim/ext/filter/sortercmdlinehistory"
 	"github.com/Shougo/goda-cmp.vim/ext/filter/sorterlength"
 	"github.com/Shougo/goda-cmp.vim/ext/filter/sortertext"
 	"github.com/Shougo/goda-cmp.vim/ext/source/around"
 	"github.com/Shougo/goda-cmp.vim/ext/source/cmdline"
+	"github.com/Shougo/goda-cmp.vim/ext/source/cmdlinehistory"
 	"github.com/Shougo/goda-cmp.vim/ext/source/lsp"
 	"github.com/Shougo/goda-cmp.vim/ext/ui/native"
 	"github.com/Shougo/goda-cmp.vim/ext/ui/pum"
@@ -26,6 +28,7 @@ func main() {
 	b.AddUI(pum.New())
 
 	b.AddSource(around.New(around.Params{MinLength: 2}))
+	b.AddSource(cmdlinehistory.New(cmdlinehistory.Params{}))
 
 	b.AddSource(lsp.New(lsp.Params{
 		Name:        "gopls",
@@ -44,6 +47,7 @@ func main() {
 	b.AddFilter(sorterlength.New())
 	b.AddFilter(convertertruncateabbr.New(convertertruncateabbr.Params{MaxWidth: 40}))
 	b.AddFilter(sortertext.New())
+	b.AddFilter(sortercmdlinehistory.New(sortercmdlinehistory.Params{}))
 
 	configure(b)
 	b.Main()

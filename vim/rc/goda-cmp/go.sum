@@ -12,6 +12,8 @@ github.com/Shougo/goda-cmp.vim v0.1.1-0.20261022094224-47acec6df027 h1:wkHeAJ3Ph
 github.com/Shougo/goda-cmp.vim v0.1.1-0.20261022094224-47acec6df027/go.mod h1:UPs+wAC4omYWUDqF+swHgJSX8aUWSDydQP/NYGDkIu4=
 github.com/Shougo/goda-cmp.vim v0.1.1-0.20261023014147-db0ff8b33f68 h1:TyC65WmZ6S8LyTEmR+VMguB2ZW7f2c5T8jgj3hWztXU=
 github.com/Shougo/goda-cmp.vim v0.1.1-0.20261023014147-db0ff8b33f68/go.mod h1:UPs+wAC4omYWUDqF+swHgJSX8aUWSDydQP/NYGDkIu4=
+github.com/Shougo/goda-cmp.vim v0.1.1-0.20261023025805-2a13e2c4b4d8 h1:nuObMIgknl2qL/FaR7ZNpPU59EVDLm3Awwaqsg/8pF4=
+github.com/Shougo/goda-cmp.vim v0.1.1-0.20261023025805-2a13e2c4b4d8/go.mod h1:UPs+wAC4omYWUDqF+swHgJSX8aUWSDydQP/NYGDkIu4=
 github.com/Shougo/goda.vim v0.1.1-0.20261020095433-f59ae5eb1d21 h1:R2OAizc3feGmROuRAZeWmoSEcI26Cytsk2nGuNttlVg=
 github.com/Shougo/goda.vim v0.1.1-0.20261020095433-f59ae5eb1d21/go.mod h1:ohGPksso9XrqpdVRLS3TzoUtz2x3yMT8x+x+MnMpbM8=
 github.com/Shougo/goda.vim v0.1.1-0.20261020103546-a018b86399f2 h1:U9HcSXaVvA3WyZX++eHoIaA0K67nP6gUUt68/SXoEIs=

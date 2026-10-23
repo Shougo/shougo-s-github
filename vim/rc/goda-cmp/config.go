@@ -6,9 +6,13 @@ import (
 
 func configure(b *cmp.Builder) {
 	b.PatchGlobal(cmp.Config{
-		UI:             "pum", // "native" or "pum"
-		Sources:        []string{"around"},
-		CmdlineSources: map[string][]string{":": {"cmdline"}},
+		UI:      "pum", // "native" or "pum"
+		Sources: []string{"around"},
+		CmdlineSources: map[string][]string{
+			":": {"cmdline", "cmdlinehistory"},
+			"/": {"cmdlinehistory", "around"},
+			"?": {"cmdlinehistory", "around"},
+		},
 		SourceOptions: map[string]cmp.SourceOption{
 			"_": {
 				Matchers:              []string{"matcherhead"},
@@ -17,6 +21,11 @@ func configure(b *cmp.Builder) {
 				MinAutoCompleteLength: new(2),
 			},
 			"around": {Mark: "A"},
+			"cmdline": {
+				Mark:    "cmdline",
+				Sorters: []string{"sortercmdlinehistory"},
+			},
+			"cmdlinehistory": {Mark: "history"},
 		},
 		AutoCompleteDelay: new(10),
 	})

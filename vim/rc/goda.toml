@@ -3,7 +3,7 @@ repo = 'Shougo/goda.vim'
 
 [[plugins]]
 repo = 'Shougo/goda-cmp.vim'
-depends = 'goda.vim'
+depends = ['goda.vim', 'pum.vim']
 hook_add = '''
   autocmd MyAutoCmd BufWritePost ~/.config/vim/rc/goda-cmp/*.go
   \ call goda_cmp#build()
@@ -19,6 +19,11 @@ hook_source = '''
   inoremap <C-e> <Cmd>call pum#map#cancel()<CR>
 
   nnoremap : <Cmd>call goda_cmp#enable_cmdline()<CR>:
+
+  call pum#set_option(#{
+    preview: v:true,
+    previewer: 'goda_cmp#get_previewer',
+  })
 '''
 hook_post_update = '''
   call goda_cmp#build()
