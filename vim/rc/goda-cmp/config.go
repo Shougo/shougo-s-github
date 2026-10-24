@@ -48,11 +48,12 @@ func configure(b *cmp.Builder) {
 		},
 		SourceOptions: map[string]cmp.SourceOption{
 			"_": {
-				IgnoreCase: new(true),
-				Matchers:   []string{"matcherhead", "matcherprefix", "matcherlength"},
-				Sorters:    []string{"sorterrank"},
-				Converters: []string{"converterremoveoverlap"},
-				Timeout:    new(1000),
+				IgnoreCase:            new(true),
+				Matchers:              []string{"matcherhead", "matcherprefix", "matcherlength"},
+				Sorters:               []string{"sorterrank"},
+				Converters:            []string{"converterremoveoverlap"},
+				Timeout:               new(1000),
+				MinAutoCompleteLength: new(2),
 			},
 			"around": {Mark: "A"},
 			"buffer": {Mark: "B"},
