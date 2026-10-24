@@ -4,7 +4,7 @@ repo = 'Shougo/goda.vim'
 [[plugins]]
 repo = 'Shougo/goda-cmp.vim'
 depends = ['goda.vim', 'pum.vim']
-#on_event = ['InsertEnter', 'CmdlineEnter']
+on_event = ['InsertEnter', 'CmdlineEnter']
 hooks_file = '$BASE_DIR/goda-cmp.vim'
 hook_post_update = '''
   call goda_cmp#build()
