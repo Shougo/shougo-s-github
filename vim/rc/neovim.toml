@@ -167,6 +167,16 @@ lua_source = '''
     return function() end
   end
 
+  -- Disable semanticTokensProvider.  It is buggy.
+  vim.api.nvim_create_autocmd('LspAttach', {
+    callback = function(args)
+      local client = vim.lsp.get_client_by_id(args.data.client_id)
+      if client then
+        client.server_capabilities.semanticTokensProvider = nil
+      end
+    end,
+  })
+
   vim.diagnostic.config({
       update_in_insert = false,
       virtual_text = {
@@ -229,15 +239,3 @@ lua_source = '''
     end,
   })
 '''
-
-#[[plugins]]
-#repo = 'carlos-algms/agentic.nvim'
-#on_lua = 'agentic'
-#lua_source = '''
-#  require('agentic').setup({
-#    provider = "claude-agent-acp"
-#  })
-#'''
-#hook_add = '''
-#  nnoremap <Space>a   <Cmd>lua require('agentic').new_session()<CR>
-#'''
