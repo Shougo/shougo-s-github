@@ -37,7 +37,6 @@ import (
 	"github.com/Shougo/goda-cmp.vim/ext/ui/inline"
 	"github.com/Shougo/goda-cmp.vim/ext/ui/native"
 	"github.com/Shougo/goda-cmp.vim/ext/ui/pum"
-	"github.com/Shougo/goda.vim/host"
 
 	"github.com/Shougo/goda-skk.vim/cmp/source/skk"
 	"github.com/Shougo/goda-skk.vim/cmp/source/skkokuri"
@@ -136,11 +135,6 @@ func main() {
 
 	configure(b)
 
-	cmpPlugin, err := b.Plugin()
-	if err != nil {
-		log.Fatal(err)
-	}
-
 	// goda-cmp.vim and the input method, in one binary.
-	host.Main(cmpPlugin, p)
+	b.Main(p)
 }
