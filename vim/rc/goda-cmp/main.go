@@ -7,6 +7,7 @@
 package main
 
 import (
+	"log"
 	"os"
 	"runtime"
 
@@ -36,6 +37,11 @@ import (
 	"github.com/Shougo/goda-cmp.vim/ext/ui/inline"
 	"github.com/Shougo/goda-cmp.vim/ext/ui/native"
 	"github.com/Shougo/goda-cmp.vim/ext/ui/pum"
+	"github.com/Shougo/goda.vim/host"
+
+	"github.com/Shougo/goda-skk.vim/cmp/source/skk"
+	"github.com/Shougo/goda-skk.vim/cmp/source/skkokuri"
+	"github.com/Shougo/goda-skk.vim/engine"
 )
 
 var (
@@ -51,6 +57,37 @@ var (
 var shellHistories = []string{"~/.cache/ddt-shell-history", "~/.zsh-history"}
 
 func main() {
+	// goda-skk
+	jisyo := "/usr/share/skk/SKK-JISYO.L"
+	if runtime.GOOS == "windows" {
+		jisyo = "~/.config/SKK-JISYO.L"
+	}
+	p, err := engine.New(engine.Config{
+		// globalDictionaries
+		Dictionaries: []engine.Dictionary{engine.NewJisyo(jisyo, "")},
+		// No markers: the highlights GodaSkkHenkan and
+		// GodaSkkHenkanSelect show the pre-edit (vimrc.vim).
+		MarkerHenkan:          new(""),
+		MarkerHenkanSelect:    new(""),
+		EggLikeNewline:        true,
+		RegisterConvertResult: true,
+
+		// register_kanatable('rom', {'jj': 'escape', '~': ['〜', '']})
+		KanaTable: engine.RomTable.With(
+			engine.Rule{From: "jj", Func: "escape"},
+			engine.Rule{From: "~", Kana: "〜"},
+		),
+		// register_keymap('input', '<C-z>', 'kakuteiUndo'); <C-z> is
+		// mapped by itself.
+		Keymaps: map[string]map[string]string{
+			"input": {"<C-z>": "kakuteiUndo"},
+		},
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// goda-cmp
 	b := cmp.New()
 
 	b.AddUI(inline.New())
@@ -84,6 +121,8 @@ func main() {
 		Filetypes:   []string{"go"},
 		RootMarkers: []string{"go.work", "go.mod", ".git"},
 	}))
+	b.AddSource(skk.New(p))      // skkeleton
+	b.AddSource(skkokuri.New(p)) // skkeleton_okuri
 
 	// Filters, with the filterParams of ddc.ts.
 	b.AddFilter(matcherhead.New(matcherhead.Params{}))
@@ -96,5 +135,12 @@ func main() {
 	b.AddFilter(converterremoveoverlap.New())
 
 	configure(b)
-	b.Main()
+
+	cmpPlugin, err := b.Plugin()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// goda-cmp.vim and the input method, in one binary.
+	host.Main(cmpPlugin, p)
 }

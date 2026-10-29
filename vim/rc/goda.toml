@@ -9,3 +9,8 @@ hooks_file = '$BASE_DIR/goda-cmp.vim'
 hook_post_update = '''
   call goda_cmp#build()
 '''
+
+[[plugins]]
+repo = 'Shougo/goda-skk.vim'
+on_map = { ict = '<Plug>(goda-skk-' }
+hooks_file = '$BASE_DIR/goda-skk.vim'

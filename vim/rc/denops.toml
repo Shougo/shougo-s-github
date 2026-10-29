@@ -26,8 +26,7 @@ hook_source = '''
 [[plugins]]
 repo = 'vim-skk/skkeleton'
 on_map = { ict = '<Plug>(skkeleton-' }
-denops_wait = false
-hooks_file = '$BASE_DIR/skkeleton.vim'
+#hooks_file = '$BASE_DIR/skkeleton.vim'
 
 [[plugins]]
 repo = 'NI57721/skkeleton-state-popup'

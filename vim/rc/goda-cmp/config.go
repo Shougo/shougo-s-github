@@ -105,7 +105,9 @@ func configure(b *cmp.Builder) {
 				Sorters:                []string{"sortershellhistory"},
 				IsVolatile:             new(true),
 			},
-			"vim": {Mark: "vim", IsVolatile: new(true)},
+			"skk":      {Mark: "skk", Matchers: []string{}, Sorters: []string{}},
+			"skkokuri": {Mark: "skk", Matchers: []string{}, Sorters: []string{}},
+			"vim":      {Mark: "vim", IsVolatile: new(true)},
 		},
 		PostFilters: []string{"sorterhead"},
 	})
