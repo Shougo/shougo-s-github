@@ -128,11 +128,6 @@ repo = 'kyoh86/ddu-filter-converter_hl_dir'
 group = 'ddu'
 
 [[plugins]]
-repo = 'Milly/ddu-filter-kensaku'
-depends = 'kensaku.vim'
-group = 'ddu'
-
-[[plugins]]
 repo = 'Shougo/ddu-column-filename'
 group = 'ddu'
 

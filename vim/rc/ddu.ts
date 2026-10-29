@@ -40,28 +40,6 @@ export class Config extends BaseConfig {
           filterInputFunc: "cmdline#input",
           filterInputOptsFunc: "cmdline#input_opts",
         },
-        ff: {
-          actions: {
-            kensaku: async (args: {
-              denops: Denops;
-              options: DduOptions;
-            }) => {
-              await args.denops.dispatcher.updateOptions(
-                args.options.name,
-                {
-                  sourceOptions: {
-                    _: {
-                      matchers: ["matcher_kensaku"],
-                    },
-                  },
-                },
-              );
-              await args.denops.cmd("echomsg 'change to kensaku matcher'");
-
-              return ActionFlags.Persist;
-            },
-          },
-        },
         filer: {
           toggle: true,
         },

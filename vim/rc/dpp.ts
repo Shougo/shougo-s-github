@@ -120,10 +120,6 @@ export class Config extends BaseConfig {
           lazy: true,
           depends: "denops.vim",
         },
-        //{
-        //  path: "$BASE_DIR/ddc.toml",
-        //  lazy: true,
-        //},
         {
           path: "$BASE_DIR/ddu.toml",
           lazy: true,
@@ -209,7 +205,6 @@ export class Config extends BaseConfig {
           includes: [
             "*.nvim",
             "*.vim",
-            "ddc-*",
             "ddt-*",
             "ddu-*",
             "ddx-*",
@@ -314,9 +309,6 @@ export class Config extends BaseConfig {
     }
 
     const groups = {
-      ddc: {
-        on_source: "ddc.vim",
-      },
       ddt: {
         on_source: "ddt.vim",
       },

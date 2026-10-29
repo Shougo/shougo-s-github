@@ -36,8 +36,6 @@ endfunction
 " }}}
 
 " hook_source {{{
-call ddc#disable()
-
 nnoremap :  <Cmd>call GodaCmpCommandlinePre(':')<CR>:
 nnoremap ?  <Cmd>call GodaCmpCommandlinePre('/')<CR>?
 xnoremap :  <Cmd>call GodaCmpCommandlinePre(':')<CR>:

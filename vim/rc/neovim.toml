@@ -159,7 +159,6 @@ hook_source = '''
 [[plugins]]
 repo = 'neovim/nvim-lspconfig'
 on_event = 'FileType'
-depends = ['ddc-source-lsp']
 lua_source = '''
   -- NOTE: Disable lsp watcher. Too slow on linux
   -- https://github.com/neovim/neovim/issues/23725#issuecomment-1561364086
@@ -211,10 +210,6 @@ lua_source = '''
     'rust_analyzer',
     'vtsls',
   }
-
-  vim.lsp.config('*', {
-    capabilities = require("ddc_source_lsp").make_client_capabilities(),
-  })
 
   vim.lsp.enable(servers)
 '''

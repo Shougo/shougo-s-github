@@ -1,4 +1,38 @@
 [[plugins]]
+repo = 'Shougo/pum.vim'
+hook_source = '''
+  call pum#set_option(#{
+    \   auto_confirm_time: 0,
+    \   auto_select: v:false,
+    \   blend: 20,
+    \   border: 'none',
+    \   commit_characters: ['.'],
+    \   highlight_scrollbar: 'None',
+    \   insert_preview: v:true,
+    \   max_height: 5,
+    \   max_width: 80,
+    \   offset_cmdcol: 0,
+    \   padding: v:false,
+    \   preview: v:true,
+    \   preview_remains: v:true,
+    \   preview_width: 80,
+    \   reversed: v:false,
+    \   use_setline: !has('nvim'),
+    \ })
+
+  "call pum#set_local_option('c', #{
+  "  \   horizontal_menu: v:false,
+  "  \ })
+
+  " NOTE: For horizontal_menu
+  call pum#set_option(#{
+    \   follow_cursor: v:false,
+    \   horizontal_menu: v:false,
+    \   max_horizontal_items: 2,
+    \ })
+'''
+
+[[plugins]]
 repo = 'Shougo/junkfile.vim'
 on_source = ['ddu.vim']
 hook_add = '''
@@ -148,6 +182,10 @@ on_ft = 'haskell'
 hook_source = '''
   let g:haskell_conceal = v:false
 '''
+
+[[plugins]]
+repo = 'lambdalisue/vim-guise'
+on_source = 'ddt.vim'
 
 #[[plugins]]
 #repo = 'github/copilot.vim'
