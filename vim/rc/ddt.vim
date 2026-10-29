@@ -43,16 +43,26 @@ function MyGitStatus()
         \ || gitdir_time > s:cached_status[full_gitdir].timestamp
         \ || now > s:cached_status[full_gitdir].check + 1
     " Get normal git status
-    let status = printf(" %s%s",
-          \   ['git', 'rev-parse', '--abbrev-ref','HEAD']
-          \   ->job#system(),
-          \   ['git', 'status', '--short', '--ignore-submodules=all']
-          \   ->job#system())
-          \ ->substitute('\n$', '', '')
-          \ ->split('\n')
-          \ ->map({ _, val -> '| ' .. val })
-          \ ->join("\n")
-          \ ->substitute('^| ', '', '')
+    let lines = [
+          \   'git',
+          \   'status',
+          \   '--short',
+          \   '--branch',
+          \   '--ignore-submodules=all',
+          \ ]->job#system()->split('\n')
+    if lines->empty()
+      let status = ''
+    else
+      " "## main...origin/main [ahead 1]" /
+      " "## No commits yet on main" /
+      " "## HEAD (no branch)"
+      let branch = lines[0]
+            \ ->substitute(
+            \   '^## \%(No commits yet on \|Initial commit on \)\=', '', '')
+            \ ->substitute('\.\.\..*$', '', '')
+      let status = ([' ' .. branch] + lines[1:]
+            \       ->map({ _, val -> '| ' .. val }))->join("\n")
+    endif
 
     " Detect unsaved buffers
     for buf in #{ buflisted: 1 }->getbufinfo()
