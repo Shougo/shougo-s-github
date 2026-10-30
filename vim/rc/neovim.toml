@@ -212,6 +212,11 @@ lua_source = '''
   }
 
   vim.lsp.enable(servers)
+
+  vim.api.nvim_exec_autocmds('FileType', {
+    group = 'nvim.lsp.enable',
+    buffer = vim.api.nvim_get_current_buf(),
+  })
 '''
 
 [[plugins]]

@@ -61,8 +61,6 @@ inoremap <expr> <C-l>  ddc#map#manual_complete()
 cnoremap <expr> <Tab>
       \   ddc#ui#inline#visible()
       \ ? ddc#map#insert_item(0)
-      \ : wildmenumode()
-      \ ? &wildcharm->nr2char()
       \ : pum#visible()
       \ ? '<Cmd>call pum#map#insert_relative(+1)<CR>'
       \ : ddc#map#manual_complete()

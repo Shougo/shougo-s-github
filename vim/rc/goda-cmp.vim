@@ -64,8 +64,6 @@ inoremap <expr> <C-l>  goda_cmp#map#manual_complete()
 cnoremap <expr> <Tab>
       \   goda_cmp#ui#inline#visible()
       \ ? goda_cmp#map#insert_item(0)
-      \ : wildmenumode()
-      \ ? &wildcharm->nr2char()
       \ : pum#visible()
       \ ? '<Cmd>call pum#map#insert_relative(+1)<CR>'
       \ : goda_cmp#map#manual_complete()
@@ -90,6 +88,10 @@ call goda_cmp#patch_global(#{
 
 " Terminal completion
 call goda_cmp#enable_terminal()
+
+if mode() ==# 'c'
+  call GodaCmpCommandlinePre(mode())
+endif
 
 call goda_cmp#enable()
 " }}}
