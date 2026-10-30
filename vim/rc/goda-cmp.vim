@@ -89,8 +89,8 @@ call goda_cmp#patch_global(#{
 " Terminal completion
 call goda_cmp#enable_terminal()
 
-if mode() ==# 'c'
-  call GodaCmpCommandlinePre(mode())
+if mode() ==# 'c' && getcmdtype() ==# ':'
+  call goda_cmp#enable_cmdline()
 endif
 
 call goda_cmp#enable()
