@@ -40,6 +40,7 @@ import (
 
 	"github.com/Shougo/goda-skk.vim/cmp/source/skk"
 	"github.com/Shougo/goda-skk.vim/cmp/source/skkokuri"
+	"github.com/Shougo/goda-skk.vim/dictionary/google"
 	"github.com/Shougo/goda-skk.vim/engine"
 )
 
@@ -63,7 +64,11 @@ func main() {
 	}
 	p, err := engine.New(engine.Config{
 		// globalDictionaries
-		Dictionaries: []engine.Dictionary{engine.NewJisyo(jisyo, "")},
+		Dictionaries: []engine.Dictionary{
+			engine.NewJisyo(jisyo, ""),
+			google.New(google.Params{}),
+			//skkserv.New(skkserv.Params{Addr: "localhost:1178"}),
+		},
 		// No markers: the highlights GodaSkkHenkan and
 		// GodaSkkHenkanSelect show the pre-edit (vimrc.vim).
 		MarkerHenkan:          new(""),
