@@ -12,5 +12,15 @@ hook_post_update = '''
 
 [[plugins]]
 repo = 'Shougo/goda-skk.vim'
+depends = ['goda.vim']
 on_map = { ict = '<Plug>(goda-skk-' }
 hooks_file = '$BASE_DIR/goda-skk.vim'
+
+[[plugins]]
+repo = 'Shougo/goda-fi.vim'
+depends = ['goda.vim']
+hooks_file = '$BASE_DIR/goda-fi.vim'
+hook_post_update = '''
+  call goda_fi#build()
+'''
+
