@@ -30,20 +30,6 @@ func main() {
 
 	b.AddSource(file.New(file.Params{}))
 	b.AddSource(filerec.New(filerec.Params{}))
-	b.AddSource(buffer.New())
-	b.AddSource(filepoint.New())
-	b.AddSource(fileexternal.New(
-		fileexternal.Params{
-			Cmd: []string{
-				"git",
-				"ls-files",
-				"-co",
-				"--exclude-standard",
-			},
-			UpdateItems: 50000,
-		}))
-	b.AddSource(file.New(file.Params{}))
-	b.AddSource(filerec.New(filerec.Params{}))
 	b.AddSource(fileold.New())
 	b.AddSource(buffer.New())
 	b.AddSource(filepoint.New())
