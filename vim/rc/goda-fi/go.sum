@@ -1,4 +1,4 @@
-github.com/Shougo/goda-fi.vim v0.0.0-20261030103513-35bdbc8bb71e h1:5snSb9AJ0ZyZTso26+Z5ogna34NkIak/IfCuCcDQA6w=
-github.com/Shougo/goda-fi.vim v0.0.0-20261030103513-35bdbc8bb71e/go.mod h1:cp+2o2uk5yy+wXWxv4tf6KYAeh9GN4eL4FrREOiD2aU=
-github.com/Shougo/goda.vim v0.2.1 h1:aiMx4EZCddUfCXu91m+kxvUl77zBd/fza3i+rqbAeyY=
-github.com/Shougo/goda.vim v0.2.1/go.mod h1:ohGPksso9XrqpdVRLS3TzoUtz2x3yMT8x+x+MnMpbM8=
+github.com/Shougo/goda-fi.vim v0.0.0-20261031090437-d27717d2b402 h1:sLJN3csi++jmzDBsZsQjAFSOybT1F1Mtk6CmgCcrqTo=
+github.com/Shougo/goda-fi.vim v0.0.0-20261031090437-d27717d2b402/go.mod h1:n/FOYKqCjNvG0AYdr9baSm2MfQaHLnzVL29ZNH5nMss=
+github.com/Shougo/goda.vim v0.4.1 h1:kRrV+Ggi4DcIt+dmQ/gVXN/P9W7XAj9eM7LlJvcEL6c=
+github.com/Shougo/goda.vim v0.4.1/go.mod h1:ohGPksso9XrqpdVRLS3TzoUtz2x3yMT8x+x+MnMpbM8=
