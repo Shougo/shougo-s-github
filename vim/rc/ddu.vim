@@ -60,11 +60,6 @@ nnoremap ;r <Cmd>Ddu
       \`'.'->col() == 1 ? 'insert' : 'append'`
       \ -ui-param-ff-autoResize
       \ <CR>
-nnoremap ;d <Cmd>Ddu
-      \ -name=outline markdown
-      \ -ui-param-ff-ignoreEmpty
-      \ -ui-param-ff-displayTree
-      \ <CR>
 nnoremap [Space]o <Cmd>Ddu
       \ -name=output output
       \ -source-param-output-command=
