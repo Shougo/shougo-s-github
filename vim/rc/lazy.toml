@@ -36,7 +36,11 @@ hook_source = '''
 repo = 'Shougo/junkfile.vim'
 on_source = ['ddu.vim']
 hook_add = '''
-  nnoremap se <Cmd>Ddu junkfile -source-option-junkfile-volatile<CR>
+  nnoremap se <Cmd>call goda_fi#start(
+    \  #{ sources: [
+    \    #{ name: 'junkfile', options: #{ volatile: v:true }
+    \  }]}
+    \ )<CR>
 '''
 
 [[plugins]]

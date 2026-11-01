@@ -25,6 +25,7 @@ import (
 	"github.com/Shougo/goda-fi.vim/fi"
 	"github.com/Shougo/goda-fi.vim/ui/ff"
 	"github.com/Shougo/goda-fi.vim/ui/filer"
+	"github.com/Shougo/junkfile.vim/ext/source/junkfile"
 )
 
 func main() {
@@ -41,6 +42,7 @@ func main() {
 	b.AddSource(line.New(line.Params{}))
 	b.AddSource(register.New())
 	b.AddSource(pathhistory.New())
+	b.AddSource(junkfile.New())
 	b.AddSource(rg.New(
 		rg.Params{
 			Args: []string{
