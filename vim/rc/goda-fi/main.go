@@ -9,6 +9,7 @@ import (
 	"github.com/Shougo/goda-fi.vim/ext/filter/sorteralpha"
 	"github.com/Shougo/goda-fi.vim/ext/filter/sortermtime"
 	kindfile "github.com/Shougo/goda-fi.vim/ext/kind/file"
+	"github.com/Shougo/goda-fi.vim/ext/kind/url"
 	"github.com/Shougo/goda-fi.vim/ext/kind/word"
 	"github.com/Shougo/goda-fi.vim/ext/source/buffer"
 	"github.com/Shougo/goda-fi.vim/ext/source/file"
@@ -92,6 +93,7 @@ func main() {
 		}))
 
 	b.AddKind(kindfile.New())
+	b.AddKind(url.New())
 	b.AddKind(word.New())
 
 	// setAlias("_", "action", "tabopen", "open")
@@ -171,6 +173,7 @@ func main() {
 		},
 		KindOptions: map[string]fi.KindOptions{
 			"file": {DefaultAction: "open"},
+			"url":  {DefaultAction: "browse"},
 			"word": {DefaultAction: "append"},
 		},
 		ActionOptions: map[string]fi.ActionOptions{
