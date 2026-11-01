@@ -6,6 +6,15 @@ nnoremap <C-j> i<Plug>(goda-skk-enable)
 " }}}
 
 " hook_source {{{
+
+" Use pum.vim backend
+let g:goda_skk#completion_backend = #{
+      \   visible: { -> pum#visible() },
+      \   selected: { -> pum#complete_info().selected },
+      \   confirm: { -> "\<Cmd>call pum#map#confirm()\<CR>" },
+      \   close: { -> "\<Cmd>call pum#close()\<CR>" },
+      \ }
+
 " skkeleton-henkan-highlight
 highlight GodaSkkHenkan gui=underline term=underline cterm=underline
 highlight GodaSkkHenkanSelect
