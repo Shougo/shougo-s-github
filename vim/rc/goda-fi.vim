@@ -36,6 +36,7 @@ nnoremap ss <Cmd>call goda_fi#start(#{
       \   ],
       \   unique: v:true,
       \   resume: v:true,
+      \   expandInput: v:true,
       \   uiParams: #{
       \     ff: #{
       \       split: has('nvim') ? 'floating' : 'horizontal',
@@ -144,6 +145,25 @@ xnoremap <expr> ;r
       \     }
       \   },
       \ })<CR>'
+
+call goda_fi#custom#action('kind', 'file', 'grep', { args -> s:grep(args) })
+function s:grep(args) abort
+  const path = a:args.items[0].action.path
+  call goda_fi#start(#{
+        \   name: a:args.options.name,
+        \   push: v:true,
+        \   sources: [
+        \     #{
+        \       name: 'rg',
+        \       params: #{
+        \         paths: [isdirectory(path) ? path : fnamemodify(path, ':h')],
+        \         input: 'Pattern: '->cmdline#input(),
+        \       },
+        \     }
+        \   ],
+        \ })
+  return 0
+endfunction
 
 function GodaFiOnPreview(args) abort
   call win_execute(a:args.previewWinId, 'normal! zt')
