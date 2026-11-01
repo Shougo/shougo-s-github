@@ -169,28 +169,6 @@ function GodaFiOnPreview(args) abort
   call win_execute(a:args.previewWinId, 'normal! zt')
 endfunction
 
-autocmd MyAutoCmd FileType goda-fi-ff call s:goda_fi_ff_my_settings()
-function s:goda_fi_ff_my_settings() abort
-  nnoremap <buffer> <CR>
-        \ <Cmd>call goda_fi#ui#do_action('itemAction')<CR>
-  nnoremap <buffer> i
-        \ <Cmd>call goda_fi#ui#do_action('openFilterWindow')<CR>
-  nnoremap <buffer> <Space>
-        \ <Cmd>call goda_fi#ui#do_action('toggleSelectItem')<CR>
-  nnoremap <buffer> *
-        \ <Cmd>call goda_fi#ui#do_action('toggleAllItems')<CR>
-  nnoremap <buffer> p
-        \ <Cmd>call goda_fi#ui#do_action('toggleAutoAction')<CR>
-  nnoremap <buffer> P
-        \ <Cmd>call goda_fi#ui#do_action('preview',
-        \   #{ toggle: v:true })<CR>
-  nnoremap <buffer> t
-        \ <Cmd>call goda_fi#ui#do_action('itemAction',
-        \   #{ name: 'tabopen' })<CR>
-  nnoremap <buffer> q
-        \ <Cmd>call goda_fi#ui#do_action('quit')<CR>
-endfunction
-
 autocmd MyAutoCmd User GodaFi:uiOpenFilterWindow
       \ call s:goda_fi_filter_my_settings()
 function s:goda_fi_filter_my_settings() abort
@@ -210,3 +188,28 @@ function s:goda_fi_filter_cleanup() abort
   silent! cunmap <buffer> <C-b>
 endfunction
 " }}}
+
+" goda-fi-ff {{{
+nnoremap <buffer> <CR>
+      \ <Cmd>call goda_fi#ui#do_action('itemAction')<CR>
+nnoremap <buffer> i
+      \ <Cmd>call goda_fi#ui#do_action('openFilterWindow')<CR>
+nnoremap <buffer> <Space>
+      \ <Cmd>call goda_fi#ui#do_action('toggleSelectItem')<CR>
+nnoremap <buffer> *
+      \ <Cmd>call goda_fi#ui#do_action('toggleAllItems')<CR>
+nnoremap <buffer> p
+      \ <Cmd>call goda_fi#ui#do_action('toggleAutoAction')<CR>
+nnoremap <buffer> P
+      \ <Cmd>call goda_fi#ui#do_action('preview',
+      \   #{ toggle: v:true })<CR>
+nnoremap <buffer> t
+      \ <Cmd>call goda_fi#ui#do_action('expandItem',
+      \   #{ mode: 'toggle' })<CR>
+nnoremap <buffer> T
+      \ <Cmd>call goda_fi#ui#do_action('itemAction',
+      \   #{ name: 'tabopen' })<CR>
+nnoremap <buffer> q
+      \ <Cmd>call goda_fi#ui#do_action('quit')<CR>
+" }}}
+
