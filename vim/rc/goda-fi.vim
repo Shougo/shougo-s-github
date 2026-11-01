@@ -146,7 +146,7 @@ xnoremap <expr> ;r
       \   },
       \ })<CR>'
 
-nnoremap [Space]v <Cmd>call goda_fi#start(#{
+nnoremap [Space]f <Cmd>call goda_fi#start(#{
       \   name: 'filer-' .. win_getid(),
       \   ui: 'filer',
       \   resume: v:true,
@@ -260,6 +260,8 @@ nnoremap <buffer> T
       \   #{ name: 'tabopen' })<CR>
 nnoremap <buffer> q
       \ <Cmd>call goda_fi#ui#do_action('quit')<CR>
+nnoremap <buffer> <C-l>
+      \ <Cmd>call goda_fi#ui#do_action('redraw')<CR>
 " }}}
 
 " goda-fi-filer {{{
