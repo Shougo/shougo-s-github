@@ -146,6 +146,21 @@ xnoremap <expr> ;r
       \   },
       \ })<CR>'
 
+nnoremap [Space]f <Cmd>call goda_fi#start(#{
+      \   name: 'filer',
+      \   ui: 'filer',
+      \   sources: ['file'],
+      \   sourceOptions: #{ file: #{ path: '$BASE_DIR'->expand() } },
+      \   uiParams: #{
+      \     ff: #{
+      \       split: has('nvim') ? 'floating' : 'horizontal',
+      \     },
+      \   },
+      \   resume: v:true,
+      \ })<CR>
+" }}}
+
+" hook_source {{{
 call goda_fi#custom#action('kind', 'file', 'grep', { args -> s:grep(args) })
 function s:grep(args) abort
   const path = a:args.items[0].action.path
@@ -213,3 +228,11 @@ nnoremap <buffer> q
       \ <Cmd>call goda_fi#ui#do_action('quit')<CR>
 " }}}
 
+" goda-fi-filer {{{
+nnoremap <buffer> <CR>
+      \ <Cmd>call goda_fi#ui#do_action('itemAction',
+      \   #{ name: goda_fi#ui#get_item()
+      \            ->get('isTree') ? 'narrow' : 'open' })<CR>
+nnoremap <buffer> t
+      \ <Cmd>call goda_fi#ui#do_action('expandItem', #{ mode: 'toggle' })<CR>
+" }}}

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/Shougo/goda-fi.vim/ext/column/filename"
 	"github.com/Shougo/goda-fi.vim/ext/filter/converterhldir"
 	"github.com/Shougo/goda-fi.vim/ext/filter/matcherfiles"
 	"github.com/Shougo/goda-fi.vim/ext/filter/matcherhidden"
@@ -22,12 +23,14 @@ import (
 	"github.com/Shougo/goda-fi.vim/ext/source/rg"
 	"github.com/Shougo/goda-fi.vim/fi"
 	"github.com/Shougo/goda-fi.vim/ui/ff"
+	"github.com/Shougo/goda-fi.vim/ui/filer"
 )
 
 func main() {
 	b := fi.New()
 
 	b.AddUI(ff.New())
+	b.AddUI(filer.New())
 
 	b.AddSource(file.New(file.Params{}))
 	b.AddSource(filerec.New(filerec.Params{}))
@@ -95,6 +98,8 @@ func main() {
 	b.AddKind(kindfile.New())
 	b.AddKind(url.New())
 	b.AddKind(word.New())
+
+	b.AddColumn(filename.New(filename.DefaultParams()))
 
 	// setAlias("_", "action", "tabopen", "open")
 	b.AddActionAlias("tabopen", "open")
@@ -181,6 +186,23 @@ func main() {
 		},
 		ActionParams: map[string]fi.Params{
 			"tabopen": {"command": "tabedit"},
+		},
+	})
+	b.PatchLocal("filer", fi.Options{
+		UI:      "filer",
+		Sources: fi.Sources("file"),
+		SourceOptions: map[string]fi.SourceOptions{
+			"file": {Columns: []string{"filename"}},
+		},
+		UIParams: map[string]fi.Params{
+			"filer": {
+				"sort":           "filename",
+				"sortTreesFirst": true,
+				"split":          "no",
+			},
+		},
+		ActionOptions: map[string]fi.ActionOptions{
+			"narrow": {Quit: new(false)},
 		},
 	})
 
