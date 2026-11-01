@@ -19,6 +19,7 @@ import (
 	"github.com/Shougo/goda-fi.vim/ext/source/filepoint"
 	"github.com/Shougo/goda-fi.vim/ext/source/filerec"
 	"github.com/Shougo/goda-fi.vim/ext/source/line"
+	"github.com/Shougo/goda-fi.vim/ext/source/pathhistory"
 	"github.com/Shougo/goda-fi.vim/ext/source/register"
 	"github.com/Shougo/goda-fi.vim/ext/source/rg"
 	"github.com/Shougo/goda-fi.vim/fi"
@@ -39,6 +40,7 @@ func main() {
 	b.AddSource(filepoint.New())
 	b.AddSource(line.New(line.Params{}))
 	b.AddSource(register.New())
+	b.AddSource(pathhistory.New())
 	b.AddSource(rg.New(
 		rg.Params{
 			Args: []string{
@@ -182,27 +184,22 @@ func main() {
 			"word": {DefaultAction: "append"},
 		},
 		ActionOptions: map[string]fi.ActionOptions{
-			"tabopen": {Quit: new(false)},
+			"tabopen":      {Quit: new(false)},
+			"narrow":       {Quit: new(false)},
+			"copy":         {Quit: new(false)},
+			"move":         {Quit: new(false)},
+			"link":         {Quit: new(false)},
+			"paste":        {Quit: new(false)},
+			"delete":       {Quit: new(false)},
+			"trash":        {Quit: new(false)},
+			"rename":       {Quit: new(false)},
+			"newFile":      {Quit: new(false)},
+			"newDirectory": {Quit: new(false)},
+			"undo":         {Quit: new(false)},
 		},
+
 		ActionParams: map[string]fi.Params{
 			"tabopen": {"command": "tabedit"},
-		},
-	})
-	b.PatchLocal("filer", fi.Options{
-		UI:      "filer",
-		Sources: fi.Sources("file"),
-		SourceOptions: map[string]fi.SourceOptions{
-			"file": {Columns: []string{"filename"}},
-		},
-		UIParams: map[string]fi.Params{
-			"filer": {
-				"sort":           "filename",
-				"sortTreesFirst": true,
-				"split":          "no",
-			},
-		},
-		ActionOptions: map[string]fi.ActionOptions{
-			"narrow": {Quit: new(false)},
 		},
 	})
 
