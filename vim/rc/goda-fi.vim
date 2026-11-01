@@ -258,8 +258,10 @@ nnoremap <buffer> t
 nnoremap <buffer> T
       \ <Cmd>call goda_fi#ui#do_action('itemAction',
       \   #{ name: 'tabopen' })<CR>
-nnoremap <buffer> q
-      \ <Cmd>call goda_fi#ui#do_action('quit')<CR>
+nnoremap <expr><buffer> q
+      \   '$'->winnr() == 1
+      \ ? '<Cmd>enew<CR>'
+      \ : '<Cmd>call goda_fi#ui#do_action("quit")<CR>'
 nnoremap <buffer> <C-l>
       \ <Cmd>call goda_fi#ui#do_action('redraw')<CR>
 " }}}
