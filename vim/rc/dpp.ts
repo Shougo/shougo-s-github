@@ -112,6 +112,10 @@ export class Config extends BaseConfig {
           lazy: false,
         },
         {
+          path: "$BASE_DIR/shougo.toml",
+          lazy: true,
+        },
+        {
           path: "$BASE_DIR/lazy.toml",
           lazy: true,
         },
