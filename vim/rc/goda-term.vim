@@ -127,7 +127,7 @@ tnoremap <Up>     <Cmd>call pum#map#insert_relative(-1)<CR>
 tnoremap <expr> <C-y>
       \   pum#visible()
       \ ? '<Cmd>call pum#map#confirm()<CR>'
-      \ : '<Cmd>call feedkeys(""->input(), "n")<CR>'
+      \ : ''
 tnoremap <C-o>    <Cmd>call pum#map#confirm()<CR>
 " }}}
 

@@ -72,12 +72,6 @@ else
   "      \ : if !dpp#check_files(s:dpp_base)->empty()
   "      \ |   call dpp#make_state(s:dpp_base, '$BASE_DIR/dpp.ts'->expand())
   "      \ | endif
-
-  " Check new plugins
-  autocmd MyAutoCmd BufWritePost *.toml
-        \ : if !dpp#sync_ext_action('installer', 'getNotInstalled')->empty()
-        \ |  call dpp#async_ext_action('installer', 'install')
-        \ | endif
 endif
 
 autocmd MyAutoCmd User Dpp:makeStatePost

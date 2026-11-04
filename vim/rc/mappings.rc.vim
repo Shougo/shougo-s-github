@@ -200,7 +200,6 @@ else
 endif
 tnoremap j<Space>   j
 tnoremap <expr> ;  vimrc#sticky_func()
-tnoremap <C-y>     <Cmd>call feedkeys(input(''), 'n')<CR>
 
 " {visual}p to put without yank to unnamed register
 xnoremap p   P
