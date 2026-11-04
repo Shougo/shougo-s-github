@@ -23,6 +23,8 @@ nnoremap <C-t> <Cmd>call goda_fi#start(#{
       \     cursorPos: tabpagenr(),
       \   } },
       \ })<CR>
+
+nnoremap sD  <Cmd>call goda_term#ui#kill_editor()<CR>
 " }}}
 
 " hook_source {{{

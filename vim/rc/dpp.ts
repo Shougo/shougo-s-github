@@ -125,10 +125,6 @@ export class Config extends BaseConfig {
           depends: "denops.vim",
         },
         {
-          path: "$BASE_DIR/ddu.toml",
-          lazy: true,
-        },
-        {
           path: "$BASE_DIR/ddx.toml",
           lazy: true,
         },
