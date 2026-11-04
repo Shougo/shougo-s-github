@@ -2,6 +2,9 @@
 repo = 'Shougo/goda.vim'
 
 [[plugins]]
+repo = 'Shougo/goda-pm.vim'
+
+[[plugins]]
 repo = 'Shougo/goda-cmp.vim'
 depends = ['goda.vim', 'pum.vim']
 on_event = ['InsertEnter', 'CmdlineEnter']
@@ -24,3 +27,10 @@ hook_post_update = '''
   call goda_fi#build()
 '''
 
+[[plugins]]
+repo = 'Shougo/goda-term.vim'
+hooks_file = '$BASE_DIR/goda-term.vim'
+
+[[plugins]]
+repo = 'Shougo/goda-hex.vim'
+hooks_file = '$BASE_DIR/goda-hex.vim'
