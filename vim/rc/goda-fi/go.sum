@@ -1,8 +1,8 @@
-github.com/Shougo/goda-fi.vim v0.1.1-0.20261104093902-cd7ca8d1ce59 h1:zQ5QoBZVWcN+2TopzgXXw8k3joeBgO51QafLnQA+Lr4=
-github.com/Shougo/goda-fi.vim v0.1.1-0.20261104093902-cd7ca8d1ce59/go.mod h1:y9+Fmz9bVQjLMMcmucqinIy7GexmWN4XrGwfwMX3PmM=
+github.com/Shougo/goda-fi.vim v0.1.1-0.20261104223631-6e60d2ad43e7 h1:gOrqmcVjccdTkzYXbFeHLQmCYm8jjzkQdbqjGrhGMs0=
+github.com/Shougo/goda-fi.vim v0.1.1-0.20261104223631-6e60d2ad43e7/go.mod h1:JkV7T2DWAi/wqLkTXgbpyoMlQnDVWwVsRAqTNnLwML8=
 github.com/Shougo/goda-term.vim v0.1.0 h1:S1dKmRKW6e2EYU30JE1QG1FuZLWCLYHSQh07QNg2cZY=
 github.com/Shougo/goda-term.vim v0.1.0/go.mod h1:v7XGHOpqsERbrTUyW+aniVxpxJkFSAu3xpg6V06zHWk=
-github.com/Shougo/goda.vim v0.4.3 h1:n3Z/dNH+n7zP0l2gg1/lhwh0GQjlEDwP1VqP5MJS66I=
-github.com/Shougo/goda.vim v0.4.3/go.mod h1:ohGPksso9XrqpdVRLS3TzoUtz2x3yMT8x+x+MnMpbM8=
+github.com/Shougo/goda.vim v0.4.5 h1:yXIrMGph+xSAJ3/Z/SSNYA1Y7WlRQMFLh0zhTLgumjY=
+github.com/Shougo/goda.vim v0.4.5/go.mod h1:ohGPksso9XrqpdVRLS3TzoUtz2x3yMT8x+x+MnMpbM8=
 github.com/Shougo/junkfile.vim v0.0.0-20261101100709-3a6b8dda3b3e h1:aaRR0OO0QnBeQfUmTwqnUm5ry9tmq4gWnDHBVkBIbTg=
 github.com/Shougo/junkfile.vim v0.0.0-20261101100709-3a6b8dda3b3e/go.mod h1:0MBXpmFJyAs7SQxUd2P00JEgMTPHvv6cyK6Zf9I7uJk=
