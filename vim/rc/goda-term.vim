@@ -116,3 +116,110 @@ tnoremap <expr> <C-y>
       \ : '<Cmd>call feedkeys(""->input(), "n")<CR>'
 tnoremap <C-o>    <Cmd>call pum#map#confirm()<CR>
 " }}}
+
+" goda-term-terminal {{{
+nnoremap <buffer> <C-n>
+      \ <Cmd>call goda_term#ui#do_action('nextPrompt')<CR>
+nnoremap <buffer> <C-p>
+      \ <Cmd>call goda_term#ui#do_action('previousPrompt')<CR>
+nnoremap <buffer> <C-y>
+      \ <Cmd>call goda_term#ui#do_action('pastePrompt')<CR>
+nnoremap <buffer> <CR>
+      \ <Cmd>call goda_term#ui#do_action('executeLine')<CR>
+nnoremap <buffer> [Space]gd
+      \ <Cmd>call goda_term#ui#do_action('send', #{ str: 'git diff' })<CR>
+nnoremap <buffer> [Space]gc
+      \ <Cmd>call goda_term#ui#do_action('send', #{ str: 'git commit' })<CR>
+nnoremap <buffer> [Space]gs
+      \ <Cmd>call goda_term#ui#do_action('send', #{ str: 'git status' })<CR>
+nnoremap <buffer> [Space]ga
+      \ <Cmd>call goda_term#ui#do_action('setCommandLine', #{
+      \   str: 'git add ',
+      \ })<CR>A
+nnoremap <buffer> [Space]gA
+      \ <Cmd>call goda_term#ui#do_action('send', #{
+      \   str: 'git commit --amend',
+      \ })<CR>
+
+" junkfile in goda-fi (there is no :Ddu command: goda_fi#start())
+nnoremap <buffer> I <Cmd>split<CR><Cmd>call goda_fi#start(#{
+      \   name: t:goda_term_ui_terminal_last_name,
+      \   resume: v:true,
+      \   sources: [#{ name: 'junkfile', options: #{ volatile: v:true } }],
+      \   uiParams: #{ ff: #{ split: 'no' } },
+      \ })<CR>
+
+" Send the text to the last terminal
+xnoremap <CR>
+      \ <Cmd>call goda_term#ui_action(
+      \   t:goda_term_ui_terminal_last_name, 'send', #{
+      \   str: getregion('v'->getpos(), '.'->getpos(),
+      \                  #{ type: mode() })->join("\n"),
+      \ })<CR>
+
+augroup goda-term-ui-terminal
+  autocmd!
+  autocmd DirChanged <buffer>
+        \ : if (v:event->has_key('cwd') &&
+        \       t:->get('goda_term_ui_last_directory') !=# v:event.cwd)
+        \ |   call goda_term#ui#do_action('cd', #{
+        \       directory: v:event.cwd,
+        \     })
+        \ | endif
+augroup END
+" }}}
+
+" goda-term-shell {{{
+nnoremap <buffer> <C-n>
+      \ <Cmd>call goda_term#ui#do_action('nextPrompt')<CR>
+nnoremap <buffer> <C-p>
+      \ <Cmd>call goda_term#ui#do_action('previousPrompt')<CR>
+nnoremap <buffer> <C-y>
+      \ <Cmd>call goda_term#ui#do_action('pastePrompt')<CR>
+nnoremap <buffer> <CR>
+      \ <Cmd>call goda_term#ui#do_action('executeLine')<CR>
+inoremap <buffer> <CR>
+      \ <Cmd>call goda_term#ui#do_action('executeLine')<CR>
+inoremap <buffer> <C-c>
+      \ <Cmd>call goda_term#ui#do_action('terminate')<CR>
+inoremap <buffer> <C-z>
+      \ <Cmd>call goda_term#ui#do_action('pushBufferStack')<CR>
+nnoremap <buffer> [Space]gd
+      \ <Cmd>call goda_term#ui#do_action('send', #{ str: 'git diff' })<CR>
+nnoremap <buffer> [Space]gc
+      \ <Cmd>call goda_term#ui#do_action('send', #{ str: 'git commit' })<CR>
+nnoremap <buffer> [Space]gs
+      \ <Cmd>call goda_term#ui#do_action('send', #{ str: 'git status' })<CR>
+nnoremap <buffer> [Space]ga
+      \ <Cmd>call goda_term#ui#do_action('setCommandLine', #{
+      \   str: 'git add ',
+      \ })<CR>A
+nnoremap <buffer> [Space]gA
+      \ <Cmd>call goda_term#ui#do_action('send', #{
+      \   str: 'git commit --amend',
+      \ })<CR>
+nnoremap <buffer> [Space]gp
+      \ <Cmd>call goda_term#ui#do_action('setCommandLine', #{
+      \   str: 'git push',
+      \ })<CR>
+" ddc's shell_history is goda-cmp's shellhistory
+inoremap <buffer><expr> <C-n>
+      \   pum#visible()
+      \ ? '<Cmd>call pum#map#insert_relative(+1, "empty")<CR>'
+      \ : goda_cmp#map#manual_complete(#{ sources: ['shellhistory'] })
+inoremap <buffer><expr> <C-p>
+      \   pum#visible()
+      \ ? '<Cmd>call pum#map#insert_relative(-1, "empty")<CR>'
+      \ : goda_cmp#map#manual_complete(#{ sources: ['shellhistory'] })
+
+augroup goda-term-ui-shell
+  autocmd!
+  autocmd DirChanged <buffer>
+        \ : if (v:event->has_key('cwd') &&
+        \       t:->get('goda_term_ui_last_directory') !=# v:event.cwd)
+        \ |   call goda_term#ui#do_action('cd', #{
+        \       directory: v:event.cwd,
+        \     })
+        \ | endif
+augroup END
+" }}}
