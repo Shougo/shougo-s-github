@@ -37,8 +37,11 @@ func main() {
 			"shell": {
 				"aliases": map[string]string{"ls": "ls --color"},
 				"ansiColorHighlights": shell.ANSIColorHighlights{
-					Bgs: bgs, Fgs: fgs,
-					Bold: "Bold", Italic: "Italic", Underline: "Underlined",
+					Bgs:       bgs,
+					Fgs:       fgs,
+					Bold:      "Bold",
+					Italic:    "Italic",
+					Underline: "Underlined",
 				},
 				"noSaveHistoryCommands": []string{"history"},
 				"userPrompt":            userPrompt,
