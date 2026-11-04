@@ -11,6 +11,18 @@ nnoremap [Space]t <Cmd>call goda_term#start(#{
       \                 'terminal-' .. win_getid()),
       \   ui: 'terminal',
       \ })<CR>
+
+nnoremap <C-t> <Cmd>call goda_fi#start(#{
+      \   name: 'term',
+      \   sync: v:true,
+      \   sources: ['term_tab'],
+      \   uiParams: #{ ff: #{
+      \     split: has('nvim') ? 'floating' : 'horizontal',
+      \     winRow: 1,
+      \     autoResize: v:true,
+      \     cursorPos: tabpagenr(),
+      \   } },
+      \ })<CR>
 " }}}
 
 " hook_source {{{

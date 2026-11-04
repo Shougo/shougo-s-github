@@ -25,6 +25,8 @@ import (
 	"github.com/Shougo/goda-fi.vim/fi"
 	"github.com/Shougo/goda-fi.vim/ui/ff"
 	"github.com/Shougo/goda-fi.vim/ui/filer"
+	"github.com/Shougo/goda-term.vim/ext/fi/shellhistory"
+	"github.com/Shougo/goda-term.vim/ext/fi/termtab"
 	"github.com/Shougo/junkfile.vim/ext/source/junkfile"
 )
 
@@ -80,6 +82,10 @@ func main() {
 			},
 			UpdateItems: 50000,
 		}))
+	b.AddSource(termtab.NewSource())
+	b.AddSource(shellhistory.New(shellhistory.Params{
+		Paths: []string{"~/.cache/ddt-shell-history"},
+	}))
 
 	b.AddFilter(matchersubstring.New(
 		matchersubstring.Params{
@@ -102,6 +108,7 @@ func main() {
 	b.AddKind(kindfile.New())
 	b.AddKind(url.New())
 	b.AddKind(word.New())
+	b.AddKind(termtab.NewKind())
 
 	b.AddColumn(filename.New(filename.DefaultParams()))
 

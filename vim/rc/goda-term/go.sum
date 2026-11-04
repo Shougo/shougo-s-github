@@ -1,5 +1,3 @@
-github.com/Shougo/goda-term.vim v0.0.0-20261104040212-0a2e6e43162f h1:przpzJXZrmSfGjDNvNPnlXHuWHNHyMytZRHze+c3+ds=
-github.com/Shougo/goda-term.vim v0.0.0-20261104040212-0a2e6e43162f/go.mod h1:v7XGHOpqsERbrTUyW+aniVxpxJkFSAu3xpg6V06zHWk=
 github.com/Shougo/goda-term.vim v0.0.0-20261104041424-28a588f33146 h1:/wYjuJcMTFFjkO9CYIVlDWO51M1F+CMBL5xSUqcLt5A=
 github.com/Shougo/goda-term.vim v0.0.0-20261104041424-28a588f33146/go.mod h1:v7XGHOpqsERbrTUyW+aniVxpxJkFSAu3xpg6V06zHWk=
 github.com/Shougo/goda.vim v0.4.3 h1:n3Z/dNH+n7zP0l2gg1/lhwh0GQjlEDwP1VqP5MJS66I=
