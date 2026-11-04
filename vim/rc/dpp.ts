@@ -139,6 +139,7 @@ export class Config extends BaseConfig {
         {
           path: "$BASE_DIR/goda.toml",
           lazy: true,
+          depends: "goda.vim",
         },
         {
           path: hasNvim ? "$BASE_DIR/neovim.toml" : "$BASE_DIR/vim.toml",

@@ -1,4 +1,7 @@
 [[plugins]]
+repo = 'Shougo/goda.vim'
+
+[[plugins]]
 repo = 'Shougo/pum.vim'
 hook_source = '''
   call pum#set_option(#{
