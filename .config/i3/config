@@ -29,6 +29,9 @@ hide_edge_borders none
 # workspace_layout tabbed <stacking|tabbed>
 workspace_layout tabbed
 
+# disable drag
+tiling_drag off
+
 # kill focused window
 # bindsym $mod+Shift+q kill
 bindsym $mod+q kill
@@ -70,7 +73,7 @@ bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
 
 # focus the parent container
-bindsym $mod+a focus parent
+#bindsym $mod+a focus parent
 
 # focus the child container
 #bindsym $mod+d focus child
