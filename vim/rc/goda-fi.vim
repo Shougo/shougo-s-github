@@ -81,7 +81,7 @@ nnoremap ;g <Cmd>call goda_fi#start(#{
       \   },
       \   sourceParams: #{
       \     rg: #{
-      \       input: 'Pattern: '->cmdline#input('<cword>'->expand()),
+      \       input: 'Pattern: '->input('<cword>'->expand()),
       \     },
       \   },
       \ })<CR>
@@ -96,12 +96,12 @@ nnoremap ;f <Cmd>call goda_fi#start(#{
       \   },
       \   sourceParams: #{
       \     rg: #{
-      \       input: 'Pattern: '->cmdline#input('<cword>'->expand()),
+      \       input: 'Pattern: '->input('<cword>'->expand()),
       \     },
       \   },
       \   sourceOptions: #{
       \     rg: #{
-      \       path: 'Directory: '->cmdline#input($'{getcwd()}/', 'dir'),
+      \       path: 'Directory: '->input($'{getcwd()}/', 'dir'),
       \     },
       \    },
       \ })<CR>
