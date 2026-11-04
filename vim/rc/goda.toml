@@ -29,6 +29,9 @@ hook_post_update = '''
 repo = 'Shougo/goda-term.vim'
 depends = ['goda.vim']
 hooks_file = '$BASE_DIR/goda-term.vim'
+hook_post_update = '''
+  call goda_term#build()
+'''
 
 [[plugins]]
 repo = 'Shougo/goda-hex.vim'
