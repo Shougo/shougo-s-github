@@ -206,8 +206,6 @@ export class Config extends BaseConfig {
           includes: [
             "*.nvim",
             "*.vim",
-            "ddt-*",
-            "ddu-*",
             "ddx-*",
             "dpp-*",
             "nvim-*",
@@ -308,12 +306,6 @@ export class Config extends BaseConfig {
     }
 
     const groups = {
-      ddt: {
-        on_source: "ddt.vim",
-      },
-      ddu: {
-        on_source: "ddu.vim",
-      },
       ddx: {
         on_source: "ddx.vim",
       },
