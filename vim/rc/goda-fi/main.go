@@ -186,11 +186,13 @@ func main() {
 					"matcherfiles",
 				},
 			},
+			"term_shell_history": {DefaultAction: "execute"},
 		},
 		KindOptions: map[string]fi.KindOptions{
-			"file": {DefaultAction: "open"},
-			"url":  {DefaultAction: "browse"},
-			"word": {DefaultAction: "append"},
+			"file":     {DefaultAction: "open"},
+			"url":      {DefaultAction: "browse"},
+			"word":     {DefaultAction: "append"},
+			"term_tab": {DefaultAction: "switch"},
 		},
 		ActionOptions: map[string]fi.ActionOptions{
 			"tabopen":      {Quit: new(false)},

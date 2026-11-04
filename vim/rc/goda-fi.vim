@@ -264,6 +264,18 @@ nnoremap <expr><buffer> q
       \ : '<Cmd>call goda_fi#ui#do_action("quit")<CR>'
 nnoremap <buffer> <C-l>
       \ <Cmd>call goda_fi#ui#do_action('redraw')<CR>
+nnoremap <buffer> N
+      \ <Cmd>call goda_fi#ui#do_action('itemAction',
+      \   b:goda_fi_name ==# 'file'
+      \ ? #{ name: 'newFile' }
+      \ : #{ name: 'new' })<CR>
+nnoremap <buffer> e
+      \ <Cmd>call goda_fi#ui#do_action('itemAction',
+      \   goda_fi#ui#get_item()
+      \   ->get('action', {})
+      \   ->get('isDirectory', v:false)
+      \ ? #{ name: 'narrow' }
+      \ : #{ name: 'edit' })<CR>
 " }}}
 
 " goda-fi-filer {{{
