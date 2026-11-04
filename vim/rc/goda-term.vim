@@ -56,13 +56,22 @@ function GodaShellGitStatus()
     if lines->empty()
       let status = ''
     else
-      " "## main...origin/main [ahead 1]" /
+      " "## main...origin/main [ahead 1, behind 2]" /
       " "## No commits yet on main" /
       " "## HEAD (no branch)"
-      let branch = lines[0]
+      let head = lines[0]
+      let branch = head
             \ ->substitute(
             \   '^## \%(No commits yet on \|Initial commit on \)\=', '', '')
             \ ->substitute('\.\.\..*$', '', '')
+      let ahead = head->matchstr('\[.*\<ahead \zs\d\+')
+      let behind = head->matchstr('\[.*\<behind \zs\d\+')
+      if ahead !=# ''
+        let branch ..= '↑' .. ahead
+      endif
+      if behind !=# ''
+        let branch ..= '↓' .. behind
+      endif
       let status = ([' ' .. branch] + lines[1:]
             \       ->map({ _, val -> '| ' .. val }))->join("\n")
     endif
