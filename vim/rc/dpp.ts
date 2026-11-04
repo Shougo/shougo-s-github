@@ -133,10 +133,6 @@ export class Config extends BaseConfig {
           lazy: true,
         },
         {
-          path: "$BASE_DIR/ddt.toml",
-          lazy: true,
-        },
-        {
           path: "$BASE_DIR/goda.toml",
           lazy: true,
           depends: "goda.vim",

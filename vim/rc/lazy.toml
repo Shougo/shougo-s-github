@@ -73,7 +73,7 @@ hook_source = '''
 
 [[plugins]]
 repo = 'lambdalisue/vim-guise'
-on_source = 'ddt.vim'
+on_source = 'goda-term.vim'
 
 [[plugins]]
 repo = 'vim-jp/vimdoc-ja'

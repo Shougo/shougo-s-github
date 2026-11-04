@@ -3,8 +3,12 @@ let g:goda_fi#config_dir = '$BASE_DIR/goda-fi'->expand()
 
 nnoremap s<Space> <Cmd>call goda_fi#start(#{
       \   name: 'files',
-      \   sources: ['file'],
-      \   sourceOptions: #{ file: #{ path: '$BASE_DIR'->expand() } },
+      \   sources: ['filerec'],
+      \   sourceOptions: #{
+      \     filerec: #{
+      \       path: '$BASE_DIR'->expand(),
+      \     },
+      \   },
       \   uiParams: #{
       \     ff: #{
       \       split: has('nvim') ? 'floating' : 'horizontal',
