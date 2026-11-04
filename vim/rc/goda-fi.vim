@@ -62,7 +62,7 @@ nnoremap / <Cmd>call goda_fi#start(#{
       \       ignoreEmptyInput: v:true,
       \     },
       \   },
-      \   input: 'Pattern: '->cmdline#input()->escape(' '),
+      \   input: 'Pattern: '->input()->escape(' '),
       \ })<CR>
 nnoremap * <Cmd>call goda_fi#start(#{
       \   name: 'search',

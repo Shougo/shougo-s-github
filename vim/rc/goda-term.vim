@@ -2,7 +2,7 @@
 let g:goda_term#config_dir = '$BASE_DIR/goda-term'->expand()
 
 nnoremap [Space]s  <Cmd>call goda_term#start(#{
-      \   name: t:->get('goda_term_ui_terminal_last_name',
+      \   name: t:->get('goda_term_ui_shell_last_name',
       \                 'shell-' .. win_getid()),
       \   ui: 'shell',
       \ })<CR>
