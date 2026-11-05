@@ -22,22 +22,3 @@ hook_source = '''
 
   "let g:denops_server_addr = '127.0.0.1:32123'
 '''
-
-[[plugins]]
-repo = 'vim-skk/skkeleton'
-on_map = { ict = '<Plug>(skkeleton-' }
-#hooks_file = '$BASE_DIR/skkeleton.vim'
-
-[[plugins]]
-repo = 'NI57721/skkeleton-state-popup'
-on_source = 'skkeleton'
-
-[[plugins]]
-repo = 'NI57721/skkeleton-henkan-highlight'
-on_source = 'skkeleton'
-hook_source = '''
-  highlight SkkeletonHenkan
-  \ gui=underline term=underline cterm=underline
-  highlight SkkeletonHenkanSelect
-  \ gui=underline,reverse term=underline,reverse cterm=underline,reverse
-'''
