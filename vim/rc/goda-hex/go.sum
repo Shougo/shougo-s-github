@@ -1,0 +1,6 @@
+github.com/Shougo/goda-hex.vim v0.1.0 h1:FM+2PmZZjMqWBpMXrCF3MsgG5JFGDyhtGZdMJjKLRDw=
+github.com/Shougo/goda-hex.vim v0.1.0/go.mod h1:4dH1dpslLGgjmMMrcsDWa/CpkPtCYfCz9n+ly2l4NdI=
+github.com/Shougo/goda.vim v0.6.0 h1:jmHzZ6PzMbnaJWIDRxbgYIdDJgqxXmy2VXz7c5FNcPM=
+github.com/Shougo/goda.vim v0.6.0/go.mod h1:ohGPksso9XrqpdVRLS3TzoUtz2x3yMT8x+x+MnMpbM8=
+golang.org/x/text v0.43.0 h1:1QivrlhwAsnMOcqgOdl9my7s9OyZl8O5/UGUTJVXoWc=
+golang.org/x/text v0.43.0/go.mod h1:hbSIYA/amXcRXTFSZqh8tWHEoqRvvbKPJ2uz/KU+a+s=

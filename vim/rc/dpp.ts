@@ -125,10 +125,6 @@ export class Config extends BaseConfig {
           depends: "denops.vim",
         },
         {
-          path: "$BASE_DIR/ddx.toml",
-          lazy: true,
-        },
-        {
           path: "$BASE_DIR/goda.toml",
           lazy: true,
           depends: "goda.vim",
@@ -202,7 +198,6 @@ export class Config extends BaseConfig {
           includes: [
             "*.nvim",
             "*.vim",
-            "ddx-*",
             "dpp-*",
             "nvim-*",
             "vim*",
@@ -301,11 +296,7 @@ export class Config extends BaseConfig {
       checkFiles.push(file.path);
     }
 
-    const groups = {
-      ddx: {
-        on_source: "ddx.vim",
-      },
-    };
+    const groups = {};
 
     return {
       checkFiles,

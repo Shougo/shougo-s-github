@@ -7,6 +7,7 @@ nnoremap s<Space> <Cmd>call goda_fi#start(#{
       \   sourceOptions: #{
       \     filerec: #{
       \       path: '$BASE_DIR'->expand(),
+      \       sorters: ['sorteralpha'],
       \     },
       \   },
       \   uiParams: #{
