@@ -84,7 +84,8 @@ endif
 
 const base_path = '<script>:h'->expand()->fnameescape()
 
-execute 'source' base_path .. '/dpp.vim'
+"execute 'source' base_path .. '/dpp.vim'
+execute 'source' base_path .. '/goda-pm.vim'
 
 if !has('nvim')
   execute 'source' base_path .. '/vim9.rc.vim'

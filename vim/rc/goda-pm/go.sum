@@ -1,0 +1,6 @@
+github.com/Shougo/goda-pm.vim v0.1.0 h1:5oQuosnqd8LQsPk5myTw7F6Jfq3mAYwd6y4HXc0O0K4=
+github.com/Shougo/goda-pm.vim v0.1.0/go.mod h1:B0U2zV+7EZbPhkKcwLl0ZCUPxxFz3v7aTt/Wd6XNImU=
+github.com/Shougo/goda.vim v0.6.0 h1:jmHzZ6PzMbnaJWIDRxbgYIdDJgqxXmy2VXz7c5FNcPM=
+github.com/Shougo/goda.vim v0.6.0/go.mod h1:ohGPksso9XrqpdVRLS3TzoUtz2x3yMT8x+x+MnMpbM8=
+github.com/pelletier/go-toml/v2 v2.4.3 h1:GTRvJQutkOSftxIFD5xw9aepkYNuPWmVJpffdDPYVpY=
+github.com/pelletier/go-toml/v2 v2.4.3/go.mod h1:2gIqNv+qfxSVS7cM2xJQKtLSTLUE9V8t9Stt+h56mCY=
