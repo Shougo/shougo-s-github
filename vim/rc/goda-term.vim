@@ -28,7 +28,6 @@ nnoremap sD  <Cmd>call goda_term#ui#kill_editor()<CR>
 " }}}
 
 " hook_source {{{
-
 function GodaShellGitStatus()
   const gitdir = '.git'->finddir(';')
   if gitdir ==# ''
@@ -77,8 +76,9 @@ function GodaShellGitStatus()
     endif
 
     " Detect unsaved buffers
+    const root = full_gitdir->fnamemodify(':h:h')
     for buf in #{ buflisted: 1 }->getbufinfo()
-      if buf.changed && buf.name !=# ''
+      if buf.changed && buf.name !=# '' && buf.name->stridx(root .. '/') == 0
         " Check if the file is tracked by git
         let status .= "\n"
         let status .= printf('|    %s (unsaved)', buf.name->fnamemodify(':.'))
@@ -211,8 +211,7 @@ nnoremap <buffer> [Space]gd
       \ <Cmd>call goda_term#ui#do_action('send', #{ str: 'git diff' })<CR>
 nnoremap <buffer> [Space]gc
       \ <Cmd>call goda_term#ui#do_action('send', #{ str: 'git commit' })<CR>
-nnoremap <buffer> [Space]gs
-      \ <Cmd>call goda_term#ui#do_action('send', #{ str: 'git status' })<CR>
+nnoremap <buffer> [Space]gs <Cmd>call GodaShellGitStatusAll()<CR>
 nnoremap <buffer> [Space]ga
       \ <Cmd>call goda_term#ui#do_action('setCommandLine', #{
       \   str: 'git add ',
@@ -234,6 +233,41 @@ inoremap <buffer><expr> <C-p>
       \   pum#visible()
       \ ? '<Cmd>call pum#map#insert_relative(-1, "empty")<CR>'
       \ : goda_cmp#map#manual_complete(#{ sources: ['shellhistory'] })
+
+" git status in a repository; outside of one, the status of each repository
+" under the current directory (only those with something to do).
+function GodaShellGitStatusAll() abort
+  if '.git'->finddir(';') !=# ''
+    call goda_term#ui#do_action('send', #{ str: 'git status' })
+    return
+  endif
+
+  let lines = []
+  for gitdir in '*/.git'->glob(v:true, v:true)->sort()
+    let dir = gitdir->fnamemodify(':h')
+    noautocmd let prev = chdir(dir)
+    try
+      let status = GodaShellGitStatus()->split("\n")
+    finally
+      noautocmd call chdir(prev)
+    endtry
+    " Changes, or commits not pushed / not pulled.
+    if status->len() > 1 || status->get(0, '') =~# '[↑↓]'
+      let lines += [dir .. status->get(0, '')] + status[1:]
+    endif
+  endfor
+  if lines->empty()
+    let lines = ['Nothing to commit, push or pull.']
+  endif
+
+  " The shell UI shows the output of a command: cat a file of the lines.
+  const file = tempname()
+  call writefile(lines, file)
+  call goda_term#ui#do_action('send', #{
+        \   str: 'cat ' .. file,
+        \   noSaveHistory: v:true,
+        \ })
+endfunction
 
 augroup goda-term-ui-shell
   autocmd!
