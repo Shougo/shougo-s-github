@@ -9,10 +9,11 @@ nnoremap <C-j> i<Plug>(goda-skk-enable)
 
 " Use pum.vim backend
 let g:goda_skk#completion_backend = #{
-      \   visible: { -> pum#visible() },
-      \   selected: { -> pum#complete_info().selected },
-      \   confirm: { -> "\<Cmd>call pum#map#confirm()\<CR>" },
+      \   cancel: { -> "\<Cmd>call pum#map#confirm()\<CR>" },
       \   close: { -> "\<Cmd>call pum#close()\<CR>" },
+      \   confirm: { -> "\<Cmd>call pum#map#cancel()\<CR>" },
+      \   selected: { -> pum#complete_info().selected },
+      \   visible: { -> pum#visible() },
       \ }
 
 " skkeleton-henkan-highlight
