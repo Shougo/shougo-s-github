@@ -23,9 +23,13 @@ palette = 15=#fdf6e3
 cursor-style-blink = false
 cursor-color = #606060
 cursor-text = #2c2c2c
+cursor-style = block
+cursor-opacity = 0.7
 
 font-family = "Courier 10 Pitch"
 font-size = 15
+font-feature = -dlig
+font-thicken = true
 
 copy-on-select = true
 clipboard-read = allow
@@ -34,3 +38,4 @@ mouse-hide-while-typing = true
 confirm-close-surface = false
 gtk-tabs-location = bottom
 window-decoration = none
+unfocused-split-opacity = 0.85

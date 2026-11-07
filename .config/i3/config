@@ -183,7 +183,8 @@ bindsym $mod+l workspace next
 bindsym $mod+h workspace prev
 
 # Terminal
-bindsym $mod+Return exec --no-startup-id alacritty -e zsh
+#bindsym $mod+Return exec --no-startup-id alacritty -e zsh
+bindsym $mod+Return exec --no-startup-id ghostty -e zsh
 
 # Application launcher
 #bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
