@@ -54,7 +54,7 @@ function s:skk_changed() abort
         \   hankata: '#60a060',
         \   zenkaku: '#60c060',
         \   abbrev: '#60f060',
-        \ }, g:goda_skk#mode, '#606060')
+        \ }, g:goda_skk#mode, '#a0a0a0')
   call s:highlight_cursor(color)
 endfunction
 
