@@ -1,7 +1,11 @@
 [[plugins]]
 repo = 'Shougo/goda-pm.vim'
-depends = ['goda.vim']
+depends = 'goda.vim'
 rtp = ''
+
+[[plugins]]
+repo = 'Shougo/goda-pm-ext-lazy.vim'
+on_source = 'goda-pm.vim'
 
 [[plugins]]
 repo = 'Shougo/goda-cmp.vim'

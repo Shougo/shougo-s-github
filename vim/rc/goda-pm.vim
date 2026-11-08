@@ -61,3 +61,8 @@ autocmd MyAutoCmd User GodaPm:makeStatePost
       \ : echohl WarningMsg
       \ | echomsg 'goda-pm make_state() is done'
       \ | echohl NONE
+
+" Enable toml syntax.
+if !has('nvim')
+  autocmd MyAutoCmd CursorHold */rc/*.toml call goda_pm#toml_syntax()
+endif

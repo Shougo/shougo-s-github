@@ -32,8 +32,11 @@ func configure(b *cmp.Builder) {
 			return nil, nil
 		},
 		AutoCompleteEvents: []string{
-			"CmdlineEnter", "CmdlineChanged",
-			"InsertEnter", "TextChangedI", "TextChangedP",
+			"CmdlineEnter",
+			"CmdlineChanged",
+			"InsertEnter",
+			"TextChangedI",
+			"TextChangedP",
 			"TextChangedT",
 		},
 		Sources: commonSources,
@@ -60,7 +63,7 @@ func configure(b *cmp.Builder) {
 			"cmdline": {
 				IsVolatile:             new(true),
 				Mark:                   "cmdline",
-				Matchers:               []string{"matcherlength"},
+				Matchers:               []string{"matcherhead", "matcherlength"},
 				Sorters:                []string{"sortercmdlinehistory"},
 				ForceCompletionPattern: `\S/\S*|\.\w*`,
 			},
