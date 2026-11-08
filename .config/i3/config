@@ -37,8 +37,8 @@ tiling_drag off
 bindsym $mod+q kill
 
 # Screen brightness controls
-bindsym XF86MonBrightnessUp exec brightnessctl 10+
-bindsym XF86MonBrightnessDown exec brightnessctl 10-
+bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%-
+bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +5%
 
 # change focus
 bindsym $mod+j focus right
