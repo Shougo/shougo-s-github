@@ -8,8 +8,8 @@ import (
 	"fmt"
 	"runtime"
 
-	"github.com/Shougo/goda-term.vim/ext/ui/shell"
-	"github.com/Shougo/goda-term.vim/ext/ui/terminal"
+	"github.com/Shougo/goda-term-ui-shell.vim/ext/ui/shell"
+	"github.com/Shougo/goda-term-ui-terminal.vim/ext/ui/terminal"
 	"github.com/Shougo/goda-term.vim/term"
 )
 
