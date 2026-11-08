@@ -153,8 +153,8 @@ input type:touchpad {
 
 input type:keyboard {
     # Accelarate keyboard repeat
-    repeat_delay 210
-    repeat_rate 40
+    repeat_delay 180
+    repeat_rate 50
 
     # Use US
     xkb_layout us
