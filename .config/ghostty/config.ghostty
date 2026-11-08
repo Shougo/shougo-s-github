@@ -39,3 +39,5 @@ confirm-close-surface = false
 gtk-tabs-location = bottom
 window-decoration = none
 unfocused-split-opacity = 0.85
+gtk-single-instance = true
+shell-integration-features = ssh-terminfo,ssh-env,sudo
