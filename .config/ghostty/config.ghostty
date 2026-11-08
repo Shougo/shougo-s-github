@@ -1,4 +1,4 @@
-initial-command = 'zsh'
+command = zsh
 
 background = #2c2c2c
 foreground = #cccccc
@@ -40,4 +40,5 @@ gtk-tabs-location = bottom
 window-decoration = none
 unfocused-split-opacity = 0.85
 gtk-single-instance = true
+quit-after-last-window-closed = false
 shell-integration-features = ssh-terminfo,ssh-env,sudo

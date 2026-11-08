@@ -116,53 +116,6 @@ bar {
         tray_output primary
 }
 
-# Open applications on specific workspaces
-assign [class="Firefox"] 2
-
-# ============================================================================
-# Floating Windows Configuration
-# ============================================================================
-
-# System utilities (floating with normal border)
-for_window [class="(?i)alsamixer"] floating enable border normal
-for_window [class="(?i)pavucontrol"] floating enable border normal
-for_window [class="Galculator"] floating enable border normal
-for_window [class="Simple-scan"] floating enable border normal
-
-# Installation & Configuration tools
-for_window [class="Calamares"] floating enable border normal
-for_window [class="Manjaro Welcome"] floating enable border normal
-for_window [class="Lxappearance"] floating enable border normal
-for_window [class="Qtconfig-qt4"] floating enable border normal
-
-# Media & Graphics
-for_window [class="Nitrogen"] floating enable border normal
-for_window [title="MuseScore: Play Panel"] floating enable border normal
-for_window [class="Clipgrab"] floating enable border normal
-
-# System management
-for_window [class="GParted"] floating enable border normal
-for_window [class="(?i)virtualbox"] floating enable border normal
-for_window [class="(?i)System-config-printer.py"] floating enable border normal
-
-# Package managers
-for_window [class="octopi"] floating enable border normal
-for_window [class="Pamac-manager"] floating enable border normal
-for_window [class="Pamac-updater"] floating enable border normal
-
-# Other applications
-for_window [title="File Transfer*"] floating enable border normal
-for_window [class="Skype"] floating enable border normal
-for_window [title="sudo"] floating enable border normal
-for_window [class="Lightdm-gtk-greeter-settings"] floating enable border normal
-for_window [class="Thus"] floating enable border normal
-for_window [class="Timeset-gui"] floating enable border normal
-for_window [class="i3_help"] floating enable border normal
-for_window [class="Oblogout"] fullscreen enable
-
-# switch to workspace with urgent window automatically
-for_window [urgent=latest] focus
-
 # hide/unhide i3status bar
 bindsym $mod+m bar mode toggle
 
@@ -183,8 +136,8 @@ bindsym $mod+l workspace next
 bindsym $mod+h workspace prev
 
 # Terminal
-bindsym $mod+Return exec --no-startup-id alacritty -e zsh
-#bindsym $mod+Return exec --no-startup-id ghostty -e zsh
+#bindsym $mod+Return exec --no-startup-id alacritty -e zsh
+bindsym $mod+Return exec --no-startup-id ghostty -e zsh
 
 # Application launcher
 #bindsym $mod+d exec --no-startup-id i3-dmenu-desktop

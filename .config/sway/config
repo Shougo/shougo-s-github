@@ -7,7 +7,10 @@ include /etc/sway/config.d/*
 set $mod Mod1
 
 # Use foot terminal
-set $term footclient
+#set $term footclient
+
+# Use ghostty terminal
+set $term ghostty
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -26,7 +29,7 @@ hide_edge_borders none
 workspace_layout tabbed
 
 # start a terminal
-bindsym $mod+Return exec $term zsh
+bindsym $mod+Return exec $term
 
 # kill focused window
 # bindsym $mod+Shift+q kill
@@ -112,8 +115,7 @@ bindsym $mod+Shift+0 move container to workspace 10
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
-# restart inplace (preserves your layout/session, can be used to upgrade)
-bindsym $mod+Shift+r restart
+bindsym $mod+Shift+r reload
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
@@ -121,39 +123,6 @@ bar {
     status_command i3status
     tray_output primary
 }
-
-# Open applications on specific workspaces
-# assign [class="Thunderbird"] 1
-assign [class="Firefox"] 2
-# assign [class="Pcmanfm"] 3
-# assign [class="Skype"] 5
-
-# Open specific applications in floating mode
-for_window [title="alsamixer"] floating enable border pixel 2
-for_window [class="Calamares"] floating enable border normal
-for_window [class="Clipgrab"] floating enable
-for_window [title="File Transfer*"] floating enable
-for_window [class="Galculator"] floating enable border pixel 2
-for_window [class="GParted"] floating enable border normal
-for_window [class="Lightdm-gtk-greeter-settings"] floating enable
-for_window [class="Lxappearance"] floating enable border normal
-for_window [class="manjaro-settings-manager-gui"] floating enable border normal
-for_window [class="Manjaro Welcome"] floating enable
-for_window [title="MuseScore: Play Panel"] floating enable
-for_window [class="Nitrogen"] floating enable border normal
-for_window [class="Oblogout"] fullscreen enable
-for_window [class="octopi"] floating enable
-for_window [class="Pamac-manager"] floating enable
-for_window [class="Pamac-updater"] floating enable
-for_window [class="Pavucontrol"] floating enable
-for_window [class="Qtconfig-qt4"] floating enable border normal
-for_window [title="sudo"] floating enable
-for_window [class="Simple-scan"] floating enable border normal
-for_window [class="(?i)System-config-printer.py"] floating enable border normal
-for_window [class="Skype"] floating enable border normal
-for_window [class="Thus"] floating enable border normal
-for_window [class="Timeset-gui"] floating enable border normal
-for_window [class="(?i)virtualbox"] floating enable border normal
 
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus
@@ -165,7 +134,7 @@ bindsym $mod+l workspace next
 bindsym $mod+h workspace prev
 
 bindsym $mod+Shift+l exec --no-startup-id swaylock -f -c 000000
-bindsym $mod+Shift+e exec --no-startup-id sway exit
+bindsym $mod+Shift+e exec --no-startup-id exit
 bindsym $mod+Shift+s exec --no-startup-id systemctl suspend
 
 # Special keys
@@ -179,13 +148,13 @@ bindsym Print exec grim -t png ~/Pictures/$(date +%Y-%m-%d_%H-%m-%s).png
 bindsym $mod+Print exec grim -t png -g "$(slurp)" ~/Pictures/$(date +%Y-%m-%d_%H-%m-%s).png
 
 input type:touchpad {
-    pointer_accel 0.7
+    pointer_accel 0.5
 }
 
 input type:keyboard {
     # Accelarate keyboard repeat
-    repeat_delay 200
-    repeat_rate 30
+    repeat_delay 210
+    repeat_rate 40
 
     # Use US
     xkb_layout us
@@ -205,7 +174,10 @@ client.urgent    #274D01 #900000 #FFFFFF #900000
 exec --no-startup-id mako
 
 # foot server mode
-exec foot --server
+#exec foot --server
+
+# ghostty server mode
+exec ghostty --initial-window=false
 
 # Thunar daemon mode
 exec --no-startup-id thunar --daemon
