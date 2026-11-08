@@ -116,6 +116,9 @@ bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
+bindgesture swipe:3:left workspace prev
+bindgesture swipe:3:right workspace next
+
 # reload the configuration file
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r reload

@@ -27,6 +27,7 @@ cursor-style = block
 cursor-opacity = 0.7
 
 font-family = "Courier 10 Pitch"
+font-family = "Noto Sans Mono CJK JP"
 font-size = 15
 font-feature = -dlig
 font-thicken = true
