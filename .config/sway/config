@@ -8,9 +8,13 @@ set $mod Mod1
 
 # Use foot terminal
 #set $term footclient
+# foot server mode
+#exec foot --server
 
 # Use ghostty terminal
 set $term ghostty
+# ghostty server mode
+exec ghostty --initial-window=false
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -36,7 +40,6 @@ bindsym $mod+Return exec $term
 bindsym $mod+q kill
 
 # start dmenu (a program launcher)
-# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --dmenu='rofi -i -dmenu'
 bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --dmenu='wofi --i --show dmenu'
 
 # change focus
@@ -140,15 +143,22 @@ bindsym $mod+Shift+s exec --no-startup-id systemctl suspend
 # Special keys
 bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
 bindsym XF86MonBrightnessUp exec brightnessctl set +5%
+bindsym XF86AudioRaiseVolume exec pactl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+
+bindsym XF86AudioLowerVolume exec pactl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+bindsym XF86AudioMute exec pactl set-mute @DEFAULT_AUDIO_SINK@ toggle
+bindsym XF86AudioMicMute exec pactl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
 
 ## Screenshot
 # Take a screenshot with all output and save it into screenshots
-bindsym Print exec grim -t png ~/Pictures/$(date +%Y-%m-%d_%H-%m-%s).png
+bindsym Print exec grim -t png ~/Pictures/$(date +%Y-%m-%d_%H-%M-%S).png
 # Take a Screenshot with the region select
-bindsym $mod+Print exec grim -t png -g "$(slurp)" ~/Pictures/$(date +%Y-%m-%d_%H-%m-%s).png
+bindsym $mod+Print exec grim -t png -g "$(slurp)" ~/Pictures/$(date +%Y-%m-%d_%H-%M-%S).png
 
 input type:touchpad {
     pointer_accel 0.5
+    tap enabled
+    dwt enabled
+    natural_scroll disabled
 }
 
 input type:keyboard {
@@ -172,12 +182,6 @@ client.urgent    #274D01 #900000 #FFFFFF #900000
 # Enable mako
 # https://github.com/emersion/mako
 exec --no-startup-id mako
-
-# foot server mode
-#exec foot --server
-
-# ghostty server mode
-exec ghostty --initial-window=false
 
 # Thunar daemon mode
 exec --no-startup-id thunar --daemon

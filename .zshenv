@@ -35,3 +35,4 @@ export XDG_CONFIG_HOME=$HOME/.config
 
 export NEXTWORD_DATA_PATH=$HOME/Downloads/nextword-data-large
 export MOCWORD_DATA=$HOME/Downloads/mocword.sqlite
+export ELECTRON_OZONE_PLATFORM_HINT=auto
