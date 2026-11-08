@@ -21,10 +21,9 @@ palette = 13=#f820ff
 palette = 14=#4ae2e2
 palette = 15=#fdf6e3
 cursor-style-blink = false
-cursor-color = #606060
+cursor-color = #a0a0a0
 cursor-text = #2c2c2c
 cursor-style = block
-cursor-opacity = 0.7
 
 font-family = "Courier 10 Pitch"
 font-family = "Noto Sans Mono CJK JP"
