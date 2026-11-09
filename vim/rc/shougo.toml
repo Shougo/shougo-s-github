@@ -116,4 +116,3 @@ hook_source = '''
   tnoremap <LeftMouse>  <Cmd>call pum#map#confirm_mouse()<CR>
   tnoremap <RightMouse>  <Cmd>call pum#map#select_mouse()<CR>
 '''
-

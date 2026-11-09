@@ -5,6 +5,3 @@ repo = 'vim-jp/autofmt'
 
 [[plugins]]
 repo = 'kana/vim-operator-user'
-
-[[plugins]]
-repo = 'Shirk/vim-gas'

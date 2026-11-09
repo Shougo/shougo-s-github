@@ -32,6 +32,7 @@ let g:help_example_languages = #{
       \   go: 'go',
       \   lua: 'lua',
       \   sh: 'sh',
+      \   toml: 'toml',
       \   typescript: 'typescript',
       \   vim: 'vim',
       \ }
@@ -41,8 +42,8 @@ let g:typst_embedded_languages = [
       \   'c',
       \   'cpp',
       \   'java',
-      \   'vim',
       \   'python',
+      \   'vim',
       \ ]
 
 " Enable modeline for only Vim help files.

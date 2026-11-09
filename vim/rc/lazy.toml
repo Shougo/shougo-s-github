@@ -1,20 +1,4 @@
 [[plugins]]
-repo = 'kana/vim-niceblock'
-on_map = { x = '<Plug>' }
-hook_add = '''
-  xnoremap I  <Plug>(niceblock-I)
-  xnoremap A  <Plug>(niceblock-A)
-'''
-
-[[plugins]]
-repo = 'thinca/vim-qfreplace'
-on_ft = ['qf']
-[plugins.ftplugin]
-qf = '''
-  nnoremap <buffer> r <Cmd>Qfreplace<CR>
-'''
-
-[[plugins]]
 repo = 'rhysd/vim-operator-surround'
 depends = 'vim-operator-user'
 on_map = { n = '<Plug>' }

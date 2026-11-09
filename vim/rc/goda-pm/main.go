@@ -81,9 +81,9 @@ func config(ctx context.Context, c *pm.ConfigArgs) (*pm.ConfigReturn, error) {
 	var hooksFiles []string
 	var multipleHooks []pm.MultipleHook
 
-	tomlFile := "$BASE_DIR/vim.toml"
+	vimTomlFile := "$BASE_DIR/vim.toml"
 	if hasNvim {
-		tomlFile = "$BASE_DIR/neovim.toml"
+		vimTomlFile = "$BASE_DIR/neovim.toml"
 	}
 	for _, f := range []struct {
 		path    string
@@ -91,10 +91,6 @@ func config(ctx context.Context, c *pm.ConfigArgs) (*pm.ConfigReturn, error) {
 	}{
 		{
 			"$BASE_DIR/merge.toml",
-			pm.Plugin{"lazy": false},
-		},
-		{
-			"$BASE_DIR/dpp.toml",
 			pm.Plugin{"lazy": false},
 		},
 		{
@@ -110,7 +106,7 @@ func config(ctx context.Context, c *pm.ConfigArgs) (*pm.ConfigReturn, error) {
 			pm.Plugin{"lazy": true, "depends": "goda.vim"},
 		},
 		{
-			tomlFile,
+			vimTomlFile,
 			pm.Plugin{"lazy": true},
 		},
 	} {

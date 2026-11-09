@@ -120,7 +120,7 @@ nnoremap <expr> q
       \                    ->stridx('quickfix') >= 0})
       \   ->empty()
       \ ? '<Cmd>cclose<CR><Cmd>lclose<CR>'
-      \ : '#'->winnr() > 0 && '#'->winnr() !=# winnr()
+      \ : '#'->winnr() > 0
       \ ? '<Cmd>close<CR>'
       \ : winnr()->getwinvar('&winfixbuf')
       \ ? ''
@@ -232,3 +232,17 @@ command! -bang -complete=file -nargs=? WDos
 " Tag jump
 nnoremap tt  g<C-]>
 nnoremap tp  <Cmd>pop<CR>
+
+" vim-niceblock
+xnoremap <expr> I
+      \   mode() ==# 'v'
+      \ ? "\<C-v>I"
+      \ : mode() ==# 'V'
+      \ ? "\<C-v>0o$I"
+      \ : 'I'
+xnoremap <expr> A
+      \   mode() ==# 'v'
+      \ ? "\<C-v>A"
+      \ : mode() ==# 'V'
+      \ ? "\<C-v>0o$A"
+      \ : 'A'
