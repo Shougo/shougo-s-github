@@ -202,6 +202,16 @@ lua_source = '''
       },
   })
 
+  vim.lsp.config('vimdoc_ls', {
+    root_markers = { 'doc', '.git' },
+    init_options = {
+      tagPaths = {
+        vim.env.VIMRUNTIME .. '/doc',
+        vim.fn.expand('~/.cache/goda-pm/nvim/.goda_pm/doc/tags'),
+      },
+    },
+  })
+
   local servers = {
     'denols',
     'emmylua_ls',
