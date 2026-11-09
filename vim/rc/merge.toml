@@ -8,15 +8,3 @@ repo = 'kana/vim-operator-user'
 
 [[plugins]]
 repo = 'Shirk/vim-gas'
-
-[[plugins]]
-repo = 'vim-jp/syntax-vim-ex'
-
-[[plugins]]
-repo = 'cespare/vim-toml'
-
-[[plugins]]
-repo = 'rbtnn/vim-vimscript_indentexpr'
-
-[[plugins]]
-repo = 'Vimjas/vim-python-pep8-indent'

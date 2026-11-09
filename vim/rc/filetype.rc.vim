@@ -4,6 +4,13 @@ let g:is_bash = v:true
 " Ruby
 let g:ruby_no_expensive = v:true
 
+" Python
+let g:python_indent = {}
+let g:python_indent.open_paren = 'shiftwidth()'
+let g:python_indent.nested_paren = 'shiftwidth()'
+let g:python_indent.continue = 'shiftwidth()'
+let g:python_indent.closed_paren_align_last_line = v:false
+
 " Java
 let g:java_highlight_functions = 'style'
 let g:java_highlight_all = v:true
