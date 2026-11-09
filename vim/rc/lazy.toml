@@ -15,10 +15,6 @@ qf = '''
 '''
 
 [[plugins]]
-repo = 'itchyny/vim-qfedit'
-on_ft = ['qf']
-
-[[plugins]]
 repo = 'rhysd/vim-operator-surround'
 depends = 'vim-operator-user'
 on_map = { n = '<Plug>' }

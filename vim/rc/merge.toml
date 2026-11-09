@@ -16,9 +16,6 @@ repo = 'vim-jp/syntax-vim-ex'
 repo = 'cespare/vim-toml'
 
 [[plugins]]
-repo = 'leafOfTree/vim-vue-plugin'
-
-[[plugins]]
 repo = 'rbtnn/vim-vimscript_indentexpr'
 
 [[plugins]]
