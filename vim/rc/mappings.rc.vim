@@ -246,3 +246,85 @@ xnoremap <expr> A
       \ : mode() ==# 'V'
       \ ? "\<C-v>0o$A"
       \ : 'A'
+
+" sd{textobj}       : delete the surrounding pair, e.g. sda( sdi" -> uses a" / a(
+" sr{textobj}{char} : replace the surrounding pair, e.g. sra("
+" Replacement for rhysd/vim-operator-surround (delete/replace only).
+let s:pairs = {
+      \ '(': ['(', ')'], ')': ['(', ')'], 'b': ['(', ')'],
+      \ '[': ['[', ']'], ']': ['[', ']'],
+      \ '{': ['{', '}'], '}': ['{', '}'], 'B': ['{', '}'],
+      \ '<': ['<', '>'], '>': ['<', '>'],
+      \ '「': ['「', '」'], '」': ['「', '」'],
+      \ '（': ['（', '）'], '）': ['（', '）'],
+      \ }
+let s:ask = 0
+let s:last = ''
+
+" Return [start, end] positions of the surrounding chars, or [] if invalid.
+function! s:edges() abort
+  let s = getpos("'[")
+  let e = getpos("']")
+  " Visual-mode '] may point into the middle of a multibyte char:
+  " move it to the first byte of that char.
+  let line = getline(e[1])
+  let e[2] = strlen(strcharpart(line, 0, charidx(line, e[2] - 1))) + 1
+  " a" / a' include surrounding whitespace: skip it on both ends
+  call setpos('.', e)
+  while e[1] > s[1] || e[2] > s[2]
+    if getline('.')[col('.') - 1] !~# '\s' | break | endif
+    normal! h
+    let e = getpos('.')
+  endwhile
+  call setpos('.', s)
+  while s[1] < e[1] || s[2] < e[2]
+    if getline('.')[col('.') - 1] !~# '\s' | break | endif
+    normal! l
+    let s = getpos('.')
+  endwhile
+  if s == e | return [] | endif
+  let l = s:char_at(s)
+  let r = s:char_at(e)
+  let p = get(s:pairs, l, [l, l])
+  return p ==# [l, r] ? [s, e] : []
+endfunction
+
+function! s:char_at(pos) abort
+  return matchstr(getline(a:pos[1]), '\%' . a:pos[2] . 'c.')
+endfunction
+
+function! s:delete(type) abort
+  if a:type !=# 'char' | return | endif
+  let edges = s:edges()
+  if empty(edges) | return | endif
+  " right side first so the left position stays valid
+  call setpos('.', edges[1])
+  normal! "_x
+  call setpos('.', edges[0])
+  normal! "_x
+endfunction
+
+function! s:replace(type) abort
+  if a:type !=# 'char' | return | endif
+  if s:ask
+    let s:last = nr2char(getchar())
+    let s:ask = 0
+  endif
+  let edges = s:edges()
+  if empty(edges) || s:last ==# "\<Esc>" | return | endif
+  let p = get(s:pairs, s:last, [s:last, s:last])
+  call setpos('.', edges[1])
+  execute 'normal! "_s' . p[1] . "\<Esc>"
+  call setpos('.', edges[0])
+  execute 'normal! "_s' . p[0] . "\<Esc>"
+endfunction
+
+function! s:prepare(func) abort
+  let s:ask = 1
+  let &operatorfunc = expand('<SID>') . a:func
+endfunction
+
+nnoremap <silent> sd :<C-u>call <SID>prepare('delete')<CR>g@
+xnoremap <silent> sd :<C-u>call <SID>prepare('delete')<CR>gvg@
+nnoremap <silent> sr :<C-u>call <SID>prepare('replace')<CR>g@
+xnoremap <silent> sr :<C-u>call <SID>prepare('replace')<CR>gvg@

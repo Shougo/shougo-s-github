@@ -2,6 +2,3 @@ hooks_file = '$BASE_DIR/ft.vim'
 
 [[plugins]]
 repo = 'vim-jp/autofmt'
-
-[[plugins]]
-repo = 'kana/vim-operator-user'

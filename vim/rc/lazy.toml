@@ -1,15 +1,4 @@
 [[plugins]]
-repo = 'rhysd/vim-operator-surround'
-depends = 'vim-operator-user'
-on_map = { n = '<Plug>' }
-hook_add = '''
-  nnoremap sa <Plug>(operator-surround-append)
-  nnoremap sd <Plug>(operator-surround-delete)a
-  nnoremap sr <Plug>(operator-surround-replace)a
-  nnoremap sc <Plug>(operator-surround-replace)a
-'''
-
-[[plugins]]
 repo = 'previm/previm'
 on_ft = ['markdown', 'rst']
 external_commands = ['xdg-open']
