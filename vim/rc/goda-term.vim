@@ -164,14 +164,6 @@ nnoremap <buffer> [Space]gA
       \   str: 'git commit --amend',
       \ })<CR>
 
-" junkfile in goda-fi (there is no :Ddu command: goda_fi#start())
-nnoremap <buffer> I <Cmd>split<CR><Cmd>call goda_fi#start(#{
-      \   name: t:goda_term_ui_terminal_last_name,
-      \   resume: v:true,
-      \   sources: [#{ name: 'junkfile', options: #{ volatile: v:true } }],
-      \   uiParams: #{ ff: #{ split: 'no' } },
-      \ })<CR>
-
 " Send the text to the last terminal
 xnoremap <CR>
       \ <Cmd>call goda_term#ui_action(

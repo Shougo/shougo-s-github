@@ -1,34 +1,29 @@
 [[plugins]]
-repo = 'previm/previm'
-on_ft = ['markdown', 'rst']
-external_commands = ['xdg-open']
-hook_source = '''
-  let g:previm_open_cmd = 'xdg-open'
-'''
-
-# [[plugins]]
-# repo = 'katono/rogue.vim'
-
-[[plugins]]
-repo = 'lambdalisue/vim-findent'
-
-[[plugins]]
-repo = 'tweekmonster/helpful.vim'
-on_cmd = 'HelpfulVersion'
+repo = 'vim-jp/vimdoc-ja'
 extAttrs = { installerMinCommitDays = 0 }
 
 [[plugins]]
-repo = 'mattn/vim-goimports'
-on_ft = 'go'
-external_commands = ['goimports']
-hook_source = '''
-  let g:goimports_simplify = v:true
-'''
+repo = 'lambdalisue/vim-findent'
 
 [[plugins]]
 repo = 'lambdalisue/vim-guise'
 on_source = 'goda-term.vim'
 
 [[plugins]]
-repo = 'vim-jp/vimdoc-ja'
-extAttrs = { installerMinCommitDays = 0 }
+repo = 'mattn/vim-goimports'
+on_ft = 'go'
+external_commands = 'goimports'
+hook_source = '''
+  let g:goimports_simplify = v:true
+'''
+
+[[plugins]]
+repo = 'previm/previm'
+on_ft = ['markdown', 'rst']
+external_commands = 'xdg-open'
+hook_source = '''
+  let g:previm_open_cmd = 'xdg-open'
+'''
+
+#[[plugins]]
+#repo = 'katono/rogue.vim'

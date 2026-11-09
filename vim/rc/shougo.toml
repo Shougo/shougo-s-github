@@ -37,7 +37,6 @@ hook_source = '''
 
 [[plugins]]
 repo = 'Shougo/junkfile.vim'
-on_source = ['ddu.vim']
 hook_add = '''
   nnoremap se <Cmd>call goda_fi#start(
     \  #{ sources: [
@@ -48,7 +47,6 @@ hook_add = '''
 
 [[plugins]]
 repo = 'Shougo/cmdline.vim'
-on_source = ['ddu.vim']
 hook_add = '''
   cnoremap <CR>  <Cmd>call cmdline#disable()<CR><CR>
 '''
@@ -116,3 +114,8 @@ hook_source = '''
   tnoremap <LeftMouse>  <Cmd>call pum#map#confirm_mouse()<CR>
   tnoremap <RightMouse>  <Cmd>call pum#map#select_mouse()<CR>
 '''
+
+[[plugins]]
+repo = 'tweekmonster/helpful.vim'
+on_cmd = 'HelpfulVersion'
+extAttrs = { installerMinCommitDays = 0 }
