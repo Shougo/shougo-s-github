@@ -5,7 +5,7 @@ rtp = ''
 
 [[plugins]]
 repo = 'Shougo/goda-pm-ext-lazy.vim'
-on_source = 'goda-pm.vim'
+lazy = false
 
 [[plugins]]
 repo = 'Shougo/goda-cmp.vim'

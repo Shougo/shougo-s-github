@@ -1,6 +1,10 @@
-github.com/Shougo/goda-pm.vim v0.1.0 h1:5oQuosnqd8LQsPk5myTw7F6Jfq3mAYwd6y4HXc0O0K4=
-github.com/Shougo/goda-pm.vim v0.1.0/go.mod h1:B0U2zV+7EZbPhkKcwLl0ZCUPxxFz3v7aTt/Wd6XNImU=
-github.com/Shougo/goda.vim v0.6.0 h1:jmHzZ6PzMbnaJWIDRxbgYIdDJgqxXmy2VXz7c5FNcPM=
-github.com/Shougo/goda.vim v0.6.0/go.mod h1:ohGPksso9XrqpdVRLS3TzoUtz2x3yMT8x+x+MnMpbM8=
+github.com/Shougo/goda-pm-ext v0.0.0-20261109004415-d30a0c98123d h1:uIKtWbB/+fL3YlNndMIOz+fBLJa3iTw1yZOAi/AaMB8=
+github.com/Shougo/goda-pm-ext v0.0.0-20261109004415-d30a0c98123d/go.mod h1:LthtHN2VgV/KyOQ8db9JiN7N8CkHCpaWFbIwHe+tsWE=
+github.com/Shougo/goda-pm-ext-lazy.vim v0.0.0-20261109004454-3562bdc78a78 h1:WgLuWWLMODg7H7fAXWoAf9aycH1ROVAQfHCTUjZveeU=
+github.com/Shougo/goda-pm-ext-lazy.vim v0.0.0-20261109004454-3562bdc78a78/go.mod h1:ce7edk50p37YnjzjsagNUi3wlOcVQ02IEdaD0WIGg7s=
+github.com/Shougo/goda-pm.vim v0.1.2-0.20261108231718-aafc18ee236b h1:9u4L0z6oRbNU85EkbDpG+4rIlwMzYL91G9VAQW/J3NI=
+github.com/Shougo/goda-pm.vim v0.1.2-0.20261108231718-aafc18ee236b/go.mod h1:v0/Im34oYqAU+cPiRqwOovTSrqlT12T2SR3OFPWQlSg=
+github.com/Shougo/goda.vim v0.7.1 h1:bXVc+xooI9OWtvoHthPqdpHLtl5zpMLGdw0f/P5lYFE=
+github.com/Shougo/goda.vim v0.7.1/go.mod h1:ohGPksso9XrqpdVRLS3TzoUtz2x3yMT8x+x+MnMpbM8=
 github.com/pelletier/go-toml/v2 v2.4.3 h1:GTRvJQutkOSftxIFD5xw9aepkYNuPWmVJpffdDPYVpY=
 github.com/pelletier/go-toml/v2 v2.4.3/go.mod h1:2gIqNv+qfxSVS7cM2xJQKtLSTLUE9V8t9Stt+h56mCY=
