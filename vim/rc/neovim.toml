@@ -208,6 +208,7 @@ lua_source = '''
     'gopls',
     'pyright',
     'rust_analyzer',
+    'vimdoc_ls',
     'vtsls',
   }
 

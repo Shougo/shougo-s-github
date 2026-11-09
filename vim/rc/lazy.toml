@@ -45,26 +45,11 @@ on_cmd = 'HelpfulVersion'
 extAttrs = { installerMinCommitDays = 0 }
 
 [[plugins]]
-repo = 'machakann/vim-vimhelplint'
-on_ft = 'help'
-[plugins.ftplugin]
-help = '''
-  nnoremap <buffer> ,r  <Cmd>VimhelpLint!<CR>
-'''
-
-[[plugins]]
 repo = 'mattn/vim-goimports'
 on_ft = 'go'
 external_commands = ['goimports']
 hook_source = '''
   let g:goimports_simplify = v:true
-'''
-
-[[plugins]]
-repo = 'dag/vim2hs'
-on_ft = 'haskell'
-hook_source = '''
-  let g:haskell_conceal = v:false
 '''
 
 [[plugins]]
