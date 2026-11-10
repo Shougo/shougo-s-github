@@ -54,10 +54,6 @@ if '+winpinned'->exists()
 endif
 " }}}
 
-" qfreplace {{{
-setlocal nofoldenable
-" }}}
-
 " help {{{
 setlocal iskeyword+=^{
 setlocal iskeyword+=^}

@@ -64,10 +64,10 @@ autocmd MyAutoCmd BufRead,BufNewFile *.xonsh setlocal filetype=python
 
 " Update filetype.
 autocmd MyAutoCmd BufWritePost * nested
-\ : if &l:filetype ==# '' || 'b:ftdetect'->exists()
-\ |   unlet! b:ftdetect
-\ |   silent filetype detect
-\ | endif
+      \ : if &l:filetype ==# '' || 'b:ftdetect'->exists()
+      \ |   unlet! b:ftdetect
+      \ |   silent filetype detect
+      \ | endif
 
 " from https://github.com/kuuote/dotvim/blob/46760385/conf/rc/autocmd.vim#L5
 function! s:chmod(file) abort
