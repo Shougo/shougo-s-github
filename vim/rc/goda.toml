@@ -1,6 +1,5 @@
 [[plugins]]
 repo = 'Shougo/goda-pm.vim'
-depends = 'goda.vim'
 rtp = ''
 
 [[plugins]]
@@ -9,7 +8,6 @@ lazy = false
 
 [[plugins]]
 repo = 'Shougo/goda-cmp.vim'
-depends = ['goda.vim', 'pum.vim']
 on_event = ['InsertEnter', 'CmdlineEnter']
 on_source = 'goda-term.vim'
 hooks_file = '$BASE_DIR/goda-cmp.vim'
@@ -18,22 +16,40 @@ hook_post_update = '''
 '''
 
 [[plugins]]
+repo = 'Shougo/goda-cmp-ui-inline.vim'
+on_source = 'goda-cmp.vim'
+
+[[plugins]]
+repo = 'Shougo/goda-cmp-ui-native.vim'
+on_source = 'goda-cmp.vim'
+
+[[plugins]]
+repo = 'Shougo/goda-cmp-ui-pum.vim'
+depends = 'pum.vim'
+on_source = 'goda-cmp.vim'
+
+[[plugins]]
 repo = 'Shougo/goda-skk.vim'
-depends = 'goda.vim'
 on_map = { ict = '<Plug>(goda-skk-' }
 hooks_file = '$BASE_DIR/goda-skk.vim'
 
 [[plugins]]
 repo = 'Shougo/goda-fi.vim'
-depends = 'goda.vim'
 hooks_file = '$BASE_DIR/goda-fi.vim'
 hook_post_update = '''
   call goda_fi#build()
 '''
 
 [[plugins]]
+repo = 'Shougo/goda-fi-ui-ff.vim'
+on_source = 'goda-fi.vim'
+
+[[plugins]]
+repo = 'Shougo/goda-fi-ui-filer.vim'
+on_source = 'goda-fi.vim'
+
+[[plugins]]
 repo = 'Shougo/goda-term.vim'
-depends = 'goda.vim'
 hooks_file = '$BASE_DIR/goda-term.vim'
 hook_post_update = '''
   call goda_term#build()
@@ -49,5 +65,4 @@ on_source = 'goda-term.vim'
 
 [[plugins]]
 repo = 'Shougo/goda-hex.vim'
-depends = 'goda.vim'
 hooks_file = '$BASE_DIR/goda-hex.vim'
