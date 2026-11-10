@@ -1,7 +1,6 @@
 // Command goda-term is a configuration of goda-term.vim: put it in
 // ~/.vim/goda-term (Neovim: stdpath('config') .. '/goda-term') and build it
-// with goda_term#build(). It is translated from the ddt.ts of a ddt.vim
-// user.
+// with goda_term#build().
 package main
 
 import (
@@ -45,7 +44,7 @@ func main() {
 				},
 				"noSaveHistoryCommands": []string{"history"},
 				"userPrompt":            userPrompt,
-				"shellHistoryPath":      "~/.cache/ddt-shell-history",
+				"shellHistoryPath":      "~/.cache/goda-term-shell-history",
 			},
 			"terminal": {
 				"command":       []string{"zsh"},

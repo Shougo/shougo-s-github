@@ -84,7 +84,7 @@ func main() {
 		}))
 	b.AddSource(termtab.NewSource())
 	b.AddSource(shellhistory.New(shellhistory.Params{
-		Paths: []string{"~/.cache/ddt-shell-history"},
+		Paths: []string{"~/.cache/goda-term-shell-history"},
 	}))
 
 	b.AddFilter(matchersubstring.New(

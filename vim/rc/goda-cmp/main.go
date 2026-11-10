@@ -49,7 +49,7 @@ var (
 )
 
 // The shell history files, for the source and the sorter.
-var shellHistories = []string{"~/.cache/ddt-shell-history", "~/.zsh-history"}
+var shellHistories = []string{"~/.cache/goda-term-shell-history", "~/.zsh-history"}
 
 func main() {
 	// goda-skk
