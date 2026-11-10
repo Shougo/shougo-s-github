@@ -1,8 +1,4 @@
 [[plugins]]
-repo = 'vim-jp/vimdoc-ja'
-extAttrs = { installerMinCommitDays = 0 }
-
-[[plugins]]
 repo = 'lambdalisue/vim-findent'
 
 [[plugins]]

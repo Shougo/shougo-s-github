@@ -1,4 +1,4 @@
-# NOTE: Disable nvim-treesitter.  It is archived now.
+# NOTE: Disable nvim-treesitter.
 #[[plugins]]
 #repo = 'nvim-treesitter/nvim-treesitter'
 #if = '!has("win32")'

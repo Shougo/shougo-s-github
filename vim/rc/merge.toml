@@ -1,4 +1,8 @@
 hooks_file = '$BASE_DIR/ft.vim'
 
 [[plugins]]
+repo = 'vim-jp/vimdoc-ja'
+extAttrs = { installerMinCommitDays = 0 }
+
+[[plugins]]
 repo = 'vim-jp/autofmt'
