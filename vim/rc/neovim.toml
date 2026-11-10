@@ -225,7 +225,7 @@ lua_source = '''
 [[plugins]]
 repo = 'atusy/kakehashi.nvim'
 on_source = 'nvim-lspconfig'
-external_commands = ['kakehashi']
+external_commands = 'kakehashi'
 lua_source = '''
   local servers = vim.tbl_keys(vim.lsp._enabled_configs)
 
