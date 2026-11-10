@@ -1,55 +1,20 @@
-# NOTE: Disable nvim-treesitter.
-#[[plugins]]
-#repo = 'nvim-treesitter/nvim-treesitter'
-#if = '!has("win32")'
-#on_event = ['BufRead', 'CursorHold']
-#on_ft = ['help']
-#rev = 'main'
-#hook_post_update = 'TSUpdate'
-#lua_source = '''
-#  -- Install parsers
-#  require'nvim-treesitter'.install {
-#    'c',
-#    'javascript',
-#    'rust',
-#    'python',
-#    'toml',
-#    'typescript',
-#  }
-#
-#  -- Enable highlight
-#  vim.api.nvim_create_autocmd('FileType', {
-#    pattern = {
-#      'c',
-#      'python',
-#      'rust',
-#      'typescript',
-#      'vim',
-#    },
-#    callback = function()
-#      vim.treesitter.start()
-#    end,
-#  })
-#'''
-
 [[plugins]]
-repo = 'romus204/tree-sitter-manager.nvim'
+repo = 'nvim-treesitter/nvim-treesitter'
 if = '!has("win32")'
 on_event = ['BufRead', 'CursorHold']
-on_ft = ['help']
-external_commands = ['tree-sitter']
+on_ft = 'help'
+external_commands = 'tree-sitter'
+hook_post_update = 'TSUpdate'
 lua_source = '''
   -- Install parsers
-  require("tree-sitter-manager").setup({
-    ensure_installed = {
-      'c',
-      'javascript',
-      'rust',
-      'python',
-      'toml',
-      'typescript',
-    },
-  })
+  require'nvim-treesitter'.install {
+    'c',
+    'javascript',
+    'rust',
+    'python',
+    'toml',
+    'typescript',
+  }
 
   -- Enable highlight
   vim.api.nvim_create_autocmd('FileType', {
@@ -155,6 +120,33 @@ hook_source = '''
   highlight! link @variable.global  CandyViolet
   highlight! link @variable.parameter CandyYellow
 '''
+
+#[[plugins]]
+#repo = 'romus204/tree-sitter-manager.nvim'
+#if = '!has("win32")'
+#on_event = ['BufRead', 'CursorHold']
+#on_ft = 'help'
+#external_commands = 'tree-sitter'
+#lua_source = '''
+#  -- Install parsers
+#  require("tree-sitter-manager").setup({
+#    ensure_installed = {
+#        'c',
+#        'javascript',
+#        'rust',
+#        'python',
+#        'toml',
+#        'typescript',
+#    },
+#    highlight = {
+#        'c',
+#        'python',
+#        'rust',
+#        'typescript',
+#        'vim',
+#    },
+#  })
+#'''
 
 [[plugins]]
 repo = 'neovim/nvim-lspconfig'
