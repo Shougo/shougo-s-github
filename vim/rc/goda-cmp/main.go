@@ -1,9 +1,5 @@
 // Command config is a user's goda-cmp configuration: an ordinary Go program.
 // Build it with :call goda_cmp#build() (or go build) and goda-cmp.vim runs the result.
-//
-// It is the counterpart of a ddc.ts: extensions are imported (and so type
-// checked and completed by your editor), and configured with PatchGlobal and
-// PatchFiletype.
 package main
 
 import (
@@ -48,8 +44,7 @@ var (
 	hasWindows = runtime.GOOS == "windows"
 	// MOCWORD_DATA is read when the binary starts: from the editor's
 	// environment.
-	hasMocword = os.Getenv("MOCWORD_DATA") != ""
-	// ddc-source-shell on Windows, ddc-source-shell_native elsewhere.
+	hasMocword  = os.Getenv("MOCWORD_DATA") != ""
 	shellSource = map[bool]string{true: "shell", false: "shellnative"}[hasWindows]
 )
 
@@ -98,7 +93,6 @@ func main() {
 	b.AddUI(native.New())
 	b.AddUI(pum.New())
 
-	// Sources, with the sourceParams of ddc.ts.
 	b.AddSource(around.New(around.Params{}))
 	b.AddSource(buffer.New(buffer.Params{
 		RequireSameFiletype: new(false),
@@ -117,8 +111,8 @@ func main() {
 	b.AddSource(shell.New())
 	b.AddSource(shellnative.New(shellnative.Params{Shell: "zsh"}))
 	b.AddSource(mocword.New(mocword.Params{}))
-	// ddc-source-lsp uses Neovim's LSP client; goda-cmp's lsp source starts
-	// the servers itself, in Vim too. One source per server; gopls here.
+	// goda-cmp's lsp source starts the servers itself, in Vim too. One
+	// source per server; gopls here.
 	b.AddSource(lsp.New(lsp.Params{
 		Name:        "lsp",
 		Command:     []string{"gopls"},
@@ -128,7 +122,6 @@ func main() {
 	b.AddSource(skk.New(p))      // skkeleton
 	b.AddSource(skkokuri.New(p)) // skkeleton_okuri
 
-	// Filters, with the filterParams of ddc.ts.
 	b.AddFilter(matcherhead.New(matcherhead.Params{}))
 	b.AddFilter(matcherprefix.New(matcherprefix.Params{}))
 	b.AddFilter(matcherlength.New())

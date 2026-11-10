@@ -7,7 +7,6 @@ import (
 	"github.com/Shougo/goda.vim/sdk"
 )
 
-// configure is the patchGlobal and patchFiletype calls of ddc.ts.
 func configure(b *cmp.Builder) {
 	commonSources := []string{"around", "file", "register"}
 	var mocWord []string

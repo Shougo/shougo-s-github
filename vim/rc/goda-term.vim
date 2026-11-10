@@ -216,7 +216,6 @@ nnoremap <buffer> [Space]gp
       \ <Cmd>call goda_term#ui#do_action('setCommandLine', #{
       \   str: 'git push',
       \ })<CR>
-" ddc's shell_history is goda-cmp's shellhistory
 inoremap <buffer><expr> <C-n>
       \   pum#visible()
       \ ? '<Cmd>call pum#map#insert_relative(+1, "empty")<CR>'
