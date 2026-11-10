@@ -131,7 +131,7 @@ func config(ctx context.Context, c *pm.ConfigArgs) (*pm.ConfigReturn, error) {
 		c.Host,
 		"~/work",
 		pm.Plugin{"frozen": true, "merged": false},
-		[]string{"*.nvim", "*.vim", "dpp-*", "nvim-*", "vim*"},
+		[]string{"*.nvim", "*.vim", "nvim-*", "vim*"},
 	)
 	if err != nil {
 		return nil, err

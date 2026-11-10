@@ -3,8 +3,8 @@
 "---------------------------------------------------------------------------
 " profile start profile.txt
 " profile file ~/work/*
-" profile file ~/.cache/dpp/nvim/state.vim
-" profile func dpp#*
+" profile file ~/.cache/goda-pm/nvim/state.vim
+" profile func goda_pm#*
 
 if &compatible
   set nocompatible
