@@ -150,7 +150,13 @@ hook_source = '''
 
 [[plugins]]
 repo = 'neovim/nvim-lspconfig'
-on_event = 'FileType'
+lazy = true
+hook_add = '''
+  " NOTE: vim.lsp takes long to load: it is loaded after the first screen,
+  " not in the FileType of the files of the arguments.
+  autocmd MyAutoCmd FileType * ++once
+        \ call timer_start(0, { -> goda_pm#source('nvim-lspconfig') })
+'''
 lua_source = '''
   -- NOTE: Disable lsp watcher. Too slow on linux
   -- https://github.com/neovim/neovim/issues/23725#issuecomment-1561364086

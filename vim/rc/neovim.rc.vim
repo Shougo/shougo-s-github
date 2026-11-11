@@ -2,8 +2,11 @@
 " For Neovim:
 "
 
-if has('vim_starting') && argv()->empty()
-  " Disable auto syntax loading
+if has('vim_starting')
+  " Disable auto syntax loading: vimrc#on_filetype() enables it, also for
+  " the files of the arguments (VimEnter). Otherwise the default
+  " ":syntax on" after the vimrc detects their filetypes before they are
+  " read, and FileType comes twice.
   syntax off
 endif
 
