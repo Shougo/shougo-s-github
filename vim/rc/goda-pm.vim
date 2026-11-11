@@ -11,8 +11,8 @@ function GodaPmInitPlugin(plugin)
     let dir = s:cache .. '/goda-pm/repos/github.com/' .. a:plugin
     if !dir->isdirectory()
       " Install plugin automatically.
-      execute '!git clone
-            \ (https://github.com/' .. a:plugin)->shellescape()
+      execute '!git clone'
+            \ ('https://github.com/' .. a:plugin)->shellescape()
             \ dir->shellescape()
     endif
   endif
@@ -44,7 +44,7 @@ let g:goda_pm#config_dir = '$BASE_DIR/goda-pm'->expand()
 if s:goda_pm_base->goda_pm#min#load_state()
   " NOTE: goda.vim and goda-pm-ext-lazy.vim is needed to make the state
   call GodaPmInitPlugin('Shougo/goda.vim')
-  call GodaPmInitPlugin('Shougo/goda-pm-lazy.vim')
+  call GodaPmInitPlugin('Shougo/goda-pm-ext-lazy.vim')
 
   autocmd MyAutoCmd VimEnter * ++once
         \ : echohl WarningMsg

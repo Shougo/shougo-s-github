@@ -24,7 +24,7 @@ nnoremap < <<
 xnoremap > >gv
 xnoremap < <gv
 
-if (!has('nvim') || $DISPLAY !=# '') && has('clipboard')
+if !has('nvim') || $DISPLAY !=# ''
   xnoremap y "*y<Cmd>let [@+,@"]=[@*,@*]<CR>
 endif
 
