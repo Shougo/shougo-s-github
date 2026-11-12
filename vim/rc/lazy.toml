@@ -13,13 +13,5 @@ hook_source = '''
   let g:goimports_simplify = v:true
 '''
 
-[[plugins]]
-repo = 'previm/previm'
-on_ft = ['markdown', 'rst']
-external_commands = 'xdg-open'
-hook_source = '''
-  let g:previm_open_cmd = 'xdg-open'
-'''
-
 #[[plugins]]
 #repo = 'katono/rogue.vim'
