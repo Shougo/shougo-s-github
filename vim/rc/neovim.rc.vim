@@ -73,6 +73,7 @@ if has('win32')
   set guifont=Firge:h13
 else
   "set guifont=Courier\ 10\ Pitch\ OT\ 16
+  set guifont=Courier\ 10\ Pitch\ 15
   set guifontwide=Noto\ Sans\ Mono\ CJK\ JP\ 14
 endif
 
