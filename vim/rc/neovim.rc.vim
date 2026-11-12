@@ -14,12 +14,11 @@ endif
 let g:loaded_node_provider = v:false
 let g:loaded_perl_provider = v:false
 let g:loaded_python_provider = v:false
+let g:loaded_python3_provider = v:false
 let g:loaded_ruby_provider = v:false
 
 " Disable remote plugin loading
 let g:loaded_remote_plugins = v:true
-
-let g:python3_host_prog = has('win32') ? 'python.exe' : 'python3'
 
 set inccommand=nosplit
 
@@ -73,8 +72,8 @@ autocmd MyAutoCmd Syntax * ++once call s:config_treesitter()
 if has('win32')
   set guifont=Firge:h13
 else
-  set guifontwide=VL\ Gothic\ 13
-  set guifont=monospace\ 14
+  "set guifont=Courier\ 10\ Pitch\ OT\ 16
+  set guifontwide=Noto\ Sans\ Mono\ CJK\ JP\ 14
 endif
 
 "" Enable ext_cmdline/messages for the TUI

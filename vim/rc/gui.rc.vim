@@ -28,10 +28,13 @@ if has('win32')
 else
   " For Linux.
 
-  set guifontwide=VL\ Gothic\ 13
-
+  " NOTE: It must be OpenType font.
   "set guifont=Courier\ New\ 16
-  set guifont=monospace\ 14
+  "set guifont=monospace\ 14
+  set guifont=Courier\ 10\ Pitch\ OT\ 16
+
+  "set guifontwide=VL\ Gothic\ 13
+  set guifontwide=Noto\ Sans\ Mono\ CJK\ JP\ 14
 
   if &columns < 170
     " Width of window.
@@ -68,5 +71,5 @@ set guioptions+=c
 set guioptions+=d
 
 " Don't flick cursor.
-set guicursor&
-set guicursor+=a:blinkon0
+set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,
+      \i-ci:ver15-Cursor/lCursor,r-cr:hor20-Cursor/lCursor
