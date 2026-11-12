@@ -10,6 +10,11 @@ if has('multi_byte_ime')
   set iminsert=0 imsearch=0
 endif
 
+" IME disable automatically
+"if !has('win32') && 'fcitx5-remote'->executable()
+"  autocmd CmdlineLeave,InsertLeave * call system('fcitx5-remote -c')
+"endif
+
 set packpath=
 
 
