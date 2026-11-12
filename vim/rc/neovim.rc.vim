@@ -19,11 +19,6 @@ let g:loaded_ruby_provider = v:false
 " Disable remote plugin loading
 let g:loaded_remote_plugins = v:true
 
-" NOTE: Disable treesitter async parsing
-" https://github.com/neovim/neovim/pull/31631
-" https://github.com/neovim/neovim/pull/33145
-"let g:_ts_force_sync_parsing = v:true
-
 let g:python3_host_prog = has('win32') ? 'python.exe' : 'python3'
 
 set inccommand=nosplit
@@ -75,21 +70,11 @@ END
 endfunction
 autocmd MyAutoCmd Syntax * ++once call s:config_treesitter()
 
-" Enable virtual_lines feature
-"lua vim.diagnostic.config({ virtual_lines = { current_line = true }})
-
-" For neovide
-if 'g:neovide'->exists()
-  let g:neovide_no_idle = v:true
-  let g:neovide_cursor_animation_length = 0
-  let g:neovide_cursor_trail_length = 0
-  let g:neovide_hide_mouse_when_typing = v:true
-endif
-
 if has('win32')
   set guifont=Firge:h13
 else
-  set guifont=Monospace:h10
+  set guifontwide=VL\ Gothic\ 13
+  set guifont=monospace\ 14
 endif
 
 "" Enable ext_cmdline/messages for the TUI

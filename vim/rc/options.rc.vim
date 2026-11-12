@@ -154,7 +154,7 @@ set clipboard=
 "
 
 " Disable menu.vim
-if has('gui_running')
+if has('gui_running') && !has('nvim')
   set guioptions=Mc
 endif
 
