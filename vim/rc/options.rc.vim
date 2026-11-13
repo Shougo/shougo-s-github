@@ -11,8 +11,12 @@ if has('multi_byte_ime')
 endif
 
 " IME disable automatically
-"if !has('win32') && 'fcitx5-remote'->executable()
-"  autocmd CmdlineLeave,InsertLeave * call system('fcitx5-remote -c')
+"if has('nvim')
+"  autocmd MyAutoCmd CmdlineLeave,InsertLeave *
+"        \ call jobstart(['fcitx5-remote', '-c'])
+"else
+"  autocmd MyAutoCmd CmdlineLeave,InsertLeave *
+"        \ call job_start(['fcitx5-remote', '-c'])
 "endif
 
 set packpath=
