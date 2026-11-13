@@ -263,6 +263,9 @@ nnoremap <buffer> t
 nnoremap <buffer> T
       \ <Cmd>call goda_fi#ui#do_action('itemAction',
       \   #{ name: 'tabopen' })<CR>
+nnoremap <buffer> d
+      \ <Cmd>call goda_fi#ui#do_action('itemAction',
+      \   #{ name: 'delete' })<CR>
 nnoremap <expr><buffer> q
       \   '$'->winnr() == 1
       \ ? '<Cmd>enew<CR>'
