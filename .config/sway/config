@@ -157,6 +157,9 @@ bindsym Print exec grim -t png ~/Pictures/$(date +%Y-%m-%d_%H-%M-%S).png
 # Take a Screenshot with the region select
 bindsym $mod+Print exec grim -t png -g "$(slurp)" ~/Pictures/$(date +%Y-%m-%d_%H-%M-%S).png
 
+# Application switcher
+bindsym $mod+Tab exec rofi -i -show window
+
 input type:touchpad {
     pointer_accel 0.5
     tap enabled
