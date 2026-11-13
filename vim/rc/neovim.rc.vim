@@ -72,9 +72,14 @@ autocmd MyAutoCmd Syntax * ++once call s:config_treesitter()
 if has('win32')
   set guifont=Firge:h13
 else
-  "set guifont=Courier\ 10\ Pitch\ OT\ 16
-  set guifont=Courier\ 10\ Pitch\ 15
-  set guifontwide=Noto\ Sans\ Mono\ CJK\ JP\ 14
+  " NOTE: ng supports non OpenType fonts
+  if 'g:ng'->exists()
+    set guifont=Courier\ 10\ Pitch\ 15
+  else
+    set guifont=Courier\ 10\ Pitch\ OT:h16
+  endif
+
+  set guifontwide=Noto\ Sans\ Mono\ CJK\ JP:h14
 endif
 
 "" Enable ext_cmdline/messages for the TUI

@@ -29,7 +29,6 @@ else
   " For Linux.
 
   " NOTE: It must be OpenType font.
-  "set guifont=Courier\ New\ 16
   "set guifont=monospace\ 14
   set guifont=Courier\ 10\ Pitch\ OT\ 16
 
