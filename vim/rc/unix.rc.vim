@@ -18,12 +18,6 @@ if !has('nvim')
   " Enable 256 color terminal.
   set t_Co=256
 
-  if $TERM->stridx('ghostty') >= 0
-    set term=ghostty
-  else
-    set term=xterm-256color
-  endif
-
   " Change cursor shape.
   let &t_SI = "\e[6 q"
   let &t_SR = "\e[4 q"
