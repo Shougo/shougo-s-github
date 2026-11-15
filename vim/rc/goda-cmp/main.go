@@ -71,7 +71,7 @@ func main() {
 
 		EggLikeNewline:        true,
 		RegisterConvertResult: true,
-		MaxLearnConfig:        10,
+		MaxLearnLength:        10,
 
 		KanaTable: engine.RomTable.With(
 			engine.Rule{From: "jj", Func: "escape"},
