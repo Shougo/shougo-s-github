@@ -36,7 +36,7 @@ import (
 
 	"github.com/Shougo/goda-skk.vim/cmp/source/skk"
 	"github.com/Shougo/goda-skk.vim/cmp/source/skkokuri"
-	"github.com/Shougo/goda-skk.vim/dictionary/google"
+	"github.com/Shougo/goda-skk.vim/dictionary/karukan"
 	"github.com/Shougo/goda-skk.vim/engine"
 )
 
@@ -58,26 +58,26 @@ func main() {
 		jisyo = "~/.config/SKK-JISYO.L"
 	}
 	p, err := engine.New(engine.Config{
-		// globalDictionaries
 		Dictionaries: []engine.Dictionary{
 			engine.NewJisyo(jisyo, ""),
-			google.New(google.Params{}),
+			karukan.New(karukan.Params{}),
+			//google.New(google.Params{}),
 			//skkserv.New(skkserv.Params{Addr: "localhost:1178"}),
 		},
-		// No markers: the highlights GodaSkkHenkan and
-		// GodaSkkHenkanSelect show the pre-edit (vimrc.vim).
-		MarkerHenkan:          new(""),
-		MarkerHenkanSelect:    new(""),
+
+		// No markers
+		MarkerHenkan:       new(""),
+		MarkerHenkanSelect: new(""),
+
 		EggLikeNewline:        true,
 		RegisterConvertResult: true,
+		MaxLearnConfig:        10,
 
-		// register_kanatable('rom', {'jj': 'escape', '~': ['〜', '']})
 		KanaTable: engine.RomTable.With(
 			engine.Rule{From: "jj", Func: "escape"},
 			engine.Rule{From: "~", Kana: "〜"},
 		),
-		// register_keymap('input', '<C-z>', 'kakuteiUndo'); <C-z> is
-		// mapped by itself.
+
 		Keymaps: map[string]map[string]string{
 			"input": {"<C-z>": "kakuteiUndo"},
 		},
