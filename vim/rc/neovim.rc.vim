@@ -79,7 +79,7 @@ else
     set guifont=Courier\ 10\ Pitch\ OT:h16
   endif
 
-  set guifontwide=Noto\ Sans\ Mono\ CJK\ JP:h14
+  set guifontwide=VL\ Gothic,Noto\ Sans\ Mono\ CJK\ JP
 endif
 
 "" Enable ext_cmdline/messages for the TUI

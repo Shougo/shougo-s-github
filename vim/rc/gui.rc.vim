@@ -32,8 +32,8 @@ else
   "set guifont=monospace\ 14
   set guifont=Courier\ 10\ Pitch\ OT\ 16
 
-  "set guifontwide=VL\ Gothic\ 13
-  set guifontwide=Noto\ Sans\ Mono\ CJK\ JP\ 14
+  set guifontwide=VL\ Gothic\ 13
+  "set guifontwide=Noto\ Sans\ Mono\ CJK\ JP\ 14
 
   if &columns < 170
     " Width of window.
