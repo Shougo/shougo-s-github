@@ -30,6 +30,7 @@ else
 
   " NOTE: It must be OpenType font.
   "set guifont=monospace\ 14
+  "set guifont=Liberation\ Mono\ 14
   set guifont=Courier\ 10\ Pitch\ OT\ 15
 
   set guifontwide=VL\ Gothic\ 15
