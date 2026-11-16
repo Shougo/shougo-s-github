@@ -68,6 +68,10 @@ repo = 'Shougo/goda-hex.vim'
 hooks_file = '$BASE_DIR/goda-hex.vim'
 
 [[plugins]]
+repo = 'Shougo/goda-rogue.vim'
+hooks_file = '$BASE_DIR/goda-rogue.vim'
+
+[[plugins]]
 repo = 'raa0121/goda-preview.vim'
 on_ft = ['markdown', 'rst']
 hook_post_update = '''
