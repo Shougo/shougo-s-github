@@ -40,7 +40,7 @@ bindsym $mod+Return exec $term
 bindsym $mod+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --dmenu='wofi --i --show dmenu'
+bindsym $mod+d exec i3-dmenu-desktop --dmenu='wofi --i --show dmenu'
 
 # change focus
 bindsym $mod+j focus right
@@ -139,9 +139,9 @@ bindsym $mod+m bar mode toggle
 bindsym $mod+l workspace next
 bindsym $mod+h workspace prev
 
-bindsym $mod+Shift+l exec --no-startup-id swaylock -f -c 000000
-bindsym $mod+Shift+e exec --no-startup-id exit
-bindsym $mod+Shift+s exec --no-startup-id systemctl suspend
+bindsym $mod+Shift+l exec swaylock -f -c 000000
+bindsym $mod+Shift+e exit
+bindsym $mod+Shift+s exec systemctl suspend
 
 # Special keys
 bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
@@ -187,7 +187,7 @@ client.urgent    #274D01 #900000 #FFFFFF #900000
 
 # Enable mako
 # https://github.com/emersion/mako
-exec --no-startup-id mako
+exec mako
 
 # Thunar daemon mode
-exec --no-startup-id thunar --daemon
+exec thunar --daemon
