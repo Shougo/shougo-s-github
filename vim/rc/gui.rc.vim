@@ -30,9 +30,9 @@ else
 
   " NOTE: It must be OpenType font.
   "set guifont=monospace\ 14
-  set guifont=Courier\ 10\ Pitch\ OT\ 16
+  set guifont=Courier\ 10\ Pitch\ OT\ 15
 
-  set guifontwide=VL\ Gothic\ 13
+  set guifontwide=VL\ Gothic\ 15
   "set guifontwide=Noto\ Sans\ Mono\ CJK\ JP\ 14
 
   if &columns < 170
