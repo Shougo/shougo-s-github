@@ -12,6 +12,3 @@ external_commands = 'goimports'
 hook_source = '''
   let g:goimports_simplify = v:true
 '''
-
-#[[plugins]]
-#repo = 'katono/rogue.vim'
