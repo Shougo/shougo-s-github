@@ -74,9 +74,9 @@ if has('win32')
 else
   " NOTE: ng supports non OpenType fonts
   if 'g:ng'->exists()
-    set guifont=Courier\ 10\ Pitch\ 15
+    set guifont=Courier\ 10\ Pitch\ 15,VL\ Gothic\ 15
   else
-    set guifont=Courier\ 10\ Pitch\ OT:h16
+    set guifont=Courier\ 10\ Pitch\ OT\ 16,VL\ Gothic\ 15
   endif
 
   set guifontwide=VL\ Gothic,Noto\ Sans\ Mono\ CJK\ JP
