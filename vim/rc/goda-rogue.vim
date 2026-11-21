@@ -28,5 +28,6 @@ nnoremap <buffer> x <Cmd>call goda_rogue#do('look')<CR>
 nnoremap <buffer> m <Cmd>call goda_rogue#do('map')<CR>
 nnoremap <buffer> I <Cmd>call goda_rogue#do('items')<CR>
 nnoremap <buffer> M <Cmd>call goda_rogue#do('log')<CR>
+nnoremap <buffer> q <Cmd>call goda_rogue#suspend()<CR>
 nnoremap <buffer> S <Cmd>call goda_rogue#suspend()<CR>
 "}}}
