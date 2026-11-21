@@ -99,7 +99,10 @@ func configure(b *cmp.Builder) {
 				MinAutoCompleteLength:  new(3),
 				Sorters:                []string{"sortershellhistory"},
 			},
-			"shellhistory": {Mark: "history", Sorters: []string{}},
+			"shellhistory": {
+				Mark:    "history",
+				Sorters: []string{},
+			},
 			"shellnative": {
 				Mark:                   "sh",
 				ForceCompletionPattern: `\S/\S*`,

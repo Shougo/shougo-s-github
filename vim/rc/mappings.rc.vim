@@ -229,10 +229,6 @@ command! -bang -complete=file -nargs=? WUnix
 command! -bang -complete=file -nargs=? WDos
       \ write<bang> ++fileformat=dos <args> | edit <args>
 
-" Tag jump
-nnoremap tt  g<C-]>
-nnoremap tp  <Cmd>pop<CR>
-
 " vim-niceblock
 xnoremap <expr> I
       \   mode() ==# 'v'

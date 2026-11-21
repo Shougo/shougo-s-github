@@ -58,6 +58,10 @@ endif
 setlocal iskeyword+=^{
 setlocal iskeyword+=^}
 
+" Tag jump
+nnoremap <buffer> tt  g<C-]>
+nnoremap <buffer> tp  <Cmd>pop<CR>
+
 function s:set_highlight(group) abort
   for group in ['helpBar', 'helpBacktick', 'helpStar', 'helpIgnore']
     execute 'highlight link' group a:group
