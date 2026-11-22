@@ -20,6 +20,7 @@ nnoremap <buffer> d <Cmd>call goda_rogue#do('debug')<CR>
 " Face an enemy next to the player (again: the next one).
 nnoremap <buffer> t <Cmd>call goda_rogue#do('turn')<CR>
 nnoremap <buffer> . <Cmd>call goda_rogue#do('wait')<CR>
+nnoremap <buffer> ;; <Cmd>call goda_rogue#do('foot')<CR>
 nnoremap <buffer> > <Cmd>call goda_rogue#do('stairs')<CR>
 nnoremap <buffer> i <Cmd>call goda_rogue#do('inventory')<CR>
 nnoremap <buffer> , <Cmd>call goda_rogue#do('pickup')<CR>
