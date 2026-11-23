@@ -210,6 +210,27 @@ lua_source = '''
     },
   })
 
+  -- https://github.com/neoclide/vimls-go
+  -- $ go install github.com/neoclide/vimls-go/cmd/vimls@latest
+  vim.lsp.config('vimls', {
+    cmd = { 'vimls' },
+    filetypes = { 'vim' },
+    root_markers = { '.git' },
+    settings = {
+      vim = {
+        diagnostic = {
+          disabled = {
+            'vimls/explicit-local-scope',
+          },
+        },
+      },
+    },
+    init_options = {
+      runtimepath = vim.api.nvim_list_runtime_paths(),
+      vimVersion = '9.0.0500',
+    },
+  })
+
   local servers = {
     'denols',
     'emmylua_ls',
@@ -217,6 +238,7 @@ lua_source = '''
     'pyright',
     'rust_analyzer',
     'vimdoc_ls',
+    'vimls',
     'vtsls',
   }
 
