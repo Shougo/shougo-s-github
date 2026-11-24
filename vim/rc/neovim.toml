@@ -121,33 +121,6 @@ hook_source = '''
   highlight! link @variable.parameter CandyYellow
 '''
 
-#[[plugins]]
-#repo = 'romus204/tree-sitter-manager.nvim'
-#if = '!has("win32")'
-#on_event = ['BufRead', 'CursorHold']
-#on_ft = 'help'
-#external_commands = 'tree-sitter'
-#lua_source = '''
-#  -- Install parsers
-#  require("tree-sitter-manager").setup({
-#    ensure_installed = {
-#        'c',
-#        'javascript',
-#        'rust',
-#        'python',
-#        'toml',
-#        'typescript',
-#    },
-#    highlight = {
-#        'c',
-#        'python',
-#        'rust',
-#        'typescript',
-#        'vim',
-#    },
-#  })
-#'''
-
 [[plugins]]
 repo = 'neovim/nvim-lspconfig'
 lazy = true
@@ -247,26 +220,5 @@ lua_source = '''
   vim.api.nvim_exec_autocmds('FileType', {
     group = 'nvim.lsp.enable',
     buffer = vim.api.nvim_get_current_buf(),
-  })
-'''
-
-[[plugins]]
-repo = 'atusy/kakehashi.nvim'
-on_source = 'nvim-lspconfig'
-external_commands = 'kakehashi'
-lua_source = '''
-  local servers = vim.tbl_keys(vim.lsp._enabled_configs)
-
-  vim.api.nvim_create_autocmd('LspAttach', {
-    callback = function(ev)
-      local client = vim.lsp.get_client_by_id(ev.data.client_id)
-      if client and client.name == 'kakehashi' then
-        require('kakehashi').inherit_nvim_lsp_config(
-          client,
-          servers,
-          'keep'
-        )
-      end
-    end,
   })
 '''
