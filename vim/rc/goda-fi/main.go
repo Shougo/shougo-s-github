@@ -12,6 +12,7 @@ import (
 	kindfile "github.com/Shougo/goda-fi-ext/ext/kind/file"
 	"github.com/Shougo/goda-fi-ext/ext/kind/url"
 	"github.com/Shougo/goda-fi-ext/ext/kind/word"
+	"github.com/Shougo/goda-fi-ext/ext/source/app"
 	"github.com/Shougo/goda-fi-ext/ext/source/buffer"
 	"github.com/Shougo/goda-fi-ext/ext/source/file"
 	"github.com/Shougo/goda-fi-ext/ext/source/fileexternal"
@@ -39,6 +40,7 @@ func main() {
 	b.AddSource(file.New(file.Params{}))
 	b.AddSource(filerec.New(filerec.Params{}))
 	b.AddSource(fileold.New())
+	b.AddSource(app.New())
 	b.AddSource(buffer.New())
 	b.AddSource(filepoint.New())
 	b.AddSource(line.New(line.Params{}))
@@ -148,6 +150,9 @@ func main() {
 				},
 				IgnoreCase: new(true),
 				SmartCase:  new(true),
+			},
+			"app": {
+				DefaultAction: "executeSystem",
 			},
 			"fileold": {
 				Matchers: []string{

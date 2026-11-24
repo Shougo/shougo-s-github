@@ -3,7 +3,7 @@ module goda-fi-config
 go 1.27.1
 
 require (
-	github.com/Shougo/goda-fi-ext v0.1.0
+	github.com/Shougo/goda-fi-ext v0.2.0
 	github.com/Shougo/goda-fi-ui-ff.vim v0.2.1
 	github.com/Shougo/goda-fi-ui-filer.vim v0.1.0
 	github.com/Shougo/goda-fi.vim v0.2.0

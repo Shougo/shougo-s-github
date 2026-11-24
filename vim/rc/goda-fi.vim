@@ -49,6 +49,17 @@ nnoremap ss <Cmd>call goda_fi#start(#{
       \     }
       \   },
       \ })<CR>
+nnoremap sx <Cmd>call goda_fi#start(#{
+      \   sources: ['app'],
+      \   uiParams: #{
+      \     ff: #{
+      \       split: has('nvim') ? 'floating' : 'horizontal',
+      \     },
+      \   },
+      \   actionParams: #{
+      \     executeSystem: #{ method: 'gio' },
+      \   },
+      \ })<CR>
 nnoremap / <Cmd>call goda_fi#start(#{
       \   name: 'search',
       \   sources: ['line'],
