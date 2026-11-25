@@ -71,7 +71,7 @@ nnoremap [Space]c
 nnoremap [Space]m
       \ <Cmd>call vimrc#toggle_option('mouse')<CR>
 
-function s:toggle_conceal() abort
+function! s:toggle_conceal() abort
   if &l:conceallevel == 0
     setlocal conceallevel=3
   else
@@ -84,7 +84,7 @@ endfunction
 nnoremap [Space]h
       \ <Cmd>call <SID>toggle_messagesopt()<CR>
 
-function s:toggle_messagesopt() abort
+function! s:toggle_messagesopt() abort
   if &messagesopt->stridx('hit-enter') < 0
     set messagesopt+=hit-enter
     set more

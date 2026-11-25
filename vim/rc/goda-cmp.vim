@@ -4,7 +4,7 @@ let g:goda_cmp#config_dir = '$BASE_DIR/goda-cmp'->expand()
 autocmd MyAutoCmd BufWritePost ~/.config/vim/rc/goda-cmp/*.go
       \ call goda_cmp#build()
 
-function GodaCmpCommandlinePre(mode) abort
+function! GodaCmpCommandlinePre(mode) abort
   if 'b:prev_buffer_config'->exists()
     return
   endif
@@ -26,7 +26,7 @@ function GodaCmpCommandlinePre(mode) abort
 
   call goda_cmp#enable_cmdline()
 endfunction
-function GodaCmpCommandlinePost() abort
+function! GodaCmpCommandlinePost() abort
   " Restore config
   if 'b:prev_buffer_config'->exists()
     call goda_cmp#set_buffer(b:prev_buffer_config)

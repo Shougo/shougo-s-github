@@ -2,7 +2,7 @@
 " vimrc functions:
 "
 
-function vimrc#sticky_func() abort
+function! vimrc#sticky_func() abort
   const sticky_table = {
         \  ',': '<', '.': '>', '/': '?',
         \  '1': '!', '2': '@', '3': '#', '4': '$', '5': '%',
@@ -36,7 +36,7 @@ function vimrc#sticky_func() abort
   return char
 endfunction
 
-function vimrc#add_numbers(num) abort
+function! vimrc#add_numbers(num) abort
   const prev_line = '.'->getline()[: '.'->col()-1]
   const next_line = '.'->getline()['.'->col() :]
 
@@ -77,7 +77,7 @@ function vimrc#add_numbers(num) abort
   endif
 endfunction
 
-function vimrc#toggle_option(option_name) abort
+function! vimrc#toggle_option(option_name) abort
   const option_val = bufnr()->getbufvar('&' .. a:option_name)
 
   if a:option_name ==# 'laststatus'
@@ -99,7 +99,7 @@ function vimrc#toggle_option(option_name) abort
   execute $'setlocal {a:option_name}?'
 endfunction
 
-function vimrc#on_filetype() abort
+function! vimrc#on_filetype() abort
   if 'filetype'->execute() =~# 'OFF'
     if !'b:did_ftplugin'->exists()
       runtime! after/ftplugin.vim
@@ -130,7 +130,7 @@ END
   endif
 endfunction
 
-function vimrc#diagnostics_to_location_list() abort
+function! vimrc#diagnostics_to_location_list() abort
   if !has('nvim')
     return
   endif
@@ -160,7 +160,7 @@ function vimrc#diagnostics_to_location_list() abort
   endif
 endfunction
 
-function vimrc#append_diff() abort
+function! vimrc#append_diff() abort
   " Get the Git repository root directory
   const git_dir = '.git'->finddir('.;')
   if git_dir ==# ''

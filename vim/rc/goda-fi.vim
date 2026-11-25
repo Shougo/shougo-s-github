@@ -185,32 +185,9 @@ nnoremap [Space]f <Cmd>call goda_fi#start(#{
 " }}}
 
 " hook_source {{{
-call goda_fi#custom#action('kind', 'file', 'grep', { args -> s:grep(args) })
-function s:grep(args) abort
-  const path = a:args.items[0].action.path
-  call goda_fi#start(#{
-        \   name: a:args.options.name,
-        \   push: v:true,
-        \   sources: [
-        \     #{
-        \       name: 'rg',
-        \       params: #{
-        \         paths: [isdirectory(path) ? path : fnamemodify(path, ':h')],
-        \         input: 'Pattern: '->cmdline#input(),
-        \       },
-        \     }
-        \   ],
-        \ })
-  return 0
-endfunction
-
-function GodaFiOnPreview(args) abort
-  call win_execute(a:args.previewWinId, 'normal! zt')
-endfunction
-
 autocmd MyAutoCmd User GodaFi:uiOpenFilterWindow
       \ call s:goda_fi_filter_my_settings()
-function s:goda_fi_filter_my_settings() abort
+function! s:goda_fi_filter_my_settings() abort
   set cursorline
   cnoremap <buffer> <C-f>
         \ <Cmd>call goda_fi#ui#do_action('cursorNext',
@@ -221,7 +198,7 @@ function s:goda_fi_filter_my_settings() abort
 endfunction
 autocmd MyAutoCmd User GodaFi:uiCloseFilterWindow
       \ call s:goda_fi_filter_cleanup()
-function s:goda_fi_filter_cleanup() abort
+function! s:goda_fi_filter_cleanup() abort
   set nocursorline
   silent! cunmap <buffer> <C-f>
   silent! cunmap <buffer> <C-b>
@@ -230,7 +207,7 @@ endfunction
 autocmd MyAutoCmd TabEnter,WinEnter,CursorHold,FocusGained *
       \ call goda_fi#ui#do_action('checkItems')
 
-function GodaFiToggleHidden(name) abort
+function! GodaFiToggleHidden(name) abort
   const source_options = goda_fi#custom#get_current()
         \ ->get('sourceOptions', {})
         \ ->get(a:name, {})
@@ -245,7 +222,7 @@ function GodaFiToggleHidden(name) abort
   return matchers
 endfunction
 
-function GodaFiToggleUiParam(ui_name, param_name)
+function! GodaFiToggleUiParam(ui_name, param_name)
   return goda_fi#custom#get_current()
         \ ->get('uiParams', {})
         \ ->get(a:ui_name, {})

@@ -62,14 +62,14 @@ setlocal iskeyword+=^}
 nnoremap <buffer> tt  g<C-]>
 nnoremap <buffer> tp  <Cmd>pop<CR>
 
-function s:set_highlight(group) abort
+function! s:set_highlight(group) abort
   for group in ['helpBar', 'helpBacktick', 'helpStar', 'helpIgnore']
     execute 'highlight link' group a:group
   endfor
 endfunction
 call s:set_highlight('Special')
 
-function s:right_align(linenr) abort
+function! s:right_align(linenr) abort
   if !&l:modifiable
     return
   endif
@@ -118,7 +118,7 @@ setlocal indentexpr=
 
 " toml {{{
 setlocal foldenable foldmethod=expr foldexpr=s:fold_expr(v:lnum)
-function s:fold_expr(lnum)
+function! s:fold_expr(lnum)
   const line = getline(a:lnum)
   return line ==# '' || line =~# '^\s\+' ? 1 : 0
 endfunction

@@ -22,10 +22,10 @@ highlight GodaSkkHenkanSelect
       \ gui=underline,reverse term=underline,reverse cterm=underline,reverse
 
 autocmd MyAutoCmd User goda-skk-enable-pre call s:skk_pre()
-function s:skk_pre() abort
+function! s:skk_pre() abort
   if (!has('nvim') || $DISPLAY !=# '') && has('clipboard')
     " Copy to clipboard to use Vim as IME
-    autocmd ModeChanged *:n ++once
+    autocmd MyAutoCmd ModeChanged *:n ++once
       \ let @* = '.'->getline() | let @+ = @*
   endif
 
@@ -38,13 +38,13 @@ function s:skk_pre() abort
   endif
 endfunction
 
-function s:is_cmdline() abort
+function! s:is_cmdline() abort
   return '*cmdline#_get'->exists() && !cmdline#_get().pos->empty()
 endfunction
 
 " Change the cursor color by the mode.
 autocmd MyAutoCmd User goda-skk-mode-changed call s:skk_changed()
-function s:skk_changed() abort
+function! s:skk_changed() abort
   if !'s:hl_cursor'->exists()
     return
   endif
@@ -60,7 +60,7 @@ endfunction
 
 " And while converting.
 autocmd MyAutoCmd User goda-skk-handled call s:skk_handled()
-function s:skk_handled() abort
+function! s:skk_handled() abort
   if g:goda_skk#mode ==# '' || !'s:hl_cursor'->exists()
     return
   endif
@@ -71,7 +71,7 @@ function s:skk_handled() abort
   endif
 endfunction
 
-function s:highlight_cursor(color) abort
+function! s:highlight_cursor(color) abort
   let hl = s:hl_cursor->deepcopy()
   const name = s:is_cmdline() ? 'CmdlineCursor' : 'Cursor'
   if has('nvim')
@@ -132,7 +132,7 @@ call goda_skk#state_popup#enable()
 
 " The sources of the input method while it is enabled.
 autocmd MyAutoCmd User goda-skk-enable-pre call s:skk_pre_cmp()
-function s:skk_pre_cmp() abort
+function! s:skk_pre_cmp() abort
   if 'b:prev_buffer_skk_config'->exists()
     return
   endif
@@ -155,7 +155,7 @@ function s:skk_pre_cmp() abort
 endfunction
 
 autocmd MyAutoCmd User goda-skk-disable-post call s:skk_post_cmp()
-function s:skk_post_cmp() abort
+function! s:skk_post_cmp() abort
   if 'b:prev_buffer_skk_config'->exists()
     " Restore sources
     call goda_cmp#set_buffer(b:prev_buffer_skk_config)

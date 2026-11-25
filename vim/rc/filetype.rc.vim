@@ -91,7 +91,7 @@ autocmd MyAutoCmd BufWritePost * nested
 " Make directory automatically.
 autocmd MyAutoCmd BufWritePre * nested
       \ call s:mkdir_as_necessary('<afile>:p:h'->expand(), v:cmdbang)
-function s:mkdir_as_necessary(dir, force) abort
+function! s:mkdir_as_necessary(dir, force) abort
   if a:dir->isdirectory() || &l:buftype !=# ''
     return
   endif
@@ -105,7 +105,7 @@ endfunction
 " Remove saved empty file automatically.
 autocmd MyAutoCmd BufWritePost * nested
       \ call s:remove_empty_file('<afile>:p'->expand())
-function s:remove_empty_file(file) abort
+function! s:remove_empty_file(file) abort
   if !a:file->filereadable()
         \ || &l:buftype !=# ''
         \ || a:file->readfile('', 1)->len() > 0

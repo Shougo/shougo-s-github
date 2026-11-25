@@ -194,13 +194,16 @@ lua_source = '''
         diagnostic = {
           disabled = {
             'vimls/explicit-local-scope',
+            'vimls/autocmd-group-not-cleared',
+            'vimls/autoload-function-not-found',
+            'vimls/duplicate-mapping',
           },
         },
       },
     },
     init_options = {
       runtimepath = vim.api.nvim_list_runtime_paths(),
-      vimVersion = '9.0.0500',
+      vimVersion = '9.2.1405',
     },
   })
 

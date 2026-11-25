@@ -35,7 +35,7 @@ autocmd MyAutoCmd TextYankPost *
 
 " Opt-out for specific filetypes and huge files
 " https://github.com/neovim/neovim/pull/26347#issuecomment-1837508178
-function s:config_treesitter()
+function! s:config_treesitter()
   lua << END
   vim.treesitter.start = (function(wrapped)
     return function(bufnr, lang)

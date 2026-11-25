@@ -28,7 +28,7 @@ nnoremap sD  <Cmd>call goda_term#ui#kill_editor()<CR>
 " }}}
 
 " hook_source {{{
-function GodaShellGitStatus()
+function! GodaShellGitStatus()
   const gitdir = '.git'->finddir(';')
   if gitdir ==# ''
     return ''
@@ -227,7 +227,7 @@ inoremap <buffer><expr> <C-p>
 
 " git status in a repository; outside of one, the status of each repository
 " under the current directory (only those with something to do).
-function GodaShellGitStatusAll() abort
+function! GodaShellGitStatusAll() abort
   if '.git'->finddir(';') !=# ''
     call goda_term#ui#do_action('send', #{ str: 'git status' })
     return
