@@ -71,6 +71,110 @@ END
 endfunction
 autocmd MyAutoCmd Syntax * ++once call s:config_treesitter()
 
+" NOTE: vim.lsp takes long to load: it is loaded after the first screen,
+" not in the FileType of the files of the arguments.
+" The server configs are in lsp/*.lua.
+function! s:config_lsp() abort
+  lua << END
+  -- NOTE: Disable lsp watcher. Too slow on linux
+  -- https://github.com/neovim/neovim/issues/23725#issuecomment-1561364086
+  require('vim.lsp._watchfiles')._watchfunc = function()
+    return function() end
+  end
+
+  -- Disable semanticTokensProvider.  It is buggy.
+  vim.api.nvim_create_autocmd('LspAttach', {
+    callback = function(args)
+      local client = vim.lsp.get_client_by_id(args.data.client_id)
+      if client then
+        client.server_capabilities.semanticTokensProvider = nil
+      end
+    end,
+  })
+
+  vim.diagnostic.config({
+      update_in_insert = false,
+      virtual_text = {
+        severity = {
+          min = 'WARN',
+        },
+        severity_sort = true,
+        format = function(diagnostic)
+          if diagnostic.code then
+            return string.format(
+              '%s (%s: %s)',
+              diagnostic.message,
+              diagnostic.source,
+              diagnostic.code
+            )
+          else
+            return string.format(
+              '%s (%s)',
+              diagnostic.message,
+              diagnostic.source
+            )
+          end
+        end,
+      },
+  })
+
+  vim.lsp.config('vimdoc_ls', {
+    root_markers = { 'doc', '.git' },
+    init_options = {
+      tagPaths = {
+        vim.env.VIMRUNTIME .. '/doc',
+        vim.fn.expand('~/.cache/goda-pm/nvim/.goda_pm/doc/tags'),
+      },
+    },
+  })
+
+  -- https://github.com/neoclide/vimls-go
+  -- $ go install github.com/neoclide/vimls-go/cmd/vimls@latest
+  vim.lsp.config('vimls', {
+    cmd = { 'vimls' },
+    filetypes = { 'vim' },
+    root_markers = { '.git' },
+    settings = {
+      vim = {
+        diagnostic = {
+          disabled = {
+            'vimls/autocmd-group-not-cleared',
+            'vimls/autoload-function-not-found',
+            'vimls/catch-error-message',
+            'vimls/duplicate-mapping',
+            'vimls/explicit-local-scope',
+          },
+        },
+      },
+    },
+    init_options = {
+      runtimepath = vim.api.nvim_list_runtime_paths(),
+      vimVersion = '9.2.1405',
+    },
+  })
+
+  local servers = {
+    'denols',
+    'emmylua_ls',
+    'gopls',
+    'pyright',
+    'rust_analyzer',
+    'vimdoc_ls',
+    'vimls',
+    'vtsls',
+  }
+
+  vim.lsp.enable(servers)
+
+  vim.api.nvim_exec_autocmds('FileType', {
+    group = 'nvim.lsp.enable',
+    buffer = vim.api.nvim_get_current_buf(),
+  })
+END
+endfunction
+autocmd MyAutoCmd FileType * ++once
+      \ call timer_start(0, { -> s:config_lsp() })
+
 if has('win32')
   set guifont=Firge:h13
 else
