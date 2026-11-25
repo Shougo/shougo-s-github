@@ -43,7 +43,7 @@ bindsym $mod+g exec cd ~/work && ~/bin/ng
 bindsym $mod+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec i3-dmenu-desktop --dmenu='wofi --i --show dmenu'
+bindsym $mod+d exec wofi --show drun
 
 # change focus
 bindsym $mod+j focus right
@@ -136,7 +136,7 @@ bar {
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus
 
-# hide/unhide i3status bar
+# hide/unhide status bar
 bindsym $mod+m bar mode toggle
 
 bindsym $mod+l workspace next
