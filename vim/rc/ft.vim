@@ -4,7 +4,7 @@ setlocal formatoptions-=t
 setlocal formatoptions-=c
 setlocal formatoptions-=r
 setlocal formatoptions-=o
-setlocal formatoptions+=mMBl
+setlocal formatoptions+=mMBl]
 
 " Disable conceal
 setlocal conceallevel=0

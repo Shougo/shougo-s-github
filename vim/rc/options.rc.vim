@@ -137,9 +137,6 @@ autocmd MyAutoCmd ModeChanged *:n
 
 set diffopt=internal,algorithm:patience,indent-heuristic
 
-" Use autofmt.
-set formatexpr=autofmt#japanese#formatexpr()
-
 " If true Vim master, use English help file.
 set helplang& helplang=en,ja
 
