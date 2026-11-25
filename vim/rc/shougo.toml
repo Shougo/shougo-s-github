@@ -1,3 +1,5 @@
+hooks_file = '$BASE_DIR/ft.vim'
+
 [[plugins]]
 repo = 'Shougo/goda.vim'
 

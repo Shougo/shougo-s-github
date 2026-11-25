@@ -90,10 +90,6 @@ func config(ctx context.Context, c *pm.ConfigArgs) (*pm.ConfigReturn, error) {
 		options pm.Plugin
 	}{
 		{
-			"$BASE_DIR/merge.toml",
-			pm.Plugin{"lazy": false},
-		},
-		{
 			"$BASE_DIR/shougo.toml",
 			pm.Plugin{"lazy": true},
 		},
