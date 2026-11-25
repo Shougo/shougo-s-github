@@ -1,3 +1,0 @@
-[[plugins]]
-repo = 'lambdalisue/vim-guise'
-on_source = 'goda-term.vim'

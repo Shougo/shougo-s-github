@@ -98,10 +98,6 @@ func config(ctx context.Context, c *pm.ConfigArgs) (*pm.ConfigReturn, error) {
 			pm.Plugin{"lazy": true},
 		},
 		{
-			"$BASE_DIR/lazy.toml",
-			pm.Plugin{"lazy": true},
-		},
-		{
 			"$BASE_DIR/goda.toml",
 			pm.Plugin{"lazy": true, "depends": "goda.vim"},
 		},

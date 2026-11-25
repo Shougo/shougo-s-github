@@ -64,6 +64,10 @@ repo = 'Shougo/goda-term-ui-terminal.vim'
 on_source = 'goda-term.vim'
 
 [[plugins]]
+repo = 'lambdalisue/vim-guise'
+on_source = 'goda-term.vim'
+
+[[plugins]]
 repo = 'Shougo/goda-hex.vim'
 hooks_file = '$BASE_DIR/goda-hex.vim'
 
