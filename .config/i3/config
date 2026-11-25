@@ -139,6 +139,9 @@ bindsym $mod+h workspace prev
 bindsym $mod+Return exec --no-startup-id alacritty -e zsh
 #bindsym $mod+Return exec --no-startup-id ghostty
 
+# Start ng
+bindsym $mod+g exec ~/bin/ng
+
 # Application launcher
 #bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --dmenu='rofi -i -dmenu'
