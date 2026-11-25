@@ -35,6 +35,9 @@ workspace_layout tabbed
 # start a terminal
 bindsym $mod+Return exec $term
 
+# start ng
+bindsym $mod+g exec cd ~/work && ~/bin/ng
+
 # kill focused window
 # bindsym $mod+Shift+q kill
 bindsym $mod+q kill
