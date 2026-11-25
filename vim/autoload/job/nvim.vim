@@ -91,7 +91,7 @@ function! s:_job_status() abort dict
 endfunction
 
 function! s:_job_send(data) abort dict
-  return self.__job->chansend(a:data)
+  return chansend(self.__job, a:data)
 endfunction
 
 function! s:_job_close() abort dict

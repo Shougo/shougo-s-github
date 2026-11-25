@@ -65,7 +65,7 @@ endif
 
 if '/tmp'->isdirectory()
   " Use /tmp for log directory
-  let $XDG_STATE_HOME = '/tmp'
+  let $NVIM_LOG_FILE = '/tmp'
 endif
 
 " NOTE: Colorscheme must be initialized in the first.

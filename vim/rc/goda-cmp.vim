@@ -22,7 +22,7 @@ function! GodaCmpCommandlinePre(mode) abort
           \ })
   endif
 
-  autocmd MyAutocmd User GodaCmpCmdlineLeave ++once
+  autocmd MyAutoCmd User GodaCmpCmdlineLeave ++once
         \ call GodaCmpCommandlinePost()
 
   call goda_cmp#enable_cmdline()

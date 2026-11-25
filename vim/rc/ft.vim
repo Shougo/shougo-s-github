@@ -38,7 +38,43 @@ setlocal path+=./;/
 
 " go {{{
 highlight default link goErr WarningMsg
-match goErr /\<err\>/
+call matchadd('goErr', '\<err\>')
+
+" --- goimports ----------------------------------------------------------
+function! s:run(cmd, lines) abort
+  let out = job#system(a:cmd, a:lines)
+  if job#status()
+    echohl ErrorMsg | echomsg out->join(' | ') | echohl None
+    return v:null
+  endif
+  return out
+endfunction
+
+function! s:goimports() abort
+  if !'goimports'->executable()
+    return
+  endif
+
+  let lines = 1->getline('$')->join("\n")
+
+  " goimports has no -s, so run 'gofmt -s' separately (not as a pipe:
+  " a failing gofmt would feed empty input to goimports and wipe the buffer).
+  let out = s:run(['gofmt', '-s'], lines)
+  if out is v:null | return | endif
+
+  let out = s:run(
+        \ ['goimports', '-srcdir', '%:p'->expand()->shellescape()], out)
+  if out is v:null || out ==# lines | return | endif
+
+  let view = winsaveview()
+  call setline(1, out->split("\n"))
+  if '$'->line() > out->len()
+    silent execute (out->len() + 1) .. ',$delete _'
+  endif
+  call winrestview(view)
+endfunction
+
+autocmd MyAutoCmd BufWritePre <buffer> call s:goimports()
 " }}}
 
 " vim {{{
@@ -49,9 +85,6 @@ setlocal indentkeys+=\\,endif,endfunction,endfor,endwhile,endtry
 
 " qf {{{
 setlocal wrap
-if '+winpinned'->exists()
-  setlocal winpinned
-endif
 " }}}
 
 " help {{{
@@ -117,8 +150,8 @@ setlocal indentexpr=
 " }}}
 
 " toml {{{
-setlocal foldenable foldmethod=expr foldexpr=s:fold_expr(v:lnum)
-function! s:fold_expr(lnum)
+setlocal foldenable foldmethod=expr foldexpr=TomlFold(v:lnum)
+function! TomlFold(lnum) abort
   const line = getline(a:lnum)
   return line ==# '' || line =~# '^\s\+' ? 1 : 0
 endfunction

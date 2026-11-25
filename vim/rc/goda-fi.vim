@@ -208,7 +208,7 @@ autocmd MyAutoCmd TabEnter,WinEnter,CursorHold,FocusGained *
       \ call goda_fi#ui#do_action('checkItems')
 
 function! GodaFiToggleHidden(name) abort
-  const source_options = goda_fi#custom#get_current()
+  const source_options = goda_fi#get_current()
         \ ->get('sourceOptions', {})
         \ ->get(a:name, {})
   let matchers = source_options->get('matchers', [])->copy()
@@ -223,7 +223,7 @@ function! GodaFiToggleHidden(name) abort
 endfunction
 
 function! GodaFiToggleUiParam(ui_name, param_name)
-  return goda_fi#custom#get_current()
+  return goda_fi#get_current()
         \ ->get('uiParams', {})
         \ ->get(a:ui_name, {})
         \ ->get(a:param_name, v:false)
@@ -352,7 +352,7 @@ nnoremap <buffer> M
       \       uiParams: #{
       \         filer: #{
       \           fileFilter: 'fileFilter regexp: '
-      \               ->input(goda_fi#custom#get_current()
+      \               ->input(goda_fi#get_current()
       \               ->get('uiParams', {})
       \               ->get('filer', {})
       \               ->get('fileFilter', '')),

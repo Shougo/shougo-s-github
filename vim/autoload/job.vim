@@ -1,5 +1,5 @@
-function! job#system(command) abort
-  return s:job_system.system(a:command)
+function! job#system(command, input='') abort
+  return s:job_system.system(a:command, a:input)
 endfunction
 function! job#status() abort
   return s:job_system.status
@@ -18,7 +18,7 @@ function! s:job_system.on_out(data) abort
   endif
   let candidates += a:data[1:]
 endfunction
-function! s:job_system.system(cmd) abort
+function! s:job_system.system(cmd, input) abort
   let self.candidates = []
 
   let job = { has('nvim') ? 'job#nvim#' : 'job#vim#' }start(
@@ -26,6 +26,16 @@ function! s:job_system.system(cmd) abort
         \   on_stdout: self.on_out,
         \   on_stderr: self.on_out,
         \ })
+
+  if !a:input->empty()
+    let input =
+          \   a:input->type() == v:t_list
+          \ ? a:input->join("\n") .. "\n"
+          \ : a:input
+    call job.send(s:iconv(input, &encoding, 'char'))
+    call job.close()
+  endif
+
   let s:job_system.status = job.wait(1000)
   return s:job_system.candidates->join("\n")->substitute('\r\n', '\n', 'g')
 endfunction

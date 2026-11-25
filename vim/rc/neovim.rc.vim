@@ -20,10 +20,12 @@ let g:loaded_ruby_provider = v:false
 " Disable remote plugin loading
 let g:loaded_remote_plugins = v:true
 
-set inccommand=nosplit
+if has('nvim')
+  set inccommand=nosplit
 
-set pumblend=20
-set winblend=20
+  set pumblend=20
+  set winblend=20
+endif
 
 " Modifiable terminal
 autocmd MyAutoCmd TermOpen * setlocal modifiable
@@ -35,7 +37,7 @@ autocmd MyAutoCmd TextYankPost *
 
 " Opt-out for specific filetypes and huge files
 " https://github.com/neovim/neovim/pull/26347#issuecomment-1837508178
-function! s:config_treesitter()
+function! s:config_treesitter() abort
   lua << END
   vim.treesitter.start = (function(wrapped)
     return function(bufnr, lang)

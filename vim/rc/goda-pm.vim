@@ -3,7 +3,7 @@ if !s:cache->isdirectory()
   call mkdir(s:cache, 'p')
 endif
 
-function! GodaPmInitPlugin(plugin)
+function! GodaPmInitPlugin(plugin) abort
   " Search from ~/work directory
   let dir = '~/work/'->expand() .. a:plugin->fnamemodify(':t')
   if !dir->isdirectory()

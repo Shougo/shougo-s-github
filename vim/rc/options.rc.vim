@@ -295,10 +295,6 @@ set winheight=1
 set cmdwinheight=5
 " No equal window size.
 set noequalalways
-if '+splitscroll'->exists()
-  " Disable scroll when split
-  set nosplitscroll
-endif
 
 " Adjust window size of preview and help.
 set previewheight=8

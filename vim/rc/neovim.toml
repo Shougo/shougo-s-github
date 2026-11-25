@@ -193,10 +193,11 @@ lua_source = '''
       vim = {
         diagnostic = {
           disabled = {
-            'vimls/explicit-local-scope',
             'vimls/autocmd-group-not-cleared',
             'vimls/autoload-function-not-found',
+            'vimls/catch-error-message',
             'vimls/duplicate-mapping',
+            'vimls/explicit-local-scope',
           },
         },
       },

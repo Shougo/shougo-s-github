@@ -178,3 +178,58 @@ function! vimrc#append_diff() abort
   " Append the diff to the commit message
   call append('$'->line(), comment_diff)
 endfunction
+
+" --- findent ------------------------------------------------------------
+" Guess 'expandtab' and 'shiftwidth' from the buffer contents.
+" Tabs are assumed to be 8 columns wide when spaces and tabs are mixed
+" (e.g. Vim's own C sources: sw=4, ts=8, noexpandtab).
+function! s:indent_width(ws) abort
+  let col = 0
+  for c in a:ws->split('\zs')
+    let col = c ==# "\t" ? (col / 8 + 1) * 8 : col + 1
+  endfor
+  return col
+endfunction
+
+function! vimrc#findent() abort
+  let [hard, soft, pure_tab, prev, deltas] = [0, 0, v:true, 0, {}]
+  for line in 1->getline(['$'->line(), 1000]->min())
+    " Skip blank lines and C comment continuation lines (' * ...').
+    if line =~# '^\s*$' || line =~# '^\s\+\*' | continue | endif
+    let ws = line->matchstr('^\s*')
+    if ws =~# ' '
+      let pure_tab = v:false
+    endif
+    let n = s:indent_width(ws)
+    if ws =~# "\t"
+      let hard += 1
+    elseif n >= 8
+      " Space-only indent of 8+ columns: a tab would have been used
+      " if the file were written with 'noexpandtab'.
+      let soft += 1
+    endif
+    let d = (n - prev)->abs()
+    if 2 <= d && d <= 8
+      let deltas[d] = get(deltas, d, 0) + 1
+    endif
+    let prev = n
+  endfor
+
+  if hard > 0 && pure_tab
+    " Tabs only: keep the user's 'tabstop' and indent by one tab.
+    setlocal noexpandtab shiftwidth=0 softtabstop=0
+    return
+  endif
+  let [sw, best] = [0, 0]
+  for [d, c] in deltas->items()
+    if c > best | let [sw, best] = [d->str2nr(), c] | endif
+  endfor
+  if sw == 0 | return | endif
+  if soft > hard
+    execute 'setlocal expandtab softtabstop=-1 shiftwidth=' .. sw
+  else
+    execute 'setlocal noexpandtab tabstop=8 softtabstop=-1 shiftwidth=' .. sw
+  endif
+
+  setlocal expandtab? tabstop? softtabstop? shiftwidth?
+endfunction

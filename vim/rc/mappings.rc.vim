@@ -13,10 +13,6 @@ nnoremap ;  <Nop>
 nnoremap m  <Nop>
 nnoremap ,  <Nop>
 
-" Use <C-Space>.
-nmap <C-Space>  <C-@>
-cmap <C-Space>  <C-@>
-
 " Visual mode keymappings:
 " Indent
 nnoremap > >>
@@ -220,8 +216,8 @@ command! -bang -bar -complete=file -nargs=? Euc
       \ edit<bang> ++enc=euc-jp <args>
 
 " Tried to make a file note version.
-command! WUtf8 setlocal fenc=utf-8
-command! WCp932 setlocal fenc=cp932
+command! WUtf8 setlocal fileencoding=utf-8
+command! WCp932 setlocal fileencoding=cp932
 
 " Appoint a line feed.
 command! -bang -complete=file -nargs=? WUnix
@@ -324,3 +320,6 @@ nnoremap <silent> sd :<C-u>call <SID>prepare('delete')<CR>g@
 xnoremap <silent> sd :<C-u>call <SID>prepare('delete')<CR>gvg@
 nnoremap <silent> sr :<C-u>call <SID>prepare('replace')<CR>g@
 xnoremap <silent> sr :<C-u>call <SID>prepare('replace')<CR>gvg@
+
+" Run manually with :Findent (no autocmd).
+command! Findent call vimrc#findent()

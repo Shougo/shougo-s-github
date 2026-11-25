@@ -1,14 +1,3 @@
 [[plugins]]
-repo = 'lambdalisue/vim-findent'
-
-[[plugins]]
 repo = 'lambdalisue/vim-guise'
 on_source = 'goda-term.vim'
-
-[[plugins]]
-repo = 'mattn/vim-goimports'
-on_ft = 'go'
-external_commands = 'goimports'
-hook_source = '''
-  let g:goimports_simplify = v:true
-'''
