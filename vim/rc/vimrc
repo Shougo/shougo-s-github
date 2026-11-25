@@ -63,11 +63,6 @@ if has('nvim')
   lua if vim.loader then vim.loader.enable() end
 endif
 
-if '/tmp'->isdirectory()
-  " Use /tmp for log directory
-  let $NVIM_LOG_FILE = '/tmp'
-endif
-
 " NOTE: Colorscheme must be initialized in the first.
 colorscheme candy
 
