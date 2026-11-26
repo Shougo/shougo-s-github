@@ -63,7 +63,7 @@ func main() {
 			engine.Prefer(engine.NoLearn(
 				karukan.New(karukan.Params{
 					Candidates: 10,
-					OkuriAri:   true,
+					OkuriAri:   false,
 				}),
 			)),
 		},
@@ -82,7 +82,7 @@ func main() {
 		),
 
 		Keymaps: map[string]map[string]string{
-			"input": {"<C-z>": "kakuteiUndo"},
+			"input": {"<C-g>": "kakuteiUndo"},
 		},
 	})
 	if err != nil {

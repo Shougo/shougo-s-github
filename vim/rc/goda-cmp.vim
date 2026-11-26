@@ -44,9 +44,6 @@ nnoremap ;; <Cmd>call cmdline#enable()<CR><Cmd>call
       \ GodaCmpCommandlinePre(':')<CR>:
 nnoremap ;  <Nop>
 
-inoremap <expr> <C-g>   goda_cmp#map#insert_item(0)
-cnoremap <expr> <C-g>   goda_cmp#map#insert_item(0)
-
 inoremap <expr> <TAB>
       \   goda_cmp#ui#inline#visible()
       \ ? goda_cmp#map#insert_item(0)
