@@ -75,6 +75,7 @@ func main() {
 		EggLikeNewline:        true,
 		RegisterConvertResult: true,
 		MaxLearnLength:        10,
+		ConvertLog:            "~/.cache/goda-skk-convert.log",
 
 		KanaTable: engine.RomTable.With(
 			engine.Rule{From: "jj", Func: "escape"},
