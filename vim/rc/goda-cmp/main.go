@@ -60,11 +60,12 @@ func main() {
 	p, err := engine.New(engine.Config{
 		Dictionaries: []engine.Dictionary{
 			engine.NewJisyo(jisyo, ""),
-			engine.Fallback(
-				engine.NoLearn(karukan.New(karukan.Params{})),
-			),
-			//google.New(google.Params{}),
-			//skkserv.New(skkserv.Params{Addr: "localhost:1178"}),
+			engine.Prefer(engine.NoLearn(
+				karukan.New(karukan.Params{
+					Candidates: 10,
+					OkuriAri:   true,
+				}),
+			)),
 		},
 
 		// No markers
