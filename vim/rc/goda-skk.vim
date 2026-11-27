@@ -2,7 +2,8 @@
 inoremap <C-j> <Plug>(goda-skk-toggle)
 cnoremap <C-j> <Plug>(goda-skk-toggle)
 tnoremap <C-j> <Plug>(goda-skk-toggle)
-nnoremap <C-j> i<Plug>(goda-skk-enable)
+nnoremap <C-j> <Plug>(goda-skk-reconvert)
+xnoremap <C-j> <Plug>(goda-skk-reconvert)
 " }}}
 
 " hook_source {{{
