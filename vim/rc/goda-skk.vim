@@ -9,9 +9,9 @@ nnoremap <C-j> i<Plug>(goda-skk-enable)
 
 " Use pum.vim backend
 let g:goda_skk#completion_backend = #{
-      \   cancel: { -> "\<Cmd>call pum#map#confirm()\<CR>" },
+      \   cancel: { -> "\<Cmd>call pum#map#cancel()\<CR>" },
       \   close: { -> "\<Cmd>call pum#close()\<CR>" },
-      \   confirm: { -> "\<Cmd>call pum#map#cancel()\<CR>" },
+      \   confirm: { -> "\<Cmd>call pum#map#confirm()\<CR>" },
       \   selected: { -> pum#complete_info().selected },
       \   visible: { -> pum#visible() },
       \ }
