@@ -60,7 +60,7 @@ func main() {
 	p, err := engine.New(engine.Config{
 		Dictionaries: []engine.Dictionary{
 			engine.NewJisyo(jisyo, ""),
-			engine.Prefer(engine.NoLearn(
+			engine.Fallback(engine.NoLearn(
 				karukan.New(karukan.Params{
 					Candidates: 10,
 					OkuriAri:   false,
