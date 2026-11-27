@@ -57,12 +57,6 @@ bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
-# move focused window
-# bindsym $mod+Shift+j move right
-# bindsym $mod+Shift+k move left
-# bindsym $mod+Shift+l move up
-# bindsym $mod+Shift+semicolon move down
-
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
@@ -148,8 +142,10 @@ bindsym $mod+Shift+s exec systemctl suspend
 # Special keys
 bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
 bindsym XF86MonBrightnessUp exec brightnessctl set +5%
-bindsym XF86AudioRaiseVolume exec pactl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+
-bindsym XF86AudioLowerVolume exec pactl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+bindsym XF86AudioRaiseVolume \
+    exec pactl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+
+bindsym XF86AudioLowerVolume \
+    exec pactl set-volume @DEFAULT_AUDIO_SINK@ 5%-
 bindsym XF86AudioMute exec pactl set-mute @DEFAULT_AUDIO_SINK@ toggle
 bindsym XF86AudioMicMute exec pactl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
 
@@ -157,10 +153,14 @@ bindsym XF86AudioMicMute exec pactl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
 # Take a screenshot with all output and save it into screenshots
 bindsym Print exec grim -t png ~/Pictures/$(date +%Y-%m-%d_%H-%M-%S).png
 # Take a Screenshot with the region select
-bindsym $mod+Print exec grim -t png -g "$(slurp)" ~/Pictures/$(date +%Y-%m-%d_%H-%M-%S).png
+bindsym $mod+Print exec grim -t png -g "$(slurp)" \
+    ~/Pictures/$(date +%Y-%m-%d_%H-%M-%S).png
 
 # Application switcher
 bindsym $mod+Tab exec rofi -i -show window
+
+# For popup menu
+for_window [app_id="^$" title="^$"] floating enable, move position cursor
 
 input type:touchpad {
     pointer_accel 0.5
