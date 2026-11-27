@@ -45,11 +45,17 @@ var (
 	// MOCWORD_DATA is read when the binary starts: from the editor's
 	// environment.
 	hasMocword  = os.Getenv("MOCWORD_DATA") != ""
-	shellSource = map[bool]string{true: "shell", false: "shellnative"}[hasWindows]
+	shellSource = map[bool]string{
+		true:  "shell",
+		false: "shellnative",
+	}[hasWindows]
 )
 
 // The shell history files, for the source and the sorter.
-var shellHistories = []string{"~/.cache/goda-term-shell-history", "~/.zsh-history"}
+var shellHistories = []string{
+	"~/.cache/goda-term-shell-history",
+	"~/.zsh-history",
+}
 
 func main() {
 	// goda-skk
@@ -60,7 +66,12 @@ func main() {
 	p, err := engine.New(engine.Config{
 		Dictionaries: []engine.Dictionary{
 			engine.NewJisyo(jisyo, ""),
-			engine.Fallback(engine.NoLearn(
+			// https://github.com/NI57721/skk-verb-adjective-dictionary
+			engine.NewJisyo(
+				"~/.config/skk/SKK-JISYO.verb-adjective",
+				"utf-8",
+			),
+			engine.Prefer(engine.NoLearn(
 				karukan.New(karukan.Params{
 					Candidates: 10,
 					OkuriAri:   false,
@@ -80,10 +91,17 @@ func main() {
 		KanaTable: engine.RomTable.With(
 			engine.Rule{From: "jj", Func: "escape"},
 			engine.Rule{From: "~", Kana: "〜"},
+			engine.Rule{From: ";;", Func: "prefix"},
 		),
 
 		Keymaps: map[string]map[string]string{
-			"input": {"<C-g>": "kakuteiUndo"},
+			"input": {
+				"<C-g>": "kakuteiUndo",
+			},
+			"henkan": {
+				"p": "pin",
+				"P": "demote",
+			},
 		},
 	})
 	if err != nil {
