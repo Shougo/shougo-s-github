@@ -1,0 +1,48 @@
+[theme]
+theme = "native"
+[theme.overrides]
+good_fg = "#2ECC71"
+critical_fg = "#E74C3C"
+
+[icons]
+icons = "none"
+
+[[block]]
+block = "cpu"
+interval = 5
+format = " cpu $utilization "
+
+[[block]]
+block = "disk_space"
+path = "/"
+info_type = "available"
+interval = 30
+format = " ⛁ $available "
+
+[[block]]
+block = "net"
+device = "^wl"
+format = " $ssid $signal_strength "
+inactive_format = " no wlan "
+missing_format = " no wlan "
+
+[[block]]
+block = "net"
+device = "^en"
+format = " lan: $ip "
+inactive_format = " no lan "
+missing_format = " no lan "
+
+[[block]]
+block = "battery"
+format = " $percentage {$time_remaining.dur(hms:true, min_unit:m) |}"
+charging_format = " ⚡ $percentage {$time_remaining.dur(hms:true, min_unit:m) |}"
+full_format = " ☻ $percentage "
+not_charging_format = " ☻ $percentage "
+missing_format = " No battery "
+critical = 15
+
+[[block]]
+block = "time"
+interval = 60
+format = " $timestamp.datetime(f:'%Y-%m-%d %H:%M') "
