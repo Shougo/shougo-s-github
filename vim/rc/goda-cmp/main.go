@@ -71,7 +71,7 @@ func main() {
 				"~/.config/skk/SKK-JISYO.verb-adjective",
 				"utf-8",
 			),
-			engine.Prefer(engine.NoLearn(
+			engine.Fallback(engine.NoLearn(
 				karukan.New(karukan.Params{
 					Candidates: 10,
 					OkuriAri:   false,
